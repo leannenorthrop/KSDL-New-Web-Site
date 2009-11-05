@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.londonsamyedzong</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>war</artifactId>
+    <packaging>war</packaging>
+    <name>Package It</name>
+    <description>Pull the various war modules as overlays and package up as a deployable war along with all required libraries.</description>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>css</artifactId>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>main</artifactId>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>london-samye-dzong</finalName>
+        <filters>
+            <filter>${filter.properties}</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <!-- Order is important, files win on first come first win basis. -->
+                    <overlays>
+                        <overlay>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>main</artifactId>
+                        </overlay>
+                        <overlay>
+                            <!-- empty groupId/artifactId is detected as this current build -->
+                            <excludes>
+                                <exclude>WEB-INF/*</exclude>
+                            </excludes>
+                        </overlay>
+                        <overlay>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>css</artifactId>
+                            <excludes>
+                                <exclude>WEB-INF/*</exclude>
+                            </excludes>
+                        </overlay>
+                    </overlays>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
