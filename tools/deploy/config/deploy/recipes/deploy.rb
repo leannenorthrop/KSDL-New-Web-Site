@@ -1,18 +1,18 @@
 #This is overriding the existing deploy.rb in the giovanni gem
 namespace :deploy do
-  
+
   after 'deploy:setup' do
     sudo "yum update -q -y"
     java.install
     database.install
     database.start
-    database.create_db
+    #database.create_db
     sudo "yum clean all -q -y"
-  end    
+  end
 
   after 'deploy:teardown' do
     database.stop
     java.uninstall
-    database.uninstall 
+    database.uninstall
   end
 end
