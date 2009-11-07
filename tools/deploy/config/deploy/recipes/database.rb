@@ -42,4 +42,14 @@ namespace :database do
     run "psql -c \"ALTER ROLE lsd WITH PASSWORD 'password';\"", :as => "postgres"    
   end
    
+  task :create_db_user, :roles => :db do
+    sudo "createuser -D -A -q #{app}" 
+  end
+  
+  task :create_db, :roles => :db do 
+    sudo "createdb --owner #{app} #{app}_#{env}"
+  end
+  
+  task :setup_db, :roles => :db do create_db_user create_db
+  end   
 end
