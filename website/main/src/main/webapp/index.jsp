@@ -1,5 +1,5 @@
 <html>
 <body>
-<h2>Hello World!</h2>
+<h2>Automatic deployment worked!</h2>
 </body>
 </html>
