@@ -6,7 +6,6 @@ namespace :deploy do
     java.install
     database.install
     database.start
-    #database.create_db
     sudo "yum clean all -q -y"
   end
 

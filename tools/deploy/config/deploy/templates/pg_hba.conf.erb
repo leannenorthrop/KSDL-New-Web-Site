@@ -64,13 +64,13 @@
 # TYPE  DATABASE    USER        CIDR-ADDRESS          METHOD
 
 # "local" is for Unix domain socket connections only
-local   data         			all                   ident
-local   template1         		all                   ident
-local	lsd				  		all					  password
+local   data                    all                   ident sameuser
+local   template1               all                   ident sameuser
+local   lsd                     all                   password
 
 # IPv4 local connections:
-host    data        all         127.0.0.1/32          ident
-host    template1   all         127.0.0.1/32          ident
+host    data        all         127.0.0.1/32          ident sameuser
+host    template1   all         127.0.0.1/32          ident sameuser
 host    lsd         all         127.0.0.1/32          password
 
 # IPv6 local connections:
