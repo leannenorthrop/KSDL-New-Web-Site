@@ -45,7 +45,7 @@ namespace :database do
   desc 'Create database and users'
   task :setup, :roles => :app do
     create_db_user
-    xcreate_db
+    create_db
     sudo "mv /var/lib/pgsql/data/pg_hba.conf /var/lib/pgsql/data/pg_hba.conf.orig", :as => "postgres"
     utils.install_template("config/deploy/templates/pg_hba.conf.erb", "/var/lib/pgsql/data/pg_hba.conf")
     restart
