@@ -1,5 +1,6 @@
 namespace :tomcat do
   after 'tomcat:install' do
+    sudo "#{wget} -nv http://mirrors.ibiblio.org/pub/mirrors/maven2/postgresql/postgresql/8.4-701.jdbc4/postgresql-8.4-701.jdbc4.jar -P '/opt/tomcat/lib'}"
     permissions.normalise "/opt/apache-tomcat-6.0.20", :owner => application, :group => 'tomcat'
     permissions.normalise "/opt/tomcat", :owner => application, :group => 'tomcat'
     sudo "chmod +x /opt/tomcat/bin/*.sh"
