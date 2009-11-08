@@ -9,7 +9,7 @@
     <artifactId>css</artifactId>
     <packaging>war</packaging>
     <name>Resources for Website</name>
-    <description>CSS, Images and Resources for Website</description>
+    <description>Pulls CSS, Images and Resources for Website from graphics area via dependency unpacking and repackages as war for overlaying. Allows this project to include other resources that should live in the graphics area.</description>
     <build>
         <filters>
             <filter>${filter.properties}</filter>
@@ -20,5 +20,43 @@
                 <filtering>true</filtering>
             </resource>
         </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>${project.groupId}</groupId>
+                                    <artifactId>graphics</artifactId>
+                                    <version>1.0</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>target/resources</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-war-plugin</artifactId>
+              <configuration>
+                <webResources>
+                  <resource>
+                    <directory>target/resources</directory>
+                  </resource>
+                </webResources>
+              </configuration>
+            </plugin>
+        </plugins>
     </build>
 </project>

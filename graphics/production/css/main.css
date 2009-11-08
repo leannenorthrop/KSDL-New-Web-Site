@@ -21,7 +21,7 @@ a:link, a:visited, a:hover {
     color: #666;
     font-weight: bold;
     text-decoration: none;
-} 
+}
 
 h1 {
     color: #006dba;
@@ -31,7 +31,7 @@ h1 {
 }
 
 ul {
-    padding-left: 15px;	
+    padding-left: 15px;
 }
 
 input, select, textarea {
@@ -45,9 +45,9 @@ select {
    padding: 2px 2px 2px 0;
 }
 textarea {
-	width: 250px;
-	height: 150px;
-	vertical-align: top;
+    width: 250px;
+    height: 150px;
+    vertical-align: top;
 }
 
 input:focus, select:focus, textarea:focus {
@@ -59,12 +59,17 @@ input:focus, select:focus, textarea:focus {
     margin: 0 15px 10px 15px;
 }
 
+.logo img {
+    width: 9em;
+    height: 9em;
+}
+
 /* NAVIGATION MENU */
 
 .nav {
     background: #fff url(../images/skin/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
-    border-style: solid none solid none;	
+    border-style: solid none solid none;
     margin-top: 5px;
     padding: 7px 12px;
 }
@@ -112,10 +117,10 @@ div.errors {
 }
 div.errors ul {
     list-style: none;
-    padding: 0;	
+    padding: 0;
 }
 div.errors li {
-	background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
+    background: url(../images/skin/exclamation.png) 8px 0% no-repeat;
     line-height: 16px;
     padding-left: 30px;
 }
@@ -136,7 +141,7 @@ table {
 tr {
     border: 0;
 }
-td, th { 
+td, th {
     font: 11px verdana, arial, helvetica, sans-serif;
     line-height: 12px;
     padding: 5px 6px;
