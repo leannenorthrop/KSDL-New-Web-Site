@@ -20,19 +20,13 @@ environments {
     test {
         dataSource {
             dbCreate = "create-drop"
-            jndiName = "java:comp/env/jdbc/TekDaysDS"
-            //url = "jdbc:postgresql://localhost:5432/test"
-            //driverClassName = "org.postgresql.Driver"
-            dialect = org.hibernate.dialect.PostgreSQLDialect
-            //username = "lsd"
-            //password = "password"
+            jndiName = "java:comp/env/jdbc/LsdDS"
         }
     }
     production {
         dataSource {
-            dbCreate = "update"
-            jndiName = "java:comp/env/jdbc/TekDaysDS"
-            dialect = org.hibernate.dialect.PostgreSQLDialect
+            dbCreate = "create-drop"
+            jndiName = "java:comp/env/jdbc/LsdDS"
         }
     }
 }
