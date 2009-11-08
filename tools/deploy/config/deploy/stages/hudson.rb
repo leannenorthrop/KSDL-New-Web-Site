@@ -6,9 +6,9 @@ set :artifact_id, 'london-samye-dzong'
 set :tomcat_ds, {
   :username => 'lsd',
   :password => 'password',
-  :host => '205.143.144.231',
+  :host => 'localhost',
   :port => 5432,
   :driver => 'org.postgresql.Driver',
-  :url_prefix => 'dbc:postgresql://',
+  :url_prefix => 'jdbc:postgresql://',
   :path => '/lsd'
 }
