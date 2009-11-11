@@ -1,8 +1,8 @@
-package org.samye.dzong.london.contact
+package org.samye.dzong.london.community
 
 import grails.test.*
 
-class UKAddressTests extends GrailsUnitTestCase {
+class TeacherControllerTests extends ControllerUnitTestCase {
     protected void setUp() {
         super.setUp()
     }
