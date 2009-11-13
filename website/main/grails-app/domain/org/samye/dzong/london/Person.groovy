@@ -14,10 +14,6 @@ class Person {
         titleSuffix()
     }
 
-    static mapping = {
-        tablePerHierarchy false
-    }
-
     String toString() {
         return "${titlePrefix} ${firstName} ${lastName}, ${titleSuffix}"
     }

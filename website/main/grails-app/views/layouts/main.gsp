@@ -13,8 +13,14 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
 
-        <div class="logo"><img src="${resource(dir:'images',file:'logo.png')}" alt="Kagyu Samye Dzong London Logo" /><h1 style="margin-left:20px;">Kagyu Samye Dzong London</h1></div>
-
+        <div class="logo"><img src="${resource(dir:'images',file:'logo.png')}" alt="Kagyu Samye Dzong London Logo" />
+        <h1 style="margin-left:20px;">Kagyu Samye Dzong London</h1></div>
+        <shiro:user>
+        Hi <shiro:principal/>, how are you today?  <span class="menuButton"><g:link controller="auth" action="signOut">Sign Out</g:link></span>
+        </shiro:user>
+        <shiro:notUser>
+        Welcome! <span class="menuButton"><g:link controller="auth" action="index">Sign In</g:link></span>
+        </shiro:notUser>
         <g:layoutBody />
     </body>
 </html>

@@ -2,5 +2,5 @@ package org.samye.dzong.london
 
 class PeopleController {
 
-    def scaffold = Profile
+    def scaffold = Author
 }
