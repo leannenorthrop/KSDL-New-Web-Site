@@ -4,12 +4,12 @@ import org.grails.taggable.*
 class Publishable implements Taggable {
     String publishState
     Boolean deleted
-    Person person
+    ShiroUser author
 
     static auditable = true
     static constraints = {
         publishState(blank:false,inList:["Unpublished", "Published", "Archived"])
-        person(nullable:true)
+        author(nullable:true)
     }
     static mapping = {
         tablePerHierarchy false

@@ -37,7 +37,7 @@
                                 <shiro:hasAnyRole in="['Author']"><g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link></shiro:hasAnyRole>
                             </td>
 
-                            <shiro:hasAnyRole in="['Editor','Administrator']"><td>${fieldValue(bean:articleInstance, field:'person')}</td></shiro:hasAnyRole>
+                            <shiro:hasAnyRole in="['Editor','Administrator']"><td>${fieldValue(bean:articleInstance, field:'author')}</td></shiro:hasAnyRole>
 
                             <td>${fieldValue(bean:articleInstance, field:'publishState')}</td>
 

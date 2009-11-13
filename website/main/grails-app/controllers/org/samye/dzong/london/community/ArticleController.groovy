@@ -1,8 +1,8 @@
-
-
 package org.samye.dzong.london.community
+import org.apache.shiro.SecurityUtils
 
 class ArticleController {
+    def userLookupService
 
     def index = {
         def publishedArticles = Article.findAllByPublishState("Published")
@@ -114,6 +114,9 @@ class ArticleController {
 
     def save = {
         def articleInstance = new Article(params)
+//        def user = ShiroUser.read(1)
+//        def users = ShiroUser.findAllByUsername(SecurityUtils.subject.principal.toString())
+        articleInstance.author = userLookupService.lookup()
         if(!articleInstance.hasErrors() && articleInstance.save()) {
             flash.message = "Article ${articleInstance.id} created"
             redirect(action:manage,id:articleInstance.id)

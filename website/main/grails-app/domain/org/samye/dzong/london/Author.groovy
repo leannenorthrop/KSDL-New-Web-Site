@@ -1,7 +1,7 @@
 package org.samye.dzong.london
 
 
-class Author extends Person {
+class Author extends Role {
     String aka;
     String interests;
     String aboutMe;

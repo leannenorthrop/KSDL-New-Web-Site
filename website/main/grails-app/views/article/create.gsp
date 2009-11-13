@@ -23,15 +23,6 @@
                 <div class="dialog">
                     <table>
                         <tbody>
-                            <!--tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="person">Person:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:articleInstance,field:'person','errors')}">
-                                    <g:select optionKey="id" from="${org.samye.dzong.london.Person.list()}" name="person.id" value="${articleInstance?.person?.id}" noSelection="['null':'']"></g:select>
-                                </td>
-                            </tr-->
-
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="title">Title:</label>

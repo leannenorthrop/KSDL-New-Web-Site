@@ -10,4 +10,8 @@ class ShiroUser {
         username(nullable: false, blank: false)
         person(nullable:true)
     }
+
+    String toString() {
+        username
+    }
 }
