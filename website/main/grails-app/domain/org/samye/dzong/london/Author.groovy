@@ -1,7 +1,7 @@
 package org.samye.dzong.london
 
 
-class Profile extends Person {
+class Author extends Person {
     String aka;
     String interests;
     String aboutMe;

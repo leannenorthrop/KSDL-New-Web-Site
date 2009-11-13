@@ -1,7 +1,7 @@
 package org.samye.dzong.london.community
-import org.grails.taggable.*
+import org.samye.dzong.london.Publishable
 
-class Article implements Taggable {
+class Article extends Publishable {
     String title;
     String summary;
     String content;
