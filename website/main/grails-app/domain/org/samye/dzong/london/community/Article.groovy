@@ -11,4 +11,8 @@ class Article extends Publishable {
         summary(maxSize:1024)
         content(maxSize:Integer.MAX_VALUE)
     }
+
+    String toString() {
+        return "#{title}"
+    }
 }
