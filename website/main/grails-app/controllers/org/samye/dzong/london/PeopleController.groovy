@@ -1,6 +1,6 @@
 package org.samye.dzong.london
 
-class ProfileController {
+class PeopleController {
 
     def scaffold = Profile
 }
