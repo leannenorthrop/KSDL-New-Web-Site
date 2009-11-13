@@ -34,16 +34,36 @@
 
                             <td>
                                 <shiro:hasAnyRole in="['Editor','Administrator']"><g:link action="show" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link></shiro:hasAnyRole>
-                                <shiro:hasAnyRole in="['Author']"><g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link></shiro:hasAnyRole>
+                                <shiro:hasAnyRole in="['Author']">
+                                    <g:if test="${articleInstance.publishState == 'Unpublished'}">
+                                        <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
+                                    </g:if>
+                                    <g:if test="${articleInstance.publishState == 'Published' || articleInstance.publishState == 'Archived' }">
+                                        <g:link action="show" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
+                                    </g:if>
+                                </shiro:hasAnyRole>
                             </td>
 
                             <shiro:hasAnyRole in="['Editor','Administrator']"><td>${fieldValue(bean:articleInstance, field:'author')}</td></shiro:hasAnyRole>
 
                             <td>${fieldValue(bean:articleInstance, field:'publishState')}</td>
 
-                            <shiro:hasAnyRole in="['Editor','Administrator']"><th>if unpublished then publish, if publish then archive or unpublish</th></shiro:hasAnyRole>
+                            <shiro:hasAnyRole in="['Editor','Administrator']">
+                                <td>
+                                <g:if test="${articleInstance.publishState == 'Unpublished'}">
+                                    <g:link action="changeState" id="${articleInstance.id}" params="[state:'Published']" onclick="return confirm('Are you sure?');" >Publish</g:link>
+                                </g:if>
+                                <g:if test="${articleInstance.publishState == 'Published'}">
+                                    <g:link action="changeState" id="${articleInstance.id}" params="[state:'Unpublished']" onclick="return confirm('Are you sure?');" >Unpublish</g:link>
+                                    <br /><g:link action="changeState" id="${articleInstance.id}" params="[state:'Archived']" onclick="return confirm('Are you sure?');" >Archive</g:link>
+                                </g:if>
+                                </td>
+                            </shiro:hasAnyRole>
 
-                            <td><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');" >Delete</g:link></td>
+                            <td>
+                                 <shiro:hasAnyRole in="['Editor','Administrator']"><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');" >Delete</g:link></shiro:hasAnyRole>
+                                 <shiro:hasAnyRole in="['Author']"><g:if test="${publishState == 'Unpublished'}"><g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link></g:if></shiro:hasAnyRole>
+                            </td>
                         </tr>
                     </g:each>
                     </tbody>

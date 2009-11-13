@@ -11,6 +11,7 @@
         <div>
             ${articleInstance.content}
         </div>
-        <span class="button"><g:link action="edit" id="${articleInstance.id}">Edit</g:link></span>
+        <shiro:hasAnyRole in="['Editor','Administrator']"><span class="button"><g:link action="edit" id="${articleInstance.id}">Prepare for Publication</g:link></span></shiro:hasAnyRole>
+        <span class="button"><g:link class="list" action="manage">Cancel</g:link></span>
     </body>
 </html>

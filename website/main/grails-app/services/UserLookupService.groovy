@@ -4,9 +4,10 @@ class UserLookupService {
 
     boolean transactional = false
 
+    def username() {
+        SecurityUtils.subject.principal.toString()
+    }
     def lookup() {
-        def username = SecurityUtils.subject.principal.toString()
-        //puts "Looking for #{username}"
-        ShiroUser.findByUsername(username)
+        ShiroUser.findByUsername(username())
     }
 }
