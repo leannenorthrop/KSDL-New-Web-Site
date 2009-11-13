@@ -4,11 +4,11 @@ import org.samye.dzong.london.Person
 class Teacher extends Person {
 
     String bio
-    String summary
+    String blurb
 
     static constraints = {
         bio(maxSize:80000)
-        summary()
+        blurb()
     }
 
     String toString() {
