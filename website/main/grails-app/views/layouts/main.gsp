@@ -21,6 +21,13 @@
         <shiro:notUser>
         Welcome! <span class="menuButton"><g:link controller="auth" action="index">Sign In</g:link></span>
         </shiro:notUser>
+        <div class="nav">
+            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Welcome</a></span>
+            <span class="menuButton"><g:link controller="article">Articles</g:link></span>
+            <shiro:user><span class="menuButton"><g:link controller="manageSite">Manage Content</g:link></span></shiro:user>
+            <shiro:hasAnyRole in="['Administrator']"><span class="menuButton"><g:link controller="admin">Administration</g:link></span></shiro:hasAnyRole>
+            <span class="menuButton"><a class="help" href="${resource(dir:'')}">Help</a></span>
+        </div>
         <g:layoutBody />
     </body>
 </html>
