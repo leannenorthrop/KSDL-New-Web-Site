@@ -5,17 +5,55 @@ class ArticleController {
     def userLookupService
 
     def index = {
-        def publishedArticles = Article.findAllByPublishState("Published")
-        // TODO put this back in params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def publishedArticles = Article.findAllByPublishState("Published", [max:max])
         model:[ articleInstanceList: publishedArticles, articleInstanceTotal: publishedArticles.count() ]
     }
 
-    // the delete, save and update actions only accept POST requests
+    def archived = {
+        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def articles = Article.findAllByPublishState("Archived", [max:max])
+        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count() ])
+    }
+
+    def all = {
+        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def articles = Article.findAllByDeleted(Boolean.FALSE, [max:max])
+        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count() ])
+    }
+
+    def deleted = {
+        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def articles = Article.findAllByDeleted(Boolean.TRUE, [max:max])
+        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count() ])
+    }
+
+    def everything = {
+        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def articles = Article.list(max:max)
+        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count() ])
+    }
+
+    // the save and update actions only accept POST requests
     static allowedMethods = [save:'POST', update:'POST']
 
     def manage = {
-        def articles = Article.findAllByDeleted(Boolean.FALSE)
-        // TODO put this back in params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        def inList = ['Editor','Administrator']
+        def articles
+        if (SecurityUtils.subject.hasRoles(inList).any())  {
+            articles = Article.findAllByDeleted(Boolean.FALSE, [max:max])
+        } else {
+            def criteria = Article.createCriteria()
+            articles = criteria.list(max:max){
+                and {
+                    eq('deleted', Boolean.FALSE)
+                    author {
+                        eq('username', userLookupService.username())
+                    }
+                }
+            }
+        }
         render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count() ])
     }
 
@@ -45,7 +83,6 @@ class ArticleController {
                 if(params.version) {
                     def version = params.version.toLong()
                     if(articleInstance.version > version) {
-
                         articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
                         redirect(action:manage)
                         return
@@ -54,7 +91,7 @@ class ArticleController {
                 articleInstance.publishState="Unpublished"
                 articleInstance.deleted = true
                 if(!articleInstance.hasErrors() && articleInstance.save()) {
-                    flash.message = "Article ${params.id} deleted"
+                    flash.message = "Article ${articleInstance.title} deleted"
                     redirect(action:manage)
                 }
                 else {
@@ -85,7 +122,6 @@ class ArticleController {
             if(params.version) {
                 def version = params.version.toLong()
                 if(articleInstance.version > version) {
-
                     articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
                     render(view:'edit',model:[articleInstance:articleInstance])
                     return
@@ -93,7 +129,7 @@ class ArticleController {
             }
             articleInstance.properties = params
             if(!articleInstance.hasErrors() && articleInstance.save()) {
-                flash.message = "Article ${params.id} updated"
+                flash.message = "Article ${articleInstance.title} updated"
                 redirect(action:manage,id:articleInstance.id)
             }
             else {
@@ -118,11 +154,38 @@ class ArticleController {
 //        def users = ShiroUser.findAllByUsername(SecurityUtils.subject.principal.toString())
         articleInstance.author = userLookupService.lookup()
         if(!articleInstance.hasErrors() && articleInstance.save()) {
-            flash.message = "Article ${articleInstance.id} created"
+            flash.message = "Article ${articleInstance.title} created"
             redirect(action:manage,id:articleInstance.id)
         }
         else {
             render(view:'edit',model:[articleInstance:articleInstance])
+        }
+    }
+
+    def changeState = {
+        def articleInstance = Article.get( params.id )
+        if(articleInstance) {
+            if(params.version) {
+                def version = params.version.toLong()
+                if(articleInstance.version > version) {
+                    flash.message = "Article ${articleInstance.title} was being edited - please try again."
+                    redirect(action:manage,id:articleInstance.id)
+                    return
+                }
+            }
+            articleInstance.publishState = params.state
+            if(!articleInstance.hasErrors() && articleInstance.save()) {
+                flash.message = "Article ${articleInstance.title} has been ${articleInstance.publishState}"
+                redirect(action:manage,id:articleInstance.id)
+            }
+            else {
+                flash.message = "Article ${articleInstance.title} could not be ${params.state} due to an internal error. Please try again."
+                redirect(action:manage,id:articleInstance.id)
+            }
+        }
+        else {
+            flash.message = "Article not found with id ${params.id}"
+            redirect(action:manage)
         }
     }
 }
