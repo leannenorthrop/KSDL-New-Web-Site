@@ -8,7 +8,7 @@
     <body>
         <h1>${articleInstance.title}</h1>
         <div>
-            ${articleInstance.content}
+            ${articleInstance.content.encodeAsTextile()}
         </div>
     </body>
 </html>

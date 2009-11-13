@@ -16,7 +16,7 @@ class BootStrap {
         def user = new ShiroUser(username: "admin", passwordHash: new Sha1Hash("change!t").toHex())
         user.addToRoles(adminRole)
         user.save()
-        def admin = new ShiroUser(username: "content-admin", passwordHash: new Sha1Hash("password").toHex())
+        def admin = new ShiroUser(username: "editor1", passwordHash: new Sha1Hash("password").toHex())
         admin.addToRoles(contentAdminRole)
         admin.save()
         def author1 = new ShiroUser(username: "author1", passwordHash: new Sha1Hash("password").toHex())
@@ -25,6 +25,10 @@ class BootStrap {
         def author2 = new ShiroUser(username: "author2", passwordHash: new Sha1Hash("password").toHex())
         author2.addToRoles(authRole)
         author2.save()
+        def admin2 = new ShiroUser(username: "editor2", passwordHash: new Sha1Hash("password").toHex())
+        admin2.addToRoles(authRole)
+        admin2.addToRoles(contentAdminRole)
+        admin2.save()
      }
 
      def destroy = {
