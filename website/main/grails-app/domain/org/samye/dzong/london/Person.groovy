@@ -6,12 +6,14 @@ class Person {
     String lastName
     String titlePrefix
     String titleSuffix
+    Profile profile
 
     static constraints = {
         titlePrefix()
         firstName(blank:false, maxSize:512)
         lastName(blank:false, maxSize:512)
         titleSuffix()
+        profile(nullable:true)
     }
 
     String toString() {

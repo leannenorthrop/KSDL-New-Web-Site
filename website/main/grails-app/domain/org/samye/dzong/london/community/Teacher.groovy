@@ -1,7 +1,7 @@
 package org.samye.dzong.london.community
-import org.samye.dzong.london.Person
+import org.samye.dzong.london.Role
 
-class Teacher extends Person {
+class Teacher extends Role {
 
     String bio
     String blurb
