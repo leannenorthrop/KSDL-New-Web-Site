@@ -1,6 +1,7 @@
 package org.samye.dzong.london.community
+import org.grails.taggable.*
 
-class Article {
+class Article implements Taggable {
     String title;
     String summary;
     String content;
