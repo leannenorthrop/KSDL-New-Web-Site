@@ -15,14 +15,6 @@
 
         <div class="logo"><img src="${resource(dir:'images',file:'logo.png')}" alt="Kagyu Samye Dzong London Logo" /><h1 style="margin-left:20px;">Kagyu Samye Dzong London</h1></div>
 
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Welcome</a></span>
-            <span class="menuButton"><a class="news" href="${resource(dir:'')}">News</a></span>
-            <span class="menuButton"><a class="events" href="${resource(dir:'')}">Events</a></span>
-            <span class="menuButton"><a class="wellbeing" href="${resource(dir:'')}">Wellbeing</a></span>
-            <span class="menuButton"><a class="community" href="${resource(dir:'')}">Community</a></span>
-            <span class="menuButton"><a class="help" href="${resource(dir:'')}">Help</a></span>
-        </div>
         <g:layoutBody />
     </body>
 </html>
