@@ -1,5 +1,4 @@
 package org.samye.dzong.london.community
-import org.samye.dzong.london.User
 
 class Article {
     String title;
