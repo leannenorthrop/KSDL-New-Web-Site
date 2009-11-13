@@ -128,6 +128,9 @@ class ArticleController {
                 }
             }
             articleInstance.properties = params
+            if (params.tags) {
+                articleInstance.parseTags(params.tags)
+            }
             if(!articleInstance.hasErrors() && articleInstance.save()) {
                 flash.message = "Article ${articleInstance.title} updated"
                 redirect(action:manage,id:articleInstance.id)
