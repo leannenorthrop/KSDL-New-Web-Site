@@ -12,6 +12,9 @@
             <span class="menuButton"><a class="wellbeing" href="${resource(dir:'')}">Wellbeing</a></span>
             <span class="menuButton"><a class="community" href="${resource(dir:'')}">Community</a></span>
             <span class="menuButton"><a class="help" href="${resource(dir:'')}">Help</a></span>
+            <span class="menuButton"><g:link controller="auth" action="index">Sign In</g:link></span>
+            <span class="menuButton"><g:link controller="auth" action="signOut">Sign Out</g:link></span>
+            <span class="menuButton"><a class="login" href="${resource(dir:'')}">Help</a></span>
         </div>
         <p>
             Playing around with Grails framework to see how much can be done. Will look very basic as this is concentrating on functionality and facilities to support content creation over design. Features to look at real soon:
