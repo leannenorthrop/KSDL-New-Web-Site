@@ -53,6 +53,15 @@
                                 </td>
                             </tr>
 
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="tags">Tags:</label>
+                                </td>
+                                <td valign="top" class="value">
+                                    <textarea rows="5" cols="40" name="tags">${fieldValue(bean:articleInstance, field:'tags')}</textarea>
+                                </td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </div>
