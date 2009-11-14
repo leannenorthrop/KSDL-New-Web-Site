@@ -5,8 +5,8 @@ namespace :deploy do
     sudo "yum update -q -y"
     sudo "yum install unzip -q -y"
     java.install
-    database.install
-    database.start
+    hsqldb.install
+    hsqldb.start
     sudo "yum clean all -q -y"
     permissions.normalise "/opt/apache-tomcat-6.0.20", :owner => application, :group => 'tomcat'
     permissions.normalise "/opt/tomcat", :owner => application, :group => 'tomcat'
@@ -15,9 +15,9 @@ namespace :deploy do
   end
 
   after 'deploy:teardown' do
-    database.stop
+    hsqldb.stop
     java.uninstall
-    database.uninstall
+    hsqldb.uninstall
   end
 
   task :finalize_update do
