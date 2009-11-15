@@ -19,12 +19,8 @@
 
         <lsdc:header />
 
-        <lsdc:nav />
-
-        <lsdc:grid />
-
         <g:layoutBody />
 
-
+        <lsdc:grid />
     </body>
 </html>
