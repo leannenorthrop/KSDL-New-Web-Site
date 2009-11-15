@@ -32,27 +32,31 @@ a:link, a:visited {
 }
 
 .logo img {
-    vertical-align: middle;
-    padding: 0 1em 0 1em;
-    width: 75px;
-    height: 75px;
+    position: absolute;
+    width: 100px;
+    height: 100px;
     opacity: 0.9;
+    top: 25%;
+    left: 0.5em;
 }
 
 .logo h1 {
-    display: inline-block;
-    vertical-align: baseline;
+    vertical-align: middle;
     font-family: "Brioso Pro";
+    font-style: italic;
     font-size: 3em;
+    padding-left: 2.3em;
 }
 
 .logo h2 {
-    display: inline-block;
-    vertical-align: baseline;
+    position: absolute;
+    top: 50%;
+    right: 0.5em;
 }
 
 /* navigation */
 .nav {
+    width: 100%;
     background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
     border: none;
     border-bottom-width: 1px;
@@ -65,6 +69,7 @@ a:link, a:visited {
 }
 
 .nav ul {
+    margin: 0 0 0 8.25em;
     list-style: none;
     width: 72em;
     overflow: hidden;
@@ -76,8 +81,8 @@ a:link, a:visited {
 }
 
 .nav ul a {
-    line-height: 1.8em;
-    padding: 0 3em;
+    line-height: 1.6em;
+    padding: 0.5em 2em 0.2em 1em;
     display: block;
     text-decoration: none;
     border: none;
@@ -85,16 +90,59 @@ a:link, a:visited {
     border-right: 1px solid rgba(32,107,164, 0.4);
     color: rgb(32,107,164);
     color: rgba(32,107,164, 0.8);
-    text-shadow: 0 -1px 0 rgb(187,217,238);
-    text-shadow: 0 -1px 0 rgba(187,217,238, 0.8);
+    -webkit-transition: background-color .4s linear;
+}
+/* highlight current area */
+.articles .nav .articles a,
+.home .nav .home a,
+.help .nav .help a,
+.content-admin .nav .content-admin a{
+    background: rgb(190,223,93) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(164,193,80,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.articles .nav .articles a:hover,
+.home .nav .home a:hover,
+.help .nav .help a:hover,
+.nav ul a:hover,
+.content-admin .nav .content-admin a:hover {
+    background: rgb(164,193,80) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(164,193,80,0.75) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.nav ul a strong {
+    text-align: left;
+    display: block;
+    font-family: verdana;
+    font-size: 120%;
+    text-transform: uppercase;
+    text-shadow: 0 -1px 0 rgb(235,244,250);
+    text-shadow: 0 -1px 0 rgba(235,244,250, 0.8);
+    letter-spacing: 2px;
+}
+.nav ul a strong:after {
+    content:  "";
+}
+
+.nav ul a em {
+    display: block;
 }
 
 .nav ul li.last a {
     border: none;
+    margin-right: 0;
 }
 
-/* main styles
---------------------------------------------- */
+.nav ul li.first a {
+    margin-left: 0;
+/*
+for aligning to grid
+    border-left: 1px solid rgb(32,107,164);
+    border-left: 1px solid rgba(32,107,164, 0.4);
+*/
+}
+
+
 
 /* colors
 --------------------------------------------- */

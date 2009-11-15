@@ -7,7 +7,8 @@
         <title>Article List</title>
     </head>
     <body>
-        <div class="body">
+        <div class="content-admin">
+            <lsdc:nav />
             <h1>Articles</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>

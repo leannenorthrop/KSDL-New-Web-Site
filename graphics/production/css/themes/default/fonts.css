@@ -107,7 +107,7 @@
 }
 
 /* Titling */
-/* Titling serif */
+/* Titling sans serif */
 @font-face {
     font-family: "Trajan Pro";
     font-weight: normal;
@@ -115,7 +115,7 @@
     src: url(fonts/KabelLTStd-Light.otf) format("opentype");
 }
 
-/* Titling sans serif */
+/* Titling serif */
 @font-face {
     font-family: "Kabel";
     font-weight: lighter;
@@ -160,8 +160,33 @@ blockquote {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: "Cantoria";
+    font-style: normal;
+    font-weight: normal;
 }
 
+h1 {
+    font-size: 150%;
+}
+
+h2 {
+    font-size: 140%;
+}
+
+h3 {
+    font-size: 120%;
+}
+
+h4 {
+    font-size: 110%;
+}
+
+h5 {
+    font-size: 100%;
+}
+
+h6 {
+    font-size: 100%;
+}
 .tibetan {
     font-family: "Kokonor";
     font-size: 4em;
