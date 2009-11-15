@@ -1,0 +1,118 @@
+/*
+    Title: Main
+    Author: Leanne Northrop
+*/
+
+body {
+    background: rgb(250,241,195);
+}
+
+/* links */
+
+a:link, a:visited {
+    text-decoration: none;
+    color: rgb(84,164,222);
+}
+
+/* page structure
+--------------------------------------------- */
+
+
+/* header
+--------------------------------------------- */
+
+
+
+/* logo */
+.logo {
+    padding-top: 1em;
+    position: relative;
+    background: rgb(187,217,238) url(images/buttonHighlight.png) repeat-x top;
+    color: rgb(32,107,164);
+}
+
+.logo img {
+    vertical-align: middle;
+    padding: 0 1em 0 1em;
+    width: 75px;
+    height: 75px;
+    opacity: 0.9;
+}
+
+.logo h1 {
+    display: inline-block;
+    vertical-align: baseline;
+    font-family: "Brioso Pro";
+    font-size: 3em;
+}
+
+.logo h2 {
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+/* navigation */
+.nav {
+    background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
+    border: none;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(84,164,222);
+    border-bottom-color: rgba(84,164,222, 0.2);
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+    font-family: verdana, arial, helvetica, sans-serif;
+}
+
+.nav ul {
+    list-style: none;
+    width: 72em;
+    overflow: hidden;
+}
+
+.nav ul li {
+    float: left;
+    padding-top: 0.2em;
+}
+
+.nav ul a {
+    line-height: 1.8em;
+    padding: 0 3em;
+    display: block;
+    text-decoration: none;
+    border: none;
+    border-right: 1px solid rgb(32,107,164);
+    border-right: 1px solid rgba(32,107,164, 0.4);
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+    text-shadow: 0 -1px 0 rgb(187,217,238);
+    text-shadow: 0 -1px 0 rgba(187,217,238, 0.8);
+}
+
+.nav ul li.last a {
+    border: none;
+}
+
+/* main styles
+--------------------------------------------- */
+
+/* colors
+--------------------------------------------- */
+.white {
+    color:white;
+}
+.green {
+    color:green;
+}
+.yellow {
+    color: yellow;
+}
+.cyan {
+    color: cyan;
+}
+.red {
+    color: red;
+}
+.blue {
+    color: blue;
+}

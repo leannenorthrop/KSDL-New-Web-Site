@@ -10,8 +10,8 @@ class CssThemesTagLib {
         new File(application.getRealPath("/css/themes")).listFiles().each{ file ->
             if (file.isDirectory()) {
                 def name = file.name
-                def href = resource(dir: "css/${name}", file:'main.css')
-                out << "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"${href}\" title=\"${capitalize(name)}\" />\n"
+                def href = resource(dir: "css/themes/${name}", file:'screen.css')
+                out << "<link rel=\"alternate stylesheet\" type=\"text/css\" media=\"screen, projection\" href=\"${href}\" title=\"${capitalize(name)}\" />\n"
             }
         }
     }

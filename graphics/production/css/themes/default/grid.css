@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#grid {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    right:0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 999;
+}
+
+#grid .gcol {
+    margin: 0;
+    padding: 0 0.125em 0 0.125em;
+    display: inline-block;
+    height: 100%;
+}
+
+#grid .gleft, #grid .gright {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 2.5em;
+    height: 100%;
+    background: rgba(255, 0, 0, 0.5);
+}
+
+#grid .ggap {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 0.5em;
+    height: 100%;
+    background: red;
+    background: rgba(255, 0, 0, 0.25);
+}
