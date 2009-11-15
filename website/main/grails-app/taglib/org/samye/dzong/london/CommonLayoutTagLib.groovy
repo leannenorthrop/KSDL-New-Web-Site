@@ -4,33 +4,18 @@ class CommonLayoutTagLib {
     static namespace = 'lsdc'
 
     def nav = { attrs ->
+        def welcomeLink = '''<li class="home first"><a class="home" href="''' + resource(dir:'') + '''"><strong>Welcome</strong><em>Find Out About Us</em></a></li>'''
+        def articlesLink = '''<li class="articles">''' + link(controller:'article'){'<strong>Articles</strong><em>?</em>'} + '''</li>'''
+        def editorsLink = '''<li class="content-admin">'''  + link(controller:'manageSite'){'<strong>Manage Content</strong><em>Publish New Articles</em>'} + '''</li>'''
+        def adminLink = '''<li class="admin">''' + link(controller:'admin'){'<strong>Administration</strong><em>&nbsp;</em>'} + '''</li>'''
+        def helpLink = '''<li class="help last">''' + link(controller:'help'){'<strong>Help</strong><em>Problems with website?</em>'} + '''</li>'''
+
         if (SecurityUtils.subject.hasRole("Administrator")) {
-            out << '''<div class="nav group">
-                <ul>
-                    <li class="home first"><a class="home" href="''' + resource(dir:'') + '''">Welcome</a></li>
-                    <li class="articles">''' + link(controller:'article'){'Articles'} + '''</li>
-                    <li class="content-admin">'''  + link(controller:'manageSite'){'Manage Content'} + '''</li>
-                    <li class="admin">''' + link(controller:'admin'){'Administration'} + '''</li>
-                    <li class="help last"><a class="help" href="''' + resource(dir:'') + '''">Help</a></li>
-                </ul>
-            </div>'''
+            out << "<div class='nav group'><ul>${welcomeLink} ${articlesLink} ${editorsLink} ${adminLink} ${helpLink}</ul></div>"
         } else if (SecurityUtils.subject.principal != null) {
-            out << '''<div class="nav group">
-                <ul>
-                    <li class="home first"><a class="home" href="''' + resource(dir:'') + '''">Welcome</a></li>
-                    <li class="articles">''' + link(controller:'article'){'Articles'} + '''</li>
-                    <li class="content-admin">'''  + link(controller:'manageSite'){'Manage Content'} + '''</li>
-                    <li class="help last"><a class="help" href="''' + resource(dir:'') + '''">Help</a></li>
-                </ul>
-            </div>'''
+            out << "<div class='nav group'><ul>${welcomeLink} ${articlesLink} ${editorsLink} ${helpLink}</ul></div>"
         } else {
-            out << '''<div class="nav group">
-                <ul>
-                    <li class="home first"><a class="home" href="''' + resource(dir:'') + '''">Welcome</a></li>
-                    <li class="articles">''' + link(controller:'article'){'Articles'} + '''</li>
-                    <li class="help last"><a class="help" href="''' + resource(dir:'') + '''">Help</a></li>
-                </ul>
-            </div>'''
+            out << "<div class='nav group'><ul>${welcomeLink} ${articlesLink} ${helpLink}</ul></div>"
         }
 
     }
@@ -52,7 +37,7 @@ class CommonLayoutTagLib {
 
     def grid = { attrs ->
         out << """<div id="grid">"""
-        128.times {
+        1.times {
             out << """<span class="gcol"><span class="gleft">&nbsp;</span><span class="ggap">&nbsp;</span><span class="gright">&nbsp;</span></span>"""
         }
         out << "</div>"
