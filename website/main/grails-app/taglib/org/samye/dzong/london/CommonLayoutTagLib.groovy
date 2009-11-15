@@ -4,7 +4,7 @@ class CommonLayoutTagLib {
     static namespace = 'lsdc'
 
     def nav = { attrs ->
-        def welcomeLink = '''<li class="home first"><a class="home" href="''' + resource(dir:'') + '''"><strong>Welcome</strong><em>Find Out About Us</em></a></li>'''
+        def welcomeLink = '''<li class="home first"><a href="''' + resource(dir:'') + '''"><strong>Welcome</strong><em>Find Out About Us</em></a></li>'''
         def articlesLink = '''<li class="articles">''' + link(controller:'article'){'<strong>Articles</strong><em>?</em>'} + '''</li>'''
         def editorsLink = '''<li class="content-admin">'''  + link(controller:'manageSite'){'<strong>Manage Content</strong><em>Publish New Articles</em>'} + '''</li>'''
         def adminLink = '''<li class="admin">''' + link(controller:'admin'){'<strong>Administration</strong><em>&nbsp;</em>'} + '''</li>'''
@@ -37,7 +37,7 @@ class CommonLayoutTagLib {
 
     def grid = { attrs ->
         out << """<div id="grid">"""
-        1.times {
+        128.times {
             out << """<span class="gcol"><span class="gleft">&nbsp;</span><span class="ggap">&nbsp;</span><span class="gright">&nbsp;</span></span>"""
         }
         out << "</div>"

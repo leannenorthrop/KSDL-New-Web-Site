@@ -7,7 +7,9 @@
         <title>Create Article</title>
     </head>
     <body>
-        <div class="body">
+        <div class="content-admin">
+            <lsdc:nav />
+
             <h1>Create Article</h1>
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>

@@ -1,0 +1,58 @@
+div.articles ol {
+    margin: 1em 3em;
+}
+
+div.articles ol li {
+    margin: 1em 0;
+}
+
+div.articles ol h2 {
+}
+
+div.articles ol h2 a {
+    color: rgb(255,152,52);
+    font-weight: bold;
+}
+
+div.articles ol h3 {
+    display: inline-block;
+    font-style: italic;
+    font-family: "Brioso Pro";
+}
+
+div.articles ol h3 a{
+    font-family: "Trajan Pro";
+    text-transform: uppercase;
+    color: rgb(164,193,80);
+    font-size: 90%;
+}
+
+div.articles ol h4 {
+    display: inline-block;
+    line-height: 1.4em;
+    margin-left: 0.5em;
+}
+
+div.articles ol p {
+    line-height: 1.4em;
+    margin: 0.5em 0 1.5em;
+}
+
+div.article div.wrap {
+    margin: 1em 3em;
+}
+
+div.article .left {
+    float: left;
+    width: 73%;
+}
+
+div.article .right {
+    float: right;
+    width: 25%;
+}
+
+div.article p {
+    margin: 0.5em 0 1.5em;
+    line-height: 1.4em;
+}

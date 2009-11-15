@@ -6,6 +6,8 @@
         <meta name="layout" content="main" />
     </head>
     <body>
+        <div class="content-admin">
+            <lsdc:nav />
         <h1>${articleInstance.title}</h1>
         <p>${articleInstance.summary}</p>
         <div>
@@ -13,5 +15,6 @@
         </div>
         <shiro:hasAnyRole in="['Editor','Administrator']"><span class="button"><g:link action="edit" id="${articleInstance.id}">Prepare for Publication</g:link></span></shiro:hasAnyRole>
         <span class="button"><g:link class="list" action="manage">Cancel</g:link></span>
+        </div>
     </body>
 </html>
