@@ -1,6 +1,7 @@
 package org.samye.dzong.london
 import java.io.File
 import static org.apache.commons.lang.WordUtils.*
+import org.apache.shiro.SecurityUtils
 
 class CssThemesTagLib {
     static namespace = 'lsd'
