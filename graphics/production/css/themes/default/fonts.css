@@ -1,0 +1,181 @@
+/* Body Text */
+@font-face {
+    font-family: "Adobe Caslon Pro";
+    font-weight: bolder;
+    font-style: normal;
+    src: url(fonts/ACaslonPro-Bold.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Adobe Caslon Pro";
+    font-weight: bolder;
+    font-style: italic;
+    src: url(fonts/ACaslonPro-BoldItalic.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Adobe Caslon Pro";
+    font-weight: normal;
+    font-style: italic;
+    src: url(fonts/ACaslonPro-Italic.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Adobe Caslon Pro";
+    font-weight: normal;
+    font-style: normal;
+    src: url(fonts/ACaslonPro-Regular.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Adobe Caslon Pro";
+    font-weight: bold;
+    font-style: normal;
+    src: url(fonts/ACaslonPro-Semibold.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Adobe Caslon Pro";
+    font-weight: bold;
+    font-style: italic;
+    src: url(fonts/ACaslonPro-SemiboldItalic.otf) format("opentype");
+}
+
+/* Blockquotes */
+@font-face {
+    font-family: "Brioso Pro";
+    font-weight: normal;
+    font-style: normal;
+    src: url(fonts/BriosoPro-LightDisp.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Brioso Pro";
+    font-weight: lighter;
+    font-style: normal;
+    src: url(fonts/BriosoPro-LightPoster.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Brioso Pro";
+    font-weight: lighter;
+    font-style: italic;
+    src: url(fonts/BriosoPro-LightPosterIt.otf) format("opentype");
+}
+
+/* Headings, etc */
+@font-face {
+    font-family: "Cantoria";
+    font-weight: bolder;
+    font-style: normal;
+    src: url(fonts/CantoriaMTStd-ExtraBold.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Cantoria";
+    font-weight: bolder;
+    font-style: italic;
+    src: url(fonts/CantoriaMTStd-ExtraBoldIt.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Cantoria";
+    font-weight: normal;
+    font-style: normal;
+    src: url(fonts/CantoriaMTStd-Light.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Cantoria";
+    font-weight: normal;
+    font-style: italic;
+    src: url(fonts/CantoriaMTStd-LightItalic.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Cantoria";
+    font-weight: bold;
+    font-style: normal;
+    src: url(fonts/CantoriaMTStd-SemiBold.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Cantoria";
+    font-weight: bold;
+    font-style: italic;
+    src: url(fonts/CantoriaMTStd-SemiBoldIt.otf) format("opentype");
+}
+
+/* Titling */
+/* Titling serif */
+@font-face {
+    font-family: "Trajan Pro";
+    font-weight: normal;
+    font-style: normal;
+    src: url(fonts/KabelLTStd-Light.otf) format("opentype");
+}
+
+/* Titling sans serif */
+@font-face {
+    font-family: "Kabel";
+    font-weight: lighter;
+    src: url(fonts/KabelLTStd-Light.otf) format("opentype");
+}
+
+/* Tibetan Fonts */
+@font-face {
+    font-family: "Kailasa";
+    font-weight: normal;
+    src: url(fonts/Kailasa.otf) format("truetype");
+}
+
+@font-face {
+    font-family: "Kokonor";
+    font-weight: normal;
+    src: url(fonts/Kokonor.otf) format("truetype");
+}
+
+/* Main Styles */
+body {
+    font-size: 100%;
+    font-family: "Adobe Caslon Pro";
+    font-weight: normal;
+}
+
+strong {
+    font-family: "Adobe Caslon Pro";
+    font-weight: bold;
+}
+
+em {
+    font-family: "Adobe Caslon Pro";
+    font-weight: italic;
+}
+
+blockquote {
+    font-family: "Brioso Pro";
+    font-weight: italic;
+    font-size: x-large;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Cantoria";
+}
+
+.tibetan {
+    font-family: "Kokonor";
+    font-size: 4em;
+    text-shadow: 2px 2px 0 rgb(180,180,180);
+    text-shadow: 2px 2px 0 rgba(180,180,180, 0.8);
+}
+/* use the best possible ampersand */
+
+span.amp {
+    font-family: "Brioso Pro Light Poster", "Adobe Caslon Pro", "Sanvito Pro Light Display", "Sanvito Pro Light", Baskerville, "Century Schoolbook", "Bell MT Italic", "Goudy Old Style Italic", "Batang Regular"{
+    NSFont = "GoudyOldStyleT-Italic 12.00 pt. P [] (0x5f18da0) fobj=0x1121400, spc=3.00";
+}", "Palatino", "Book Antiqua", serif;
+    font-weight: normal;
+    font-style: italic;
+    font-size: 1.2em;
+    color: #766557;
+}

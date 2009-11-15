@@ -8,7 +8,7 @@ class Article extends Publishable {
 
     static constraints = {
         title(blank:false)
-        summary(maxSize:1024)
+        summary(maxSize:Integer.MAX_VALUE)
         content(maxSize:Integer.MAX_VALUE)
     }
 
