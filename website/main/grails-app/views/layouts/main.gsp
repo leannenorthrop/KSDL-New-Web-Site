@@ -2,7 +2,10 @@
 <html>
     <head>
         <title><g:layoutTitle default="Kagyu Samye Dzong London" /></title>
-        <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
+        <!--[if gte IE 7]>
+            <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/default',file:'screen.css')}" />
+        <![endif]-->
+
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <lsd:link obj="${application}"/>
         <g:layoutHead />
