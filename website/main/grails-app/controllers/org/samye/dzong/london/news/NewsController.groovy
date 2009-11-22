@@ -6,8 +6,8 @@ class NewsController {
     def articleService
 
     def index = {
-        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        def articles = articleService.publishedNews(max)
-        model:[ articles: articles, articlesTotal: articles.size() ]
+        def articles = articleService.publishedNews()
+        def archivedArticles =  articleService.archivedNews()
+        model:[ articles: articles, archivedArticles: archivedArticles]
     }
 }

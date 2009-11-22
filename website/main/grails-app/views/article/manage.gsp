@@ -37,11 +37,12 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
                             <td>
-                                <shiro:hasAnyRole in="['Editor','Administrator']"><g:link action="show" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link></shiro:hasAnyRole>
-                                <shiro:hasAnyRole in="['Author']">
-                                    <g:if test="${articleInstance.publishState == 'Unpublished'}">
-                                        <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
-                                    </g:if>
+                                <shiro:hasAnyRole in="['Author','Editor','Administrator']">
+                                    <shiro:hasAnyRole in="['Author']">
+                                        <g:if test="${articleInstance.publishState == 'Unpublished'}">
+                                            <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
+                                        </g:if>
+                                    </shiro:hasAnyRole>
                                     <g:if test="${articleInstance.publishState == 'Published' || articleInstance.publishState == 'Archived' }">
                                         <g:link action="show" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
                                     </g:if>
