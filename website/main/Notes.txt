@@ -1,23 +1,20 @@
 TODO
 
 1. News front page
-    - List of main articles with more if there are too many to fit order by latest published first
     - List of archived articles
 2. View article/archived article
     - Main content
     - Side bar of other articles
 3. Meditation front page
-    - List of advice articles
-    - List of benefits articles
 4. Full list of news articles
-5. Full list of meditation & meditation advice articles
 6. Textile markup of special characters
 7. Check browsers
 8. Error handling
-9. Article audit - published date, author
-10. Register user
+9. Article audit - published date, author, last edited date
 11. Security
     Adding roles to users.
+    Password reminder
+    Email to verify account
 12. Author profile
 13. Thumbnail images
 
