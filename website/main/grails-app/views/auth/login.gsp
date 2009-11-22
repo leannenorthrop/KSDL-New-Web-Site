@@ -42,7 +42,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password2" value="" />
         </fieldset>
-        <a class="submit" onClick="document.register.submit();">Register &raquo;</a> or <g:link >Continue as guest</g:link>
+        <a class="submit" onClick="document.register.submit();">Register &raquo;</a><!-- or <g:link >Continue as guest</g:link>-->
       </g:form>
   </div>
 </body>

@@ -47,12 +47,46 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
         pubArticle1.deleted = Boolean.FALSE
         pubArticle1.save()
 
-        (1..25).each {
+        loremIpsumSummary = """Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellentesque rutrum rutrum rutrum. Aliquam sed orci dui, sit amet tempor arcu. Maecenas dignissim, dolor id cursus egestas, risus nibh vestibulum ipsum, vel rhoncus quam dolor sed risus. Maecenas condimentum leo nec lorem pretium hendrerit. """
+        (1..5).each {
             def a = new Article(title: "Article " + it, content: loremIpsum, summary: loremIpsumSummary)
             a.author = author1
             a.publishState = "Unpublished"
             a.deleted = Boolean.FALSE
             a.save()
+        }
+
+        (1..1).each {
+            def a = new Article(title: "Other Meditation Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("Meditation")
+        }
+        (1..3).each {
+            def a = new Article(title: "Meditation Advice Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("Meditation Advice")
+        }
+        (1..2).each {
+            def a = new Article(title: "Meditation Benefits Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("Meditation Benefits")
+        }
+        (1..8).each {
+            def a = new Article(title: "News Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("News")
         }
 
         def markup = """h1. Heading 1

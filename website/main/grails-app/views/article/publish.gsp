@@ -34,23 +34,26 @@
                         <input type="text" id="title" name="title" class="${hasErrors(bean:articleInstance,field:'title','errors')}" value="${fieldValue(bean:articleInstance,field:'title')}"/>
                     </fieldset>
                     <fieldset>
-                        <label for="summary">Summary:</label>
+                        <label for="summary">Summary</label>
                         <textarea rows="5" cols="40" name="summary" class="${hasErrors(bean:articleInstance,field:'summary','errors')}">${fieldValue(bean:articleInstance, field:'summary')}</textarea>
                     </fieldset>
                     <fieldset>
-                        <label for="content">Content:</label>
+                        <label for="content">Content <em>Textile may be used. See <g:link controller="help" action='textile'>Textile</g:link> for details.</em></label>
                         <textarea rows="35" cols="40" name="content" class="${hasErrors(bean:articleInstance,field:'content','errors')}">${fieldValue(bean:articleInstance, field:'content')}</textarea>
                     </fieldset>
                 </shiro:hasAnyRole>
-                <fieldset>
-                    <label for="tags">Tags</label>
-                    <h4>Suggestions</h4>
-                    <ul>
-                        <li>News (Show on News page)</li>
-                        <li>Meditation (Show on Mediation page)</li>
-                        <li>"Meditation Advice" (Show on Meditation page under Advice)</li>
-                    </ul>
-                    <textarea cols="5" rows="2" id="tags" name="tags" class="${hasErrors(bean:articleInstance,field:'tags','errors')}" value="${articleInstance.tags.join(",")}"></textarea>
+                <fieldset class="group">
+                    <label for="tags">Tags <em>Separate with commas</em></label>
+                    <div id="tags_help">
+                        <h4>Suggestions</h4>
+                        <ul>
+                            <li>news <em>Show on News page</em></li>
+                            <li>meditation <em>Show on Mediation page</em></li>
+                            <li>meditation advice <em>Show on Meditation page under Advice</em></li>
+                            <li>meditation benefits <em>Show on Meditation page under Benefits</em></li>
+                        </ul>
+                    </div>
+                    <textarea cols="5" rows="5" id="tags" name="tags" class="${hasErrors(bean:articleInstance,field:'tags','errors')}">${articleInstance.tags.join(",")}</textarea>
                 </fieldset>
                 <a class="submit" onClick="document.publish.submit();">Publish &raquo;</a>
             </g:form>
