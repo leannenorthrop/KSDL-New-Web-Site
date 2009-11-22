@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>Welcome Kagyu Samye Dzong London</title>
@@ -6,6 +5,8 @@
     <meta name="layout" content="meditation">
 </head>
 <body>
+
+
     <div>
         <div>
             Experience

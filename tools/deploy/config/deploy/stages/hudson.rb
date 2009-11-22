@@ -1,4 +1,4 @@
-role :app, '205.143.144.237'
+role :app, '75.101.145.155'
 #Unfortunately repository has to be set here to overwrite the path in the giovanni library
 # This file is only intended to deploy so we use a different url here.
 #set :repository, 'http://:8080/job/MainBuild/lastSuccessfulBuild/artifact/war/target'

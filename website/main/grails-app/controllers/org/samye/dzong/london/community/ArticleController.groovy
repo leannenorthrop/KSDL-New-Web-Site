@@ -41,11 +41,23 @@ class ArticleController {
         def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         def inList = ['Editor','Administrator']
         def articles
+        def total
         if (SecurityUtils.subject.hasRoles(inList).any())  {
-            articles = Article.findAllByDeleted(Boolean.FALSE, [max:max])
+            articles = Article.findAllByDeleted(Boolean.FALSE,params)
+            total = Article.findAllByDeleted(Boolean.FALSE).size()
         } else {
             def criteria = Article.createCriteria()
-            articles = criteria.list(max:max){
+            articles = criteria.list(){
+                and {
+                    eq('deleted', Boolean.FALSE)
+                    author {
+                        eq('username', userLookupService.username())
+                    }
+                }
+            }
+            total = articles.size()
+            def criteria1 = Article.createCriteria()
+            articles = criteria1.list(params){
                 and {
                     eq('deleted', Boolean.FALSE)
                     author {
@@ -54,7 +66,7 @@ class ArticleController {
                 }
             }
         }
-        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count() ])
+        render(view:'manage',model:[ articleInstanceList: articles, articleTotal: total ])
     }
 
     def view = {

@@ -56,3 +56,12 @@ div.article .right {
     float: right;
     width: 25%;
 }
+
+#createarticle, #updatearticle {
+    padding: 0 2em 0 1.25em;
+}
+
+#createarticle input, #createarticle textarea,
+#updatearticle input, #updatearticle textarea  {
+    width: 100%;
+}

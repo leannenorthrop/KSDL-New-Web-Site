@@ -13,11 +13,11 @@
         <g:javascript library="application" />
     </head>
     <body>
+        <lsdc:header />
+        <lsdc:nav current="meditation"/>
         <div id="spinner" class="spinner" style="display:none;">
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
-        <lsdc:header />
-        <lsdc:nav current="meditation"/>
         <g:layoutBody />
         <lsdc:grid />
     </body>

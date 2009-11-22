@@ -1,61 +1,41 @@
-
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="content-admin" />
-        <title>Create Article</title>
+        <title>Kagyu Samye Dzong London: Create New Article</title>
     </head>
     <body>
-        <div class="content-admin">
-            <h1>Create Article</h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${articleInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${articleInstance}" as="list" />
-            </div>
-            </g:hasErrors>
-            <g:form action="save" method="post" >
+        <div class="menuBar">
+            <span class="menuButton"><g:link class="home" controller="manageSite" action="index">Home</g:link></span>
+            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="list" controller="article" action="manage">Articles</g:link></span></shiro:hasAnyRole>
+        </div>
+        <div class="content">
+            <g:form id="createarticle" name="createarticle" action="save" method="post" >
+                <h1>Create Article</h1>
+                <g:if test="${flash.message}">
+                    <div class="message">${flash.message}</div>
+                </g:if>
+                <g:hasErrors bean="${articleInstance}">
+                <div class="errors">
+                    <g:renderErrors bean="${articleInstance}" as="list" />
+                </div>
+                </g:hasErrors>
                 <input type="hidden" name="publishState" value="Unpublished" />
                 <input type="hidden" name="deleted" value="false" />
-                <div class="dialog">
-                    <table>
-                        <tbody>
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="title">Title:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:articleInstance,field:'title','errors')}">
-                                    <input type="text" id="title" name="title" value="${fieldValue(bean:articleInstance,field:'title')}"/>
-                                </td>
-                            </tr>
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="summary">Summary:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:articleInstance,field:'summary','errors')}">
-                                    <textarea rows="5" cols="40" name="summary">${fieldValue(bean:articleInstance, field:'summary')}</textarea>
-                                </td>
-                            </tr>
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="content">Content:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:articleInstance,field:'content','errors')}">
-                                    <textarea rows="5" cols="40" name="content">${fieldValue(bean:articleInstance, field:'content')}</textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><input class="save" type="submit" value="Create" /></span>
-                    <span class="button"><g:link class="list" action="manage">Cancel</g:link></span>
-                </div>
+                <fieldset>
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" class="${hasErrors(bean:articleInstance,field:'title','errors')}" value="${fieldValue(bean:articleInstance,field:'title')}"/>
+                </fieldset>
+                <fieldset>
+                    <label for="summary">Summary:</label>
+                    <textarea rows="5" cols="40" name="summary" class="${hasErrors(bean:articleInstance,field:'summary','errors')}">${fieldValue(bean:articleInstance, field:'summary')}</textarea>
+                </fieldset>
+                <fieldset>
+                    <label for="content">Content:</label>
+                    <textarea rows="35" cols="40" name="content" class="${hasErrors(bean:articleInstance,field:'content','errors')}">${fieldValue(bean:articleInstance, field:'content')}</textarea>
+                </fieldset>
+                <a class="submit" onClick="document.createarticle.submit();">Create &raquo;</a>
             </g:form>
         </div>
     </body>
