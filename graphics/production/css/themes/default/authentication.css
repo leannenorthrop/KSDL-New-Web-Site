@@ -1,0 +1,26 @@
+#auth {
+    padding: 6.2% 12.4% 0 12.4%;
+    width: 75%;
+}
+
+#auth form {
+    display: inline-block;
+    vertical-align: top;
+    padding: 1em 3.25em 1em 0em;
+    width: 37.4%;
+}
+
+#auth form + form {
+    display: inline-block;
+    vertical-align: top;
+    padding: 1em 0em 1em 3em;
+    height: 15em;
+    border-left: 0.25em rgb(84,164,222) double;
+}
+
+#auth form input{
+    width: 100%;
+}
+
+.rememberMe {
+}

@@ -1,0 +1,55 @@
+form h1 {
+    line-height: 2em;
+}
+
+form fieldset {
+    margin: 0 0 15px 0;
+}
+
+fieldset label {
+    display: block;
+    margin: 0 0 3px 0;
+}
+
+fieldset input, fieldset textarea {
+    color: rgb(32,107,164);
+    width: 20em;
+    padding: 5px;
+    font-size: normal;
+    font-weight: bold;
+    border: none;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-bottom: 1px solid #fff;
+    border-right: 1px solid #fff;
+    background: rgb(235,244,250) url(images/darkFadeTop.png) repeat-x top left;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+}
+
+fieldset input:focus, fieldset textarea:focus {
+    background: white;
+    border: 1px solid rgb(32,107,164);
+}
+
+fieldset .last {
+    border: 1px solid red;
+    padding-bottom: 3.75em;
+}
+
+form a.submit {
+    padding: 0.35em 0.75em;
+    color: white;
+    background: rgb(255,152,52) url(images/buttonHighlight.png) repeat-x 0 50%;
+    border: 1px solid rgb(255,152,52);
+    width: auto;
+    border-radius: 14px;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+}
+
+form a:hover.submit  {
+    background: rgb(164,193,80);
+    border: 1px solid rgb(143,193,0);
+}

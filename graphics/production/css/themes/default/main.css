@@ -5,6 +5,7 @@
 
 body {
     background: rgb(250,241,195);
+    min-width: 70em;
 }
 
 /* links */
@@ -17,11 +18,8 @@ a:link, a:visited {
 /* page structure
 --------------------------------------------- */
 
-
 /* header
 --------------------------------------------- */
-
-
 
 /* logo */
 .logo {
@@ -29,12 +27,13 @@ a:link, a:visited {
     position: relative;
     background: rgb(187,217,238) url(images/buttonHighlight.png) repeat-x top;
     color: rgb(32,107,164);
+    z-index: 1;
 }
 
 .logo img {
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 6em;
+    height: 6em;
     opacity: 0.9;
     top: 25%;
     left: 0.5em;
@@ -54,35 +53,31 @@ a:link, a:visited {
     right: 0.5em;
 }
 
-/* navigation */
+/* navigation*/
 .nav {
-    width: 100%;
+    position: relative;
     background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
-    border: none;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: rgb(84,164,222);
-    border-bottom-color: rgba(84,164,222, 0.2);
     color: rgb(32,107,164);
     color: rgba(32,107,164, 0.8);
-    font-family: verdana, arial, helvetica, sans-serif;
+/*    box-shadow: 2px 2px 4px rgb(57,134,192);
+    -moz-box-shadow: 2px 2px 4px rgb(57,134,192);
+    -webkit-box-shadow: 2px 2px 4px rgb(57,134,192);*/
 }
 
 .nav ul {
-    margin: 0 0 0 8.25em;
+    margin: 0 0 0 125px;
     list-style: none;
-    width: 72em;
     overflow: hidden;
+    font-size: 70%;
 }
 
 .nav ul li {
     float: left;
-    padding-top: 0.2em;
 }
 
 .nav ul a {
     line-height: 1.6em;
-    padding: 0.5em 2em 0.2em 1em;
+    padding: 0.5em 0.8em 0.3em 0.75em;
     display: block;
     text-decoration: none;
     border: none;
@@ -92,11 +87,19 @@ a:link, a:visited {
     color: rgba(32,107,164, 0.8);
     -webkit-transition: background-color .4s linear;
 }
+
 /* highlight current area */
 .articles .nav .articles a,
 .home .nav .home a,
 .help .nav .help a,
-.content-admin .nav .content-admin a{
+.content-admin .nav .content-admin a,
+.news .nav .news a,
+.events .nav .events a,
+.meditation .nav .meditation a,
+.buddhism .nav .buddhism a,
+.community .nav .community a,
+.wellbeing .nav .wellbeing a,
+.info .nav .info a{
     background: rgb(190,223,93) url(images/darkFadeBottom.png) repeat-x bottom;
     background: rgba(164,193,80,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
@@ -105,7 +108,14 @@ a:link, a:visited {
 .home .nav .home a:hover,
 .help .nav .help a:hover,
 .nav ul a:hover,
-.content-admin .nav .content-admin a:hover {
+.content-admin .nav .content-admin a:hover,
+.news .nav .news a:hover,
+.events .nav .events a:hover,
+.meditation .nav .meditation a:hover,
+.buddhism .nav .buddhism a:hover,
+.community .nav .community a:hover,
+.wellbeing .nav .wellbeing a:hover,
+.info .nav .info a:hover {
     background: rgb(164,193,80) url(images/darkFadeBottom.png) repeat-x bottom;
     background: rgba(164,193,80,0.75) url(images/darkFadeBottom.png) repeat-x bottom;
 }
@@ -142,7 +152,9 @@ for aligning to grid
 */
 }
 
-
+.nav + div {
+    background: transparent url(images/buttonHighlight.png) repeat-x top;
+}
 
 /* colors
 --------------------------------------------- */

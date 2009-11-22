@@ -3,7 +3,7 @@
 <head>
     <title>Welcome Kagyu Samye Dzong London</title>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="layout" content="welcome">
+    <meta name="layout" content="info">
 </head>
 <body>
     <div>
@@ -18,12 +18,14 @@
         </div>
     </div>
     <div>
-        <div>Meditation</div>
-        <div>Community</div>
-    </div>
-    <div>
-        <div>Buddhism</div>
-        <div>Well-Being</div>
+        <div>
+            <div>Meditation</div>
+            <div>Community</div>
+        </div>
+        <div>
+            <div>Buddhism</div>
+            <div>Well-Being</div>
+        </div>
     </div>
 </body>
 </html>

@@ -12,37 +12,48 @@
         <g:javascript library="application" />
     </head>
 <body>
-  <g:if test="${flash.message}">
-    <div class="message">${flash.message}</div>
-  </g:if>
   <lsdc:header />
 
   <lsdc:nav />
 
   <lsdc:grid />
 
-  <g:form action="signIn">
-    <input type="hidden" name="targetUri" value="${targetUri}" />
-    <table>
-      <tbody>
-        <tr>
-          <td>Username:</td>
-          <td><input type="text" name="username" value="${username}" /></td>
-        </tr>
-        <tr>
-          <td>Password:</td>
-          <td><input type="password" name="password" value="" /></td>
-        </tr>
-        <tr>
-          <td>Remember me?:</td>
-          <td><g:checkBox name="rememberMe" value="${rememberMe}" /></td>
-        </tr>
-        <tr>
-          <td />
-          <td><input type="submit" value="Sign in" /></td>
-        </tr>
-      </tbody>
-    </table>
-  </g:form>
+  <g:if test="${flash.message}">
+    <div class="message">${flash.message}</div>
+  </g:if>
+
+  <div id="auth">
+      <g:form name="signIn" action="signIn">
+        <h1>Sign In</h1>
+        <fieldset>
+            <label for="username">Email</label>
+            <input type="text" id="username" name="username" value="${username}" />
+        </fieldset>
+        <fieldset>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" value="" />
+        </fieldset>
+        <fieldset class="last">
+            <label class="rememberMe" for="rememberMe">Remember me?</label> <g:checkBox class="rememberMe" id="rememberMe" name="rememberMe" value="${rememberMe}" />
+        </fieldset>
+        <input type="hidden" name="targetUri" value="${targetUri}" />
+        <a class="submit" onClick="document.signIn.submit();">Sign In &raquo;</a>
+      </g:form>
+      <g:form name="register" action="register">
+        <h1>Become a Member</h1>
+        You will be able to:
+        <ul>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+            <li>&nbsp;</li>
+        </ul>
+        <a class="submit" onClick="document.register.submit();">Register &raquo;</a> or <g:link >Continue as guest</g:link>
+      </g:form>
+  </div>
 </body>
 </html>
