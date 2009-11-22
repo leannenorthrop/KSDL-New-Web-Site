@@ -57,11 +57,13 @@ div.article .right {
     width: 25%;
 }
 
-#createarticle, #updatearticle {
+#createarticle, #updatearticle, #update{
     padding: 0 2em 0 1.25em;
 }
 
 #createarticle input, #createarticle textarea,
-#updatearticle input, #updatearticle textarea  {
+#updatearticle input, #updatearticle textarea,
+#publish input, #publish textarea {
     width: 100%;
 }
+
