@@ -3,11 +3,17 @@ import org.apache.shiro.SecurityUtils
 
 class ArticleController {
     def userLookupService
+    def articleService
 
     def index = {
-        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        def publishedArticles = Article.findAllByPublishState("Published", [max:max])
-        model:[ articleInstanceList: publishedArticles, articleInstanceTotal: publishedArticles.count() ]
+        if (params.tags){
+            def tags = params.tags.toLowerCase().split(",").toList()
+            def articles = articleService.publishedByTags(tags)
+            model:[ articleInstanceList: articles, title: 'Articles With Tags ' + params.tags]
+        } else {
+            def publishedArticles = Article.findAllByPublishState("Published", [max:max])
+            model:[ articleInstanceList: publishedArticles, title: "All Articles" ]
+        }
     }
 
     def archived = {

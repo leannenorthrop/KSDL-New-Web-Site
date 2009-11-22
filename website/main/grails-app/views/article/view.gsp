@@ -11,7 +11,7 @@
 
             <ul>
                 <li><h3>20 October, 2009</h3></li>
-                <li><h4>by <a>Leanne Northrop</a></h4></li>
+                <li><h4>by <a>To Be Done</a></h4></li>
             </ul>
 
             <div class="body">
@@ -22,8 +22,8 @@
         <div class="col2_20_Percent">
             <h2>Other Articles</h2>
             <ul>
-                <li>Previous</li>
-                <li>Next</li>
+                <li>Previous (To Do)</li>
+                <li>Next (To Do)</li>
             </ul>
         </div>
     </body>

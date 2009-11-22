@@ -4,24 +4,31 @@
     <meta name="layout" content="main">
 </head>
 <body>
-    <div>
-        <div class="left">Forthcoming Events</div>
-        <div class="right">
-            <ol>
-                <li>Sign Up for Newsletter</li>
-                <li>News</li>
-                <li>Gallery</li>
-                <li>About Us</li>
-            </ol>
+    <div class="col1_80_Percent box">
+        <h2>Forthcoming Events</h2>
+    </div>
+    <div class="col2_20_Percent">
+        <div class="box">
+            <h2>News</h2>
+        </div>
+        <div class="box">
+            <h2>Gallery</h2>
+        </div>
+        <div class="box">
+            <h2>About Us</h2>
         </div>
     </div>
-    <div>
-        <div>Meditation</div>
-        <div>Community</div>
+    <div class="col1_50_Percent box">
+        <h2>Meditation</h2>
     </div>
-    <div>
-        <div>Buddhism</div>
-        <div>Well-Being</div>
+    <div class="col2_50_Percent box">
+        <h2>Community</h2>
+    </div>
+    <div class="col1_50_Percent box">
+        <h2>Buddhism</h2>
+    </div>
+    <div class="col2_50_Percent box">
+        <h2>Well Being</h2>
     </div>
 </body>
 </html>
