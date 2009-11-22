@@ -3,18 +3,16 @@
     width: 75%;
 }
 
-#auth form {
-    display: inline-block;
-    vertical-align: top;
-    padding: 1em 3.25em 1em 0em;
+#signIn {
+    float:left;
     width: 37.4%;
+    margin-right: 3em;
 }
 
-#auth form + form {
-    display: inline-block;
-    vertical-align: top;
-    padding: 1em 0em 1em 3em;
-    height: 15em;
+#register {
+    float:left;
+    width: 37.4%;
+    padding-left: 2em;
     border-left: 0.25em rgb(84,164,222) double;
 }
 

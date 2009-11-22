@@ -22,10 +22,14 @@ fieldset input, fieldset textarea {
     border-left: 1px solid transparent;
     border-bottom: 1px solid #fff;
     border-right: 1px solid #fff;
-    background: rgb(235,244,250) url(images/darkFadeTop.png) repeat-x top left;
+    background: white url(images/darkFadeTop.png) repeat-x top left;
     border-radius: 5px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
+}
+
+fieldset input[type="radio"], fieldset input[type="checkbox"] {
+    background: none;
 }
 
 fieldset input:focus, fieldset textarea:focus {
