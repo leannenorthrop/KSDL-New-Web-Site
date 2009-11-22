@@ -1,18 +1,20 @@
-
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="content-admin" />
-        <title>Article List</title>
+        <title>Kagyu Samye Dzong London: Manage Articles</title>
     </head>
     <body>
-        <div class="content-admin">
+        <div class="menuBar">
+            <span class="menuButton"><g:link class="home" controller="manageSite" action="index">Home</g:link></span>
+            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="create" controller="article" action="create">New Article</g:link></span></shiro:hasAnyRole>
+        </div>
+        <div class="content">
             <h1>Articles</h1>
             <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
+                <div class="message">${flash.message}</div>
             </g:if>
-            <shiro:hasAnyRole in="['Author']"><span class="button"><g:link class="create" action="create">Create New Article</g:link></span></shiro:hasAnyRole>
             <div class="list">
                 <table>
                     <thead>
@@ -21,11 +23,11 @@
 
                             <shiro:hasAnyRole in="['Editor','Administrator']"><g:sortableColumn property="publishState" title="Person" /></shiro:hasAnyRole>
 
-                            <g:sortableColumn property="publishState" title="Publish State" />
+                            <g:sortableColumn property="publishState" title="Published" />
 
                             <shiro:hasAnyRole in="['Editor','Administrator']"><th>Change State</th></shiro:hasAnyRole>
 
-                            <th>Delete</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +48,14 @@
 
                             <shiro:hasAnyRole in="['Editor','Administrator']"><td>${fieldValue(bean:articleInstance, field:'author')}</td></shiro:hasAnyRole>
 
-                            <td>${fieldValue(bean:articleInstance, field:'publishState')}</td>
+                            <td>
+                                <g:if test="${articleInstance.publishState == 'Unpublished'}">
+                                    <span class="">No</span>
+                                </g:if>
+                                <g:if test="${articleInstance.publishState == 'Published'}">
+                                    <span class="">Yes</span>
+                                </g:if>
+                            </td>
 
                             <shiro:hasAnyRole in="['Editor','Administrator']">
                                 <td>
@@ -62,7 +71,7 @@
 
                             <td>
                                  <shiro:hasAnyRole in="['Editor','Administrator']"><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');" >Delete</g:link></shiro:hasAnyRole>
-                                 <shiro:hasAnyRole in="['Author']"><g:if test="${publishState == 'Unpublished'}"><g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link></g:if></shiro:hasAnyRole>
+                                 <shiro:hasAnyRole in="['Author']"><g:if test="${articleInstance.publishState == 'Unpublished'}"><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');">Delete</g:link></g:if></shiro:hasAnyRole>
                             </td>
                         </tr>
                     </g:each>
@@ -70,7 +79,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${articleInstanceTotal}" />
+                <g:paginate total="${articleTotal}" />
             </div>
         </div>
     </body>

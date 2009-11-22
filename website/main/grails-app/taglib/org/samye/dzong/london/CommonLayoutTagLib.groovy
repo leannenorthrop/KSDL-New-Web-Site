@@ -11,9 +11,9 @@ class CommonLayoutTagLib {
         def navSubTitles = [home: 'Find Out About Us', news: 'Latest Events', events: 'Courses, Workshops & More', meditation: 'Info,Resources &amp; more...', buddhism: 'Buddhism', community:'&nbsp;',wellbeing:'Therapies &amp; Courses',info:'Press, Room Hire...',manageSite:'Create New Content &amp; more..',admin:'Configure Settings',help:'Questions? Try here...']
 
         if (SecurityUtils.subject.hasRole("Administrator")) {
-            navControllers = ['welcome', 'news', 'events', 'meditation', 'buddhism', 'community','wellbeing','info','manageSite','admin','help']
+            navControllers = ['home', 'news', 'events', 'meditation', 'buddhism', 'community','wellbeing','info','manageSite','admin','help']
         } else if (SecurityUtils.subject.principal != null) {
-            navControllers = ['welcome', 'news', 'events', 'meditation', 'buddhism', 'community','wellbeing','info','manageSite','help']
+            navControllers = ['home', 'news', 'events', 'meditation', 'buddhism', 'community','wellbeing','info','manageSite','help']
         }
 
         def current = attrs.current

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>Kagyu Samye Dzong London: About Us</title>

@@ -10,9 +10,10 @@ body {
 
 /* links */
 
-a:link, a:visited {
-    text-decoration: none;
+a:link, a:visited, a:hover, a:active {
     color: rgb(84,164,222);
+    font-weight: bold;
+    text-decoration: none;
 }
 
 /* page structure
@@ -59,10 +60,11 @@ a:link, a:visited {
     background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
     color: rgb(32,107,164);
     color: rgba(32,107,164, 0.8);
-    margin-bottom: 1em;
+/*
     box-shadow: 0px 0px 4px rgb(57,134,192);
     -moz-box-shadow: 0px 0px 4px rgb(57,134,192);
     -webkit-box-shadow: 0px 0px 4px rgb(57,134,192);
+*/
 }
 
 .nav ul {
@@ -90,33 +92,12 @@ a:link, a:visited {
 }
 
 /* highlight current area */
-.articles .nav .articles a,
-.home .nav .home a,
-.help .nav .help a,
-.content-admin .nav .content-admin a,
-.news .nav .news a,
-.events .nav .events a,
-.meditation .nav .meditation a,
-.buddhism .nav .buddhism a,
-.community .nav .community a,
-.wellbeing .nav .wellbeing a,
-.info .nav .info a{
+.nav .current a {
     background: rgb(190,223,93) url(images/darkFadeBottom.png) repeat-x bottom;
     background: rgba(164,193,80,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
-.articles .nav .articles a:hover,
-.home .nav .home a:hover,
-.help .nav .help a:hover,
-.nav ul a:hover,
-.content-admin .nav .content-admin a:hover,
-.news .nav .news a:hover,
-.events .nav .events a:hover,
-.meditation .nav .meditation a:hover,
-.buddhism .nav .buddhism a:hover,
-.community .nav .community a:hover,
-.wellbeing .nav .wellbeing a:hover,
-.info .nav .info a:hover {
+.nav a:hover, .nav .current a:hover {
     background: rgb(164,193,80) url(images/darkFadeBottom.png) repeat-x bottom;
     background: rgba(164,193,80,0.75) url(images/darkFadeBottom.png) repeat-x bottom;
 }
@@ -131,9 +112,10 @@ a:link, a:visited {
     text-shadow: 0 -1px 0 rgba(235,244,250, 0.8);
     letter-spacing: 2px;
 }
+/*
 .nav ul a strong:after {
     content:  "";
-}
+}*/
 
 .nav ul a em {
     display: block;
@@ -162,20 +144,29 @@ for aligning to grid
 .white {
     color:white;
 }
-.green {
-    color:green;
+.red {
+    color: rgb(255,55,52);
+}
+.orange {
+    color: rgb(255,152,52);
 }
 .yellow {
-    color: yellow;
+    color: rgb(255,200,52);
 }
-.cyan {
-    color: cyan;
-}
-.red {
-    color: red;
+.green {
+    color:rgb(143,193,0);
 }
 .blue {
-    color: blue;
+    color: rgb(84,164,222);
+}
+.cyan {
+    color: rgb(111,213,255);
+}
+.purple {
+    color: rgb(180,134,255);
+}
+.pink {
+    color: rgb(218,125,161);
 }
 
 /* positioning
@@ -188,4 +179,50 @@ for aligning to grid
 .right {
     float: right;
     width: 25%;
+}
+
+.content {
+    margin: 1em;
+}
+
+/* PAGINATION */
+
+.paginateButtons {
+    background: #fff url(images/darkFadeBottom.png) bottom repeat-x;
+    border: 1px solid #ccc;
+    border-top: 0;
+    color: rgb(157,134,192);
+    font-family: verdana;
+    font-weight: normal;
+    font-size: x-small;
+    overflow: hidden;
+    padding: 10px 3px;
+}
+.paginateButtons a {
+    background: #fff;
+    border: none;
+    border-color: #ccc #aaa #aaa #ccc;
+    color: rgb(57,134,192);
+    margin: 0 3px;
+    padding: 2px 6px;
+}
+.paginateButtons span {
+    padding: 2px 3px;
+}
+
+.paginateButtons .prevLink {
+
+}
+
+.paginateButtons .step {
+
+}
+.paginateButtons .nextLink {
+
+}
+
+.spinner {
+    padding: 5px;
+    position: absolute;
+    right: 0;
 }

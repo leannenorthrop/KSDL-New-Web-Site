@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
     <title>Welcome Kagyu Samye Dzong London</title>

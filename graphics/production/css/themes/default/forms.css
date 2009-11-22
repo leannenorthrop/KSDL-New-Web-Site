@@ -38,18 +38,74 @@ fieldset .last {
     padding-bottom: 3.75em;
 }
 
-form a.submit {
-    padding: 0.35em 0.75em;
+/* ACTION BUTTONS */
+a.button, form a.submit {
+    font-family: verdana;
+    font-weight: normal;
+    font-size: smaller;
+    padding: 0.35em 0.75em 0.4em 0.75em;
     color: white;
     background: rgb(255,152,52) url(images/buttonHighlight.png) repeat-x 0 50%;
     border: 1px solid rgb(255,152,52);
     width: auto;
+    overflow: hidden;
     border-radius: 14px;
     -webkit-border-radius: 14px;
     -moz-border-radius: 14px;
 }
 
-form a:hover.submit  {
-    background: rgb(164,193,80);
-    border: 1px solid rgb(143,193,0);
+a:hover.button, form a:hover.submit  {
+    background: rgb(255,191,128);
+    border: 1px solid rgb(255,191,128,0);
+    cursor: pointer;
+}
+
+a:active.button, form a:active.submit  {
+    background: rgb(246,232,150);
+    border: 1px solid rgb(246,232,150,0);
+    cursor: pointer;
+}
+
+/* MESSAGES AND ERRORS */
+
+.message {
+    background: #f3f8fc url(images/information.png) 8px 50% no-repeat;
+    border: 1px solid #b2d1ff;
+    color: #006dba;
+    margin: 10px 0 5px 0;
+    padding: 5px 5px 5px 35px;
+}
+
+label.message {
+    border: none;
+    background: transparent url(images/information.png) 0 50% no-repeat;
+    color: #006dba;
+    padding: 0 0 0 20px;
+    width: auto;
+    display: block;
+    margin-top: -0.5em;
+}
+
+.errors {
+    background: #fff3f3;
+    border: 1px solid red;
+    color: #cc0000;
+    margin: 10px 0 5px 0;
+    padding: 5px 0 5px 0;
+}
+.errors ul {
+    list-style: none;
+    padding: 0;
+}
+.errors li {
+    background: url(images/exclamation.png) 8px 0% no-repeat;
+    line-height: 16px;
+    padding-left: 30px;
+}
+
+.errors select {
+    border: 1px solid red;
+}
+.errors input {
+    border: 1px solid red;
 }

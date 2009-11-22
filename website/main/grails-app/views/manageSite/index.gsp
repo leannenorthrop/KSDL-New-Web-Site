@@ -5,9 +5,11 @@
         <title>Kagyu Samye Dzong London: Manage Site Content</title>
     </head>
     <body>
-        <h1>Please select one of the following areas you would like to manage:</h1>
-        <ol>
-            <li><shiro:hasAnyRole in="['Editor','Author','Administrator']"><g:link controller="article" action="manage">Articles</g:link></shiro:hasAnyRole></li>
-        </ol>
+        <div class="menuBar">
+            <span class="menuButton"><g:link class="home" controller="manageSite" action="index">Home</g:link></span>
+            <shiro:hasAnyRole in="['Editor','Author','Administrator']"><span class="menuButton"><g:link class="list" controller="article" action="manage">Articles</g:link></span></shiro:hasAnyRole>
+        </div>
+        <div class="content">
+        </div>
     </body>
 </html>

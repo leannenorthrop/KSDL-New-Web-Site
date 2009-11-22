@@ -1,12 +1,10 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <title>Welcome Kagyu Samye Dzong London</title>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Kagyu Samye Dzong London: News</title>
     <meta name="layout" content="news">
 </head>
 <body>
-    <div class="articles left">
+    <div class="main">
         <ol>
             <g:each in="${articles}" status="i" var="articleInstance">
                 <li class="article">
@@ -18,14 +16,14 @@
             </g:each>
         </ol>
 
-        <g:if test="${articleInstanceTotal}">
+        <g:if test="${articlesTotal}">
             <div class="paginateButtons">
-                <g:paginate total="${articleInstanceTotal}" />
+                <g:paginate total="${articlesTotal}" />
             </div>
         </g:if>
     </div>
-    <div class="right">
-        <div>
+    <div class="secondary">
+        <div id="news-notifications">
             Notifications
             <ul>
                 <li>Email Newsletter</li>
@@ -33,7 +31,7 @@
                 <li>RSS</li>
             </ul>
         </div>
-        <div class="articles">
+        <div id="news-archive">
             <h2>Archive</h2>
             <ol>
                 <g:each in="${archivedArticles}" status="i" var="articleInstance">

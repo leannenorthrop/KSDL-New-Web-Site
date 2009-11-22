@@ -18,13 +18,12 @@
 
   <lsdc:grid />
 
-  <g:if test="${flash.message}">
-    <div class="message">${flash.message}</div>
-  </g:if>
-
   <div id="auth">
       <g:form name="signIn" action="signIn">
         <h1>Sign In</h1>
+        <g:if test="${flash.message}">
+          <label class="message">${flash.message}</label>
+        </g:if>
         <fieldset>
             <label for="username">Email</label>
             <input type="text" id="username" name="username" value="${username}" />
