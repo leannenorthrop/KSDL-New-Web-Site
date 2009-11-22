@@ -3,11 +3,10 @@
     <head>
         <title>Kagyu Samye Dzong London Articles: ${articleInstance.title}</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="content-admin" />
     </head>
     <body>
         <div class="content-admin">
-            <lsdc:nav />
         <h1>${articleInstance.title}</h1>
         <p>${articleInstance.summary}</p>
         <div>

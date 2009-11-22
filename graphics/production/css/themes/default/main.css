@@ -59,9 +59,10 @@ a:link, a:visited {
     background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
     color: rgb(32,107,164);
     color: rgba(32,107,164, 0.8);
-/*    box-shadow: 2px 2px 4px rgb(57,134,192);
-    -moz-box-shadow: 2px 2px 4px rgb(57,134,192);
-    -webkit-box-shadow: 2px 2px 4px rgb(57,134,192);*/
+    margin-bottom: 1em;
+    box-shadow: 0px 0px 4px rgb(57,134,192);
+    -moz-box-shadow: 0px 0px 4px rgb(57,134,192);
+    -webkit-box-shadow: 0px 0px 4px rgb(57,134,192);
 }
 
 .nav ul {
@@ -152,9 +153,9 @@ for aligning to grid
 */
 }
 
-.nav + div {
+/*.nav + div {
     background: transparent url(images/buttonHighlight.png) repeat-x top;
-}
+}*/
 
 /* colors
 --------------------------------------------- */
@@ -175,4 +176,16 @@ for aligning to grid
 }
 .blue {
     color: blue;
+}
+
+/* positioning
+------------------------------------------------*/
+.left {
+    float: left;
+    width: 74.9%;
+}
+
+.right {
+    float: right;
+    width: 25%;
 }

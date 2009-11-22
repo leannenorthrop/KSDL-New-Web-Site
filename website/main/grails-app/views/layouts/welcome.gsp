@@ -17,10 +17,8 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
         <lsdc:header />
-        <div class="home">
-            <lsdc:nav />
-            <g:layoutBody />
-        </div>
+        <lsdc:nav current="home"/>
+        <g:layoutBody />
         <lsdc:grid />
     </body>
 </html>
