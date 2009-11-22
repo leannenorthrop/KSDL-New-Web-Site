@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>New Page</title>
+      <meta name="layout" content="help">
 </head>
 <body>
     <h1>Textile Syntax</h1>
