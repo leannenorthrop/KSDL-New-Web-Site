@@ -106,22 +106,6 @@
     src: url(fonts/CantoriaMTStd-SemiBoldIt.otf) format("opentype");
 }
 
-/* Titling */
-/* Titling sans serif */
-@font-face {
-    font-family: "Trajan Pro";
-    font-weight: normal;
-    font-style: normal;
-    src: url(fonts/KabelLTStd-Light.otf) format("opentype");
-}
-
-/* Titling serif */
-@font-face {
-    font-family: "Kabel";
-    font-weight: lighter;
-    src: url(fonts/KabelLTStd-Light.otf) format("opentype");
-}
-
 /* Tibetan Fonts */
 @font-face {
     font-family: "Kailasa";
@@ -165,19 +149,19 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-size: 150%;
+    font-size: 130%;
 }
 
 h2 {
-    font-size: 140%;
-}
-
-h3 {
     font-size: 120%;
 }
 
-h4 {
+h3 {
     font-size: 110%;
+}
+
+h4 {
+    font-size: 105%;
 }
 
 h5 {

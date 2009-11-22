@@ -1,8 +1,7 @@
 <html>
 <head>
-    <title>Welcome Kagyu Samye Dzong London</title>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="layout" content="meditation">
+    <title>Kagyu Samye Dzong London: Meditation</title>
+    <meta name="layout" content="main">
 </head>
 <body>
 

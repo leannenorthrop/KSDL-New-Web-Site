@@ -49,6 +49,7 @@ a:link, a:visited, a:hover, a:active {
 }
 
 .logo h2 {
+    font-size: 80%;
     position: absolute;
     top: 50%;
     right: 0.5em;
@@ -188,9 +189,6 @@ for aligning to grid
 /* PAGINATION */
 
 .paginateButtons {
-    background: #fff url(images/darkFadeBottom.png) bottom repeat-x;
-    border: 1px solid #ccc;
-    border-top: 0;
     color: rgb(157,134,192);
     font-family: verdana;
     font-weight: normal;
@@ -198,10 +196,15 @@ for aligning to grid
     overflow: hidden;
     padding: 10px 3px;
 }
+
+div.list + div.manage {
+    background: rgb(235,244,250) url(images/darkFadeBottom.png) bottom repeat-x;
+    border: 1px solid #ccc;
+    border-top: 0;
+}
+
 .paginateButtons a {
-    background: #fff;
     border: none;
-    border-color: #ccc #aaa #aaa #ccc;
     color: rgb(57,134,192);
     margin: 0 3px;
     padding: 2px 6px;
@@ -211,14 +214,14 @@ for aligning to grid
 }
 
 .paginateButtons .prevLink {
-
+    font-size:bigger;
 }
 
 .paginateButtons .step {
 
 }
 .paginateButtons .nextLink {
-
+    font-size:bigger;
 }
 
 .spinner {

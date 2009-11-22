@@ -1,7 +1,6 @@
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="main" />
         <title>Kagyu Samye Dzong London: Article List</title>
     </head>

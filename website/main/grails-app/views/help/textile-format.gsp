@@ -1,7 +1,7 @@
 <html>
 <head>
-  <title>New Page</title>
-      <meta name="layout" content="help">
+  <title>Kagyu Samye Dzong London: About Textile</title>
+  <meta name="layout" content="main">
 </head>
 <body>
     <h1>Textile Syntax</h1>

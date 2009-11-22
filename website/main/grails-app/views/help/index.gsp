@@ -1,8 +1,7 @@
 <html>
 <head>
     <title>Kagyu Samye Dzong London: Help</title>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
-    <meta name="layout" content="help">
+    <meta name="layout" content="main">
 </head>
 <body>
         <ol>

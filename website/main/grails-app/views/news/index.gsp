@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Kagyu Samye Dzong London: News</title>
-    <meta name="layout" content="news">
+    <meta name="layout" content="main">
 </head>
 <body>
     <div class="content">
