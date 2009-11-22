@@ -25,7 +25,23 @@
                 </g:hasErrors>
                 <input type="hidden" name="id" value="${articleInstance?.id}" />
                 <input type="hidden" name="version" value="${articleInstance?.version}" />
-                <h2>${fieldValue(bean:articleInstance,field:'title')}</h2>
+                <input type="hidden" name="publishState" value="${articleInstance?.publishState}" />
+                <input type="hidden" name="deleted" value="${articleInstance?.deleted}" />
+                <shiro:lacksRole in="['Author']"><h2>${fieldValue(bean:articleInstance,field:'title')}</h2></shiro:lacksRole>
+                <shiro:hasAnyRole in="['Author']">
+                    <fieldset>
+                        <label for="title">Title</label>
+                        <input type="text" id="title" name="title" class="${hasErrors(bean:articleInstance,field:'title','errors')}" value="${fieldValue(bean:articleInstance,field:'title')}"/>
+                    </fieldset>
+                    <fieldset>
+                        <label for="summary">Summary:</label>
+                        <textarea rows="5" cols="40" name="summary" class="${hasErrors(bean:articleInstance,field:'summary','errors')}">${fieldValue(bean:articleInstance, field:'summary')}</textarea>
+                    </fieldset>
+                    <fieldset>
+                        <label for="content">Content:</label>
+                        <textarea rows="35" cols="40" name="content" class="${hasErrors(bean:articleInstance,field:'content','errors')}">${fieldValue(bean:articleInstance, field:'content')}</textarea>
+                    </fieldset>
+                </shiro:hasAnyRole>
                 <fieldset>
                     <label for="tags">Tags</label>
                     <h4>Suggestions</h4>
