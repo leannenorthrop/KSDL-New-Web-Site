@@ -27,6 +27,9 @@
       </g:form>
       <g:form name="register" action="register">
         <h1>Become a Member</h1>
+        <g:if test="${flash.message}">
+          <label class="message">${flash.message}</label>
+        </g:if>
         <fieldset>
             <label for="username">Email</label>
             <input type="text" id="username" name="username" value="${username}" />
@@ -37,7 +40,7 @@
         </fieldset>
         <fieldset>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" value="" />
+            <input type="password" id="password" name="password2" value="" />
         </fieldset>
         <a class="submit" onClick="document.register.submit();">Register &raquo;</a> or <g:link >Continue as guest</g:link>
       </g:form>
