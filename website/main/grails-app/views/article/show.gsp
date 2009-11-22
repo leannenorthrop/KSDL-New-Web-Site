@@ -7,8 +7,9 @@
     </head>
     <body>
         <div class="menuBar">
-            <span class="menuButton"><g:link class="home" controller="manageSite" action="index">Home</g:link></span>
-            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="list" controller="article" action="manage">Articles</g:link></span></shiro:hasAnyRole>
+            <span class="menuButton"><g:link class="menuButton home" controller="manageSite" action="index">Home</g:link></span>
+            <shiro:hasAnyRole in="['Author', 'Editor','Administrator']"><span class="menuButton"><g:link class="list" controller="article" action="manage" params="[offset:0,max:10]">Articles</g:link></span></shiro:hasAnyRole>
+            <shiro:hasAnyRole in="['Editor','Administrator']"><g:if test="${articleInstance.publishState == 'Unpublished'}"><span class="menuButton"><g:link action="pre_publish" id="${articleInstance.id}">Publish</g:link></span></g:if></shiro:hasAnyRole>
         </div>
         <div class="content">
             <div class="article">
@@ -17,7 +18,6 @@
                 <div class="body">
                     ${articleInstance.content.encodeAsTextile()}
                 </div>
-                <shiro:hasAnyRole in="['Editor','Administrator']"><g:link action="button edit" id="${articleInstance.id}">Prepare for Publication</g:link></shiro:hasAnyRole>
             </div>
         </div>
     </body>

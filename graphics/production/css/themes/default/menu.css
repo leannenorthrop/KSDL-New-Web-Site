@@ -1,0 +1,32 @@
+/* Manage Content Menu Bar */
+
+.menuBar {
+    background: #fff url(images/darkFadeBottom.png) bottom repeat-x;
+    border: 1px solid #ccc;
+    border-style: solid none solid none;
+    padding: 7px 12px;
+}
+
+.menuButton {
+    font-size: 10px;
+    padding: 0 5px;
+}
+.menuButton a {
+    color: #333;
+    padding: 4px 6px;
+}
+.menuButton a.home {
+    background: url(images/house.png) center left no-repeat;
+    color: #333;
+    padding-left: 25px;
+}
+.menuButton a.list {
+    background: url(images/database_table.png) center left no-repeat;
+    color: #333;
+    padding-left: 25px;
+}
+.menuButton a.create {
+    background: url(images/database_add.png) center left no-repeat;
+    color: #333;
+    padding-left: 25px;
+}

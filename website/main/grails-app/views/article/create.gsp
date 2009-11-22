@@ -8,7 +8,7 @@
     <body>
         <div class="menuBar">
             <span class="menuButton"><g:link class="home" controller="manageSite" action="index">Home</g:link></span>
-            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="list" controller="article" action="manage">Articles</g:link></span></shiro:hasAnyRole>
+            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="list" controller="article" action="manage" params="[offset:0,max:10]">Articles</g:link></span></shiro:hasAnyRole>
         </div>
         <div class="content">
             <g:form id="createarticle" name="createarticle" action="save" method="post" >

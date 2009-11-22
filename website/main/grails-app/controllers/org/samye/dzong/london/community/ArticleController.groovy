@@ -128,6 +128,48 @@ class ArticleController {
         }
     }
 
+    def pre_publish = {
+        def articleInstance = Article.get( params.id )
+
+        if(!articleInstance) {
+            flash.message = "Article not found with id ${params.id}"
+            redirect(action:manage)
+        }
+        else {
+            return render(view:'publish',model:[ articleInstance : articleInstance ])
+        }
+    }
+
+    def publish = {
+        def articleInstance = Article.get( params.id )
+        if(articleInstance) {
+            if(params.version) {
+                def version = params.version.toLong()
+                if(articleInstance.version > version) {
+                    flash.message = "Article ${articleInstance.title} was being edited - please try again."
+                    redirect(action:manage,id:articleInstance.id)
+                    return
+                }
+            }
+            articleInstance.publishState = "Published"
+            if (params.tags) {
+                articleInstance.parseTags(params.tags)
+            }
+            if(!articleInstance.hasErrors() && articleInstance.save()) {
+                flash.message = "Article ${articleInstance.title} has been Published"
+                redirect(action:manage,id:articleInstance.id)
+            }
+            else {
+                flash.message = "Article ${articleInstance.title} could not be ${params.state} due to an internal error. Please try again."
+                redirect(action:manage,id:articleInstance.id)
+            }
+        }
+        else {
+            flash.message = "Article not found with id ${params.id}"
+            redirect(action:manage)
+        }
+    }
+
     def update = {
         def articleInstance = Article.get( params.id )
         if(articleInstance) {
@@ -145,7 +187,7 @@ class ArticleController {
             }
             if(!articleInstance.hasErrors() && articleInstance.save()) {
                 flash.message = "Article ${articleInstance.title} updated"
-                redirect(action:manage,id:articleInstance.id)
+                redirect(action:manage)
             }
             else {
                 render(view:'edit',model:[articleInstance:articleInstance])
