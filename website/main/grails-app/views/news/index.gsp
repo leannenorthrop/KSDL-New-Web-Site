@@ -4,13 +4,13 @@
     <meta name="layout" content="main">
 </head>
 <body>
-        <div class="col1_66_Percent articles">
+        <div class="col1_66_Percent articles box">
         <h2>News <span class="amp">&amp;</span> Goings On</h2>
         <ol>
             <g:each in="${articles}" status="i" var="articleInstance">
                 <li class="article">
                     <h3><g:link controller="article" action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h3>
-                    <h4>by <a>Leanne Northrop</a></h4>
+                    <h4>by <a>To Be Done</a></h4>
                     <h5>20 October, 2009</h5>
                     <p>${articleInstance.summary.encodeAsTextile()}</p>
                 </li>
@@ -18,7 +18,7 @@
         </ol>
     </div>
     <div class="col2_33_Percent">
-        <div id="news-notifications">
+        <div id="news-notifications" class="box">
             <h2>Notifications</h2>
             <ul>
                 <li>&#9993; Sign up for Email newsletter</li>
@@ -26,7 +26,7 @@
                 <li>RSS Feed</li>
             </ul>
         </div>
-        <div id="news-archive">
+        <div id="news-archive" class="box">
             <h2>Older News Items</h2>
             <ul>
                 <!-- TODO mark last child -->

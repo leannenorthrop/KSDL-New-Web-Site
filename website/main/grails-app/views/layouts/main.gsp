@@ -20,6 +20,6 @@
         </div>
         <g:layoutBody />
         <lsdc:grid />
-        <div class="footer">Hello</div>
+        <div class="footer">Copyright &#169; 2009</div>
     </body>
 </html>
