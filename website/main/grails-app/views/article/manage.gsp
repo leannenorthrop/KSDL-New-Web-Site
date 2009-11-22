@@ -25,9 +25,11 @@
 
                             <g:sortableColumn property="publishState" title="Published" />
 
-                            <shiro:hasAnyRole in="['Editor','Administrator']"><th>Change State</th></shiro:hasAnyRole>
+                            <shiro:hasAnyRole in="['Editor','Administrator']">
+                                <th></th>
+                            </shiro:hasAnyRole>
 
-                            <th></th>
+                            <shiro:hasAnyRole in="['Author']"><th></th></shiro:hasAnyRole>
                         </tr>
                     </thead>
                     <tbody>
@@ -59,26 +61,31 @@
 
                             <shiro:hasAnyRole in="['Editor','Administrator']">
                                 <td>
-                                <g:if test="${articleInstance.publishState == 'Unpublished'}">
-                                    <g:link action="changeState" id="${articleInstance.id}" params="[state:'Published']" onclick="return confirm('Are you sure?');" >Publish</g:link>
-                                </g:if>
-                                <g:if test="${articleInstance.publishState == 'Published'}">
-                                    <g:link action="changeState" id="${articleInstance.id}" params="[state:'Unpublished']" onclick="return confirm('Are you sure?');" >Unpublish</g:link>
-                                    <br /><g:link action="changeState" id="${articleInstance.id}" params="[state:'Archived']" onclick="return confirm('Are you sure?');" >Archive</g:link>
-                                </g:if>
+                                    <g:if test="${articleInstance.publishState == 'Unpublished'}">
+                                        <g:link action="pre_publish" id="${articleInstance.id}">Publish</g:link>
+                                    </g:if>
+                                    <g:if test="${articleInstance.publishState == 'Published'}">
+                                        <g:link action="pre_publish" id="${articleInstance.id}">Edit</g:link>
+                                        <br />
+                                        <g:link action="changeState" id="${articleInstance.id}" params="[state:'Unpublished']" onclick="return confirm('Are you sure?');" >Unpublish</g:link>
+                                        <br /><g:link action="changeState" id="${articleInstance.id}" params="[state:'Archived']" onclick="return confirm('Are you sure?');" >Archive</g:link>
+                                    </g:if>
+                                    <br/>
+                                    <g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');" >Delete</g:link>
                                 </td>
                             </shiro:hasAnyRole>
 
-                            <td>
-                                 <shiro:hasAnyRole in="['Editor','Administrator']"><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');" >Delete</g:link></shiro:hasAnyRole>
-                                 <shiro:hasAnyRole in="['Author']"><g:if test="${articleInstance.publishState == 'Unpublished'}"><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');">Delete</g:link></g:if></shiro:hasAnyRole>
-                            </td>
+                            <shiro:hasAnyRole in="['Author']">
+                                <td>
+                                     <shiro:hasAnyRole in="['Author']"><g:if test="${articleInstance.publishState == 'Unpublished'}"><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');">Delete</g:link></g:if></shiro:hasAnyRole>
+                                </td>
+                            </shiro:hasAnyRole>
                         </tr>
                     </g:each>
                     </tbody>
                 </table>
             </div>
-            <div class="paginateButtons">
+            <div class="manage paginateButtons">
                 <g:paginate total="${articleTotal}" />
             </div>
         </div>
