@@ -11,7 +11,7 @@ class ArticleController {
             def articles = articleService.publishedByTags(tags)
             model:[ articleInstanceList: articles, title: 'Articles With Tags ' + params.tags]
         } else {
-            def publishedArticles = Article.findAllByPublishState("Published", [max:max])
+            def publishedArticles = Article.findAllByPublishState("Published")
             model:[ articleInstanceList: publishedArticles, title: "All Articles" ]
         }
     }

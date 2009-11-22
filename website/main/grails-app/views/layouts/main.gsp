@@ -6,13 +6,18 @@
 <![if gte IE 7]>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/themes/default',file:'screen.css')}" />
 <![endif]>
-
+<!--[if gte IE 7]>
+    <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/themes/default',file:'ie.css')}" />
+<[endif]-->
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <lsd:link obj="${application}"/>
         <g:layoutHead />
         <g:javascript library="application" />
     </head>
-    <body>
+    <shiro:isLoggedIn in="['Editor','Administrator','Author']">
+        <body style="min-width:70em">
+    </shiro:isLoggedIn>
+    <shiro:isNotLoggedIn><body></shiro:isNotLoggedIn>
         <lsdc:header />
         <lsdc:nav current="${controllerName}"/>
         <div id="spinner" class="spinner" style="display:none;">
