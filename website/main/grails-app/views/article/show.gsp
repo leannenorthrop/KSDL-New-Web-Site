@@ -12,14 +12,20 @@
             <shiro:hasAnyRole in="['Editor','Administrator']"><g:if test="${articleInstance.publishState == 'Unpublished'}"><span class="menuButton"><g:link action="pre_publish" id="${articleInstance.id}">Publish</g:link></span></g:if></shiro:hasAnyRole>
             <shiro:hasAnyRole in="['Editor','Administrator']"><g:if test="${articleInstance.publishState == 'Published'}"><span class="menuButton"><g:link action="pre_publish" id="${articleInstance.id}">Edit</g:link></span></g:if></shiro:hasAnyRole>
         </div>
-        <div class="content">
-            <div class="article">
-                <h1>${articleInstance.title}</h1>
-                <p class="summary">${articleInstance.summary.encodeAsTextile()}</p>
-                <div class="body">
-                    ${articleInstance.content.encodeAsTextile()}
-                </div>
-            </div>
+        <div class="col1_80_Percent article">
+            <h2>${articleInstance.title}</h2>
+
+            <ul>
+                <li><h3>20 October, 2009</h3></li>
+                <li><h4>by <a>To Be Done</a></h4></li>
+            </ul>
+
+            <div class="body">
+                ${articleInstance.content.encodeAsTextile()}
+            </div><!-- /body -->
+        </div><!-- /left -->
+
+        <div class="col2_20_Percent">
         </div>
     </body>
 </html>

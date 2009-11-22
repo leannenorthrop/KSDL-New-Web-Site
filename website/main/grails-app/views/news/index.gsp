@@ -12,7 +12,7 @@
                     <h3><g:link controller="article" action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h3>
                     <h4>by <a>To Be Done</a></h4>
                     <h5>20 October, 2009</h5>
-                    <p>${articleInstance.summary.encodeAsTextile()}</p>
+                    <p>${articleInstance.summary}</p>
                 </li>
             </g:each>
         </ol>
