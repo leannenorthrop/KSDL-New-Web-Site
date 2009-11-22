@@ -4,141 +4,38 @@
 */
 
 body {
-    background: rgb(250,241,195);
-    min-width: 70em;
+    background: rgb(242,238,211);
+    min-width: 80em;
 }
 
 /* links */
 
-a:link, a:visited, a:hover, a:active {
+a, a:link, a:visited, a:hover, a:active {
     color: rgb(84,164,222);
-    font-weight: bold;
     text-decoration: none;
+    cursor: pointer;
 }
 
-/* page structure
---------------------------------------------- */
-
-/* header
---------------------------------------------- */
-
-/* logo */
-.logo {
-    padding-top: 1em;
-    position: relative;
-    background: rgb(187,217,238) url(images/buttonHighlight.png) repeat-x top;
-    color: rgb(32,107,164);
-    z-index: 1;
+h1 {
 }
 
-.logo img {
-    position: absolute;
-    width: 6em;
-    height: 6em;
-    opacity: 0.9;
-    top: 25%;
-    left: 0.5em;
+h2 {
+    border-bottom: 1px solid rgb(143,193,0);
+    line-height: 1.4em;
+    margin-bottom: 1em;
 }
 
-.logo h1 {
-    vertical-align: middle;
-    font-family: "Brioso Pro";
-    font-style: italic;
-    font-size: 3em;
-    padding-left: 2.3em;
+h3 {
 }
 
-.logo h2 {
-    font-size: 80%;
-    position: absolute;
-    top: 50%;
-    right: 0.5em;
+h4 {
 }
 
-/* navigation*/
-.nav {
-    position: relative;
-    background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
-    color: rgb(32,107,164);
-    color: rgba(32,107,164, 0.8);
-/*
-    box-shadow: 0px 0px 4px rgb(57,134,192);
-    -moz-box-shadow: 0px 0px 4px rgb(57,134,192);
-    -webkit-box-shadow: 0px 0px 4px rgb(57,134,192);
-*/
+h5 {
 }
 
-.nav ul {
-    margin: 0 0 0 125px;
-    list-style: none;
-    overflow: hidden;
-    font-size: 70%;
+h6 {
 }
-
-.nav ul li {
-    float: left;
-}
-
-.nav ul a {
-    line-height: 1.6em;
-    padding: 0.5em 0.8em 0.3em 0.75em;
-    display: block;
-    text-decoration: none;
-    border: none;
-    border-right: 1px solid rgb(32,107,164);
-    border-right: 1px solid rgba(32,107,164, 0.4);
-    color: rgb(32,107,164);
-    color: rgba(32,107,164, 0.8);
-    -webkit-transition: background-color .4s linear;
-}
-
-/* highlight current area */
-.nav .current a {
-    background: rgb(190,223,93) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(164,193,80,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
-}
-
-.nav a:hover, .nav .current a:hover {
-    background: rgb(164,193,80) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(164,193,80,0.75) url(images/darkFadeBottom.png) repeat-x bottom;
-}
-
-.nav ul a strong {
-    text-align: left;
-    display: block;
-    font-family: verdana;
-    font-size: 120%;
-    text-transform: uppercase;
-    text-shadow: 0 -1px 0 rgb(235,244,250);
-    text-shadow: 0 -1px 0 rgba(235,244,250, 0.8);
-    letter-spacing: 2px;
-}
-/*
-.nav ul a strong:after {
-    content:  "";
-}*/
-
-.nav ul a em {
-    display: block;
-}
-
-.nav ul li.last a {
-    border: none;
-    margin-right: 0;
-}
-
-.nav ul li.first a {
-    margin-left: 0;
-/*
-for aligning to grid
-    border-left: 1px solid rgb(32,107,164);
-    border-left: 1px solid rgba(32,107,164, 0.4);
-*/
-}
-
-/*.nav + div {
-    background: transparent url(images/buttonHighlight.png) repeat-x top;
-}*/
 
 /* colors
 --------------------------------------------- */
@@ -170,24 +67,8 @@ for aligning to grid
     color: rgb(218,125,161);
 }
 
-/* positioning
-------------------------------------------------*/
-.left {
-    float: left;
-    width: 74.9%;
-}
-
-.right {
-    float: right;
-    width: 25%;
-}
-
-.content {
-    margin: 1em;
-}
-
-/* PAGINATION */
-
+/* pagination
+--------------------------------------------- */
 .paginateButtons {
     color: rgb(157,134,192);
     font-family: verdana;

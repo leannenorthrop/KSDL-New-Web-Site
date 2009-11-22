@@ -20,5 +20,6 @@
         </div>
         <g:layoutBody />
         <lsdc:grid />
+        <div class="footer">Hello</div>
     </body>
 </html>

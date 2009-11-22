@@ -62,7 +62,7 @@ class CommonLayoutTagLib {
 
     def grid = { attrs ->
         out << """<div id="grid">"""
-        0.times {
+        20.times {
             out << """<span class="gcol"><span class="gleft">&nbsp;</span><span class="ggap">&nbsp;</span><span class="gright">&nbsp;</span></span>"""
         }
         out << "</div>"

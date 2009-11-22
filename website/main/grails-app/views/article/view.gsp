@@ -6,29 +6,25 @@
         <meta name="layout" content="content-admin" />
     </head>
     <body>
-        <div class="article">
-            <div class="wrap group">
-                <div class="left">
-                    <h3>${articleInstance.title}</h3>
+        <div class="col1_80_Percent article">
+            <h2>${articleInstance.title}</h2>
 
-                    <ul class="article-information">
-                        <li>by <a>Leanne Northrop</a></li>
-                        <li>20 October, 2009</li>
-                    </ul>
+            <ul>
+                <li><h3>20 October, 2009</h3></li>
+                <li><h4>by <a>Leanne Northrop</a></h4></li>
+            </ul>
 
-                    <div class="body">
-                        ${articleInstance.content.encodeAsTextile()}
-                    </div><!-- /body -->
-                </div><!-- /left -->
+            <div class="body">
+                ${articleInstance.content.encodeAsTextile()}
+            </div><!-- /body -->
+        </div><!-- /left -->
 
-                <div class="right">
-                    <h3>Other Articles</h3>
-                    <ul>
-                        <li>a</li>
-                        <li>b</li>
-                    </ul>
-                </div>
-            </div><!-- /group -->
-        </div><!-- /article -->
+        <div class="col2_20_Percent">
+            <h2>Other Articles</h2>
+            <ul>
+                <li>Previous</li>
+                <li>Next</li>
+            </ul>
+        </div>
     </body>
 </html>
