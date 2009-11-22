@@ -187,6 +187,12 @@ h5 {
 h6 {
     font-size: 100%;
 }
+label {
+    font-size: smaller;
+    font-weight: bold;
+    font-family: helvetica, arial, sans-serif;
+}
+
 .tibetan {
     font-family: "Kokonor";
     font-size: 4em;

@@ -1,7 +1,8 @@
-role :app, ''
+role :app, '205.143.144.237'
 #Unfortunately repository has to be set here to overwrite the path in the giovanni library
 # This file is only intended to deploy so we use a different url here.
-set :repository, 'http://:8080/job/MainBuild/lastSuccessfulBuild/artifact/war/target'
+#set :repository, 'http://:8080/job/MainBuild/lastSuccessfulBuild/artifact/war/target'
+set :repository, 'http://90.199.221.159/~northrl'
 set :artifact_id, 'london-samye-dzong'
 =begin
 set :tomcat_ds, {
