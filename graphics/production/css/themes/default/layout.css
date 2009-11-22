@@ -1,0 +1,202 @@
+/* page structure
+--------------------------------------------- */
+.content {
+    margin-top: 1em;
+    border: 1px solid red;
+    position: relative;
+}
+
+.footer {
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1em;
+    border: 1px solid rgb(113,179,226);
+    background: rgb(212,231,244);
+    background: rgba(212,231,244,0.7);
+    font-size: smaller;
+    padding: 0.7em 1em;
+}
+
+/* header
+--------------------------------------------- */
+
+/* logo */
+.logo {
+    padding-top: 1em;
+    position: relative;
+    background: rgb(187,217,238) url(images/buttonHighlight.png) repeat-x top;
+    color: rgb(32,107,164);
+    z-index: 1;
+}
+
+.logo img {
+    position: absolute;
+    width: 6em;
+    height: 6em;
+    opacity: 0.9;
+    top: 25%;
+    left: 0.5em;
+}
+
+.logo h1 {
+    vertical-align: middle;
+    font-family: "Brioso Pro";
+    font-style: italic;
+    font-size: 3em;
+    padding-left: 2.3em;
+}
+
+.logo h2 {
+    font-size: 80%;
+    position: absolute;
+    top: 50%;
+    right: 0.5em;
+}
+
+/* navigation
+------------------------------------------------*/
+.nav {
+    position: relative;
+    background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+/*
+    box-shadow: 0px 0px 4px rgb(57,134,192);
+    -moz-box-shadow: 0px 0px 4px rgb(57,134,192);
+    -webkit-box-shadow: 0px 0px 4px rgb(57,134,192);
+*/
+}
+
+.nav ul {
+    margin: 0 0 0 125px;
+    list-style: none;
+    overflow: hidden;
+    font-size: 70%;
+}
+
+.nav ul li {
+    float: left;
+}
+
+.nav ul a {
+    line-height: 1.6em;
+    padding: 0.5em 0.8em 0.3em 0.75em;
+    display: block;
+    text-decoration: none;
+    border: none;
+    border-right: 1px solid rgb(32,107,164);
+    border-right: 1px solid rgba(32,107,164, 0.4);
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+    -webkit-transition: background-color .4s linear;
+}
+
+/* highlight current area */
+.nav .current a {
+    background: rgb(190,223,93) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(164,193,80,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.nav a:hover, .nav .current a:hover {
+    background: rgb(164,193,80) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(164,193,80,0.75) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.nav ul a strong {
+    text-align: left;
+    display: block;
+    font-family: verdana;
+    font-size: 120%;
+    text-transform: uppercase;
+    text-shadow: 0 -1px 0 rgb(235,244,250);
+    text-shadow: 0 -1px 0 rgba(235,244,250, 0.8);
+    letter-spacing: 2px;
+}
+
+.nav ul a em {
+    display: block;
+}
+
+.nav ul li.last a {
+    border: none;
+    margin-right: 0;
+}
+
+.nav ul li.first a {
+    margin-left: 0;
+/*
+for aligning to grid
+    border-left: 1px solid rgb(32,107,164);
+    border-left: 1px solid rgba(32,107,164, 0.4);
+*/
+}
+
+/*.nav + div {
+    background: transparent url(images/buttonHighlight.png) repeat-x top;
+}*/
+
+/*************************************************
+    Layout styles
+*************************************************/
+/* 2 Equal Columns Liquid Layout with Guttering
+------------------------------------------------*/
+.col1_50_Percent {
+    float: left;
+    width: 43.72%;
+    margin: 1em 0 0 2.3%;
+    padding-right: 3%;
+}
+
+.col2_50_Percent {
+    float: left;
+    width: 43.72%;
+    margin: 1em 0 1em 1.7%;
+    padding-right: 3%;
+}
+
+/* 2 Columns Liquid Layout 2/3 + 1/3 with Guttering
+------------------------------------------------*/
+.col1_66_Percent {
+    float: left;
+    width: 58.235%;
+    margin: 1em 0 0 2.3%;
+    padding-right: 3%;
+}
+
+.col2_33_Percent {
+    float: left;
+    width: 29.1%;
+    margin: 1em 0 1em 1.7%;
+    padding-right: 3%;
+}
+
+/* 2 Columns Liquid Layout 80% + 20% with Guttering
+------------------------------------------------*/
+.col1_80_Percent {
+    float: left;
+    width: 70%;
+    margin: 1em 0 0 2.3%;
+    padding-right: 3%;
+}
+
+.col2_20_Percent {
+    float: left;
+    width: 17.5%;
+    margin: 1em 0 1em 1.7%;
+    padding-right: 3%;
+}
+
+
+/* positioning
+------------------------------------------------*/
+.left {
+    float: left;
+    width: 74.9%;
+}
+
+.right {
+    float: right;
+    width: 25%;
+}
