@@ -1,109 +1,52 @@
-/* Body Text */
-@font-face {
-    font-family: "Adobe Caslon Pro";
-    font-weight: bolder;
-    font-style: normal;
-    src: url(fonts/ACaslonPro-Bold.otf) format("opentype");
-}
+/* With Many Thanks to at Jos Buivenga (exljbris)  http://www.josbuivenga.demon.nl for creating web friendly commericial licences for his fonts*/
+/* Fonts by Jos Buivenga (exljbris) -> www.exljbris.nl */
 
 @font-face {
-    font-family: "Adobe Caslon Pro";
-    font-weight: bolder;
-    font-style: italic;
-    src: url(fonts/ACaslonPro-BoldItalic.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Adobe Caslon Pro";
-    font-weight: normal;
-    font-style: italic;
-    src: url(fonts/ACaslonPro-Italic.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Adobe Caslon Pro";
-    font-weight: normal;
-    font-style: normal;
-    src: url(fonts/ACaslonPro-Regular.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Adobe Caslon Pro";
+    font-family: "Calluna";
     font-weight: bold;
     font-style: normal;
-    src: url(fonts/ACaslonPro-Semibold.otf) format("opentype");
+    src: url(fonts/Calluna-Semibold.otf) format("opentype");
 }
 
 @font-face {
-    font-family: "Adobe Caslon Pro";
+    font-family: "Calluna";
     font-weight: bold;
     font-style: italic;
-    src: url(fonts/ACaslonPro-SemiboldItalic.otf) format("opentype");
+    src: url(fonts/Calluna-SemiboldIt.otf) format("opentype");
 }
 
-/* Blockquotes */
 @font-face {
-    font-family: "Brioso Pro";
+    font-family: "Calluna";
+    font-weight: normal;
+    font-style: italic;
+    src: url(fonts/Calluna-It.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Calluna";
     font-weight: normal;
     font-style: normal;
-    src: url(fonts/BriosoPro-LightDisp.otf) format("opentype");
+    src: url(fonts/Calluna-Regular.otf) format("opentype");
 }
-
 @font-face {
-    font-family: "Brioso Pro";
+    font-family: "Calluna";
     font-weight: lighter;
     font-style: normal;
-    src: url(fonts/BriosoPro-LightPoster.otf) format("opentype");
+    src: url(fonts/Calluna-Light.otf) format("opentype");
 }
 
 @font-face {
-    font-family: "Brioso Pro";
+    font-family: "Fertigo Pro";
+    font-weight: normal;
+    font-style: normal;
+    src: url(fonts/Fertigo_PRO.otf) format("opentype");
+}
+
+@font-face {
+    font-family: "Fertigo Pro";
     font-weight: lighter;
     font-style: italic;
-    src: url(fonts/BriosoPro-LightPosterIt.otf) format("opentype");
-}
-
-/* Headings, etc */
-@font-face {
-    font-family: "Cantoria";
-    font-weight: bolder;
-    font-style: normal;
-    src: url(fonts/CantoriaMTStd-ExtraBold.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Cantoria";
-    font-weight: bolder;
-    font-style: italic;
-    src: url(fonts/CantoriaMTStd-ExtraBoldIt.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Cantoria";
-    font-weight: normal;
-    font-style: normal;
-    src: url(fonts/CantoriaMTStd-Light.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Cantoria";
-    font-weight: normal;
-    font-style: italic;
-    src: url(fonts/CantoriaMTStd-LightItalic.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Cantoria";
-    font-weight: bold;
-    font-style: normal;
-    src: url(fonts/CantoriaMTStd-SemiBold.otf) format("opentype");
-}
-
-@font-face {
-    font-family: "Cantoria";
-    font-weight: bold;
-    font-style: italic;
-    src: url(fonts/CantoriaMTStd-SemiBoldIt.otf) format("opentype");
+    src: url(fonts/FertigoPro_Italic.otf) format("opentype");
 }
 
 /* Tibetan Fonts */
@@ -122,28 +65,28 @@
 /* Main Styles */
 body {
     font-size: 100%;
-    font-family: "Adobe Caslon Pro";
-    font-weight: normal;
+    font-family: "Calluna";
+    font-weight: lighter;
 }
 
 strong {
-    font-family: "Adobe Caslon Pro";
+    font-family: "Calluna";
     font-weight: bold;
 }
 
 em {
-    font-family: "Adobe Caslon Pro";
+    font-family: "Calluna";
     font-weight: italic;
 }
 
 blockquote {
-    font-family: "Brioso Pro";
+    font-family: "Calluna";
     font-weight: italic;
-    font-size: x-large;
+    font-size: smaller;
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: "Cantoria";
+    font-family: "Calluna";
     font-style: normal;
     font-weight: normal;
 }
@@ -154,6 +97,7 @@ h1 {
 
 h2 {
     font-size: 120%;
+    font-style: italic;
 }
 
 h3 {
@@ -186,11 +130,13 @@ label {
 /* use the best possible ampersand */
 
 span.amp {
-    font-family: "Brioso Pro Light Poster", "Adobe Caslon Pro", "Sanvito Pro Light Display", "Sanvito Pro Light", Baskerville, "Century Schoolbook", "Bell MT Italic", "Goudy Old Style Italic", "Batang Regular"{
-    NSFont = "GoudyOldStyleT-Italic 12.00 pt. P [] (0x5f18da0) fobj=0x1121400, spc=3.00";
-}", "Palatino", "Book Antiqua", serif;
+    font-family: "Brioso Pro Light Poster", "Adobe Caslon Pro", "Sanvito Pro Light Display", "Sanvito Pro Light", Baskerville, "Century Schoolbook", "Bell MT Italic", "Goudy Old Style Italic", "Batang Regular", "Palatino", "Book Antiqua", serif;
     font-weight: normal;
     font-style: italic;
     font-size: 1.2em;
-    color: #766557;
+    color: rgb(143,193,0);
+}
+
+span.webding {
+    font-family: Arial, sans-serif;
 }

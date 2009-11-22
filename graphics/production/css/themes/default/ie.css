@@ -24,3 +24,7 @@ Author:     dan@simplebits.com
 *:first-child+html .group { /* IE7 */
     min-height: 1px;
 }
+
+tr,td {
+    background: white;
+}
