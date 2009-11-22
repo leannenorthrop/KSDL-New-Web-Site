@@ -9,7 +9,7 @@
     </div>
     <div class="col2_20_Percent">
         <div class="box">
-            <h2>News</h2>
+            <h2>News <span class="amp">&amp;</span> Goings On</h2>
         </div>
         <div class="box">
             <h2>Gallery</h2>

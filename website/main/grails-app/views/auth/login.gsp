@@ -5,8 +5,8 @@
         <meta name="layout" content="main" />
     </head>
 <body>
-  <div id="auth">
-      <g:form name="signIn" action="signIn">
+  <div id="auth" class="group">
+      <g:form id="signIn" name="signIn" action="signIn">
         <h1>Sign In</h1>
         <g:if test="${flash.message}">
           <label class="message">${flash.message}</label>
@@ -25,7 +25,7 @@
         <input type="hidden" name="targetUri" value="${targetUri}" />
         <a class="submit" onClick="document.signIn.submit();">Sign In &raquo;</a>
       </g:form>
-      <g:form name="register" action="register">
+      <g:form id="register" name="register" action="register">
         <h1>Become a Member</h1>
         <g:if test="${flash.message}">
           <label class="message">${flash.message}</label>
