@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Kagyu Samye Dzong London: News</title>
+    <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>    
     <meta name="layout" content="main">
 </head>
 <body>
@@ -23,9 +24,9 @@
         <div id="news-notifications" class="box">
             <h2>Notifications</h2>
             <ul>
-                <li>&#9993; Sign up for Email newsletter</li>
-                <li>Follow us on Twitter</li>
-                <li>RSS Feed</li>
+                <li class="email">Sign up for Email newsletter</li>
+                <li class="twitter">Follow us on Twitter</li>
+                <li class="rss"><g:link controller="feed" action="index">RSS Feeds</g:link></li>
             </ul>
         </div>
         <div id="news-archive" class="box">
