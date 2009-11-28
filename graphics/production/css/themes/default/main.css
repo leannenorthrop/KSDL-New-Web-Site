@@ -7,7 +7,8 @@ body {
     background: rgb(242,238,211);
 }
 
-/* links */
+/* Links
+--------------------------------------------------*/
 
 a, a:link, a:visited, a:hover, a:active {
     color: rgb(84,164,222);
@@ -15,6 +16,27 @@ a, a:link, a:visited, a:hover, a:active {
     cursor: pointer;
 }
 
+.email a {
+	background: url(images/Email.png) no-repeat left 50%;
+	padding-left: 20px;
+	line-height: 1.6em;	
+}
+
+.twitter a {
+	background: url(images/Twitter.png) no-repeat left 50%;
+	padding-left: 20px;
+	line-height: 1.6em;	
+}
+
+.rss a {
+	background: url(images/RSS.png) no-repeat left 50%;
+	padding-left: 20px;
+	line-height: 1.6em;
+}
+
+
+/* Headings (see fonts.css for font)
+----------------------------------------------*/
 h1 {
 }
 
@@ -34,6 +56,13 @@ h5 {
 }
 
 h6 {
+}
+
+/* Headings (see fonts.css for font)
+----------------------------------------------*/
+ol {
+	margin-top: 1em;
+  	margin-left: 1em;
 }
 
 /* Boxes
@@ -124,3 +153,24 @@ div.list + div.manage {
     position: absolute;
     right: 0;
 }
+
+/* Cloud
+--------------------------------------------------*/
+.cloud {
+}
+
+.cloud ul li {
+	display: inline;
+	padding: 0.2em;
+}
+
+.cloud span.tag1 { font-size: 0.7em; font-weight: 100; }
+.cloud span.tag2 { font-size: 0.8em; font-weight: 200; }
+.cloud span.tag3 { font-size: 0.9em; font-weight: 300; }
+.cloud span.tag4 { font-size: 1.0em; font-weight: 400; }
+.cloud span.tag5 { font-size: 1.2em; font-weight: 500; }
+.cloud span.tag6 { font-size: 1.4em; font-weight: 600; }
+.cloud span.tag7 { font-size: 1.6em; font-weight: 700; }
+.cloud span.tag8 { font-size: 1.8em; font-weight: 800; }
+.cloud span.tag9 { font-size: 2.2em; font-weight: 900; }
+.cloud span.tag10 { font-size: 2.5em; font-weight: 900; }
