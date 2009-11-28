@@ -4,7 +4,43 @@ import groovy.xml.StreamingMarkupBuilder
 
 class CommonLayoutTagLib {
     static namespace = 'lsdc'
-
+	def tagService;
+	
+	def cloud = { attrs ->
+		def tags = tagService.tagCounts()
+		def biggestTagCount = tags.inject(0){ num, item -> 
+			num = Math.max(num, item[1])
+		}
+		if (biggestTagCount == 0) {
+			out << "<div class=\"cloud group \"><h2>Tag Cloud</h2><li></li></div>";
+			return;
+		}
+		
+		def ranks = tags.collect { tag ->
+			def percent = (tag[1]/biggestTagCount)*100;
+			def group =  Math.round(Math.floor(percent*0.1));
+			group
+		}
+        def cloudList = {
+            div(class: "cloud box group") {
+				h2("Articles")
+                ul {
+					tags.eachWithIndex { tag,index ->
+						li {
+							def label = tag[0].contains(' ') ? "\"${tag[0]}\"" : tag[0];
+							def linkElement = link(controller:'article', params:[tags:[tag[0]]]) {"<span class=\"tag${ranks[index]}\">${label}</span>"}
+							mkp.yieldUnescaped(linkElement)
+						}
+					}
+				}
+			}
+		}
+		
+        def builder = new StreamingMarkupBuilder()
+        builder.encoding = "UTF-8"
+        out << builder.bind(cloudList)			
+	}
+	
     def nav = { attrs ->
         def navControllers = ['home', 'news', 'events', 'meditation', 'buddhism', 'community','wellbeing']
         def navTitles = [home: 'Welcome', news: 'News', events: 'Events', meditation: 'Meditation', buddhism: 'Buddhism', community:'Community',wellbeing:'Well&#x2740;Being',info:'Info',manageSite:'Manage',admin:'Administration',help:'Help']

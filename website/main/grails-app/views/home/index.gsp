@@ -14,9 +14,7 @@
         <div class="box">
             <h2>Gallery</h2>
         </div>
-        <div class="box">
-            <h2>About Us</h2>
-        </div>
+        <lsdc:cloud />
     </div>
     <div class="col1_50_Percent box">
         <h2>Meditation</h2>
