@@ -3,6 +3,7 @@ import org.samye.dzong.london.community.Article
 class BootStrap {
 
      def init = { servletContext ->
+/*
         def adminRole = new ShiroRole(name: "Administrator")
         adminRole.addToPermissions("*:*")
         adminRole.save()
@@ -168,6 +169,7 @@ p(tibetan). "ཨབཅ":http://tibet.net/en/index.php"""
         pubArticle3.publishState = "Published"
         pubArticle3.deleted = Boolean.FALSE
         pubArticle3.save()
+*/
      }
 
      def destroy = {
