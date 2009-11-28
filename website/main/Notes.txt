@@ -7,16 +7,49 @@ TODO
     - Side bar of other articles
 3. Meditation front page
 4. Full list of news articles
+5. Anonymous publication
 6. Textile markup of special characters
 7. Check browsers
 8. Error handling
-9. Article audit - published date, author, last edited date
+9. Twitter when new article is published.
+   a) Twitter account information management. 
+10. Highlight new articles in editor view
 11. Security
     Adding roles to users.
     Password reminder
+      Mail plugin
     Email to verify account
 12. Author profile
-13. Thumbnail images
+13. Thumbnail images - see image-tools plugin
+14. View deleted items.
+15. View audit log.
+
+16. Unit tests
+17. Integration tests
+18. Functional tests
+19. Commentable between authors & editors 
+20. Searchable plugin
+21. look into ui-performance plugin
+22. Look into filterpane plugin
+23. Look into export plugin
+24. Look into settings plugin
+26. Blurbs - content, page location
+
+27. Venues
+28. Teachers
+
+Flickr: 
+  http://www.flickr.com/services/api/
+You Tube
+  http://code.google.com/apis/youtube/overview.html
+
+Time Line
+December 2010 - Blurbs, Users, Images, Niceties, Community, Buddhism & Videos & Images?
+January 2010 - Events
+Feburary 2010 - Venue & Room booking, About, Help
+March 2010 - Well being
+April 2010 - Tidy Up, CSS & Browser testing
+May 2010 - Performance tweaking, database backups, robustness & security testing
 
 Apache front
 auto tidy
