@@ -10,8 +10,10 @@
                 <g:each in="${articleInstanceList}" status="i" var="articleInstance">
                     <li class="article">
                         <h2><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h2>
-                        <h3>by <a>To Be Done</a></h3>
-                        <h4>20 October, 2009</h4>
+                        <h3>by <a>${articleInstance.author.username}</a></h3>
+                        <g:if test="${auditLogs[i][0] != null}">
+                            <h4>Published <span class="pretty-date">${auditLogs[i][0].dateCreated.prettyDate()}</span></h4>
+                        </g:if>
                         <p>${articleInstance.summary.encodeAsTextile()}</p>
                     </li>
                 </g:each>

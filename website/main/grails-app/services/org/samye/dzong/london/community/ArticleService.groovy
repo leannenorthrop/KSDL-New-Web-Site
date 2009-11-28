@@ -3,9 +3,8 @@ package org.samye.dzong.london.community
 import java.util.Collections
 
 class ArticleService {
-
     boolean transactional = true
-
+	
     def publishedByTags(tags) {
         def criteria = Article.createCriteria()
         def articles = criteria.list(){
@@ -47,4 +46,5 @@ class ArticleService {
         def publishedNewsArticles = articles.findAll {article -> article.tags.contains("news")}
         publishedNewsArticles
     }
+
 }

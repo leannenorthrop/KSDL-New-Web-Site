@@ -16,8 +16,10 @@
             <h2>${articleInstance.title}</h2>
 
             <ul>
-                <li><h3>20 October, 2009</h3></li>
-                <li><h4>by <a>To Be Done</a></h4></li>
+                <g:if test="${auditLogs != null && auditLogs[0] != null && auditLogs[0].dateCreated != null}">
+                    <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${auditLogs[0].dateCreated}"/></span></h3></li>
+                </g:if>            
+                <li><h4>by <a>${articleInstance.author.username}</a></h4></li>
             </ul>
 
             <div class="body">
