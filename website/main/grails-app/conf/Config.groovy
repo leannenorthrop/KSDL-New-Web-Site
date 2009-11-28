@@ -70,6 +70,6 @@ log4j = {
 }
 
 auditLog {
-  actor = 'session.username'
+  actor = 'userPrincipal.name'
 }
 
