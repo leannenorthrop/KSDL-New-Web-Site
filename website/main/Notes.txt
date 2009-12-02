@@ -12,7 +12,7 @@ TODO
 7. Check browsers
 8. Error handling
 9. Twitter when new article is published.
-   a) Twitter account information management. 
+   a) Twitter account information management.
 10. Highlight new articles in editor view
 11. Security
     Adding roles to users.
@@ -27,7 +27,7 @@ TODO
 16. Unit tests
 17. Integration tests
 18. Functional tests
-19. Commentable between authors & editors 
+19. Commentable between authors & editors
 20. Searchable plugin
 21. look into ui-performance plugin
 22. Look into filterpane plugin
@@ -38,16 +38,16 @@ TODO
 27. Venues
 28. Teachers
 
-Flickr: 
+Flickr:
   http://www.flickr.com/services/api/
 You Tube
   http://code.google.com/apis/youtube/overview.html
 
 Time Line
-December 2010 - Blurbs, Users, Images, Niceties, Community, Buddhism & Videos & Images?
-January 2010 - Events
+December 2010 - Blurbs, Users, Images, Community, Images, Events
+January 2010 - Buddhism & Videos
 Feburary 2010 - Venue & Room booking, About, Help
-March 2010 - Well being
+March 2010 - Well being,Niceties
 April 2010 - Tidy Up, CSS & Browser testing
 May 2010 - Performance tweaking, database backups, robustness & security testing
 

@@ -11,7 +11,8 @@ class FeedControllerTests extends ControllerUnitTestCase {
         super.tearDown()
     }
 
-    void testSomething() {
-
+    void testIndex() {
+        def model = controller.index()
+        assertNull model
     }
 }
