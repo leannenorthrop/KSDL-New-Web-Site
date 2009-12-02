@@ -19,8 +19,11 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "create-drop"
-            jndiName = "java:comp/env/jdbc/LsdDS"
+            dbCreate = "create-drop" // one of 'create', 'create-drop','update'
+            url = "jdbc:hsqldb:hsql:mem:lsd-test"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "sa"
+            password = ""
         }
     }
     production {
