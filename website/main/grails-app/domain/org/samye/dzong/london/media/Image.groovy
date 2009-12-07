@@ -4,10 +4,11 @@ class Image implements Taggable {
     String name
     byte[] image
 
-
     static auditable = true
+
     static constraints = {
         name(blank: false, unique: true)
+        image()
     }
 
     String toString() {
