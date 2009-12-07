@@ -11,6 +11,7 @@ class Publishable implements Taggable {
         publishState(blank:false,inList:["Unpublished", "Published", "Archived"])
         author(nullable:true)
     }
+
     static mapping = {
         tablePerHierarchy false
     }
