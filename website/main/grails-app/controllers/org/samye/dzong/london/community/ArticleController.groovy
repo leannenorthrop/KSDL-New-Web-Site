@@ -4,23 +4,23 @@ import org.apache.shiro.SecurityUtils
 class ArticleController {
     def userLookupService
     def articleService
-	def auditLogService
-	
+    def auditLogService
+
     def index = {
         if (params.tags){
             def tags = params.tags.toLowerCase().split(",").toList()
             def articles = articleService.publishedByTags(tags)
-			def auditDetails = articles.collect { article ->
-				def id = Long.toString(article.id,10)
-				[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-			}		
+            def auditDetails = articles.collect { article ->
+                def id = Long.toString(article.id,10)
+                [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+            }
             model:[ articleInstanceList: articles, title: 'Articles With Tags ' + params.tags, auditLogs: auditDetails]
         } else {
             def publishedArticles = Article.findAllByPublishState("Published")
-			def auditDetails = publishedArticles.collect { article ->
-				def id = Long.toString(article.id,10)
-				[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-			}
+            def auditDetails = publishedArticles.collect { article ->
+                def id = Long.toString(article.id,10)
+                [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+            }
             model:[ articleInstanceList: publishedArticles, title: "All Articles", auditLogs: auditDetails ]
         }
     }
@@ -28,40 +28,40 @@ class ArticleController {
     def archived = {
         def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         def articles = Article.findAllByPublishState("Archived", [max:max])
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
+        def auditDetails = articles.collect { article ->
+            def id = Long.toString(article.id,10)
+            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+        }
         render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
     }
 
     def all = {
         def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         def articles = Article.findAllByDeleted(Boolean.FALSE, [max:max])
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
+        def auditDetails = articles.collect { article ->
+            def id = Long.toString(article.id,10)
+            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+        }
         render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
     }
 
     def deleted = {
         def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         def articles = Article.findAllByDeleted(Boolean.TRUE, [max:max])
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
+        def auditDetails = articles.collect { article ->
+            def id = Long.toString(article.id,10)
+            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+        }
         render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
     }
 
     def everything = {
         def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         def articles = Article.list(max:max)
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
+        def auditDetails = articles.collect { article ->
+            def id = Long.toString(article.id,10)
+            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+        }
         render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
     }
 
@@ -106,11 +106,11 @@ class ArticleController {
             flash.message = "Article not found with id ${params.id}"
             redirect(action:list)
         }
-        else { 
-			def id = params.id;
-			def auditDetails = [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-			return [ articleInstance : articleInstance, auditLogs: auditDetails ] 
-		}
+        else {
+            def id = params.id;
+            def auditDetails = [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+            return [ articleInstance : articleInstance, auditLogs: auditDetails ]
+        }
     }
 
     def show = {
@@ -120,11 +120,11 @@ class ArticleController {
             flash.message = "Article not found with id ${params.id}"
             redirect(action:list)
         }
-         else { 
-			def id = params.id
-			def auditDetails = [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-			return [ articleInstance : articleInstance, auditLogs: auditDetails ] 
-		}
+         else {
+            def id = params.id
+            def auditDetails = [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
+            return [ articleInstance : articleInstance, auditLogs: auditDetails, id: params.id ]
+        }
     }
 
     def delete = {
@@ -162,7 +162,7 @@ class ArticleController {
             redirect(action:manage)
         }
         else {
-            return [ articleInstance : articleInstance ]
+            return [ articleInstance : articleInstance, id: params.id]
         }
     }
 
@@ -174,7 +174,7 @@ class ArticleController {
             redirect(action:manage)
         }
         else {
-            return render(view:'publish',model:[ articleInstance : articleInstance ])
+            return render(view:'publish',model:[ articleInstance : articleInstance ], id: params.id)
         }
     }
 
@@ -215,7 +215,7 @@ class ArticleController {
                 def version = params.version.toLong()
                 if(articleInstance.version > version) {
                     articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
-                    render(view:'edit',model:[articleInstance:articleInstance])
+                    render(view:'edit',model:[articleInstance:articleInstance, id: params.id])
                     return
                 }
             }
@@ -228,7 +228,7 @@ class ArticleController {
                 redirect(action:manage)
             }
             else {
-                render(view:'edit',model:[articleInstance:articleInstance])
+                render(view:'edit',model:[articleInstance:articleInstance, id: params.id])
             }
         }
         else {
@@ -253,7 +253,7 @@ class ArticleController {
             redirect(action:manage,id:articleInstance.id)
         }
         else {
-            render(view:'edit',model:[articleInstance:articleInstance])
+            render(view:'edit',model:[articleInstance:articleInstance, id: params.id])
         }
     }
 

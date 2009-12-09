@@ -90,7 +90,7 @@ class CommonLayoutTagLib {
                 h2{
                     def aElem
                     if (SecurityUtils.subject.principal != null) {
-                        aElem = messageSource.getMessage('signed.in.greeting', [SecurityUtils.subject.principal],null) + link(controller:"auth", action:"signOut"){messageSource.getMessage('sign.out',null,null)}
+                        aElem = messageSource.getMessage('signed.in.greeting', [SecurityUtils.subject.principal].toArray(),null) + link(controller:"auth", action:"signOut"){messageSource.getMessage('sign.out',null,null)}
                     } else {
                         aElem = messageSource.getMessage('greeting',null,null) + link(controller:"auth", action:"index"){messageSource.getMessage('sign.in',null,null)}
                     }
@@ -102,6 +102,54 @@ class CommonLayoutTagLib {
         def builder = new StreamingMarkupBuilder()
         builder.encoding = "UTF-8"
         out << builder.bind(header)
+    }
+
+    def toolbar = { attrs ->
+        def adminControllers = ['home','article','image']
+        def adminClasses = [home: 'home', article: 'list',image: 'list']
+
+        if (SecurityUtils.subject.hasRole("Editor") && !SecurityUtils.subject.hasRole("Author")) {
+            adminControllers = ['home','article']
+        }
+
+        def toolbar = {
+            println("id = ${attrs.id}")
+            div(class: "menuBar group") {
+                adminControllers.each() { controller ->
+                    span(class: "menuButton") {
+                        def elem
+                        if (controller.equals('home')){
+                            elem = link(class:adminClasses[controller], controller:"manageSite", action:"index") {messageSource.getMessage('toolbar.'+controller,null,null)}
+                        } else if (controller.equals(attrs.controller)){
+                            if ("manage".equals(attrs.action) && SecurityUtils.subject.hasRole("Author")) {
+                                elem = link(class:"create", controller:controller, action:"create") {messageSource.getMessage("toolbar.${controller}.create",null,null)}
+                            } else if ("create".equals(attrs.action)) {
+                                elem = link(class:"list", controller:controller, action:"manage", params:[offset:0,max:10]) {messageSource.getMessage('toolbar.'+controller,null,null)}
+                            } else if ("show".equals(attrs.action)) {
+                                elem = link(class:"list", controller:controller, action:"manage", params:[offset:0,max:10]) {messageSource.getMessage('toolbar.'+controller,null,null)}
+                                if (SecurityUtils.subject.hasRole("Author")) {
+                                    elem += link(class:"edit", controller:controller, action:"edit", params:[id:attrs.id]) {messageSource.getMessage("toolbar.${controller}.edit",null,null)}
+                                }
+                            } else if ("edit".equals(attrs.action) || "pre_publish".equals(attrs.action)) {
+                                elem = link(class:"list", controller:controller, action:"manage", params:[offset:0,max:10]) {messageSource.getMessage('toolbar.'+controller,null,null)}
+                                if (SecurityUtils.subject.hasRole("Author")) {
+                                    elem += link(class:"delete", controller:controller, action:"delete", params:[id:attrs.id], onclick:"return confirm('" + messageSource.getMessage('toolbar.delete.confirm', null, null)+ "');") {messageSource.getMessage("toolbar.${controller}.delete",null,null)}
+                                    elem += link(class:"create", controller:controller, action:"create") {messageSource.getMessage("toolbar.${controller}.create",null,null)}
+                                }
+                            }
+                        } else {
+                            elem = link(class:adminClasses[controller], controller:controller, action:"manage", params:[offset:0,max:10]) {messageSource.getMessage('toolbar.'+controller,null,null)}
+                        }
+                        if (elem != null) {
+                            mkp.yieldUnescaped(elem)
+                        }
+                    }
+                }
+            }
+        }
+        def builder = new StreamingMarkupBuilder()
+        builder.encoding = "UTF-8"
+        out << builder.bind(toolbar)
     }
 
     def grid = { attrs ->

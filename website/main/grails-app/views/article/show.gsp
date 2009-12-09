@@ -6,19 +6,13 @@
         <meta name="layout" content="content-admin" />
     </head>
     <body>
-        <div class="menuBar">
-            <span class="menuButton"><g:link class="menuButton home" controller="manageSite" action="index">Home</g:link></span>
-            <shiro:hasAnyRole in="['Author', 'Editor','Administrator']"><span class="menuButton"><g:link class="list" controller="article" action="manage" params="[offset:0,max:10]">Articles</g:link></span></shiro:hasAnyRole>
-            <shiro:hasAnyRole in="['Editor','Administrator']"><g:if test="${articleInstance.publishState == 'Unpublished'}"><span class="menuButton"><g:link action="pre_publish" id="${articleInstance.id}">Publish</g:link></span></g:if></shiro:hasAnyRole>
-            <shiro:hasAnyRole in="['Editor','Administrator']"><g:if test="${articleInstance.publishState == 'Published'}"><span class="menuButton"><g:link action="pre_publish" id="${articleInstance.id}">Edit</g:link></span></g:if></shiro:hasAnyRole>
-        </div>
         <div class="col1_80_Percent article">
             <h2>${articleInstance.title}</h2>
 
             <ul>
                 <g:if test="${auditLogs != null && auditLogs[0] != null && auditLogs[0].dateCreated != null}">
                     <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${auditLogs[0].dateCreated}"/></span></h3></li>
-                </g:if>            
+                </g:if>
                 <li><h4>by <a>${articleInstance.author.username}</a></h4></li>
             </ul>
 

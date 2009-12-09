@@ -6,10 +6,6 @@
         <title>Kagyu Samye Dzong London: Manage Articles</title>
     </head>
     <body>
-        <div class="menuBar">
-            <span class="menuButton"><g:link class="home" controller="manageSite" action="index">Home</g:link></span>
-            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="create" controller="article" action="create">New Article</g:link></span></shiro:hasAnyRole>
-        </div>
         <div class="content">
             <h1>Articles</h1>
             <g:if test="${flash.message}">
