@@ -35,7 +35,7 @@ class ImageController {
     }
 
     // the delete, save and update actions only accept POST requests
-    static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+    static allowedMethods = [save:'POST', update:'POST']
 
     def manage = {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
@@ -49,7 +49,7 @@ class ImageController {
             flash.message = "Image not found with id ${params.id}"
             redirect(action:list)
         }
-        else { return [ imageInstance : imageInstance ] }
+        else { return [ imageInstance : imageInstance, id: params.id ] }
     }
 
     def delete = {
@@ -79,7 +79,7 @@ class ImageController {
             redirect(action:manage)
         }
         else {
-            return [ imageInstance : imageInstance ]
+            return [ imageInstance : imageInstance, id: params.id ]
         }
     }
 
@@ -91,7 +91,7 @@ class ImageController {
                 if(imageInstance.version > version) {
 
                     imageInstance.errors.rejectValue("version", "image.optimistic.locking.failure", "Another user has updated this Image while you were editing.")
-                    render(view:'edit',model:[imageInstance:imageInstance])
+                    render(view:'edit',model:[imageInstance:imageInstance, id: params.id])
                     return
                 }
             }
@@ -101,7 +101,7 @@ class ImageController {
                 redirect(action:show,id:imageInstance.id)
             }
             else {
-                render(view:'edit',model:[imageInstance:imageInstance])
+                render(view:'edit',model:[imageInstance:imageInstance, id: params.id])
             }
         }
         else {

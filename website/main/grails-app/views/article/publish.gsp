@@ -6,12 +6,6 @@
         <title>Kagyu Samye Dzong London: Publish ${fieldValue(bean:articleInstance,field:'title')}</title>
     </head>
     <body>
-        <div class="menuBar">
-            <span class="menuButton"><g:link class="home" controller="manageSite" action="index">Home</g:link></span>
-            <span class="menuButton"><g:link class="list" controller="article" action="manage" params="[offset:0,max:10]">Articles</g:link></span>
-            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="create" controller="article" action="create">New Article</g:link></span></shiro:hasAnyRole>
-            <shiro:hasAnyRole in="['Author']"><span class="menuButton"><g:link class="delete" controller="article" action="delete" onclick="return confirm('Are you sure?');" >Delete</g:link></span></shiro:hasAnyRole>
-        </div>
         <div class="content">
              <g:form name="publish" action="publish" method="post" >
                 <h1>Prepare Article for Publishing</h1>
