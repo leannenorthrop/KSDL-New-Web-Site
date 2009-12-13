@@ -9,9 +9,9 @@ class Image implements Taggable {
     static auditable = true
 
     static constraints = {
-        name(blank: false, unique: true)
-        mimeType()
-        image()
+        name(blank: false, unique: true,matches:/[a-zA-Z0-9 ]*/)
+        mimeType(blank: false)
+        image(blank: false)
         thumbnail()
     }
 

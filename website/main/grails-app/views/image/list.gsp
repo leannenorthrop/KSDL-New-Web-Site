@@ -13,13 +13,18 @@
         <link rel="stylesheet" href="${createLinkTo(dir:'css',file:'ImageCarousel.css')}" type="text/css" media="screen"/>
         <script type="text/javascript">
         var srcImage;
+        var title;
         var show = function(e) {
             var node = $(".imagedisplay");
-            node.attr({src: srcImage.replace("thumbnail", "src")});
+            var imgNode = $(".imagedisplay img");
+            var titleNode = $(".imagedisplay h3");
+            imgNode.attr({src: srcImage.replace("thumbnail", "src")});
+            titleNode.html(title);
             node.fadeIn({duration: 500, easing: "easeInOutQuad"});
         };
         var hide = function(e) {
             srcImage = e.target.src;
+            title = e.target.title;
             $(".imagedisplay").fadeOut({duration: 500, easing: "easeInOutQuad", complete: show});
         };
 
@@ -37,6 +42,7 @@
     <body>
         <div class="content">
             <h1>Image List</h1>
+            <p>Hover mouse over thumbnail images to preview, click thumbnail to edit tags. Use left and right arrow buttons to scroll through images.</p>
             <g:if test="${flash.message}">
                 <div class="message">${flash.message}</div>
             </g:if>
@@ -45,17 +51,17 @@
                     <ul>
                         <g:each in="${imageInstanceList}" status="i" var="imageInstance">
                             <li>
-                                <g:link action="show" id="${imageInstance.id}" style="width:130px;height:130px;text-align:center;vertical-align:middle;">
-                                    <img src="${createLink(controller:'image', action:'thumbnail', id:imageInstance.id)}"/>
-                                    <span style="display:block;">${fieldValue(bean:imageInstance, field:'name')}</span>
+                                <g:link action="edit" id="${imageInstance.id}" style="width:130px;height:130px;text-align:center;vertical-align:middle;">
+                                    <img src="${createLink(controller:'image', action:'thumbnail', id:imageInstance.id)}" alt="${fieldValue(bean:imageInstance, field:'name')}" title="${fieldValue(bean:imageInstance, field:'name')}"/>
                                 </g:link>
                             </li>
                         </g:each>
                     </ul>
                     <a href="#" class="btnNext" style="color: red;">Next</a>
                     <a href="#" class="btnPrevious" style="color: red;">Previous</a><br/>
-                    <div style="height:400px;width:100%;clear:both;margin:0.5em;text-align:center;vertical-align:middle;">
-                        <img class="imagedisplay" height="400px" src="${createLink(controller:'image', action:'src', id:imageInstanceList[0].id)}"/>
+                    <div class="imagedisplay" style="height:420px;width:100%;clear:both;margin:0.5em;text-align:center;vertical-align:middle;">
+                        <h3></h3>
+                        <img height="400px" src="${createLink(controller:'image', action:'src', id:imageInstanceList[0]?.id)}"/>
                     </div>
                 </div>
             </div>
