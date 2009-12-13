@@ -1,7 +1,7 @@
 <html>
 <head>
     <title>Kagyu Samye Dzong London: News</title>
-    <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>    
+    <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
     <meta name="layout" content="main">
 </head>
 <body>
@@ -14,6 +14,9 @@
                     <h4>by <a>${articleInstance.author.username}</a></h4>
                     <g:if test="${auditDetails != null && auditDetails[i][0] != null}">
                         <h5><g:formatDate format="dd MMMM, yyyy" date="${auditDetails[i][0].dateCreated}"/></h5>
+                    </g:if>
+                    <g:if test="${articleInstance.image}">
+                        <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
                     </g:if>
                     <p>${articleInstance.summary}</p>
                 </li>

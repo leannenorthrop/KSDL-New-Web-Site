@@ -111,6 +111,22 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
             a.parseTags("News")
         }
 
+        def na1 = Article.findByTitle("News Article 1")
+        na1.image = Image.findByName("buddha")
+        na1.save()
+
+        def na2 = Article.findByTitle("News Article 4")
+        na2.image = Image.findByName("flowers")
+        na2.save()
+
+        def ma2 = Article.findByTitle("Meditation Advice Article 3")
+        ma2.image = Image.findByName("dragon")
+        ma2.save()
+
+        def mb2 = Article.findByTitle("Meditation Benefits Article 2")
+        mb2.image = Image.findByName("deity")
+        mb2.save()
+
         def a = new Article(title: "Image Article", content: "Hello, can you see this? [deity,left,50px](image)", summary: loremIpsumSummary)
         a.author = author1
         a.publishState = "Published"

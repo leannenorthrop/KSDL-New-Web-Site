@@ -10,7 +10,7 @@ class SecurityFilters {
                 if (!controllerName) return true
 
                 def allowedControllers = ['home', 'help', 'feed']
-                def allowedActions = ['view', 'index', 'src']
+                def allowedActions = ['view', 'index', 'src', 'thumbnail']
                 if (allowedControllers.contains(controllerName) || allowedActions.contains(actionName)){
                     return true
                 }

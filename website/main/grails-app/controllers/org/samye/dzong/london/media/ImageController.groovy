@@ -25,7 +25,12 @@ class ImageController {
     }
 
     def thumbnail = {
-        def imageInstance = Image.get( params.id )
+        def imageInstance
+        try {
+            imageInstance = Image.get( params.id )
+        } catch (error) {
+            imageInstance = Image.findByName( params.id )
+        }
         if(!imageInstance) {
             println "no image ${params.id}"
             response.outputStream << ""

@@ -24,6 +24,10 @@
                     <input type="text" id="title" name="title" class="${hasErrors(bean:articleInstance,field:'title','errors')}" value="${fieldValue(bean:articleInstance,field:'title')}"/>
                 </fieldset>
                 <fieldset>
+                    <label for="image">Image</label>
+                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${articleInstance?.image?.name}" ></g:select>
+                </fieldset>
+                <fieldset>
                     <label for="summary">Summary:</label>
                     <textarea rows="5" cols="40" name="summary" class="${hasErrors(bean:articleInstance,field:'summary','errors')}">${fieldValue(bean:articleInstance, field:'summary')}</textarea>
                 </fieldset>
