@@ -10,7 +10,9 @@
             <h2>${articleInstance.title}</h2>
 
             <ul>
-                <li><img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/></li>
+                <g:if test="${articleInstance.image}">
+                    <li><img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/></li>
+                </g:if>
                 <g:if test="${auditLogs != null && auditLogs[0] != null && auditLogs[0].dateCreated != null}">
                     <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${auditLogs[0].dateCreated}"/></span></h3></li>
                 </g:if>
