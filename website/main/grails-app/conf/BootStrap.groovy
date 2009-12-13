@@ -79,6 +79,15 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
         }
 
         (1..1).each {
+            def a = new Article(title: "Front Meditation Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("Meditation", "front")
+        }
+
+        (1..1).each {
             def a = new Article(title: "Other Meditation Article " + it, content: loremIpsum, summary: loremIpsumSummary)
             a.author = author1
             a.publishState = "Published"
@@ -110,7 +119,38 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
             a.save()
             a.parseTags("News")
         }
-
+        (1..3).each {
+            def a = new Article(title: "Front News Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("News", "Front")
+        }
+        (1..1).each {
+            def a = new Article(title: "Front Community Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("Community", "Front")
+        }
+        (1..2).each {
+            def a = new Article(title: "Front Well Being Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("Wellbeing", "Front")
+        }
+        (1..3).each {
+            def a = new Article(title: "Front Buddhism Article " + it, content: loremIpsum, summary: loremIpsumSummary)
+            a.author = author1
+            a.publishState = "Published"
+            a.deleted = Boolean.FALSE
+            a.save()
+            a.parseTags("Buddhism", "Front")
+        }
         def na1 = Article.findByTitle("News Article 1")
         na1.image = Image.findByName("buddha")
         na1.save()
