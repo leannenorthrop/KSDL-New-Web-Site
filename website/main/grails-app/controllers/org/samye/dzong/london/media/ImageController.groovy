@@ -7,7 +7,12 @@ class ImageController {
     def imageService
 
     def src = {
-        def imageInstance = Image.get( params.id )
+        def imageInstance
+        try {
+            imageInstance = Image.get( params.id )
+        } catch (error) {
+            imageInstance = Image.findByName( params.id )
+        }
         if(!imageInstance) {
             println "no image ${params.id}"
             response.outputStream << ""
@@ -33,7 +38,7 @@ class ImageController {
     }
 
     def index = {
-        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min( params.max ? params.max.toInteger() : 10,  1000)
         if (params.tags){
             log.debug("Fetching tagged images " + params.tags)
             def tags = params.tags.toLowerCase().split(",").toList()

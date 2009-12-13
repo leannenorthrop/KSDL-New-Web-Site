@@ -13,7 +13,9 @@ class BootStrap {
             if(name.endsWith(".jpg" ) || name.endsWith(".png")){
                 def image = new Image()
                 def type = name.endsWith(".jpg" ) ? "JPEG" : "PNG";
-                image.name = name.substring(0, name.length()-4)
+                def imgName = name.substring(0, name.length()-4)
+                imgName = imgName.replace("[-_]", " ")
+                image.name = imgName
                 image.image = imageService.read(file.getAbsolutePath(), type)
                 image.thumbnail = imageService.thumbnail(image.image)
                 image.mimeType = name.endsWith(".jpg" ) ? 'image/jpg' : 'image/png';
@@ -108,6 +110,13 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
             a.save()
             a.parseTags("News")
         }
+
+        def a = new Article(title: "Image Article", content: "Hello, can you see this? [deity,left,50px](image)", summary: loremIpsumSummary)
+        a.author = author1
+        a.publishState = "Published"
+        a.deleted = Boolean.FALSE
+        a.save()
+        a.parseTags("News")
 
         def markup = """h1. Heading 1
 h2. Heading 2

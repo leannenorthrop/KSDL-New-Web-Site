@@ -7,7 +7,7 @@
     </head>
     <body>
         <div class="content">
-             <g:form id="updatearticle" name="updatearticle" method="post" >
+             <g:form name="updatearticle" method="post" >
                 <h1>Update Article</h1>
                 <g:if test="${flash.message}">
                     <div class="message">${flash.message}</div>

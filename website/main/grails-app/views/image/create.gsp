@@ -6,11 +6,11 @@
         <title>Kagyu Samye Dzong London: Add Image</title>
     </head>
     <body>
-        <div class="content">
+        <div class="content group">
             <g:form name="addimage" action="save" method="post"  enctype="multipart/form-data">
-                <h1>Create Image</h1>
+                <h1>Add Image</h1>
                 <g:if test="${flash.message}">
-                <div class="message">${flash.message}</div>
+                    <div class="message">${flash.message}</div>
                 </g:if>
                 <g:hasErrors bean="${imageInstance}">
                 <div class="errors">
@@ -19,11 +19,20 @@
                 </g:hasErrors>
                 <input type="hidden" name="thumbnail" value=""/>
                 <fieldset>
-                    <label for="title">Name</label>
+                    <label for="title">Name <em>Should be letters a to z, either upper or lower case, and spaces</label>
                     <input type="text" id="name" name="name" class="${hasErrors(bean:articleInstance,field:'name','errors')}" value="${fieldValue(bean:imageInstance,field:'name')}"/>
                 </fieldset>
                 <fieldset>
-                    <label for="title">Tags</label>
+                    <label for="tags">Tags <em>Separate with commas</em></label>
+                    <div id="tags_help">
+                        <h4>Suggestions</h4>
+                        <ul>
+                            <li>news <em>Show on News page</em></li>
+                            <li>meditation <em>Show on Mediation page</em></li>
+                            <li>meditation advice <em>Show on Meditation page under Advice</em></li>
+                            <li>meditation benefits <em>Show on Meditation page under Benefits</em></li>
+                        </ul>
+                    </div>
                     <textarea cols="5" rows="5" id="tags" name="tags" class="${hasErrors(bean:articleInstance,field:'tags','errors')}">${imageInstance.tags.join(",")}</textarea>
                 </fieldset>
                 <fieldset>
