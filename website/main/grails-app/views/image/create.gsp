@@ -7,44 +7,30 @@
     </head>
     <body>
         <div class="content">
-            <h1>Create Image</h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${imageInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${imageInstance}" as="list" />
-            </div>
-            </g:hasErrors>
-            <g:form action="save" method="post"  enctype="multipart/form-data">
-                <div class="dialog">
-                    <table>
-                        <tbody>
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="name">Name:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:imageInstance,field:'name','errors')}">
-                                    <input type="text" id="name" name="name" value="${fieldValue(bean:imageInstance,field:'name')}"/>
-                                </td>
-                            </tr>
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="image">Image:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:imageInstance,field:'image','errors')}">
-                                    <input type="file" id="image" name="image" />
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
+            <g:form name="addimage" action="save" method="post"  enctype="multipart/form-data">
+                <h1>Create Image</h1>
+                <g:if test="${flash.message}">
+                <div class="message">${flash.message}</div>
+                </g:if>
+                <g:hasErrors bean="${imageInstance}">
+                <div class="errors">
+                    <g:renderErrors bean="${imageInstance}" as="list" />
                 </div>
-                <div class="buttons">
-                    <span class="button"><input class="save" type="submit" value="Create" /></span>
-                </div>
+                </g:hasErrors>
+                <input type="hidden" name="thumbnail" value=""/>
+                <fieldset>
+                    <label for="title">Name</label>
+                    <input type="text" id="name" name="name" class="${hasErrors(bean:articleInstance,field:'name','errors')}" value="${fieldValue(bean:imageInstance,field:'name')}"/>
+                </fieldset>
+                <fieldset>
+                    <label for="title">Tags</label>
+                    <textarea cols="5" rows="5" id="tags" name="tags" class="${hasErrors(bean:articleInstance,field:'tags','errors')}">${imageInstance.tags.join(",")}</textarea>
+                </fieldset>
+                <fieldset>
+                    <label for="title">File <em>May be either a JPG or a PNG file</em></label>
+                    <input type="file" id="image" name="image" />
+                </fieldset>
+                <a class="submit" onClick="document.addimage.submit();">Add Image &raquo;</a>
             </g:form>
         </div>
     </body>
