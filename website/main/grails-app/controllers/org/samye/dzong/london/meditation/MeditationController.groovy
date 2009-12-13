@@ -6,6 +6,7 @@ class MeditationController {
     def index = {
         def adviceArticles = articleService.publishedByTags(['meditation advice'])
         def benefitsArticles = articleService.publishedByTags(['meditation benefits'])
-        model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles]
+        def topArticles = articleService.publishedByTags(['meditation benefits', 'meditation', 'meditation advice', 'front', 'top'])
+        model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles, topArticles: topArticles]
     }
 }
