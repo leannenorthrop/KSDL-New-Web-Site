@@ -32,8 +32,9 @@ class ImageService {
         try {
             def imageTool = new ImageTool()
             imageTool.load(image)
-            imageTool.saveOriginal()
-            imageTool.thumbnailSpecial(125, 125, 3, 2)
+            imageTool.square()
+            imageTool.swapSource()
+            imageTool.thumbnailSpecial(75, 75, 3, 2)
             return imageTool.getBytes("JPEG")
         } catch (error) {
             log.error(error)

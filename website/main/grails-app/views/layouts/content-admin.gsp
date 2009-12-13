@@ -11,8 +11,8 @@
 <[endif]-->
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <lsd:link obj="${application}"/>
+        <g:javascript library="jquery"/>
         <g:layoutHead />
-        <g:javascript library="application" />
     </head>
     <shiro:isLoggedIn in="['Editor','Administrator','Author']">
         <body style="min-width:70em">
