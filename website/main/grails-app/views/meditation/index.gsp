@@ -23,6 +23,9 @@
                 <g:each in="${adviceArticles}" status="i" var="articleInstance">
                     <li>
                         <h3>${articleInstance.title}</h3>
+                        <g:if test="${articleInstance.image}">
+                            <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+                        </g:if>
                         <p>${articleInstance.summary.encodeAsTextile()} <g:link controller="article" action="view" id="${articleInstance.id}">Read More...</g:link></p>
                     </li>
                 </g:each>
@@ -34,6 +37,9 @@
                 <g:each in="${benefitsArticles}" status="i" var="articleInstance">
                     <li>
                         <h3>${articleInstance.title}</h3>
+                        <g:if test="${articleInstance.image}">
+                            <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+                        </g:if>
                         <p>${articleInstance.summary.encodeAsTextile()} <g:link controller="article" action="view" id="${articleInstance.id}">Read More...</g:link></p>
                     </li>
                 </g:each>
