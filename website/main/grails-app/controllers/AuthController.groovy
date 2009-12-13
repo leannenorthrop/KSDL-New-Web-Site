@@ -78,6 +78,8 @@ class AuthController {
         if (savedRequest) {
             targetUri = savedRequest.requestURI - request.contextPath
             if (savedRequest.queryString) targetUri = targetUri + '?' + savedRequest.queryString
+        } else {
+            targetUri = "/article/manage?offset=0&max=10";
         }
 
         try{
