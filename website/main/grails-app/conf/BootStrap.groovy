@@ -29,10 +29,12 @@ class BootStrap {
         adminRole.save()
         def contentAdminRole = new ShiroRole(name: "Editor")
         contentAdminRole.addToPermissions("article:*")
+        contentAdminRole.addToPermissions("manageSite:home")
         contentAdminRole.save()
         def authRole = new ShiroRole(name: "Author")
         authRole.addToPermissions("article:*")
         authRole.addToPermissions("image:*")
+        contentAdminRole.addToPermissions("manageSite:home")
         authRole.save()
 
         def user = new ShiroUser(username: "web-admin", passwordHash: new Sha1Hash("change!t").toHex())

@@ -28,7 +28,7 @@ fieldset input, fieldset textarea {
     -moz-border-radius: 5px;
 }
 
-fieldset input[type="radio"], fieldset input[type="checkbox"] {
+fieldset input[type="radio"], fieldset input[type="checkbox"], fieldset input[type="file"] {
     background: none;
 }
 
@@ -36,6 +36,7 @@ fieldset input:focus, fieldset textarea:focus {
     background: white;
     border: 1px solid rgb(32,107,164);
 }
+
 
 fieldset .last {
     border: 1px solid red;

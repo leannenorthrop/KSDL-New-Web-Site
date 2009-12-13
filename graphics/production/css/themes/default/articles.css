@@ -106,10 +106,20 @@
 .article ul h4 a{
     font-style: normal;
 }
+
 .article .body {
     float: left;
     width: 64.235%;
     padding-right: 3%;
+}
+
+.article .bodyNoDetails {
+    padding-right: 3%;
+}
+
+.article .bodyNoDetails #articleImage {
+    width: 200px;
+    float: right;
 }
 
 .article p {
