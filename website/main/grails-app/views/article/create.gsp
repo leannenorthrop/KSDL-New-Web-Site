@@ -19,6 +19,8 @@
                 </g:hasErrors>
                 <input type="hidden" name="publishState" value="Unpublished" />
                 <input type="hidden" name="deleted" value="false" />
+                <input type="hidden" name="displayAuthor" value="false" />
+                <input type="hidden" name="displayDate" value="false" />
                 <fieldset>
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" class="${hasErrors(bean:articleInstance,field:'title','errors')}" value="${fieldValue(bean:articleInstance,field:'title')}"/>

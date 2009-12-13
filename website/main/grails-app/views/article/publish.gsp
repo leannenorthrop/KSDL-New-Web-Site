@@ -36,6 +36,14 @@
                         <textarea rows="35" cols="40" name="content" class="${hasErrors(bean:articleInstance,field:'content','errors')}">${fieldValue(bean:articleInstance, field:'content')}</textarea>
                     </fieldset>
                 </shiro:hasAnyRole>
+                <fieldset>
+                    <label for="displayAuthor">Display Author</label>
+                    <input type="checkbox" name="displayAuthor" value="${articleInstance?.displayAuthor}" />
+                </fieldset>
+                <fieldset>
+                    <label for="displayDate">Display Date</label>
+                    <input type="checkbox" name="displayDate" value="${articleInstance?.displayDate}" />
+                </fieldset>
                 <fieldset class="group">
                     <label for="tags">Tags <em>Separate with commas</em></label>
                     <div id="tags_help">

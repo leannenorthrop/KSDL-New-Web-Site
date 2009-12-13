@@ -21,6 +21,8 @@
                 <input type="hidden" name="version" value="${articleInstance?.version}" />
                 <input type="hidden" name="publishState" value="${articleInstance?.publishState}" />
                 <input type="hidden" name="deleted" value="${articleInstance?.deleted}" />
+                <input type="hidden" name="displayAuthor" value="${articleInstance?.displayAuthor}" />
+                <input type="hidden" name="displayDate" value="${articleInstance?.displayDate}" />
                 <fieldset>
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" class="${hasErrors(bean:articleInstance,field:'title','errors')}" value="${fieldValue(bean:articleInstance,field:'title')}"/>
