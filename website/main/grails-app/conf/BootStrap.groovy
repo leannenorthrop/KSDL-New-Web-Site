@@ -1,8 +1,26 @@
 import org.apache.shiro.crypto.hash.Sha1Hash
 import org.samye.dzong.london.community.Article
+import org.samye.dzong.london.media.Image
+
 class BootStrap {
+     def imageService
 
      def init = { servletContext ->
+
+        new File("/Users/northrl/Desktop/load").eachFile{file ->
+            println ("Reading ${file}")
+            def name = file.name.toLowerCase()
+            if(name.endsWith(".jpg" ) || name.endsWith(".png")){
+                def image = new Image()
+                def type = name.endsWith(".jpg" ) ? "JPEG" : "PNG";
+                image.name = name.substring(0, name.length()-4)
+                image.image = imageService.read(file.getAbsolutePath(), type)
+                image.thumbnail = imageService.thumbnail(image.image)
+                image.mimeType = name.endsWith(".jpg" ) ? 'image/jpg' : 'image/png';
+                image.save()
+                println "Image ${image.name} of type ${image.mimeType} has been saved."
+            }
+        }
 
         def adminRole = new ShiroRole(name: "Administrator")
         adminRole.addToPermissions("*:*")

@@ -2,16 +2,32 @@
 
 package org.samye.dzong.london.media
 
-class ImageController {
 
-    def data = {
+class ImageController {
+    def imageService
+
+    def src = {
         def imageInstance = Image.get( params.id )
         if(!imageInstance) {
+            println "no image ${params.id}"
             response.outputStream << ""
         }
         else {
             response.setContentType('image/png')
             byte[] image = imageInstance.image
+            response.outputStream << image
+        }
+    }
+
+    def thumbnail = {
+        def imageInstance = Image.get( params.id )
+        if(!imageInstance) {
+            println "no image ${params.id}"
+            response.outputStream << ""
+        }
+        else {
+            response.setContentType('image/jpeg')
+            byte[] image = imageInstance.thumbnail
             response.outputStream << image
         }
     }
@@ -79,7 +95,7 @@ class ImageController {
             redirect(action:manage)
         }
         else {
-            return [ imageInstance : imageInstance, id: params.id ]
+            return [ imageInstance : imageInstance, id: imageInstance.id ]
         }
     }
 
@@ -89,13 +105,17 @@ class ImageController {
             if(params.version) {
                 def version = params.version.toLong()
                 if(imageInstance.version > version) {
-
                     imageInstance.errors.rejectValue("version", "image.optimistic.locking.failure", "Another user has updated this Image while you were editing.")
                     render(view:'edit',model:[imageInstance:imageInstance, id: params.id])
                     return
                 }
             }
+            def image = imageInstance.image
             imageInstance.properties = params
+            imageInstance.image = image
+            if (params.tags) {
+                imageInstance.parseTags(params.tags)
+            }
             if(!imageInstance.hasErrors() && imageInstance.save()) {
                 flash.message = "Image ${params.id} updated"
                 redirect(action:show,id:imageInstance.id)
@@ -117,8 +137,19 @@ class ImageController {
     }
 
     def save = {
+        def f = request.getFile('image')
+        def contentType = f.getContentType()
+        def bytes = f.getBytes()
+        def thumbnail = imageService.thumbnail(bytes)
+
         def imageInstance = new Image(params)
+        imageInstance.thumbnail = thumbnail
+        imageInstance.mimeType = contentType
+        imageInstance.image = imageService.read(imageInstance.image, imageInstance.mimeType)
         if(!imageInstance.hasErrors() && imageInstance.save()) {
+            if (params.tags) {
+                imageInstance.parseTags(params.tags)
+            }
             flash.message = "Image ${imageInstance.id} created"
             redirect(action:show,id:imageInstance.id)
         }
