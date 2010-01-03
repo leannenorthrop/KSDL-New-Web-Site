@@ -32,7 +32,7 @@
                 </fieldset>                    
                 <fieldset>
                     <label for="image">Image</label>
-                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${venueInstance?.image?.name}" ></g:select>
+                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${venueInstance?.imageName}" ></g:select>
                 </fieldset>    
                 <fieldset>
                     <label for="description">Description</label>
