@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Kagyu Samye Dzong London: News</title>
+    <title>News</title>
     <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
     <meta name="layout" content="main">
 </head>
@@ -10,10 +10,10 @@
         <ol>
             <g:each in="${articles}" status="i" var="articleInstance">
                 <li class="article">
-                    <h3><g:link controller="article" action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h3>
+                    <h3><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h3>
                     <h4>by <a>${articleInstance.author.username}</a></h4>
-                    <g:if test="${auditDetails != null && auditDetails[i][0] != null}">
-                        <h5><g:formatDate format="dd MMMM, yyyy" date="${auditDetails[i][0].dateCreated}"/></h5>
+                    <g:if test="${articleInstance.displayDate}">
+                        <h5><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.displayDate}"/></h5>
                     </g:if>
                     <g:if test="${articleInstance.image}">
                         <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
@@ -22,10 +22,13 @@
                 </li>
             </g:each>
         </ol>
+        <g:if test="${total > articles.size()}"> 
+        <g:link action="current"><em>More...</em></g:link>
+        </g:if>
     </div>
     <div class="col2_33_Percent">
         <div id="news-notifications" class="box">
-            <h2>Notifications</h2>
+            <h2>Keep in Touch</h2>
             <ul>
                 <li class="email">Sign up for Email newsletter</li>
                 <li class="twitter">Follow us on Twitter</li>
@@ -38,8 +41,10 @@
                 <!-- TODO mark last child -->
                 <g:each in="${archivedArticles}" status="i" var="articleInstance">
                     <li class="article">
-                        <span><g:link controller="article" action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></span>
-                        <em>4th January, 2009</em>
+                        <span><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></span>                        
+                        <g:if test="${articleInstance.displayDate}">
+                        <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.displayDate}"/></em>
+                        </g:if>                        
                     </li>
                 </g:each>
             </ul>
