@@ -4,14 +4,68 @@ package org.samye.dzong.london.venue
 
 class VenueController {
 
+    class VenueCommand { 
+        String name;
+        String imageName;
+        String description;
+        String facilities;
+        String access;  
+        List rooms = [];
+        
+        static constraints = {
+        	name(size:5..512)
+        	image(nullable:true)
+        	description(size:5..32000)
+        	facilities(blank:true)
+        	access(blank:true)
+        	rooms(nullable:true)
+        }          
+        
+        Venue createVenue() {
+            def venue = new Venue(name:name, description:description, facilities:facilities, access:access);
+            def image = Image.findByName(imageName)
+            venue.image = Image
+            rooms.eachWithIndex { roomName, roomImageName, roomDescription, roomMakePublic, i -> 
+                def room = new Room(name: roomName, description: description)
+                def roomImage = Image.findByName(roomImageName)
+                if (roomImage) { room.image = roomImage }
+                room.publishState = roomMakePublic ? "Published" : "Unpublished";
+                room.deleted = false;
+                venue.addToRooms(room) 
+            } 
+            return venue
+        }
+    }
+    
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
     def manage = {
-        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        params.max = Math.min((params.max ? params.max.toInteger() : 10),  100)
         render(view:'manage',model:[ venueInstanceList: Venue.list( params ), venueInstanceTotal: Venue.count() ])
     }
     
+    def create = {
+        def venueInstance = new VenueCommand()
+        venueInstance.rooms << new Room(name:"Shrine")
+        venueInstance.rooms << new Room(name:"Tea")
+        venueInstance.properties = params
+        return ['venueInstance':venueInstance]
+    }
+
+    def save = { VenueCommand cmd ->
+        if(!cmd.hasErrors()) {
+            def venueInstance = cmd.createVenue()
+            venueInstance.save()
+            flash.message = "Venue ${venueInstance.id} created"
+            redirect(action:manage,id:venueInstance.id)
+        }
+        else {
+            render(view:'create',model:[venueInstance:cmd])
+        }
+    }
+        
+    /*
     def delete = {
         def venueInstance = Venue.get( params.id )
         if(venueInstance) {
@@ -68,22 +122,5 @@ class VenueController {
             flash.message = "Venue not found with id ${params.id}"
             redirect(action:manage)
         }
-    }
-
-    def create = {
-        def venueInstance = new Venue()
-        venueInstance.properties = params
-        return ['venueInstance':venueInstance]
-    }
-
-    def save = {
-        def venueInstance = new Venue(params)
-        if(!venueInstance.hasErrors() && venueInstance.save()) {
-            flash.message = "Venue ${venueInstance.id} created"
-            redirect(action:manage,id:venueInstance.id)
-        }
-        else {
-            render(view:'create',model:[venueInstance:venueInstance])
-        }
-    }
+    }*/
 }

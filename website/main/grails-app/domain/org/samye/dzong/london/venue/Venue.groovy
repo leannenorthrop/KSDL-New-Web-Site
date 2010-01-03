@@ -13,7 +13,7 @@ class Venue extends Publishable {
     static hasMany = [rooms:Room]
 
     static constraints = {
-    	name(size:5..512)
+    	name(size:5..512,unique:true)
     	image(nullable:true)
     	description(size:5..32000)
     	facilities(blank:true)
