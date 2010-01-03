@@ -21,7 +21,7 @@
                           ${articleInstance.title} <g:link controller="article" action="view" id="${articleInstance.id}">Read More...</g:link>
                        </li>
                    </g:each>
-               </ol>
+            </ol>
         </div>
         <div class="box">
             <h2>Gallery</h2>
@@ -79,6 +79,6 @@
                     </li>
                 </g:each>
             </ol>
-    </div>
+    </div>       
 </body>
 </html>

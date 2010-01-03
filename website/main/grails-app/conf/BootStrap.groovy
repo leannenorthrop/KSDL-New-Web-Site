@@ -29,6 +29,7 @@ class BootStrap {
         adminRole.save()
         def webAdminRole = new ShiroRole(name: "Administrator")
         webAdminRole.addToPermissions("manageSite:*")
+        webAdminRole.addToPermissions("auth:*")
         webAdminRole.save()
         def contentAdminRole = new ShiroRole(name: "Editor")
         contentAdminRole.addToPermissions("article:*")

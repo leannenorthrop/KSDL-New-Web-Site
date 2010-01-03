@@ -14,10 +14,7 @@
         <g:javascript library="jquery"/>
         <g:layoutHead />
     </head>
-    <shiro:isLoggedIn in="['Editor','Administrator','Author']">
-        <body style="min-width:70em">
-    </shiro:isLoggedIn>
-    <shiro:isNotLoggedIn><body></shiro:isNotLoggedIn>
+    <body style="min-width:50em">
         <lsdc:header />
         <lsdc:nav current="manageSite"/>
         <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
@@ -25,7 +22,7 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
         <g:layoutBody />
-        <lsdc:grid />
-        <div class="footer">Copyright &#169; 2009</div>
+        <lsdc:grid />        
+        <div class="footer">Copyright &#169; 2009</div>       
     </body>
 </html>
