@@ -4,9 +4,18 @@ class MeditationController {
     def articleService
 
     def index = {
-        def adviceArticles = articleService.publishedByTags(['meditation advice'])
-        def benefitsArticles = articleService.publishedByTags(['meditation benefits'])
-        def topArticles = articleService.publishedByTags(['meditation benefits', 'meditation', 'meditation advice', 'front', 'top'])
+        def adviceArticles = [] 
+        def benefitsArticles = []
+        def topArticles = []
+        
+        try {
+            articleService.publishedByTags(['meditation advice'])
+            articleService.publishedByTags(['meditation benefits'])
+            articleService.publishedByTags(['meditation benefits', 'meditation', 'meditation advice', 'front', 'top'])
+        } catch (error) {
+            log.error("Meditation controller encountered an error.")
+        }
+        
         model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles, topArticles: topArticles]
     }
 }

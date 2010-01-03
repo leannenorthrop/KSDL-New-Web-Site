@@ -13,10 +13,11 @@ class ArticleService {
                 eq('publishState', "Published")
             }
         }
-        def publishedNewsArticles = articles.findAll {article ->
+        def publishedNewsArticles = []
+        publishedNewsArticles = articles.findAll {article ->
             !Collections.disjoint(article.tags, tags)
         }
-        publishedNewsArticles
+        return publishedNewsArticles ?: []
     }
 
     def publishedNews() {

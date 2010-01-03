@@ -67,7 +67,7 @@
                 	<div>
                 		<ul>
                 		    <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
-                    		    <g:set var="namePrefix" value="${'rooms[' + j + ']']}" />
+                    		    <g:set var="namePrefix" value="${'rooms[' + j + ']'}" />
                 		        <li>
                                     <fieldset>
                                         <label for="${namePrefix}.name">Name</label>
