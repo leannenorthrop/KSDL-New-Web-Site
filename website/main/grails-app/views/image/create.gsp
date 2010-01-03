@@ -1,13 +1,12 @@
 <%@ page import="org.samye.dzong.london.media.Image" %>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="content-admin" />
         <title>Kagyu Samye Dzong London: Add Image</title>
     </head>
     <body>
         <div class="content group">
-            <g:form name="addimage" action="save" method="post"  enctype="multipart/form-data">
+            <g:uploadForm name="addimage" action="save">
                 <h1>Add Image</h1>
                 <g:if test="${flash.message}">
                     <div class="message">${flash.message}</div>
@@ -40,7 +39,7 @@
                     <input type="file" id="image" name="image" />
                 </fieldset>
                 <a class="submit" onClick="document.addimage.submit();">Add Image &raquo;</a>
-            </g:form>
+            </g:uploadForm>
         </div>
     </body>
 </html>

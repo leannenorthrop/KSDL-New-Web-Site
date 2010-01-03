@@ -2,16 +2,15 @@
 <%@ page import="org.samye.dzong.london.media.Image" %>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="content-admin" />
         <title>Kagyu Samye Dzong London: Manage Images</title>
 
+        <link rel="stylesheet" href="${resource(dir:'css/redmond',file:'jquery-ui-1.7.2.custom.css')}" media="screen, projection" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'ImageCarousel.css')}" media="screen, projection" />
         <g:javascript library="jquery"/>
-        <script type="text/javascript" src="${createLinkTo(dir:'js/jquery',file:'jquery-ui-1.7.2.custom.min.js')}"/>
-        <script type="text/javascript" src="${createLinkTo(dir:'js/jquery',file:'jquery.ImageCarousel.js')}"/>
-        <link rel="stylesheet" href="${createLinkTo(dir:'css/redmond',file:'jquery-ui-1.7.2.custom.css')}" type="text/css" media="screen" />
-        <link rel="stylesheet" href="${createLinkTo(dir:'css',file:'ImageCarousel.css')}" type="text/css" media="screen"/>
-        <script type="text/javascript">
+        <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>
+        <g:javascript src="jquery/jquery.ImageCarousel.js"/>
+	<g:javascript>
         var srcImage;
         var title;
         var show = function(e) {
@@ -37,7 +36,7 @@
               carousel_speed: 'normal'
             });
         });
-        </script>
+        </g:javascript>
     </head>
     <body>
         <div class="content">
