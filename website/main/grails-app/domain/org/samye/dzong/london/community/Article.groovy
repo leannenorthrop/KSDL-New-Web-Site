@@ -1,5 +1,6 @@
 package org.samye.dzong.london.community
 import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.media.Image
 
 class Article extends Publishable {
@@ -42,6 +43,6 @@ class Article extends Publishable {
     }    
     
     String toString() {
-        return "#{title}"
+        return "${title} (${super.toString()})"
     }
 }

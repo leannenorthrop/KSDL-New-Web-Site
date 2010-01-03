@@ -52,14 +52,13 @@ class Publishable implements Taggable {
     }
         
     String toString() {
-        return "#{publishState} by #{person} (#{deleted})"
+        return "${publishState} by ${author.username} (${deleted})"
     }
     
-    def onLoad = { 
-        if (displayDate && publishState != "Unpublished") {
+    def beforeUpdate = {
+        if (!publishedOn && publishState == "Published") {
             try {
-                log.trace("audit log service is ${auditLogService} id is ${id}")
-                this.publishedOn = auditLogService.publishedOn(id)
+                this.publishedOn = new Date()
             } catch (error) {
                 log.warn("Unable to get audit details for article ${this.id}", error)
             } finally {

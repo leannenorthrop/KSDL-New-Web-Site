@@ -4,6 +4,7 @@
         <thead>
             <tr>
                 <g:sortableColumn property="title" title="Title" />
+                <th>Type</th>
                 <g:sortableColumn property="lastUpdated" title="Last Updated On" />
                 <shiro:hasAnyRole in="['Editor','Administrator']">
                     <th>Author</th>
@@ -17,7 +18,19 @@
                 <td>
                     <g:link action="show" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
                 </td>
-                <td>${fieldValue(bean:articleInstance, field:'lastUpdated')}</td>
+                <td>
+                    <g:findAll in="${articleInstance.tags}" expr="it == 'news'">News
+                    </g:findAll>
+                    <g:findAll in="${articleInstance.tags}" expr="it == 'meditation'">Meditation
+                    </g:findAll>
+                    <g:findAll in="${articleInstance.tags}" expr="it == 'community'">Community
+                    </g:findAll>
+                    <g:findAll in="${articleInstance.tags}" expr="it == 'wellbeing'">Well Being
+                    </g:findAll>  
+                    <g:findAll in="${articleInstance.tags}" expr="it == 'buddhism'">Buddhism
+                    </g:findAll>                                                                               
+                </td>                
+                <td><g:formatDate format="dd-MM-yyyy mm:HH" date="${articleInstance?.lastUpdated}"/></td>
                 <shiro:hasAnyRole in="['Editor','Administrator']">
                     <td>${fieldValue(bean:articleInstance, field:'author')}</td>
                 </shiro:hasAnyRole>

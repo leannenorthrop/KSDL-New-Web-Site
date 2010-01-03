@@ -6,6 +6,6 @@ class Transport {
     static auditable = true
     
     static constraints = {
-	    description(blank:false)
+        description(blank:false)
     }  
 }
