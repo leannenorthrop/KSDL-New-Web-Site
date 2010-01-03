@@ -4,7 +4,8 @@ import java.util.Collections
 
 class ArticleService {
     boolean transactional = true
-
+    def userLookupService
+    
     def findSimilar(article) {
         def articles = Article.findAllByTagWithCriteria(article.tags[0]) {
             and {
@@ -103,4 +104,64 @@ class ArticleService {
             return [ articleInstance : articleInstance, articles: similar ]
         }    
     }
+    
+    def userUnpublished(params) {
+        def username = userLookupService.username();
+        def articles = Article.authorPublishState(username,"Unpublished").list(params);
+        def total = Article.authorPublishState(username,"Unpublished").count();
+        println("Total unpublished user articles ${total}")
+        return [articles: articles, total: total]    
+    }
+    
+    def userPublished(params) {
+        def username = userLookupService.username();
+        def articles = Article.authorPublishState(username,"Published").list(params);
+        def total = Article.authorPublishState(username,"Published").count();
+        println("Total published user articles ${total}")
+        return [articles: articles, total: total]    
+    }
+    
+    def userArchived(params) {
+        def username = userLookupService.username();
+        def articles = Article.authorPublishState(username,"Archived").list(params);
+        def total = Article.authorPublishState(username,"Archived").count();
+        println("Total archived user articles ${total}")
+        return [articles: articles, total: total]    
+    } 
+    
+    def userDeleted(params) {
+        def username = userLookupService.username();
+        def articles = Article.deletedAuthor(username).list(params);
+        def total = Article.deletedAuthor(username).count();
+        println("Total deleted user articles ${total}")
+        return [articles: articles, total: total]    
+    }            
+    
+    def unpublished(params) {
+        def articles = Article.publishState("Unpublished").list(params);
+        def total = Article.publishState("Unpublished").count();
+        println("Total unpublished user articles ${total}")
+        return [articles: articles, total: total]    
+    }
+    
+    def published(params) {
+        def articles = Article.publishState("Published").list(params);
+        def total = Article.publishState("Published").count();
+        println("Total published user articles ${total}")
+        return [articles: articles, total: total]    
+    }
+    
+    def archived(params) {
+        def articles = Article.publishState("Archived").list(params);
+        def total = Article.publishState("Archived").count();
+        println("Total archived user articles ${total}")
+        return [articles: articles, total: total]    
+    } 
+    
+    def deleted(params) {
+        def articles = Article.deleted().list(params);
+        def total = Article.deleted().count();
+        println("Total deleted user articles ${total}")
+        return [articles: articles, total: total]    
+    }      
 }

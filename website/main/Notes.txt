@@ -1,13 +1,6 @@
 TODO
 
-1. News front page
-    - List of archived articles
-2. View article/archived article
-    - Main content
-    - Side bar of other articles
 3. Meditation front page
-4. Full list of news articles
-5. Anonymous publication
 6. Textile markup of special characters
 7. Check browsers
 8. Error handling
@@ -20,7 +13,6 @@ TODO
       Mail plugin
     Email to verify account
 12. Author profile
-13. Thumbnail images - see image-tools plugin
 14. View deleted items.
 15. View audit log.
 

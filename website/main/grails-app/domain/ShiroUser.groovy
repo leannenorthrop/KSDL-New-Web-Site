@@ -11,6 +11,12 @@ class ShiroUser {
         person(nullable:true)
     }
 
+    static namedQueries = { 
+        similar { username -> 
+            ilike 'username', "%${username}%"                           
+        }             
+    }
+    
     String toString() {
         username
     }

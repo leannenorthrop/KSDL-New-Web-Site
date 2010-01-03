@@ -1,85 +1,59 @@
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="layout" content="content-admin" />
-        <title>Kagyu Samye Dzong London: Manage Articles</title>
+        <title>Manage Articles</title>
+        <link rel="stylesheet" href="${resource(dir:'css/redmond',file:'jquery-ui-1.7.2.custom.css')}" media="screen, projection" />
+        <g:javascript library="jquery"/>
+        <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>        
+        <g:javascript>
+            var currentTabIndex = 0;
+            var currentTabDiv;
+            $(function() {
+                $('a.step').live('click', function() {
+                    $("#articles-tabs").tabs('url', currentTabIndex, this.href);                
+                    $(currentTabDiv).load(this.href);
+                    return false;
+                });
+                $('a.nextLink').live('click', function() {
+                    $("#articles-tabs").tabs('url', currentTabIndex, this.href);
+                    $(currentTabDiv).load(this.href);
+                    return false;
+                });        
+                $('a.prevLink').live('click', function() {
+                    $(currentTabDiv).load(this.href);
+                    return false;
+                });     
+                $('a.sortable').live('click', function() {
+                    $(currentTabDiv).load(this.href);
+                    return false;
+                });
+                $("#articles-tabs").tabs({
+                    fx: { opacity: 'toggle' },
+                    select: function(event, ui) {
+                        currentTabDiv = $(ui.panel);
+                        currentTabIndex = $("#articles-tabs").tabs('option', 'selected');
+                    },
+                    load: function(event, ui) {
+                        currentTabDiv = $(ui.panel);
+                        currentTabIndex = $("#articles-tabs").tabs('option', 'selected');
+                    }
+                });                
+            });
+        </g:javascript>
     </head>
     <body>
-        <div class="content">
-            <h1>Articles</h1>
+        <div class="jquery-ui content">
             <g:if test="${flash.message}">
                 <div class="message">${flash.message}</div>
             </g:if>
-            <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                            <g:sortableColumn property="title" title="Title" />
-
-                            <shiro:hasAnyRole in="['Editor','Administrator']"><g:sortableColumn property="publishState" title="Person" /></shiro:hasAnyRole>
-
-                            <g:sortableColumn property="publishState" title="Published" />
-
-                            <shiro:hasAnyRole in="['Editor','Administrator']">
-                                <th></th>
-                            </shiro:hasAnyRole>
-
-                            <shiro:hasAnyRole in="['Author']"><th></th></shiro:hasAnyRole>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${articleInstanceList}" status="i" var="articleInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-                            <td>
-                                <g:if test="${articleInstance.publishState == 'Unpublished'}">
-                                    <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
-                                </g:if>
-                                <g:else>
-                                    <g:link action="show" id="${articleInstance.id}">${fieldValue(bean:articleInstance, field:'title')}</g:link>
-                                </g:else>
-                            </td>
-
-                            <shiro:hasAnyRole in="['Editor','Administrator']"><td>${fieldValue(bean:articleInstance, field:'author')}</td></shiro:hasAnyRole>
-
-                            <td>
-                                <g:if test="${articleInstance.publishState == 'Unpublished'}">
-                                    <span class="">No</span>
-                                </g:if>
-                                <g:if test="${articleInstance.publishState == 'Published'}">
-                                    <span class="">Yes</span>
-                                </g:if>
-                            </td>
-
-                            <shiro:hasAnyRole in="['Editor','Administrator']">
-                                <td>
-                                    <g:if test="${articleInstance.publishState == 'Unpublished'}">
-                                        <g:link action="pre_publish" id="${articleInstance.id}">Publish</g:link>
-                                    </g:if>
-                                    <g:if test="${articleInstance.publishState == 'Published'}">
-                                        <g:link action="pre_publish" id="${articleInstance.id}">Edit</g:link>
-                                        <br />
-                                        <g:link action="changeState" id="${articleInstance.id}" params="[state:'Unpublished']" onclick="return confirm('Are you sure?');" >Unpublish</g:link>
-                                        <br /><g:link action="changeState" id="${articleInstance.id}" params="[state:'Archived']" onclick="return confirm('Are you sure?');" >Archive</g:link>
-                                    </g:if>
-                                    <br/>
-                                    <g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');" >Delete</g:link>
-                                </td>
-                            </shiro:hasAnyRole>
-
-                            <shiro:hasAnyRole in="['Author']">
-                                <td>
-                                     <shiro:hasAnyRole in="['Author']"><g:if test="${articleInstance.publishState == 'Unpublished'}"><g:link action="delete" id="${articleInstance.id}" onclick="return confirm('Are you sure?');">Delete</g:link></g:if></shiro:hasAnyRole>
-                                </td>
-                            </shiro:hasAnyRole>
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
-            </div>
-            <div class="manage paginateButtons">
-                <g:paginate total="${articleTotal}" />
+            <div id="articles-tabs">
+                <ul>
+                    <li><a href="ajaxUnpublishedArticles">Unpublished</a></li>
+                    <li><a href="ajaxPublishedArticles">Published</a></li>
+                    <li><a href="ajaxArchivedArticles">Archived</a></li>
+                    <li><a href="ajaxDeletedArticles">Deleted</a></li>
+                </ul>                                              
             </div>
         </div>
     </body>

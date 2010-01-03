@@ -10,12 +10,12 @@ hibernate {
 environments {
         development {
                 dataSource {
-                        dbCreate = "create-drop" // one of 'create', 'create-drop','update'
-            //url = "jdbc:hsqldb:hsql://localhost/lsd"
-            url = "jdbc:hsqldb:hsql:mem:lsd"
-            driverClassName = "org.hsqldb.jdbcDriver"
-            username = "sa"
-            password = ""
+                        dbCreate = "update" // one of 'create', 'create-drop','update'
+                        //url = "jdbc:hsqldb:hsql://localhost/lsd"
+                        url = "jdbc:hsqldb:file:devDB;shutdown=true"
+                        driverClassName = "org.hsqldb.jdbcDriver"
+                        username = "sa"
+                        password = ""
                 }
         }
         test {

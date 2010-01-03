@@ -25,79 +25,62 @@ class ArticleController {
         }
     }
 
-    def archived = {
-        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        def articles = Article.findAllByPublishState("Archived", [max:max])
-        def auditDetails = articles.collect { article ->
-            def id = Long.toString(article.id,10)
-            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-        }
-        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
-    }
-
-    def all = {
-        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        def articles = Article.findAllByDeleted(Boolean.FALSE, [max:max])
-        def auditDetails = articles.collect { article ->
-            def id = Long.toString(article.id,10)
-            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-        }
-        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
-    }
-
-    def deleted = {
-        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        def articles = Article.findAllByDeleted(Boolean.TRUE, [max:max])
-        def auditDetails = articles.collect { article ->
-            def id = Long.toString(article.id,10)
-            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-        }
-        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
-    }
-
-    def everything = {
-        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        def articles = Article.list(max:max)
-        def auditDetails = articles.collect { article ->
-            def id = Long.toString(article.id,10)
-            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-        }
-        render(view:'manage',model:[ articleInstanceList: articles, articleInstanceTotal: articles.count(), auditLogs: auditDetails ])
-    }
-
     // the save and update actions only accept POST requests
     static allowedMethods = [save:'POST', update:'POST']
 
-    def manage = {
-        def max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        def inList = ['Editor','Administrator']
-        def articles
-        def total
-        if (SecurityUtils.subject.hasRoles(inList).any())  {
-            articles = Article.findAllByDeleted(Boolean.FALSE,params)
-            total = Article.findAllByDeleted(Boolean.FALSE).size()
+    def ajaxUnpublishedArticles = {
+        params.offset = params.offset ? params.offset.toInteger() : 0        
+        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor','Administrator']).any())  {
+            model = articleService.unpublished(params)
         } else {
-            def criteria = Article.createCriteria()
-            articles = criteria.list(){
-                and {
-                    eq('deleted', Boolean.FALSE)
-                    author {
-                        eq('username', userLookupService.username())
-                    }
-                }
-            }
-            total = articles.size()
-            def criteria1 = Article.createCriteria()
-            articles = criteria1.list(params){
-                and {
-                    eq('deleted', Boolean.FALSE)
-                    author {
-                        eq('username', userLookupService.username())
-                    }
-                }
-            }
-        }
-        render(view:'manage',model:[ articleInstanceList: articles, articleTotal: total ])
+            model = articleService.userUnpublished(params)            
+        } 
+        render(view: 'unpublished', model:model)   
+    }
+    
+    def ajaxPublishedArticles = {
+        params.offset = params.offset ? params.offset.toInteger() : 0        
+        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor','Administrator']).any())  {
+            model = articleService.published(params)
+        } else {
+            model = articleService.userPublished(params)            
+        } 
+        render(view: 'published', model:model)   
+    }    
+     
+    def ajaxArchivedArticles = {
+        params.offset = params.offset ? params.offset.toInteger() : 0        
+        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor','Administrator']).any())  {
+            model = articleService.archived(params)
+        } else {
+            model = articleService.userArchived(params)            
+        } 
+        render(view: 'archived', model:model)   
+    }  
+    
+    def ajaxDeletedArticles = {
+        params.offset = params.offset ? params.offset.toInteger() : 0        
+        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor','Administrator']).any())  {
+            model = articleService.deleted(params)
+        } else {
+            model = articleService.userDeleted(params)            
+        } 
+        render(view: 'deleted', model:model)   
+    }              
+    def manage = {
+        render(view:'manage')
     }
 
     def view = {
@@ -185,7 +168,7 @@ class ArticleController {
                 def version = params.version.toLong()
                 if(articleInstance.version > version) {
                     flash.message = "Article ${articleInstance.title} was being edited - please try again."
-                    redirect(action:manage,id:articleInstance.id)
+                    redirect(action:manage)
                     return
                 }
             }
@@ -195,11 +178,11 @@ class ArticleController {
             }
             if(!articleInstance.hasErrors() && articleInstance.save()) {
                 flash.message = "Article ${articleInstance.title} has been Published"
-                redirect(action:manage,id:articleInstance.id)
+                redirect(action:manage)
             }
             else {
                 flash.message = "Article ${articleInstance.title} could not be ${params.state} due to an internal error. Please try again."
-                redirect(action:manage,id:articleInstance.id)
+                redirect(action:manage)
             }
         }
         else {
@@ -250,7 +233,7 @@ class ArticleController {
         articleInstance.author = userLookupService.lookup()
         if(!articleInstance.hasErrors() && articleInstance.save()) {
             flash.message = "Article ${articleInstance.title} created"
-            redirect(action:manage,id:articleInstance.id)
+            redirect(action:manage)
         }
         else {
             render(view:'edit',model:[articleInstance:articleInstance, id: params.id])
@@ -264,18 +247,18 @@ class ArticleController {
                 def version = params.version.toLong()
                 if(articleInstance.version > version) {
                     flash.message = "Article ${articleInstance.title} was being edited - please try again."
-                    redirect(action:manage,id:articleInstance.id)
+                    redirect(action:manage)
                     return
                 }
             }
             articleInstance.publishState = params.state
             if(!articleInstance.hasErrors() && articleInstance.save()) {
                 flash.message = "Article ${articleInstance.title} has been ${articleInstance.publishState}"
-                redirect(action:manage,id:articleInstance.id)
+                redirect(action:manage)
             }
             else {
                 flash.message = "Article ${articleInstance.title} could not be ${params.state} due to an internal error. Please try again."
-                redirect(action:manage,id:articleInstance.id)
+                redirect(action:manage)
             }
         }
         else {
