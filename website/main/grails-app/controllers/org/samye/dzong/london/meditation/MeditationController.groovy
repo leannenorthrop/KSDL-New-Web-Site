@@ -9,10 +9,11 @@ class MeditationController {
         def topArticles = []
         
         try {
-            articleService.publishedByTags(['meditation advice'])
-            articleService.publishedByTags(['meditation benefits'])
-            articleService.publishedByTags(['meditation benefits', 'meditation', 'meditation advice', 'front', 'top'])
+            adviceArticles = articleService.publishedByTags(['meditation advice'])
+            benefitsArticles = articleService.publishedByTags(['meditation benefits'])
+            topArticles = articleService.publishedByTags(['meditation benefits', 'meditation', 'meditation advice', 'front', 'top'])
         } catch (error) {
+            println error
             log.error("Meditation controller encountered an error.")
         }
         

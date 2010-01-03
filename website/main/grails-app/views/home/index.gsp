@@ -2,6 +2,11 @@
 <head>
     <title>Welcome Kagyu Samye Dzong London</title>
     <meta name="layout" content="main">
+    <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
+    <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
+    <feed:meta kind="rss" version="2.0" controller="feed" action="community"/>
+    <feed:meta kind="rss" version="2.0" controller="feed" action="wellbeing"/>
+        
 </head>
 <body>
     <div class="col1_80_Percent box">
