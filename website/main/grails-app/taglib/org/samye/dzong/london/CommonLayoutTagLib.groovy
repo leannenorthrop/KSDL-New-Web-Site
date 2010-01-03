@@ -115,7 +115,7 @@ class CommonLayoutTagLib {
 	        ['article','image'].each(){ item-> adminControllers << item }
         }
 	    if (SecurityUtils.subject.hasRole("Venue Manager")) {
-	        ['venue','room'].each(){ item-> adminControllers << item }
+	        ['venue'].each(){ item-> adminControllers << item }
         }
 	    if (SecurityUtils.subject.hasRole("Administrator")) {
             ['roles'].each(){ item-> adminControllers << item }
