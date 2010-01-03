@@ -15,7 +15,7 @@ class Venue extends Publishable {
     static constraints = {
     	name(size:5..512)
     	image(nullable:true)
-    	description(size:512..32000)
+    	description(size:5..32000)
     	facilities(blank:true)
     	access(blank:true)
     	rooms(nullable:true)

@@ -24,27 +24,29 @@
             </div>
             </g:hasErrors>
             <g:form action="save" method="post" >
-                    <fieldset>
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" value="${fieldValue(bean:venueInstance,field:'name')}"/>
-                    </fieldset>                    
-                    <fieldset>
-                        <label for="image">Image</label>
-                        <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${venueInstance?.image?.name}" ></g:select>
-                    </fieldset>    
-                    <fieldset>
-                        <label for="description">Description</label>
-                        <g:textArea name="description" value="${fieldValue(bean:venueInstance,field:'description')}" rows="5" cols="40"/>
-                    </fieldset>
-                    <fieldset>
-                        <label for="facilities">Facilities</label>
-                        <g:textArea name="facilities" value="${fieldValue(bean:venueInstance,field:'facilities')}" rows="5" cols="40"/>
-                    </fieldset>    
-                    <fieldset>
-                        <label for="access">Access</label>
-                        <g:textArea name="access" value="${fieldValue(bean:venueInstance,field:'access')}" rows="5" cols="40"/>
-                    </fieldset>                                                                        
-                    <input class="save" type="submit" value="Create" />
+                <input type="hidden" name="publishState" value="Unpublished" />
+                <input type="hidden" name="deleted" value="false" />            
+                <fieldset>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" value="${fieldValue(bean:venueInstance,field:'name')}"/>
+                </fieldset>                    
+                <fieldset>
+                    <label for="image">Image</label>
+                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${venueInstance?.image?.name}" ></g:select>
+                </fieldset>    
+                <fieldset>
+                    <label for="description">Description</label>
+                    <g:textArea name="description" value="${fieldValue(bean:venueInstance,field:'description')}" rows="5" cols="40"/>
+                </fieldset>
+                <fieldset>
+                    <label for="facilities">Facilities</label>
+                    <g:textArea name="facilities" value="${fieldValue(bean:venueInstance,field:'facilities')}" rows="5" cols="40"/>
+                </fieldset>    
+                <fieldset>
+                    <label for="access">Access</label>
+                    <g:textArea name="access" value="${fieldValue(bean:venueInstance,field:'access')}" rows="5" cols="40"/>
+                </fieldset>                                                                        
+                <input class="save" type="submit" value="Create" />
             </g:form>
         </div>
     </body>
