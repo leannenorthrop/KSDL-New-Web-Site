@@ -29,6 +29,28 @@ class Publishable implements Taggable {
 
     static transients = ['publishedOn']
 
+    static namedQueries = { 
+        authorPublishState { username, publishState -> 
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', publishState
+            author {
+                eq 'username', username
+            }                            
+        }   
+        
+        publishState { publishState -> 
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', publishState                         
+        }  
+               
+        deletedAuthor { username -> 
+                eq('deleted', Boolean.TRUE)
+                author {
+                    eq('username', username)
+                }                            
+        }              
+    }
+        
     String toString() {
         return "#{publishState} by #{person} (#{deleted})"
     }
