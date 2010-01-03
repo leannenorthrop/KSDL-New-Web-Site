@@ -11,13 +11,14 @@ class Article extends Publishable {
     Boolean displayDate;
 
     static constraints = {
-        title(blank:false)
+        title(blank:false,unique:true)
         summary(blank:false, maxSize:Integer.MAX_VALUE)
         content(blank:false, maxSize:Integer.MAX_VALUE)
         image(nullable:true)
         displayAuthor(nullable:true)
         displayDate(nullable:true)
-    }
+    }  
+
 
     String toString() {
         return "#{title}"

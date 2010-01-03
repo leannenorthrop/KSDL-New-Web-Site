@@ -9,6 +9,9 @@
     <p>You can keep in touch with us following any of these feeds:
         <ol>
             <li class="rss"><g:link controller="feed" action="news">News</g:link> <em>Receive the latest news</em></li>
+            <li class="rss"><g:link controller="feed" action="meditation">Meditation</g:link> <em>Receive the latest meditation articles</em></li>
+            <li class="rss"><g:link controller="feed" action="wellbeing">Well-Being</g:link> <em>Receive the latest well-being articles</em></li>
+            <li class="rss"><g:link controller="feed" action="community">Community</g:link> <em>Receive the latest community articles</em></li>
         </ol>
     </p>    
 </div>

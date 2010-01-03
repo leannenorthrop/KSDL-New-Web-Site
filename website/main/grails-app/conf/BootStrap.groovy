@@ -24,9 +24,12 @@ class BootStrap {
             }
         }
 
-        def adminRole = new ShiroRole(name: "Administrator")
+        def adminRole = new ShiroRole(name: "Admin")
         adminRole.addToPermissions("*:*")
         adminRole.save()
+        def webAdminRole = new ShiroRole(name: "Administrator")
+        webAdminRole.addToPermissions("manageSite:*")
+        webAdminRole.save()
         def contentAdminRole = new ShiroRole(name: "Editor")
         contentAdminRole.addToPermissions("article:*")
         contentAdminRole.addToPermissions("manageSite:home")
@@ -34,7 +37,7 @@ class BootStrap {
         def authRole = new ShiroRole(name: "Author")
         authRole.addToPermissions("article:*")
         authRole.addToPermissions("image:*")
-        contentAdminRole.addToPermissions("manageSite:home")
+        authRole.addToPermissions("manageSite:home")
         authRole.save()
 	    def eventRole = new ShiroRole(name: "Event Organiser")
         eventRole.addToPermissions("manageSite:home")
@@ -46,8 +49,11 @@ class BootStrap {
     	venueRole.addToPermissions("venue:*")
     	venueRole.save()
 
+        def theadmin = new ShiroUser(username: "admin", passwordHash: new Sha1Hash("change!t").toHex())
+        theadmin.addToRoles(adminRole)
+        theadmin.save()
         def user = new ShiroUser(username: "web-admin", passwordHash: new Sha1Hash("change!t").toHex())
-        user.addToRoles(adminRole)
+        user.addToRoles(webAdminRole)
         user.save()
     	def manager = new ShiroUser(username: "manager", passwordHash: new Sha1Hash("change!t").toHex())
     	manager.addToRoles(venueRole)

@@ -13,7 +13,7 @@ class AuditLogService {
 				eq('persistedObjectId', id)
             }
         }
-		return publish[0]
+		return publish[0] ?: null;
 	}
 	
 	def createdOn(id) {
@@ -25,9 +25,9 @@ class AuditLogService {
 				eq('persistedObjectId', id)
             }
         }
-		return publish[0]
+		return publish[0] ?: null
 	}
-	
+
 	def lastUpdatedOn(id) {
 		def criteria = AuditLogEvent.createCriteria()
         def publish = criteria.list(){
@@ -40,6 +40,6 @@ class AuditLogService {
 				eq('persistedObjectId', id)
             }
         }
-		return publish[0]
-	}		
+		return publish[0] ?: null
+	}
 }
