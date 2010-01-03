@@ -15,9 +15,15 @@
             };
             
             function addRoom() {
+                var namePrefix = "rooms[" + rooms + "]";
                 var liElem = $("#roomClone").clone(true);
+                liElem.attr({id:"room" + roomsCount});
+                liElem.find('.room .name input').attr(name: namePrefix + ".name");
+                liElem.find('.room .image input').attr(name: namePrefix + ".imageName");                
+                liElem.find('.room .description textarea').attr(name: namePrefix + ".description");
+                liElem.find('.room .makeRoomPublic input').attr(name: namePrefix + ".makePublic");                
                 $("#rooms").append(liElem);
-                roomsCount += 1;           
+                roomsCount += 1;                           
             }
             
         	$(function() {
@@ -69,19 +75,19 @@
                 		<li><a href="#visitingUs">Visiting Us</a></li>                		                		                		
                 		<li><a href="#rooms">Rooms</a></li>                		
                 	</ul>
-                	<div id="addresses">
+                	<div id="addresses" style="min-height: 15em">
                 		
                 	</div>
-                	<div id="telephoneNumbers">
+                	<div id="telephoneNumbers" style="min-height: 15em">
                 		
                 	</div>
-                	<div id="emails">
+                	<div id="emails" style="min-height: 15em">
                 		
                 	</div>
-                	<div id="visitingUs">
+                	<div id="visitingUs" style="min-height: 15em">
                 		
                 	</div>
-                	<div id="rooms" style="height: 10em">
+                	<div id="rooms" style="height: 15em">
                 	    <a href="#" id="addRoom"><span class="ui-icon ui-icon-plus"/>Add Room</a>
                 		<ul id="rooms">
                 		    <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
@@ -109,20 +115,20 @@
             </g:form>
         </div>
         <div style="visibility:hidden;display:none;">
-            <li id="roomClone">
-                <fieldset>
-                    <label for="X.name">Name</label>
-                    <input type="text" name="X.name" value=""/>
+            <li id="roomClone" class="room">
+                <fieldset class="name">
+                    <label>Name</label>
+                    <input type="text"value=""/>
                 </fieldset>                    
-                <fieldset>
-                    <label for="X.imageName">Image</label>
-                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="X.imageName"></g:select>
+                <fieldset class="image">
+                    <label>Image</label>
+                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}"></g:select>
                 </fieldset>    
-                <fieldset>
-                    <label for="X.description">Description</label>
-                    <g:textArea name="X.description" rows="5" cols="40"/>
+                <fieldset class="description">
+                    <label>Description</label>
+                    <g:textArea rows="5" cols="40"/>
                 </fieldset>
-                <g:checkBox name="X.makePublic" value="${false}" />               		          
+                <g:checkBox class="makeRoomPublic" value="${false}" />               		          
                 <button onClick="removeRoom(this);return false;">Add Room</button>
 	        </li>            
         </div>
