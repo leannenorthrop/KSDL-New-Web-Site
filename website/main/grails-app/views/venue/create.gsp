@@ -9,21 +9,25 @@
         <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>        
         <g:javascript>
             var roomsCount = ${venueInstance.rooms.size()};
+            var nextRoomId = roomsCount;
             
             function removeRoom(elem) {
-                
+                var li = $(elem).parent();
+                li.remove();
+                roomsCount -= 1;
             };
             
             function addRoom() {
-                var namePrefix = "rooms[" + rooms + "]";
+                var namePrefix = "rooms[" + nextRoomId + "]";
                 var liElem = $("#roomClone").clone(true);
-                liElem.attr({id:"room" + roomsCount});
-                liElem.find('.room .name input').attr(name: namePrefix + ".name");
-                liElem.find('.room .image input').attr(name: namePrefix + ".imageName");                
-                liElem.find('.room .description textarea').attr(name: namePrefix + ".description");
-                liElem.find('.room .makeRoomPublic input').attr(name: namePrefix + ".makePublic");                
+                liElem.attr({id:"room" + nextRoomId});
+                liElem.find('.name input').attr({name: namePrefix + ".name"});
+                liElem.find('.image select').attr({name: namePrefix + ".imageName"});                
+                liElem.find('.description textarea').attr({name: namePrefix + ".description"});
+                liElem.find('input.makeRoomPublic').attr({name: namePrefix + ".makePublic"});                
                 $("#rooms").append(liElem);
-                roomsCount += 1;                           
+                roomsCount += 1;    
+                nextRoomId += 1;                       
             }
             
         	$(function() {
@@ -129,7 +133,7 @@
                     <textArea rows="5" cols="40">&nbsp;</textarea>
                 </fieldset>
                 <input type="checkBox" class="makeRoomPublic" value="${false}">Make Public</input>
-                <button onClick="removeRoom(this);return false;">Add Room</button>
+                <a href="#" onClick="removeRoom(this);">Remove Room</a>
 	        </li>            
         </div>
     </body>
