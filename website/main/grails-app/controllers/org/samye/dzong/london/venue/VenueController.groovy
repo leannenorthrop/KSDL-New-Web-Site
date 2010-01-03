@@ -13,7 +13,6 @@ class VenueController {
         def venueInstance = new VenueCommand()
         venueInstance.rooms << new Room(name:"Shrine")
         venueInstance.rooms << new Room(name:"Tea")
-        venueInstance.properties = params
         return ['venueInstance':venueInstance]
     }
 
