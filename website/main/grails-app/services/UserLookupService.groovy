@@ -1,5 +1,5 @@
 import org.apache.shiro.SecurityUtils
-
+import org.samye.dzong.london.ShiroUser
 class UserLookupService {
 
     boolean transactional = false
@@ -11,9 +11,9 @@ class UserLookupService {
         ShiroUser.findByUsername(username())
     }
     def allRoles() {
-	ShiroRole.list()
+        ShiroRole.list()
     }
     def allUsers() {
-	ShiroUser.list()
+        ShiroUser.list()
     }
 }

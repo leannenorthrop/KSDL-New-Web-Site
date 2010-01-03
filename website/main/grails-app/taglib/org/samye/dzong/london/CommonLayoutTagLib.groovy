@@ -87,6 +87,17 @@ class CommonLayoutTagLib {
 
     def header = { attrs -> 
         def header = {
+            div(id:"banner") {
+                div(id:"text") {
+                    img(src:resource (dir: 'images', file:'heading.png'))
+                }
+                div(id:"back") {
+                    div(id:"mid") {
+                        div(id:"front"){}
+                    }
+                }
+            }
+/*        
             div (class:"logo group") {
                 img (src: resource (dir: 'images', file: 'logo.png'), alt:messageSource.getMessage ('title', null, null))
                 h1 {
@@ -106,6 +117,7 @@ class CommonLayoutTagLib {
                     mkp.yieldUnescaped (aElem)
                 }
             }
+*/
         }
 
         def builder = new StreamingMarkupBuilder()

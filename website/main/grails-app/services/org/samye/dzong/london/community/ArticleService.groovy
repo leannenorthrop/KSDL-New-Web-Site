@@ -6,91 +6,98 @@ class ArticleService {
     boolean transactional = true
     def userLookupService
     
-    def findSimilar(article) {
-        def articles = Article.findAllByTagWithCriteria(article.tags[0]) {
-            and {
-                eq('deleted', Boolean.FALSE)
-                eq('publishState', "Published")
-                not {
-                    eq('id', article.id)
-                }
-                ge('id', 1 + article.id)
-            }
-            maxResults(5)
-            order("lastUpdated", "id")
-        }
+    def findSimilar(article, params = []) {
+        def tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
+        for (tag in article.tags) {
+            tagQuery += "tl.tag.name = '${tag}' or "
+        } 
+        tagQuery = tagQuery[0..-4] + "))"
+        def articles = Article.executeQuery("from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)     
         return articles ? (articles.size() > 5 ? articles[0..4] : articles) : []
     }
     
-    def countPublishedByTags(tags) {
-        log.trace "Looking for articles published with ${tags}"
-        def mandatoryTag = tags[0]
-        def otherTags = tags.size() > 1 ? tags[1..-1] : null
-        def articles = Article.findAllByTagWithCriteria(mandatoryTag) {
-            and {
-                eq('deleted', Boolean.FALSE)
-                eq('publishState', "Published")
-            }
-        }
-        def publishedNewsArticles = []
-        if (otherTags) {
-            publishedNewsArticles = articles.findAll {article ->
-                !Collections.disjoint(article.tags, otherTags)
-            }
+    def countPublishedByTags(tags, inclusive = Boolean.FALSE) {
+        def articles
+        def tagQuery = ""
+        if (inclusive) {
+            tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
+            for (tag in tags) {
+                tagQuery += "tl.tag.name = '${tag}' or "
+            } 
+            tagQuery = tagQuery[0..-4] + "))"
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Published' and a.deleted = false") 
         } else {
-            publishedNewsArticles = articles
+            for (tag in tags) {
+                tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
+            } 
+
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Published' and a.deleted = false") 
         }
-        return publishedNewsArticles ? publishedNewsArticles.size() : 0
+        
+        return articles ? articles.size(): 0
     }
     
-    def publishedByTags(tags) {
-        def mandatoryTag = tags[0]
-        def otherTags = tags.size() > 1 ? tags[1..-1] : null
-        def articles = Article.findAllByTagWithCriteria(mandatoryTag) {
-            and {
-                eq('deleted', Boolean.FALSE)
-                eq('publishState', "Published")
-            }
-        }
-        def publishedNewsArticles = []
-        if (otherTags) {
-            publishedNewsArticles = articles.findAll {article ->
-                !Collections.disjoint(article.tags, otherTags)
-            }
+    def publishedByTags(tags, params = [], inclusive = Boolean.FALSE) {
+        def articles
+        def tagQuery = ""
+        if (inclusive) {
+            tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
+            for (tag in tags) {
+                tagQuery += "tl.tag.name = '${tag}' or "
+            } 
+            tagQuery = tagQuery[0..-4] + "))"
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Published' and a.deleted = false order by a.lastUpdated desc", params) 
         } else {
-            publishedNewsArticles = articles
+            for (tag in tags) {
+                tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
+            } 
+
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Published' and a.deleted = false order by a.lastUpdated desc",params) 
         }
-        return publishedNewsArticles ?: []
+        
+        return articles ?: []
     }
 
-    def countArchivedByTags(tags) {
-        def criteria = Article.createCriteria()
-        def articles = criteria.list(){
-            and {
-                eq('deleted', Boolean.FALSE)
-                eq('publishState', "Archived")
-            }
+    def countArchivedByTags(tags, inclusive = Boolean.TRUE) {
+        def articles
+        def tagQuery = ""
+        if (inclusive) {
+            tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
+            for (tag in tags) {
+                tagQuery += "tl.tag.name = '${tag}' or "
+            } 
+            tagQuery = tagQuery[0..-4] + "))"
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = false") 
+        } else {
+            for (tag in tags) {
+                tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
+            } 
+
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Archived' and a.deleted = false") 
         }
-        def publishedNewsArticles = []
-        publishedNewsArticles = articles.findAll {article ->
-            !Collections.disjoint(article.tags, tags)
-        }
-        return publishedNewsArticles.size() ?: 0
+        
+        return articles ? articles.size(): 0
     }   
         
-    def archivedByTags(tags) {
-        def criteria = Article.createCriteria()
-        def articles = criteria.list(){
-            and {
-                eq('deleted', Boolean.FALSE)
-                eq('publishState', "Archived")
-            }
+    def archivedByTags(tags, inclusive = Boolean.TRUE) {
+        def articles
+        def tagQuery = ""
+        if (inclusive) {
+            tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
+            for (tag in tags) {
+                tagQuery += "tl.tag.name = '${tag}' or "
+            } 
+            tagQuery = tagQuery[0..-4] + "))"
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = false") 
+        } else {
+            for (tag in tags) {
+                tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
+            } 
+
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Archived' and a.deleted = false") 
         }
-        def publishedNewsArticles = []
-        publishedNewsArticles = articles.findAll {article ->
-            !Collections.disjoint(article.tags, tags)
-        }
-        return publishedNewsArticles ?: []
+        
+        return articles ?: []
     }    
 
     def view(id) {
@@ -109,7 +116,6 @@ class ArticleService {
         def username = userLookupService.username();
         def articles = Article.authorPublishState(username,"Unpublished").list(params);
         def total = Article.authorPublishState(username,"Unpublished").count();
-        println("Total unpublished user articles ${total}")
         return [articles: articles, total: total]    
     }
     
@@ -117,7 +123,6 @@ class ArticleService {
         def username = userLookupService.username();
         def articles = Article.authorPublishState(username,"Published").list(params);
         def total = Article.authorPublishState(username,"Published").count();
-        println("Total published user articles ${total}")
         return [articles: articles, total: total]    
     }
     
@@ -125,7 +130,6 @@ class ArticleService {
         def username = userLookupService.username();
         def articles = Article.authorPublishState(username,"Archived").list(params);
         def total = Article.authorPublishState(username,"Archived").count();
-        println("Total archived user articles ${total}")
         return [articles: articles, total: total]    
     } 
     
@@ -133,35 +137,30 @@ class ArticleService {
         def username = userLookupService.username();
         def articles = Article.deletedAuthor(username).list(params);
         def total = Article.deletedAuthor(username).count();
-        println("Total deleted user articles ${total}")
         return [articles: articles, total: total]    
     }            
     
     def unpublished(params) {
         def articles = Article.publishState("Unpublished").list(params);
         def total = Article.publishState("Unpublished").count();
-        println("Total unpublished user articles ${total}")
         return [articles: articles, total: total]    
     }
     
     def published(params) {
         def articles = Article.publishState("Published").list(params);
         def total = Article.publishState("Published").count();
-        println("Total published user articles ${total}")
         return [articles: articles, total: total]    
     }
     
     def archived(params) {
         def articles = Article.publishState("Archived").list(params);
         def total = Article.publishState("Archived").count();
-        println("Total archived user articles ${total}")
         return [articles: articles, total: total]    
     } 
     
     def deleted(params) {
         def articles = Article.deleted().list(params);
         def total = Article.deleted().count();
-        println("Total deleted user articles ${total}")
         return [articles: articles, total: total]    
     }      
 }

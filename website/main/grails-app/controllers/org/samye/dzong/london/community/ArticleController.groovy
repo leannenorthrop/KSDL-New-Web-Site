@@ -31,7 +31,7 @@ class ArticleController {
     def ajaxUnpublishedArticles = {
         params.offset = params.offset ? params.offset.toInteger() : 0        
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        
+        println params
         def model
         if (SecurityUtils.subject.hasRoles(['Editor','Administrator']).any())  {
             model = articleService.unpublished(params)

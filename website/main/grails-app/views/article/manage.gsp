@@ -21,13 +21,15 @@
                     return false;
                 });        
                 $('a.prevLink').live('click', function() {
+                    $("#articles-tabs").tabs('url', currentTabIndex, this.href);
                     $(currentTabDiv).load(this.href);
                     return false;
                 });     
-                $('a.sortable').live('click', function() {
+                $('th.sortable a').live('click', function() {
+                    $("#articles-tabs").tabs('url', currentTabIndex, this.href);
                     $(currentTabDiv).load(this.href);
                     return false;
-                });
+                });                
                 $("#articles-tabs").tabs({
                     fx: { opacity: 'toggle' },
                     select: function(event, ui) {

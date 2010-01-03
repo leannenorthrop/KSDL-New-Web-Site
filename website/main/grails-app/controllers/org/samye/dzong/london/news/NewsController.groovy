@@ -12,7 +12,7 @@ class NewsController {
     def home = {
         def totalPublishedNewsArticles = articleService.countPublishedByTags(['news'])
         def totalArchived = articleService.countArchivedByTags(['news'])
-        def articles = articleService.publishedByTags(['news','front'])
+        def articles = articleService.publishedByTags(['news'], [max : 15])
         def auditDetails = articles.collect { article ->
             def id = Long.toString(article.id,10)
             [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
