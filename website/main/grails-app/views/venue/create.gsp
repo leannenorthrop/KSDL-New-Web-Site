@@ -17,13 +17,11 @@
             function addRoom() {
                 var liElem = $("#roomClone").clone(true);
                 $("#rooms").append(liElem);
-                roomsCount += 1;
-                var newheight = (roomsCount * 5) + 'em';                
-                $("#rooms").css(height:newheight);                
+                roomsCount += 1;           
             }
             
         	$(function() {
-        		$("#accordion").accordion();
+        		$("#details").tabs();
         		$('#addRoom').click(function() {
         		    addRoom();
         		});
@@ -63,25 +61,27 @@
                     <label for="access">Access</label>
                     <g:textArea name="access" value="${fieldValue(bean:venueInstance,field:'access')}" rows="5" cols="40"/>
                 </fieldset>             
-                <div id="accordion">
-                	<h3><a href="#">Addresses</a></h3>
-                	<div>
+                <div id="details">
+                    <ul>
+                		<li><a href="#addresses">Addresses</a></li>
+                		<li><a href="#telephoneNumbers">Telephone Numbers</a></li>
+                		<li><a href="#emails">Emails</a></li>
+                		<li><a href="#visitingUs">Visiting Us</a></li>                		                		                		
+                		<li><a href="#rooms">Rooms</a></li>                		
+                	</ul>
+                	<div id="addresses">
                 		
                 	</div>
-                	<h3><a href="#">Emails</a></h3>
-                	<div>
+                	<div id="telephoneNumbers">
                 		
                 	</div>
-                	<h3><a href="#">Telephone Numbers</a></h3>
-                	<div>
+                	<div id="emails">
                 		
                 	</div>
-                	<h3><a href="#">Visiting Us</a></h3>
-                	<div>
+                	<div id="visitingUs">
                 		
                 	</div>
-                	<h3><a href="#">Rooms</a></h3>
-                	<div>
+                	<div id="rooms" style="height: 10em">
                 	    <a href="#" id="addRoom"><span class="ui-icon ui-icon-plus"/>Add Room</a>
                 		<ul id="rooms">
                 		    <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
