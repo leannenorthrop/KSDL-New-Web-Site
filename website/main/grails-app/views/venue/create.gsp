@@ -79,7 +79,7 @@
                 	</div>
                 	<h3><a href="#">Rooms</a></h3>
                 	<div>
-                	    <button id="addRoom">Add Room</button>
+                	    <a href="#" id="addRoom"><span class="ui-icon ui-icon-plus"/>Add Room</a>
                 		<ul id="rooms">
                 		    <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
                     		    <g:set var="namePrefix" value="${'rooms[' + j + ']'}" />
@@ -105,7 +105,7 @@
                 <input class="save" type="submit" value="Create" />
             </g:form>
         </div>
-        <div style="visible:none;display:hidden;">
+        <div style="visibility:hidden;display:none;">
             <li id="roomClone">
                 <fieldset>
                     <label for="X.name">Name</label>
