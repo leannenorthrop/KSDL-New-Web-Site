@@ -10,14 +10,14 @@ class VenueController {
     }
     
     def create = {
-        def venueInstance = new VenueCommand()
+        def venueInstance = new Venue()
+        venueInstance.properties = params        
         return ['venueInstance':venueInstance]
     }
 
-    def save = { VenueCommand cmd ->
-        if(!cmd.hasErrors()) {
-            def venueInstance = cmd.createVenue()
-            venueInstance.save()
+    def save = {
+        def venueInstance = new Venue(params)
+        if(!venueInstance.hasErrors() && venueInstance.save()) {
             flash.message = "Venue ${venueInstance.id} created"
             redirect(action:manage,id:venueInstance.id)
         }
