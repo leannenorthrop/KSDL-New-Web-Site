@@ -11,7 +11,6 @@ class Address extends Contact {
     String country;
     String type;
 
-    static belongsTo = Venue
     static constraints = {
         placeName(maxSize:1024)
         streetNumber(nullable:true)
