@@ -11,8 +11,6 @@ class VenueController {
     
     def create = {
         def venueInstance = new VenueCommand()
-        venueInstance.rooms << new Room(name:"Shrine")
-        venueInstance.rooms << new Room(name:"Tea")
         return ['venueInstance':venueInstance]
     }
 
