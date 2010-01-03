@@ -126,7 +126,7 @@
                 </fieldset>    
                 <fieldset class="description">
                     <label>Description</label>
-                    <g:textArea rows="5" cols="40"/>
+                    <textArea rows="5" cols="40">&nbsp;</textarea>
                 </fieldset>
                 <g:checkBox class="makeRoomPublic" value="${false}" />               		          
                 <button onClick="removeRoom(this);return false;">Add Room</button>
