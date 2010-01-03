@@ -3,8 +3,6 @@
 package org.samye.dzong.london.venue
 
 class VenueController {
-    
-    def index = { }
 
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
@@ -13,33 +11,23 @@ class VenueController {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         render(view:'manage',model:[ venueInstanceList: Venue.list( params ), venueInstanceTotal: Venue.count() ])
     }
-
-    def show = {
-        def venueInstance = Venue.get( params.id )
-
-        if(!venueInstance) {
-            flash.message = "Venue not found with id ${params.id}"
-            redirect(action:list)
-        }
-        else { return [ venueInstance : venueInstance ] }
-    }
-
+    
     def delete = {
         def venueInstance = Venue.get( params.id )
         if(venueInstance) {
             try {
                 venueInstance.delete(flush:true)
                 flash.message = "Venue ${params.id} deleted"
-                redirect(action:list)
+                redirect(action:manage)
             }
             catch(org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "Venue ${params.id} could not be deleted"
-                redirect(action:show,id:params.id)
+                redirect(action:manage,id:params.id)
             }
         }
         else {
             flash.message = "Venue not found with id ${params.id}"
-            redirect(action:list)
+            redirect(action:manage)
         }
     }
 
@@ -48,7 +36,7 @@ class VenueController {
 
         if(!venueInstance) {
             flash.message = "Venue not found with id ${params.id}"
-            redirect(action:list)
+            redirect(action:manage)
         }
         else {
             return [ venueInstance : venueInstance ]
@@ -78,7 +66,7 @@ class VenueController {
         }
         else {
             flash.message = "Venue not found with id ${params.id}"
-            redirect(action:list)
+            redirect(action:manage)
         }
     }
 
@@ -92,7 +80,7 @@ class VenueController {
         def venueInstance = new Venue(params)
         if(!venueInstance.hasErrors() && venueInstance.save()) {
             flash.message = "Venue ${venueInstance.id} created"
-            redirect(action:show,id:venueInstance.id)
+            redirect(action:manage,id:venueInstance.id)
         }
         else {
             render(view:'create',model:[venueInstance:venueInstance])
