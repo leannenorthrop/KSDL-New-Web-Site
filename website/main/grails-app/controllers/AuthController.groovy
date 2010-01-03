@@ -79,7 +79,7 @@ class AuthController {
             targetUri = savedRequest.requestURI - request.contextPath
             if (savedRequest.queryString) targetUri = targetUri + '?' + savedRequest.queryString
         } else {
-            targetUri = "/article/manage?offset=0&max=10";
+            targetUri = "/manageSite/home";
         }
 
         try{
@@ -125,4 +125,6 @@ class AuthController {
     def unauthorized = {
         render "You do not have permission to access this page."
     }
+
+    
 }

@@ -105,24 +105,38 @@ class CommonLayoutTagLib {
     }
 
     def toolbar = { attrs ->
-        def adminControllers = ['home','article','image']
-        def adminClasses = [home: 'home', article: 'list',image: 'list']
+        def adminControllers = ['home']
+        def adminClasses = [home: 'home', article: 'list',image: 'list', venue:'list', room:'list', roles:'list']
 
         if (SecurityUtils.subject.hasRole("Editor") && !SecurityUtils.subject.hasRole("Author")) {
-            adminControllers = ['home','article']
+            ['article'].each(){ item-> adminControllers << item }
+        }
+	if (SecurityUtils.subject.hasRole("Author")) {
+	    ['article','image'].each(){ item-> adminControllers << item }
+        }
+	if (SecurityUtils.subject.hasRole("Venue Manager")) {
+	    ['venue','room'].each(){ item-> adminControllers << item }
+        }
+	if (SecurityUtils.subject.hasRole("Administrator")) {
+            ['roles'].each(){ item-> adminControllers << item }
         }
 
         def toolbar = {
-            println("id = ${attrs.id}")
             div(class: "menuBar group") {
                 adminControllers.each() { controller ->
                     span(class: "menuButton") {
                         def elem
                         if (controller.equals('home')){
-                            elem = link(class:adminClasses[controller], controller:"manageSite", action:"index") {messageSource.getMessage('toolbar.'+controller,null,null)}
+                            elem = link(class:adminClasses[controller], controller:"manageSite", action:"home") {messageSource.getMessage('toolbar.'+controller,null,null)}
+                        } else if (controller.equals('roles')) {
+                            elem = link(class:adminClasses[controller], controller:"admin", action:"roles") {messageSource.getMessage('toolbar.'+controller,null,null)}
                         } else if (controller.equals(attrs.controller)){
-                            if ("manage".equals(attrs.action) && SecurityUtils.subject.hasRole("Author")) {
-                                elem = link(class:"create", controller:controller, action:"create") {messageSource.getMessage("toolbar.${controller}.create",null,null)}
+                            if ("manage".equals(attrs.action)) {
+                                if (SecurityUtils.subject.hasRole("Author")) {
+                                	elem = link(class:"create", controller:controller, action:"create") {messageSource.getMessage("toolbar.${controller}.create",null,null)}
+                                } else if (SecurityUtils.subject.hasRole("Venue Manager")) {
+					elem = link(class:"create", controller:controller, action:"create") {messageSource.getMessage("toolbar.${controller}.create",null,null)}                                
+                                }
                             } else if ("create".equals(attrs.action)) {
                                 elem = link(class:"list", controller:controller, action:"manage", params:[offset:0,max:10]) {messageSource.getMessage('toolbar.'+controller,null,null)}
                             } else if ("show".equals(attrs.action)) {
