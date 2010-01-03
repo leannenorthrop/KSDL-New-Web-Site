@@ -8,9 +8,23 @@
         <g:javascript library="jquery"/>
         <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>        
         <g:javascript>
-            	$(function() {
-            		$("#accordion").accordion();
-            	});
+            var roomsCount = ${venueInstance.rooms.size()};
+            
+            function removeRoom(elem) {
+                
+            };
+            
+            function addRoom() {
+                var liElem = $("#roomClone").clone(true);
+                $("#rooms").append(liElem);                
+            }
+            
+        	$(function() {
+        		$("#accordion").accordion();
+        		$('#addRoom').click(function() {
+        		    addRoom();
+        		});
+        	});
         </g:javascript>          
     </head>
     <body>
@@ -65,7 +79,8 @@
                 	</div>
                 	<h3><a href="#">Rooms</a></h3>
                 	<div>
-                		<ul>
+                	    <button id="addRoom">Add Room</button>
+                		<ul id="rooms">
                 		    <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
                     		    <g:set var="namePrefix" value="${'rooms[' + j + ']'}" />
                 		        <li>
@@ -89,6 +104,24 @@
                 </div>                                                                           
                 <input class="save" type="submit" value="Create" />
             </g:form>
+        </div>
+        <div style="visible:none;display:hidden;">
+            <li id="roomClone">
+                <fieldset>
+                    <label for="X.name">Name</label>
+                    <input type="text" name="X.name" value=""/>
+                </fieldset>                    
+                <fieldset>
+                    <label for="X.imageName">Image</label>
+                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="X.imageName"></g:select>
+                </fieldset>    
+                <fieldset>
+                    <label for="X.description">Description</label>
+                    <g:textArea name="X.description" rows="5" cols="40"/>
+                </fieldset>
+                <g:checkBox name="X.makePublic" value="${false}" />               		          
+                <button onClick="removeRoom(this);return false;">Add Room</button>
+	        </li>            
         </div>
     </body>
 </html>
