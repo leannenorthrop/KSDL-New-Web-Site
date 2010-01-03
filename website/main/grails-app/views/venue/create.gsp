@@ -74,8 +74,8 @@
                                         <input type="text" name="${namePrefix}.name" value="${fieldValue(bean:roomInstance,field:'name')}"/>
                                     </fieldset>                    
                                     <fieldset>
-                                        <label for="${namePrefix}.image.name">Image</label>
-                                        <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="${namePrefix}.image.name" value="${venueInstance?.image?.name}" ></g:select>
+                                        <label for="${namePrefix}.imageName">Image</label>
+                                        <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="${namePrefix}.imageName" value="${venueInstance?.imageName}" ></g:select>
                                     </fieldset>    
                                     <fieldset>
                                         <label for="${namePrefix}.description">Description</label>
