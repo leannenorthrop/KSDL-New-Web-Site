@@ -8,7 +8,7 @@
         <g:javascript library="jquery"/>
         <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>        
         <g:javascript>
-            var roomsCount = ${venueInstance.rooms.size()};
+            var roomsCount = 0;
             var nextRoomId = roomsCount;
             
             function removeRoom(elem) {
@@ -22,9 +22,11 @@
                 var liElem = $("#roomClone").clone(true);
                 liElem.attr({id:"room" + nextRoomId});
                 liElem.find('.name input').attr({name: namePrefix + ".name"});
-                liElem.find('.image select').attr({name: namePrefix + ".imageName"});                
+                liElem.find('.image select').attr({name: namePrefix + ".image.name"});                
                 liElem.find('.description textarea').attr({name: namePrefix + ".description"});
                 liElem.find('input.makeRoomPublic').attr({name: namePrefix + ".makePublic"});                
+                liElem.find('input.deleted').attr({name: namePrefix + ".deleted"});
+                liElem.find('input.publish').attr({name: namePrefix + ".publishState"});
                 $("#rooms").append(liElem);
                 roomsCount += 1;    
                 nextRoomId += 1;                       
@@ -57,7 +59,7 @@
                 </fieldset>                    
                 <fieldset>
                     <label for="image">Image</label>
-                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${venueInstance?.imageName}" ></g:select>
+                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${venueInstance?.image?.name}" ></g:select>
                 </fieldset>    
                 <fieldset>
                     <label for="description">Description</label>
@@ -102,8 +104,8 @@
                                         <input type="text" name="${namePrefix}.name" value="${fieldValue(bean:roomInstance,field:'name')}"/>
                                     </fieldset>                    
                                     <fieldset>
-                                        <label for="${namePrefix}.imageName">Image</label>
-                                        <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="${namePrefix}.imageName" value="${venueInstance?.imageName}" ></g:select>
+                                        <label for="${namePrefix}.image.name">Image</label>
+                                        <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}" name="${namePrefix}.image.name" value="${venueInstance?.image.name}" ></g:select>
                                     </fieldset>    
                                     <fieldset>
                                         <label for="${namePrefix}.description">Description</label>
@@ -123,15 +125,13 @@
                 <fieldset class="name">
                     <label>Name</label>
                     <input type="text"value=""/>
-                </fieldset>                    
-                <fieldset class="image">
-                    <label>Image</label>
-                    <g:select optionKey="id" from="${org.samye.dzong.london.media.Image.list()}"></g:select>
-                </fieldset>    
+                </fieldset>                       
                 <fieldset class="description">
                     <label>Description</label>
                     <textArea rows="5" cols="40">&nbsp;</textarea>
                 </fieldset>
+                <input type="hidden" class="deleted" value="false"/>
+                <input type="hidden" class="publish" value="Unpublished"/>
                 <input type="checkBox" class="makeRoomPublic" value="${false}">Make Public</input>
                 <a href="#" onClick="removeRoom(this);">Remove Room</a>
 	        </li>            
