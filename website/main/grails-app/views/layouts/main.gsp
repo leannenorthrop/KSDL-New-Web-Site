@@ -14,6 +14,7 @@
         <g:javascript library="application" />
         <g:layoutHead />
     </head>
+    <body>
     <shiro:isLoggedIn in="['Editor','Administrator','Author']">
         <body style="min-width:70em">
     </shiro:isLoggedIn>
@@ -23,8 +24,8 @@
         <div id="spinner" class="spinner" style="display:none;">
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
-        <g:layoutBody />
-        <lsdc:grid />
+        <g:layoutBody/>
+        <lsdc:grid />        
         <div class="footer">Copyright &#169; 2009</div>
     </body>
 </html>
