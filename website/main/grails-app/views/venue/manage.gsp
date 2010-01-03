@@ -24,8 +24,7 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-            
-            <g:link action="create"><span class="ui-icon ui-icon-plus">&nbsp;</span>Add Venue</g:link>
+
             <g:if test="${venueInstanceList}">
             <div id="venues">
             	<ul>
@@ -63,11 +62,11 @@
             		</div>   
             		<div class="roomDetails">
             	        <ul>
-            	            <g:each in="${venueInstanceList.rooms}" status="j" var="roomInstance">
+            	            <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
             	            <li><a href="#tabs-${i} .roomDetails .room${j}">${fieldValue(bean:roomInstance, field:'name')}</a></li>
             	            </g:each>           	           
             	        </ul>
-            	        <g:each in="${venueInstanceList.rooms}" status="j" var="roomInstance">
+            	        <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
             	        <div class="room${j}">
             	            <g:if test="${roomInstance.image}">
                             <img src="${createLink(controller: 'image', action: 'src', id: roomInstance.image.id)}" title="${roomInstance.image.name}" alt="${roomInstance.image.name}"/>
@@ -76,7 +75,8 @@
             	        </div>
             	        </g:each>
             		</div>            		         		
-            	</div>
+                    <g:link action="delete">Delete</g:link> <g:link action="edit">Edit</g:link>
+            	</div><!-- End of Venue Contents Tab -->
             	</g:each>
             </div>
             </g:if>
