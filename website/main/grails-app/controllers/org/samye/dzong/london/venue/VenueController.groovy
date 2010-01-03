@@ -4,12 +4,12 @@ package org.samye.dzong.london.venue
 
 class VenueController {
     
-    def index = { redirect(action:list,params:params) }
+    def index = { }
 
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
-    def list = {
+    def manage = {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
         [ venueInstanceList: Venue.list( params ), venueInstanceTotal: Venue.count() ]
     }

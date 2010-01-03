@@ -106,18 +106,18 @@ class CommonLayoutTagLib {
 
     def toolbar = { attrs ->
         def adminControllers = ['home']
-        def adminClasses = [home: 'home', article: 'list',image: 'list', venue:'list', room:'list', roles:'list']
+        def adminClasses = [home: 'home', article: 'list',image: 'list', venue:'list', roles:'list']
 
         if (SecurityUtils.subject.hasRole("Editor") && !SecurityUtils.subject.hasRole("Author")) {
             ['article'].each(){ item-> adminControllers << item }
         }
-	if (SecurityUtils.subject.hasRole("Author")) {
-	    ['article','image'].each(){ item-> adminControllers << item }
+	    if (SecurityUtils.subject.hasRole("Author")) {
+	        ['article','image'].each(){ item-> adminControllers << item }
         }
-	if (SecurityUtils.subject.hasRole("Venue Manager")) {
-	    ['venue','room'].each(){ item-> adminControllers << item }
+	    if (SecurityUtils.subject.hasRole("Venue Manager")) {
+	        ['venue','room'].each(){ item-> adminControllers << item }
         }
-	if (SecurityUtils.subject.hasRole("Administrator")) {
+	    if (SecurityUtils.subject.hasRole("Administrator")) {
             ['roles'].each(){ item-> adminControllers << item }
         }
 
