@@ -128,7 +128,7 @@
                     <label>Description</label>
                     <textArea rows="5" cols="40">&nbsp;</textarea>
                 </fieldset>
-                <g:checkBox class="makeRoomPublic" value="${false}" />               		          
+                <input type="checkBox" class="makeRoomPublic" value="${false}">Make Public</input>
                 <button onClick="removeRoom(this);return false;">Add Room</button>
 	        </li>            
         </div>
