@@ -81,7 +81,7 @@
                                         <label for="${namePrefix}.description">Description</label>
                                         <g:textArea name="${namePrefix}.description" value="${fieldValue(bean:roomInstance,field:'description')}" rows="5" cols="40"/>
                                     </fieldset>
-                                    <g:checkBox name="${namePrefix}.description" value="${false}" />               		          
+                                    <g:checkBox name="${namePrefix}.makePublic" value="${false}" />               		          
                 		        </li>
                 		    </g:each>
             		    </ul>
