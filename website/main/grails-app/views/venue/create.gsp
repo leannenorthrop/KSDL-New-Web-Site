@@ -16,9 +16,10 @@
             
             function addRoom() {
                 var liElem = $("#roomClone").clone(true);
-                roomsCount++;
-                var newheight = (roomsCount * 5) + 'em';
-                $("#rooms").append(liElem).css(height:newheight);                
+                $("#rooms").append(liElem);
+                roomsCount += 1;
+                var newheight = (roomsCount * 5) + 'em';                
+                $("#rooms").css(height:newheight);                
             }
             
         	$(function() {
