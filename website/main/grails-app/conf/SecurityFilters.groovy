@@ -8,9 +8,10 @@ class SecurityFilters {
             before = {
                 // Ignore direct views (e.g. the default main index page).
                 if (!controllerName) return true
+                if (!actionName) return true
 
-                def allowedControllers = ['home', 'help', 'feed']
-                def allowedActions = ['view', 'index', 'src', 'thumbnail']
+                def allowedControllers = ['home', 'help', 'feed', 'news','meditation']
+                def allowedActions = ['view', 'index', 'src', 'thumbnail', 'home']
                 if (allowedControllers.contains(controllerName) || allowedActions.contains(actionName)){
                     return true
                 }

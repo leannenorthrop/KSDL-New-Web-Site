@@ -271,9 +271,14 @@ p. With a link to tibet.net:
 p(tibetan). "ཨབཅ":http://tibet.net/en/index.php"""
         def pubArticle3 = new Article(title: "Tibetan HTML Test", content: tibetanText, summary: "Testing if textile encoder & database can cope with Tibetan unicode. Will only display properly in Safari browsers I think.")
         pubArticle3.author = author1
-        pubArticle3.publishState = "Published"
+        pubArticle3.publishState = "Unpublished"
         pubArticle3.deleted = Boolean.FALSE
         pubArticle3.save()
+        pubArticle3.publishState = "Published"
+        pubArticle3.save()
+
+        def abc = Article.findByTitle("Tibetan HTML Test")
+        println "Tibetan HTML Test was created on ${abc.dateCreated} and published on ${abc.publishedOn}"
      }
 
      def destroy = {

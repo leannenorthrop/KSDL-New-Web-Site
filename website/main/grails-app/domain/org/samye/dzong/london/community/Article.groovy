@@ -7,18 +7,13 @@ class Article extends Publishable {
     String summary;
     String content;
     Image image;
-    Boolean displayAuthor;
-    Boolean displayDate;
 
     static constraints = {
         title(blank:false,unique:true)
-        summary(blank:false, maxSize:Integer.MAX_VALUE)
-        content(blank:false, maxSize:Integer.MAX_VALUE)
+        summary(size:5..Integer.MAX_VALUE)
+        content(size:5..Integer.MAX_VALUE)
         image(nullable:true)
-        displayAuthor(nullable:true)
-        displayDate(nullable:true)
     }  
-
 
     String toString() {
         return "#{title}"
