@@ -10,11 +10,11 @@ class VenueCommand {
     
     static constraints = {
     	name(size:5..512)
-    	image(nullable:true)
+    	image(blank:true)
     	description(size:5..32000)
     	facilities(blank:true)
     	access(blank:true)
-    	rooms(nullable:true)
+    	rooms()
     }          
     
     Venue createVenue() {
