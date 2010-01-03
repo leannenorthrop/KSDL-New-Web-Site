@@ -20,7 +20,8 @@
             <div class="message">${flash.message}</div>
             </g:if>
             
-            <g:link class="ui-icon ui-icon-plus" action="create">Add Venue</g:link>
+            <g:link action="create"><span class="ui-icon ui-icon-plus"/>&nbsp;Add Venue</g:link>
+            <g:if test="${venueInstanceList}">
             <div id="tabs">
             	<ul>
             	    <g:each in="${venueInstanceList}" status="i" var="venueInstance">
@@ -33,6 +34,7 @@
             	</div>
             	</g:each>
             </div>
+            </g:if>
         </div>
     </body>
 </html>
