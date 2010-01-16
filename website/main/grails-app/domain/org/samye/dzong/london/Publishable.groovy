@@ -54,18 +54,5 @@ class Publishable implements Taggable {
     String toString() {
         return "${publishState} by ${author.username} (${deleted})"
     }
-    
-    def beforeUpdate = {
-        if (!publishedOn && publishState == "Published") {
-            try {
-                this.publishedOn = new Date()
-            } catch (error) {
-                log.warn("Unable to get audit details for article ${this.id}", error)
-            } finally {
-                if (!this.publishedOn) {
-                    this.publishedOn = this.lastUpdated
-                }
-            }
-        }
-    }  
+     
 }

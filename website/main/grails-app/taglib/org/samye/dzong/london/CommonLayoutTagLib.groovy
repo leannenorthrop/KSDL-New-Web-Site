@@ -130,8 +130,8 @@ class CommonLayoutTagLib {
         def adminClasses =[home: 'home', article: 'list', image: 'list', venue: 'list', roles:'list']
         
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
-            ['article'].each () {
-                item->adminControllers << item
+            ['article'].each () { item ->
+                adminControllers << item
             }
         }
         
@@ -147,12 +147,18 @@ class CommonLayoutTagLib {
             }
         }
         
+        if (SecurityUtils.subject.hasRole ("Event Organiser")) {
+            ['event'].each() { item ->
+                adminControllers << item
+            }
+        }
+         
         if (SecurityUtils.subject.hasRole ("Administrator")) {
             ['roles'].each () { item -> 
                 adminControllers << item
             }
         }
-
+        adminControllers << 'auth'
         def toolbar = {
             div (class:"menuBar group"){
                 adminControllers.each () { controller -> 
@@ -165,6 +171,16 @@ class CommonLayoutTagLib {
                         } else if (controller.equals ('roles')) {
                             elem = link (class: adminClasses[controller], controller: "admin", action:"roles") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
+                            }
+                        } else if (controller.equals ('auth')) {
+                            if (SecurityUtils.subject.authenticated) {
+                                elem = link (class: 'logout', controller: controller, action: "signOut") {
+                                    messageSource.getMessage ('toolbar.logout', null, null)
+                                }
+                            } else {
+                                elem = link (class: 'login', controller: controller, action: "login") {
+                                    messageSource.getMessage ('toolbar.login', null, null)
+                                }
                             }
                         } else if (controller.equals (attrs.controller)) {
                             if ("manage".equals (attrs.action)) {
