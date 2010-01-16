@@ -1,10 +1,12 @@
 package org.samye.dzong.london.community
 import org.apache.shiro.SecurityUtils
+import com.burtbeckwith.grails.twitter.service.*
 
 class ArticleController {
     def userLookupService
     def articleService
     def auditLogService
+    def twitterService
 
     def index = {
         if (params.tags){
@@ -78,7 +80,8 @@ class ArticleController {
             model = articleService.userDeleted(params)            
         } 
         render(view: 'deleted', model:model)   
-    }              
+    }       
+           
     def manage = {
         render(view:'manage')
     }
@@ -172,11 +175,20 @@ class ArticleController {
                     return
                 }
             }
+            if (articleInstance.publishState != 'Published') {
+                articleInstance.publishedOn = new Date()
+                try {
+                    twitterService.setStatus("We've just published ${articleInstance.title}.'", [username: 'lsdci', password: 'change!t']);
+                } catch (error) {
+                
+                }    
+            }            
             articleInstance.publishState = "Published"
             if (params.tags) {
                 articleInstance.parseTags(params.tags)
             }
             if(!articleInstance.hasErrors() && articleInstance.save()) {
+                println "Published article. Publish date set to ${articleInstance.publishedOn}"
                 flash.message = "Article ${articleInstance.title} has been Published"
                 redirect(action:manage)
             }
@@ -250,6 +262,14 @@ class ArticleController {
                     redirect(action:manage)
                     return
                 }
+            }
+            if (articleInstance.publishState != 'Published' && params.state == 'Published') {
+                articleInstance.publishedOn = new Date()
+                try {
+                    twitterService.setStatus("We've just published ${articleInstance}.'", [username: 'lsdci', password: 'change!t']);
+                } catch (error) {
+                
+                }    
             }
             articleInstance.publishState = params.state
             if(!articleInstance.hasErrors() && articleInstance.save()) {

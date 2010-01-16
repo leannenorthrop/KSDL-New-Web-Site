@@ -7,7 +7,47 @@ class BootStrap {
      def imageService
 
      def init = { servletContext ->
+        def adminRole = new ShiroRole(name: "Admin")
+        adminRole.addToPermissions("*:*")
+        adminRole.save()
+        def webAdminRole = new ShiroRole(name: "Administrator")
+        webAdminRole.addToPermissions("manageSite:*")
+        webAdminRole.addToPermissions("auth:*")
+        webAdminRole.save()
+        def contentAdminRole = new ShiroRole(name: "Editor")
+        contentAdminRole.addToPermissions("article:*")
+        contentAdminRole.addToPermissions("manageSite:home")
+        contentAdminRole.save()
+        def authRole = new ShiroRole(name: "Author")
+        authRole.addToPermissions("article:*")
+        authRole.addToPermissions("image:*")
+        authRole.addToPermissions("manageSite:home")
+        authRole.save()
+        def eventRole = new ShiroRole(name: "Event Organiser")
+        eventRole.addToPermissions("manageSite:home")
+        eventRole.addToPermissions("event:*")
+        eventRole.save()
+        def venueRole = new ShiroRole(name: "Venue Manager")
+        venueRole.addToPermissions("manageSite:home")
+        venueRole.addToPermissions("room:*")
+        venueRole.addToPermissions("venue:*")
+        venueRole.save()
+
+        def theadmin = new ShiroUser(username: "admin", passwordHash: new Sha1Hash("change!t").toHex())
+        theadmin.addToRoles(adminRole)
+        theadmin.save()
+        def user = new ShiroUser(username: "web-admin", passwordHash: new Sha1Hash("change!t").toHex())
+        user.addToRoles(webAdminRole)
+        user.addToRoles(eventRole)        
+        user.save()
+        
+        /*                    
         environments {
+        
+            def role = ShiroRole.findByName("Event Organiser")
+            def theadmin2 = ShiroUser.findByUsername("admin")
+            theadmin2.addToRoles(role)
+            theadmin2.save()
             production {
                 servletContext.setAttribute("env", "prod")
             }
@@ -297,7 +337,7 @@ p(tibetan). "ཨབཅ":http://tibet.net/en/index.php"""
                 def abc = Article.findByTitle("Tibetan HTML Test")
                 println "Tibetan HTML Test was created on ${abc.dateCreated} and published on ${abc.publishedOn}"
             }
-        }
+        }*/
     }
     
     def destroy = {
