@@ -1,4 +1,8 @@
 TODO
+
+mvn grails:exec -Dcommand='migrate' -Dgrails.env=test
+mvn grails:run-app -Dgrails.env=test
+
  - need news, buddhism, community, meditation, venue & rooms, teachers by end of the month
 
 Commenting/documentation - check out grails documentation
