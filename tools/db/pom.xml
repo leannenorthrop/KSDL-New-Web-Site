@@ -78,9 +78,9 @@
                     <username>${username}</username>
                     <password>${password}</password>
                     <format>${format}</format>
-                    <dest>target/database/export</dest>
+                    <dest>target/export</dest>
                     <dataTypeFactoryName>${dataTypeFactoryName}</dataTypeFactoryName>
-                    <schema>${schema}</schema>
+                    <!--schema>${schema}</schema-->
                 </configuration>
                 <dependencies>
                     <dependency>

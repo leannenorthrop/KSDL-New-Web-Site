@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="northrl" id="v001-data-01">
+        <loadData tableName="shiro_role" file="${v001-base-dir}/data/SHIRO_ROLE.csv">
+            <column name="id" type="NUMERIC" header="ID"/>
+            <column name="version" type="NUMERIC" header="VERSION"/>
+            <column name="name" type="STRING" header="NAME"/>
+        </loadData>
+    </changeSet>
+    <changeSet author="northrl" id="v001-data-02">
+        <loadData tableName="shiro_role_permissions" file="${v001-base-dir}/data/SHIRO_ROLE_PERMISSIONS.csv">
+            <column name="id" type="NUMERIC" header="shiro_role_id"/>
+            <column name="permissions_string" type="STRING" header="PERMISSIONS_STRING"/>
+        </loadData>
+    </changeSet>
+    <changeSet author="northrl" id="v001-data-03">
+        <loadData tableName="shiro_user" file="${v001-base-dir}/data/SHIRO_USER.csv">
+            <column name="id" type="NUMERIC" header="ID"/>
+            <column name="version" type="NUMERIC" header="VERSION"/>
+            <column name="username" type="STRING" header="USERNAME"/>
+            <column name="person_id" type="NUMERIC" header="PERSON_ID"/>
+            <column name="password_hash" type="STRING" header="PASSWORD_HASH"/>
+        </loadData>
+    </changeSet>
+    <changeSet author="northrl" id="v001-data-04">
+        <loadData tableName="shiro_user_permissions" file="${v001-base-dir}/data/SHIRO_USER_PERMISSIONS.csv">
+            <column name="shiro_user_id" type="NUMERIC" header="SHIRO_USER_ID"/>
+            <column name="permissions_string" type="STRING" header="PERMISSIONS_STRING"/>
+        </loadData>
+    </changeSet>
+    <changeSet author="northrl" id="v001-data-05">
+        <loadData tableName="shiro_user_roles" file="${v001-base-dir}/data/SHIRO_USER_ROLES.csv">
+            <column name="shiro_user_id" type="NUMERIC" header="SHIRO_USER_ID"/>
+            <column name="shiro_role_id" type="NUMERIC" header="SHIRO_ROLE_ID"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
+

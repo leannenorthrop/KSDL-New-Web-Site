@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="2.0"
-                xmlns:b64="java:com.bt.tools.designit.Base64Wrapper">
+                xmlns:b64="java:org.samye.dzong.london.Base64Wrapper">
     <xsl:output method="text"/>
     <xsl:template match="/">
         <xsl:for-each select="//table">
-            <xsl:variable name="filename" select="concat('target/database/csv/',@name,'.csv')"/>
+            <xsl:variable name="filename" select="concat('target/csv/',@name,'.csv')"/>
             <xsl:value-of select="$filename"/>
             <!-- Creating  -->
             <xsl:result-document href="{$filename}">
@@ -29,8 +29,12 @@
                 <xsl:when test="$isBase64">
                     <xsl:value-of select="b64:decodeToHex($v)"/>
                 </xsl:when>
+                <xsl:when test="contains($v, ',')">
+                    <xsl:text>"</xsl:text><xsl:value-of select="$v"/><xsl:text>"</xsl:text>
+                </xsl:when>
                 <xsl:when test="string-length(.) &gt; 0">
-                    <xsl:value-of select="translate(normalize-space(.), ' ', '')"/>
+                    <!--xsl:value-of select="translate(normalize-space(.), '  ', '')"/-->
+                    <xsl:value-of select="$v"/>
                 </xsl:when>
                 <xsl:otherwise>
                     <xsl:text>null</xsl:text>

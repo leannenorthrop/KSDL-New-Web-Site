@@ -14,34 +14,41 @@ class Article extends Publishable {
         summary(size:5..Integer.MAX_VALUE)
         content(size:5..Integer.MAX_VALUE)
         image(nullable:true)
-    }  
-    
-    static namedQueries = { 
-        authorPublishState { username, publishState -> 
+    }
+
+    static namedQueries = {
+        authorPublishState { username, publishState ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState
             author {
                 eq 'username', username
-            }                            
-        }   
-        
-        publishState { publishState -> 
+            }
+        }
+
+        publishState { publishState ->
             eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState                         
-        }  
-               
-        deletedAuthor { username -> 
+            eq 'publishState', publishState
+        }
+
+        deletedAuthor { username ->
             eq('deleted', Boolean.TRUE)
             author {
                 eq('username', username)
-            }                            
+            }
         }
-        
+
         deleted {
-            eq('deleted', Boolean.TRUE) 
-        }              
-    }    
-    
+            eq('deleted', Boolean.TRUE)
+        }
+    }
+
+    static mapping = {
+        columns {
+            content type:'text'
+            summary type:'text'
+        }
+    }
+
     String toString() {
         return "${title} (${super.toString()})"
     }

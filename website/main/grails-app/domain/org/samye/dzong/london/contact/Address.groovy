@@ -17,7 +17,7 @@ class Address extends Contact {
         line1(size:3..2048, blank:false)
         line2(maxSize:2048)
         county(maxSize:25)
-        postTown(maxSize:256)
+        postTown(maxSize:255)
         postCode(maxSize:10)
         country(maxSize:108)
         type(inList:['main','shop','other'])
