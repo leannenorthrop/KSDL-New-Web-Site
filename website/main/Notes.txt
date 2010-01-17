@@ -1,7 +1,8 @@
 TODO
 
+0. CSS theme switcher page
 1. Users
-    - Password Reminder - css and update password
+    - Password Reminder - css
     - Delete users
 2. Article functional tests
     - Author only
