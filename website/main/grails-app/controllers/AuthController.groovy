@@ -5,9 +5,14 @@ import org.apache.shiro.authc.UsernamePasswordToken
 import org.apache.shiro.web.SavedRequest
 import org.apache.shiro.web.WebUtils
 import org.apache.shiro.crypto.hash.Sha1Hash
+import org.samye.dzong.london.contact.EmailService
+import com.icegreen.greenmail.util.*
 
 class AuthController {
     def shiroSecurityManager
+    def emailService
+    def messageSource
+    def greenMail
 
     def index = { redirect(action: "login", params: params) }
 
@@ -127,5 +132,31 @@ class AuthController {
         render "You do not have permission to access this page."
     }
 
-    
+    def onResetPassword = {
+        try {
+            def msgParams = [params.username].toArray()
+            if (ShiroUser.findByUsername(params.username)) {
+                emailService.sendPasswordReset(params.username)
+                flash.message = messageSource.getMessage("passwd.reset.success", msgParams, null)
+                greenMail.getReceivedMessages().each() { item ->
+                    println GreenMailUtil.getBody(message)
+                }
+            } else {
+                flash.message = messageSource.getMessage("passwd.reset.failure", msgParams, null)
+            }
+        } catch (error) {
+            log.error "Password reset failure for user '${params.username}'.", error
+            flash.message = "Sorry, there was an internal error and your password can not be reset. Please try again. If you require assistance please email amdin@lsd.org"
+        }
+        redirect(action: "resetPassword")
+    }
+
+    def resetPassword = {
+        render(view: 'password-reset', model:[])
+    }
+
+    def doPasswordReset = {
+
+    }
+
 }

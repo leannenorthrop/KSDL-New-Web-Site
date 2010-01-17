@@ -42,22 +42,6 @@ grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
 
-// set per-environment serverURL stem for creating absolute links
-environments {
-    production {
-        grails.serverURL = "http://www.changeme.com"
-    }
-    development {
-        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
-        grails.serverURL = "http://localhost:8080/${appName}"
-    }
-    test {
-        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
-        grails.serverURL = "http://localhost:8080/${appName}"
-    }
-
-}
-
 // log4j configuration
 log4j = {
     // Example of changing the log pattern for the default console
@@ -94,3 +78,36 @@ auditLog {
   actor = 'userPrincipal.name'
 }
 
+grails {
+   mail {
+     //grails.mail.jndiName = "myMailSession"
+     //grails.mail.default.from="server@yourhost.com"
+     host = "smtp.gmail.com"
+     username = "leanne.northrop@googlemail.com"
+     password = "37911061"
+     props = ["mail.smtp.auth":"true",
+              "mail.smtp.socketFactory.port":"465",
+              "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+              "mail.smtp.socketFactory.fallback":"false"]
+   }
+}
+
+// set per-environment serverURL stem for creating absolute links
+environments {
+    production {
+        println "Environment is set to Production"
+        grails.mail.port = 465
+        grails.serverURL = "http://www.changeme.com"
+    }
+    development {
+        println "Environment is set to Development"
+        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+        grails.serverURL = "http://localhost:8080/${appName}"
+    }
+    test {
+        println "Environment is set to Test"
+        grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
+        grails.serverURL = "http://localhost:8080/${appName}"
+    }
+
+}

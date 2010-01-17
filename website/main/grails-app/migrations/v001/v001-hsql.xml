@@ -530,7 +530,7 @@
             INSERT INTO public.shiro_role_permissions (shiro_role_id,permissions_string) VALUES (6,'room:*');
             INSERT INTO public.shiro_role_permissions (shiro_role_id,permissions_string) VALUES (6,'venue:*');
 
-            INSERT INTO public.shiro_user (id,version,username,person_id,password_hash) VALUES (1,0,'leanne',null,'f86c09c1159dc2082ee27f7aef08f1ed6a5be03d');
+            INSERT INTO public.shiro_user (id,version,username,person_id,password_hash) VALUES (1,0,'leanne.northrop@googlemail.com',null,'f86c09c1159dc2082ee27f7aef08f1ed6a5be03d');
             INSERT INTO public.shiro_user (id,version,username,person_id,password_hash) VALUES (2,0,'web-admin',null,'f86c09c1159dc2082ee27f7aef08f1ed6a5be03d');
 
             INSERT INTO public.shiro_user_roles (shiro_user_id,shiro_role_id) VALUES (1,1);
