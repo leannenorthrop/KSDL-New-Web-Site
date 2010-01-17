@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.samye.dzong.london</groupId>
+    <artifactId>base64wrapper</artifactId>
+    <name>Base64 Wrapper</name>
+    <packaging>jar</packaging>
+    <version>1.0</version>
+    <properties>
+        <filter.dir>src/main/filters</filter.dir>
+    </properties>
+    <dependencies>
+        <!-- Database drivers -->
+        <dependency>
+            <groupId>hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>1.8.0.7</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>oracle</groupId>
+            <artifactId>oracle-jdbc</artifactId>
+            <version>10.1.0.2.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.4</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+    <build>
+        <filters>
+            <filter>${filter.dir}/${user.name}.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <!-- args should be double - which is not valid within xml comments
+                rm -q database.* && mvn clean process-resources liquibase:update
+                liquibase  -defaultsFile=/media/development/work/current/target/classes/database/liquibase.properties  generateChangelog
+                liquibase diffChangeLog -baseUername=sa -banasePassword=na -baseUrl=jdbc:hsqldb:file:/media/development/work/pif-e2e-tool/database;shutdown=true
+            -->
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-plugin</artifactId>
+                <version>1.9.5.0</version>
+                <configuration>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                    <propertyFileWillOverride>true</propertyFileWillOverride>
+                    <propertyFile>${basedir}/target/classes/database/liquibase.properties</propertyFile>
+                </configuration>
+                <!--executions>
+                    <execution>
+                        <id>Generate Hypersonic Database</id>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions-->
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dbunit-maven-plugin</artifactId>
+                <version>1.0-beta-3</version>
+                <configuration>
+                    <skipOracleRecycleBinTables>true</skipOracleRecycleBinTables>
+                    <datatypeWarning>true</datatypeWarning>
+                    <ordered>true</ordered>
+                    <driver>${driver}</driver>
+                    <url>${url}</url>
+                    <username>${username}</username>
+                    <password>${password}</password>
+                    <format>${format}</format>
+                    <dest>target/database/export</dest>
+                    <dataTypeFactoryName>${dataTypeFactoryName}</dataTypeFactoryName>
+                    <schema>${schema}</schema>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>hsqldb</groupId>
+                        <artifactId>hsqldb</artifactId>
+                        <version>1.8.0.7</version>
+                        <type>jar</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>oracle</groupId>
+                        <artifactId>oracle-jdbc</artifactId>
+                        <version>10.1.0.2.0</version>
+                        <type>jar</type>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.1.1</version>
+                <configuration>
+                    <workingDirectory>${cap.exec.dir}</workingDirectory>
+                    <executable>cap.sh</executable>
+                    <arguments>
+                        <argument>${cap.user}</argument>
+                        <argument>${cap.passwd}</argument>
+                        <argument>${cap.stage}</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
