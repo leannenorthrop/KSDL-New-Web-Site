@@ -3,6 +3,9 @@ import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.media.Image
 import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.ShiroRole
+import com.icegreen.greenmail.util.*
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
+
 class BootStrap {
      def imageService
      def greenMail
@@ -10,15 +13,30 @@ class BootStrap {
      def init = { servletContext ->
          environments {
              development {
-                 greenMail.start()
+                 greenMail = new GreenMail(ServerSetupTest.ALL)
+                 greenMail.start();
+                 servletContext.setAttribute("greenmail", greenMail)
              }
              test {
-                 greenMail.start()
+                 greenMail = new GreenMail(ServerSetupTest.ALL)
+                 greenMail.start();
+                 servletContext.setAttribute("greenmail", greenMail)
+                 def config = ConfigurationHolder.getConfig()
+                 config.greenmail = greenMail
              }
          }
     }
 
     def destroy = {
+        environments {
+            development {
+                greenMail.stop();
+            }
+            test {
+                greenMail = new GreenMail();
+                greenMail.stop();
+            }
+        }
     }
 
 }

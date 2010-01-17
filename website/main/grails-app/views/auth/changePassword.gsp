@@ -25,7 +25,7 @@
                 <label for="password">Password (again)</label>
                 <input type="password" id="password" name="password2" value="" class="required"/>
             </fieldset>
-            <a class="submit" onClick="document.changePassword.submit();" id="changePassword">Save New Password &raquo;</a>
+            <a class="submit" onClick="document.changePassword.submit();" id="changePasswordBtn">Save New Password &raquo;</a>
           </g:form>
       </div>
 </body>

@@ -9,6 +9,7 @@ class ShiroUser {
     static constraints = {
         username(nullable: false, blank: false)
         passwordHash(nullable: false, blank: false)
+        passwordReset(nullable:true)
     }
 
     static namedQueries = {
