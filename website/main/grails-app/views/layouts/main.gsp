@@ -10,8 +10,7 @@
     <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/themes/default',file:'ie.css')}" />
 <[endif]-->
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-        <lsd:link obj="${application}"/>
-        <g:javascript library="application" />
+        <!--lsd:link obj="${application}"/-->
         <g:layoutHead />
     </head>
     <body>
@@ -25,7 +24,7 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="Spinner" />
         </div>
         <g:layoutBody/>
-        <lsdc:grid />        
+        <lsdc:grid />
         <div class="footer">Copyright &#169; 2009</div>
     </body>
 </html>

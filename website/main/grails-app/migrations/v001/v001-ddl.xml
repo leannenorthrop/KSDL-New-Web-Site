@@ -98,13 +98,13 @@
             <column name="version" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="thumbnail" type="BLOB">
+            <column name="thumbnail" type="${blob}">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="image" type="BLOB">
+            <column name="image" type="${blob}">
                 <constraints nullable="false"/>
             </column>
             <column name="mime_type" type="VARCHAR(255)">
@@ -200,6 +200,7 @@
             <column name="password_hash" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="password_reset" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-19">

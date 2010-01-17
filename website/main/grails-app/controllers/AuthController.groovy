@@ -129,17 +129,22 @@ class AuthController {
     }
 
     def unauthorized = {
-        render "You do not have permission to access this page."
+        flash.message = "You do not have permission to access this page."
+        render(view: 'error', model:[])
     }
 
     def onResetPassword = {
         try {
             def msgParams = [params.username].toArray()
-            if (ShiroUser.findByUsername(params.username)) {
-                emailService.sendPasswordReset(params.username)
-                flash.message = messageSource.getMessage("passwd.reset.success", msgParams, null)
-                greenMail.getReceivedMessages().each() { item ->
-                    println GreenMailUtil.getBody(message)
+            def user = ShiroUser.findByUsername(params.username)
+            if (user) {
+                def token = new Sha1Hash(new Date().toString()).toHex()
+                user.passwordReset = token
+                if (!user.hasErrors() && user.save()) {
+                    emailService.sendPasswordReset(user.username,token)
+                    flash.message = messageSource.getMessage("passwd.reset.success", msgParams, null)
+                } else {
+                    flash.message = "Sorry, there was an internal error and your password can not be reset. Please try again. If you require assistance please email amdin@lsd.org"
                 }
             } else {
                 flash.message = messageSource.getMessage("passwd.reset.failure", msgParams, null)
@@ -156,7 +161,58 @@ class AuthController {
     }
 
     def doPasswordReset = {
+        def user = ShiroUser.findByPasswordReset(params.id)
+        if (!user) {
+            flash.message = messageSource.getMessage("passwd.reset.failure", ['Unknown'].toArray(), null)
+            render(view: 'error', model:[])
+        } else {
+            render(view: 'changePassword', model:[user:user])
+        }
+    }
 
+    def changePassword = {
+        def user = ShiroUser.findByPasswordReset(params.reset)
+        if (user) {
+            if(params.version) {
+                def version = params.version.toLong()
+                if(articleInstance.version > version) {
+                    articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated your details while you were editing.")
+                    render(view:'doPasswordReset',id: user.passwordReset)
+                }
+            } else if (params.password.equals(params.password2)) {
+                try {
+                    user.passwordHash = new Sha1Hash(params.password).toHex()
+                    if (!user.hasErrors() && user.save()) {
+                        try {
+                            user.passwordReset = null
+                            user.save()
+                        } catch(error) {
+                            log.warn "Unable to nullify password reset field for user ${user.username}", error
+                        }
+                        log.info "User ${user.username}  has successfully changed password."
+                        flash.message = "You have successfully changed your password"
+                        render(view: 'changedPassword', model:[user:user])
+                    } else {
+                        flash.message = message(code: "login.failed")
+                        // Now redirect back to the login page.
+                        redirect(action: "doPasswordReset", id: user.passwordReset)
+                    }
+                } catch (Exception e) {
+                    log.error "Failed to change user's password", e
+                    flash.message = message(code: "login.failed")
+                    // Now redirect back to the login page.
+                    redirect(action: "doPasswordReset", id: user.passwordReset)
+                }
+            } else {
+                log.info "User's new passwords do not match."
+                flash.message = message(code: "register.passwords.match.failure")
+                // Now redirect back to the login page.
+                redirect(action: "doPasswordReset", id: user.passwordReset)
+            }
+        } else {
+            flash.message = "Sorry, we can not find your details. Please request again for a password reset."
+            render(view: 'error', model:[])
+        }
     }
 
 }

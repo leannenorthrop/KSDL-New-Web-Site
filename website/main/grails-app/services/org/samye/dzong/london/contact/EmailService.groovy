@@ -4,7 +4,7 @@ class EmailService {
 
     boolean transactional = false
 
-    def sendPasswordReset(email) {
+    def sendPasswordReset(email, token) {
         sendMail {
           to email
           subject "Forgot your password?"
@@ -14,7 +14,7 @@ class EmailService {
 
           To reset your password, just click the link below and you'll be taken to a form where you can reset your password:
 
-          http://localhost:8080/main/auth/doPasswordReset/${email}
+          http://localhost:8080/main/auth/doPasswordReset/${token}
 
           If you did not reset your password, please disregard this e-mail.
 
