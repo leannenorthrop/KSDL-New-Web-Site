@@ -7,52 +7,13 @@ class BootStrap {
      def imageService
 
      def init = { servletContext ->
-        def adminRole = new ShiroRole(name: "Admin")
-        adminRole.addToPermissions("*:*")
-        adminRole.save()
-        def webAdminRole = new ShiroRole(name: "Administrator")
-        webAdminRole.addToPermissions("manageSite:*")
-        webAdminRole.addToPermissions("auth:*")
-        webAdminRole.save()
-        def contentAdminRole = new ShiroRole(name: "Editor")
-        contentAdminRole.addToPermissions("article:*")
-        contentAdminRole.addToPermissions("manageSite:home")
-        contentAdminRole.save()
-        def authRole = new ShiroRole(name: "Author")
-        authRole.addToPermissions("article:*")
-        authRole.addToPermissions("image:*")
-        authRole.addToPermissions("manageSite:home")
-        authRole.save()
-        def eventRole = new ShiroRole(name: "Event Organiser")
-        eventRole.addToPermissions("manageSite:home")
-        eventRole.addToPermissions("event:*")
-        eventRole.save()
-        def venueRole = new ShiroRole(name: "Venue Manager")
-        venueRole.addToPermissions("manageSite:home")
-        venueRole.addToPermissions("room:*")
-        venueRole.addToPermissions("venue:*")
-        venueRole.save()
-
-        def theadmin = new ShiroUser(username: "admin", passwordHash: new Sha1Hash("change!t").toHex())
-        theadmin.addToRoles(adminRole)
-        theadmin.save()
-        def user = new ShiroUser(username: "web-admin", passwordHash: new Sha1Hash("change!t").toHex())
-        user.addToRoles(webAdminRole)
-        user.addToRoles(eventRole)        
-        user.save()
-        
-        /*                    
+        /*
         environments {
-        
-            def role = ShiroRole.findByName("Event Organiser")
-            def theadmin2 = ShiroUser.findByUsername("admin")
-            theadmin2.addToRoles(role)
-            theadmin2.save()
             production {
                 servletContext.setAttribute("env", "prod")
             }
             development {
-                servletContext.setAttribute("env", "dev")                
+                servletContext.setAttribute("env", "dev")
             }
             test {
                 servletContext.setAttribute("env", "test")
@@ -72,55 +33,6 @@ class BootStrap {
                         println "Image ${image.name} of type ${image.mimeType} has been saved."
                     }
                 }
-
-                def adminRole = new ShiroRole(name: "Admin")
-                adminRole.addToPermissions("*:*")
-                adminRole.save()
-                def webAdminRole = new ShiroRole(name: "Administrator")
-                webAdminRole.addToPermissions("manageSite:*")
-                webAdminRole.addToPermissions("auth:*")
-                webAdminRole.save()
-                def contentAdminRole = new ShiroRole(name: "Editor")
-                contentAdminRole.addToPermissions("article:*")
-                contentAdminRole.addToPermissions("manageSite:home")
-                contentAdminRole.save()
-                def authRole = new ShiroRole(name: "Author")
-                authRole.addToPermissions("article:*")
-                authRole.addToPermissions("image:*")
-                authRole.addToPermissions("manageSite:home")
-                authRole.save()
-                def eventRole = new ShiroRole(name: "Event Organiser")
-                eventRole.addToPermissions("manageSite:home")
-                eventRole.addToPermissions("event:*")
-                eventRole.save()
-                def venueRole = new ShiroRole(name: "Venue Manager")
-                venueRole.addToPermissions("manageSite:home")
-                venueRole.addToPermissions("room:*")
-                venueRole.addToPermissions("venue:*")
-                venueRole.save()
-
-                def theadmin = new ShiroUser(username: "admin", passwordHash: new Sha1Hash("change!t").toHex())
-                theadmin.addToRoles(adminRole)
-                theadmin.save()
-                def user = new ShiroUser(username: "web-admin", passwordHash: new Sha1Hash("change!t").toHex())
-                user.addToRoles(webAdminRole)
-                user.save()
-                def manager = new ShiroUser(username: "manager", passwordHash: new Sha1Hash("change!t").toHex())
-                manager.addToRoles(venueRole)
-                manager.save()
-                def admin = new ShiroUser(username: "editor1", passwordHash: new Sha1Hash("change!t").toHex())
-                admin.addToRoles(contentAdminRole)
-                admin.save()
-                def author1 = new ShiroUser(username: "author1", passwordHash: new Sha1Hash("change!t").toHex())
-                author1.addToRoles(authRole)
-                author1.save()
-                def author2 = new ShiroUser(username: "author2", passwordHash: new Sha1Hash("change!t").toHex())
-                author2.addToRoles(authRole)
-                author2.save()
-                def admin2 = new ShiroUser(username: "editor2", passwordHash: new Sha1Hash("change!t").toHex())
-                admin2.addToRoles(authRole)
-                admin2.addToRoles(contentAdminRole)
-                admin2.save()
 
                 def loremIpsum = """p. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in tortor nisi. Aliquam lobortis, est id faucibus dictum, erat tortor volutpat lorem, id malesuada nunc turpis quis turpis. Morbi at ultrices mauris. Phasellus odio nisl, convallis a porta eu, tincidunt vel mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Morbi a erat eu leo elementum porttitor. Donec elementum justo a ante sagittis feugiat. Vivamus laoreet ipsum lacus, quis blandit elit. Nunc imperdiet, dui malesuada rhoncus iaculis, nibh felis accumsan orci, et tincidunt nisl augue non lectus. Proin a ipsum risus. Vivamus sapien neque, commodo volutpat sagittis in, fermentum non velit.
 
@@ -165,7 +77,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("Meditation")
                 }
-                
+
                 (1..3).each {
                     def a = new Article(title: "Meditation Advice Article " + it, content: loremIpsum, summary: loremIpsumSummary)
                     a.author = author1
@@ -174,7 +86,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("Meditation Advice")
                 }
-                
+
                 (1..2).each {
                     def a = new Article(title: "Meditation Benefits Article " + it, content: loremIpsum, summary: loremIpsumSummary)
                     a.author = author1
@@ -183,7 +95,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("Meditation Benefits")
                 }
-                
+
                 (1..8).each {
                     def a = new Article(title: "News Article " + it, content: loremIpsum, summary: loremIpsumSummary)
                     a.author = author1
@@ -192,7 +104,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("News")
                 }
-                
+
                 (1..3).each {
                     def a = new Article(title: "Front News Article " + it, content: loremIpsum, summary: loremIpsumSummary)
                     a.author = author1
@@ -201,7 +113,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("News", "Front")
                 }
-                
+
                 (1..1).each {
                     def a = new Article(title: "Front Community Article " + it, content: loremIpsum, summary: loremIpsumSummary)
                     a.author = author1
@@ -210,7 +122,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("Community", "Front")
                 }
-                
+
                 (1..2).each {
                     def a = new Article(title: "Front Well Being Article " + it, content: loremIpsum, summary: loremIpsumSummary)
                     a.author = author1
@@ -219,7 +131,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("Wellbeing", "Front")
                 }
-                
+
                 (1..3).each {
                     def a = new Article(title: "Front Buddhism Article " + it, content: loremIpsum, summary: loremIpsumSummary)
                     a.author = author1
@@ -228,7 +140,7 @@ p. Integer pellentesque dui id felis euismod condimentum. Nulla facilisi. Pellen
                     a.save()
                     a.parseTags("Buddhism", "Front")
                 }
-                
+
                 def na1 = Article.findByTitle("News Article 1")
                 na1.image = Image.findByName("buddha")
                 na1.save()
@@ -339,7 +251,7 @@ p(tibetan). "ཨབཅ":http://tibet.net/en/index.php"""
             }
         }*/
     }
-    
+
     def destroy = {
     }
 

@@ -1,18 +1,18 @@
 package org.samye.dzong.london
 import org.apache.shiro.SecurityUtils
-import groovy.xml.StreamingMarkupBuilder 
+import groovy.xml.StreamingMarkupBuilder
 
 class CommonLayoutTagLib {
     static namespace = 'lsdc'
     def tagService
     def messageSource
-  
-    def cloud = { attrs -> 
+
+    def cloud = { attrs ->
         def tags = tagService.tagCounts()
         def biggestTagCount = tags.inject(0) {num, item ->
             num = Math.max (num, item[1])
         }
-        
+
         if (biggestTagCount == 0) {
             out << "<div class=\"cloud group \"><h2>#{messageSource.getMessage('tag.cloud.title',null,null)}</h2><li></li></div>";
             return;
@@ -20,17 +20,17 @@ class CommonLayoutTagLib {
 
         def ranks = tags.collect { tag->
             def percent = (tag[1] / biggestTagCount) * 100;
-            def group = Math.round (Math.floor (percent * 0.1)); 
+            def group = Math.round (Math.floor (percent * 0.1));
             return group
         }
-     
-        def cloudList = { 
+
+        def cloudList = {
             div (class:"cloud box group") {
-                h2 (messageSource.getMessage ("article.tag.cloud.title", null, null)) 
+                h2 (messageSource.getMessage ("article.tag.cloud.title", null, null))
                 ul {
                     tags.eachWithIndex { tag, index ->
                     li {
-                        def label = (tag[0].contains (' ') ? "\"${tag[0]}\"" : tag[0]) + " (${tag[1]})"; 
+                        def label = (tag[0].contains (' ') ? "\"${tag[0]}\"" : tag[0]) + " (${tag[1]})";
                         def linkElement = link (controller: 'article', params: [tags:[tag[0]]]) {
                             "<span class=\"tag${ranks[index]}\">${label}</span>"
                         }
@@ -49,12 +49,12 @@ class CommonLayoutTagLib {
      def nav = { attrs ->
         def navControllers = ['home', 'news', 'events', 'meditation']
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            navControllers = ['home', 'news', 'events', 'meditation', 'manageSite', 'admin']
+            navControllers = ['home', 'news', 'events', 'meditation', 'manageSite']
         } else if (SecurityUtils.subject.principal != null) {
             navControllers =['home', 'news', 'events', 'meditation', 'manageSite']
         }
 
-        def current = attrs.current 
+        def current = attrs.current
         def navList = {
             div (class:"nav group") {
                 ul {
@@ -85,7 +85,7 @@ class CommonLayoutTagLib {
         out << builder.bind (navList)
     }
 
-    def header = { attrs -> 
+    def header = { attrs ->
         def header = {
             div(id:"banner") {
                 div(id:"text") {
@@ -97,14 +97,14 @@ class CommonLayoutTagLib {
                     }
                 }
             }
-/*        
+/*
             div (class:"logo group") {
                 img (src: resource (dir: 'images', file: 'logo.png'), alt:messageSource.getMessage ('title', null, null))
                 h1 {
                     mkp.yieldUnescaped (messageSource.getMessage ('title', null, null))
                 }
                 h2 {
-                    def aElem 
+                    def aElem
                     if (SecurityUtils.subject.principal != null) {
                         aElem = messageSource.getMessage ('signed.in.greeting',[SecurityUtils.subject.principal].toArray (), null) + link (controller: "auth", action:"signOut") {
                             messageSource.getMessage ('sign.out', null, null)
@@ -125,45 +125,52 @@ class CommonLayoutTagLib {
         out << builder.bind (header)
     }
 
-     def toolbar = { attrs -> 
-        def adminControllers =['home'] 
+     def toolbar = { attrs ->
+        def adminControllers =['home']
         def adminClasses =[home: 'home', article: 'list', image: 'list', venue: 'list', roles:'list']
-        
+
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article'].each () { item ->
                 adminControllers << item
             }
         }
-        
+
         if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
             ['article', 'image'].each () { item ->
                 adminControllers << item
             }
         }
-        
+
         if (SecurityUtils.subject.hasRole ("Venue Manager")) {
             ['venue'].each () { item ->
                 adminControllers << item
             }
         }
-        
+
         if (SecurityUtils.subject.hasRole ("Event Organiser")) {
             ['event'].each() { item ->
                 adminControllers << item
             }
         }
-         
+
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            ['roles'].each () { item -> 
+            ['roles'].each () { item ->
                 adminControllers << item
             }
         }
+
+        if (SecurityUtils.subject.hasRole ("Admin")) {
+            ['article', 'image', 'venue', 'event', 'roles'].each () { item ->
+                adminControllers << item
+            }
+        }
+
         adminControllers << 'auth'
         def toolbar = {
             div (class:"menuBar group"){
-                adminControllers.each () { controller -> 
+                adminControllers.each () { controller ->
                     span (class:"menuButton") {
-                        def elem 
+                        def elem
                         if (controller.equals ('home')) {
                             elem = link (class: adminClasses[controller], controller: "manageSite", action:"home") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
@@ -179,7 +186,13 @@ class CommonLayoutTagLib {
                                 }
                             } else {
                                 elem = link (class: 'login', controller: controller, action: "login") {
-                                    messageSource.getMessage ('toolbar.login', null, null)
+                                    def user = [SecurityUtils.subject.principal].toArray()
+                                    if (user[0]) {
+                                        user = user[0] ? user : [""] as String[]
+                                        messageSource.getMessage("signed.in.greeting", user, null)
+                                    } else {
+                                        messageSource.getMessage("sign.in.greeting", null, null)
+                                    }
                                 }
                             }
                         } else if (controller.equals (attrs.controller)) {
@@ -218,13 +231,13 @@ class CommonLayoutTagLib {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }
                                 }
-                            }   
+                            }
                         } else {
                             elem = link (class: adminClasses[controller], controller: controller, action: "manage", params: [offset: 0, max:10]) {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
                         }
-                            
+
                         if (elem != null) {
                             mkp.yieldUnescaped (elem)
                         }
@@ -232,14 +245,14 @@ class CommonLayoutTagLib {
                 }
             }
         }
-        
+
         def builder = new StreamingMarkupBuilder ()
         builder.encoding = "UTF-8"
         out << builder.bind (toolbar)
     }
 
-     def grid = { attrs -> 
-        out << """<div id="grid">""" 
+     def grid = { attrs ->
+        out << """<div id="grid">"""
         0.times {
             out << """<span class="gcol"><span class="gleft">&nbsp;</span><span class="ggap">&nbsp;</span><span class="gright">&nbsp;</span></span>"""
         }

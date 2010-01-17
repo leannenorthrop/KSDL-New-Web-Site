@@ -1,21 +1,67 @@
 TODO
+ - need news, buddhism, community, meditation, venue & rooms, teachers by end of the month
 
-3. Meditation front page
-6. Textile markup of special characters
+Commenting/documentation - check out grails documentation
+Database migration: run tests on hsql and mysql
+Unit and integration tests
+Hosting requirements:
+    Apache front
+    Database management
+    ssh account for upgrading & mechanism to turn on site down
+    Java 6 & tomcat container
+    decent cpu & memory
+    costs
+auto tidy
+auto validation
+error pages
+
+1. Users
+    - Password Reminder
+    - Delete users
+    - Change password/author profile
+    - Register
+        - Send confirmation
+        - On confirmation send roles request with link to roles page and request to reply
+    - Add captcha
+    - Add ajax username unique check
+    - Add jquery validation
+    - Add jquery form css
+    - Check error handling
+2. Article functional tests
+    - Author only
+        - Add new article
+        - Edit article
+        - Delete article
+        - After publish
+        - After archive
+    - Author & Editor
+        - Add new article
+        - Edit article
+        - Delete article
+        - After publish
+        - After archive
+    - Editor
+        - Publish
+            - News
+                - Home
+                - Front
+            - Meditation
+                - Home
+                - Front
+                - Benefits
+                - Advice
+3. Image
+   - List
+        - fluid
+        - form validation
+4. Settings
+    - Email
+    - Twitter
+5. Textile markup of special characters
 7. Check browsers
-8. Error handling
-9. Twitter when new article is published.
-   a) Twitter account information management.
 10. Highlight new articles in editor view
-11. Security
-    Adding roles to users.
-    Password reminder
-      Mail plugin
-    Email to verify account
 12. Author profile
-14. View deleted items.
 15. View audit log.
-
 16. Unit tests
 17. Integration tests
 18. Functional tests
@@ -24,9 +70,7 @@ TODO
 21. look into ui-performance plugin
 22. Look into filterpane plugin
 23. Look into export plugin
-24. Look into settings plugin
 26. Blurbs - content, page location
-
 27. Venues
 28. Teachers
 
@@ -36,20 +80,11 @@ You Tube
   http://code.google.com/apis/youtube/overview.html
 
 Time Line
-December 2010 - Blurbs, Users, Images, Community, Images, Events
-January 2010 - Buddhism & Videos
-Feburary 2010 - Venue & Room booking, About, Help
-March 2010 - Well being,Niceties
+January 2010 - Buddhism, Events,Users, Images, Community, Images, Venue & Rooms, Analytics
+Feburary 2010 - About, Help, Site Map, Legal,
+March 2010 - Well being,Niceties, Videos & Flickr
 April 2010 - Tidy Up, CSS & Browser testing
 May 2010 - Performance tweaking, database backups, robustness & security testing
-
-Apache front
-auto tidy
-auto validation
-error pages
-database
-hosting costs
-
 
 http://www.londonsamyedzong.org/lsd/
 
