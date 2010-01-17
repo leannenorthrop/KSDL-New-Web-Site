@@ -89,35 +89,15 @@ class CommonLayoutTagLib {
         def header = {
             div(id:"banner") {
                 div(id:"text") {
-                    img(src:resource (dir: 'images', file:'heading.png'))
+                    img(src:resource (dir: 'css/themes/default/images', file:'heading.png'))
                 }
                 div(id:"back") {
                     div(id:"mid") {
+                        img(id:"bannerImg", src: resource(dir: 'css/themes/default/images', file:'whitetara.png'))
                         div(id:"front"){}
                     }
                 }
             }
-/*
-            div (class:"logo group") {
-                img (src: resource (dir: 'images', file: 'logo.png'), alt:messageSource.getMessage ('title', null, null))
-                h1 {
-                    mkp.yieldUnescaped (messageSource.getMessage ('title', null, null))
-                }
-                h2 {
-                    def aElem
-                    if (SecurityUtils.subject.principal != null) {
-                        aElem = messageSource.getMessage ('signed.in.greeting',[SecurityUtils.subject.principal].toArray (), null) + link (controller: "auth", action:"signOut") {
-                            messageSource.getMessage ('sign.out', null, null)
-                        }
-                    } else {
-                        aElem = messageSource.getMessage ('greeting', null, null) + link (controller: "auth", action:"index") {
-                            messageSource.getMessage ('sign.in', null, null)
-                        }
-                    }
-                    mkp.yieldUnescaped (aElem)
-                }
-            }
-*/
         }
 
         def builder = new StreamingMarkupBuilder()

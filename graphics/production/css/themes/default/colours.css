@@ -1,0 +1,234 @@
+/*
+    Title: Default Colour Scheme
+    Author: Leanne Northrop
+*/
+
+body {
+    background: rgb(251, 251, 251);
+}
+
+/* Links
+--------------------------------------------------*/
+
+a, a:link, a:visited, a:hover, a:active {
+    color: rgb(84,164,222);
+}
+
+
+/* Headings (see fonts.css for font)
+----------------------------------------------*/
+h2 {
+    border-bottom: 1px solid rgb(143,193,0);
+}
+
+/* Boxes
+----------------------------------------------*/
+.box {
+    background: white;
+}
+
+/* colors
+--------------------------------------------- */
+.white {
+    color:white;
+}
+.red {
+    color: rgb(255,55,52);
+}
+.orange {
+    color: rgb(255,152,52);
+}
+.yellow {
+    color: rgb(255,200,52);
+}
+.green {
+    color:rgb(143,193,0);
+}
+.blue {
+    color: rgb(84,164,222);
+}
+.cyan {
+    color: rgb(111,213,255);
+}
+.purple {
+    color: rgb(180,134,255);
+}
+.pink {
+    color: rgb(218,125,161);
+}
+
+/* pagination
+--------------------------------------------- */
+.paginateButtons {
+    color: rgb(157,134,192);
+}
+
+div.list + div.manage {
+    background: rgb(235,244,250) url(images/darkFadeBottom.png) bottom repeat-x;
+    border: 1px solid #ccc;
+}
+
+.paginateButtons a {
+    color: rgb(57,134,192);
+}
+
+/* page structure
+--------------------------------------------- */
+.content {
+    margin: 1em;
+    position: relative;
+}
+
+.footer {
+    position:fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border: 1px solid rgb(113,179,226);
+    background: rgb(212,231,244);
+    background: rgba(212,231,244,0.7);
+    font-size: smaller;
+    padding: 0.2em 1em;
+}
+
+/* logo */
+.logo {
+    background: rgb(187,217,238) url(images/buttonHighlight.png) repeat-x top;
+    color: rgb(32,107,164);
+}
+
+/* navigation
+------------------------------------------------*/
+.nav {
+    background: rgb(187,217,238) url(images/darkFadeBottom.png) repeat-x bottom;
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+/*
+    box-shadow: 0px 0px 4px rgb(57,134,192);
+    -moz-box-shadow: 0px 0px 4px rgb(57,134,192);
+    -webkit-box-shadow: 0px 0px 4px rgb(57,134,192);
+*/
+}
+
+.nav ul a {
+    border-right: 1px solid rgb(32,107,164);
+    border-right: 1px solid rgba(32,107,164, 0.4);
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+}
+
+/* highlight current area */
+.nav .current a {
+    background: rgb(190,223,93) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(164,193,80,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.nav a:hover, .nav .current a:hover {
+    background: rgb(164,193,80) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(164,193,80,0.75) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.nav ul a strong {
+    text-shadow: 0 -1px 0 rgb(206, 206, 206);
+    text-shadow: 0 -1px 0 rgba(206, 206, 206, 0.8);
+}
+
+.home .nav {
+    background: rgb(46, 152, 157) url(images/darkFadeBottom.png) repeat-x bottom;
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+}
+
+.home .nav ul a {
+    color: white;
+    color: rgba(255,255,255, 0.8);
+}
+
+.home .nav .current a {
+    background: rgb(95, 183, 179) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(95, 183, 179,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.home .nav a:hover, .home .nav .current a:hover {
+    background: rgb(95, 183, 179) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(95, 183, 179,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.news .nav {
+    background: rgb(106, 38, 128) url(images/darkFadeBottom.png) repeat-x bottom;
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+}
+
+.news .nav ul a {
+    color: white;
+    color: rgba(255,255,255, 0.8);
+}
+
+.news .nav .current a {
+    background: rgb(195, 124, 225) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(195, 124, 225,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.news .nav a:hover, .news .nav .current a:hover {
+    background: rgb(195, 124, 225) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(195, 124, 225,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.events .nav {
+    background: rgb(126, 166, 49) url(images/darkFadeBottom.png) repeat-x bottom;
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+}
+
+.events .nav ul a {
+    color: white;
+    color: rgba(255,255,255, 0.8);
+}
+
+.events .nav .current a {
+    background: rgb(178, 210, 19) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(178, 210, 19,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.events .nav a:hover, .events .nav .current a:hover {
+    background: rgb(178, 210, 19) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(178, 210, 19,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.meditation .nav {
+    background: rgb(157, 46, 100) url(images/darkFadeBottom.png) repeat-x bottom;
+    color: rgb(32,107,164);
+    color: rgba(32,107,164, 0.8);
+}
+
+.meditation .nav ul a {
+    color: white;
+    color: rgba(255,255,255, 0.8);
+}
+
+.meditation .nav .current a {
+    background: rgb(208, 96, 151) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(208, 96, 151,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+
+.meditation .nav a:hover, .meditation .nav .current a:hover {
+    background: rgb(195, 124, 225) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(195, 124, 225,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
+/* use the best possible ampersand */
+
+span.amp {
+    color: rgb(143,193,0);
+}
+
+.tibetan {
+    text-shadow: 2px 2px 0 rgb(180,180,180);
+    text-shadow: 2px 2px 0 rgba(180,180,180, 0.8);
+}
+
+/* News Home Page
+------------------------------------------------*/
+.articles ol h3 a{
+    color: rgb(143,193,0);
+}

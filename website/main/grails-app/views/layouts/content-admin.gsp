@@ -3,12 +3,14 @@
     <head>
         <title>Kagyu Samye Dzong London <g:layoutTitle default="" /></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<![if gte IE 7]>
-    <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/themes/default',file:'screen.css')}" />
-<![endif]>
-<!--[if gte IE 7]>
-    <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/themes/default',file:'ie.css')}" />
-<[endif]-->
+        <![if gte IE 7]>
+            <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/site',file:'screen.css')}" />
+            <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/manage',file:'screen.css')}" />
+            <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/themes/default',file:'screen.css')}" />
+        <![endif]>
+        <!--[if gte IE 7]>
+            <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/themes/default',file:'ie.css')}" />
+        <[endif]-->
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <lsd:link obj="${application}"/>
         <g:javascript library="jquery"/>

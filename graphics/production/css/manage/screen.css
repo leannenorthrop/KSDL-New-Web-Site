@@ -1,0 +1,11 @@
+/*
+Title:      Screen styles for managing site content
+*/
+
+/* import stylesheets and hide from ie/mac \*/
+@import url("forms.css");
+@import url("authentication.css");
+@import url("menu.css");
+@import url("tables.css");
+@import url("redmond/jquery-ui-1.7.2.custom.css");
+/* end import/hide */
