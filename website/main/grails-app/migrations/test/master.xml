@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <property name="test-dir" value="${user.dir}/grails-app/migrations/test"/>
+    <include relativeToChangelogFile="true" file="image.xml" />
+    <include relativeToChangelogFile="true" file="users.xml" />
+    <include relativeToChangelogFile="true" file="articles.xml" />
+    <include relativeToChangelogFile="true" file="tags.xml" />
+</databaseChangeLog>

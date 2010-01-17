@@ -1,0 +1,15 @@
+SHIRO_ROLE_ID,PERMISSIONS_STRING
+1,*:*
+2,admin:*
+2,manageSite:*
+2,auth:*
+3,manageSite:home
+3,article:*
+4,image:*
+4,article:*
+4,manageSite:home
+5,manageSite:home
+5,event:*
+6,manageSite:home
+6,room:*
+6,venue:*

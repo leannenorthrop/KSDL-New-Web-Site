@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <preConditions>
+        <dbms type="mysql"/>
+    </preConditions>
+    <property name="text-type" value="LONGTEXT"/>
+    <property name="varchar-1024" value="TEXT"/>
+    <property name="varchar-2048" value="TEXT"/>
+    <property name="varchar-500" value="TEXT"/>
+    <include relativeToChangelogFile="true" file="v001-ddl.xml" />
+</databaseChangeLog>

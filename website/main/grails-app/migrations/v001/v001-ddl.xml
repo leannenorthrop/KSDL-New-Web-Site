@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="northrl" id="v001-schema-1">
+        <createTable tableName="address">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="post_code" type="VARCHAR(10)"/>
+            <column name="place_name" type="${varchar-1024}"/>
+            <column name="type" type="VARCHAR(5)"/>
+            <column name="country" type="VARCHAR(108)"/>
+            <column name="county" type="VARCHAR(25)"/>
+            <column name="street_number" type="INT"/>
+            <column name="line1" type="${varchar-2048}"/>
+            <column name="post_town" type="VARCHAR(255)"/>
+            <column name="line2" type="${varchar-2048}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-2">
+        <createTable tableName="article">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="summary" type="${text-type}"/>
+            <column name="image_id" type="BIGINT"/>
+            <column name="content" type="${text-type}"/>
+            <column name="title" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-3">
+        <createTable tableName="audit_log">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="property_name" type="VARCHAR(255)"/>
+            <column name="last_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="old_value" type="VARCHAR(255)"/>
+            <column name="actor" type="VARCHAR(255)"/>
+            <column name="uri" type="VARCHAR(255)"/>
+            <column name="new_value" type="VARCHAR(255)"/>
+            <column name="persisted_object_version" type="VARCHAR(255)"/>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="class_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="persisted_object_id" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-5">
+        <createTable tableName="contact">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-6">
+        <createTable tableName="email">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(5)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-7">
+        <createTable tableName="event">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="summary" type="${varchar-1024}"/>
+            <column name="once_only" type="BIT"/>
+            <column name="image_id" type="BIGINT"/>
+            <column name="content" type="${varchar-1024}"/>
+            <column name="title" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-8">
+        <createTable tableName="image">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="thumbnail" type="BLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="image" type="BLOB">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mime_type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-9">
+        <createTable tableName="pending_email_confirmation">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timestamp" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_token" type="${varchar-500}"/>
+            <column name="email_address" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="confirmation_token" type="VARCHAR(80)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-13">
+        <createTable tableName="publishable">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="display_date" type="BIT"/>
+            <column name="display_author" type="BIT"/>
+            <column name="last_updated" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deleted" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author_id" type="BIGINT"/>
+            <column name="publish_state" type="VARCHAR(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-15">
+        <createTable tableName="room">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="image_id" type="BIGINT"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-16">
+        <createTable tableName="shiro_role">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-17">
+        <createTable tableName="shiro_role_permissions">
+            <column name="shiro_role_id" type="BIGINT"/>
+            <column name="permissions_string" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-18">
+        <createTable tableName="shiro_user">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password_hash" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-19">
+        <createTable tableName="shiro_user_permissions">
+            <column name="shiro_user_id" type="BIGINT"/>
+            <column name="permissions_string" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-20">
+        <createTable tableName="shiro_user_roles">
+            <column name="shiro_user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="shiro_role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-21">
+        <createTable tableName="tag_links">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_ref" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-22">
+        <createTable tableName="tags">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-24">
+        <createTable tableName="telephone">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="number" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-25">
+        <createTable tableName="transport">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-26">
+        <createTable tableName="venue_address">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-27">
+        <createTable tableName="venue_email">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-28">
+        <createTable tableName="venue_room">
+            <column name="venue_rooms_id" type="BIGINT"/>
+            <column name="room_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-29">
+        <createTable tableName="venue_telephone">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-30">
+        <addPrimaryKey columnNames="shiro_user_id, shiro_role_id" tableName="shiro_user_roles"/>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-31">
+        <createIndex indexName="FKD458CCF6B776D63" tableName="article" unique="false">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-32">
+        <createIndex indexName="title" tableName="article" unique="true">
+            <column name="title"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-33">
+        <createIndex indexName="FK5C6729AB776D63" tableName="event" unique="false">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-34">
+        <createIndex indexName="SYS_IDX_SYS_CT_142_145" tableName="event" unique="true">
+            <column name="title"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-35">
+        <createIndex indexName="name" tableName="image" unique="true">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-36">
+        <createIndex indexName="emailconf_timestamp_Idx" tableName="pending_email_confirmation" unique="false">
+            <column name="timestamp"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-37">
+        <createIndex indexName="emailconf_token_Idx" tableName="pending_email_confirmation" unique="false">
+            <column name="confirmation_token"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-41">
+        <createIndex indexName="FKDB6312E991252A7E" tableName="publishable" unique="false">
+            <column name="author_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-42">
+        <createIndex indexName="FK3580DBB776D63" tableName="room" unique="false">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-43">
+        <createIndex indexName="SYS_IDX_SYS_CT_76_82" tableName="shiro_role" unique="true">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-44">
+        <createIndex indexName="FK389B46C981060810" tableName="shiro_role_permissions" unique="false">
+            <column name="shiro_role_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-46">
+        <createIndex indexName="FK34555A9E2630CBF0" tableName="shiro_user_permissions" unique="false">
+            <column name="shiro_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-47">
+        <createIndex indexName="FKBA2210572630CBF0" tableName="shiro_user_roles" unique="false">
+            <column name="shiro_user_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-48">
+        <createIndex indexName="FKBA22105781060810" tableName="shiro_user_roles" unique="false">
+            <column name="shiro_role_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-49">
+        <createIndex indexName="FK7C35D6D45A3B441D" tableName="tag_links" unique="false">
+            <column name="tag_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-50">
+        <createIndex indexName="SYS_IDX_SYS_CT_88_103" tableName="tags" unique="true">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-51">
+        <createIndex indexName="FK9A9DFCAB7B485186" tableName="venue_room" unique="false">
+            <column name="room_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-52">
+        <createIndex indexName="FK9A9DFCABE524B5D5" tableName="venue_room" unique="false">
+            <column name="venue_rooms_id"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

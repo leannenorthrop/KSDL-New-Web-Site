@@ -12,7 +12,7 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "create" // one of 'create', 'create-drop','update'
+            dbCreate = "update" // one of 'create', 'create-drop','update'
             //url = "jdbc:mysql://localhost:3306/lsd"
             //url = "jdbc:hsqldb:hsql://localhost/lsd"
             //url = "jdbc:hsqldb:file:devDB;shutdown=true"
@@ -23,6 +23,7 @@ environments {
 //            password = "change!t"
             username = "sa"
             password = ""
+            System.setProperty('dbtype', 'hsql')
         }
     }
 

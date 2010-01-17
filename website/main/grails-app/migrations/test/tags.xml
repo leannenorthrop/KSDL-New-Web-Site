@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="northrl" id="test-tag-data-01">
+        <loadData tableName="tags" file="${test-dir}/data/TAGS.csv">
+            <column name="id" type="NUMERIC" header="ID"/>
+            <column name="version" type="NUMERIC" header="VERSION"/>
+            <column name="name" type="STRING" header="NAME"/>
+        </loadData>
+    </changeSet>
+    <changeSet author="northrl" id="test-tag-data-02">
+        <loadData tableName="tag_links" file="${test-dir}/data/TAG_LINKS.csv">
+            <column name="id" type="NUMERIC" header="ID"/>
+            <column name="version" type="NUMERIC" header="VERSION"/>
+            <column name="tag_ref" type="NUMERIC" header="TAG_REF"/>
+            <column name="tag_id" type="NUMERIC" header="TAG_ID"/>
+            <column name="type" type="STRING" header="TYPE"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
