@@ -5,8 +5,17 @@ import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.ShiroRole
 class BootStrap {
      def imageService
+     def greenMail
 
      def init = { servletContext ->
+         environments {
+             development {
+                 greenMail.start()
+             }
+             test {
+                 greenMail.start()
+             }
+         }
         /*
         environments {
             production {

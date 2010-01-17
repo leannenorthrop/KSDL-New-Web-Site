@@ -66,8 +66,42 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         //assertTitle 'Kagyu Samye Dzong London Welcome'
     }
 
-    void testPasswordReminder() {
+    void testPasswordReminderWithInvalidEmail() {
+        def validEmail = 'leanne.northrop@samye.org'
+        redirectEnabled = false
+        register(validEmail)
+        get('/manageSite/home')
+        click('Hi, please sign in')
         assertStatus 200
+        assertContentContains "Sign In"
+        click('Forgot your password?')
+        assertStatus 200
+        assertContentContains "Your Email Address"
+        form('resetPassword') {
+            username = validEmail
+            byId('resetPassword').click()
+        }
+        assertStatus 200
+        assertContentContains "An e-mail has been sent to '${validEmail}'"
+    }
+
+    void testPasswordReminderWithValidEmail() {
+        def validEmail = 'leanne.northrop@samye.org'
+        redirectEnabled = false
+        register(validEmail)
+        get('/manageSite/home')
+        click('Hi, please sign in')
+        assertStatus 200
+        assertContentContains "Sign In"
+        click('Forgot your password?')
+        assertStatus 200
+        assertContentContains "Your Email Address"
+        form('resetPassword') {
+            username = validEmail
+            byId('resetPassword').click()
+        }
+        assertStatus 200
+        assertContentContains "An e-mail has been sent to '${validEmail}'"
     }
 
     void testRegisterUsernameInUse() {
@@ -107,4 +141,21 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         assertStatus 200
         redirectEnabled = o
     }
+
+    void register(username) {
+        redirectEnabled = false
+        get('/manageSite/home')
+        click('Hi, please sign in')
+        assertStatus 200
+        assertContentContains "Sign In"
+        form('register') {
+            username = username
+            password = 'change!t'
+            password2 = 'change!t'
+            byId('registerbtn').click()
+        }
+        followRedirect()
+        assertStatus 200
+    }
+
 }
