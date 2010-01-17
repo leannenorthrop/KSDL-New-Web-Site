@@ -57,6 +57,14 @@ log4j = {
         additivity = true
     }
 
+    fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',
+          'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
+          'com.gargoylesoftware.htmlunit.html.HtmlPage',
+          'com.gargoylesoftware.htmlunit.javascript.host.html.HTMLDocument',
+          'com.gargoylesoftware.htmlunit.javascript.host.HTMLDocument',
+          'com.gargoylesoftware.htmlunit.DefaultCssErrorHandler'
+
+
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
@@ -67,7 +75,8 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'
+           'net.sf.ehcache.hibernate',
+           'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine'
 
     warn   'org.mortbay.log'
 
@@ -78,34 +87,50 @@ auditLog {
   actor = 'userPrincipal.name'
 }
 
-grails {
-   mail {
-     //grails.mail.jndiName = "myMailSession"
-     //grails.mail.default.from="server@yourhost.com"
-     host = "smtp.gmail.com"
-     username = "leanne.northrop@googlemail.com"
-     password = "37911061"
-     props = ["mail.smtp.auth":"true",
-              "mail.smtp.socketFactory.port":"465",
-              "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-              "mail.smtp.socketFactory.fallback":"false"]
-   }
-}
-
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
         println "Environment is set to Production"
-        grails.mail.port = 465
+        grails {
+           mail {
+             //grails.mail.jndiName = "myMailSession"
+             //grails.mail.default.from="server@yourhost.com"
+             host = "smtp.gmail.com"
+             username = "leanne.northrop@googlemail.com"
+             password = "37911061"
+             props = ["mail.smtp.auth":"true",
+                      "mail.smtp.socketFactory.port":"465",
+                      "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
+                      "mail.smtp.socketFactory.fallback":"false"]
+           }
+        }
         grails.serverURL = "http://www.changeme.com"
     }
     development {
         println "Environment is set to Development"
+        grails {
+           mail {
+             host = "0.0.0.0"
+             username = "leanne.northrop@googlemail.com"
+             password = "37911061"
+             props = ["mail.smtp.auth":"true",
+                      "mail.smtp.socketFactory.port":com.icegreen.greenmail.util.ServerSetupTest.SMTP.port]
+           }
+        }
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
         grails.serverURL = "http://localhost:8080/${appName}"
     }
     test {
         println "Environment is set to Test"
+        grails {
+           mail {
+             host = "0.0.0.0"
+             username = "leanne.northrop@googlemail.com"
+             password = "37911061"
+             props = ["mail.smtp.auth":"true",
+                      "mail.smtp.socketFactory.port":com.icegreen.greenmail.util.ServerSetupTest.SMTP.port]
+           }
+        }
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
         grails.serverURL = "http://localhost:8080/${appName}"
     }

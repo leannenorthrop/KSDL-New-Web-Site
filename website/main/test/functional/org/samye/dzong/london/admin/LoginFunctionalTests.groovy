@@ -1,6 +1,24 @@
 package org.samye.dzong.london.admin
+import com.icegreen.greenmail.util.*
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import com.gargoylesoftware.htmlunit.*
+import org.samye.dzong.london.ShiroUser
 
 class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
+
+    protected void tearDown() {
+        println "Doing teardown"
+        def user = ShiroUser.findByUsername('leanne.northrop@googlemail.com')
+        if (user) {
+            user.passwordHash = 'f86c09c1159dc2082ee27f7aef08f1ed6a5be03d'
+            if (!user.hasErrors() && user.save()) {
+            } else {
+                log.error 'Unable to reset password back to original value!'
+                println 'Unable to reset password back to original value!'
+            }
+        }
+        super.tearDown()
+    }
 
     void testCanLogin() {
         login()
@@ -67,9 +85,8 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
     }
 
     void testPasswordReminderWithInvalidEmail() {
-        def validEmail = 'leanne.northrop@samye.org'
+        def invalidEmail = 'leanne.northrop@abc.com'
         redirectEnabled = false
-        register(validEmail)
         get('/manageSite/home')
         click('Hi, please sign in')
         assertStatus 200
@@ -77,18 +94,18 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         click('Forgot your password?')
         assertStatus 200
         assertContentContains "Your Email Address"
-        form('resetPassword') {
-            username = validEmail
+        form('resetpasswordform') {
+            username = invalidEmail
             byId('resetPassword').click()
         }
+        followRedirect()
         assertStatus 200
-        assertContentContains "An e-mail has been sent to '${validEmail}'"
+        assertContentContains "We could not find an account with the e-mail address ${invalidEmail}. Did you type it correctly?"
     }
 
     void testPasswordReminderWithValidEmail() {
-        def validEmail = 'leanne.northrop@samye.org'
+        def validEmail = 'leanne.northrop@googlemail.com'
         redirectEnabled = false
-        register(validEmail)
         get('/manageSite/home')
         click('Hi, please sign in')
         assertStatus 200
@@ -96,33 +113,66 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         click('Forgot your password?')
         assertStatus 200
         assertContentContains "Your Email Address"
-        form('resetPassword') {
+        form('resetpasswordform') {
             username = validEmail
             byId('resetPassword').click()
         }
+        followRedirect()
         assertStatus 200
-        assertContentContains "An e-mail has been sent to '${validEmail}'"
+        assertContentContains "An e-mail has been sent to ${validEmail} describing how to reset your password."
+        def config = ConfigurationHolder.getConfig()
+        if (config?.greenmail) {
+            def greenMail = config."greenmail"
+            def message = greenMail.getReceivedMessages()[-1]
+            def text = GreenMailUtil.toString(message)
+            def lines = text.split("\n")
+            def url = lines[18]
+            get(url)
+            form('changePassword'){
+                password = 'not24get'
+                password2 = 'not24get'
+                byId('changePasswordBtn').click()
+            }
+            assertStatus 200
+            assertContentContains 'You have successfully changed your password.'
+        }
     }
 
-    void testRegisterUsernameInUse() {
+    void testPasswordReminderWithValidEmailOnlyOnce() {
+        def validEmail = 'leanne.northrop@googlemail.com'
+        redirectEnabled = false
+        get('/manageSite/home')
+        click('Hi, please sign in')
         assertStatus 200
-    }
-
-    void testRegisterCaptcha() {
-
-    }
-
-    void testRegisterUsernameUnique() {
-        // on successful register redirect to instructions page
+        assertContentContains "Sign In"
+        click('Forgot your password?')
         assertStatus 200
-    }
-
-    void testRegisterSendsConfirmationEmail() {
+        assertContentContains "Your Email Address"
+        form('resetpasswordform') {
+            username = validEmail
+            byId('resetPassword').click()
+        }
+        followRedirect()
         assertStatus 200
-    }
-
-    void testRegisterConfirmationSendsRolesEmail() {
-        assertStatus 200
+        assertContentContains "An e-mail has been sent to ${validEmail} describing how to reset your password."
+        def config = ConfigurationHolder.getConfig()
+        if (config?.greenmail) {
+            def greenMail = config."greenmail"
+            def message = greenMail.getReceivedMessages()[-1]
+            def text = GreenMailUtil.toString(message)
+            def lines = text.split("\n")
+            def url = lines[18]
+            get(url)
+            form('changePassword'){
+                password = 'not24get'
+                password2 = 'not24get'
+                byId('changePasswordBtn').click()
+            }
+            assertStatus 200
+            assertContentContains 'You have successfully changed your password.'
+            get(url)
+            assertContentContains 'We could not find an account with the e-mail address Unknown. Did you type it correctly'
+        }
     }
 
     void login() {
@@ -133,29 +183,13 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         assertStatus 200
         assertContentContains "Sign In"
         form('signIn') {
-            username = 'leanne'
+            username = 'leanne.northrop@googlemail.com'
             password = 'change!t'
             byId('submitbtn').click()
         }
         followRedirect()
         assertStatus 200
         redirectEnabled = o
-    }
-
-    void register(username) {
-        redirectEnabled = false
-        get('/manageSite/home')
-        click('Hi, please sign in')
-        assertStatus 200
-        assertContentContains "Sign In"
-        form('register') {
-            username = username
-            password = 'change!t'
-            password2 = 'change!t'
-            byId('registerbtn').click()
-        }
-        followRedirect()
-        assertStatus 200
     }
 
 }
