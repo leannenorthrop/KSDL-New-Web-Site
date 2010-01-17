@@ -12,25 +12,23 @@ hibernate {
 environments {
     development {
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop','update'
-            //url = "jdbc:mysql://localhost:3306/lsd"
-            //url = "jdbc:hsqldb:hsql://localhost/lsd"
-            //url = "jdbc:hsqldb:file:devDB;shutdown=true"
-            url = "jdbc:hsqldb:file:lsd-test;shutdown=true"
-            driverClassName = "org.hsqldb.jdbcDriver"
-            //driverClassName = "com.mysql.jdbc.Driver"
+            // one of 'create', 'create-drop','update'
+            dbCreate = "update"
+//            url = "jdbc:mysql://localhost:3306/lsd"
+//            driverClassName = "com.mysql.jdbc.Driver"
 //            username = "northrl"
 //            password = "change!t"
+            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
+            driverClassName = "org.hsqldb.jdbcDriver"
             username = "sa"
             password = ""
-            System.setProperty('dbtype', 'hsql')
         }
     }
 
     test {
         dataSource {
-            dbCreate = "update" // one of 'create', 'create-drop','update'
-            url = "jdbc:hsqldb:file:lsd-test;shutdown=true"
+            dbCreate = "update"
+            url = "jdbc:hsqldb:file:db/test;shutdown=true"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "sa"
             password = ""

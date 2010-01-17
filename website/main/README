@@ -1,0 +1,32 @@
+1. Build Instructions
+===============================================================================
+WARNING: Clean will delete all files under the db directory.
+
+Before beginning please create your properties file under src/main/filters/<username>.properties.
+1.1 Please build and install graphical dependency first:
+
+1. cd <project.home>/graphics
+2. mvn clean install
+
+1.2 Next generate resources required to run:
+
+1. cd <project.home>/website/main
+2. mvn clean process-resources generate-resources
+
+2. Running Instructions
+===============================================================================
+1. Ensure resources are generated before running (see Build Instructions 1.1 &
+   1.2 above)
+2. cd <project.home>/website/main
+3. mvn grails:run-app
+
+
+3. Databases
+===============================================================================
+1. Hypersonice
+
+2. Mysql-----------------------------------------------------------------------
+1. Start with mysqld_safe --user=<username> &
+2. Start mysql
+3. Create database: CREATE DATABASE lsd; (You can remove previous by DROP DATABASE lsd;)
+4. Grant permissions: GRANT ALL ON lsd.* TO 'your_mysql_name'@'your_client_host';

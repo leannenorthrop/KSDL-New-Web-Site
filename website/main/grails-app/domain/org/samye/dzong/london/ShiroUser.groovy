@@ -3,6 +3,7 @@ package org.samye.dzong.london
 class ShiroUser {
     String username
     String passwordHash
+    String passwordReset
     static hasMany = [ roles: ShiroRole, permissions: String ]
 
     static constraints = {

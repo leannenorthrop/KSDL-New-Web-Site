@@ -1,36 +1,8 @@
 TODO
 
-mvn grails:exec -Dcommand='migrate' -Dgrails.env=test
-mvn grails:run-app -Dgrails.env=test
-
- - need news, buddhism, community, meditation, venue & rooms, teachers by end of the month
-
-Commenting/documentation - check out grails documentation
-Database migration: run tests on hsql and mysql
-Unit and integration tests
-Hosting requirements:
-    Apache front
-    Database management
-    ssh account for upgrading & mechanism to turn on site down
-    Java 6 & tomcat container
-    decent cpu & memory
-    costs
-auto tidy
-auto validation
-error pages
-
 1. Users
-    - Password Reminder
+    - Password Reminder - css and update password
     - Delete users
-    - Change password/author profile
-    - Register
-        - Send confirmation
-        - On confirmation send roles request with link to roles page and request to reply
-    - Add captcha
-    - Add ajax username unique check
-    - Add jquery validation
-    - Add jquery form css
-    - Check error handling
 2. Article functional tests
     - Author only
         - Add new article
@@ -54,29 +26,46 @@ error pages
                 - Front
                 - Benefits
                 - Advice
+** Ensure articles viewed by tag are through home controller
+** Add other tags when viewing articles
+** check titles & internationalisation
+
 3. Image
    - List
         - fluid
         - form validation
+        - thumbnails for png is not working correctly - need to convert to jpg
+        - support for gif & svg?
 4. Settings
     - Email
     - Twitter
 5. Textile markup of special characters
-7. Check browsers
-10. Highlight new articles in editor view
-12. Author profile
-15. View audit log.
-16. Unit tests
-17. Integration tests
-18. Functional tests
-19. Commentable between authors & editors
-20. Searchable plugin
-21. look into ui-performance plugin
-22. Look into filterpane plugin
-23. Look into export plugin
-26. Blurbs - content, page location
-27. Venues
-28. Teachers
+6. Highlight new articles in editor view
+7. View audit log as RSS
+8. CSS & Check browsers
+
+9. Unit tests
+10. Integration tests
+11. Functional tests
+
+12. Events - single date only & price
+13. Teachers
+14. Venue - simple
+15. Footer - Site map, Contact Us, Copyright, About this site, etc.
+16. Commentable between authors & editors
+
+17. Register
+    - Send confirmation
+    - On confirmation send roles request with link to roles page and request to reply
+    - Add captcha
+    - Add ajax username unique check
+    - Add jquery validation
+    - Add jquery form css
+    - Check error handling
+18. Searchable plugin
+19. look into ui-performance plugin
+20. Look into filterpane plugin
+21. Look into export plugin
 
 Flickr:
   http://www.flickr.com/services/api/
@@ -91,5 +80,21 @@ April 2010 - Tidy Up, CSS & Browser testing
 May 2010 - Performance tweaking, database backups, robustness & security testing
 
 http://www.londonsamyedzong.org/lsd/
-
 neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bernardmordan@yahoo.co.uk, bmordan@evelina.southwark.sch.uk
+mvn grails:run-app -Dgrails.env=test
+
+ - need news, buddhism, community, meditation, venue & rooms, teachers by end of the month
+
+Commenting/documentation - check out grails documentation
+Database migration: run tests on hsql and mysql (images don't load properly, squirrell datascripts add quotes around table name which is incorrect)
+Unit and integration tests
+Hosting requirements:
+    Apache front
+    Database management
+    ssh account for upgrading & mechanism to turn on site down
+    Java 6 & tomcat container
+    decent cpu & memory
+    costs
+auto tidy
+auto validation
+error pages
