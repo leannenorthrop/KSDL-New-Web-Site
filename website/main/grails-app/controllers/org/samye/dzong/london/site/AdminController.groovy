@@ -13,27 +13,33 @@ class AdminController {
     }
 
     def roles = {
-	def users = userLookupService.allUsers();
-	def roles = userLookupService.allRoles();
+        def users = userLookupService.allUsers();
+        def roles = userLookupService.allRoles();
+        roles = roles.findAll() { item ->
+            item.id != 1
+        }
+        users = users.findAll() { item ->
+            item.username != 'leanne'
+        }
         render(view: 'assignRoles', model:[users: users, roles:roles]);
     }
 
     def assignRoles = {
-	// need optimisitic locking checks
-	def users = userLookupService.allUsers();
-	def roles = userLookupService.allRoles();
-	roles.each() { role ->
-		def rolename = role.name
-		users.each() { user ->
-			def id = user.id
-			def roleValue = params["${id}-${rolename}"]
-			if ("on".equals(roleValue)) {
-				user.addToRoles(role)
-			} else {
-				user.removeFromRoles(role)
-			}
-		}
-	}
-	redirect(controller: 'admin', action: 'home')
+        // need optimisitic locking checks
+        def users = userLookupService.allUsers();
+        def roles = userLookupService.allRoles();
+        roles.each() { role ->
+            def rolename = role.name
+            users.each() { user ->
+                def id = user.id
+                def roleValue = params["${id}-${rolename}"]
+                if ("on".equals(roleValue)) {
+                    user.addToRoles(role)
+                } else {
+                    user.removeFromRoles(role)
+                }
+            }
+        }
+        redirect(controller: 'admin', action: 'home')
     }
 }

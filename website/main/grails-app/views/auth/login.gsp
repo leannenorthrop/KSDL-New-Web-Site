@@ -23,7 +23,7 @@
             <label class="rememberMe" for="rememberMe">Remember me?</label> <g:checkBox class="rememberMe" id="rememberMe" name="rememberMe" value="${rememberMe}" />
         </fieldset>
         <input type="hidden" name="targetUri" value="${targetUri}" />
-        <a class="submit" onClick="document.signIn.submit();">Sign In &raquo;</a>
+        <a class="submit" onClick="document.signIn.submit();" id="submitbtn">Sign In &raquo;</a>
       </g:form>
       <g:form id="register" name="register" action="register">
         <h1>Become a Member</h1>
@@ -42,7 +42,7 @@
             <label for="password">Password</label>
             <input type="password" id="password" name="password2" value="" />
         </fieldset>
-        <a class="submit" onClick="document.register.submit();">Register &raquo;</a><!-- or <g:link >Continue as guest</g:link>-->
+        <a class="submit" onClick="document.register.submit();" id="registerbtn">Register &raquo;</a><!-- or <g:link >Continue as guest</g:link>-->
       </g:form>
   </div>
 </body>
