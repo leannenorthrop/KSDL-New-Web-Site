@@ -11,18 +11,33 @@ class Article extends Publishable {
 
     static constraints = {
         title(blank:false,unique:true)
-        summary(size:5..Integer.MAX_VALUE)
-        content(size:5..Integer.MAX_VALUE)
+        summary(size:5..Integer.MAX_VALUE,blank:false)
+        content(size:5..Integer.MAX_VALUE,blank:false)
         image(nullable:true)
     }
 
     static namedQueries = {
+        orderedAuthorPublishState { username, publishState, orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', publishState
+            author {
+                eq 'username', username
+            }
+            order("${orderCol}", "${orderDir}")
+        }
+
         authorPublishState { username, publishState ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState
             author {
                 eq 'username', username
             }
+        }
+
+        orderedPublishState { publishState, orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', publishState
+            order("${orderCol}", "${orderDir}")
         }
 
         publishState { publishState ->

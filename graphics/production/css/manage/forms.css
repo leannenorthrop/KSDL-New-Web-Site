@@ -1,15 +1,19 @@
-form {
+form, .contentAdmin .content {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    width: 75%;
+    width: 85%;
 }
 
-form fieldset {
-    margin-left: 1em;
+.contentAdmin .content ul, .contentAdmin .content ol{
+    list-style: inherit;
 }
 
-form h1, form h2, form h3, form h4, form h5, form h6 {
+.contentAdmin .article ul {
+    list-style:none;
+}
+
+.contentAdmin h1, .contentAdmin h2, .contentAdmin h3, .contentAdmin h4, .contentAdmin h5, .contentAdmin h6 {
     padding-left: 1em;
     line-height: 2em;
     margin-bottom: 0.6em;
@@ -24,21 +28,34 @@ fieldset label {
     margin-bottom: 0.3em;
 }
 
+fieldset.last {
+    padding-bottom: 3em;
+}
+
 fieldset input[type="text"], fieldset input[type="password"],fieldset textarea {
     padding: 5px;
     border-top: 1px solid #bbb;
     border-left: 1px solid #bbb;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
-    background: white url(images/darkFadeTop.png) repeat-x top left;
-    margin-bottom: 0.6em;
+    background: white url(../site/images/darkFadeTop.png) repeat-x top left;
+    background: white url(../site/images/darkFadeTop.png) repeat-x top left;
 }
 
-fieldset input:focus, fieldset textarea:focus {
+fieldset input.required, fieldset textarea.required {
+    border: 1px solid black;
+}
+
+fieldset input:focus, fieldset textarea:focus, fieldset.select:focus {
     background: white;
     border: 1px solid rgb(0, 115, 234);
 }
 
+form fieldset {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
 /* ACTION BUTTONS */
 input[type="submit"],form a.button, form a.submit {
     position: absolute;
@@ -46,7 +63,7 @@ input[type="submit"],form a.button, form a.submit {
     right: 0.6em;
     padding: 0.35em 0.75em 0.4em 0.75em;
     color: white;
-    background: rgb(0, 115, 234) url(images/buttonHighlight.png) repeat-x 0 50%;
+    background: rgb(0, 115, 234) url(../site/images/buttonHighlight.png) repeat-x 0 50%;
     border: 1px solid rgb(0, 115, 234);
     width: auto;
     overflow: hidden;
@@ -65,6 +82,7 @@ input[type="submit"]:hover,form a:hover.button, form a:hover.submit,input[type="
     width: 75%;
     padding: 0.3em;
     text-align: center;
+    margin-bottom: 0.6em;
 }
 
 .message {
@@ -85,10 +103,24 @@ label.message {
     margin-top: -0.5em;
 }
 
+form label em, form label strong {
+    display:block;
+    font-weight: normal;
+    font-size: x-small;
+}
+
+form label strong {
+    color: rgb(0, 115, 234);
+}
+
+form label strong em {
+    display: inline;
+}
+
 .errors {
     background: #fff3f3;
-    border: 1px solid red;
-    color: #cc0000;
+    border: 1px solid #ff0084;
+    color: #ff0084;
     margin: 10px 0 5px 0;
     padding: 5px 0 5px 0;
 }
@@ -99,12 +131,24 @@ label.message {
 .errors li {
     background: url(images/exclamation.png) 8px 0% no-repeat;
     line-height: 16px;
-    padding-left: 30px;
+    padding-left: 30px;                                                      
 }
 
-.errors select {
-    border: 1px solid red;
+.errors input, input.error, textarea.error, .errors select, select.error, fieldset input.error, fieldset textarea.error {
+    border: 1px solid #ff0084;
 }
-.errors input {
-    border: 1px solid red;
+.error {
+    color: #ff0084;
+}
+
+
+#updatearticle input[type="text"],#updatearticle textarea,#createarticle input[type="text"],#createarticle textarea,#publish input[type="text"], #publish textarea{
+    width: 100%;
+}
+
+fieldset p.tags_help {
+    display: block;
+}
+fieldset p.tags_help ul {
+    margin-left: 6em;
 }

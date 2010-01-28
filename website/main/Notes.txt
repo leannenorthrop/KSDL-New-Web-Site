@@ -36,8 +36,8 @@ TODO
                 - Advice
 ** Ensure articles viewed by tag are through home controller
 ** Add other tags when viewing articles
-** check titles & internationalisation
 ? Quickly add community & buddhism
+! Must add 404 pretty page
 
 3. Image 24/01
    - List

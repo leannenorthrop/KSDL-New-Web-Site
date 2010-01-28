@@ -193,35 +193,9 @@ class CommonLayoutTagLib {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }
                                 }
-                            } else if ("create".equals (attrs.action)) {
-                                elem = link (class: "${adminClasses[controller]}Create", controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
+                            } else {
+                                elem = link (class: "${adminClasses[controller]}", controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
                                     messageSource.getMessage ('toolbar.' + controller, null, null)
-                                }
-                            } else if ("show".equals (attrs.action)) {
-                                elem = link (class: "${adminClasses[controller]}Create", controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
-                                    messageSource.getMessage ('toolbar.' + controller, null, null)
-                                }
-                                if (SecurityUtils.subject.hasRole("Admin")) {
-                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
-                                        messageSource.getMessage ("toolbar.${controller}.create", null, null)
-                                    }
-                                }
-                                else if (SecurityUtils.subject.hasRole ("Author")) {
-                                    elem += link (class: "${controller}Edit", controller: controller, action: "edit", params: [id:attrs.id],style:"color: #333;"){
-                                        messageSource.getMessage ("toolbar.${controller}.edit", null, null)
-                                    }
-                                }
-                            } else if ("edit".equals (attrs.action) || "pre_publish".equals (attrs.action)) {
-                                elem = link (class: "${adminClasses[controller]}Edit", controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
-                                    messageSource.getMessage ('toolbar.' + controller, null, null)
-                                }
-                                if (SecurityUtils.subject.hasRole ("Author")) {
-                                    elem += link (class: "${controller}Delete", controller: controller, action: "delete", params: [id: attrs.id], onclick:"return confirm('" + messageSource.getMessage ('toolbar.delete.confirm', null, null) + "');",style:"color: #333;") {
-                                        messageSource.getMessage ("toolbar.${controller}.delete", null, null)
-                                    }
-                                    elem += link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
-                                        messageSource.getMessage ("toolbar.${controller}.create", null, null)
-                                    }
                                 }
                             }
                         } else {

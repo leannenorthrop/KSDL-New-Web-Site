@@ -155,6 +155,7 @@
             <column name="date_created" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
+            <column name="DATE_PUBLISHED" type="DATETIME"/>           
         </createTable>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-15">
