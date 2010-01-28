@@ -2,14 +2,13 @@
 <html>
     <head>
         <title>Successful Password Change</title>
-        <meta name="layout" content="main" />
-        <link rel="stylesheet" href="${resource(dir:'css/redmond',file:'jquery-ui-1.7.2.custom.css')}" media="screen, projection" />
+        <meta name="layout" content="content-admin" />
     </head>
 <body>
     <div class="jquery-ui content">
         <div class="ui-widget ui-state-highlight ui-corner-all">
             <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-            <strong>Alert:</strong> You have successfully changed your password.<br/> You may now sign in with your new password.</p>
+            <strong>Alert:</strong> ${flash.message}</p>
         </div>
 </body>
 </html>

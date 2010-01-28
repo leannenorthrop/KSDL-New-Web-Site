@@ -2,15 +2,14 @@
 <html>
     <head>
         <title>Error</title>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="content-admin" />
         <link rel="stylesheet" href="${resource(dir:'css/redmond',file:'jquery-ui-1.7.2.custom.css')}" media="screen, projection" />
     </head>
 <body>
-    <div class="jquery-ui content">
-        <div class="ui-widget ui-state-error ui-corner-all">
-            <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-            <strong>Alert:</strong> ${flash.message}</p>
-        </div>
+    <div class="ui-widget ui-state-error ui-corner-all">
+        <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+        <strong>Alert:</strong> ${flash.message}</p>
+    </div>
 </body>
 </html>
 

@@ -3,15 +3,12 @@
     <head>
         <meta name="layout" content="content-admin" />
         <title>Manage Articles</title>
-        <link rel="stylesheet" href="${resource(dir:'css/redmond',file:'jquery-ui-1.7.2.custom.css')}" media="screen, projection" />
-        <g:javascript library="jquery"/>
-        <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>        
         <g:javascript>
             var currentTabIndex = 0;
             var currentTabDiv;
             $(function() {
                 $('a.step').live('click', function() {
-                    $("#articles-tabs").tabs('url', currentTabIndex, this.href);                
+                    $("#articles-tabs").tabs('url', currentTabIndex, this.href);
                     $(currentTabDiv).load(this.href);
                     return false;
                 });
@@ -19,17 +16,17 @@
                     $("#articles-tabs").tabs('url', currentTabIndex, this.href);
                     $(currentTabDiv).load(this.href);
                     return false;
-                });        
+                });
                 $('a.prevLink').live('click', function() {
                     $("#articles-tabs").tabs('url', currentTabIndex, this.href);
                     $(currentTabDiv).load(this.href);
                     return false;
-                });     
+                });
                 $('th.sortable a').live('click', function() {
                     $("#articles-tabs").tabs('url', currentTabIndex, this.href);
                     $(currentTabDiv).load(this.href);
                     return false;
-                });                
+                });
                 $("#articles-tabs").tabs({
                     fx: { opacity: 'toggle' },
                     select: function(event, ui) {
@@ -40,7 +37,7 @@
                         currentTabDiv = $(ui.panel);
                         currentTabIndex = $("#articles-tabs").tabs('option', 'selected');
                     }
-                });                
+                });
             });
         </g:javascript>
     </head>
@@ -55,7 +52,7 @@
                     <li><a href="ajaxPublishedArticles">Published</a></li>
                     <li><a href="ajaxArchivedArticles">Archived</a></li>
                     <li><a href="ajaxDeletedArticles">Deleted</a></li>
-                </ul>                                              
+                </ul>
             </div>
         </div>
     </body>

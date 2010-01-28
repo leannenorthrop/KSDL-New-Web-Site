@@ -88,7 +88,7 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         def invalidEmail = 'leanne.northrop@abc.com'
         redirectEnabled = false
         get('/manageSite/home')
-        click('Hi, please sign in')
+        click('Hi, Please Sign In')
         assertStatus 200
         assertContentContains "Sign In"
         click('Forgot your password?')
@@ -107,7 +107,7 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         def validEmail = 'leanne.northrop@googlemail.com'
         redirectEnabled = false
         get('/manageSite/home')
-        click('Hi, please sign in')
+        click('Hi, Please Sign In')
         assertStatus 200
         assertContentContains "Sign In"
         click('Forgot your password?')
@@ -142,7 +142,7 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         def validEmail = 'leanne.northrop@googlemail.com'
         redirectEnabled = false
         get('/manageSite/home')
-        click('Hi, please sign in')
+        click('Hi, Please Sign In')
         assertStatus 200
         assertContentContains "Sign In"
         click('Forgot your password?')
@@ -179,7 +179,7 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         def o = redirectEnabled
         redirectEnabled = false
         get('/manageSite/home')
-        click('Hi, please sign in')
+        click('Hi, Please Sign In')
         assertStatus 200
         assertContentContains "Sign In"
         form('signIn') {

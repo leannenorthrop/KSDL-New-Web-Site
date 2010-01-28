@@ -3,14 +3,10 @@
 <html>
     <head>
         <meta name="layout" content="content-admin" />
-        <title>Kagyu Samye Dzong London: Manage Images</title>
-
-        <link rel="stylesheet" href="${resource(dir:'css/redmond',file:'jquery-ui-1.7.2.custom.css')}" media="screen, projection" />
-        <link rel="stylesheet" href="${resource(dir:'css',file:'ImageCarousel.css')}" media="screen, projection" />
-        <g:javascript library="jquery"/>
-        <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>
+        <title>Manage Images</title>
+        <link rel="stylesheet" href="${resource(dir:'css/site',file:'imageCarousel.css')}" media="screen, projection" />
         <g:javascript src="jquery/jquery.ImageCarousel.js"/>
-	<g:javascript>
+    <g:javascript>
         var srcImage;
         var title;
         var show = function(e) {

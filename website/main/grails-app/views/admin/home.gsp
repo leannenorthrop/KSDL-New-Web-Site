@@ -1,7 +1,7 @@
 <html>
     <head>
-        <meta name="layout" content="admin" />
-        <title>Kagyu Samye Dzong London: Manage Site Settings</title>
+        <meta name="layout" content="content-admin" />
+        <title>Manage Site Settings</title>
     </head>
     <body>
     </body>

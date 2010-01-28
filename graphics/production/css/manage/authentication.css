@@ -1,24 +1,28 @@
-#auth {
-    padding: 6.2% 12.4% 0 12.4%;
-    width: 75%;
+.entryForms {
+    height: 20em;
+    border: none;
 }
 
-#signIn {
-    float:left;
-    width: 37.4%;
-    margin-right: 3em;
+.entryForms input[type="text"],input[type="password"] {
+    width: 20em;
 }
 
-#register {
-    float:left;
-    width: 37.4%;
-    padding-left: 2em;
-    border-left: 0.25em rgb(84,164,222) double;
+.entryForms .signIn {
+    width: 48%;
 }
 
-#auth form input{
-    width: 100%;
+.entryForms form {
+    height: 20em;
+    position: relative;
+    border: 1px solid #aaa;
 }
 
-.rememberMe {
+.entryForms .middle {
+    width: 4%;
+    vertical-align: middle;
+    font-size: 2em;
+}
+
+.entryForms .register {
+    width: 48%;
 }

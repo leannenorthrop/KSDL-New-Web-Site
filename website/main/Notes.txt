@@ -1,9 +1,14 @@
 TODO
 
-0. CSS theme switcher page
 1. Users
-    - Password Reminder - css
     - Delete users
+    - Register users
+    - Internationalise pages
+    - Shiro User password size
+    - jQuery form validation
+    - jQuery ajax username check
+    - Move common code into separate service class
+    - Move common test code into separate class
 2. Article functional tests
     - Author only
         - Add new article
