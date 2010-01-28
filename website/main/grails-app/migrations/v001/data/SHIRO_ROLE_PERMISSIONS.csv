@@ -5,9 +5,11 @@ SHIRO_ROLE_ID,PERMISSIONS_STRING
 2,auth:*
 3,manageSite:home
 3,article:*
+3,teacher:*
 4,image:*
 4,article:*
 4,manageSite:home
+4,teacher:*
 5,manageSite:home
 5,event:*
 6,manageSite:home

@@ -155,7 +155,7 @@
             <column name="date_created" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="DATE_PUBLISHED" type="DATETIME"/>           
+            <column name="DATE_PUBLISHED" type="DATETIME"/>
         </createTable>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-15">
@@ -392,6 +392,34 @@
     <changeSet author="northrl" id="v001-schema-52">
         <createIndex indexName="FK9A9DFCABE524B5D5" tableName="venue_room" unique="false">
             <column name="venue_rooms_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-53">
+        <createTable tableName="teacher">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="summary" type="${text-type}"/>
+            <column name="image_id" type="BIGINT"/>
+            <column name="content" type="${text-type}"/>
+            <column name="title" type="VARCHAR(255)"/>
+            <column name="category" type="VARCHAR(20)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-54">
+        <createIndex indexName="FKAA31CBE2B776D63" tableName="teacher" unique="false">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-55">
+        <createIndex indexName="SYS_IDX_91" tableName="teacher" unique="true">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-56">
+        <createIndex indexName="SYS_IDX_SYS_CT_90_93" tableName="teacher" unique="false">
+            <column name="name"/>
         </createIndex>
     </changeSet>
 </databaseChangeLog>

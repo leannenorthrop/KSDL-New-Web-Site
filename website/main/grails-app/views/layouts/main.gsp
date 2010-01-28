@@ -51,7 +51,7 @@
     <div id="spinner" class="spinner" style="display:none;">
       <img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/>
     </div>
-    <g:layoutBody/>
+    <div style="position:relative;"><g:layoutBody/></div>
     <lsdc:grid/>
     <div class="watermark">
       <span class="one"/>
