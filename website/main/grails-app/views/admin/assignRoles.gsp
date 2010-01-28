@@ -4,10 +4,26 @@
         <meta name="layout" content="content-admin" />
     </head>
 <body>
-  <g:form name="roles" action="assignRoles" style="min-height:${5+(users.size()*3)}em;">
+  <g:if test="${flash.message}">
+    <g:set var="minHeightEm" value="${10+(users.size()*3)}em;"/>
+  </g:if>
+  <g:else>
+    <g:set var="minHeightEm" value="${5+(users.size()*3)}em;"/>
+  </g:else>
+  <g:form name="roles" action="assignRoles" style="min-height:${minHeightEm}">
     <h1 class="ui-widget-header"><g:message code='role.perm.title' default="Manage UserPermissions"/></h1>
+
     <g:if test="${flash.message}">
-    <label class="message"><g:message code="${flash.message}" args="${flash.args}"/></label>
+      <g:if test="${flash.isError}">
+      <p class="ui-widget ui-state-error ui-corner-all">
+      <strong><span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
+      </p>
+      </g:if>
+      <g:else>
+      <p class="ui-widget ui-state-highlight ui-corner-all">
+      <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
+      </p>
+      </g:else>
     </g:if>
 
     <table>
@@ -38,7 +54,7 @@
 
     <g:set var="submitBtnLabel"><g:message code="role.perm.submit"/></g:set>
     <g:submitButton name="rolePermSubmitBtn" value="${submitBtnLabel}" id="requestRolesBtn" class="ui-corner-all"/>
-      
+
   </g:form>
 </body>
 </html>

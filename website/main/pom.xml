@@ -142,17 +142,31 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>Delete Test Database</id>
                         <phase>
-                            pre-clean
+                            process-test-resources
                         </phase>
                         <configuration>
                             <tasks>
-                                <copy todir="${user.home}/Backup">
-                                    <fileset dir="${basedir}/web-app/css"/>
-                                </copy>
-                                <copy todir="${user.home}/Backup">
-                                    <fileset dir="${basedir}/web-app/images"/>
-                                </copy>
+                                <delete>
+                                    <fileset dir="${basedir}/db" includes="test.*"/>
+                                </delete>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>Delete Development Database</id>
+                        <phase>
+                            process-resources
+                        </phase>
+                        <configuration>
+                            <tasks>
+                                <delete>
+                                    <fileset dir="${basedir}/db" includes="dev.*"/>
+                                </delete>
                             </tasks>
                         </configuration>
                         <goals>
