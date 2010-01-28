@@ -150,7 +150,15 @@ class ImageController {
         def f = request.getFile('image')
         def contentType = f.getContentType()
         def bytes = f.getBytes()
-        def thumbnail = imageService.thumbnail(bytes)
+
+
+        def thumbnail
+        if (contentType.toLowerCase().endsWith("png")) {
+            bytes = imageService.pngToJpg(bytes)
+            thumbnail = imageService.thumbnail(bytes)
+        } else {
+            thumbnail = imageService.thumbnail(bytes)
+        }
 
         def imageInstance = new Image(params)
         imageInstance.thumbnail = thumbnail
