@@ -1,76 +1,68 @@
 TODO
 
-1. Users
-    - Delete users 21/01
-    - Register username as email check, password size 21/01
-    - Functional test for login with wrong username, sign out, and passwords do not match 21/01
-    - Shiro User password size 21/01
-    - jQuery form validation 21/01
-    - jQuery ajax username check
-    - Make usernames comparision ignore case
-    - Move common code into separate service class
-    - Move common test code into separate class
-    - Move email content into templates 21/01
-2. Article functional tests & Display CSS 22 & 23/01
-    - Author only
-        - Add new article
+================================================================================
+                        FOR 31/01/2010
+================================================================================
+0. Urgent:
+    - Must add 404 pretty page.
+    - Ensure articles viewed by tag are through home controller
+1. Article functional tests 23/01
+ Use JMeter to record clicks and then convert to functional tests.
+    - News Articles Location
+    - Check unique validation
+    - Check validation
         - Edit article
-        - Delete article
         - After publish
         - After archive
-    - Author & Editor
-        - Add new article
-        - Edit article
-        - Delete article
-        - After publish
-        - After archive
-    - Editor
-        - Publish
-            - News
-                - Home
-                - Front
-            - Meditation
-                - Home
-                - Front
-                - Benefits
-                - Advice
-** Ensure articles viewed by tag are through home controller
-** Add other tags when viewing articles
-? Quickly add community & buddhism
-! Must add 404 pretty page
 
-3. Image 24/01
+2. Fix Public Article Pages & CSS
+3. Quickly add community & buddhism?
+4. Image 24/01
    - List
         - fluid
         - form validation
         - thumbnails for png is not working correctly - need to convert to jpg
         - support for gif & svg?
-4. Settings
+5. Venue - simple 26/01
+6. Events - single date only & price 29/01
+7. Teachers - 29/01
+8. Footer - Site map, Contact Us, Copyright, About this site, etc.
+9. Deploy to Amazon & Do CSS Check & Browsers Check 30/01
+
+================================================================================
+                        FOR 14/01/2010
+================================================================================
+10. Settings to be pulled from web container as resources:
     - Email
     - Twitter
-5. Textile markup of special characters
-6. Highlight new articles in editor view
-7. View audit log as RSS
-8. CSS & Check browsers
-
-9. Unit tests
-10. Integration tests
-11. Functional tests
-
-12. Events - single date only & price 25/01
-13. Teachers
-14. Venue - simple 29/01
-15. Footer - Site map, Contact Us, Copyright, About this site, etc.
-16. Commentable between authors & editors
-
-17. Register
-    - Send confirmation
-    - On confirmation send roles request with link to roles page and request to reply
+11. Unit tests
+12. Integration tests
+13. Users
+    - Delete users 21/01
+    - Email as username check, password size
+    - Functional test for login with wrong username, sign out, and passwords do not match
+    - Shiro User password size
+    - jQuery form validation
+    - Make usernames comparision ignore case
+    - Move common code into separate service class
+    - Move common test code into separate class
+    - Move email content into templates 21/01
+14. Article Niceties
+    - Commentable between authors & editors
+    - Highlight new articles in editor view
+    - Add Icons for Actions
+    - Add other tags when viewing articles
+    8. Textile markup of special characters
+15. View audit log as RSS
+16. Register
     - Add captcha
     - Add ajax username unique check
     - Add jquery validation
     - Add jquery form css
-    - Check error handling
+17. Functional tests for publishing articles to areas other than news.
+    - Article navigation
+    - Unpublish published
+    - Delete Archived
 18. Searchable plugin
 19. look into ui-performance plugin
 20. Look into filterpane plugin

@@ -32,7 +32,7 @@
     </g:javascript>
   </head>
   <body>
-    <g:form id="updatearticle" name="updatearticle" method="post" action="update">
+    <g:form name="updatearticle" method="post" action="update">
       <h1 class="ui-widget-header"><g:message code="article.edit.heading"/></h1>
 
       <g:if test="${flash.message && !flash.isError}">
