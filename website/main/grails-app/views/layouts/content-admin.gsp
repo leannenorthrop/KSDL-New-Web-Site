@@ -11,6 +11,7 @@
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:javascript library="jquery"/>
         <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>
+        <g:javascript src="jquery/jquery.validate.min.js"/>
         <g:layoutHead />
     </head>
     <body class="contentAdmin" style="min-width:60em">

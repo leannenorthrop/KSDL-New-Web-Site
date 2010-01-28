@@ -6,21 +6,27 @@ class Publishable implements Taggable {
     String publishState
     Boolean deleted
     ShiroUser author
-    Date publishedOn
+    Date datePublished
     Date dateCreated
-    Date lastUpdated    
+    Date lastUpdated
     Boolean displayAuthor;
     Boolean displayDate;
-        
+
     def auditLogService
-        
+
     static auditable = true
-    
+
     static constraints = {
         publishState(blank:false,inList:["Unpublished", "Published", "Archived"])
         author(nullable:true)
         displayAuthor(nullable:true)
-        displayDate(nullable:true)        
+        displayDate(nullable:true)
+        datePublished(nullable:true)
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
+        deleted()
+        displayAuthor()
+        displayDate()
     }
 
     static mapping = {
@@ -29,30 +35,31 @@ class Publishable implements Taggable {
 
     static transients = ['publishedOn']
 
-    static namedQueries = { 
-        authorPublishState { username, publishState -> 
+    static namedQueries = {
+        authorPublishState { username, publishState ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState
             author {
                 eq 'username', username
-            }                            
-        }   
-        
-        publishState { publishState -> 
+            }
+        }
+
+        publishState { publishState, orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState                         
-        }  
-               
-        deletedAuthor { username -> 
+            eq 'publishState', publishState
+            order(orderCol, orderDir)
+        }
+
+        deletedAuthor { username ->
                 eq('deleted', Boolean.TRUE)
                 author {
                     eq('username', username)
-                }                            
-        }              
+                }
+        }
     }
-        
+
     String toString() {
-        return "${publishState} by ${author.username} (${deleted})"
+        return "${publishState} by ${author.username} (${deleted ? "Deleted" : "Not Deleted"})"
     }
-     
+
 }
