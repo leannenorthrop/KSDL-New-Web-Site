@@ -26,6 +26,13 @@ package org.samye.dzong.london.community
 import org.samye.dzong.london.Publishable
 import org.samye.dzong.london.media.Image
 
+/**
+ * Domain class for storing teacher information.
+ * Note named queries unfortunately do not handle
+ * order by properly in grails 1.2.0.
+ * TODO: Test
+ * TODO: Change tostring to lookup title.
+ */
 class Teacher extends Publishable {
     String name;
     String title;
@@ -35,9 +42,9 @@ class Teacher extends Publishable {
     Image image;
 
     static constraints = {
-        title(blank:false)
+        title(blank:false,inList:['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS'])
         name(blank:false,unique:true)
-        category(blank:false,inList:['Lineage','Visiting','Center','Other'])
+        category(blank:false,inList:['L','V','C','O'])
         summary(size:5..Integer.MAX_VALUE,blank:false)
         content(size:5..Integer.MAX_VALUE,blank:false)
         image(nullable:true)

@@ -1,7 +1,5 @@
 package org.samye.dzong.london.community
 
-import java.util.Collections
-
 class ArticleService {
     boolean transactional = true
     def userLookupService
