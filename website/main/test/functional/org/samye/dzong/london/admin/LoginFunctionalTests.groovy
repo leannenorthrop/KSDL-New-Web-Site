@@ -133,6 +133,7 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
                 password2 = 'not24get'
                 byId('changePasswordBtn').click()
             }
+            followRedirect()
             assertStatus 200
             assertContentContains 'You have successfully changed your password.'
         }
@@ -168,9 +169,12 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
                 password2 = 'not24get'
                 byId('changePasswordBtn').click()
             }
+            followRedirect()
             assertStatus 200
             assertContentContains 'You have successfully changed your password.'
             get(url)
+            followRedirect()
+            assertStatus 200
             assertContentContains 'We could not find an account with the e-mail address Unknown. Did you type it correctly'
         }
     }

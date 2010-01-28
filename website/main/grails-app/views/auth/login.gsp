@@ -1,56 +1,55 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
         <meta name="layout" content="content-admin" />
-        <title>Sign In</title>
+        <title><g:message code="log.in" default="Sign In"/></title>
     </head>
 <body>
     <g:if test="${flash.message}">
-      <div class="ui-widget ui-state-error ui-corner-all">
-          <p><span class="ui-icon ui-icon-alert" style="float: left;"></span>
-          <strong>Alert:</strong> ${flash.message}</p>
-      </div>
+      <p class="ui-widget ui-state-error ui-corner-all">
+      <strong><span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/></p>
     </g:if>
     <table class="entryForms">
       <tr>
           <td class="ui-widget ui-corner-all signIn">
               <g:form id="signIn" name="signIn" action="signIn">
-                  <h1 class="ui-widget-header">Sign In</h1>
+                  <h1 class="ui-widget-header"><g:message code="log.in" default="Sign In"/></h1>
                 <fieldset>
-                    <label for="username">Email</label>
+                    <label for="username"><g:message code="log.in.un"/></label>
                     <g:textField class="required ui-corner-all" name="username" value="${username}" />
                 </fieldset>
                 <fieldset>
-                    <label for="password">Password</label>
+                    <label for="password"><g:message code="log.in.pw"/></label>
                     <g:passwordField class="required ui-corner-all" name="password" value="${password}" /><br/>
-                    <g:link action="resetPassword">Forgot your password?</g:link>
+                    <g:link action="resetPassword"><g:message code="passwd.reset.msg"/></g:link>
                 </fieldset>
                 <!--fieldset class="last">
                     <label class="rememberMe" for="rememberMe">Remember me?</label> <g:checkBox class="rememberMe" id="rememberMe" name="rememberMe" value="${rememberMe}" />
                 </fieldset-->
                 <g:hiddenField name="targetUri" value="${targetUri}" />
-                <g:submitButton name="submitbtn" value="Sign In »" id="submitbtn" class="ui-corner-all"/>
+                <g:set var="submitBtnLabel"><g:message code="log.in.btn"/></g:set>
+                <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
               </g:form>
           </td>
           <td class="middle">
-              or
+              <g:message code="log.in.or"/>
           </td>
           <td class="ui-widget ui-corner-all register">
               <g:form id="register" name="register" action="register">
-                <h1 class="ui-widget-header">Become a Member</h1>
+                <h1 class="ui-widget-header"><g:message code="register.title"/></h1>
                 <fieldset>
-                    <label for="username">Email</label>
+                    <label for="username"><g:message code="log.in.un"/></label>
                     <g:textField name="username" value="${username}" class="required ui-corner-all" />
                 </fieldset>
                 <fieldset>
-                    <label for="password">Password</label>
+                    <label for="password"><g:message code="log.in.pw"/></label>
                     <g:passwordField name="password" value="" class="required ui-corner-all" />
                 </fieldset>
                 <fieldset>
-                    <label for="password">Password</label>
+                    <label for="password"><g:message code="log.in.pw"/></label>
                     <g:passwordField id="password" name="password2" value="" class="required ui-corner-all" />
                 </fieldset>
-                <g:submitButton name="submitbtn" value="Request Account »" id="submitbtn" class="ui-corner-all"/>
+                <g:set var="submitBtnLabel"><g:message code="register.btn"/></g:set>
+                <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
               </g:form>
           </td>
       </tr>

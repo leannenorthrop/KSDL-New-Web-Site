@@ -7,6 +7,14 @@ class ManageSiteController {
     }
 
     def home = {
-        return render(view:'home',model:[])
+        return render(view:'home')
+    }
+
+    def info = {
+        return render(view:'info')
+    }
+
+    def error = {
+        return render(view:'error')
     }
 }

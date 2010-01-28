@@ -37,6 +37,10 @@ class HomeController {
         model:[]
     }
 
+    def error = {
+        model:[]
+    }
+
     def setCSSTheme = {
         def themeCookie = new Cookie("cssTheme",params.id)
         themeCookie.setMaxAge(60*60*24*365)

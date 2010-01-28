@@ -1,29 +1,27 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <title>Change Password</title>
+        <title><g:message code="passwd.change" default="Change Password"/></title>
         <meta name="layout" content="content-admin" />
     </head>
 <body>
-    <g:form id="changePassword" name="changePassword" action="changePassword" class="ui-widget ui-corner-all" style="height: 20em;">
+    <g:form id="changePassword" name="changePassword" action="changePassword" class="ui-widget ui-corner-all" style="min-height: 20em;">
         <g:hiddenField name="id" value="${user?.passwordReset}" />
         <g:hiddenField type="hidden" name="reset" value="${user?.passwordReset}" />
-        <h1 class="ui-widget-header">Change Password</h1>
+        <h1 class="ui-widget-header"><g:message code="passwd.change" default="Change Password"/></h1>
         <g:if test="${flash.message}">
-            <div class="ui-widget ui-state-error ui-corner-all">
-                <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-                <strong>Alert:</strong> ${flash.message}</p>
-            </div>
+            <p class="ui-widget ui-state-error ui-corner-all"><span class="ui-icon ui-icon-alert" style="display: inline-block;"></span>
+            <strong><g:message code="alert"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/></p>
         </g:if>
         <fieldset>
-            <label for="password">New Password</label>
+            <label for="password"><g:message code="passwd.un.new"/></label>
             <g:passwordField name="password" value="" class="required ui-corner-all"/>
         </fieldset>
         <fieldset>
-            <label for="password2">Password (again)</label>
+            <label for="password2"><g:message code="passwd.un.new.again"/></label>
             <g:passwordField name="password2" value="" class="required ui-corner-all"/>
         </fieldset>
-        <g:submitButton name="changePasswordBtn" value="Save New Password »" id="changePasswordBtn" class="ui-corner-all"/>
+        <g:set var="submitBtnLabel"><g:message code="passwd.save.btn"/></g:set>
+        <g:submitButton name="changePasswordBtn" value="${submitBtnLabel}" id="changePasswordBtn" class="ui-corner-all"/>
     </g:form>
 </body>
 </html>

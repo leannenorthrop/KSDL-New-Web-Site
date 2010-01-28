@@ -40,7 +40,7 @@ class EmailService {
 
           To enable your, just click the link below and you'll be taken to a form where you can request particular access rights:
 
-          http://localhost:8080/main/auth/acl/${token}
+          http://localhost:8080/main/admin/requestPermission/${token}
 
           If you did not request an account, please disregard this e-mail.
 

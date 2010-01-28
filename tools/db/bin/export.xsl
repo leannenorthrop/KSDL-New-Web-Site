@@ -30,7 +30,7 @@
                     <xsl:value-of select="b64:decodeToHex($v)"/>
                 </xsl:when>
                 <xsl:when test="contains($v, ',')">
-                    <xsl:text>"</xsl:text><xsl:value-of select="$v"/><xsl:text>"</xsl:text>
+                    <xsl:text>"</xsl:text><xsl:value-of select="translate($v,',', '‚')"/><xsl:text>"</xsl:text>
                 </xsl:when>
                 <xsl:when test="string-length(.) &gt; 0">
                     <!--xsl:value-of select="translate(normalize-space(.), '  ', '')"/-->
