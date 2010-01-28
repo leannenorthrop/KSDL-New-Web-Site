@@ -55,6 +55,10 @@ class Article extends Publishable {
         deleted {
             eq('deleted', Boolean.TRUE)
         }
+
+        publishedByTags { tags, orderCol, orderDir ->
+
+        }
     }
 
     static mapping = {

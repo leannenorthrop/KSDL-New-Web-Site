@@ -24,7 +24,8 @@
 package org.samye.dzong.london.articles
 
 /**
- *
+ *  Functional tests for user with Author and Editor permissions only creating
+ *  articles.
  *
  * User: Leanne Northrop
  * Date: Jan 23, 2010, 4:07:19 PM

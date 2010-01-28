@@ -52,7 +52,7 @@ class FooterFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         get('/')
         assertStatus 200
         assertContentContains "Contact Us"
-        click('Contact Us')
+        click('☎ Contact Us')
         assertStatus 200
     }
 

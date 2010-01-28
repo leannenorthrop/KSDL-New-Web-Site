@@ -4,14 +4,14 @@ class MeditationController {
     def articleService
 
     def index = {
-        redirect(action:home)  
+        redirect(action:home)
     }
-    
+
     def home = {
-        def adviceArticles = [] 
+        def adviceArticles = []
         def benefitsArticles = []
         def topArticles = []
-        
+
         try {
             adviceArticles = articleService.publishedByTags(['meditation','advice', 'front'])
             benefitsArticles = articleService.publishedByTags(['meditation','benefits', 'front'])
@@ -19,29 +19,29 @@ class MeditationController {
         } catch (error) {
             log.error("Meditation controller encountered an error.")
         }
-               
-        render(view: 'index', model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles, topArticles: topArticles])    
+
+        render(view: 'index', model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles, topArticles: topArticles])
     }
 
     def current = {
         def articles = articleService.publishedByTags(['meditation'])
-        render(view: 'list', model:[ articles: articles, title: 'Current News'])     
+        render(view: 'list', model:[ articles: articles, title: 'Current News'])
     }
-        
+
     def archive = {
         def articles = articleService.archivedByTags(['meditation'])
-        render(view: 'list', model:[ articles: articles, title: 'Older Meditation Articles'])     
+        render(view: 'list', model:[ articles: articles, title: 'Older Meditation Articles'])
     }
-    
+
     def all = {
         def articles = articleService.publishedByTags(['meditation'])
         def articles2 = articleService.archivedByTags(['meditation'])
         articles2.each() { item -> 
             articles << item
         }
-        render(view: 'list', model:[ articles: articles, title: 'Meditation Articles'])    
+        render(view: 'list', model:[ articles: articles, title: 'Meditation Articles'])
     }
-    
+
     def view = {
         def model = articleService.view(params.id)
         if (!model) {
@@ -49,5 +49,5 @@ class MeditationController {
         } else {
             render(view: 'view', model: model)
         }
-    }    
+    }
 }

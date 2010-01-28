@@ -24,12 +24,13 @@
 package org.samye.dzong.london.articles
 
 /**
- *
+ * Functional tests for user with Author and Editor  permissions only for
+ * publishing articles.
  *
  * User: Leanne Northrop
  * Date: Jan 23, 2010, 7:57:08 PM
  */
-class bAuthorEditorPublishArticleFunctionalTests  extends EditorArticleTest {
+class bAuthorEditorPublishArticleFunctionalTests extends EditorArticleTest {
     String getUsername() {
         return "AuthorEditor";
     }
