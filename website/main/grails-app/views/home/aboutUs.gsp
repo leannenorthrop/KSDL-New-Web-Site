@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Kagyu Samye Dzong London: About Us</title>
+    <title>About Us</title>
     <meta name="layout" content="main">
 </head>
 <body>

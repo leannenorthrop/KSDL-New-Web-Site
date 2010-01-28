@@ -4,7 +4,7 @@
 */
 
 body {
-    background: rgb(255, 250, 235);
+    background: rgb(243, 238, 224);
 }
 
 /* Links
@@ -113,20 +113,18 @@ div.list + div.manage {
 .nav ul a {
     border-right: 1px solid rgb(32,107,164);
     border-right: 1px solid rgba(32,107,164, 0.4);
-    color: rgb(32,107,164);
-    color: rgba(32,107,164, 0.8);
+    color: white;
+    color: rgba(255,255,255, 0.8);
 }
 
 /* highlight current area */
-.nav .current a {
+.nav .current a, .nav a:hover, .nav .current a:hover {
     background: rgb(190,223,93) url(images/darkFadeBottom.png) repeat-x bottom;
     background: rgba(164,193,80,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    color: white;
+    color: rgba(255,255,255, 0.8);
 }
 
-.nav a:hover, .nav .current a:hover {
-    background: rgb(164,193,80) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(164,193,80,0.75) url(images/darkFadeBottom.png) repeat-x bottom;
-}
 
 .nav ul a strong {
     text-shadow: 0 -1px 0 rgb(206, 206, 206);
@@ -134,88 +132,63 @@ div.list + div.manage {
 }
 
 .home .nav {
-    background: rgb(173, 214, 209) url(images/darkFadeBottom.png) repeat-x bottom;
-    color: rgb(32,107,164);
-    color: rgba(32,107,164, 0.8);
+    background: rgb(142, 0, 7) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
+.home .nav .current a,.home .nav a:hover, .home .nav .current a:hover  {
+    background: rgb(184, 60, 54) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(184, 60, 54,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+}
 .home .nav ul a {
-    color: white;
-    color: rgba(255,255,255, 0.8);
-}
-
-.home .nav .current a {
-    background: rgb(105, 180, 171) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(105, 180, 171,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
-}
-
-.home .nav a:hover, .home .nav .current a:hover {
-    background: rgb(105, 180, 171) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(105, 180, 171,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    border-right: 1px solid rgb(203, 105, 77);
+    border-right: 1px solid rgba(203, 105, 77, 0.4);
 }
 
 .news .nav {
-    background: rgb(195, 173, 214) url(images/darkFadeBottom.png) repeat-x bottom;
-    color: rgb(195, 173, 214);
-    color: rgba(195, 173, 214, 0.8);
+    background: rgb(46, 152, 157) url(images/darkFadeBottom.png) repeat-x bottom;
+
+}
+
+.news .nav .current a,.news .nav a:hover, .news .nav .current a:hover  {
+    background: rgb(95, 183, 179) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(95, 183, 179,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .news .nav ul a {
-    color: white;
-    color: rgba(255,255,255, 0.8);
-}
-
-.news .nav .current a {
-    background: rgb(145, 105, 180) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(145, 105, 180,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
-}
-
-.news .nav a:hover, .news .nav .current a:hover {
-    background: rgb(145, 105, 180) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(145, 105, 180,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    border-right: 1px solid rgb(0, 115, 112);
+    border-right: 1px solid rgba(0, 115, 112, 0.4);
 }
 
 .events .nav {
-    background: rgb(195, 224, 133) url(images/darkFadeBottom.png) repeat-x bottom;
-    color: rgb(32,107,164);
-    color: rgba(32,107,164, 0.8);
+    background: rgb(126, 166, 49) url(images/darkFadeBottom.png) repeat-x bottom;
+
+}
+
+.events .nav .current a,.events .nav a:hover, .events .nav .current a:hover  {
+    background: rgb(178, 210, 19) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(178, 210, 19,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .events .nav ul a {
-    color: white;
-    color: rgba(255,255,255, 0.8);
-}
-
-.events .nav .current a {
-    background: rgb(129, 147, 79) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(129, 147, 79,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
-}
-
-.events .nav a:hover, .events .nav .current a:hover {
-    background: rgb(129, 147, 79) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(129, 147, 79,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    border-right: 1px solid rgb(188, 220, 64);
+    border-right: 1px solid rgba(188, 220, 64, 0.4);
 }
 
 .meditation .nav {
-    background: rgb(214, 173, 186) url(images/darkFadeBottom.png) repeat-x bottom;
-    color: rgb(32,107,164);
-    color: rgba(32,107,164, 0.8);
+    background: rgb(107, 40, 82) url(images/darkFadeBottom.png) repeat-x bottom;
+
+}
+
+.meditation .nav .current a,.meditation .nav a:hover, .meditation .nav .current a:hover  {
+    background: rgb(140, 81, 123) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(140, 81, 123,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .meditation .nav ul a {
-    color: white;
-    color: rgba(255,255,255, 0.8);
+    border-right: 1px solid rgb(78, 0, 52);
+    border-right: 1px solid rgba(78, 0, 52, 0.4);
 }
 
-.meditation .nav .current a {
-    background: rgb(157, 104, 123) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(157, 104, 123,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
-}
-
-.meditation .nav a:hover, .meditation .nav .current a:hover {
-    background: rgb(157, 104, 123) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(157, 104, 123,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
-}
 /* use the best possible ampersand */
 
 span.amp {

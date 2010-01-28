@@ -15,7 +15,18 @@ body {
     left: 0;
     right: 0;
     font-size: smaller;
-    padding: 0.2em 1em;
+    padding: 0.5em 1.3em;
+    text-align: center;
+}
+
+.services {
+    position:fixed;
+    bottom: 1.3em;
+    left: 0;
+    right: 0;
+    font-size: smaller;
+    padding: 0.5em 1.3em;
+    text-align: center;
 }
 
 
