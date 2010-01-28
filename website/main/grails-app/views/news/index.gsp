@@ -13,7 +13,7 @@
                     <h3><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h3>
                     <h4>by <a>${articleInstance.author.username}</a></h4>
                     <g:if test="${articleInstance.displayDate}">
-                        <h5><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.displayDate}"/></h5>
+                        <h5><g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/></h5>
                     </g:if>
                     <g:if test="${articleInstance.image}">
                         <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
@@ -22,7 +22,7 @@
                 </li>
             </g:each>
         </ol>
-        <g:if test="${total > articles.size()}"> 
+        <g:if test="${total > articles.size()}">
         <g:link action="current"><em>More...</em></g:link>
         </g:if>
     </div>
@@ -41,10 +41,10 @@
                 <!-- TODO mark last child -->
                 <g:each in="${archivedArticles}" status="i" var="articleInstance">
                     <li class="article">
-                        <span><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></span>                        
+                        <span><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></span>
                         <g:if test="${articleInstance.displayDate}">
-                        <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.displayDate}"/></em>
-                        </g:if>                        
+                        <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em>
+                        </g:if>
                     </li>
                 </g:each>
             </ul>

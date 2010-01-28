@@ -60,97 +60,46 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Publishable.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/Publishable.groovy">
+      <file leaf-file-name="AuthorArticleTest.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/AuthorArticleTest.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="22" selection-start="176" selection-end="189" vertical-scroll-proportion="-2.3636363">
+            <state line="78" column="48" selection-start="2797" selection-end="2813" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="EditorArticleTest.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/EditorArticleTest.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="105" column="31" selection-start="3430" selection-end="3430" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Notes.txt" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="bAuthorEditorPublishArticleFunctionalTests.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/bAuthorEditorPublishArticleFunctionalTests.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="17" selection-start="1523" selection-end="1523" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="bEditorPublishArticleFunctionalTests.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/bEditorPublishArticleFunctionalTests.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="49" column="17" selection-start="1566" selection-end="1566" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Notes.txt" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Notes.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="73" selection-start="1416" selection-end="1430" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="archived.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/article/archived.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="80" selection-start="1120" selection-end="1120" vertical-scroll-proportion="-5.9347825">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="create.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/article/create.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="deleted.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/article/deleted.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="75" selection-start="2268" selection-end="2268" vertical-scroll-proportion="-13.282609">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="edit.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/article/edit.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.gsp" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/article/index.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="74" selection-start="1980" selection-end="1980" vertical-scroll-proportion="0.53930134">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="view.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/article/view.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="141" selection-start="2051" selection-end="2051" vertical-scroll-proportion="-11.586957">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="messages.properties" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="196" column="0" selection-start="8570" selection-end="8595" vertical-scroll-proportion="-49.444443">
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="ResourceBundle">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="show.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/article/show.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="49" column="16" selection-start="2269" selection-end="2269" vertical-scroll-proportion="-13.847826">
+            <state line="5" column="17" selection-start="217" selection-end="217" vertical-scroll-proportion="0.027027028">
               <folding />
             </state>
           </provider>
@@ -166,22 +115,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/taglib/org/samye/dzong/london/CommonLayoutTagLib.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/Publishable.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/migrations/v001/v001-ddl.xml" />
-        <option value="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
-        <option value="$PROJECT_DIR$/web-app/css/manage/forms.css" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/published.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/unpublished.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/manage.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/deleted.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/show.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/community/ArticleController.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/AuthorArticleFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/article/create.gsp" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/EditorAuthorFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/EditorAuthorArticleFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/migrations/functional-test/data/SHIRO_USER_ROLES.csv" />
+        <option value="$PROJECT_DIR$/grails-app/migrations/functional-test/image.xml" />
+        <option value="$PROJECT_DIR$/grails-app/migrations/functional-test/master.xml" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/AuthorArticleTest.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/aAuthorEditorPublishArticleFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/aEditorPublishArticleFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/aEditorAuthorArticleFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/aAuthorEditorArticleFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/bEditorPublishArticleFunctionalTests.groovy" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/bAuthorEditorPublishArticleFunctionalTests.groovy" />
         <option value="$PROJECT_DIR$/Notes.txt" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/archived.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/view.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
-        <option value="$PROJECT_DIR$/grails-app/views/article/index.gsp" />
+        <option value="$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/EditorArticleTest.groovy" />
       </list>
     </option>
   </component>
@@ -208,7 +157,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -224,6 +173,7 @@
     </navigator>
     <panes>
       <pane id="Favorites" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -252,7 +202,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
+              <option name="myItemId" value="web-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -266,11 +216,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="i18n" />
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -284,21 +230,46 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
+              <option name="myItemId" value="test" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="i18n" />
+              <option name="myItemId" value="functional" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Resource Bundle 'messages'" />
-              <option name="myItemType" value="com.intellij.lang.properties.projectView.ResourceBundleNode" />
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="functional" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="articles" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="PackagesPane">
         <subPane />
       </pane>
@@ -319,8 +290,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig">
     <mappings>
@@ -382,7 +353,7 @@
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit">
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" air_descriptor_path="" air_program_params="" air_publisher_id="" air_root_dir_path="" air_run_mode="AppDescriptor" class_name="" html_or_swf_file_path="" main_class_name="" method_name="" module_name="" output_log_level="" package_name="" port="0" run_mode="HtmlOrSwfFile" scope="Class" socket_policy_port="0" url_to_launch="http://">
       <method>
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
@@ -511,7 +482,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1763" y="-180" width="1439" height="1080" extended-state="0" />
+    <frame x="-1446" y="-180" width="1439" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -519,18 +490,18 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.9971202" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296146" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296146" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19362319" sideWeight="0.34178498" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20173913" sideWeight="0.5020284" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2512599" sideWeight="0.6639676" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2512599" sideWeight="0.6639676" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Grails" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.19294457" sideWeight="0.6639676" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3296146" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -565,123 +536,114 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/publish.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/migrations/functional-test/data/SHIRO_USER_ROLES.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="39" column="124" selection-start="1811" selection-end="1811" vertical-scroll-proportion="0.2513181">
+        <state line="6" column="0" selection-start="48" selection-end="48" vertical-scroll-proportion="0.08108108">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/published.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/taglib/org/samye/dzong/london/CommonLayoutTagLib.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="2" selection-start="245" selection-end="318" vertical-scroll-proportion="-1.1304348">
+        <state line="158" column="35" selection-start="6706" selection-end="6706" vertical-scroll-proportion="0.2745512">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/unpublished.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/migrations/functional-test/data/IMAGE.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="12" selection-start="93" selection-end="93" vertical-scroll-proportion="-0.2826087">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/manage.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/migrations/functional-test/master.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="141" selection-start="1380" selection-end="1380" vertical-scroll-proportion="-8.195652">
+        <state line="28" column="55" selection-start="1684" selection-end="1684" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/community/Article.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/migrations/functional-test/image.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="61" selection-start="816" selection-end="816" vertical-scroll-proportion="-7.090909">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/Publishable.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="22" selection-start="176" selection-end="189" vertical-scroll-proportion="-2.3636363">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/community/ArticleController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="244" column="41" selection-start="8842" selection-end="8842" vertical-scroll-proportion="-4.0392156">
+        <state line="35" column="142" selection-start="2021" selection-end="2021" vertical-scroll-proportion="0.48046464">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Notes.txt">
+    <entry file="file://$PROJECT_DIR$/grails-app/migrations/test/image.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="73" selection-start="1416" selection-end="1430" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/archived.gsp">
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/AbstractWebTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="80" selection-start="1120" selection-end="1120" vertical-scroll-proportion="-5.9347825">
+        <state line="33" column="6" selection-start="1329" selection-end="1329" vertical-scroll-proportion="0.33264032">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/AuthorArticleTest.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="48" selection-start="2797" selection-end="2813" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/aAuthorArticleFunctionalTests.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="35" selection-start="1306" selection-end="1452" vertical-scroll-proportion="0.4189189">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/aAuthorEditorArticleFunctionalTests.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="28" selection-start="1339" selection-end="1339" vertical-scroll-proportion="0.44594595">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/bEditorPublishArticleFunctionalTests.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="17" selection-start="1566" selection-end="1566" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/views/article/create.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="35" column="205" selection-start="1597" selection-end="1597" vertical-scroll-proportion="0.37957823">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/deleted.gsp">
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/admin/LoginFunctionalTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="75" selection-start="2268" selection-end="2268" vertical-scroll-proportion="-13.282609">
+        <state line="138" column="8" selection-start="4194" selection-end="4225" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/edit.gsp">
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/bAuthorEditorPublishArticleFunctionalTests.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="45" column="17" selection-start="1523" selection-end="1523" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
+    <entry file="file://$PROJECT_DIR$/test/functional/org/samye/dzong/london/articles/EditorArticleTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="196" column="0" selection-start="8570" selection-end="8595" vertical-scroll-proportion="-49.444443">
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="ResourceBundle">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/show.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="16" selection-start="2269" selection-end="2269" vertical-scroll-proportion="-13.847826">
+        <state line="105" column="31" selection-start="3430" selection-end="3430" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/view.gsp">
+    <entry file="file://$PROJECT_DIR$/Notes.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="141" selection-start="2051" selection-end="2051" vertical-scroll-proportion="-11.586957">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/index.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="74" selection-start="1980" selection-end="1980" vertical-scroll-proportion="0.53930134">
+        <state line="5" column="17" selection-start="217" selection-end="217" vertical-scroll-proportion="0.027027028">
           <folding />
         </state>
       </provider>
