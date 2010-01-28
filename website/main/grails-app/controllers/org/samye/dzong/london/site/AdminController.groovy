@@ -50,7 +50,7 @@ class AdminController {
         def user = ShiroUser.findByPasswordReset(params.id)
         if (!user) {
             flash.message = messageSource.getMessage("passwd.reset.failure", ['Unknown'].toArray(), null)
-            render(view: '../admin-error')
+            redirect(controller: 'manageSite', action: 'error')
         } else {
             def roles = userLookupService.allRoles();
             roles = roles.findAll() { item ->
@@ -68,28 +68,31 @@ class AdminController {
                 user.passwordReset = null
                 if (!user.hasErrors() && user.save()) {
                     try {
-                        def roles = params.roles
-                        roles.each {item -> println item}
+                        def roles = params.role
+                        def requestedRoles = roles.findAll {item ->
+                            !item.key.startsWith('_') && item.value=='on'
+                        }
+                        log.info "${user.username} requested ${requestedRoles}, now sending email"
+                        emailService.sendPermissionsRequest(user.username, requestedRoles)
                     } catch(error) {
                         log.warn "Unable to nullify password reset field for user ${user.username}", error
                     }
-                    log.info "User ${user.username}  has successfully changed password."
-                    flash.message = "You have successfully changed your password.<br/> You may now sign in with your new password."
-                    render(view: '../admin-info')
+                    flash.message = "You have successfully requested permissions.<br/> An email has been sent to the Administrators of this site to perform your request, which may take up to several days. If you do not receive an email within the next 3 days please write to admin@lsd.org."
+                    redirect(controller: 'manageSite', action: 'info')
                 } else {
                     flash.message = message(code: "login.failed")
                     // Now redirect back to the login page.
-                    render(view: "../admin-error")
+                    redirect(controller: 'manageSite', action: 'error')
                 }
             } catch (Exception e) {
                 log.error "Failed to change user's password", e
                 flash.message = message(code: "login.failed")
                 // Now redirect back to the login page.
-                render(view: "../admin-error")
+                redirect(controller: 'manageSite', action: 'error')
             }
         } else {
             flash.message = "Sorry, we can not find your details. Please request again for a password reset."
-            render(view: '../admin-error')
+            redirect(controller: 'manageSite', action: 'error')
         }
     }
 }
