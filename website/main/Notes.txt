@@ -3,35 +3,30 @@ TODO
 ================================================================================
                         FOR 31/01/2010
 ================================================================================
-
-1. Fix Public Article Pages & CSS
+0. Image
+    Add Tabs to List & Add pages for flickr
+1. Venue - simple 26/01
+2. Events - single date only & price 29/01
+3. Teachers - 29/01
+4. Quickly add community & buddhism?
+5. Footer - Site map, Contact Us, Copyright, About this site, etc.
+6. Fix Public Article Pages & CSS
     Ensure articles viewed by tag are through home controller
-2. Image 24/01
-   - List
-        - fluid
-        - form validation
-        - thumbnails for png is not working correctly - need to convert to jpg
-        - support for gif & svg?
-3. Venue - simple 26/01
-4. Events - single date only & price 29/01
-5. Teachers - 29/01
-6. Quickly add community & buddhism?
-7. Footer - Site map, Contact Us, Copyright, About this site, etc.
-8. Deploy to Amazon & Do CSS Check & Browsers Check 30/01
+7. Deploy to Amazon & Do CSS Check & Browsers Check 30/01
 
 ================================================================================
                         FOR 14/01/2010
 ================================================================================
-10. Settings to be pulled from web container as resources:
+8. Settings to be pulled from web container as resources:
     - Email
     - Twitter
-11. Feeds
+9. Feeds
     - fix
     - add urls
     - add audit log
-12. Twitter
+10. Twitter
     - add urls
-13. Users
+11. Users
     - Delete users 21/01
     - Email as username check, password size
     - Functional test for login with wrong username, sign out, and passwords do not match
@@ -41,19 +36,22 @@ TODO
     - Move common code into separate service class
     - Move common test code into separate class
     - Move email content into templates 21/01
-14. Article Niceties
+12. Article Niceties
     - Commentable between authors & editors
     - Highlight new articles in editor view
     - Add Icons for Actions
     - Add other tags when viewing articles
-8. Textile markup of special characters
-
-16. Register
+13. Textile markup of special characters
+14. Image 24/01
+    - form validation
+    - support for gif & svg?
+    - functional tests
+15. Register
     - Add captcha
     - Add ajax username unique check
     - Add jquery validation
     - Add jquery form css
-17. Functional tests for publishing articles to areas other than news.
+16. Functional tests for publishing articles to areas other than news.
     - Article navigation
     - Unpublish published
     - Delete Archived
@@ -63,10 +61,10 @@ TODO
         - Edit article
         - After publish
         - After archive
-18. Searchable plugin
-19. look into ui-performance plugin
-20. Look into filterpane plugin
-21. Look into export plugin
+17. Searchable plugin
+18. look into ui-performance plugin
+19. Look into filterpane plugin
+20. Look into export plugin
  Unit tests
  Integration tests
 
