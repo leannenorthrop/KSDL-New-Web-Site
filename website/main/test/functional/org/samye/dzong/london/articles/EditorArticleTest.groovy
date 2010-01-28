@@ -26,13 +26,20 @@ package org.samye.dzong.london.articles
 import org.samye.dzong.london.AbstractWebTest
 
 /**
- * Abstract base class for Editor Article Tests. Can not test for error values
- * as jQuery validation catches errors.
+ * Abstract base class for Publishing Articles.
+ *
+ * TODO Add test for delete archived article
+ * TODO Add test for viewing published article
+ * TODO Add test for editing published article
+ * TODO Add test for viewing archived article
+ * TODO Add test for editing archived article
+ * TODO Add test for unpublishing articles
+ *
  *
  * User: Leanne Northrop
  * Date: Jan 23, 2010, 5:15:26 PM
  */
-abstract class EditorArticleTest  extends AbstractWebTest {
+abstract class EditorArticleTest extends AbstractWebTest {
     abstract String getUsername();
     abstract String getPassword();
     abstract Integer getArchivedId();

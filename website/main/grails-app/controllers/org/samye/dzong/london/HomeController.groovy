@@ -41,6 +41,16 @@ class HomeController {
         model:[]
     }
 
+    def internalError = {
+        render(view:internalError)
+    }
+
+    def notFound = {
+        flash.message = "not.found"
+        flash.default = "Oops! Did we lose a page?"
+        render(notFound)
+    }
+
     def setCSSTheme = {
         def themeCookie = new Cookie("cssTheme",params.id)
         themeCookie.setMaxAge(60*60*24*365)

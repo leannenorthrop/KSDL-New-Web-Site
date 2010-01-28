@@ -22,7 +22,7 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Template for content administration pages.
+  Not found page
   User: Leanne
   Date: Jan 24, 2010, 2:00:21 PM
 --%>
@@ -30,7 +30,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-    <title><g:message code="title" default="Kagyu Samye Dzong London"/> <g:layoutTitle/></title>
+    <title><g:message code="title"/> <g:message code="not.found"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <!--link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/themes/pastel', file: 'screen.css')}" /-->
@@ -39,20 +39,15 @@
     <lsd:cssTheme app="${application}"/>
     <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
-    <g:layoutHead/>
   </head>
-  <body class="${controllerName}">
-    <shiro:isLoggedIn in="['Editor','Administrator','Author']">
-      <body style="min-width:70em">
-    </shiro:isLoggedIn>
-    <shiro:isNotLoggedIn><body></shiro:isNotLoggedIn>
+  <body class="home">
     <lsdc:header/>
-    <lsdc:nav current="${controllerName}"/>
-    <div id="spinner" class="spinner" style="display:none;">
-      <img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/>
-    </div>
-    <g:layoutBody/>
-    <lsdc:grid/>
+    <!--lsdc:nav current="${controllerName}"/-->
+    <div class='nav group'><ul><li class='first current'><a href='/main'><strong><g:message code="home"/></strong><em><g:message code="home.desc"/></em></a></li></ul></div>
+
+
+    <h1 style="text-align:center"><g:message code="alert"/></h1>
+    <p style="text-align:center"><g:message code="error.notfound"/></p>
     <div class="watermark">
       <span class="one"/>
       <span class="two"/>
@@ -79,3 +74,5 @@
     </div>
   </body>
 </html>
+
+
