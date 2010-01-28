@@ -1,77 +1,77 @@
-form h1 {
-    line-height: 2em;
+form {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
 }
 
 form fieldset {
-    margin: 0 0 15px 0;
+    margin-left: 1em;
+}
+
+form h1, form h2, form h3, form h4, form h5, form h6 {
+    padding-left: 1em;
+    line-height: 2em;
+    margin-bottom: 0.6em;
+}
+
+fieldset {
+    margin-top: 0.6em;
 }
 
 fieldset label {
     display: block;
-    margin: 0 0 3px 0;
+    margin-bottom: 0.3em;
 }
 
-fieldset input, fieldset textarea {
-    color: rgb(32,107,164);
-    width: 20em;
+fieldset input[type="text"], fieldset input[type="password"],fieldset textarea {
     padding: 5px;
-    font-size: normal;
-    font-weight: bold;
-    border: none;
-    border-top: 1px solid transparent;
-    border-left: 1px solid transparent;
-    border-bottom: 1px solid #fff;
-    border-right: 1px solid #fff;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #bbb;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
     background: white url(images/darkFadeTop.png) repeat-x top left;
-    border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-}
-
-fieldset input[type="radio"], fieldset input[type="checkbox"], fieldset input[type="file"] {
-    background: none;
+    margin-bottom: 0.6em;
 }
 
 fieldset input:focus, fieldset textarea:focus {
     background: white;
-    border: 1px solid rgb(32,107,164);
-}
-
-
-fieldset .last {
-    border: 1px solid red;
-    padding-bottom: 3.75em;
+    border: 1px solid rgb(255,152,52);
 }
 
 /* ACTION BUTTONS */
-a.button, form a.submit {
-    font-family: verdana;
-    font-weight: normal;
-    font-size: smaller;
+input[type="submit"],a.button, form a.submit {
+    position: absolute;
+    bottom: 0.6em;
+    right: 0.6em;
     padding: 0.35em 0.75em 0.4em 0.75em;
-    color: white;
-    background: rgb(255,152,52) url(images/buttonHighlight.png) repeat-x 0 50%;
+    color: rgb(255,152,52);
+    background: white url(images/buttonHighlight.png) repeat-x 0 50%;
     border: 1px solid rgb(255,152,52);
     width: auto;
     overflow: hidden;
-    border-radius: 14px;
-    -webkit-border-radius: 14px;
-    -moz-border-radius: 14px;
 }
 
-a:hover.button, form a:hover.submit  {
-    background: rgb(255,191,128);
-    border: 1px solid rgb(255,191,128,0);
+input[type="submit"]:hover,a:hover.button, form a:hover.submit  {
+    background: rgb(255,152,52);
+    border: 1px solid rgb(255,152,52,0);
+    color: white;
     cursor: pointer;
 }
 
-a:active.button, form a:active.submit  {
+input[type="submit"]:focus,input[type="submit"]:active,a:active.button, form a:active.submit  {
     background: rgb(246,232,150);
     border: 1px solid rgb(246,232,150,0);
     cursor: pointer;
 }
 
 /* MESSAGES AND ERRORS */
+.ui-state-highlight, .ui-state-error, .ui-state-highlight, .ui-state-error p {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    padding: 0.3em;
+}
 
 .message {
     background: #f3f8fc url(images/information.png) 8px 50% no-repeat;

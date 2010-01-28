@@ -5,7 +5,7 @@ class RolesFunctionalTests extends functionaltestplugin.FunctionalTestCase {
     void testCanLogin() {
         redirectEnabled = false
         get('/manageSite/home')
-        click('Hi, please sign in')
+        click('Hi, Please Sign In')
         assertStatus 200
         assertContentContains "Sign In"
         form('signIn') {
@@ -57,7 +57,7 @@ class RolesFunctionalTests extends functionaltestplugin.FunctionalTestCase {
     void register(username) {
         redirectEnabled = false
         get('/manageSite/home')
-        click('Hi, please sign in')
+        click('Hi, Please Sign In')
         assertStatus 200
         assertContentContains "Sign In"
         form('register') {
@@ -74,7 +74,7 @@ class RolesFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         def o = redirectEnabled
         redirectEnabled = false
         get('/manageSite/home')
-        click('Hi, please sign in')
+        click('Hi, Please Sign In')
         assertStatus 200
         assertContentContains "Sign In"
         form('signIn') {

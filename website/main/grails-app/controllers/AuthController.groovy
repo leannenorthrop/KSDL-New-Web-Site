@@ -21,43 +21,30 @@ class AuthController {
     }
 
     def register = {
-        if (params.password.equals(params.password2)) {
+        if (ShiroUser.findByUsername(params.username)) {
+            log.info "Username ${params.username} is in use."
+            flash.message = message(code: "register.username.in.use")
+            // Now redirect back to the login page.
+            redirect(action: "login", params: params)
+        } else if (params.password.equals(params.password2)) {
             try {
-                if (ShiroUser.findByUsername(params.username)) {
-                    log.info "Register user passwords do not match."
-                    flash.message = message(code: "register.username.in.use")
-                    // Now redirect back to the login page.
-                    redirect(action: "login", params: params)
+                def newUser = new ShiroUser(username: params.username, passwordHash: new Sha1Hash(params.password).toHex())
+                newUser.save()
+                def token = new Sha1Hash(new Date().toString()).toHex()
+                newUser.passwordReset = token
+                if (!newUser.hasErrors() && newUser.save()) {
+                    emailService.sendAccountVerification(newUser.username,token)
+                    flash.message = "You have successfully created an account. An email has been sent your account which explains how to request particular access rights."
+                    render(view: 'changedPassword', model:[user:newUser])
                 } else {
-                    def newUser = new ShiroUser(username: params.username, passwordHash: new Sha1Hash(params.password).toHex())
-                    newUser.save()
-                    log.info "Registered new user " + params.username
-                    def authToken = new UsernamePasswordToken(params.username, params.password)
-                    def targetUri = "/"
-                    try{
-                        // Perform the actual login. An AuthenticationException
-                        // will be thrown if the username is unrecognised or the
-                        // password is incorrect.
-                        SecurityUtils.subject.login(authToken)
-
-                        log.info "Redirecting to '${targetUri}'."
-                        redirect(uri: targetUri)
-                    }
-                    catch (AuthenticationException ex){
-                        // Authentication failed, so display the appropriate message
-                        // on the login page.
-                        log.info "Authentication failure for user '${params.username}'."
-                        flash.message = message(code: "login.failed")
-
-                        // Now redirect back to the login page.
-                        redirect(action: "login", params: params)
-                    }
+                    flash.message = "You have successfully created an account but there was an internal error and your account verification can not be sent to your email account. Please email amdin@lsd.org for assistance."
+                    render(view: 'error')
                 }
             } catch (Exception e) {
-                log.error "Failed to register new user", e
+                log.error "Sorry, but we were unable to create a new account for you. Please try again.", e
                 flash.message = message(code: "login.failed")
                 // Now redirect back to the login page.
-                redirect(action: "login", params: params)
+                render(view: "error")
             }
         } else {
             log.info "Register user passwords do not match."
@@ -190,7 +177,7 @@ class AuthController {
                             log.warn "Unable to nullify password reset field for user ${user.username}", error
                         }
                         log.info "User ${user.username}  has successfully changed password."
-                        flash.message = "You have successfully changed your password"
+                        flash.message = "You have successfully changed your password.<br/> You may now sign in with your new password."
                         render(view: 'changedPassword', model:[user:user])
                     } else {
                         flash.message = message(code: "login.failed")
@@ -215,4 +202,13 @@ class AuthController {
         }
     }
 
+    def acl = {
+        def user = ShiroUser.findByPasswordReset(params.id)
+        if (!user) {
+            flash.message = messageSource.getMessage("passwd.reset.failure", ['Unknown'].toArray(), null)
+            render(view: 'error', model:[])
+        } else {
+            render(view: 'roleRequest', model:[user:user])
+        }
+    }
 }

@@ -4,7 +4,7 @@
 */
 
 body {
-    background: rgb(255, 250, 235);
+    background: rgb(251, 251, 251);
 }
 
 /* Links
@@ -84,9 +84,9 @@ div.list + div.manage {
     bottom: 0;
     left: 0;
     right: 0;
-    border: 1px solid rgb(173, 214, 209);
-    background: rgb(214, 229, 255);
-    background: rgba(214, 229, 255,0.7);
+    border: 1px solid rgb(113,179,226);
+    background: rgb(212,231,244);
+    background: rgba(212,231,244,0.7);
     font-size: smaller;
     padding: 0.2em 1em;
 }
@@ -134,7 +134,7 @@ div.list + div.manage {
 }
 
 .home .nav {
-    background: rgb(173, 214, 209) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(46, 152, 157) url(images/darkFadeBottom.png) repeat-x bottom;
     color: rgb(32,107,164);
     color: rgba(32,107,164, 0.8);
 }
@@ -145,17 +145,17 @@ div.list + div.manage {
 }
 
 .home .nav .current a {
-    background: rgb(105, 180, 171) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(105, 180, 171,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(173, 214, 209) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(173, 214, 209,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .home .nav a:hover, .home .nav .current a:hover {
-    background: rgb(105, 180, 171) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(105, 180, 171,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(173, 214, 209) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(173, 214, 209,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .news .nav {
-    background: rgb(195, 173, 214) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(106, 38, 128) url(images/darkFadeBottom.png) repeat-x bottom;
     color: rgb(195, 173, 214);
     color: rgba(195, 173, 214, 0.8);
 }
@@ -176,7 +176,7 @@ div.list + div.manage {
 }
 
 .events .nav {
-    background: rgb(195, 224, 133) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(126, 166, 49) url(images/darkFadeBottom.png) repeat-x bottom;
     color: rgb(32,107,164);
     color: rgba(32,107,164, 0.8);
 }
@@ -187,17 +187,17 @@ div.list + div.manage {
 }
 
 .events .nav .current a {
-    background: rgb(129, 147, 79) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(129, 147, 79,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(178, 210, 19) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(178, 210, 19,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .events .nav a:hover, .events .nav .current a:hover {
-    background: rgb(129, 147, 79) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(129, 147, 79,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(178, 210, 19) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(178, 210, 19,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .meditation .nav {
-    background: rgb(214, 173, 186) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(157, 46, 100) url(images/darkFadeBottom.png) repeat-x bottom;
     color: rgb(32,107,164);
     color: rgba(32,107,164, 0.8);
 }
@@ -208,13 +208,13 @@ div.list + div.manage {
 }
 
 .meditation .nav .current a {
-    background: rgb(157, 104, 123) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(157, 104, 123,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(208, 96, 151) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(208, 96, 151,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 
 .meditation .nav a:hover, .meditation .nav .current a:hover {
-    background: rgb(157, 104, 123) url(images/darkFadeBottom.png) repeat-x bottom;
-    background: rgba(157, 104, 123,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgb(195, 124, 225) url(images/darkFadeBottom.png) repeat-x bottom;
+    background: rgba(195, 124, 225,0.5) url(images/darkFadeBottom.png) repeat-x bottom;
 }
 /* use the best possible ampersand */
 
