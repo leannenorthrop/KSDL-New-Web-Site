@@ -25,9 +25,17 @@ package org.samye.dzong.london.community
 
 import org.apache.shiro.SecurityUtils
 
+/**
+ * Handler for web requests regarding teachers.
+ * Author: Leanne Northrop
+ * Date: 26th January 2010, 19:00
+ * TODO: test
+ * TODO: internationalize
+ * TODO: change publish to simple state change.
+ */
 class TeacherController {
     def userLookupService
-    def articleService
+    def teacherService
 
     def index = {
         def teachers = Teacher.findAllByPublishState("Published")
@@ -42,9 +50,9 @@ class TeacherController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         def model
         if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
-            model = articleService.unpublished(params)
+            model = teacherService.unpublished(params)
         } else {
-            model = articleService.userUnpublished(params)
+            model = teacherService.userUnpublished(params)
         }
         render(view: 'unpublished', model: model)
     }
@@ -55,9 +63,9 @@ class TeacherController {
 
         def model
         if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
-            model = articleService.published(params)
+            model = teacherService.published(params)
         } else {
-            model = articleService.userPublished(params)
+            model = teacherService.userPublished(params)
         }
         render(view: 'published', model: model)
     }
@@ -68,9 +76,9 @@ class TeacherController {
 
         def model
         if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
-            model = articleService.archived(params)
+            model = teacherService.archived(params)
         } else {
-            model = articleService.userArchived(params)
+            model = teacherService.userArchived(params)
         }
         render(view: 'archived', model: model)
     }
@@ -81,9 +89,9 @@ class TeacherController {
 
         def model
         if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
-            model = articleService.deleted(params)
+            model = teacherService.deleted(params)
         } else {
-            model = articleService.userDeleted(params)
+            model = teacherService.userDeleted(params)
         }
         render(view: 'deleted', model: model)
     }
@@ -95,7 +103,8 @@ class TeacherController {
     def view = {
         def teacher = Teacher.get(params.id)
         if (!teacher) {
-            flash.message = "Teacher not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: list)
         }
         else {
@@ -107,7 +116,8 @@ class TeacherController {
         def teacher = Teacher.get(params.id)
 
         if (!teacher) {
-            flash.message = "Article not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: list)
         }
         else {
@@ -121,7 +131,7 @@ class TeacherController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (teacher.version > version) {
-                    teacher.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
+                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
                     redirect(action: manage)
                     return
                 }
@@ -138,7 +148,8 @@ class TeacherController {
             }
         }
         else {
-            flash.message = "Article not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: manage)
         }
     }
@@ -147,7 +158,8 @@ class TeacherController {
         def teacher = Teacher.get(params.id)
 
         if (!teacher) {
-            flash.message = "Article not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: manage)
         }
         else {
@@ -159,7 +171,8 @@ class TeacherController {
         def teacher = Teacher.get(params.id)
 
         if (!teacher) {
-            flash.message = "Article not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: manage)
         }
         else {
@@ -173,7 +186,7 @@ class TeacherController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (teacher.version > version) {
-                    flash.message = "Article ${teacher.title} was being edited - please try again."
+                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
                     redirect(action: manage)
                     return
                 }
@@ -187,16 +200,17 @@ class TeacherController {
             teacher.publishState = "Published"
 
             if (!teacher.hasErrors() && teacher.save()) {
-                flash.message = "Article ${teacher.title} has been Published"
+                flash.message = "teacher.change.state"
+                flash.args = [teacher, teacher.publishState]
                 redirect(action: manage)
             }
             else {
-                flash.message = "Article ${teacher.title} could not be ${params.state} due to an internal error. Please try again."
                 redirect(action: pre_publish, id: params.id)
             }
         }
         else {
-            flash.message = "Article not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: manage)
         }
     }
@@ -208,25 +222,27 @@ class TeacherController {
                 def version = params.version.toLong()
                 if (teacher.version > version) {
                     flash.isError = true
-                    flash.message = "article.update.error"
-                    teacher.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
-                    render(view: 'edit', model: [articleInstance: teacher, id: params.id])
+                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
+                    render(view: 'edit', model: [teacher: teacher, id: params.id])
                     return
                 }
             }
             teacher.properties = params
             if (!teacher.hasErrors() && teacher.save()) {
-                flash.message = "Article ${teacher.title} updated"
+                flash.message = "teacher.updated"
+                flash.args = [teacher]
                 redirect(action: manage)
             }
             else {
                 flash.isError = true
-                flash.message = "article.update.error"
-                render(view: 'edit', model: [articleInstance: teacher, id: params.id])
+                flash.message = "teacher.update.error"
+                flash.args = [teacher]
+                render(view: 'edit', model: [teacher: teacher, id: params.id])
             }
         }
         else {
-            flash.message = "Article not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: manage)
         }
     }
@@ -246,7 +262,7 @@ class TeacherController {
         }
         else {
             flash.isError = true
-            flash.message = "article.update.error"
+            flash.message = "teacher.update.error"
             render(view: 'create', model: [teacher: teacher, id: params.id])
         }
     }
@@ -257,7 +273,8 @@ class TeacherController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (teacher.version > version) {
-                    flash.message = "Article ${teacher.title} was being edited - please try again."
+                    flash.isError = true
+                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
                     redirect(action: manage)
                     return
                 }
@@ -273,12 +290,13 @@ class TeacherController {
                 redirect(action: manage)
             }
             else {
-                flash.message = "Article ${teacher.title} could not be ${params.state} due to an internal error. Please try again."
+                flash.isError = true
                 redirect(action: manage)
             }
         }
         else {
-            flash.message = "Article not found with id ${params.id}"
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(action: manage)
         }
     }

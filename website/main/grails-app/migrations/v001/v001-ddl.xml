@@ -402,8 +402,8 @@
             <column name="summary" type="${text-type}"/>
             <column name="image_id" type="BIGINT"/>
             <column name="content" type="${text-type}"/>
-            <column name="title" type="VARCHAR(255)"/>
-            <column name="category" type="VARCHAR(20)"/>
+            <column name="title" type="VARCHAR(1)"/>
+            <column name="category" type="VARCHAR(1)"/>
             <column name="name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
@@ -413,12 +413,12 @@
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-55">
-        <createIndex indexName="SYS_IDX_91" tableName="teacher" unique="true">
+        <createIndex indexName="SYS_IDX_91" tableName="teacher" unique="false">
             <column name="image_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-56">
-        <createIndex indexName="SYS_IDX_SYS_CT_90_93" tableName="teacher" unique="false">
+        <createIndex indexName="SYS_IDX_SYS_CT_90_93" tableName="teacher" unique="true">
             <column name="name"/>
         </createIndex>
     </changeSet>
