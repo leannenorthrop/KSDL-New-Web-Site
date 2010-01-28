@@ -13,7 +13,7 @@
         <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>
         <g:layoutHead />
     </head>
-    <body class="contentAdmin" style="min-width:50em">
+    <body class="contentAdmin" style="min-width:60em">
         <lsdc:header />
         <lsdc:nav current="manageSite"/>
         <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>

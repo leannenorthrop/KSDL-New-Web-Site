@@ -1,26 +1,31 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <title>Request Password Reset</title>
+        <title><g:message code="passwd.reset.request" default="Request Password Reset"/></title>
         <meta name="layout" content="content-admin" />
     </head>
 <body>
-    <g:form id="resetpasswordform" name="resetpasswordform" action="onResetPassword" class="ui-widget ui-corner-all" style="height: 24em">
-        <h1 class="ui-widget-header">Request Password Reset</h1>
+    <g:form id="resetpasswordform" name="resetpasswordform" action="onResetPassword" class="ui-widget ui-corner-all" style="min-height: 17em">
+        <h1 class="ui-widget-header"><g:message code="passwd.reset.request" default="Request Password Reset"/></h1>
         <div>
-            <p><strong>No worries!</strong> Just enter the e-mail address you used when creating your account. We'll send you an e-mail with a link to reset your password</p>
+            <p><g:message code="passwd.reset.request.msg"/></p>
         </div>
+
         <fieldset>
-            <label for="username">Please Enter Your Email Address</label>
+            <label for="username"><g:message code="passwd.reset.request.lb"/></label>
             <g:textField name="username" value="${username}" style="width:20em;" class="ui-corner-all"/>
         </fieldset>
         <g:if test="${flash.message}">
-            <div class="ui-widget ui-state-error ui-corner-all">
-                <p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
-                <strong>Alert:</strong> ${flash.message}</p>
-            </div>
+            <p class="ui-widget ui-state-error ui-corner-all">
+                <g:if test="${!flash.isError}">
+                <strong><span class="ui-icon ui-icon-info" style="display:inline-block;"></span><g:message code="info"/></strong>
+                </g:if>
+                <g:else>
+                <strong><span class="ui-icon ui-icon-alert" style="display:inline-block;"></span><g:message code="alert"/></strong>
+                </g:else>
+                <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/></p>
         </g:if>
-        <g:submitButton name="resetPassword" value="Reset Password »" id="resetPassword" class="ui-corner-all"/>
+        <g:set var="submitBtnLabel"><g:message code="passwd.reset.submit"/></g:set>
+        <g:submitButton name="resetPassword" value="${submitBtnLabel}" id="resetPassword" class="ui-corner-all"/>
       </g:form>
 </body>
 </html>

@@ -1,15 +1,15 @@
 TODO
 
 1. Users
-    - Delete users
-    - Register users
-    - Internationalise pages
-    - Shiro User password size
-    - jQuery form validation
+    - Delete users 21/01
+    - Register users & redo CSS 19/01
+    - Shiro User password size 20/01
+    - jQuery form validation 20/01
     - jQuery ajax username check
     - Move common code into separate service class
     - Move common test code into separate class
-2. Article functional tests
+    - Move email content into templates
+2. Article functional tests & Display CSS 23/01
     - Author only
         - Add new article
         - Edit article
@@ -35,8 +35,9 @@ TODO
 ** Ensure articles viewed by tag are through home controller
 ** Add other tags when viewing articles
 ** check titles & internationalisation
+? Quickly add community & buddhism
 
-3. Image
+3. Image 24/01
    - List
         - fluid
         - form validation
@@ -54,9 +55,9 @@ TODO
 10. Integration tests
 11. Functional tests
 
-12. Events - single date only & price
+12. Events - single date only & price 25/01
 13. Teachers
-14. Venue - simple
+14. Venue - simple 29/01
 15. Footer - Site map, Contact Us, Copyright, About this site, etc.
 16. Commentable between authors & editors
 

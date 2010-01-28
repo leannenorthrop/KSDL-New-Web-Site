@@ -21,35 +21,35 @@ class AuthController {
     }
 
     def register = {
-        if (ShiroUser.findByUsername(params.username)) {
-            log.info "Username ${params.username} is in use."
-            flash.message = message(code: "register.username.in.use")
-            // Now redirect back to the login page.
+        log.trace "Begin register for ${params.username}"
+        def username = params.username
+        if (ShiroUser.findByUsername(username)) {
+            log.trace "Username ${username} is in use."
+            flash.message = "register.username.in.use"
             redirect(action: "login", params: params)
         } else if (params.password.equals(params.password2)) {
             try {
-                def newUser = new ShiroUser(username: params.username, passwordHash: new Sha1Hash(params.password).toHex())
-                newUser.save()
+                log.trace "Creating account for ${params.username}"
                 def token = new Sha1Hash(new Date().toString()).toHex()
-                newUser.passwordReset = token
+                def newUser = new ShiroUser(username: params.username, passwordHash: new Sha1Hash(params.password).toHex(), passwordReset: token)
                 if (!newUser.hasErrors() && newUser.save()) {
+                    log.trace "New account created for ${params.username}"
                     emailService.sendAccountVerification(newUser.username,token)
-                    flash.message = "You have successfully created an account. An email has been sent your account which explains how to request particular access rights."
-                    render(view: 'changedPassword', model:[user:newUser])
+                    flash.message = 'register.success'
+                    redirect(controller: 'manageSite', action: 'info')
                 } else {
-                    flash.message = "You have successfully created an account but there was an internal error and your account verification can not be sent to your email account. Please email amdin@lsd.org for assistance."
-                    render(view: 'error')
+                    log.info "There was a problem creating a new account for ${params.username}"
+                    flash.message = 'register.success.internal.error'
+                    redirect(action: "login", params: params)
                 }
             } catch (Exception e) {
-                log.error "Sorry, but we were unable to create a new account for you. Please try again.", e
+                log.error "There was an error creating a new account for ${params.username}", e
                 flash.message = message(code: "login.failed")
-                // Now redirect back to the login page.
-                render(view: "error")
+                redirect(controller: 'manageSite', action: 'error')
             }
         } else {
-            log.info "Register user passwords do not match."
+            log.trace "Register for ${params.username} passwords do not match."
             flash.message = message(code: "register.passwords.match.failure")
-            // Now redirect back to the login page.
             redirect(action: "login", params: params)
         }
     }
@@ -116,42 +116,49 @@ class AuthController {
     }
 
     def unauthorized = {
-        flash.message = "You do not have permission to access this page."
-        render(view: 'error', model:[])
+        flash.message = "error.unauthorized"
+        redirect(controller: 'home', action: 'error')
     }
 
     def onResetPassword = {
         try {
-            def msgParams = [params.username].toArray()
+            def msgParams = [params.username]
             def user = ShiroUser.findByUsername(params.username)
             if (user) {
                 def token = new Sha1Hash(new Date().toString()).toHex()
                 user.passwordReset = token
                 if (!user.hasErrors() && user.save()) {
                     emailService.sendPasswordReset(user.username,token)
-                    flash.message = messageSource.getMessage("passwd.reset.success", msgParams, null)
+                    flash.message = "passwd.reset.success"
+                    flash.args = msgParams
+                    flash.isError = false
                 } else {
-                    flash.message = "Sorry, there was an internal error and your password can not be reset. Please try again. If you require assistance please email amdin@lsd.org"
+                    log.warn "Could not save password reset token for user ${params.username}"
+                    flash.message = "passwd.reset.internal.error"
                 }
             } else {
-                flash.message = messageSource.getMessage("passwd.reset.failure", msgParams, null)
+                log.trace "User ${params.username} could not be found"
+                flash.message = "passwd.reset.failure"
+                flash.args = msgParams
             }
         } catch (error) {
             log.error "Password reset failure for user '${params.username}'.", error
-            flash.message = "Sorry, there was an internal error and your password can not be reset. Please try again. If you require assistance please email amdin@lsd.org"
+            flash.message = "passwd.reset.failure"
         }
         redirect(action: "resetPassword")
     }
 
     def resetPassword = {
-        render(view: 'password-reset', model:[])
+        render(view: 'password-reset')
     }
 
     def doPasswordReset = {
         def user = ShiroUser.findByPasswordReset(params.id)
         if (!user) {
-            flash.message = messageSource.getMessage("passwd.reset.failure", ['Unknown'].toArray(), null)
-            render(view: 'error', model:[])
+            log.warn "Password reset requested from ${params.id} resulted in user not found"
+            flash.message = "passwd.reset.failure"
+            flash.args = ['Unknown']
+            redirect(controller: 'manageSite', action: 'error')
         } else {
             render(view: 'changePassword', model:[user:user])
         }
@@ -160,13 +167,7 @@ class AuthController {
     def changePassword = {
         def user = ShiroUser.findByPasswordReset(params.reset)
         if (user) {
-            if(params.version) {
-                def version = params.version.toLong()
-                if(articleInstance.version > version) {
-                    articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated your details while you were editing.")
-                    render(view:'doPasswordReset',id: user.passwordReset)
-                }
-            } else if (params.password.equals(params.password2)) {
+            if (params.password.equals(params.password2)) {
                 try {
                     user.passwordHash = new Sha1Hash(params.password).toHex()
                     if (!user.hasErrors() && user.save()) {
@@ -177,38 +178,27 @@ class AuthController {
                             log.warn "Unable to nullify password reset field for user ${user.username}", error
                         }
                         log.info "User ${user.username}  has successfully changed password."
-                        flash.message = "You have successfully changed your password.<br/> You may now sign in with your new password."
-                        render(view: 'changedPassword', model:[user:user])
+                        flash.message = "passwd.change.success"
+                        redirect(controller: 'manageSite', action: 'info')
                     } else {
-                        flash.message = message(code: "login.failed")
-                        // Now redirect back to the login page.
+                        flash.message = "login.failed"
                         redirect(action: "doPasswordReset", id: user.passwordReset)
                     }
                 } catch (Exception e) {
                     log.error "Failed to change user's password", e
-                    flash.message = message(code: "login.failed")
+                    flash.message = "login.failed"
                     // Now redirect back to the login page.
                     redirect(action: "doPasswordReset", id: user.passwordReset)
                 }
             } else {
-                log.info "User's new passwords do not match."
-                flash.message = message(code: "register.passwords.match.failure")
+                log.info "${user}'s new passwords do not match."
+                flash.message = "register.passwords.match.failure"
                 // Now redirect back to the login page.
                 redirect(action: "doPasswordReset", id: user.passwordReset)
             }
         } else {
-            flash.message = "Sorry, we can not find your details. Please request again for a password reset."
-            render(view: 'error', model:[])
-        }
-    }
-
-    def acl = {
-        def user = ShiroUser.findByPasswordReset(params.id)
-        if (!user) {
-            flash.message = messageSource.getMessage("passwd.reset.failure", ['Unknown'].toArray(), null)
-            render(view: 'error', model:[])
-        } else {
-            render(view: 'roleRequest', model:[user:user])
+            flash.message = "passwd.change.failure"
+            redirect(controller: 'manageSite', action: 'error')
         }
     }
 }
