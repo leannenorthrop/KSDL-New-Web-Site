@@ -2,10 +2,10 @@ TODO
 
 1. Users
     - Delete users 21/01
-    - Functional tests for register 20/01
-    - Register pages internationalization 20/01
-    - Shiro User password size 20/01
-    - jQuery form validation 20/01
+    - Register username as email check, password size 21/01
+    - Functional test for login with wrong username, sign out, and passwords do not match 21/01
+    - Shiro User password size 21/01
+    - jQuery form validation 21/01
     - jQuery ajax username check
     - Make usernames comparision ignore case
     - Move common code into separate service class
