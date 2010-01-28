@@ -27,7 +27,7 @@ class AuthController {
             log.trace "Username ${username} is in use."
             flash.message = "register.username.in.use"
             redirect(action: "login", params: params)
-        } else if (params.password.equals(params.password2)) {
+        } else if (params.password.equals(params.passwordAgain)) {
             try {
                 log.trace "Creating account for ${params.username}"
                 def token = new Sha1Hash(new Date().toString()).toHex()

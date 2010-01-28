@@ -45,11 +45,11 @@
                     <g:passwordField name="password" value="" class="required ui-corner-all" />
                 </fieldset>
                 <fieldset>
-                    <label for="password"><g:message code="log.in.pw"/></label>
-                    <g:passwordField id="password" name="password2" value="" class="required ui-corner-all" />
+                    <label for="passwordAgain"><g:message code="log.in.pw"/></label>
+                    <g:passwordField name="passwordAgain" value="" class="required ui-corner-all" />
                 </fieldset>
                 <g:set var="submitBtnLabel"><g:message code="register.btn"/></g:set>
-                <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+                <g:submitButton name="regsubmitbtn" value="${submitBtnLabel}" id="regsubmitbtn" class="ui-corner-all"/>
               </g:form>
           </td>
       </tr>

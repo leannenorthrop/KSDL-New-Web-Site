@@ -49,7 +49,8 @@ class AdminController {
     def requestPermission = {
         def user = ShiroUser.findByPasswordReset(params.id)
         if (!user) {
-            flash.message = messageSource.getMessage("passwd.reset.failure", ['Unknown'].toArray(), null)
+            flash.message = "passwd.reset.failure"
+            flash.args=['Unknown']
             redirect(controller: 'manageSite', action: 'error')
         } else {
             def roles = userLookupService.allRoles();
@@ -61,37 +62,33 @@ class AdminController {
     }
 
     def requestRoles = {
-        println "requesting roles"
+        log.trace "requesting roles with ${params.reset}"
         def user = ShiroUser.findByPasswordReset(params.reset)
         if (user) {
             try {
-                user.passwordReset = null
-                if (!user.hasErrors() && user.save()) {
-                    try {
-                        def roles = params.role
-                        def requestedRoles = roles.findAll {item ->
-                            !item.key.startsWith('_') && item.value=='on'
-                        }
-                        log.info "${user.username} requested ${requestedRoles}, now sending email"
-                        emailService.sendPermissionsRequest(user.username, requestedRoles)
-                    } catch(error) {
-                        log.warn "Unable to nullify password reset field for user ${user.username}", error
-                    }
-                    flash.message = "You have successfully requested permissions.<br/> An email has been sent to the Administrators of this site to perform your request, which may take up to several days. If you do not receive an email within the next 3 days please write to admin@lsd.org."
-                    redirect(controller: 'manageSite', action: 'info')
-                } else {
-                    flash.message = message(code: "login.failed")
-                    // Now redirect back to the login page.
-                    redirect(controller: 'manageSite', action: 'error')
+                def roles = params.role
+                def requestedRoles = roles.findAll {item ->
+                    !item.key.startsWith('_') && item.value=='on'
                 }
-            } catch (Exception e) {
-                log.error "Failed to change user's password", e
-                flash.message = message(code: "login.failed")
-                // Now redirect back to the login page.
-                redirect(controller: 'manageSite', action: 'error')
+                log.info "${user.username} requested ${requestedRoles}, now sending email"
+                emailService.sendPermissionsRequest(user.username, requestedRoles)
+                flash.message = "req.perm.success"
+                try {
+                    user.passwordReset = null
+                    if (!user.hasErrors() && user.save()) {
+                    } else {
+                        log.warn "Unable to nullify passwordReset for ${user.username}"
+                    }
+                } catch (Exception e) {
+                }
+                redirect(controller: 'manageSite', action: 'info')
+            } catch(error) {
+                log.warn "Unable to send request permissions email for user ${user.username}", error
+                flash.message = "req.perm.failure"
+                redirect(controller: 'manageSite', action: 'info')
             }
         } else {
-            flash.message = "Sorry, we can not find your details. Please request again for a password reset."
+            flash.message = "req.perm.user.not.found"
             redirect(controller: 'manageSite', action: 'error')
         }
     }

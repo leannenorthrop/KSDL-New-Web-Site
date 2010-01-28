@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
-        <title>Kagyu Samye Dzong London <g:layoutTitle /></title>
+        <title><g:message code="title" default="Kagyu Samye Dzong London:"/> <g:layoutTitle /></title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <![if gte IE 7]>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir:'css/site',file:'screen.css')}" />
