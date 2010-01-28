@@ -1,34 +1,125 @@
 /* Manage Content Menu Bar */
 
 .menuBar {
-    background: rgb(235,244,250) url(images/darkFadeBottom.png) bottom repeat-x;
+    background: #fff url(images/shadow.jpg) bottom repeat-x;
     border: 1px solid #ccc;
     border-style: solid none solid none;
+    margin-top: 0;
     padding: 7px 12px;
-    font-family: verdana;
-    font-weight: normal;
 }
 
 .menuButton {
     font-size: 10px;
     padding: 0 5px;
+    margin-right: 12px;
 }
+
 .menuButton a {
-    color: #333;
-    padding: 4px 6px;
+    padding: 2px 3px;
+    padding-left: 25px;
 }
+
+.menuButton a:hover {
+    font-weight: bold;
+}
+
 .menuButton a.home {
     background: url(images/house.png) center left no-repeat;
-    color: #333;
-    padding-left: 25px;
+
 }
+
+.menuButton a.login {
+    background: url(images/normal/in_16.png) center left no-repeat;
+}
+
+.menuButton a.logout {
+    background: url(images/normal/out_16.png) center left no-repeat;
+}
+
+.menuButton a.article {
+    background: url(images/normal/document_16.png) center left no-repeat;
+}
+
+.menuButton a.image {
+    background: url(images/normal/photo_camera_16.png) center left no-repeat;
+}
+
+.menuButton a.venue {
+    background: url(images/normal/home_16.png) center left no-repeat;
+}
+
+.menuButton a.roles {
+    background: url(images/normal/clients_16.png) center left no-repeat;
+}
+
+.menuButton a.event {
+    background: url(images/normal/calendar_16.png) center left no-repeat;
+}
+
 .menuButton a.list {
     background: url(images/database_table.png) center left no-repeat;
-    color: #333;
-    padding-left: 25px;
 }
+
 .menuButton a.create {
     background: url(images/database_add.png) center left no-repeat;
-    color: #333;
-    padding-left: 25px;
+}
+
+.menuButton a:hover.login {
+    background: url(images/hover/in_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.logout {
+    background: url(images/hover/out_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.article {
+    background: url(images/hover/document_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.image {
+    background: url(images/hover/photo_camera_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.venue {
+    background: url(images/hover/home_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.roles {
+    background: url(images/hover/clients_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.event {
+    background: url(images/hover/calendar_16.png) center left no-repeat;
+}
+
+.menuButton a.articleCreate {
+    background: url(images/normal/document_add_16.png) center left no-repeat;
+}
+
+.menuButton a.imageCreate {
+    background: url(images/normal/photo_camera_add_16.png) center left no-repeat;
+}
+
+.menuButton a.venueCreate {
+    background: url(images/normal/home_add_16.png) center left no-repeat;
+}
+
+.menuButton a.eventCreate {
+    background: url(images/normal/calendar_add_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.articleCreate {
+    background: url(images/hover/document_add_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.imageCreate {
+    background: url(images/hover/photo_camera_add_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.venueCreate {
+    background: url(images/hover/home_add_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.eventCreate {
+    background: url(images/hover/calendar_add_16.png) center left no-repeat;
 }

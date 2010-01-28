@@ -222,11 +222,12 @@
                         <fileset>
                             <directory>${basedir}/web-app</directory>
                             <includes>
-                                <include>css/**/*</include>
+                                <!--include>css/**/*</include-->
                                 <include>images/**/*</include>
                                 <include>*.ico</include>
                             </includes>
                             <excludes>
+                                <exclude>css/**/*</exclude>
                                 <exclude>js/**</exclude>
                                 <exclude>META-INF/**</exclude>
                                 <exclude>WEB-INF/**</exclude>

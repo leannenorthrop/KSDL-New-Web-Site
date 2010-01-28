@@ -9,7 +9,7 @@ class EmailService {
     def sendPasswordReset(email, token) {
         sendMail {
           to email
-          subject "Forgot your password?"
+          subject "London Samye Dzong: Forgot your password?"
           body """Hi,
 
           You recently requested a new password.
@@ -38,13 +38,35 @@ class EmailService {
 
           You recently requested a new account.
 
-          To enable your, just click the link below and you'll be taken to a form where you can request particular access rights:
+          To enable your account, just click the link below and you'll be taken to a form where you can request particular access rights:
 
           http://localhost:8080/main/admin/requestPermission/${token}
 
           If you did not request an account, please disregard this e-mail.
 
           Please contact support@lsd.org with any questions.
+
+          London Samye Dzong"""
+        }
+        if (servletContext && servletContext.getAttribute("greenmail")) {
+            def messages = servletContext.getAttribute("greenmail").getReceivedMessages().each {
+                println "Recieved ${GreenMailUtil.toString(it)}"
+            }
+        }
+    }
+    def sendPermissionsRequest(email, roles) {
+        def roleList = ""
+        roles.eachWithIndex {item, i -> roleList += "${i}. ${item}\n"}
+        sendMail {
+          to "leanne.northrop@googlemail.com"
+          subject "London Samye Dzong: Permissions Request"
+          body """Hi,
+
+          ${email} recently created a new account, and would like the following access rights:
+
+          ${roles}
+
+          Please reply to ${email} either confirming or denying thier request.
 
           London Samye Dzong"""
         }

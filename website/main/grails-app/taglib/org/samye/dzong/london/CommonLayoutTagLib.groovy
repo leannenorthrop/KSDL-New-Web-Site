@@ -107,7 +107,7 @@ class CommonLayoutTagLib {
 
      def toolbar = { attrs ->
         def adminControllers =['home']
-        def adminClasses =[home: 'home', article: 'list', image: 'list', venue: 'list', roles:'list']
+        def adminClasses =[home: 'home', article: 'article', image: 'image', venue: 'venue', roles:'roles', event:'event']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article'].each () { item ->
@@ -147,73 +147,85 @@ class CommonLayoutTagLib {
 
         adminControllers << 'auth'
         def toolbar = {
-            div (class:"menuBar group"){
+            div (class:"menuBar ui-tab-selected"){
                 adminControllers.each () { controller ->
                     span (class:"menuButton") {
                         def elem
                         if (controller.equals ('home')) {
-                            elem = link (class: adminClasses[controller], controller: "manageSite", action:"home") {
+                            elem = link (class: adminClasses[controller], controller: "manageSite", action:"home",style:"color: #333;") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
                         } else if (controller.equals ('roles')) {
-                            elem = link (class: adminClasses[controller], controller: "admin", action:"roles") {
+                            elem = link (class: adminClasses[controller], controller: "admin", action:"roles",style:"color: #333;") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
                         } else if (controller.equals ('auth')) {
                             if (SecurityUtils.subject.authenticated) {
-                                elem = link (class: 'logout', controller: controller, action: "signOut") {
+                                elem = link (class: 'logout', controller: controller, action: "signOut",style:"color: #333;") {
                                     messageSource.getMessage ('toolbar.logout', null, null)
                                 }
                             } else {
-                                elem = link (class: 'login', controller: controller, action: "login") {
-                                    def user = [SecurityUtils.subject.principal].toArray()
-                                    if (user[0]) {
-                                        user = user[0] ? user : [""] as String[]
-                                        messageSource.getMessage("signed.in.greeting", user, null)
-                                    } else {
-                                        messageSource.getMessage("sign.in.greeting", null, null)
+                                def user = [SecurityUtils.subject.principal].toArray()
+                                if (user[0]) {
+                                    user = user[0] ? user : [""] as String[]
+                                    elem = link (class: 'login', controller: controller, action: "login",style:"color: #333;") {
+                                        messageSource.getMessage("toolbar.login", user, null)
+                                    }
+                                } else {
+                                    elem = link (class: 'login', controller: controller, action: "login",style:"color: #333;") {
+                                        messageSource.getMessage("toolbar.login", null, null)
                                     }
                                 }
                             }
                         } else if (controller.equals (attrs.controller)) {
                             if ("manage".equals (attrs.action)) {
-                                if (SecurityUtils.subject.hasRole ("Author")) {
-                                    elem = link (class: "create", controller: controller, action:"create") {
+                                if (SecurityUtils.subject.hasRole("Admin")) {
+                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
+                                        messageSource.getMessage ("toolbar.${controller}.create", null, null)
+                                    }
+                                }
+                                else if (SecurityUtils.subject.hasRole ("Author")) {
+                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }
                                 } else if (SecurityUtils.subject.hasRole ("Venue Manager")) {
-                                    elem = link (class: "create", controller: controller, action:"create") {
+                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }
                                 }
                             } else if ("create".equals (attrs.action)) {
-                                elem = link (class: "list", controller: controller, action: "manage", params: [offset: 0, max:10]) {
+                                elem = link (class: "${adminClasses[controller]}Create", controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
                                     messageSource.getMessage ('toolbar.' + controller, null, null)
                                 }
                             } else if ("show".equals (attrs.action)) {
-                                elem = link (class: "list", controller: controller, action: "manage", params: [offset: 0, max:10]) {
+                                elem = link (class: "${adminClasses[controller]}Create", controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
                                     messageSource.getMessage ('toolbar.' + controller, null, null)
                                 }
-                                if (SecurityUtils.subject.hasRole ("Author")) {
-                                    elem += link (class: "edit", controller: controller, action: "edit", params: [id:attrs.id]){
+                                if (SecurityUtils.subject.hasRole("Admin")) {
+                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
+                                        messageSource.getMessage ("toolbar.${controller}.create", null, null)
+                                    }
+                                }
+                                else if (SecurityUtils.subject.hasRole ("Author")) {
+                                    elem += link (class: "${controller}Edit", controller: controller, action: "edit", params: [id:attrs.id],style:"color: #333;"){
                                         messageSource.getMessage ("toolbar.${controller}.edit", null, null)
                                     }
                                 }
                             } else if ("edit".equals (attrs.action) || "pre_publish".equals (attrs.action)) {
-                                elem = link (class: "list", controller: controller, action: "manage", params: [offset: 0, max:10]) {
+                                elem = link (class: "${adminClasses[controller]}Edit", controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
                                     messageSource.getMessage ('toolbar.' + controller, null, null)
                                 }
                                 if (SecurityUtils.subject.hasRole ("Author")) {
-                                    elem += link (class: "delete", controller: controller, action: "delete", params: [id: attrs.id], onclick:"return confirm('" + messageSource.getMessage ('toolbar.delete.confirm', null, null) + "');") {
+                                    elem += link (class: "${controller}Delete", controller: controller, action: "delete", params: [id: attrs.id], onclick:"return confirm('" + messageSource.getMessage ('toolbar.delete.confirm', null, null) + "');",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.delete", null, null)
                                     }
-                                    elem += link (class: "create", controller: controller, action:"create") {
+                                    elem += link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }
                                 }
                             }
                         } else {
-                            elem = link (class: adminClasses[controller], controller: controller, action: "manage", params: [offset: 0, max:10]) {
+                            elem = link (class: adminClasses[controller], controller: controller, action: "manage", params: [offset: 0, max:10],style:"color: #333;") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
                         }

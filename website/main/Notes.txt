@@ -2,14 +2,16 @@ TODO
 
 1. Users
     - Delete users 21/01
-    - Register users & redo CSS 19/01
+    - Functional tests for register 20/01
+    - Register pages internationalization 20/01
     - Shiro User password size 20/01
     - jQuery form validation 20/01
     - jQuery ajax username check
+    - Make usernames comparision ignore case
     - Move common code into separate service class
     - Move common test code into separate class
-    - Move email content into templates
-2. Article functional tests & Display CSS 23/01
+    - Move email content into templates 21/01
+2. Article functional tests & Display CSS 22 & 23/01
     - Author only
         - Add new article
         - Edit article

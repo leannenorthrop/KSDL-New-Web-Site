@@ -9,3 +9,19 @@ Title:      Screen styles for managing site content
 @import url("menu.css");
 @import url("tables.css");
 /* end import/hide */
+
+.contentAdmin * {
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+.contentAdmin a {
+    color: #0073ea;
+}
+
+.contentAdmin .content * {
+    font-size: 14px;
+}
+
+.footer {
+    text-align: center;
+}

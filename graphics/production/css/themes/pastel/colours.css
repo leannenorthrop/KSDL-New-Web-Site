@@ -74,16 +74,7 @@ div.list + div.manage {
 
 /* page structure
 --------------------------------------------- */
-.content {
-    margin: 1em;
-    position: relative;
-}
-
 .footer {
-    position:fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
     border: 1px solid rgb(113,179,226);
     background: rgb(212,231,244);
     background: rgba(212,231,244,0.7);
