@@ -1,10 +1,40 @@
+/*******************************************************************************
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ ******************************************************************************/
+
 package org.samye.dzong.london.admin
 
-import com.icegreen.greenmail.util.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import org.samye.dzong.london.ShiroUser
+import org.samye.dzong.london.AbstractWebTest
+import com.icegreen.greenmail.util.*
 
-class RegisterNewUserFunctionalTests extends functionaltestplugin.FunctionalTestCase {
+/**
+ * Functional tests for new users to sign up as Web Content Users.
+ *
+ * User: Leanne Northrop
+ * Date: Jan 19, 2010, 12:35:48 PM
+ */
+class RegisterNewUserFunctionalTests extends AbstractWebTest {
     protected void tearDown() {
         println "Doing teardown"
         def user = ShiroUser.findByUsername('leanne.northrop@googlemail.com')

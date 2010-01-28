@@ -1,6 +1,7 @@
 package org.samye.dzong.london.site
 import org.samye.dzong.london.*
 import org.samye.dzong.london.contact.EmailService
+import org.apache.shiro.SecurityUtils
 
 class AdminController {
     def emailService
@@ -8,61 +9,84 @@ class AdminController {
     def messageSource
 
     def index = {
-        redirect(action: "home")
-    }
-
-    def home = {
-        return render(view:'home',model:[])
+        redirect(controller: "manageSite", action: "home")
     }
 
     def roles = {
+        log.trace "Looking up Users and Roles"
         def users = userLookupService.allUsers();
         def roles = userLookupService.allRoles();
-        roles = roles.findAll() { item ->
-            item.id != 1
+        log.trace "Removing Admin role"
+        roles = roles.findAll { item ->
+            item.name != 'Admin'
         }
-        users = users.findAll() { item ->
-            item.username != 'leanne'
+
+        try {
+          def adminRole = ShiroRole.findByName('Admin')
+          users = users.findAll{ item ->
+              !item.roles.find { role -> role == adminRole}
+          }
+        } catch(error) {
+          log.warn "Unabled to find Admin role...skipping"
         }
+        log.trace "Rendering assignRoles with ${users.size()} users and ${roles.size()}"
         render(view: 'assignRoles', model:[users: users, roles:roles]);
     }
 
+    // TODO: need optimisitic locking checks
     def assignRoles = {
-        // need optimisitic locking checks
+        log.trace "Assigning roles to users (no locking checks)"
         def users = userLookupService.allUsers();
         def roles = userLookupService.allRoles();
-        roles.each() { role ->
-            def rolename = role.name
-            users.each() { user ->
-                def id = user.id
-                def roleValue = params["${id}-${rolename}"]
-                if ("on".equals(roleValue)) {
-                    user.addToRoles(role)
-                } else {
-                    user.removeFromRoles(role)
+        try {
+          roles.each() { role ->
+              def rolename = role.name
+              if (rolename != 'Admin') {
+                users.each() { user ->
+                    def id = user.id
+                    def name = user.username
+                    def roleValue = params["${id}-${rolename}"]
+                    if ("on".equals(roleValue)) {
+                        log.trace "Adding ${name} to ${rolename}"
+                        user.addToRoles(role)
+                    } else {
+                        log.trace "Removing ${name} from ${rolename}"
+                        user.removeFromRoles(role)
+                    }
                 }
-            }
+              }
+          }
+          flash.message = "role.perm.success"
+          flash.isError = false
+          redirect(action: 'roles')
+        } catch (error) {
+          log.error "Could not save permission changes ", error
+          flash.message = "role.perm.failure"
+          flash.isError = true
+          redirect(action: 'roles')
         }
-        redirect(controller: 'admin', action: 'home')
     }
 
     def requestPermission = {
+        log.trace "Request to set account permissions for ${params.id}"
         def user = ShiroUser.findByPasswordReset(params.id)
         if (!user) {
+            log.info "Request for new user account permissions failed. ${params.id} not found."
             flash.message = "passwd.reset.failure"
             flash.args=['Unknown']
             redirect(controller: 'manageSite', action: 'error')
         } else {
             def roles = userLookupService.allRoles();
-            roles = roles.findAll() { item ->
-                item.id != 1
+            roles = roles.findAll{ item ->
+                item.name != 'Admin'
             }
+            log.trace "Found user rendering roleRequest"
             render(view: 'roleRequest', model:[user:user,roles:roles])
         }
     }
 
     def requestRoles = {
-        log.trace "requesting roles with ${params.reset}"
+        log.trace "Requesting roles with ${params.reset}"
         def user = ShiroUser.findByPasswordReset(params.reset)
         if (user) {
             try {
@@ -70,8 +94,8 @@ class AdminController {
                 def requestedRoles = roles.findAll {item ->
                     !item.key.startsWith('_') && item.value=='on'
                 }
-                log.info "${user.username} requested ${requestedRoles}, now sending email"
                 emailService.sendPermissionsRequest(user.username, requestedRoles)
+                log.info "${user.username} requested ${requestedRoles}, email sent."
                 flash.message = "req.perm.success"
                 try {
                     user.passwordReset = null

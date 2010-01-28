@@ -1,10 +1,41 @@
-package org.samye.dzong.london.admin
-import com.icegreen.greenmail.util.*
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
-import com.gargoylesoftware.htmlunit.*
-import org.samye.dzong.london.ShiroUser
+/*******************************************************************************
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ ******************************************************************************/
 
-class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
+package org.samye.dzong.london.admin
+
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
+
+import org.samye.dzong.london.ShiroUser
+import org.samye.dzong.london.AbstractWebTest
+import com.icegreen.greenmail.util.*
+
+/**
+ * Functional tests for Web Content Users Log In
+ *
+ * User: Leanne Northrop
+ * Date: Jan 18, 2010, 12:35:48 PM
+ */
+class LoginFunctionalTests extends AbstractWebTest {
 
     protected void tearDown() {
         println "Doing teardown"
@@ -21,7 +52,7 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
     }
 
     void testCanLogin() {
-        login()
+        adminLogin()
 
         assertContentContains "Home"
         assertContentContains "Users"
@@ -33,55 +64,51 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
     }
 
     void testCanGotoHome() {
-        login()
+        adminLogin()
         get('/manageSite/home')
         click('Home')
         assertStatus 200
     }
 
     void testCanGotoUsers() {
-        login()
+        adminLogin()
         get('/manageSite/home')
         click('Users')
         assertStatus 200
     }
 
     void testCanGotoArticles() {
-        login()
+        adminLogin()
         get('/manageSite/home')
         click('Articles')
         assertStatus 200
     }
 
     void testCanGotoImages() {
-        login()
+        adminLogin()
         get('/manageSite/home')
         click('Images')
         assertStatus 200
     }
 
     void testCanGotoVenues() {
-        login()
+        adminLogin()
         get('/manageSite/home')
         click('Venues')
         assertStatus 200
     }
 
     void testCanGotoEvents() {
-        login()
+        adminLogin()
         get('/manageSite/home')
         click('Events')
         assertStatus 200
     }
 
     void testCanSignOut() {
-        login()
-        redirectEnabled = false
-        get('/manageSite/home')
-        click('Sign Out')
-        followRedirect()
+        adminLogin()
+        signOut()
         assertStatus 200
-        //assertTitle 'Kagyu Samye Dzong London Welcome'
     }
 
     void testPasswordReminderWithInvalidEmail() {
@@ -179,21 +206,12 @@ class LoginFunctionalTests extends functionaltestplugin.FunctionalTestCase {
         }
     }
 
-    void login() {
-        def o = redirectEnabled
-        redirectEnabled = false
-        get('/manageSite/home')
-        click('Sign In')
-        assertStatus 200
-        assertContentContains "Sign In"
-        form('signIn') {
-            username = 'leanne.northrop@googlemail.com'
-            password = 'change!t'
-            byId('submitbtn').click()
-        }
-        followRedirect()
-        assertStatus 200
-        redirectEnabled = o
+    void testWebAdminCanLogin() {
+        webAdminLogin()
+
+        assertContentContains "Home"
+        assertContentContains "Users"
+        assertContentContains "Sign Out"
     }
 
 }

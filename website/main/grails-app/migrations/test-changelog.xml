@@ -5,4 +5,5 @@
        <property name="dbtype" value="hsql"/>
        <property name="v001-base-dir" value="${user.dir}/grails-app/migrations/v001"/>
        <include relativeToChangelogFile="true" file="/v001/master.xml" />
+       <include relativeToChangelogFile="true" file="/functional-test/master.xml" />    
 </databaseChangeLog>
