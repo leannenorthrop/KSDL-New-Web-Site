@@ -64,9 +64,13 @@
         <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
       </fieldset>
       <fieldset>
-        <label for="title"><g:message code="article.image.label"/></label>
+        <label for="image.id"><g:message code="article.image.label"/></label>
         <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
         <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+      </fieldset>
+      <fieldset>
+        <label for="category"><g:message code="event.category.label"/></label>
+        <g:select name="category" from="${articleInstance.constraints.category.inList}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
       </fieldset>
       <fieldset>
         <label for="summary"><g:message code="article.summary.label"/></label>

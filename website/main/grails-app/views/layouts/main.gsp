@@ -50,7 +50,7 @@
     <div id="spinner" class="spinner" style="display:none;">
       <img src="${resource(dir: 'images', file: 'spinner.gif')}" alt="Spinner"/>
     </div>
-    <div style="position:relative;"><g:layoutBody/></div>
+    <div class="pagecontent group"><g:layoutBody/></div>
     <lsdc:grid/>
     <div class="watermark">
       <span class="one"/>
@@ -59,11 +59,13 @@
       <span class="four"/>
     </div>
     <div class="services">
-      <g:message code="service.header"/>
+      <h1><g:message code="service.header"/></h1>
       <ul>
-        <li><g:message code="service.email"/></li>
-        <li><g:message code="service.rss"/></li>
-        <li><g:message code="service.calendar"/></li>
+        <li class="email"><g:link controller="feed" action="index"><g:message code="service.email"/></g:link></li>
+        <li class="rss"><g:link controller="feed" action="index"><g:message code="service.rss"/></g:link></li>
+        <li class="calendar"><g:link controller="feed" action="index"><g:message code="service.calendar"/></g:link></li>
+        <li class="twitter"><a href="http://twitter.com/lsdci"><g:message code="service.twitter"/></a></li>
+        <li class="facebook"><g:link controller="feed" action="index"><g:message code="service.facebook"/></g:link></li>
       </ul>
     </div>
     <div class="footer">
