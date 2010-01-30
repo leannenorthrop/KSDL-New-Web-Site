@@ -21,46 +21,39 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
+<g:set var="titleLabel"><g:message code="event.title.label"/></g:set>
+<g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
 <html>
-  <g:set var="titleLabel"><g:message code="article.title.label"/></g:set>
-  <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
-  <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
-  <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
   <body>
     <table>
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
-          <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
-          <th><g:message code="article.action.label"/></th>
+          <th><g:message code="event.action.label"/></th>
         </tr>
       </thead>
       <tbody>
-        <g:each in="${articles}" status="i" var="articleInstance">
+        <g:each in="${events}" status="i" var="eventInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
-              <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
+              <g:link action="show" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
             </td>
-            <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
-              <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
+              <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
               <shiro:hasAnyRole in="['Editor','Administrator']">
-                <g:link action="pre_publish" id="${articleInstance.id}"><g:message code="article.publish.action"/></g:link>
-              </shiro:hasAnyRole>
-              <shiro:hasAnyRole in="['Author']">
-                <g:link action="delete" id="${articleInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
+                <g:link action="changeState" params="[state:'Unpublished']" id="${eventInstance.id}"><g:message code="event.unpublish.action"/></g:link>
               </shiro:hasAnyRole>
             </td>
           </tr>
         </g:each>
       </tbody>
     </table>
-    <div class="manage paginateButtons">
+    <div class="paginateButtons">
       <g:paginate total="${total}"/>
     </div>
   </body>

@@ -20,6 +20,7 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+<%@ page contentType="text/html;charset=UTF-8" %>
 <g:set var="titleLabel"><g:message code="article.title.label"/></g:set>
 <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
 <html>

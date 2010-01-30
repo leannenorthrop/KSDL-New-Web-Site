@@ -32,7 +32,7 @@
                         
                             <g:sortableColumn property="displayDate" title="${message(code: 'event.displayDate.label', default: 'Display Date')}" />
                         
-                            <g:sortableColumn property="title" title="${message(code: 'event.title.label', default: 'Title')}" />
+                            <g:sortableColumn property="datePublished" title="${message(code: 'event.datePublished.label', default: 'Date Published')}" />
                         
                         </tr>
                     </thead>
@@ -50,7 +50,7 @@
                         
                             <td><g:formatBoolean boolean="${eventInstance.displayDate}" /></td>
                         
-                            <td>${fieldValue(bean: eventInstance, field: "title")}</td>
+                            <td><g:formatDate date="${eventInstance.datePublished}" /></td>
                         
                         </tr>
                     </g:each>

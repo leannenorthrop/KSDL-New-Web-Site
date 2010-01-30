@@ -58,6 +58,41 @@
                         </tr>
                     
                         <tr class="prop">
+                            <td valign="top" class="name"><g:message code="event.datePublished.label" default="Date Published" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${eventInstance?.datePublished}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="event.dateCreated.label" default="Date Created" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${eventInstance?.dateCreated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="event.lastUpdated.label" default="Last Updated" /></td>
+                            
+                            <td valign="top" class="value"><g:formatDate date="${eventInstance?.lastUpdated}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="event.deleted.label" default="Deleted" /></td>
+                            
+                            <td valign="top" class="value"><g:formatBoolean boolean="${eventInstance?.deleted}" /></td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="event.category.label" default="Category" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: eventInstance, field: "category")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="event.title.label" default="Title" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: eventInstance, field: "title")}</td>
@@ -79,9 +114,9 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="event.onceOnly.label" default="Once Only" /></td>
+                            <td valign="top" class="name"><g:message code="event.isRepeatable.label" default="Is Repeatable" /></td>
                             
-                            <td valign="top" class="value"><g:formatBoolean boolean="${eventInstance?.onceOnly}" /></td>
+                            <td valign="top" class="value"><g:formatBoolean boolean="${eventInstance?.isRepeatable}" /></td>
                             
                         </tr>
                     
@@ -93,23 +128,36 @@
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="event.lastUpdated.label" default="Last Updated" /></td>
+                            <td valign="top" class="name"><g:message code="event.eventDate.label" default="Event Date" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${eventInstance?.lastUpdated}" /></td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="event.deleted.label" default="Deleted" /></td>
-                            
-                            <td valign="top" class="value"><g:formatBoolean boolean="${eventInstance?.deleted}" /></td>
+                            <td valign="top" class="value">${fieldValue(bean: eventInstance, field: "eventDate")}</td>
                             
                         </tr>
                     
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="event.dateCreated.label" default="Date Created" /></td>
+                            <td valign="top" class="name"><g:message code="event.startTime.label" default="Start Time" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${eventInstance?.dateCreated}" /></td>
+                            <td valign="top" class="value">${fieldValue(bean: eventInstance, field: "startTime")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="event.eventDuration.label" default="Event Duration" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: eventInstance, field: "eventDuration")}</td>
+                            
+                        </tr>
+                    
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="event.prices.label" default="Prices" /></td>
+                            
+                            <td valign="top" style="text-align: left;" class="value">
+                                <ul>
+                                <g:each in="${eventInstance.prices}" var="p">
+                                    <li><g:link controller="eventPrice" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
+                                </g:each>
+                                </ul>
+                            </td>
                             
                         </tr>
                     
@@ -117,13 +165,6 @@
                             <td valign="top" class="name"><g:message code="event.auditLogService.label" default="Audit Log Service" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: eventInstance, field: "auditLogService")}</td>
-                            
-                        </tr>
-                    
-                        <tr class="prop">
-                            <td valign="top" class="name"><g:message code="event.publishedOn.label" default="Published On" /></td>
-                            
-                            <td valign="top" class="value"><g:formatDate date="${eventInstance?.publishedOn}" /></td>
                             
                         </tr>
                     

@@ -3,14 +3,13 @@ TODO
 ================================================================================
                         FOR 31/01/2010
 ================================================================================
-1. Teachers -
-    - Pages
-    - Functional tests
-2. Image 28/01
-    Add Tabs to List & Add pages for flickr
-3. Venue - simple 29/01
-4. Events - single date only & price 29/01
-5. Footer - Site map, Contact Us, Copyright, About this site, Visiting Us etc. 29/01
+1. Events - single date only & price 29/01
+2. Footer - Site map, Contact Us, Copyright, About this site, Visiting Us etc. 29/01
+3. Add content to pages for
+    - teachers
+    - events
+    - venues
+    
 6. CSS  30/01
     Ensure articles viewed by tag are through home controller
 

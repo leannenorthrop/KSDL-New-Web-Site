@@ -115,19 +115,25 @@ class CommonLayoutTagLib {
             }
         }
 
+        if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("EventOrganiser")) {
+            ['event'].each () { item ->
+                adminControllers << item
+            }
+        }
+
         if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
             ['article', 'image', 'teacher'].each () { item ->
                 adminControllers << item
             }
         }
 
-        if (SecurityUtils.subject.hasRole ("Venue Manager")) {
+        if (SecurityUtils.subject.hasRole ("VenueManager")) {
             ['venue'].each () { item ->
                 adminControllers << item
             }
         }
 
-        if (SecurityUtils.subject.hasRole ("Event Organiser")) {
+        if (SecurityUtils.subject.hasRole ("EventOrganiser")) {
             ['event'].each() { item ->
                 adminControllers << item
             }
@@ -180,16 +186,7 @@ class CommonLayoutTagLib {
                             }
                         } else if (controller.equals (attrs.controller)) {
                             if ("manage".equals (attrs.action)) {
-                                if (SecurityUtils.subject.hasRole("Admin")) {
-                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
-                                        messageSource.getMessage ("toolbar.${controller}.create", null, null)
-                                    }
-                                }
-                                else if (SecurityUtils.subject.hasRole ("Author")) {
-                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
-                                        messageSource.getMessage ("toolbar.${controller}.create", null, null)
-                                    }
-                                } else if (SecurityUtils.subject.hasRole ("Venue Manager")) {
+                                if (SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser"]).any()) {
                                     elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }

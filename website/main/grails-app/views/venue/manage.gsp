@@ -1,10 +1,33 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+%{------------------------------------------------------------------------------
+  - Copyright © 2010 Leanne Northrop
+  -
+  - This file is part of Samye Content Management System.
+  -
+  - Samye Content Management System is free software: you can redistribute it
+  - and/or modify it under the terms of the GNU General Public License as
+  - published by the Free Software Foundation, either version 3 of the License,
+  - or (at your option) any later version.
+  -
+  - Samye Content Management System is distributed in the hope that it will be
+  - useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Samye Content Management System.
+  - If not, see <http://www.gnu.org/licenses/>.
+  -
+  - BT plc, hereby disclaims all copyright interest in the program
+  - “Samye Content Management System” written by Leanne Northrop.
+  ----------------------------------------------------------------------------}%
+
 <%@ page import="org.samye.dzong.london.venue.Room" %>
 <%@ page import="org.samye.dzong.london.venue.Venue" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
         <meta name="layout" content="content-admin" />
-        <title>Manage Room</title>
+        <title><g:message code="venue.manage.title"/></title>
         <g:javascript>
                 $(function() {
                     $("#venues").tabs();
@@ -37,6 +60,7 @@
                     <p>${fieldValue(bean:venueInstance, field:'description')}</p>
                     <p>${fieldValue(bean:venueInstance, field:'facilities')}</p>
                     <p>${fieldValue(bean:venueInstance, field:'access')}</p>
+%{--
                     <div class="contactDetails">
                         <ul>
                             <li><a href="#tabs-${i} .contactDetails .addresses">Addresses</a></li>
@@ -73,6 +97,7 @@
                         </g:each>
                     </div>
                     <g:link action="delete">Delete</g:link> <g:link action="edit">Edit</g:link>
+--}%
                 </div><!-- End of Venue Contents Tab -->
                 </g:each>
             </div>

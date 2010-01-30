@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
     <changeSet author="northrl" id="v001-schema-1">
         <createTable tableName="address">
             <column name="id" type="BIGINT">
@@ -84,10 +86,15 @@
                 <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="summary" type="${varchar-1024}"/>
-            <column name="once_only" type="BIT"/>
+            <column name="is_repeatable" type="BIT"/>
             <column name="image_id" type="BIGINT"/>
             <column name="content" type="${varchar-1024}"/>
             <column name="title" type="VARCHAR(255)"/>
+            <column name="event_date" type="TIMESTAMP"/>
+            <column name="start_time" type="TIME"/>
+            <column name="event_duration" type="VARCHAR(255)"/>
+            <column name="leader_id" type="BIGINT"/>
+            <column name="organizer_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-8">
@@ -155,6 +162,7 @@
             <column name="date_created" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
+            <column name="category" type="VARCHAR(1)"/>
             <column name="DATE_PUBLISHED" type="DATETIME"/>
         </createTable>
     </changeSet>
@@ -302,10 +310,12 @@
         </createTable>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-30">
-        <addPrimaryKey columnNames="shiro_user_id, shiro_role_id" tableName="shiro_user_roles"/>
+        <addPrimaryKey columnNames="shiro_user_id, shiro_role_id"
+                       tableName="shiro_user_roles"/>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-31">
-        <createIndex indexName="FKD458CCF6B776D63" tableName="article" unique="false">
+        <createIndex indexName="FKD458CCF6B776D63" tableName="article"
+                     unique="false">
             <column name="image_id"/>
         </createIndex>
     </changeSet>
@@ -315,12 +325,14 @@
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-33">
-        <createIndex indexName="FK5C6729AB776D63" tableName="event" unique="false">
+        <createIndex indexName="FK5C6729AB776D63" tableName="event"
+                     unique="false">
             <column name="image_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-34">
-        <createIndex indexName="SYS_IDX_SYS_CT_142_145" tableName="event" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_142_145" tableName="event"
+                     unique="true">
             <column name="title"/>
         </createIndex>
     </changeSet>
@@ -330,67 +342,80 @@
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-36">
-        <createIndex indexName="emailconf_timestamp_Idx" tableName="pending_email_confirmation" unique="false">
+        <createIndex indexName="emailconf_timestamp_Idx"
+                     tableName="pending_email_confirmation" unique="false">
             <column name="timestamp"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-37">
-        <createIndex indexName="emailconf_token_Idx" tableName="pending_email_confirmation" unique="false">
+        <createIndex indexName="emailconf_token_Idx"
+                     tableName="pending_email_confirmation" unique="false">
             <column name="confirmation_token"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-41">
-        <createIndex indexName="FKDB6312E991252A7E" tableName="publishable" unique="false">
+        <createIndex indexName="FKDB6312E991252A7E" tableName="publishable"
+                     unique="false">
             <column name="author_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-42">
-        <createIndex indexName="FK3580DBB776D63" tableName="room" unique="false">
+        <createIndex indexName="FK3580DBB776D63" tableName="room"
+                     unique="false">
             <column name="image_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-43">
-        <createIndex indexName="SYS_IDX_SYS_CT_76_82" tableName="shiro_role" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_76_82" tableName="shiro_role"
+                     unique="true">
             <column name="name"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-44">
-        <createIndex indexName="FK389B46C981060810" tableName="shiro_role_permissions" unique="false">
+        <createIndex indexName="FK389B46C981060810"
+                     tableName="shiro_role_permissions" unique="false">
             <column name="shiro_role_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-46">
-        <createIndex indexName="FK34555A9E2630CBF0" tableName="shiro_user_permissions" unique="false">
+        <createIndex indexName="FK34555A9E2630CBF0"
+                     tableName="shiro_user_permissions" unique="false">
             <column name="shiro_user_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-47">
-        <createIndex indexName="FKBA2210572630CBF0" tableName="shiro_user_roles" unique="false">
+        <createIndex indexName="FKBA2210572630CBF0" tableName="shiro_user_roles"
+                     unique="false">
             <column name="shiro_user_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-48">
-        <createIndex indexName="FKBA22105781060810" tableName="shiro_user_roles" unique="false">
+        <createIndex indexName="FKBA22105781060810" tableName="shiro_user_roles"
+                     unique="false">
             <column name="shiro_role_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-49">
-        <createIndex indexName="FK7C35D6D45A3B441D" tableName="tag_links" unique="false">
+        <createIndex indexName="FK7C35D6D45A3B441D" tableName="tag_links"
+                     unique="false">
             <column name="tag_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-50">
-        <createIndex indexName="SYS_IDX_SYS_CT_88_103" tableName="tags" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_88_103" tableName="tags"
+                     unique="true">
             <column name="name"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-51">
-        <createIndex indexName="FK9A9DFCAB7B485186" tableName="venue_room" unique="false">
+        <createIndex indexName="FK9A9DFCAB7B485186" tableName="venue_room"
+                     unique="false">
             <column name="room_id"/>
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-52">
-        <createIndex indexName="FK9A9DFCABE524B5D5" tableName="venue_room" unique="false">
+        <createIndex indexName="FK9A9DFCABE524B5D5" tableName="venue_room"
+                     unique="false">
             <column name="venue_rooms_id"/>
         </createIndex>
     </changeSet>
@@ -408,7 +433,8 @@
         </createTable>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-54">
-        <createIndex indexName="FKAA31CBE2B776D63" tableName="teacher" unique="false">
+        <createIndex indexName="FKAA31CBE2B776D63" tableName="teacher"
+                     unique="false">
             <column name="image_id"/>
         </createIndex>
     </changeSet>
@@ -418,8 +444,87 @@
         </createIndex>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-56">
-        <createIndex indexName="SYS_IDX_SYS_CT_90_93" tableName="teacher" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_90_93" tableName="teacher"
+                     unique="true">
             <column name="name"/>
         </createIndex>
     </changeSet>
+    <changeSet author="northrl" id="v001-schema-57">
+        <createTable tableName="price">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="version" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="category" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="VARCHAR(7)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="VARCHAR(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="class" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-58">
+        <createIndex indexName="SYS_IDX_70" tableName="price" unique="false">
+            <column name="event_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-59">
+        <addForeignKeyConstraint constraintName="FK65FB149EF265472"
+                                 baseTableName="price"
+                                 baseColumnNames="event_id"
+                                 referencedTableName="event"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-60">
+        <createIndex indexName="SYS_IDX_SYS_CT_58_61" tableName="event"
+                     unique="true">
+            <column name="title"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-61">
+        <createIndex indexName="SYS_IDX_127" tableName="event" unique="false">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-62">
+        <addForeignKeyConstraint constraintName="FK5C6729AB776D63"
+                                 baseTableName="event"
+                                 baseColumnNames="image_id"
+                                 referencedTableName="image"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-63">
+        <addForeignKeyConstraint constraintName="FK5C6729A8D6FE8C1"
+                                 baseTableName="event"
+                                 baseColumnNames="leader_id"
+                                 referencedTableName="teacher"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-64">
+        <addForeignKeyConstraint constraintName="FK5C6729A7FAD865A"
+                                 baseTableName="event"
+                                 baseColumnNames="organizer_id"
+                                 referencedTableName="shiro_user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-65">
+        <createIndex indexName="SYS_IDX_252" tableName="event" unique="false">
+            <column name="leader_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-66">
+        <createIndex indexName="SYS_IDX_254" tableName="event" unique="false">
+            <column name="organizer_id"/>
+        </createIndex>
+    </changeSet>
 </databaseChangeLog>
+

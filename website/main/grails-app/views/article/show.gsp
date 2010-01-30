@@ -20,33 +20,33 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
-
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
-    <head>
-        <title>${articleInstance?.title}</title>
-        <meta name="layout" content="content-admin" />
-    </head>
-    <body>
-        <div class="col1_80_Percent article">
-            <h2>${articleInstance?.title}</h2>
+  <head>
+    <title>${articleInstance?.title}</title>
+    <meta name="layout" content="content-admin"/>
+  </head>
+  <body>
+    <div class="col1_80_Percent article">
+      <h2>${articleInstance?.title}</h2>
 
-            <ul>
-                <g:if test="${articleInstance?.image}">
-                    <li><img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance?.image.id)}" title="${articleInstance?.image.name}" alt="${articleInstance?.image.name}"/></li>
-                </g:if>
-                <g:if test="${articleInstance?.datePublished != null}">
-                    <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/></span></h3></li>
-                </g:if>
-                <li><h4>by <a>${articleInstance?.author.username}</a></h4></li>
-            </ul>
+      <ul>
+        <g:if test="${articleInstance?.image}">
+          <li><img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance?.image.id)}" title="${articleInstance?.image.name}" alt="${articleInstance?.image.name}"/></li>
+        </g:if>
+        <g:if test="${articleInstance?.datePublished != null}">
+          <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/></span></h3></li>
+        </g:if>
+        <li><h4>by <a>${articleInstance?.author.username}</a></h4></li>
+      </ul>
 
-            <div class="body">
-                ${articleInstance.content.encodeAsTextile()}
-            </div><!-- /body -->
-        </div><!-- /left -->
+      <div class="body">
+        ${articleInstance.content.encodeAsTextile()}
+      </div><!-- /body -->
+    </div><!-- /left -->
 
-        <div class="col2_20_Percent">
-        </div>
-    </body>
+    <div class="col2_20_Percent">
+    </div>
+  </body>
 </html>
