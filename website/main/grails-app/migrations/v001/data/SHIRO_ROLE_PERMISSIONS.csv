@@ -15,3 +15,12 @@ SHIRO_ROLE_ID,PERMISSIONS_STRING
 6,manageSite:home
 6,room:*
 6,venue:*
+3,event:*
+3,manageSite:error
+3,manageSite:info
+4,manageSite:error
+4,manageSite:info
+5,manageSite:error
+5,manageSite:info
+6,manageSite:error
+6,manageSite:info

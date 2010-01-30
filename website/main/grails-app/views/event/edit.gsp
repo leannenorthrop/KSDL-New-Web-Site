@@ -68,10 +68,55 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
+                                  <label for="datePublished"><g:message code="event.datePublished.label" default="Date Published" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'datePublished', 'errors')}">
+                                    <g:datePicker name="datePublished" precision="day" value="${eventInstance?.datePublished}" noSelection="['': '']" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="dateCreated"><g:message code="event.dateCreated.label" default="Date Created" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'dateCreated', 'errors')}">
+                                    <g:datePicker name="dateCreated" precision="day" value="${eventInstance?.dateCreated}" noSelection="['': '']" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="lastUpdated"><g:message code="event.lastUpdated.label" default="Last Updated" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'lastUpdated', 'errors')}">
+                                    <g:datePicker name="lastUpdated" precision="day" value="${eventInstance?.lastUpdated}" noSelection="['': '']" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="deleted"><g:message code="event.deleted.label" default="Deleted" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'deleted', 'errors')}">
+                                    <g:checkBox name="deleted" value="${eventInstance?.deleted}" />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="category"><g:message code="event.category.label" default="Category" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'category', 'errors')}">
+                                    <g:select name="category" from="${eventInstance.constraints.category.inList}" value="${eventInstance?.category}" valueMessagePrefix="event.category"  />
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
                                   <label for="title"><g:message code="event.title.label" default="Title" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'title', 'errors')}">
-                                    <g:textField name="title" value="${eventInstance?.title}" />
+                                    <g:textArea name="title" cols="40" rows="5" value="${eventInstance?.title}" />
                                 </td>
                             </tr>
                         
@@ -95,10 +140,10 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="onceOnly"><g:message code="event.onceOnly.label" default="Once Only" /></label>
+                                  <label for="isRepeatable"><g:message code="event.isRepeatable.label" default="Is Repeatable" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'onceOnly', 'errors')}">
-                                    <g:checkBox name="onceOnly" value="${eventInstance?.onceOnly}" />
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'isRepeatable', 'errors')}">
+                                    <g:checkBox name="isRepeatable" value="${eventInstance?.isRepeatable}" />
                                 </td>
                             </tr>
                         
@@ -113,28 +158,44 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="lastUpdated"><g:message code="event.lastUpdated.label" default="Last Updated" /></label>
+                                  <label for="eventDate"><g:message code="event.eventDate.label" default="Event Date" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'lastUpdated', 'errors')}">
-                                    <g:datePicker name="lastUpdated" precision="day" value="${eventInstance?.lastUpdated}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="deleted"><g:message code="event.deleted.label" default="Deleted" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'deleted', 'errors')}">
-                                    <g:checkBox name="deleted" value="${eventInstance?.deleted}" />
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'eventDate', 'errors')}">
+                                    
                                 </td>
                             </tr>
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                  <label for="dateCreated"><g:message code="event.dateCreated.label" default="Date Created" /></label>
+                                  <label for="startTime"><g:message code="event.startTime.label" default="Start Time" /></label>
                                 </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'dateCreated', 'errors')}">
-                                    <g:datePicker name="dateCreated" precision="day" value="${eventInstance?.dateCreated}"  />
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'startTime', 'errors')}">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="eventDuration"><g:message code="event.eventDuration.label" default="Event Duration" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'eventDuration', 'errors')}">
+                                    
+                                </td>
+                            </tr>
+                        
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="prices"><g:message code="event.prices.label" default="Prices" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'prices', 'errors')}">
+                                    
+<ul>
+<g:each in="${eventInstance?.prices?}" var="p">
+    <li><g:link controller="eventPrice" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
+</g:each>
+</ul>
+<g:link controller="eventPrice" action="create" params="['event.id': eventInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'eventPrice.label', default: 'EventPrice')])}</g:link>
+
                                 </td>
                             </tr>
                         
@@ -144,15 +205,6 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'auditLogService', 'errors')}">
                                     
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="publishedOn"><g:message code="event.publishedOn.label" default="Published On" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'publishedOn', 'errors')}">
-                                    <g:datePicker name="publishedOn" precision="day" value="${eventInstance?.publishedOn}" />
                                 </td>
                             </tr>
                         

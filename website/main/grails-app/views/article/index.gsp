@@ -20,27 +20,27 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
-
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
-    <head>
-        <meta name="layout" content="main" />
-        <title>${title}</title>
-    </head>
-    <body>
-        <div class="articles">
-            <ol>
-                <g:each in="${articleInstanceList}" status="i" var="articleInstance">
-                    <li class="article">
-                        <h2><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h2>
-                        <h3>by <a>${articleInstance.author.username}</a></h3>
-                        <g:if test="${articleInstance?.datePublished && article.isDisplayDate}">
-                          <g:set var="publishDate"><span class="pretty-date">${articleInstance?.datePublished.prettyDate()}</span></g:set>
-                            <h4><g:message code="article.meta.published.on" args="${[publishDate]}"/></h4>
-                        </g:if>
-                        <p>${articleInstance.summary.encodeAsTextile()}</p>
-                    </li>
-                </g:each>
-        </div>
-    </body>
+  <head>
+    <meta name="layout" content="main"/>
+    <title>${title}</title>
+  </head>
+  <body>
+    <div class="articles">
+      <ol>
+        <g:each in="${articleInstanceList}" status="i" var="articleInstance">
+          <li class="article">
+            <h2><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h2>
+            <h3>by <a>${articleInstance.author.username}</a></h3>
+            <g:if test="${articleInstance?.datePublished && article.isDisplayDate}">
+              <g:set var="publishDate"><span class="pretty-date">${articleInstance?.datePublished.prettyDate()}</span></g:set>
+              <h4><g:message code="article.meta.published.on" args="${[publishDate]}"/></h4>
+            </g:if>
+            <p>${articleInstance.summary.encodeAsTextile()}</p>
+          </li>
+        </g:each>
+    </div>
+  </body>
 </html>

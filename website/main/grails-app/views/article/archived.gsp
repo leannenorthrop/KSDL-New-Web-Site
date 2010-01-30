@@ -1,4 +1,4 @@
-  %{------------------------------------------------------------------------------
+%{------------------------------------------------------------------------------
   - Copyright © 2010 Leanne Northrop
   -
   - This file is part of Samye Content Management System.
@@ -20,6 +20,7 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <g:set var="titleLabel"><g:message code="article.title.label"/></g:set>
   <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>

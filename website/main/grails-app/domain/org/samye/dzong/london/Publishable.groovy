@@ -35,6 +35,7 @@ import org.grails.taggable.*
  * TODO: Add category so that tags are not used
  * TODO: Add home boolean
  * TODO: Add front boolean
+ * TODO: Add isReady for publication boolean
  */
 class Publishable implements Taggable {
     String publishState
@@ -43,8 +44,9 @@ class Publishable implements Taggable {
     Date datePublished
     Date dateCreated
     Date lastUpdated
-    Boolean displayAuthor;
-    Boolean displayDate;
+    Boolean displayAuthor
+    Boolean displayDate
+    String category
 
     def auditLogService
 
@@ -61,6 +63,7 @@ class Publishable implements Taggable {
         deleted()
         displayAuthor()
         displayDate()
+        category(blank:false,inList:['M','N','C','W','B'])
     }
 
     static mapping = {

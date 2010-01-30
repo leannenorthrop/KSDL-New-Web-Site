@@ -21,7 +21,7 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.community.Article" %>
+<%@ page import="org.samye.dzong.london.events.Event" %>
 <g:if test="${params.max}">
   <g:set var="listMaxParam" value="?max=${params.max}&sort=title&order=asc"/>
 </g:if>
@@ -31,40 +31,40 @@
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="manage.articles.title"/></title>
+    <title><g:message code="manage.events.title"/></title>
     <g:javascript>
       var currentTabIndex = 0;
       var currentTabDiv;
       $(function() {
         $('a.step').live('click', function() {
-          $("#articles-tabs").tabs('url', currentTabIndex, this.href);
+          $("#events-tabs").tabs('url', currentTabIndex, this.href);
           $(currentTabDiv).load(this.href);
           return false;
         });
         $('a.nextLink').live('click', function() {
-          $("#articles-tabs").tabs('url', currentTabIndex, this.href);
+          $("#events-tabs").tabs('url', currentTabIndex, this.href);
           $(currentTabDiv).load(this.href);
           return false;
         });
         $('a.prevLink').live('click', function() {
-          $("#articles-tabs").tabs('url', currentTabIndex, this.href);
+          $("#events-tabs").tabs('url', currentTabIndex, this.href);
           $(currentTabDiv).load(this.href);
           return false;
         });
         $('th.sortable a').live('click', function() {
-          $("#articles-tabs").tabs('url', currentTabIndex, this.href);
+          $("#events-tabs").tabs('url', currentTabIndex, this.href);
           $(currentTabDiv).load(this.href);
           return false;
         });
-        $("#articles-tabs").tabs({
+        $("#events-tabs").tabs({
           fx: { opacity: 'toggle' },
           select: function(event, ui) {
             currentTabDiv = $(ui.panel);
-            currentTabIndex = $("#articles-tabs").tabs('option', 'selected');
+            currentTabIndex = $("#events-tabs").tabs('option', 'selected');
           },
           load: function(event, ui) {
             currentTabDiv = $(ui.panel);
-            currentTabIndex = $("#articles-tabs").tabs('option', 'selected');
+            currentTabIndex = $("#events-tabs").tabs('option', 'selected');
           }
         });
       });
@@ -72,7 +72,7 @@
   </head>
   <body>
 
-    <h1 class="ui-widget-header"><g:message code="manage.articles.title"/></h1>
+    <h1 class="ui-widget-header"><g:message code="manage.events.title"/></h1>
     <g:if test="${flash.message && !flash.isError}">
       <p class="ui-widget ui-state-highlight ui-corner-all">
         <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
@@ -88,12 +88,12 @@
         ${errorsList}
       </div>
     </g:elseif>
-    <div id="articles-tabs">
+    <div id="events-tabs">
       <ul>
-        <li><a href="ajaxUnpublishedArticles${listMaxParam}"><g:message code="article.unpublished"/></a></li>
-        <li><a href="ajaxPublishedArticles${listMaxParam}"><g:message code="article.published"/></a></li>
-        <li><a href="ajaxArchivedArticles${listMaxParam}"><g:message code="article.archived"/></a></li>
-        <li><a href="ajaxDeletedArticles${listMaxParam}"><g:message code="article.deleted"/></a></li>
+        <li><a href="ajaxUnpublishedEvents${listMaxParam}"><g:message code="event.unpublished"/></a></li>
+        <li><a href="ajaxPublishedEvents${listMaxParam}"><g:message code="event.published"/></a></li>
+        <li><a href="ajaxArchivedEvents${listMaxParam}"><g:message code="event.archived"/></a></li>
+        <li><a href="ajaxDeletedEvents${listMaxParam}"><g:message code="event.deleted"/></a></li>
       </ul>
     </div>
   </body>
