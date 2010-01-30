@@ -167,54 +167,6 @@ class TeacherController {
         }
     }
 
-    def pre_publish = {
-        def teacher = Teacher.get(params.id)
-
-        if (!teacher) {
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            redirect(action: manage)
-        }
-        else {
-            return render(view: 'publish', model: [teacher: teacher], id: params.id)
-        }
-    }
-
-    def publish = {
-        def teacher = Teacher.get(params.id)
-        if (teacher) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (teacher.version > version) {
-                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
-                    redirect(action: manage)
-                    return
-                }
-            }
-
-            def isFirstPublish = teacher.publishState != 'Published'
-            if (isFirstPublish) {
-                teacher.datePublished = new Date()
-            }
-            teacher.properties = params
-            teacher.publishState = "Published"
-
-            if (!teacher.hasErrors() && teacher.save()) {
-                flash.message = "teacher.change.state"
-                flash.args = [teacher, teacher.publishState]
-                redirect(action: manage)
-            }
-            else {
-                redirect(action: pre_publish, id: params.id)
-            }
-        }
-        else {
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            redirect(action: manage)
-        }
-    }
-
     def update = {
         def teacher = Teacher.get(params.id)
         if (teacher) {
