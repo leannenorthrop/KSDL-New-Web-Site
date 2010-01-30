@@ -35,6 +35,7 @@
     <g:javascript>
       $(function() {
         $("#addimage").validate();
+        $("#src-tabs").tabs({fx: { opacity: 'toggle' }});
       });
     </g:javascript>
   </head>
@@ -52,23 +53,35 @@
         </div>
       </g:hasErrors>
 
-      <fieldset>
-        <label for="name"><g:message code="image.name"/></label>
-        <input type="text" id="name" name="name" class="${hasErrors(bean: articleInstance, field: 'name', 'errors')}" value="${fieldValue(bean: imageInstance, field: 'name')}"/>
-      </fieldset>
-      <fieldset>
-        <label for="file"><g:message code="image.create.file"/></label>
-        <input type="file" id="image" name="image"/>
-      </fieldset>
-      <fieldset class="last">
-        <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
-        <g:textArea rows="5" cols="40" name="tags" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
-        <p class="tags_help">
-          <g:message code="article.tag.help"/>
-        </p>
-      </fieldset>
-      <g:set var="submitBtnLabel"><g:message code="image.create.submit.btn"/></g:set>
-      <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+
+      <div id="src-tabs">
+        <ul>
+          <li><a href="#upload"><g:message code="image.embed.title"/></a></li>
+          <li><a href="#flickr"><g:message code="image.flickr.title"/></a></li>
+        </ul>
+        <div id="upload">
+          <fieldset>
+            <label for="name"><g:message code="image.name"/></label>
+            <input type="text" id="name" name="name" class="${hasErrors(bean: articleInstance, field: 'name', 'errors')}" value="${fieldValue(bean: imageInstance, field: 'name')}"/>
+          </fieldset>
+          <fieldset>
+            <label for="file"><g:message code="image.create.file"/></label>
+            <input type="file" id="image" name="image"/>
+          </fieldset>
+          <fieldset class="last">
+            <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
+            <g:textArea rows="5" cols="40" name="tags" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
+            <p class="tags_help">
+              <g:message code="img.tag.help"/>
+            </p>
+          </fieldset>
+          <g:set var="submitBtnLabel"><g:message code="image.create.submit.btn"/></g:set>
+          <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+        </div>
+        <div id="flickr">
+          <h1>Coming Soon</h1>
+        </div>
+      </div>
     </g:uploadForm>
   </body>
 </html>

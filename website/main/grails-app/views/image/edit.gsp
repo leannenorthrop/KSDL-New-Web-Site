@@ -58,7 +58,7 @@
         <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
         <g:textArea rows="5" cols="40" name="tags" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
         <p class="tags_help">
-          <g:message code="article.tag.help"/>
+          <g:message code="img.tag.help"/>
         </p>
       </fieldset>
       <g:set var="submitBtnLabel"><g:message code="image.edit.submit.btn"/></g:set>

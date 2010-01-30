@@ -74,7 +74,7 @@
       <fieldset>
         <label for="image.id"><g:message code="teacher.image.label"/></label>
         <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-        <g:select from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${teacher?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('teacher')}" name="image.id" value="${teacher?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
       </fieldset>
       <fieldset>
         <label for="category"><g:message code="teacher.category"/></label>
