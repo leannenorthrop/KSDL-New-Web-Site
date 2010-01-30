@@ -53,7 +53,12 @@
       <g:if test="${!articleInstance?.displayAuthor && !articleInstance?.displayDate}">
         <div class="bodyNoDetails group">
         <g:if test="${articleInstance?.image}">
-          <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+          <g:if test="${articleInstance?.image?.mimeType.endsWith('png')}">
+            <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
+          </g:if>
+          <g:else>
+            <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+          </g:else>
         </g:if>
       </g:if>
       <g:if test="${articleInstance?.displayAuthor || articleInstance?.displayDate}">
