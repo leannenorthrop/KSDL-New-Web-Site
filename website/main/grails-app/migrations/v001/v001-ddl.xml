@@ -95,6 +95,7 @@
             <column name="event_duration" type="VARCHAR(255)"/>
             <column name="leader_id" type="BIGINT"/>
             <column name="organizer_id" type="BIGINT"/>
+            <column name="venue_id" type="BIGINT"/>
         </createTable>
     </changeSet>
     <changeSet author="northrl" id="v001-schema-8">
@@ -524,6 +525,47 @@
     <changeSet author="northrl" id="v001-schema-66">
         <createIndex indexName="SYS_IDX_254" tableName="event" unique="false">
             <column name="organizer_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-67">
+        <createTable tableName="venue">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="image_id" type="BIGINT"/>
+            <column name="access" type="${text-type}"/>
+            <column name="description" type="${text-type}"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="facilities" type="${text-type}"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-68">
+        <addForeignKeyConstraint constraintName="FK5C6729A7B3A8B2E"
+                                 baseTableName="event"
+                                 baseColumnNames="venue_id"
+                                 referencedTableName="venue"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-69">
+        <addForeignKeyConstraint constraintName="FK6AE6A6FB776D63"
+                                 baseTableName="venue"
+                                 baseColumnNames="image_id"
+                                 referencedTableName="image"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-70">
+        <createIndex indexName="SYS_IDX_SYS_CT_134_147" tableName="venue" unique="true">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-71">
+        <createIndex indexName="SYS_IDX_148" tableName="venue" unique="false">
+            <column name="image_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="northrl" id="v001-schema-72">
+        <createIndex indexName="SYS_IDX_167" tableName="event" unique="false">
+            <column name="venue_id"/>
         </createIndex>
     </changeSet>
 </databaseChangeLog>

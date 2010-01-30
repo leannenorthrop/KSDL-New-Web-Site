@@ -41,11 +41,10 @@
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:layoutHead/>
   </head>
-  <body class="${controllerName}">
-    <shiro:isLoggedIn in="['Editor','Administrator','Author']">
-      <body style="min-width:70em">
+    <shiro:isLoggedIn>
+      <body class="${controllerName}" style="min-width:85em">
     </shiro:isLoggedIn>
-    <shiro:isNotLoggedIn><body></shiro:isNotLoggedIn>
+    <shiro:isNotLoggedIn><body class="${controllerName}" style="min-width:70em"></shiro:isNotLoggedIn>
     <lsdc:header/>
     <lsdc:nav current="${controllerName}"/>
     <div id="spinner" class="spinner" style="display:none;">

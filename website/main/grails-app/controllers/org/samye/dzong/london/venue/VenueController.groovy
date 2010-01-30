@@ -1,6 +1,6 @@
 package org.samye.dzong.london.venue
 
-class VenueController {    
+class VenueController {
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'POST', save:'POST', update:'POST']
 
@@ -8,10 +8,10 @@ class VenueController {
         params.max = Math.min((params.max ? params.max.toInteger() : 10),  100)
         render(view:'manage',model:[ venueInstanceList: Venue.list( params ), venueInstanceTotal: Venue.count() ])
     }
-    
+
     def create = {
         def venueInstance = new Venue()
-        venueInstance.properties = params        
+        venueInstance.properties = params
         return ['venueInstance':venueInstance]
     }
 
@@ -22,10 +22,11 @@ class VenueController {
             redirect(action:manage,id:venueInstance.id)
         }
         else {
-            render(view:'create',model:[venueInstance:cmd])
+            flash.isError = true
+            render(view:'create',model:[venueInstance:venueInstance])
         }
     }
-        
+
     /*
     def delete = {
         def venueInstance = Venue.get( params.id )
@@ -64,7 +65,7 @@ class VenueController {
             if(params.version) {
                 def version = params.version.toLong()
                 if(venueInstance.version > version) {
-                    
+
                     venueInstance.errors.rejectValue("version", "venue.optimistic.locking.failure", "Another user has updated this Venue while you were editing.")
                     render(view:'edit',model:[venueInstance:venueInstance])
                     return

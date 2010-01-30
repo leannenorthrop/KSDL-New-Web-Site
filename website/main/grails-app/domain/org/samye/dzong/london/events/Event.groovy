@@ -29,6 +29,7 @@ import org.joda.time.*
 import org.joda.time.contrib.hibernate.*
 import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.community.Teacher
+import org.samye.dzong.london.venue.*
 
 /**
  * Domain class for event information.
@@ -51,6 +52,7 @@ class Event extends Publishable {
     Period eventDuration;
     ShiroUser organizer;
     Teacher leader;
+    Venue venue;
 
     static hasMany = [prices: EventPrice]
 
@@ -66,6 +68,7 @@ class Event extends Publishable {
         prices(nullable:true)
         organizer(nullable:true)
         leader(nullable:true)
+        venue(nullable:true)
     }
 
     static mapping = {

@@ -43,7 +43,7 @@
         <g:javascript src="jquery/jquery.validate.min.js"/>
         <g:layoutHead />
     </head>
-    <body class="contentAdmin" style="min-width:60em">
+    <body class="contentAdmin" style="min-width:85em">
         <lsdc:header />
         <lsdc:nav current="manageSite"/>
         <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>

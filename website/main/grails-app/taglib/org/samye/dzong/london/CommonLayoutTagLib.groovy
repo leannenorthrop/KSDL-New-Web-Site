@@ -47,11 +47,11 @@ class CommonLayoutTagLib {
 
 
      def nav = { attrs ->
-        def navControllers = ['home', 'news', 'events', 'meditation']
+        def navControllers = ['home', 'news', 'events', 'meditation','community','wellbeing','buddhism']
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            navControllers = ['home', 'news', 'events', 'meditation', 'manageSite']
+            navControllers = ['home', 'news', 'events', 'meditation','community','wellbeing','buddhism', 'manageSite']
         } else if (SecurityUtils.subject.principal != null) {
-            navControllers =['home', 'news', 'events', 'meditation', 'manageSite']
+            navControllers =['home', 'news', 'events', 'meditation','community','wellbeing','buddhism', 'manageSite']
         }
 
         def current = attrs.current

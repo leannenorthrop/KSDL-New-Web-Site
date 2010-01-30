@@ -3,15 +3,22 @@ TODO
 ================================================================================
                         FOR 31/01/2010
 ================================================================================
-1. Events - single date only & price 29/01
-2. Footer - Site map, Contact Us, Copyright, About this site, Visiting Us etc. 29/01
+1. Events
+    - Venue
+    - Price
+    - Teacher
+    - Organizer
+    - Publish
+    - Archived
+    - Deleted
+2. Footer - Site map, Contact Us, Copyright, About this site, Visiting Us etc.
 3. Add content to pages for
     - teachers
     - events
     - venues
-    
-6. CSS  30/01
-    Ensure articles viewed by tag are through home controller
+4. CSS
+5. Tag Cloud & Ensure articles viewed by tag are through home controller
+6. Community & Buddhism Sections
 
 ================================================================================
                         FOR 14/01/2010

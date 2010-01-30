@@ -49,10 +49,8 @@
             <td>
               <g:link action="show" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
             </td>
-            <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.eventDate}"/></td>
-            <td>
-              ${fieldValue(bean: eventInstance, field: 'category')}
-            </td>
+            <td><joda:format style="MS" date="${eventInstance?.eventDate}"/></td>
+            <td><g:message code="${'publish.category.' + eventInstance?.category}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">

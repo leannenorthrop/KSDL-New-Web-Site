@@ -99,6 +99,6 @@ class Teacher extends Publishable {
     }
 
     String toString() {
-        return "${title} ${name}"
+        return name
     }
 }

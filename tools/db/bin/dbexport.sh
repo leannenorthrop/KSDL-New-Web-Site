@@ -3,7 +3,7 @@ rm -f $PWD/target/export*
 rm -drf $PWD/target/csv
 
 driver=org.hsqldb.jdbcDriver
-url="jdbc:hsqldb:file:/Users/northrl/Documents/LSD/dev/lsd/website/main/db/test;shutdown=true;"
+url="jdbc:hsqldb:file:/Users/northrl/Documents/LSD/dev/lsd/website/main/db/test;shutdown;true"
 username=sa
 password=
 schema=PUBLIC

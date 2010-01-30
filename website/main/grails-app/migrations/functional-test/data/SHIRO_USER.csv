@@ -1,6 +1,6 @@
-ID,VERSION,USERNAME,PASSWORD_HASH
-3,0,RoleTest,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
-4,0,Author,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
-5,0,Editor,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
-6,0,AuthorEditor,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
-7,0,Event,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
+ID,VERSION,USERNAME,PASSWORD_HASH,PASSWORD_RESET
+3,0,RoleTest,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d,null
+4,0,Author,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d,null
+5,0,Editor,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d,null
+6,0,AuthorEditor,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d,null
+7,0,Event,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d,null

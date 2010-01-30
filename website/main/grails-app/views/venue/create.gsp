@@ -69,7 +69,7 @@
           <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
         </p>
       </g:if>
-      <g:elseif test="${flash.message && flash.isError}">
+      <g:elseif test="${flash.isError}">
         <g:set var="errorsList"><g:renderErrors bean="${teacher}" as="list"></g:renderErrors></g:set>
         <div class="ui-widget ui-state-error ui-corner-all">
           <strong>
