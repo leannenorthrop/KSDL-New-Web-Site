@@ -49,7 +49,7 @@
                 </shiro:hasAnyRole>
                 <td>
                 <shiro:hasAnyRole in="['Editor','Administrator']">
-                <g:link action="pre_publish" id="${teacher.id}"><g:message code="teacher.publish.action"/></g:link>
+                <g:link action="changeState" params="[state:'Published']" id="${teacher.id}"><g:message code="teacher.publish.action"/></g:link>  
                 </shiro:hasAnyRole>
                 <shiro:hasAnyRole in="['Author']">
                 <g:link action="delete" id="${teacher.id}" onclick="${deleteConfirmLabel}"><g:message code="teacher.delete.action"/></g:link>

@@ -98,7 +98,6 @@
       <ul>
         <li><a href="ajaxUnpublishedTeachers${listMaxParam}"><g:message code="teacher.unpublished"/></a></li>
         <li><a href="ajaxPublishedTeachers${listMaxParam}"><g:message code="teacher.published"/></a></li>
-        <li><a href="ajaxArchivedTeachers${listMaxParam}"><g:message code="teacher.archived"/></a></li>
         <li><a href="ajaxDeletedTeachers${listMaxParam}"><g:message code="teacher.deleted"/></a></li>
       </ul>
     </div>
