@@ -26,7 +26,6 @@ class CommonLayoutTagLib {
 
         def cloudList = {
             div (class:"cloud box group") {
-                h2 (messageSource.getMessage ("article.tag.cloud.title", null, null))
                 ul {
                     tags.eachWithIndex { tag, index ->
                     li {
@@ -47,11 +46,11 @@ class CommonLayoutTagLib {
 
 
      def nav = { attrs ->
-        def navControllers = ['home', 'news', 'events', 'meditation','community','wellbeing','buddhism']
+        def navControllers = ['home', 'news', 'event', 'meditation','community','wellbeing','buddhism']
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            navControllers = ['home', 'news', 'events', 'meditation','community','wellbeing','buddhism', 'manageSite']
+            navControllers = ['home', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
         } else if (SecurityUtils.subject.principal != null) {
-            navControllers =['home', 'news', 'events', 'meditation','community','wellbeing','buddhism', 'manageSite']
+            navControllers =['home', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
         }
 
         def current = attrs.current

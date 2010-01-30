@@ -23,6 +23,8 @@ Title:      Screen styles for managing site content
     font-size: 14px;
 }
 
-.footer {
+.contentAdmin .footer {
     text-align: center;
+    position: fixed;
+    bottom: 0;
 }

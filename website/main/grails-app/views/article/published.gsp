@@ -33,6 +33,7 @@
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
           <th><g:message code="article.category"/></th>
+          <th><g:message code="article.tag"/></th>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
@@ -48,6 +49,7 @@
               <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
             </td>
             <td><g:message code="${'publish.category.' + articleInstance?.category}"/></td>
+            <td><g:message code="${articleInstance?.tags.join(',')}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">

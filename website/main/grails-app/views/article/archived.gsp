@@ -47,22 +47,7 @@
             <td>
               <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
             </td>
-            <td>
-              <g:each var="tag" in="${articleInstance.tags}">
-                <g:if test="${tag == 'news'}">
-                  <g:message code="article.category.${tag}"/>
-                </g:if>
-                <g:elseif test="${tag == 'meditation'}">
-                  <g:message code="article.category.${tag}"/>
-                </g:elseif>
-                <g:elseif test="${tag == 'community'}">
-                  <g:message code="article.category.${tag}"/>
-                </g:elseif>
-                <g:elseif test="${tag == 'wellbeing'}">
-                  <g:message code="article.category.${tag}"/>
-                </g:elseif>
-              </g:each>
-            </td>
+            <td><g:message code="${'publish.category.' + articleInstance?.category}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">

@@ -103,9 +103,8 @@ class TeacherController {
     def view = {
         def teacher = Teacher.get(params.id)
         if (!teacher) {
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            redirect(action: list)
+            // TODO: render 404
+            redirect(uri: '/')
         }
         else {
             return [teacher: teacher, id: params.id]

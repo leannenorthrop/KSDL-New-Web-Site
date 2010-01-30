@@ -1,5 +1,7 @@
 package org.samye.dzong.london.meditation
 
+import org.samye.dzong.london.events.Event
+
 class MeditationController {
     def articleService
 
@@ -20,7 +22,8 @@ class MeditationController {
             log.error("Meditation controller encountered an error.")
         }
 
-        render(view: 'index', model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles, topArticles: topArticles])
+        def events = Event.meditation('eventDate','desc').list()
+        render(view: 'index', model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles, topArticles: topArticles,events:events])
     }
 
     def current = {
@@ -36,7 +39,7 @@ class MeditationController {
     def all = {
         def articles = articleService.publishedByTags(['meditation'])
         def articles2 = articleService.archivedByTags(['meditation'])
-        articles2.each() { item -> 
+        articles2.each() { item ->
             articles << item
         }
         render(view: 'list', model:[ articles: articles, title: 'Meditation Articles'])

@@ -82,8 +82,24 @@
         </ol>
       </div>
     </div>
-    <div class="col2_66_Percent box">
-      <h2>Courses</h2>
+    <div class="col2_66_Percent">
+      <div class="box">
+        <h2><g:message code="event.meditation"/></h2>
+        <ol>
+          <g:each in="${events}" var="event">
+            <li class="article group">
+              <g:set var="t" value="${event.title}"/>
+              <h3><g:link controller="event" action="view" id="${event?.id}">${t}</g:link></h3>
+              <h4>by <g:link controller="teacher" action="view" id="${event?.leader?.id}">${event?.leader.name}</g:link></h4>
+              <h5><joda:format style="M-" date="${event?.eventDate}"/> <joda:format style="-M" date="${event?.startTime}"/></h5>
+              <g:if test="${event.image}">
+                <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}" style="float:left;"/>
+              </g:if>
+              <p>${event.summary}</p>
+            </li>
+          </g:each>
+        </ol>
+      </div>
     </div>
   </body>
 </html>

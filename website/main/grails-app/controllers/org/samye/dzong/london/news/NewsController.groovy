@@ -6,39 +6,27 @@ class NewsController {
     def articleService
 
     def index = {
-        redirect(action:home)  
+        redirect(action:home)
     }
-    
+
     def home = {
-        def totalPublishedNewsArticles = articleService.countPublishedByTags(['news'])
-        def totalArchived = articleService.countArchivedByTags(['news'])
-        def articles = articleService.publishedByTags(['news'], [max : 15])
-        def auditDetails = articles.collect { article ->
-            def id = Long.toString(article.id,10)
-            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-        }
-        def archivedArticles = articleService.archivedByTags(['news'])
-        render(view: 'index', model:[ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, auditDetails: auditDetails, archivedArticles: archivedArticles])    
+        def articles = Article.newsArticles('datePublished', 'desc').list(max:15)
+        def archivedArticles = Article.archivedNewsArticles('datePublished', 'desc').list(max:8)
+        def totalPublishedNewsArticles = Article.newsArticles('datePublished', 'desc').count()
+        def totalArchived = Article.archivedNewsArticles('datePublished', 'desc').count()
+        render(view: 'index', model:[ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles])
     }
 
     def current = {
-        def articles = articleService.publishedByTags(['news'])
-        def auditDetails = articles.collect { article ->
-            def id = Long.toString(article.id,10)
-            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-        }
-        render(view: 'list', model:[ articles: articles, title: 'Current News'])     
+        def articles = Article.newsArticles('datePublished', 'dsc')
+        render(view: 'list', model:[ articles: articles, title: 'Current News'])
     }
-        
+
     def archive = {
-        def articles = articleService.archivedByTags(['news'])
-        def auditDetails = articles.collect { article ->
-            def id = Long.toString(article.id,10)
-            [auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-        }
-        render(view: 'list', model:[ articles: articles, title: 'Older News'])     
+        def articles = Article.archivedNewsArticles('datePublished', 'dsc')
+        render(view: 'list', model:[ articles: articles, title: 'Older News'])
     }
-    
+
     def view = {
         def model = articleService.view(params.id)
         if (!model) {

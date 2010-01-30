@@ -45,7 +45,7 @@ class EventController {
     }
 
     def home = {
-
+        return [events: Event.publishState('Published').list(), title: "Current Programme"]
     }
 
     def list = {
@@ -121,7 +121,7 @@ class EventController {
         def event = Event.get(params.id)
         if (!event) {
             flash.message = "Event not found with id ${params.id}"
-            redirect(action: list)
+            redirect(action: home)
         }
         else {
             def id = params.id;

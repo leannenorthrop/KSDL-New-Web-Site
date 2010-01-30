@@ -10,9 +10,22 @@
   </head>
   <body>
     <div class="col1_80_Percent">
-      <div class="box">
+      <div class="events box">
         <h2>Forthcoming Events</h2>
+        <ol class="box">
+          <g:each in="${events}" status="i" var="event">
+            <li class="group">
+              <h3>${event?.title}</h3>
+              <h4><joda:format style="M-" date="${event?.eventDate}"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h4>
+              <h5><g:link controller="teacher" action="view" id="${event?.leader?.id}"><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</g:link></h5>
 
+              <g:if test="${event.image}">
+                <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
+              </g:if>
+              <p>${event.summary.encodeAsTextile()} <g:link controller="event" action="view" id="${event.id}">Read More...</g:link></p>
+            </li>
+          </g:each>
+        </ol>
       </div>
     </div>
     <div class="col2_20_Percent">
