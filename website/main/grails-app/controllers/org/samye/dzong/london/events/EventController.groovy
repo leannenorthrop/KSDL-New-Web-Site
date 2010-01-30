@@ -208,10 +208,11 @@ class EventController {
             if (isFirstPublish) {
                 event.datePublished = new Date()
             }
-            println "first publish? ${isFirstPublish} published on ${event.datePublished}"
 
             event.properties = params
             event.publishState = "Published"
+            event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour),Integer.valueOf(params.startTimeMin))
+            event.eventDuration =  new MutablePeriod(Integer.valueOf(params.eventDurationHour), Integer.valueOf(params.eventDurationMin), 0, 0).toPeriod()
             if (params.tags) {
                 event.parseTags(params.tags)
             }
@@ -241,6 +242,7 @@ class EventController {
     }
 
     def update = {
+        println "The id is ${params.id}"
         def event = Event.get(params.id)
         if (event) {
             if (params.version) {
@@ -254,6 +256,8 @@ class EventController {
                 }
             }
             event.properties = params
+            event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour),Integer.valueOf(params.startTimeMin))
+            event.eventDuration =  new MutablePeriod(Integer.valueOf(params.eventDurationHour), Integer.valueOf(params.eventDurationMin), 0, 0).toPeriod()
             if (params.tags) {
                 event.parseTags(params.tags)
             }

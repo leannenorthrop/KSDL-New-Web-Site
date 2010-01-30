@@ -1,5 +1,5 @@
 coverage {
-	enabledByDefault = true
+	enabledByDefault = false
 	xml =true
 	exclusions = [
 	              '**/de/andreasschmitt/richui/taglib/renderer/**',
@@ -11,7 +11,7 @@ coverage {
 	              '**/*TagLib*/**',
 	              "**/*Tests*",
 				  "**/AuditLogEvent*",
-				  "**/AuditLogLis*",				
+				  "**/AuditLogLis*",
 				  "**/org/apache/**/*",
 				  "**/org/grails/**/*",
 				  "**/feedsplugin/*",
@@ -20,7 +20,7 @@ coverage {
 				  "**/Security*",
 	              '**/JsecAuthBase*',
 	              '**/JsecurityFilters*']
-	
+
 }
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
@@ -33,7 +33,7 @@ grails.project.dependency.resolution = {
         // excludes 'ehcache'
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
-    repositories {        
+    repositories {
         grailsPlugins()
         grailsHome()
 

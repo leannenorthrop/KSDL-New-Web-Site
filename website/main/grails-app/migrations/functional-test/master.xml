@@ -27,4 +27,5 @@
     <property name="test-dir" value="${user.dir}/grails-app/migrations/functional-test"/>
     <include relativeToChangelogFile="true" file="users.xml" />
     <include relativeToChangelogFile="true" file="image.xml" />
+    <include relativeToChangelogFile="true" file="content.xml" />
 </databaseChangeLog>

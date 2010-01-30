@@ -1,221 +1,147 @@
+%{------------------------------------------------------------------------------
+  - Copyright © 2010 Leanne Northrop
+  -
+  - This file is part of Samye Content Management System.
+  -
+  - Samye Content Management System is free software: you can redistribute it
+  - and/or modify it under the terms of the GNU General Public License as
+  - published by the Free Software Foundation, either version 3 of the License,
+  - or (at your option) any later version.
+  -
+  - Samye Content Management System is distributed in the hope that it will be
+  - useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Samye Content Management System.
+  - If not, see <http://www.gnu.org/licenses/>.
+  -
+  - BT plc, hereby disclaims all copyright interest in the program
+  - “Samye Content Management System” written by Leanne Northrop.
+  ----------------------------------------------------------------------------}%
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.joda.time.Minutes; org.joda.time.Hours; org.samye.dzong.london.events.Event;org.joda.time.*" %>
+%{--
+  Edit Event template
 
-<%@ page import="org.samye.dzong.london.events.Event" %>
+  Author: Leanne Northrop
+  Date: 30th January, 2010, 15:52
+--}%
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'event.label', default: 'Event')}" />
-        <title><g:message code="default.edit.label" args="[entityName]" /></title>
-    </head>
-    <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-        </div>
-        <div class="body">
-            <h1><g:message code="default.edit.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${eventInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${eventInstance}" as="list" />
-            </div>
-            </g:hasErrors>
-            <g:form method="post" >
-                <g:hiddenField name="id" value="${eventInstance?.id}" />
-                <g:hiddenField name="version" value="${eventInstance?.version}" />
-                <div class="dialog">
-                    <table>
-                        <tbody>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="publishState"><g:message code="event.publishState.label" default="Publish State" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'publishState', 'errors')}">
-                                    <g:select name="publishState" from="${eventInstance.constraints.publishState.inList}" value="${eventInstance?.publishState}" valueMessagePrefix="event.publishState"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="author"><g:message code="event.author.label" default="Author" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'author', 'errors')}">
-                                    <g:select name="author.id" from="${org.samye.dzong.london.ShiroUser.list()}" optionKey="id" value="${eventInstance?.author?.id}" noSelection="['null': '']" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="displayAuthor"><g:message code="event.displayAuthor.label" default="Display Author" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'displayAuthor', 'errors')}">
-                                    <g:checkBox name="displayAuthor" value="${eventInstance?.displayAuthor}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="displayDate"><g:message code="event.displayDate.label" default="Display Date" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'displayDate', 'errors')}">
-                                    <g:checkBox name="displayDate" value="${eventInstance?.displayDate}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="datePublished"><g:message code="event.datePublished.label" default="Date Published" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'datePublished', 'errors')}">
-                                    <g:datePicker name="datePublished" precision="day" value="${eventInstance?.datePublished}" noSelection="['': '']" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="dateCreated"><g:message code="event.dateCreated.label" default="Date Created" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'dateCreated', 'errors')}">
-                                    <g:datePicker name="dateCreated" precision="day" value="${eventInstance?.dateCreated}" noSelection="['': '']" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="lastUpdated"><g:message code="event.lastUpdated.label" default="Last Updated" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'lastUpdated', 'errors')}">
-                                    <g:datePicker name="lastUpdated" precision="day" value="${eventInstance?.lastUpdated}" noSelection="['': '']" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="deleted"><g:message code="event.deleted.label" default="Deleted" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'deleted', 'errors')}">
-                                    <g:checkBox name="deleted" value="${eventInstance?.deleted}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="category"><g:message code="event.category.label" default="Category" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'category', 'errors')}">
-                                    <g:select name="category" from="${eventInstance.constraints.category.inList}" value="${eventInstance?.category}" valueMessagePrefix="event.category"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="title"><g:message code="event.title.label" default="Title" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'title', 'errors')}">
-                                    <g:textArea name="title" cols="40" rows="5" value="${eventInstance?.title}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="summary"><g:message code="event.summary.label" default="Summary" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'summary', 'errors')}">
-                                    <g:textArea name="summary" cols="40" rows="5" value="${eventInstance?.summary}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="content"><g:message code="event.content.label" default="Content" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'content', 'errors')}">
-                                    <g:textArea name="content" cols="40" rows="5" value="${eventInstance?.content}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="isRepeatable"><g:message code="event.isRepeatable.label" default="Is Repeatable" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'isRepeatable', 'errors')}">
-                                    <g:checkBox name="isRepeatable" value="${eventInstance?.isRepeatable}" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="image"><g:message code="event.image.label" default="Image" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'image', 'errors')}">
-                                    <g:select name="image.id" from="${org.samye.dzong.london.media.Image.list()}" optionKey="id" value="${eventInstance?.image?.id}" noSelection="['null': '']" />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="eventDate"><g:message code="event.eventDate.label" default="Event Date" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'eventDate', 'errors')}">
-                                    
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="startTime"><g:message code="event.startTime.label" default="Start Time" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'startTime', 'errors')}">
-                                    
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="eventDuration"><g:message code="event.eventDuration.label" default="Event Duration" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'eventDuration', 'errors')}">
-                                    
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="prices"><g:message code="event.prices.label" default="Prices" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'prices', 'errors')}">
-                                    
-<ul>
-<g:each in="${eventInstance?.prices?}" var="p">
-    <li><g:link controller="eventPrice" action="show" id="${p.id}">${p?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="eventPrice" action="create" params="['event.id': eventInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'eventPrice.label', default: 'EventPrice')])}</g:link>
+  <head>
+    <meta name="layout" content="content-admin"/>
+    <title><g:message code="event.edit.title"/></title>
+    <g:javascript>
+      $(function() {
+        $("#editEvent").validate();
+        $("#dateTabs").tabs({fx: { opacity: 'toggle' }});
+      });
+    </g:javascript>
+  </head>
+  <body>
+    <g:form name="editEvent" action="update" method="post">
+      <h1 class="ui-widget-header"><g:message code="event.edit.title"/></h1>
 
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                  <label for="auditLogService"><g:message code="event.auditLogService.label" default="Audit Log Service" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: eventInstance, field: 'auditLogService', 'errors')}">
-                                    
-                                </td>
-                            </tr>
-                        
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" /></span>
-                    <span class="button"><g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" /></span>
-                </div>
-            </g:form>
+      <g:if test="${flash.message && !flash.isError}">
+        <p class="ui-widget ui-state-highlight ui-corner-all">
+          <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
+        </p>
+      </g:if>
+      <g:elseif test="${flash.message && flash.isError}">
+        <g:set var="errorsList"><g:renderErrors bean="${event}" as="list"></g:renderErrors></g:set>
+        <div class="ui-widget ui-state-error ui-corner-all">
+          <strong>
+            <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>
+          </strong>
+          <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"></g:message>
+          ${errorsList}
         </div>
-    </body>
+      </g:elseif>
+
+      <g:hiddenField name="id" value="${event?.id}"/>
+      <g:hiddenField name="version" value="${event?.version}"/>
+      <g:hiddenField name="publishState" value="${event?.publishState}"/>
+      <g:hiddenField name="deleted" value="${event?.deleted}"/>
+      <g:hiddenField name="displayAuthor" value="${event?.displayAuthor}"/>
+      <g:hiddenField name="displayDate" value="${event?.displayDate}"/>
+      <g:hiddenField name="isRepeatable" value="false"/>
+
+      <fieldset>
+        <label for="title"><g:message code="event.title.label"/></label>
+        <g:textField name="title" value="${fieldValue(bean:event,field:'title')}" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}" minlength="5"/>
+      </fieldset>
+      <fieldset>
+        <label for="category"><g:message code="event.category.label"/></label>
+        <g:select name="category" from="${event.constraints.category.inList}" value="${event?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
+      </fieldset>
+      <fieldset>
+        <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>
+        <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${event?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
+        <g:select name="startTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${event?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
+      </fieldset>
+      <fieldset>
+        <label for="eventDurationHour"><g:message code="event.eventduration.label" default="Event Duration"/></label>
+        <g:select name="eventDurationHour" from="${0..24}" value="${event?.eventDuration?.toStandardHours()?.getHours()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'eventDuration','errors')}"/><g:message code="event.duration.hours"/>
+        <g:select name="eventDurationMin" from="${[0,5,10,15,20,30,40,45,50,55]}" value="${event?.eventDuration?.getMinutes()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'eventDuration','errors')}"/><g:message code="event.duration.mins"/>
+      </fieldset>
+      <fieldset>
+        <label for="leader.id"><g:message code="event.leader.label"/></label>
+        <g:set var="noSelectionLabel"><g:message code="please.select"/></g:set>
+        <g:select from="${org.samye.dzong.london.community.Teacher.list()}" name="leader.id" value="${event?.leader?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
+      </fieldset>
+      <fieldset>
+        <label for="image.id"><g:message code="event.image.label"/></label>
+        <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('event')}" name="image.id" value="${event?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
+      </fieldset>
+      <fieldset>
+        <label for="organizer.id"><g:message code="event.organizer.label"/></label>
+        <g:set var="noSelectionLabel"><g:message code="no.img"/></g:set>
+        <g:select from="${org.samye.dzong.london.ShiroUser.list()}" name="organizer.id" value="${event?.organizer?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="username" class="required ui-corner-all"/>
+      </fieldset>
+      <fieldset>
+        <label for="venue.id"><g:message code="event.venue.label"/></label>
+        <g:select from="${org.samye.dzong.london.venue.Venue.list()}" name="venue.id" value="${event?.venue?.id}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
+      </fieldset>
+      <fieldset>
+        <label for="price">Price (coming soon)</label>
+        <g:textField name="price" class="ui-corner-all"/>
+      </fieldset>
+
+      <div id="dateTabs">
+        <ul>
+          <li><a href="#once"><g:message code="event.once.title"/></a></li>
+          <li><a href="#regular"><g:message code="event.regular.title"/></a></li>
+          <li><a href="#series"><g:message code="event.series.title"/></a></li>
+        </ul>
+        <div id="once">
+          <fieldset>
+            <label for="eventDate"><g:message code="event.eventdate.label" default="Event Date"/></label>
+            <joda:datePicker name="eventDate" precision="day" value="${event?.eventDate}" noSelection="['': '']" class="ui-corner-all" years="${2010..2050}"/>
+          </fieldset>
+        </div>
+        <div id="regular">
+          <!-- TODO: add regular dates -->
+          <h1>Coming Soon</h1>
+        </div>
+        <div id="series">
+          <!-- TODO: add series dates -->
+          <h1>Coming Soon</h1>
+        </div>
+      </div>
+
+      <fieldset>
+        <label for="summary"><g:message code="event.summary.label"/></label>
+        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:event,field:'summary','errors')}" value="${fieldValue(bean:event,field:'summary')}" minlength="5"/>
+      </fieldset>
+      <fieldset class="last">
+        <label for="content"><g:message code="event.content.label"/></label>
+        <g:textArea rows="35" cols="40" name="content" class="required ui-corner-all ${hasErrors(bean:event,field:'content','errors')}" value="${fieldValue(bean:event,field:'content')}" minlength="5"/>
+      </fieldset>
+      <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>
+    </g:form>
+  </body>
 </html>
+
+
