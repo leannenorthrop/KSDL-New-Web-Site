@@ -38,7 +38,7 @@
             <g:if test="${articleInstance.image}">
               <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
             </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link controller="article" action="view" id="${articleInstance.id}">Read More...</g:link></p>
+            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
           </li>
         </g:each>
       </ol>
@@ -51,7 +51,7 @@
             <g:if test="${articleInstance.image}">
               <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
             </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link controller="article" action="view" id="${articleInstance.id}">Read More...</g:link></p>
+            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
           </li>
         </g:each>
       </ol>
@@ -64,7 +64,7 @@
             <g:if test="${articleInstance.image}">
               <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
             </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link controller="article" action="view" id="${articleInstance.id}">Read More...</g:link></p>
+            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
           </li>
         </g:each>
       </ol>
@@ -77,7 +77,7 @@
             <g:if test="${articleInstance.image}">
               <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
             </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link controller="article" action="view" id="${articleInstance.id}">Read More...</g:link></p>
+            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
           </li>
         </g:each>
       </ol>

@@ -85,8 +85,35 @@ class Article extends Publishable {
             eq('deleted', Boolean.TRUE)
         }
 
-        publishedByTags { tags, orderCol, orderDir ->
+        publishedByTags { final tagsToFind, final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            tags {
+                or {
+                    tagsToFind.each { tagname ->
+                        eq 'name', 'home'
+                    }
+                }
+            }
+            order("${orderCol}", "${orderDir}")
+        }
 
+        homePageArticles { orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            tags {
+                eq 'name', 'home'
+            }
+            order("${orderCol}", "${orderDir}")
+        }
+
+        meditationPageArticles { orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            tag {
+                eq 'name', 'home'
+            }
+            order("${orderCol}", "${orderDir}")
         }
     }
 

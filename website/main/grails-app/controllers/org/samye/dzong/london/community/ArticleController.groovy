@@ -27,7 +27,7 @@ import org.apache.shiro.SecurityUtils
 import com.burtbeckwith.grails.twitter.service.*
 
 /**
- * 
+ *
  */
 class ArticleController {
     def userLookupService
@@ -202,7 +202,6 @@ class ArticleController {
             if (params.tags) {
                 articleInstance.parseTags(params.tags)
             }
-
             if (!articleInstance.hasErrors() && articleInstance.save()) {
                 if (isFirstPublish) {
                     try {
@@ -217,8 +216,9 @@ class ArticleController {
                 redirect(action: manage)
             }
             else {
-                flash.message = "Article ${articleInstance.title} could not be ${params.state} due to an internal error. Please try again."
-                redirect(action: pre_publish, id: params.id)
+                flash.isError=true
+                flash.message = "Article ${articleInstance.title} could not be ${params.publishState} due to an internal error. Please try again."
+                return render(view: 'publish', model: [articleInstance: articleInstance], id: params.id)
             }
         }
         else {

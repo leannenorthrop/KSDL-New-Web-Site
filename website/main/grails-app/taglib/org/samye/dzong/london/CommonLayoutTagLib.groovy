@@ -31,7 +31,7 @@ class CommonLayoutTagLib {
                     tags.eachWithIndex { tag, index ->
                     li {
                         def label = (tag[0].contains (' ') ? "\"${tag[0]}\"" : tag[0]) + " (${tag[1]})";
-                        def linkElement = link (controller: 'article', params: [tags:[tag[0]]]) {
+                        def linkElement = link (controller: 'home', action: 'list', params: [tags:[tag[0]]]) {
                             "<span class=\"tag${ranks[index]}\">${label}</span>"
                         }
                         mkp.yieldUnescaped (linkElement)}
