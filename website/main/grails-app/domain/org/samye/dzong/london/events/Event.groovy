@@ -124,6 +124,39 @@ class Event extends Publishable {
         publishedByTags { tags, orderCol, orderDir ->
 
         }
+
+        homePage { orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            order("${orderCol}", "${orderDir}")
+        }
+
+        meditation { orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'M'
+            order("${orderCol}", "${orderDir}")
+        }
+
+        buddhism { orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'M'
+            order("${orderCol}", "${orderDir}")
+        }
+
+        community { orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'M'
+            order("${orderCol}", "${orderDir}")
+        }
+        wellbeing { orderCol, orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'M'
+            order("${orderCol}", "${orderDir}")
+        }
     }
 
     String toString() {

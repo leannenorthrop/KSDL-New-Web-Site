@@ -12,6 +12,7 @@
     <div class="col1_80_Percent">
       <div class="box">
         <h2>Forthcoming Events</h2>
+
       </div>
     </div>
     <div class="col2_20_Percent">

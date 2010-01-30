@@ -1,20 +1,22 @@
 package org.samye.dzong.london
 import javax.servlet.http.Cookie
 import org.samye.dzong.london.community.Article
+import org.samye.dzong.london.events.Event
 
 class HomeController {
     def articleService
 
     def index = {
         def articles = Article.homePageArticles('lastUpdated', 'asc').list()
-        println "Found ${articles} home articles"
 
         def meditationArticles = articles.find { it.category == 'M'}
         def communityArticles = articles.find { it.category == 'C'}
         def buddhismArticles = articles.find { it.category == 'B'}
         def wellbeingArticles = articles.find { it.category == 'W'}
-        def newsArticles = articleService.publishedByTags(['news'], [max: 5])
-        model:[meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles]
+        def newsArticles = articles.find { it.category == 'N'}
+
+        def events = Event.homePage('lastUpdated', 'asc').list()
+        model:[meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
     }
 
     def list = {
