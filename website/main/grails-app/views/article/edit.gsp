@@ -65,7 +65,7 @@
       <fieldset>
         <label for="title"><g:message code="article.image.label"/></label>
         <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-        <g:select from="${org.samye.dzong.london.media.Image.list()}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
       </fieldset>
       <fieldset>
         <label for="summary"><g:message code="article.summary.label"/></label>
