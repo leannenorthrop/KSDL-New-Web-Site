@@ -7,13 +7,15 @@ class HomeController {
     def articleService
 
     def index = {
-        def articles = Article.homePageArticles('lastUpdated', 'asc').list()
-
+        def articles = Article.findAllByTagWithCriteria('home') {
+            eq 'publishState', 'Published'
+            order("datePublished", "desc")
+        }
         def meditationArticles = articles.find { it.category == 'M'}
         def communityArticles = articles.find { it.category == 'C'}
         def buddhismArticles = articles.find { it.category == 'B'}
         def wellbeingArticles = articles.find { it.category == 'W'}
-        def newsArticles = articles.find { it.category == 'N'}
+        def newsArticles = articles.findAll { it.category == 'N'}
 
         def events = Event.homePage('lastUpdated', 'asc').list()
         model:[meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]

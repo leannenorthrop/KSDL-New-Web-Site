@@ -81,6 +81,13 @@ div.list + div.manage {
     font-size: smaller;
     padding: 0.2em 1em;
 }
+.services {
+    border: 1px solid rgb(157,134,192);
+    background: rgb(180,134,255);
+    background: rgba(180,134,255,0.7);
+    font-size: x-big;
+    padding: 0.2em 1em;
+}
 
 /* logo */
 .logo {
@@ -222,4 +229,13 @@ span.amp {
 ------------------------------------------------*/
 .articles ol h3 a{
     color: rgb(143,193,0);
+}
+
+div.services * {
+    color: black;
+}
+
+div.services h1 {
+    font-style:italic;
+    font-weight: bold;
 }

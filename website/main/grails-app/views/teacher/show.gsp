@@ -29,10 +29,10 @@
     </head>
     <body>
         <div class="col1_80_Percent article">
-            <h2>${teacher?.title} ${teacher?.name}</h2>
+            <h2><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher?.name}</h2>
 
-            <div class="body">
-                <img src="${createLink(controller: 'image', action: 'src', id: teacher?.image.id)}" title="${teacher?.image.name}" alt="${teacher?.image.name}"/>
+            <div class="body group">
+                <img src="${createLink(controller: 'image', action: 'src', id: teacher?.image.id)}" title="${teacher?.image.name}" alt="${teacher?.image.name}" style="float:right;"/>
                 ${teacher.content.encodeAsTextile()}
             </div><!-- /body -->
         </div><!-- /left -->

@@ -4,36 +4,52 @@
 */
 
 body {
-    background: rgb(242,238,211);
+    background: rgb(242, 238, 211);
 }
 
 /* Links
 --------------------------------------------------*/
 
 a, a:link, a:visited, a:hover, a:active {
-    color: rgb(84,164,222);
+    color: rgb(84, 164, 222);
     text-decoration: none;
     cursor: pointer;
 }
 
 .email a {
-	background: url(images/Email.png) no-repeat left 50%;
-	padding-left: 20px;
-	line-height: 1.6em;	
+    background: url(images/Mail.png) no-repeat left 50%;
+    padding-left: 28px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .twitter a {
-	background: url(images/Twitter.png) no-repeat left 50%;
-	padding-left: 20px;
-	line-height: 1.6em;	
+    background: url(images/Twitter.png) no-repeat left 50%;
+    padding-left: 28px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
 .rss a {
-	background: url(images/RSS.png) no-repeat left 50%;
-	padding-left: 20px;
-	line-height: 1.6em;
+    background: url(images/RSS.png) no-repeat left 50%;
+    padding-left: 28px;
+    padding-top: 4px;
+    padding-bottom: 4px;
 }
 
+.calendar a {
+    background: url(images/iCal.png) no-repeat left 50%;
+    padding-left: 28px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.facebook a {
+    background: url(images/Chat.png) no-repeat left 50%;
+    padding-left: 28px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
 
 /* Headings (see fonts.css for font)
 ----------------------------------------------*/
@@ -41,7 +57,7 @@ h1 {
 }
 
 h2 {
-    border-bottom: 1px solid rgb(143,193,0);
+    border-bottom: 1px solid rgb(143, 193, 0);
     line-height: 1.4em;
     margin-bottom: 1em;
 }
@@ -61,8 +77,8 @@ h6 {
 /* Headings (see fonts.css for font)
 ----------------------------------------------*/
 ol {
-	margin-top: 1em;
-  	margin-left: 1em;
+    margin-top: 1em;
+    margin-left: 1em;
 }
 
 /* Boxes
@@ -73,45 +89,53 @@ ol {
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
     -o-border-radius: 16px;
-    padding-top:0.6em;
-    padding-bottom:0.6em;
+    padding-top: 0.6em;
+    padding-bottom: 0.6em;
     margin-bottom: 1em;
 }
 
 /* colors
 --------------------------------------------- */
 .white {
-    color:white;
+    color: white;
 }
+
 .red {
-    color: rgb(255,55,52);
+    color: rgb(255, 55, 52);
 }
+
 .orange {
-    color: rgb(255,152,52);
+    color: rgb(255, 152, 52);
 }
+
 .yellow {
-    color: rgb(255,200,52);
+    color: rgb(255, 200, 52);
 }
+
 .green {
-    color:rgb(143,193,0);
+    color: rgb(143, 193, 0);
 }
+
 .blue {
-    color: rgb(84,164,222);
+    color: rgb(84, 164, 222);
 }
+
 .cyan {
-    color: rgb(111,213,255);
+    color: rgb(111, 213, 255);
 }
+
 .purple {
-    color: rgb(180,134,255);
+    color: rgb(180, 134, 255);
 }
+
 .pink {
-    color: rgb(218,125,161);
+    color: rgb(218, 125, 161);
 }
 
 /* pagination
 --------------------------------------------- */
 .paginateButtons {
-    color: rgb(157,134,192);
+    color: rgb(157, 134, 192);
     font-family: verdana;
     font-weight: normal;
     font-size: x-small;
@@ -120,30 +144,32 @@ ol {
 }
 
 div.list + div.manage {
-    background: rgb(235,244,250) url(images/darkFadeBottom.png) bottom repeat-x;
+    background: rgb(235, 244, 250) url(images/darkFadeBottom.png) bottom repeat-x;
     border: 1px solid #ccc;
     border-top: 0;
 }
 
 .paginateButtons a {
     border: none;
-    color: rgb(57,134,192);
+    color: rgb(57, 134, 192);
     margin: 0 3px;
     padding: 2px 6px;
 }
+
 .paginateButtons span {
     padding: 2px 3px;
 }
 
 .paginateButtons .prevLink {
-    font-size:bigger;
+    font-size: bigger;
 }
 
 .paginateButtons .step {
 
 }
+
 .paginateButtons .nextLink {
-    font-size:bigger;
+    font-size: bigger;
 }
 
 /* Spinner
@@ -160,17 +186,56 @@ div.list + div.manage {
 }
 
 .cloud ul li {
-	display: inline;
-	padding: 0.2em;
+    display: inline;
+    padding: 0.2em;
 }
 
-.cloud span.tag1 { font-size: 0.7em; font-weight: 100; }
-.cloud span.tag2 { font-size: 0.8em; font-weight: 200; }
-.cloud span.tag3 { font-size: 0.9em; font-weight: 300; }
-.cloud span.tag4 { font-size: 1.0em; font-weight: 400; }
-.cloud span.tag5 { font-size: 1.2em; font-weight: 500; }
-.cloud span.tag6 { font-size: 1.4em; font-weight: 600; }
-.cloud span.tag7 { font-size: 1.6em; font-weight: 700; }
-.cloud span.tag8 { font-size: 1.8em; font-weight: 800; }
-.cloud span.tag9 { font-size: 2.2em; font-weight: 900; }
-.cloud span.tag10 { font-size: 2.5em; font-weight: 900; }
+.cloud span.tag1 {
+    font-size: 0.7em;
+    font-weight: 100;
+}
+
+.cloud span.tag2 {
+    font-size: 0.8em;
+    font-weight: 200;
+}
+
+.cloud span.tag3 {
+    font-size: 0.9em;
+    font-weight: 300;
+}
+
+.cloud span.tag4 {
+    font-size: 1.0em;
+    font-weight: 400;
+}
+
+.cloud span.tag5 {
+    font-size: 1.2em;
+    font-weight: 500;
+}
+
+.cloud span.tag6 {
+    font-size: 1.4em;
+    font-weight: 600;
+}
+
+.cloud span.tag7 {
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+.cloud span.tag8 {
+    font-size: 1.8em;
+    font-weight: 800;
+}
+
+.cloud span.tag9 {
+    font-size: 2.2em;
+    font-weight: 900;
+}
+
+.cloud span.tag10 {
+    font-size: 2.5em;
+    font-weight: 900;
+}

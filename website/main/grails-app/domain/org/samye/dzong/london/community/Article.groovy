@@ -98,22 +98,34 @@ class Article extends Publishable {
             order("${orderCol}", "${orderDir}")
         }
 
-        homePageArticles { orderCol, orderDir ->
+        meditationArticles { final orderCol, final orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
-            tags {
-                eq 'name', 'home'
-            }
-            order("${orderCol}", "${orderDir}")
+            eq 'category', 'M'
         }
 
-        meditationPageArticles { orderCol, orderDir ->
+        newsArticles { final orderCol, final orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
-            tag {
-                eq 'name', 'home'
-            }
-            order("${orderCol}", "${orderDir}")
+            eq 'category', 'N'
+        }
+
+        archivedNewsArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Archived'
+            eq 'category', 'N'
+        }
+
+        wellbeingArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'W'
+        }
+
+        communityArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'C'
         }
     }
 

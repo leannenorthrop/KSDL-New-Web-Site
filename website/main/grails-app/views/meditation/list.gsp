@@ -37,7 +37,7 @@
       <h1><g:message code="meditation.articles.title"/></h1>
       <ol>
         <g:each in="${articles}" status="i" var="articleInstance">
-          <li class="article">
+          <li class="article group">
             <h3><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h3>
             <h4>by <a>${articleInstance.author.username}</a></h4>
             <g:if test="${articleInstance.displayDate}">
