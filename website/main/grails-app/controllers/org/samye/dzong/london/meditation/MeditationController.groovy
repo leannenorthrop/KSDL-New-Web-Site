@@ -14,6 +14,7 @@ class MeditationController {
         def benefitsArticles = []
         def topArticles = []
 
+        // TODO 
         try {
             adviceArticles = articleService.publishedByTags(['meditation','advice', 'front'])
             benefitsArticles = articleService.publishedByTags(['meditation','benefits', 'front'])

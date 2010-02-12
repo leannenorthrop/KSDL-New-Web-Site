@@ -36,50 +36,15 @@
     <div class="col1_80_Percent">
       <div class="box">
         <h2><g:message code="event.today"/></h2>
-        <ol>
-          <g:findAll in="${events}" expr="it.eventDate.compareTo(new LocalDate()) <= 0">
-            <li class="article group">
-              <g:set var="t" value="${it.title}"/>
-              <h3><g:link action="view" id="${it?.id}">${t}</g:link></h3>
-              <h4>by <a>${it?.leader.name}</a></h4>
-              <h5><joda:format style="M-" date="${eventInstance?.eventDate}"/> <joda:format style="-M" date="${eventInstance?.startTime}"/></h5>
-              <g:if test="${it.image}">
-                <img src="${createLink(controller: 'image', action: 'thumbnail', id: it.image.id)}" title="${it.image.name}" alt="${it.image.name}" style="float:left;"/>
-              </g:if>
-              <p>${it.summary}</p>
-            </li>
-          </g:findAll>
-        </ol>
+        <g:render template="/eventlist" model="[events: todaysEvents]"/>
       </div>
     <div class="box">
         <h2><g:message code="event.this.week"/></h2>
-        <ol>
-          <g:findAll in="${events}" expr="it.eventDate.compareTo(new LocalDate(2010, 2, 7)) <= 0">
-            <li class="article group">
-              <g:set var="t" value="${it.title}"/>
-              <h3><g:link action="view" id="${it.id}">${t}</g:link></h3>
-              <h4>by <a>${it.leader.name}</a></h4>
-              <h5><joda:format style="M-" date="${eventInstance?.eventDate}"/><joda:format style="-M" date="${eventInstance?.startTime}"/></h5>
-              <g:if test="${it.image}">
-                <img src="${createLink(controller: 'image', action: 'thumbnail', id: it.image.id)}" title="${it.image.name}" alt="${it.image.name}" style="float:left;"/>
-              </g:if>
-              <p>${it.summary}</p>
-            </li>
-          </g:findAll>
-        </ol>
+        <g:render template="/eventlist" model="[events: thisWeeksEvents]"/>
       </div>
       <div class="box">
         <h2><g:message code="event.this.month"/></h2>
-        <ol>
-          <g:findAll in="${events}" expr="it.eventDate.compareTo(new LocalDate(2010,2,28)) <= 0">
-            <li class="article group">
-              <g:set var="t" value="${it.title}"/>
-              <h3><g:link action="view" id="${it.id}">${t}</g:link></h3>
-              <h4>by <a>${it.leader.name}</a></h4>
-              <h5><joda:format style="M-" date="${eventInstance?.eventDate}"/> <joda:format style="-M" date="${eventInstance?.startTime}"/></h5>
-            </li>
-          </g:findAll>
-        </ol>
+        <g:render template="/eventlist" model="[events: thisWeeksEvents]"/>
       </div>
     </div>
     <div class="col2_20_Percent">

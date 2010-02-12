@@ -41,7 +41,6 @@
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
   </head>
   <body class="home">
-    <lsdc:header/>
     <!--lsdc:nav current="${controllerName}"/-->
     <div class='nav group'><ul><li class='first current'><a href='/main'><strong><g:message code="home"/></strong><em><g:message code="home.desc"/></em></a></li></ul></div>
 

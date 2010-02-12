@@ -45,7 +45,11 @@ class EventController {
     }
 
     def home = {
-        return [events: Event.publishState('Published').list(), title: "Current Programme"]
+        def events = Event.publishState('Published').list();
+        def todaysEvents = events.findAll() { it.eventDate.compareTo(new LocalDate()) <= 0};
+        def thisWeeksEvents = events.findAll() {it.eventDate.compareTo(new LocalDate(2010, 2, 7)) <= 0};
+        def thisMonthEvents = events.findAll() {it.eventDate.compareTo(new LocalDate(2010,2,28)) <= 0};
+        return [events: events,todaysEvents:todaysEvents, thisWeeksEvents:thisWeeksEvents,title: "Current Programme"]
     }
 
     def list = {

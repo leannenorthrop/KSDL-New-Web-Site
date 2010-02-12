@@ -93,12 +93,12 @@
         <div id="content-tabs">
             <ul>
                 <li><a href="#edit-tab"><g:message code="edit.tab.title" default="Edit"/></a></li>
-                <li><a href="${createLink(controller: 'help', action: 'textile')}" title="Hints Tab"><g:message code="hints.tab.title" default="Hints"/></a></li>
+                <li><a href="${createLink(controller: 'manageSite', action: 'textile')}" title="Hints Tab"><g:message code="hints.tab.title" default="Hints"/></a></li>
                 <li><a href="#preview-tab"><g:message code="preview.tab.titile" default="Preview"/></a></li>
             </ul>
             <div id="edit-tab">
                 <label for="content"><g:message code="article.content.label"/></label>
-                <g:textArea rows="35" cols="40" name="content" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'content','errors')}" value="${fieldValue(bean:articleInstance,field:'content')}" minlength="5"/>
+                <g:textArea rows="35" cols="40" name="content" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'content','errors')}" value="${fieldValue(bean:articleInstance,field:'content')}"/>
             </div>
             <div id="Hints_Tab">
             </div>

@@ -34,71 +34,31 @@
   </head>
   <body>
     <div class="col1_80_Percent">
-      <ol class="box">
-        <g:each in="${topArticles}" status="i" var="articleInstance">
-          <li>
-            <h2>${articleInstance.title}</h2>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}"><g:message code="content.more"/></g:link></p>
-          </li>
-        </g:each>
-      </ol>
+      <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
     <div class="col2_20_Percent">
-      <div class="box">
+      <!--div class="box">
         <h2>Video</h2>
-      </div>
+      </div-->
       <div class="box">
-        <h2>Resources</h2>
+        <h2><g:message code="meditation.resources"/></h2>
         <ol>
-          <li><g:link action="all">Articles</g:link></li>
+          <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
         </ol>
       </div>
     </div>
     <div class="col1_33_Percent">
       <div class="articles box">
-        <ol>
-          <g:each in="${adviceArticles}" status="i" var="articleInstance">
-            <li>
-              <h2>${articleInstance.title}</h2>
-              <g:if test="${articleInstance.image}">
-                <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-              </g:if>
-              <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}"><g:message code="content.more"/></g:link></p>
-            </li>
-          </g:each>
-        </ol>
+        <g:render template="/toparticles" model="[articles:adviceArticles]"/>
       </div>
       <div class="articles box">
-        <ol>
-          <g:each in="${benefitsArticles}" status="i" var="articleInstance">
-            <li>
-              <h3>${articleInstance.title}</h3>
-              <g:if test="${articleInstance.image}">
-                <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-              </g:if>
-              <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}"><g:message code="content.more"/></g:link></p>
-            </li>
-          </g:each>
-        </ol>
+        <g:render template="/toparticles" model="[articles:benefitsArticles]"/>
       </div>
     </div>
     <div class="col2_66_Percent">
       <div class="box">
         <h2><g:message code="event.meditation"/></h2>
-        <ol>
-          <g:each in="${events}" var="event">
-            <li class="article group">
-              <g:set var="t" value="${event.title}"/>
-              <h3><g:link controller="event" action="view" id="${event?.id}">${t}</g:link></h3>
-              <h4>by <g:link controller="teacher" action="view" id="${event?.leader?.id}">${event?.leader.name}</g:link></h4>
-              <h5><joda:format style="M-" date="${event?.eventDate}"/> <joda:format style="-M" date="${event?.startTime}"/></h5>
-              <g:if test="${event.image}">
-                <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}" style="float:left;"/>
-              </g:if>
-              <p>${event.summary}</p>
-            </li>
-          </g:each>
-        </ol>
+        <g:render template="/eventlist" model="[events: events]"/>
       </div>
     </div>
   </body>

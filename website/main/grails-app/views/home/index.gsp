@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Welcome</title>
+    <title><g:message code="home"/></title>
     <meta name="layout" content="main">
     <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
@@ -11,90 +11,34 @@
   <body>
     <div class="col1_80_Percent">
       <div class="events box">
-        <h2>Forthcoming Events</h2>
-        <ol class="box">
-          <g:each in="${events}" status="i" var="event">
-            <li class="group">
-              <h3>${event?.title}</h3>
-              <h4><joda:format style="M-" date="${event?.eventDate}"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h4>
-              <h5><g:link controller="teacher" action="view" id="${event?.leader?.id}"><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</g:link></h5>
-
-              <g:if test="${event.image}">
-                <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
-              </g:if>
-              <p>${event.summary.encodeAsTextile()} <g:link controller="event" action="view" id="${event.id}">Read More...</g:link></p>
-            </li>
-          </g:each>
-        </ol>
+        <g:render template="/eventlist" model="[events: events, heading: 'home.events']"/>
       </div>
     </div>
     <div class="col2_20_Percent">
-      <div class="box">
-        <h2>News <span class="amp">&amp;</span> Goings On</h2>
-        <ol>
-          <g:each in="${newsArticles}" status="i" var="articleInstance">
-            <li>
-              ${articleInstance.title} <g:link controller="news" action="view" id="${articleInstance.id}">Read More...</g:link>
-            </li>
-          </g:each>
-        </ol>
+      <div class="news box">
+        <g:render template="/shortnewslist" model="[articles: newsArticles, heading: 'home.news']"/>
       </div>
       <div class="box">
-        <h2>Gallery</h2>
+        <h1><g:message code="service.header"/></h1>
+        <ul class="services">
+          <li class="email"><g:link controller="feed" action="index"><g:message code="service.email"/></g:link></li>
+          <li class="rss"><g:link controller="feed" action="index"><g:message code="service.rss"/></g:link></li>
+          <li class="calendar"><g:link controller="feed" action="index"><g:message code="service.calendar"/></g:link></li>
+          <li class="twitter"><a href="http://twitter.com/lsdci"><g:message code="service.twitter"/></a></li>
+        </ul>
       </div>
-      <lsdc:cloud/>
     </div>
     <div class="col1_50_Percent">
-      <ol class="box">
-        <g:each in="${meditationArticles}" status="i" var="articleInstance">
-          <li>
-            <h2>${articleInstance.title}</h2>
-            <g:if test="${articleInstance.image}">
-              <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-            </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
-          </li>
-        </g:each>
-      </ol>
+      <g:render template="/toparticles" model="[articles:meditationArticles]"/>
     </div>
     <div class="col2_50_Percent">
-      <ol class="box">
-        <g:each in="${communityArticles}" status="i" var="articleInstance">
-          <li>
-            <h2>${articleInstance.title}</h2>
-            <g:if test="${articleInstance.image}">
-              <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-            </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
-          </li>
-        </g:each>
-      </ol>
+      <g:render template="/toparticles" model="[articles:communityArticles]"/>
     </div>
     <div class="col1_50_Percent">
-      <ol class="box">
-        <g:each in="${buddhismArticles}" status="i" var="articleInstance">
-          <li>
-            <h2>${articleInstance.title}</h2>
-            <g:if test="${articleInstance.image}">
-              <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-            </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
-          </li>
-        </g:each>
-      </ol>
+      <g:render template="/toparticles" model="[articles:buddhismArticles]"/>
     </div>
     <div class="col2_50_Percent">
-      <ol class="box">
-        <g:each in="${wellbeingArticles}" status="i" var="articleInstance">
-          <li>
-            <h2>${articleInstance.title}</h2>
-            <g:if test="${articleInstance.image}">
-              <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-            </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()} <g:link action="view" id="${articleInstance.id}">Read More...</g:link></p>
-          </li>
-        </g:each>
-      </ol>
+      <g:render template="/toparticles" model="[articles:wellbeingArticles]"/>
     </div>
   </body>
 </html>

@@ -77,7 +77,7 @@
         </fieldset>
         <fieldset>
           <label for="content"><g:message code="article.content.label"/></label>
-          <g:textArea rows="35" cols="40" name="content" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'content','errors')}" value="${fieldValue(bean:articleInstance,field:'content')}" minlength="5"/>
+          <g:textArea rows="35" cols="40" name="content" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'content','errors')}" value="${fieldValue(bean:articleInstance,field:'content')}"/>
         </fieldset>
       </shiro:hasAnyRole>
       <fieldset class="group">

@@ -12,19 +12,19 @@ class NewsController {
     def home = {
         def articles = Article.newsArticles('datePublished', 'desc').list(max:15)
         def archivedArticles = Article.archivedNewsArticles('datePublished', 'desc').list(max:8)
-        def totalPublishedNewsArticles = Article.newsArticles('datePublished', 'desc').count()
-        def totalArchived = Article.archivedNewsArticles('datePublished', 'desc').count()
+        def totalPublishedNewsArticles = Article.categoryArticles('N').count()
+        def totalArchived = Article.categoryArticles('N').count()
         render(view: 'index', model:[ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles])
     }
 
     def current = {
-        def articles = Article.newsArticles('datePublished', 'dsc')
-        render(view: 'list', model:[ articles: articles, title: 'Current News'])
+        def news = Article.newsArticles('datePublished', 'desc').list()
+        render(view: 'list', model:[ news: news, title: 'news.current.title'])
     }
 
-    def archive = {
-        def articles = Article.archivedNewsArticles('datePublished', 'dsc')
-        render(view: 'list', model:[ articles: articles, title: 'Older News'])
+    def archived = {
+        def news = Article.archivedNewsArticles('datePublished', 'desc').list()
+        render(view: 'list', model:[ news: news, title: 'news.archived.title'])
     }
 
     def view = {
