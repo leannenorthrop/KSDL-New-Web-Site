@@ -46,7 +46,7 @@ class ArticleController {
     }
 
     // the save and update actions only accept POST requests
-    static allowedMethods = [save: 'POST', update: 'POST',changeState: 'GET']
+    static allowedMethods = [save: 'POST', update: 'POST',changeState: 'GET', preview: 'POST']
 
     def ajaxUnpublishedArticles = {
         params.offset = params.offset ? params.offset.toInteger() : 0
@@ -126,6 +126,10 @@ class ArticleController {
         else {
             return [articleInstance: articleInstance, id: params.id]
         }
+    }
+
+    def preview = {
+        render(view: 'preview', model: [content: params.previewcontenttxt])
     }
 
     def delete = {
