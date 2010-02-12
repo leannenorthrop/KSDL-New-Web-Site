@@ -22,17 +22,33 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  All news articles
-  User: Leanne
-  Date: Jan 24, 2010, 2:00:21 PM
+  Created by IntelliJ IDEA.
+  User: northrl
+  Date: Feb 12, 2010
+  Time: 7:34:02 PM
+  To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-  <head>
-    <title><g:message code="${title}" default=""/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <g:render template="/articlelist" model="[articles:news,heading:'news.heading',controller:'news',action:'view']"/>
-  </body>
-</html>
+<h2><g:message code="${heading}"/></h2>
+<ol>
+  <g:each in="${events}" status="i" var="event">
+    <li class="group">
+      <h3>${event?.title}</h3>
+      <h4><joda:format style="M-" date="${event?.eventDate}"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h4>
+      <h5><g:link controller="teacher" action="view" id="${event?.leader?.id}"><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</g:link></h5>
+
+      <g:if test="${event.image}">
+        <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
+      </g:if>
+      <p>
+        ${event.summary}
+      </p>
+      <p>
+        <g:if test="${event.content}">
+          <g:link controller="event" action="view" id="${event.id}"><g:message code='content.more'/></g:link>
+        </g:if>
+      </p>
+    </li>
+  </g:each>
+</ol>

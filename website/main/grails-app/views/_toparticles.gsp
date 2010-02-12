@@ -22,17 +22,29 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  All news articles
-  User: Leanne
-  Date: Jan 24, 2010, 2:00:21 PM
+  Created by IntelliJ IDEA.
+  User: northrl
+  Date: Feb 12, 2010
+  Time: 7:36:15 PM
+  To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html>
-  <head>
-    <title><g:message code="${title}" default=""/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <g:render template="/articlelist" model="[articles:news,heading:'news.heading',controller:'news',action:'view']"/>
-  </body>
-</html>
+<ol>
+  <g:each in="${articles}" status="i" var="articleInstance">
+    <li>
+      <h2>${articleInstance.title}</h2>
+      <g:if test="${articleInstance.image}">
+        <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+      </g:if>
+      <p>
+        ${articleInstance.summary}
+      </p>
+      <p>
+        <g:if test="${articleInstance.content}">
+          <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+        </g:if>
+      </p>
+    </li>
+  </g:each>
+</ol>
