@@ -1,4 +1,11 @@
-%{------------------------------------------------------------------------------
+<%--
+  Template for content administration pages.
+  User: Leanne
+  Date: Jan 24, 2010, 2:00:21 PM
+--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!------------------------------------------------------------------------------
   - Copyright © 2010 Leanne Northrop
   -
   - This file is part of Samye Content Management System.
@@ -19,15 +26,7 @@
   -
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
-  ----------------------------------------------------------------------------}%
-
-<%--
-  Template for content administration pages.
-  User: Leanne
-  Date: Jan 24, 2010, 2:00:21 PM
---%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+  ----------------------------------------------------------------------------!>
 <html>
   <head>
     <title><g:message code="title" default="Kagyu Samye Dzong London"/> <g:layoutTitle/></title>
