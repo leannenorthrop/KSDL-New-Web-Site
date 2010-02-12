@@ -1,8 +1,3 @@
-/*
-Title:      Screen styles and ie/win patches
-*/
-
 /* import stylesheets and hide from ie/mac \*/
-@import url("colours.css");
-@import url("header.css");
+@import url("main.css");
 /* end import/hide */

@@ -1,100 +1,13 @@
 /* page structure
 --------------------------------------------- */
 body {
-    min-width: 50em;
-}
-
-.pagecontent {
-    position:relative;
-}
-.content {
-    margin-top: 0em;
-    margin-left: 0.2em;
-    margin-right: 0.2em;
-    margin-bottom: 1em;
-    position: relative;
-}
-
-.footer {
-    display: block;
-    width: 100%;
-    height: 1.75em;
-    font-size: smaller;
-    padding: 0.2em 1em;
-    text-align: center;
-}
-
-#banner img {
-    padding: 0;
-    background: transparent;
-    box-shadow: none;
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-}
-
-/* navigation
-------------------------------------------------*/
-.nav {
-    position: relative;
-}
-
-.nav ul {
-    margin: 0 0 0 125px;
-    list-style: none;
-    overflow: hidden;
-    font-size: 70%;
-}
-
-.nav ul li {
-    float: left;
-}
-
-.nav ul a {
-    line-height: 1.6em;
-    padding: 0.5em 0.8em 0.3em 0.75em;
-    display: block;
-    text-decoration: none;
-    border: none;
-}
-
-/* highlight current area */
-.nav ul a strong {
-    text-align: left;
-    display: block;
-    font-family: verdana;
-    font-size: 120%;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    min-width: 80em;
 }
 
 .nav ul a em {
-    display: block;
+    display: none;
 }
 
-.nav ul li.last a {
-    border: none;
-    margin-right: 0;
-}
-
-.nav ul li.first a {
-    margin-left: 0;
-}
-
-.services {
-    display: block;
-    width: 100%;
-    text-align: center;
-    margin-top: 0.6em;
-}
-
-.services .newsletter {
-    color: red;
-
-}
-
-.services ul, .services ul li {
-    display: inline;
-}
 /*************************************************
     Layout styles
 *************************************************/
@@ -110,13 +23,13 @@ body {
 .col1_50_Percent {
     float: left;
     width: 43.72%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
 }
 
 .col2_50_Percent {
     float: left;
     width: 43.72%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
 }
 
 /* 2 Columns Liquid Layout 2/3 + 1/3 with Guttering
@@ -124,13 +37,13 @@ body {
 .col1_66_Percent {
     float: left;
     width: 60%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
 }
 
 .col2_33_Percent {
     float: left;
     width: 30%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
 }
 
 /* 2 Columns Liquid Layout 2/3 + 1/3 with Guttering
@@ -138,13 +51,13 @@ body {
 .col1_33_Percent {
     float: left;
     width: 30%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
 }
 
 .col2_66_Percent {
     float: left;
     width: 60%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
 }
 
 /* 2 Columns Liquid Layout 80% + 20% with Guttering
@@ -152,14 +65,14 @@ body {
 .col1_80_Percent {
     float: left;
     width: 68%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
     padding-right: 2.3%;
 }
 
 .col2_20_Percent {
     float: left;
     width: 18%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
 }
 
 /* 2 Columns Liquid Layout 20% + 80% with Guttering
@@ -167,14 +80,14 @@ body {
 .col1_20_Percent {
     float: left;
     width: 15.2%;
-    margin: -0.25em 0 0 2.3%;
+    margin: 0 0 0 2.3%;
     padding-right: 2.3%;
 }
 
 .col2_80_Percent {
     float: left;
     width: 70%;
-    margin: -0.25em 0 1em 2.3%;
+    margin: 0 0 1em 2.3%;
     padding-right: 3%;
 }
 

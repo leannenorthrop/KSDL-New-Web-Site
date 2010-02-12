@@ -1,5 +1,4 @@
 /* self-clear floats */
-
 .group:after {
     content: ".";
     display: block;

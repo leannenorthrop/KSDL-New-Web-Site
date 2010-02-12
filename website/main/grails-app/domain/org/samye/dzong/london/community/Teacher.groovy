@@ -40,6 +40,7 @@ class Teacher extends Publishable {
     String summary;
     String content;
     Image image;
+    def messageSource
 
     static constraints = {
         title(blank:false,inList:['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS'])

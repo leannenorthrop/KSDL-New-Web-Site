@@ -1,9 +1,18 @@
 TODO
 
 ================================================================================
-                        FOR 31/01/2010
+                        FOR 28/03/2010
 ================================================================================
-1. Events
+0. Upgrade
+    - jQuery & theme
+    - Grails
+1. Community & Buddhism Sections
+2. Fetching articles and totals based on category
+3. Labels, similar & linking
+4. Community & Buddhism Sections
+5. Footer - Site map, Contact Us, Copyright, About this site, Visiting Us etc.
+6. CSS
+7. Events
     - Venue
     - Price
     - Teacher
@@ -11,18 +20,6 @@ TODO
     - Publish
     - Archived
     - Deleted
-2. Footer - Site map, Contact Us, Copyright, About this site, Visiting Us etc.
-3. Add content to pages for
-    - teachers
-    - events
-    - venues
-4. CSS
-5. Tag Cloud & Ensure articles viewed by tag are through home controller
-6. Community & Buddhism Sections
-
-================================================================================
-                        FOR 14/01/2010
-================================================================================
 8. Settings to be pulled from web container as resources:
     - Email
     - Twitter
@@ -68,6 +65,13 @@ TODO
         - Edit article
         - After publish
         - After archive
+17. Analytics
+18. Site Map & Legal Notice
+19. About this site.
+
+================================================================================
+                        
+================================================================================
 17. Searchable plugin
 18. look into ui-performance plugin
 19. Look into filterpane plugin
@@ -81,18 +85,13 @@ You Tube
   http://code.google.com/apis/youtube/overview.html
 
 Time Line
-January 2010 - Buddhism, Events,Users, Images, Community, Images, Venue & Rooms, Analytics
-Feburary 2010 - About, Help, Site Map, Legal,
-March 2010 - Well being,Niceties, Videos & Flickr
-April 2010 - Tidy Up, CSS & Browser testing
-May 2010 - Performance tweaking, database backups, robustness & security testing
+March - Tidy Up, Css & Browser testing
+April 2010 - Performance tweaking, database backups, robustness & security testing
+May 2010 - Niceties, Videos & Flickr
 
 http://www.londonsamyedzong.org/lsd/
 neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bernardmordan@yahoo.co.uk, bmordan@evelina.southwark.sch.uk
 mvn grails:run-app -Dgrails.env=test
-
- - need news, buddhism, community, meditation, venue & rooms, teachers by end of the month
-
 Commenting/documentation - check out grails documentation
 Database migration: run tests on hsql and mysql (images don't load properly, squirrell datascripts add quotes around table name which is incorrect)
 Unit and integration tests

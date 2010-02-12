@@ -38,8 +38,8 @@ fieldset input[type="text"], fieldset input[type="password"],fieldset textarea {
     border-left: 1px solid #bbb;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
-    background: white url(../site/images/darkFadeTop.png) repeat-x top left;
-    background: white url(../site/images/darkFadeTop.png) repeat-x top left;
+    background: white url(../themes/default/images/darkFadeTop.png) repeat-x top left;
+    background: white url(../themes/default/images/darkFadeTop.png) repeat-x top left;
 }
 
 fieldset input.required, fieldset textarea.required {
@@ -131,7 +131,7 @@ form label strong em {
 .errors li {
     background: url(images/exclamation.png) 8px 0% no-repeat;
     line-height: 16px;
-    padding-left: 30px;                                                      
+    padding-left: 30px;
 }
 
 .errors input, input.error, textarea.error, .errors select, select.error, fieldset input.error, fieldset textarea.error {
