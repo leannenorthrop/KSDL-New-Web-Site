@@ -41,7 +41,7 @@ class Article extends Publishable {
     static constraints = {
         title(blank:false,unique:true)
         summary(size:5..Integer.MAX_VALUE,blank:false)
-        content(size:5..Integer.MAX_VALUE,blank:false)
+        content(maxSize:Integer.MAX_VALUE,blank:true)
         image(nullable:true)
     }
 
@@ -98,6 +98,10 @@ class Article extends Publishable {
             order("${orderCol}", "${orderDir}")
         }
 
+        categoryArticles { final category ->
+            eq 'category', "${category}"
+        }
+
         meditationArticles { final orderCol, final orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
@@ -108,6 +112,7 @@ class Article extends Publishable {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'N'
+            order("${orderCol}", "${orderDir}")
         }
 
         archivedNewsArticles { final orderCol, final orderDir ->

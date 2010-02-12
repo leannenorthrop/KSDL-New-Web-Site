@@ -63,7 +63,7 @@ class Publishable implements Taggable {
         deleted()
         displayAuthor()
         displayDate()
-        category(blank:false,inList:['M','N','C','W','B'])
+        category(blank:false,inList:['M','N','C','W','B','T'])
     }
 
     static mapping = {

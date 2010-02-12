@@ -4,56 +4,16 @@ import groovy.xml.StreamingMarkupBuilder
 
 class CommonLayoutTagLib {
     static namespace = 'lsdc'
-    def tagService
     def messageSource
 
-    def cloud = { attrs ->
-        def tags = tagService.tagCounts()
-        def biggestTagCount = tags.inject(0) {num, item ->
-            num = Math.max (num, item[1])
-        }
-
-        if (biggestTagCount == 0) {
-            out << "<div class=\"cloud group \"><h2>#{messageSource.getMessage('tag.cloud.title',null,null)}</h2><li></li></div>";
-            return;
-        }
-
-        def ranks = tags.collect { tag->
-            def percent = (tag[1] / biggestTagCount) * 100;
-            def group = Math.round (Math.floor (percent * 0.1));
-            return group
-        }
-
-        def cloudList = {
-            div (class:"cloud box group") {
-                ul {
-                    tags.eachWithIndex { tag, index ->
-                    li {
-                        def label = (tag[0].contains (' ') ? "\"${tag[0]}\"" : tag[0]) + " (${tag[1]})";
-                        def linkElement = link (controller: 'home', action: 'list', params: [tags:[tag[0]]]) {
-                            "<span class=\"tag${ranks[index]}\">${label}</span>"
-                        }
-                        mkp.yieldUnescaped (linkElement)}
-                    }
-                }
-            }
-        }
-
-        def builder = new StreamingMarkupBuilder()
-        builder.encoding = "UTF-8"
-        out << builder.bind (cloudList)
-    }
-
-
      def nav = { attrs ->
-        def navControllers = ['home', 'news', 'event', 'meditation','community','wellbeing','buddhism']
+        def navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism']
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            navControllers = ['home', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
+            navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
         } else if (SecurityUtils.subject.principal != null) {
-            navControllers =['home', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
+            navControllers =['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
         }
 
-        def current = attrs.current
         def navList = {
             div (class:"nav group") {
                 ul {
@@ -82,26 +42,6 @@ class CommonLayoutTagLib {
         def builder = new StreamingMarkupBuilder ()
         builder.encoding = "UTF-8"
         out << builder.bind (navList)
-    }
-
-    def header = { attrs ->
-        def header = {
-            div(id:"banner") {
-                div(id:"text") {
-                    img(src:resource (dir: 'css/themes/default/images', file:'heading.png'))
-                }
-                div(id:"back") {
-                    div(id:"mid") {
-                        img(id:"bannerImg", src: resource(dir: 'css/themes/default/images', file:'whitetara.png'))
-                        div(id:"front"){}
-                    }
-                }
-            }
-        }
-
-        def builder = new StreamingMarkupBuilder()
-        builder.encoding = "UTF-8"
-        out << builder.bind (header)
     }
 
      def toolbar = { attrs ->

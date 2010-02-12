@@ -10,7 +10,7 @@ class ArticleService {
             tagQuery += "tl.tag.name = '${tag}' or "
         }
         tagQuery = tagQuery[0..-4] + "))"
-        def articles = Article.executeQuery("from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+        def articles = Article.executeQuery("from Article a where a.category = '${article.category}' and a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
         return articles ? (articles.size() > 5 ? articles[0..4] : articles) : []
     }
 
