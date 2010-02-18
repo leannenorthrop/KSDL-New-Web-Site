@@ -29,23 +29,32 @@ import org.grails.taggable.*
  * domain class. Used to control the publish state of the object. Usually I
  * prefer delegation to inheritance but it may be useful to perform a lose
  * join to find all objects of a particular type in a particular publish state.
+ * Empahsis is now on category rather than tags... tags have been relegated to
+ * be used to find similar articles.
  *
+ * Category
+ * <ol>
+ * <li>N - News</li>
+ * <li>M - Meditation</li>
+ * <li>C - Community</li>
+ * <li>W - Wellbeing</li>
+ * <li>B - Buddhism</li>
+ * <li>T - Teachers</li>
+ * </ol>
  * TODO: Test
  * TODO: Change dates to joda dates
- * TODO: Add category so that tags are not used
- * TODO: Add home boolean
- * TODO: Add front boolean
- * TODO: Add isReady for publication boolean
  */
 class Publishable implements Taggable {
     String publishState
-    Boolean deleted
     ShiroUser author
     Date datePublished
     Date dateCreated
     Date lastUpdated
     Boolean displayAuthor
     Boolean displayDate
+    Boolean home
+    Boolean featured
+    Boolean deleted
     String category
 
     def auditLogService
@@ -53,7 +62,7 @@ class Publishable implements Taggable {
     static auditable = true
 
     static constraints = {
-        publishState(blank:false,inList:["Unpublished", "Published", "Archived"])
+        publishState(blank:false,inList:["Unpublished", "Ready For Publication", "Published", "Archived"])
         author(nullable:true)
         displayAuthor(nullable:true)
         displayDate(nullable:true)
@@ -61,8 +70,8 @@ class Publishable implements Taggable {
         dateCreated(nullable:true)
         lastUpdated(nullable:true)
         deleted()
-        displayAuthor()
-        displayDate()
+        home()
+        featured()
         category(blank:false,inList:['M','N','C','W','B','T'])
     }
 
@@ -71,6 +80,24 @@ class Publishable implements Taggable {
     }
 
     static namedQueries = {
+        homePageArticles {
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "Published"
+            eq 'home', Boolean.TRUE
+            order("datePublished", "desc")
+        }
+
+        featuredArticles { final category ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "Published"
+            eq 'category', category
+            or {
+                eq 'home', Boolean.TRUE
+                eq 'featured', Boolean.TRUE
+            }
+            order("datePublished", "desc")
+        }
+
         authorPublishState { username, publishState ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState

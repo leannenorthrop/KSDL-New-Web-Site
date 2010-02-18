@@ -13,7 +13,7 @@ environments {
     development {
         dataSource {
             // one of 'create', 'create-drop','update'
-            dbCreate = "create"
+            dbCreate = "update"
 //            url = "jdbc:mysql://localhost:3306/lsd"
 //            driverClassName = "com.mysql.jdbc.Driver"
 //            username = "northrl"

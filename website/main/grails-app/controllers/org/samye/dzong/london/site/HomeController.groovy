@@ -7,10 +7,7 @@ class HomeController {
     def articleService
 
     def index = {
-        def articles = Article.findAllByTagWithCriteria('home') {
-            eq 'publishState', 'Published'
-            order("datePublished", "desc")
-        }
+        def articles = Article.homeArticles("datePublished", "desc").list()
         def meditationArticles = articles.findAll { it.category == 'M'}
         def communityArticles = articles.findAll { it.category == 'C'}
         def buddhismArticles = articles.findAll{ it.category == 'B'}

@@ -1,3 +1,5 @@
 ID,VERSION,USERNAME,PASSWORD_HASH
-3,0,author1,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
-4,0,author2,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
+3,0,Author 1,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
+4,0,Author 2,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
+5,0,AuthorEditor,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d
+6,0,Editor,f86c09c1159dc2082ee27f7aef08f1ed6a5be03d

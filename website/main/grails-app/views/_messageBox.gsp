@@ -20,18 +20,26 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+
+<%--
+  Template for showing flash messages & errors
+  User: Leanne Northrop
+  Date: Feb 18, 2010, 1:13:20 PM
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.community.Article" %>
-<html>
-  <head>
-    <meta name="layout" content="content-admin"/>
-    <title><g:message code="manage.articles.title"/></title>
-    <g:set var="tabsId" value="articles-tabs"/>
-    <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
-  </head>
-  <body>
-    <h1 class="ui-widget-header"><g:message code="manage.articles.title"/></h1>
-    <g:render template="/messageBox" model="[flash: flash]"/>
-    <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
-  </body>
-</html>
+<g:if test="${flash.message && !flash.isError}">
+  <p class="ui-widget ui-state-highlight ui-corner-all">
+    <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
+  </p>
+</g:if>
+<g:elseif test="${(flash.message && flash.isError)}">
+  <g:set var="errorsList"><g:renderErrors bean="${articleInstance}" as="list"></g:renderErrors></g:set>
+  <div class="ui-widget ui-state-error ui-corner-all">
+    <strong>
+      <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>
+    </strong>
+    <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"></g:message>
+    ${errorsList}
+  </div>
+</g:elseif>

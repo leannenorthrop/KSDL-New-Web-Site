@@ -11,7 +11,7 @@ class ArticleService {
         }
         tagQuery = tagQuery[0..-4] + "))"
         def articles = Article.executeQuery("from Article a where a.category = '${article.category}' and a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
-        return articles ? (articles.size() > 5 ? articles[0..4] : articles) : []
+        return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
     }
 
     def countPublishedByTags(tags, inclusive = Boolean.FALSE) {
@@ -120,6 +120,16 @@ class ArticleService {
         return [articles: articles, total: total]
     }
 
+    def userReady(params) {
+        def order = params.sort?: "title"
+        def dir = params.order?: "asc"
+        def username = userLookupService.username();
+        def articles = Article.orderedAuthorPublishState(username,"Ready For Publication", order, dir).list(params);
+        def total = Article.authorPublishState(username,"Ready For Publication").count();
+        println "found ${articles.size()} of ${total}"
+        return [articles: articles, total: total]
+    }
+
     def userPublished(params) {
         def order = params.sort?: "title"
         def dir = params.order?: "asc"
@@ -150,6 +160,15 @@ class ArticleService {
         def dir = params.order?: "asc"
         def articles = Article.orderedPublishState("Unpublished", order, dir).list(params);
         def total = Article.publishState("Unpublished").count();
+        println "found ${articles.size()} of ${total}"
+        return [articles: articles, total: total]
+    }
+
+    def ready(params) {
+        def order = params.sort?: "title"
+        def dir = params.order?: "asc"
+        def articles = Article.orderedPublishState("Ready For Publication", order, dir).list(params);
+        def total = Article.publishState("Ready For Publication").count();
         println "found ${articles.size()} of ${total}"
         return [articles: articles, total: total]
     }

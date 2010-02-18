@@ -33,7 +33,9 @@
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
           <th><g:message code="article.category"/></th>
-          <th><g:message code="article.tag"/></th>
+          %{--<th><g:message code="article.tag"/></th>--}%
+          <th><g:message code="article.is.home"/></th>
+          <th><g:message code="article.is.featured"/></th>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
@@ -49,7 +51,9 @@
               <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
             </td>
             <td><g:message code="${'publish.category.' + articleInstance?.category}"/></td>
-            <td><g:message code="${articleInstance?.tags.join(',')}"/></td>
+            %{--<td><g:message code="${articleInstance?.tags.join(',')}"/></td>--}%
+            <td><g:formatBoolean boolean="${articleInstance?.home}"/></td>
+            <td><g:formatBoolean boolean="${articleInstance?.featured}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
@@ -59,6 +63,7 @@
               <shiro:hasAnyRole in="['Editor','Administrator']">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${articleInstance.id}"><g:message code="article.unpublish.action"/></g:link>
                 <g:link action="changeState" params="[state:'Archived']" id="${articleInstance.id}"><g:message code="article.archive.action"/></g:link>
+                <g:link action="afterPublishEdit" id="${articleInstance.id}"><g:message code="article.afterpublishedit.action"/></g:link>
               </shiro:hasAnyRole>
             </td>
           </tr>

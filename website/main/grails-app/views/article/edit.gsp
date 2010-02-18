@@ -77,8 +77,7 @@
         <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${fieldValue(bean:articleInstance,field:'summary')}" minlength="5"/>
       </fieldset>
       <fieldset class="last">
-        <label for="content"><g:message code="article.content.label"/></label>
-        <g:textArea rows="35" cols="40" name="content" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'content','errors')}" value="${fieldValue(bean:articleInstance,field:'content')}"/>
+        <g:render template="/contentWithPreview" model="[previewController: 'article',publishableInstance:articleInstance]"/>
       </fieldset>
       <g:set var="submitBtnLabel"><g:message code="updatearticle.btn"/></g:set>
       <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>

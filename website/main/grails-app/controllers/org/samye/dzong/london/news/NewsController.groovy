@@ -10,7 +10,7 @@ class NewsController {
     }
 
     def home = {
-        def articles = Article.newsArticles('datePublished', 'desc').list(max:15)
+        def articles = Article.featuredNewsArticles('datePublished', 'desc').list(max:15)
         def archivedArticles = Article.archivedNewsArticles('datePublished', 'desc').list(max:8)
         def totalPublishedNewsArticles = Article.categoryArticles('N').count()
         def totalArchived = Article.categoryArticles('N').count()

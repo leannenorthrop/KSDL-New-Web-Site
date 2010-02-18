@@ -1,4 +1,4 @@
-/*******************************************************************************
+/** *****************************************************************************
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,7 +19,7 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ ***************************************************************************** */
 
 package org.samye.dzong.london.community
 
@@ -46,9 +46,9 @@ class ArticleController {
     }
 
     // the save and update actions only accept POST requests
-    static allowedMethods = [save: 'POST', update: 'POST',changeState: 'GET', preview: 'POST']
+    static allowedMethods = [save: 'POST', update: 'POST', changeState: 'GET', preview: 'POST', updatePublished: 'POST']
 
-    def ajaxUnpublishedArticles = {
+    def ajaxUnpublished = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         println params
@@ -61,7 +61,7 @@ class ArticleController {
         render(view: 'unpublished', model: model)
     }
 
-    def ajaxPublishedArticles = {
+    def ajaxPublished = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
@@ -74,7 +74,7 @@ class ArticleController {
         render(view: 'published', model: model)
     }
 
-    def ajaxArchivedArticles = {
+    def ajaxArchived = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
@@ -87,7 +87,7 @@ class ArticleController {
         render(view: 'archived', model: model)
     }
 
-    def ajaxDeletedArticles = {
+    def ajaxDeleted = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
@@ -98,6 +98,19 @@ class ArticleController {
             model = articleService.userDeleted(params)
         }
         render(view: 'deleted', model: model)
+    }
+
+    def ajaxReady = {
+        params.offset = params.offset ? params.offset.toInteger() : 0
+        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+            model = articleService.ready(params)
+        } else {
+            model = articleService.userReady(params)
+        }
+        render(view: 'ready', model: model)
     }
 
     def manage = {
@@ -171,6 +184,18 @@ class ArticleController {
         }
     }
 
+    def afterPublishEdit = {
+        def articleInstance = Article.get(params.id)
+
+        if (!articleInstance) {
+            flash.message = "Article not found with id ${params.id}"
+            redirect(action: manage)
+        }
+        else {
+            return render(view: 'alter', model: [articleInstance: articleInstance, id: params.id])
+        }
+    }
+
     def pre_publish = {
         def articleInstance = Article.get(params.id)
 
@@ -180,6 +205,51 @@ class ArticleController {
         }
         else {
             return render(view: 'publish', model: [articleInstance: articleInstance], id: params.id)
+        }
+    }
+
+    def updatePublished = {
+        def articleInstance = Article.get(params.id)
+        if (articleInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (articleInstance.version > version) {
+                    flash.message = "Article ${articleInstance.title} was being edited - please try again."
+                    redirect(action: manage)
+                    return
+                }
+            }
+
+            articleInstance.properties = params
+            if (!params.tags) {
+                flash.isError = true
+                flash.message = "Please enter at least one label."
+                return render(view: 'alter', model: [articleInstance: articleInstance], id: params.id)
+            }
+            if (!articleInstance.hasErrors() && articleInstance.save()) {
+                def tags = articleInstance.tags
+                def newtags = params.tags.split(',')
+                tags.each {tag ->
+                    def found = newtags.find{newtag -> newtag == tag}
+                    if (!found) {
+                        articleInstance.removeTag(tag)
+                    }
+                }
+                articleInstance.addTags(newtags)
+                println articleInstance.tags
+
+                flash.message = "Article ${articleInstance.title} has been Updated"
+                redirect(action: manage)
+            }
+            else {
+                flash.isError = true
+                flash.message = "Article ${articleInstance.title} could not be updated due to an internal error. Please try again."
+                return render(view: 'afterPublishEdit', model: [articleInstance: articleInstance], id: params.id)
+            }
+        }
+        else {
+            flash.message = "Article not found with id ${params.id}"
+            redirect(action: manage)
         }
     }
 
@@ -220,7 +290,7 @@ class ArticleController {
                 redirect(action: manage)
             }
             else {
-                flash.isError=true
+                flash.isError = true
                 flash.message = "Article ${articleInstance.title} could not be ${params.publishState} due to an internal error. Please try again."
                 return render(view: 'publish', model: [articleInstance: articleInstance], id: params.id)
             }
