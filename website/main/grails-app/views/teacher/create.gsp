@@ -62,6 +62,8 @@
       <g:hiddenField name="deleted" value="false"/>
       <g:hiddenField name="displayAuthor" value="false"/>
       <g:hiddenField name="displayDate" value="false"/>
+      <g:hiddenField name="home" value="false"/>
+      <g:hiddenField name="featured" value="false"/>
 
       <fieldset>
         <label for="title"><g:message code="teacher.title.label"/></label>

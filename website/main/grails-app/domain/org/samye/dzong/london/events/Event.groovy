@@ -141,20 +141,20 @@ class Event extends Publishable {
         buddhism { orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
-            eq 'category', 'M'
+            eq 'category', 'B'
             order("${orderCol}", "${orderDir}")
         }
 
         community { orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
-            eq 'category', 'M'
+            eq 'category', 'C'
             order("${orderCol}", "${orderDir}")
         }
         wellbeing { orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
-            eq 'category', 'M'
+            eq 'category', 'W'
             order("${orderCol}", "${orderDir}")
         }
     }
