@@ -22,38 +22,20 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Community Home Page
-  User: Leanne
-  Date: Feb 12, 2010, 21:59:21 PM
+  List of all Community Articles
+  User: Leanne Northrop
+  Date: Feb 18, 2010,7:39:05 PM
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title><g:message code="community.title"/></title>
+    <title><g:message code="${title}"/></title>
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col1_80_Percent">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
-    </div>
-    <div class="col2_20_Percent">
-      <div class="box">
-        Slide Show
-      </div>
-
-    </div>
-    <div class="col1_80_Percent">
-      <div class="col1_66_Percent">
-        <g:render template="/articlelist" model="[articles:community,controller:'community',action:'view',total:totalCommunity,moreAction:'list']"/>
-      </div>
-      <div class="col2_33_Percent">
-        <g:render template="/articlelist" model="[articles:volunteerOpportunities,controller:'community',action:'view',total:totalVolunteer,moreAction:'list']"/>
-      </div>
-    </div>
-    <div class="col2_20_Percent">
-      <div class="box">
-        Volunteer Form
-      </div>
+    <div class="col_90_Percent">
+      <g:render template="/articlelist" model="[articles:articles,heading:'community.all.articles.title',controller:'community',action:'view',moreAction:'all']"/>
     </div>
   </body>
 </html>

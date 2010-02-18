@@ -230,7 +230,7 @@ class ArticleController {
                 def tags = articleInstance.tags
                 def newtags = params.tags.split(',')
                 tags.each {tag ->
-                    def found = newtags.find{newtag -> newtag == tag}
+                    def found = newtags.find {newtag -> newtag == tag}
                     if (!found) {
                         articleInstance.removeTag(tag)
                     }
@@ -273,7 +273,15 @@ class ArticleController {
             articleInstance.properties = params
             articleInstance.publishState = "Published"
             if (params.tags) {
-                articleInstance.parseTags(params.tags)
+                def tags = articleInstance.tags
+                def newtags = params.tags.split(',')
+                tags.each {tag ->
+                    def found = newtags.find {newtag -> newtag == tag}
+                    if (!found) {
+                        articleInstance.removeTag(tag)
+                    }
+                }
+                articleInstance.addTags(newtags)
             }
             if (!articleInstance.hasErrors() && articleInstance.save()) {
                 if (isFirstPublish) {
@@ -315,15 +323,6 @@ class ArticleController {
             }
             articleInstance.properties = params
             if (!articleInstance.hasErrors() && articleInstance.save()) {
-                def tags = articleInstance.tags
-                def newtags = params.tags.split(',')
-                tags.each {tag ->
-                    def found = newtags.find{newtag -> newtag == tag}
-                    if (!found) {
-                        articleInstance.removeTag(tag)
-                    }
-                }
-                articleInstance.addTags(newtags)
                 flash.message = "Article ${articleInstance.title} updated"
                 redirect(action: manage)
             }

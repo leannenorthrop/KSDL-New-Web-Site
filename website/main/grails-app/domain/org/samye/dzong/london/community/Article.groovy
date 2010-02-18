@@ -85,23 +85,38 @@ class Article extends Publishable {
             eq('deleted', Boolean.TRUE)
         }
 
-        publishedByTags { final tagsToFind, final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            tags {
-                or {
-                    tagsToFind.each { tagname ->
-                        eq 'name', 'home'
-                    }
-                }
-            }
-            order("${orderCol}", "${orderDir}")
-        }
-
         categoryArticles { final category ->
             eq 'category', "${category}"
         }
 
+        allCommunityArticlesNotOrdered {
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'C'
+        }
+
+        allCommunityArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'C'
+            order("${orderCol}", "${orderDir}")
+        }
+
+        featuredCommunityArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'C'
+            eq 'featured', Boolean.TRUE
+            order("${orderCol}", "${orderDir}")
+        }
+
+        homeCommunityArticles { final orderCol, final orderDir ->
+            eq 'home', Boolean.TRUE
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'C'
+            order("${orderCol}", "${orderDir}")
+        }
 
         allMeditationArticlesNotOrdered {
             eq 'deleted', Boolean.FALSE
@@ -154,18 +169,6 @@ class Article extends Publishable {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Archived'
             eq 'category', 'N'
-        }
-
-        wellbeingArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'W'
-        }
-
-        communityArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'C'
         }
 
         homeArticles { final orderCol, final orderDir ->

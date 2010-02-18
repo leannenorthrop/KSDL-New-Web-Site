@@ -22,38 +22,19 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Community Home Page
-  User: Leanne
-  Date: Feb 12, 2010, 21:59:21 PM
+  View Community Article Page
+  User: Leanne Northrop
+  Date: Feb 18, 2010,7:43:52 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
-  <head>
-    <title><g:message code="community.title"/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <div class="col1_80_Percent">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
-    </div>
-    <div class="col2_20_Percent">
-      <div class="box">
-        Slide Show
-      </div>
-
-    </div>
-    <div class="col1_80_Percent">
-      <div class="col1_66_Percent">
-        <g:render template="/articlelist" model="[articles:community,controller:'community',action:'view',total:totalCommunity,moreAction:'list']"/>
-      </div>
-      <div class="col2_33_Percent">
-        <g:render template="/articlelist" model="[articles:volunteerOpportunities,controller:'community',action:'view',total:totalVolunteer,moreAction:'list']"/>
-      </div>
-    </div>
-    <div class="col2_20_Percent">
-      <div class="box">
-        Volunteer Form
-      </div>
-    </div>
-  </body>
+    <head>
+        <title>${articleInstance?.title}</title>
+        <meta name="layout" content="main" />
+    </head>
+    <body>
+        <g:render template="/article" model="[articleInstance:articleInstance,articles:articles]"/>
+    </body>
 </html>
+

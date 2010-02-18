@@ -8,11 +8,31 @@ class CommunityController {
     }
 
     def home = {
-        def topArticles = articleService.publishedByTags(['community','front'])
-        def community = articleService.publishedByTags(['community'])
-        def volunteerOpportunities = articleService.publishedByTags(['volunteer'])
-        def totalCommunity = community.size()
-        def totalVolunteer = volunteerOpportunities.size()
-        return render(view: 'index',model: [topArticles: topArticles, community: community,volunteerOpportunities:volunteerOpportunities,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]);
+        def topArticles = Article.homeCommunityArticles('datePublished','desc').list()
+        def community = Article.featuredCommunityArticles('datePublished','desc').list()
+        def volunteer = Article.featuredCommunityArticles('datePublished','desc').list()
+        community = community.findAll { article ->
+            article.tags.find { tag -> !"volunteer".equalsIgnoreCase(tag)}
+        }
+        volunteer = volunteer.findAll { article ->
+            article.tags.find { tag -> "volunteer".equalsIgnoreCase(tag)}
+        }
+        def totalCommunity = Article.allCommunityArticlesNotOrdered().count()
+        def totalVolunteer = volunteer.size()
+        return render(view: 'index',model: [topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]);
+    }
+
+    def list = {
+        def articles = Article.allCommunityArticles('datePublished', 'desc').list()
+        render(view: 'list', model:[ articles: articles, title: 'community.all.articles.title'])
+    }
+
+    def view = {
+        def model = articleService.view(params.id)
+        if (!model) {
+            redirect(action:home)
+        } else {
+            render(view: 'view', model: model)
+        }
     }
 }
