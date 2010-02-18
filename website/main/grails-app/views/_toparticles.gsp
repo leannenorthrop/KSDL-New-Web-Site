@@ -22,11 +22,9 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 12, 2010
-  Time: 7:36:15 PM
-  To change this template use File | Settings | File Templates.
+  Featured article list
+  User: Leanne Northrop
+  Date: Feb 12, 2010,7:36:15 PM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>

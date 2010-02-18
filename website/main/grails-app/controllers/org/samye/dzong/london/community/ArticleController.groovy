@@ -236,7 +236,6 @@ class ArticleController {
                     }
                 }
                 articleInstance.addTags(newtags)
-                println articleInstance.tags
 
                 flash.message = "Article ${articleInstance.title} has been Updated"
                 redirect(action: manage)
@@ -315,10 +314,16 @@ class ArticleController {
                 }
             }
             articleInstance.properties = params
-            if (params.tags) {
-                articleInstance.parseTags(params.tags)
-            }
             if (!articleInstance.hasErrors() && articleInstance.save()) {
+                def tags = articleInstance.tags
+                def newtags = params.tags.split(',')
+                tags.each {tag ->
+                    def found = newtags.find{newtag -> newtag == tag}
+                    if (!found) {
+                        articleInstance.removeTag(tag)
+                    }
+                }
+                articleInstance.addTags(newtags)
                 flash.message = "Article ${articleInstance.title} updated"
                 redirect(action: manage)
             }

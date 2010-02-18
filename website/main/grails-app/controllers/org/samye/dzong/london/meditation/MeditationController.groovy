@@ -1,6 +1,7 @@
 package org.samye.dzong.london.meditation
 
 import org.samye.dzong.london.events.Event
+import org.samye.dzong.london.community.Article
 
 class MeditationController {
     def articleService
@@ -10,40 +11,24 @@ class MeditationController {
     }
 
     def home = {
-        def adviceArticles = []
-        def benefitsArticles = []
+        def meditationArticles = []
         def topArticles = []
 
-        // TODO 
         try {
-            adviceArticles = articleService.publishedByTags(['meditation','advice', 'front'])
-            benefitsArticles = articleService.publishedByTags(['meditation','benefits', 'front'])
-            topArticles = articleService.publishedByTags(['meditation', 'home'], [max: 1])
+            meditationArticles = Article.featuredmeditationArticles('datePublished', 'desc').list()
+            topArticles = Article.homeMeditationArticles('datePublished', 'desc').list()
         } catch (error) {
-            log.error("Meditation controller encountered an error.")
+            log.error("Meditation controller encountered an error.",error)
         }
 
+        def total = Article.allMeditationArticlesNotOrdered.count();
         def events = Event.meditation('eventDate','desc').list()
-        render(view: 'index', model:[adviceArticles: adviceArticles, benefitsArticles: benefitsArticles, topArticles: topArticles,events:events])
-    }
-
-    def current = {
-        def articles = articleService.publishedByTags(['meditation'])
-        render(view: 'list', model:[ articles: articles, title: 'Current News'])
-    }
-
-    def archive = {
-        def articles = articleService.archivedByTags(['meditation'])
-        render(view: 'list', model:[ articles: articles, title: 'Older Meditation Articles'])
+        render(view: 'index', model:[meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total])
     }
 
     def all = {
-        def articles = articleService.publishedByTags(['meditation'])
-        def articles2 = articleService.archivedByTags(['meditation'])
-        articles2.each() { item ->
-            articles << item
-        }
-        render(view: 'list', model:[ articles: articles, title: 'Meditation Articles'])
+        def articles = Article.allMeditationArticles('datePublished', 'desc').list()
+        render(view: 'list', model:[ articles: articles, title: 'meditation.all.articles.title'])
     }
 
     def view = {

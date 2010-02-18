@@ -30,7 +30,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<h2><g:message code="${heading}"/></h2>
+<h2><g:message code="${heading}" default=""/></h2>
 <ol>
   <g:if test="${articles}">
     <g:each in="${articles}" status="i" var="articleInstance">
@@ -58,5 +58,5 @@
   </g:if>
 </ol>
 <g:if test="${total > articles.size()}">
-  <g:link action="current"><em><g:message code="content.more"/></em></g:link>
+  <g:link action="${moreAction}"><em><g:message code="articles.more"/></em></g:link>
 </g:if>

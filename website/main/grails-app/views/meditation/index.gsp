@@ -22,37 +22,34 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  All meditation articles
-  User: Leanne
+  Meditation Home Page
+  User: Leanne Northrop
   Date: Jan 24, 2010, 2:00:21 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title><g:message code="meditation.all.articles.title"/></title>
+    <title><g:message code="meditation.home.title"/></title>
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col1_80_Percent">
+    <div class="col_90_Percent">
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
-    <div class="col2_20_Percent">
-      <!--div class="box">
+    %{--<div class="col2_20_Percent">
+      <div class="box">
         <h2>Video</h2>
-      </div-->
+      </div>
       <div class="box">
         <h2><g:message code="meditation.resources"/></h2>
         <ol>
           <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
         </ol>
       </div>
-    </div>
+    </div>--}%
     <div class="col1_33_Percent">
       <div class="articles box">
-        <g:render template="/toparticles" model="[articles:adviceArticles]"/>
-      </div>
-      <div class="articles box">
-        <g:render template="/toparticles" model="[articles:benefitsArticles]"/>
+        <g:render template="/articlelist" model="[articles:meditationArticles,controller:'meditation',action:'view',total:total,moreAction:'all',heading:'meditation.articles.title']"/>
       </div>
     </div>
     <div class="col2_66_Percent">
