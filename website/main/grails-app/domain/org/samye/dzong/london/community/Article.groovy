@@ -89,6 +89,35 @@ class Article extends Publishable {
             eq 'category', "${category}"
         }
 
+        allBuddhismArticlesNotOrdered {
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'B'
+        }
+
+        allBuddhismArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'B'
+            order("${orderCol}", "${orderDir}")
+        }
+
+        featuredBuddhismArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'B'
+            eq 'featured', Boolean.TRUE
+            order("${orderCol}", "${orderDir}")
+        }
+
+        homeBuddhismArticles { final orderCol, final orderDir ->
+            eq 'home', Boolean.TRUE
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'B'
+            order("${orderCol}", "${orderDir}")
+        }
+
         allWellbeingArticlesNotOrdered {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
