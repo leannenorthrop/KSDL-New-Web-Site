@@ -28,43 +28,6 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-    <div class="col1_80_Percent article">
-      <h2>${articleInstance?.title}</h2>
-
-      <g:if test="${articleInstance?.displayAuthor || articleInstance?.displayDate}">
-        <ul>
-          <g:if test="${articleInstance?.image}">
-            <li><img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance?.image.id)}" title="${articleInstance?.image.name}" alt="${articleInstance?.image.name}"/></li>
-          </g:if>
-          <g:if test="${articleInstance?.displayDate && articleInstance?.datePublished}">
-            <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/></span></h3></li>
-          </g:if>
-          <g:if test="${articleInstance?.displayAuthor}">
-            <li><h4>by <a>${articleInstance?.author?.username}</a></h4></li>
-          </g:if>
-        </ul>
-      </g:if>
-
-      <g:if test="${!articleInstance?.displayAuthor && !articleInstance?.displayDate}">
-        <div class="bodyNoDetails group">
-        <g:if test="${articleInstance?.image}">
-          <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-        </g:if>
-      </g:if>
-      <g:if test="${articleInstance?.displayAuthor || articleInstance?.displayDate}">
-        <div class="body group">
-      </g:if>
-      ${articleInstance?.content.encodeAsTextile()}
-      <p class="labels"><g:message code="article.tag.label"/> ${articleInstance?.tags.join(', ')}</p>
-    </div><!-- /body -->
-    </div><!-- /left -->
-
-      <div class="col2_20_Percent">
-        <h2>Other Articles</h2>
-        <ul>
-          <li>Previous (To Do)</li>
-          <li>Next (To Do)</li>
-        </ul>
-      </div>
+    <g:render template="/article" model="[articleInstance: articleInstance, articles:[]]"/>
   </body>
 </html>

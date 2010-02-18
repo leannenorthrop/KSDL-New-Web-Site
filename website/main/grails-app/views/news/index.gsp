@@ -36,7 +36,7 @@
   <body>
     <div class="col1_66_Percent articles box">
       <h2><g:message code="news.heading"/></h2>
-      <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles]"/>
+      <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current']"/>
     </div>
     <div class="col2_33_Percent">
       <!--div id="news-notifications" class="box">

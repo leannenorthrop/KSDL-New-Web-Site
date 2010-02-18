@@ -26,16 +26,19 @@
   <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
   <g:set var="publishedOnLabel"><g:message code="article.published.on"/></g:set>
   <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
+  <g:set var="categoryLabel"><g:message code="article.category"/></g:set>
+  <g:set var="isHomeLabel"><g:message code="article.is.home"/></g:set>
+  <g:set var="isFeaturedLabel"><g:message code="article.is.featured"/></g:set>
 
   <body>
     <table>
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
-          <th><g:message code="article.category"/></th>
+          <g:sortableColumn property="category" title="${categoryLabel}"/>
           %{--<th><g:message code="article.tag"/></th>--}%
-          <th><g:message code="article.is.home"/></th>
-          <th><g:message code="article.is.featured"/></th>
+          <g:sortableColumn property="home" title="${isHomeLabel}"/>
+          <g:sortableColumn property="featured" title="${isFeaturedLabel}"/>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">

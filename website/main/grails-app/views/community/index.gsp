@@ -42,7 +42,7 @@
           <g:render template="/articlelist" model="[articles:community,controller:'community',action:'view',total:totalVolunteer]"/>
         </div>
         <div class="col2_50_Percent">
-          <g:render template="/articlelist" model="[articles:volunteerOpportunities,controller:'community',action:'view',total:totalCommunity]"/>
+          <g:render template="/articlelist" model="[articles:volunteerOpportunities,controller:'community',action:'view',total:totalCommunity,moreAction:'All']"/>
         </div>
       </div>
     </div>
