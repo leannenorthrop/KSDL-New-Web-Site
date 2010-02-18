@@ -22,24 +22,24 @@
 ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-<head>
+  <head>
     <title><g:message code="wellbeing"/></title>
     <meta name="layout" content="main">
-</head>
-<body>
-    <div>
-        Experience wellbeing
+  </head>
+  <body>
+    <div class="col1_80_Percent">
+      <div class="box">
+        <g:render template="/toparticles" model="[articles:topArticles]"/>
+      </div>
+      <div class="box">
+        <h2><g:message code="event.wellbeing"/></h2>
+        <g:render template="/eventlist" model="[events: events]"/>
+      </div>
     </div>
-    <div>
-        <div>
-            Stress-reduction
-        </div>
-        <div>
-            Therapies
-        </div>
-        <div>
-            Courses
-        </div>
+    <div class="col2_20_Percent">
+      <div class="box">
+        <g:render template="/articlelist" model="[articles:articles,controller:'wellbeing',action:'view',total:total,moreAction:'list']"/>
+      </div>
     </div>
-</body>
+  </body>
 </html>

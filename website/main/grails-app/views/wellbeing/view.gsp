@@ -22,32 +22,18 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Featured article list
+  View wellbeing article.
   User: Leanne Northrop
-  Date: Feb 12, 2010,7:36:15 PM
+  Date: Feb 18, 2010,8:14:03 PM
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
-<ol>
-  <g:each in="${articles}" status="i" var="articleInstance">
-    <li>
-      <h2>${articleInstance.title}</h2>
-      <g:if test="${articleInstance.image}">
-        <g:if test="${articleInstance?.image?.mimeType.endsWith('png')}">
-          <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
-        </g:if>
-        <g:else>
-          <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-        </g:else>
-      </g:if>
-      <p>
-        ${articleInstance.summary}
-      </p>
-      <p>
-        <g:if test="${articleInstance.content}">
-          <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
-        </g:if>
-      </p>
-    </li>
-  </g:each>
-</ol>
+<%@ page import="org.samye.dzong.london.community.Article" %>
+<html>
+    <head>
+        <title>${articleInstance?.title}</title>
+        <meta name="layout" content="main" />
+    </head>
+    <body>
+        <g:render template="/article" model="[articleInstance:articleInstance,articles:articles]"/>
+    </body>
+</html>

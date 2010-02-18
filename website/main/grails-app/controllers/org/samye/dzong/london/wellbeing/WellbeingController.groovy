@@ -1,6 +1,34 @@
 package org.samye.dzong.london.wellbeing
 
-class WellbeingController {
+import org.samye.dzong.london.community.Article
+import org.samye.dzong.london.events.Event
 
-    def index = { }
+class WellbeingController {
+    def articleService
+
+    def index = {
+        redirect(action:home)
+    }
+
+    def home = {
+        def topArticles = Article.homeWellbeingArticles('datePublished','desc').list()
+        def articles = Article.featuredWellbeingArticles('datePublished','desc').list()
+        def totalWellbeing = Article.allWellbeingArticlesNotOrdered().count()
+        def events = Event.meditation('eventDate','desc').list()
+        return render(view: 'index',model: [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events]);
+    }
+
+    def list = {
+        def articles = Article.allWellbeingArticles('datePublished', 'desc').list()
+        render(view: 'list', model:[ articles: articles, title: 'wellbeing.all.articles.title'])
+    }
+
+    def view = {
+        def model = articleService.view(params.id)
+        if (!model) {
+            redirect(action:home)
+        } else {
+            render(view: 'view', model: model)
+        }
+    }
 }
