@@ -38,28 +38,5 @@
             <column name="shiro_role_id" type="NUMERIC" header="SHIRO_ROLE_ID"/>
         </loadData>
     </changeSet>
-    <changeSet author="northrl" id="v001-data-06">
-        <sql><![CDATA[
-            INSERT INTO ARTICLE (ID,SUMMARY,IMAGE_ID,CONTENT,TITLE) VALUES (1,'The kind of meditation taught at Kagyu Samye Dzong London is called Calm Abiding meditation or Shinay in Tibetan. As the name suggests the aim of this meditation is to achieve a state of tranquillity, and then abide within this state.',null,'p. Learning to meditate is deeply rewarding. It is a simple life skill that can help us make the most of everyday. The insights and experiences that arise naturally from within us can enrich our lives and improve our wellbeing. Being able to calm our mind and experience a little mental peace after an upsetting experience is a profound way to restore our balance and cope with the situation.  
-            p. “We use things as tools for our own benefit. But today it is often the other way around: Things use us. They rule our way of life. But when we are no longer their masters, we cannot use them to our benefit. Our lives today are very fast and complex and full of potential stress and conflict. If in that situation we cannot maintain our inner peace and clear mind we can lose our mental stability and that will lead to mental conflicts and illness. Under these circumstances today more then ever meditation is especially helpful and important.” (From an interview with Gyalwa Karmapa Urgyen Trinley Dorje in Gyuto India June 2006)
-            p. In our classes and courses you’ll learn different techniques for settling your mind. The Classes are taken by experienced meditators in a friendly and informal atmosphere. You can then attend our open meditation sessions held each week at the Centre and practice the exercises you’ve been taught.','What is Meditation?');
-            INSERT INTO ARTICLE (ID,SUMMARY,IMAGE_ID,CONTENT,TITLE) VALUES (2,'Buddhism is the name given to the teachings of the Buddha, and the communities that aspire to practice and realise those instructions. Buddha means awakened one, it was the name given to a historical figure bone into an Indian royal family about 625BC.',null,'p. As a talented prince called Siddartha he lived a life of ease and splendor, but was never able to satisfy a deep craving for a meaningful spiritual life. So he left the palace and headed into the forests around Bodhi Gaya. Spending many years seaching for teachers and meditation practises that would bring a release from birth aging sickness death and again birth, he finally settled under the bodhi tree. It was this final meditation which brought to this wandering prince the awakening that earned him his title of Buddha.','What is Buddhism?');
-        ]]></sql>
-    </changeSet>
-    <changeSet author="northrl" id="v001-data-07">
-        <loadData tableName="publishable" file="${v001-base-dir}/data/PUBLISHABLE.csv">
-            <column name="id" type="NUMERIC" header="ID"/>
-            <column name="version" type="NUMERIC" header="VERSION"/>
-            <column name="display_date" type="BOOLEAN" header="DISPLAY_DATE"/>
-            <column name="display_author" type="BOOLEAN" header="DISPLAY_AUTHOR"/>
-            <column name="last_updated" type="DATE" header="LAST_UPDATED"/>
-            <column name="deleted" type="BOOLEAN" header="DELETED"/>
-            <column name="author_id" type="NUMERIC" header="AUTHOR_ID"/>
-            <column name="publish_state" type="STRING" header="PUBLISH_STATE"/>
-            <column name="date_created" type="DATE" header="DATE_CREATED"/>
-            <column name="category" type="STRING" header="CATEGORY"/>
-            <column name="date_published" type="DATE" header="DATE_PUBLISHED"/>
-        </loadData>
-    </changeSet>
 </databaseChangeLog>
 
