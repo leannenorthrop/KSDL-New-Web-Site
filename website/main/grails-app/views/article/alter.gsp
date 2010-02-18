@@ -20,18 +20,36 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+
+<%--
+  Change article publication details.
+  User: Leanne Northrop
+  Date: Feb 18, 2010,4:52:14 PM
+--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="manage.articles.title"/></title>
-    <g:set var="tabsId" value="articles-tabs"/>
-    <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
+    <title><g:message code="article.alter.title" args="${[fieldValue(bean:articleInstance,field:'title')]}"/></title>
   </head>
   <body>
-    <h1 class="ui-widget-header"><g:message code="manage.articles.title"/></h1>
-    <g:render template="/messageBox" model="[flash: flash]"/>
-    <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
+    <g:form name="publish" action="updatePublished" method="post">
+      <h1 class="ui-widget-header"><g:message code="article.alter.title" args="${[fieldValue(bean:articleInstance,field:'title')]}"/></h1>
+
+      <g:render template="/messageBox" model="[flash: flash]"/>
+
+      <g:hiddenField name="id" value="${articleInstance?.id}"/>
+      <g:hiddenField name="version" value="${articleInstance?.version}"/>
+      <g:hiddenField name="deleted" value="${false}"/>
+      <g:hiddenField name="publishState" value="Published"/>
+
+      <g:render template="/publishDetails" model="[articleInstance:articleInstance]"/>
+
+      <g:set var="submitBtnLabel"><g:message code="article.publish.btn"/></g:set>
+      <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+    </g:form>
   </body>
 </html>
+
+
+

@@ -29,21 +29,6 @@
     <g:javascript>
       $(function() {
         $("#createarticle").validate();
-        $("#content-tabs").tabs({
-          fx: { opacity: 'toggle' },
-          select: function(event, ui) {
-              if (ui.panel.id == 'preview-tab') {
-                  var text = $('#content').val();
-                  $('#previewcontenttxt').attr("value",text);
-                  var form = $('#previewcontent');
-                  var url = form.attr("action");
-                  var dataString = form.serialize();
-                  $.post(url,dataString,function(data) {
-                          $('#preview-tab').html(data);
-                  });
-              }
-            }
-        });
       });
     </g:javascript>
   </head>
@@ -71,6 +56,8 @@
       <g:hiddenField name="deleted" value="false"/>
       <g:hiddenField name="displayAuthor" value="false"/>
       <g:hiddenField name="displayDate" value="false"/>
+      <g:hiddenField name="home" value="false"/>
+      <g:hiddenField name="featured" value="false"/>
 
       <fieldset>
         <label for="title"><g:message code="article.title.label"/></label>
@@ -90,29 +77,10 @@
         <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${fieldValue(bean:articleInstance,field:'summary')}" minlength="5"/>
       </fieldset>
       <fieldset class="last">
-        <div id="content-tabs">
-            <ul>
-                <li><a href="#edit-tab"><g:message code="edit.tab.title" default="Edit"/></a></li>
-                <li><a href="${createLink(controller: 'manageSite', action: 'textile')}" title="Hints Tab"><g:message code="hints.tab.title" default="Hints"/></a></li>
-                <li><a href="#preview-tab"><g:message code="preview.tab.titile" default="Preview"/></a></li>
-            </ul>
-            <div id="edit-tab">
-                <label for="content"><g:message code="article.content.label"/></label>
-                <g:textArea rows="35" cols="40" name="content" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'content','errors')}" value="${fieldValue(bean:articleInstance,field:'content')}"/>
-            </div>
-            <div id="Hints_Tab">
-            </div>
-            <div id="preview-tab">
-            </div>
-        </div>
+        <g:render template="/contentWithPreview" model="[previewController: 'article',publishableInstance:articleInstance]"/>
       </fieldset>
       <g:set var="createSubmitBtnLabel"><g:message code="article.create.btn"/></g:set>
       <g:submitButton name="submitbtn" value="${createSubmitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
     </g:form>
-    <div style="display:none;">
-        <g:form name="previewcontent" action="preview" method="post">
-            <g:textArea rows="35" cols="40" name="previewcontenttxt" value="${fieldValue(bean:articleInstance,field:'content')}"/>
-        </g:form>
-    </div>
   </body>
 </html>

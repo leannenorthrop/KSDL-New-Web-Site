@@ -20,18 +20,29 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+
+<%--
+  Template for managing publishable items to be used in conjunction with the
+  template managePublishableJS in the header.
+  User: Leanne Northrop
+  Date: Feb 18, 2010, 12:59:34 PM
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.community.Article" %>
-<html>
-  <head>
-    <meta name="layout" content="content-admin"/>
-    <title><g:message code="manage.articles.title"/></title>
-    <g:set var="tabsId" value="articles-tabs"/>
-    <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
-  </head>
-  <body>
-    <h1 class="ui-widget-header"><g:message code="manage.articles.title"/></h1>
-    <g:render template="/messageBox" model="[flash: flash]"/>
-    <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
-  </body>
-</html>
+<g:if test="${params.max}">
+  <g:set var="listMaxParam" value="?max=${params.max}&sort=title&order=asc"/>
+</g:if>
+<g:else>
+  <g:set var="listMaxParam" value="?sort=title&order=asc"/>
+</g:else>
+<div id="${tabsId}">
+  <ul>
+    <shiro:hasAnyRole in="['Author','Administrator']">
+    <li><a href="ajaxUnpublished${listMaxParam}"><g:message code="article.unpublished"/></a></li>
+    </shiro:hasAnyRole>
+    <li><a href="ajaxReady${listMaxParam}"><g:message code="article.ready"/></a></li>
+    <li><a href="ajaxPublished${listMaxParam}"><g:message code="article.published"/></a></li>
+    <li><a href="ajaxArchived${listMaxParam}"><g:message code="article.archived"/></a></li>
+    <li><a href="ajaxDeleted${listMaxParam}"><g:message code="article.deleted"/></a></li>
+  </ul>
+</div>

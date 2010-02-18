@@ -46,32 +46,32 @@ class Article extends Publishable {
     }
 
     static namedQueries = {
-        orderedAuthorPublishState { username, publishState, orderCol, orderDir ->
+        orderedAuthorPublishState { username, final publishState, orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
+            eq 'publishState', "${publishState}"
             author {
                 eq 'username', username
             }
             order("${orderCol}", "${orderDir}")
         }
 
-        authorPublishState { username, publishState ->
+        authorPublishState { username, final publishState ->
             eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
+            eq 'publishState', "${publishState}"
             author {
                 eq 'username', username
             }
         }
 
-        orderedPublishState { publishState, orderCol, orderDir ->
+        orderedPublishState { final publishState, orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
+            eq 'publishState', "${publishState}"
             order("${orderCol}", "${orderDir}")
         }
 
-        publishState { publishState ->
+        publishState { final publishState ->
             eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
+            eq 'publishState', "${publishState}"
         }
 
         deletedAuthor { username ->
@@ -108,6 +108,17 @@ class Article extends Publishable {
             eq 'category', 'M'
         }
 
+        featuredNewsArticles { final orderCol, final orderDir ->
+            or {
+                eq 'home', Boolean.TRUE
+                eq 'featured', Boolean.TRUE
+            }
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'N'
+            order("${orderCol}", "${orderDir}")
+        }
+
         newsArticles { final orderCol, final orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
@@ -131,6 +142,13 @@ class Article extends Publishable {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'C'
+        }
+
+        homeArticles { final orderCol, final orderDir ->
+            eq 'home', Boolean.TRUE
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            order("${orderCol}", "${orderDir}")
         }
     }
 

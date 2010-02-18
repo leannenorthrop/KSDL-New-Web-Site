@@ -20,15 +20,25 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+
+<%--
+  List of articles ready for publication
+  User: Leanne Northrop
+  Date: Feb 18, 2010,3:21:19 PM
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
-<g:set var="titleLabel"><g:message code="article.title.label"/></g:set>
-<g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
 <html>
+  <g:set var="titleLabel"><g:message code="article.title.label"/></g:set>
+  <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
+  <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+  <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
   <body>
     <table>
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
+          <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
@@ -39,22 +49,31 @@
         <g:each in="${articles}" status="i" var="articleInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
-              <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
+              <shiro:hasRole name="Author">
+                <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
+              </shiro:hasRole>
+              <shiro:lacksRole name="Author">
+                ${fieldValue(bean: articleInstance, field: 'title')}
+              </shiro:lacksRole>
             </td>
+            <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
               <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator','Author']">
-                <g:link action="changeState" params="[state:'Ready For Publication']" id="${articleInstance.id}"><g:message code="article.prepublish.action"/></g:link>
+              <shiro:hasRole name="Author">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${articleInstance.id}"><g:message code="article.unpublish.action"/></g:link>
+              </shiro:hasRole>
+              <shiro:hasAnyRole in="['Editor','Administrator']">
+                <g:link action="pre_publish" id="${articleInstance.id}"><g:message code="article.publish.action"/></g:link>
               </shiro:hasAnyRole>
+              <g:link action="delete" id="${articleInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
             </td>
           </tr>
         </g:each>
       </tbody>
     </table>
-    <div class="paginateButtons">
+    <div class="manage paginateButtons">
       <g:paginate total="${total}"/>
     </div>
   </body>
