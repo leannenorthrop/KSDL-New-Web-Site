@@ -1,18 +1,20 @@
 TODO
+Time Line
+March - Tidy Up, Css & Browser testing
+April 2010 - Performance tweaking, database backups, robustness & security testing
+April/May 2010 - Production deploy
 
 ================================================================================
-                        FOR 28/03/2010
+                        FOR 22/02/2010
 ================================================================================
+Friday
 0. Upgrade
     - jQuery & theme
     - Grails
-1. Community & Buddhism Sections
-2. Fetching articles and totals based on category
-3. Labels, similar & linking
-4. Community & Buddhism Sections
-5. Footer - Site map, Contact Us, Copyright, About this site, Visiting Us etc.
-6. CSS
-7. Events
+1. Do development database with images and correct tagging.
+2. Labels, similar & linking for community meditation,wellbeing,buddhism
+3. Fix teachers and do About Us page (without vising or contact)
+4. Events
     - Venue
     - Price
     - Teacher
@@ -20,16 +22,32 @@ TODO
     - Publish
     - Archived
     - Deleted
-8. Settings to be pulled from web container as resources:
+Sat
+5. Venue
+6. Footer - Contact Us
+
+Sunday/Monday
+7. CSS
+
+================================================================================
+                        FOR 28/02/2010
+================================================================================
+1. Register
+    - Add captcha
+    - Add ajax username unique check
+    - Add jquery validation
+    - Add jquery form css
+    - Ensure is email
+2. Settings to be pulled from web container as resources:
     - Email
     - Twitter
-9. Feeds
+3. Feeds
     - fix
     - add urls
     - add audit log
-10. Twitter
+4. Twitter
     - add urls
-11. Users
+5. Users
     - Delete users 21/01
     - Email as username check, password size
     - Functional test for login with wrong username, sign out, and passwords do not match
@@ -38,24 +56,24 @@ TODO
     - Make usernames comparision ignore case
     - Move common code into separate service class
     - Move common test code into separate class
-    - Move email content into templates 21/01
-12. Article Niceties
-    - Commentable between authors & editors
-    - Highlight new articles in editor view
-    - Add Icons for Actions
-    - Add other tags when viewing articles
-    - Preview
-13. Textile markup of special characters
-14. Image 24/01
-    - form validation
-    - support for gif & svg?
-    - functional tests
-15. Register
-    - Add captcha
-    - Add ajax username unique check
-    - Add jquery validation
-    - Add jquery form css
-16. Functional tests for publishing articles to areas other than news.
+    - Move email content into templates
+6. Analytics
+7. Check build
+8. Check against mysql & generate SQL
+9. Deploy to development machine.
+
+================================================================================
+                        FOR 31/03/2010
+================================================================================
+0. Therapists & Therapies
+1. Site Map
+2. About This Site
+3. Visiting Us
+4. Legal Notice
+5. Privacy and Cookies
+7. Textile markup of special characters
+8. Image form validation
+9. Functional tests for publishing articles to areas other than news.
     - Article navigation
     - Unpublish published
     - Delete Archived
@@ -65,43 +83,55 @@ TODO
         - Edit article
         - After publish
         - After archive
-17. Analytics
-18. Site Map & Legal Notice
-19. About this site.
+10. Database performance
+11. Cache pragmas
+12. Meta tags
+13. html, css validity, x-browser checks
+14. Tibetan support
+    - browser/os check
+    - hide/show tag
+15. Javascript support
+    - preparation for image carosels etc.
 
 ================================================================================
-                        
+    For Release in April
 ================================================================================
-17. Searchable plugin
-18. look into ui-performance plugin
-19. Look into filterpane plugin
-20. Look into export plugin
- Unit tests
- Integration tests
+1. SQL Hack checking
+2. Hack checking in general
+3. Unit and integration tests
+4. auto tidy
+5. auto validation
+6. error pages
+7. Commenting/documentation - check out grails documentation
 
+================================================================================
+    Niceties
+================================================================================
+1. Add Flickr and support for gif & svg?
 Flickr:
   http://www.flickr.com/services/api/
+2. Printable css
+3. Videos
 You Tube
   http://code.google.com/apis/youtube/overview.html
+4. Article Niceties
+    - Commentable between authors & editors
+    - Highlight new articles in editor view
+    - Add Icons for Actions
+    - Add other tags when viewing articles
+5. Searchable plugin
 
-Time Line
-March - Tidy Up, Css & Browser testing
-April 2010 - Performance tweaking, database backups, robustness & security testing
-May 2010 - Niceties, Videos & Flickr
-
+================================================================================
+    Stuff
+================================================================================
+Look into ui-performance plugin
+Look into filterpane plugin
+Look into export plugin
 http://www.londonsamyedzong.org/lsd/
 neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bernardmordan@yahoo.co.uk, bmordan@evelina.southwark.sch.uk
 mvn grails:run-app -Dgrails.env=test
-Commenting/documentation - check out grails documentation
-Database migration: run tests on hsql and mysql (images don't load properly, squirrell datascripts add quotes around table name which is incorrect)
-Unit and integration tests
-Hosting requirements:
-    Apache front
-    Database management
-    ssh account for upgrading & mechanism to turn on site down
-    Java 6 & tomcat container
-    decent cpu & memory
-    costs
-auto tidy
-auto validation
-error pages
+
+
+
+
+

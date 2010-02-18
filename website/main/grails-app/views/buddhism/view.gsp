@@ -20,37 +20,21 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+
+<%--
+  View Buddhism article.
+  User: Leanne Northrop
+  Date: Feb 18, 2010, 8:44:52 PM
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
-  <head>
-    <title>
-      <g:message code="buddhism"/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <div class="col_90_Percent">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
-    </div>
-    %{--<div class="col2_20_Percent">
-      <div class="box">
-        <h2>Video</h2>
-      </div>
-      <div class="box">
-        <h2><g:message code="meditation.resources"/></h2>
-        <ol>
-          <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
-        </ol>
-      </div>
-    </div>--}%
-    <div class="col1_33_Percent">
-      <div class="articles box">
-        <g:render template="/articlelist" model="[articles:articles,controller:'buddhism',action:'view',total:total,moreAction:'list',heading:'buddhism.articles.title']"/>
-      </div>
-    </div>
-    <div class="col2_66_Percent">
-      <div class="box">
-        <h2><g:message code="event.buddhism"/></h2>
-        <g:render template="/eventlist" model="[events: events]"/>
-      </div>
-    </div>
-  </body>
+    <head>
+        <title>${articleInstance?.title}</title>
+        <meta name="layout" content="main" />
+    </head>
+    <body>
+        <g:render template="/article" model="[articleInstance:articleInstance,articles:articles]"/>
+    </body>
 </html>
