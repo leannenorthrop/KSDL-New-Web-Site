@@ -296,6 +296,9 @@
             <column name="CONTENT" type="${text-type}"/>
             <column name="TITLE" type="VARCHAR(3)"/>
             <column name="NAME" type="VARCHAR(255)"/>
+            <column name="TYPE" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
     <changeSet author="v001-schema-20" id="Leanne Northrop">

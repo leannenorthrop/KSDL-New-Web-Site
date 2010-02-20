@@ -60,7 +60,7 @@
     <lsdc:grid/>
     <div class="footer">
       <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-      <g:message code="footer.copyright" args="${[year]}"/>
+      <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
     </div>
   </body>
 </html>

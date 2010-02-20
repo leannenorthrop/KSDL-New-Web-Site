@@ -22,11 +22,8 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 12, 2010
-  Time: 8:32:39 PM
-  To change this template use File | Settings | File Templates.
+  User: Leanne Northrop
+  Date: Feb 12, 2010, 8:32:39 PM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>

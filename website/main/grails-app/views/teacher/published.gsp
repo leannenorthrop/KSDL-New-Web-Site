@@ -21,48 +21,36 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
-
-<g:set var="titleLabel"><g:message code="teacher.name.label"/></g:set>
-  <g:set var="lastUpdatedLabel"><g:message code="teacher.last.updated"/></g:set>
-  <g:set var="publishedOnLabel"><g:message code="teacher.published.on"/></g:set>
-  <g:set var="authorLabel"><g:message code="teacher.author.label"/></g:set>
-
+<%@ page contentType="text/html;charset=UTF-8" %>
+<html>
+  <g:set var="titleLabel"><g:message code="teacher.name.label"/></g:set>
+  <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
+  <g:set var="publishedOnLabel"><g:message code="article.published.on"/></g:set>
+  <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
+  <g:set var="categoryLabel"><g:message code="teacher.category"/></g:set>
+  <g:set var="deleteConfirmLabel"><g:message code="teacher.delete.confirm"/></g:set>
   <body>
     <table>
       <thead>
         <tr>
-          <g:sortableColumn property="title" title="${titleLabel}"/>
-          <th><g:message code="teacher.category"/></th>
+          <g:sortableColumn property="name" title="${titleLabel}"/>
+          <g:sortableColumn property="category" title="${categoryLabel}"/>
+          %{--<th><g:message code="article.tag"/></th>--}%
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
-          <th><g:message code="teacher.action.label"/></th>
+          <th><g:message code="article.action.label"/></th>
         </tr>
       </thead>
       <tbody>
         <g:each in="${teachers}" status="i" var="teacher">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
-              <g:link action="show" id="${teacher.id}">${teacher}</g:link>
+              <g:link action="show" id="${teacher.id}">${fieldValue(bean: teacher, field: 'name')}</g:link>
             </td>
-            <td>
-              <g:each var="tag" in="${teacher.tags}">
-                <g:if test="${tag == 'news'}">
-                  <g:message code="teacher.category.${tag}"/>
-                </g:if>
-                <g:elseif test="${tag == 'meditation'}">
-                  <g:message code="teacher.category.${tag}"/>
-                </g:elseif>
-                <g:elseif test="${tag == 'community'}">
-                  <g:message code="teacher.category.${tag}"/>
-                </g:elseif>
-                <g:elseif test="${tag == 'wellbeing'}">
-                  <g:message code="teacher.category.${tag}"/>
-                </g:elseif>
-              </g:each>
-            </td>
+            <td><g:message code="${'teacher.category.' + teacher?.type}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
@@ -70,8 +58,8 @@
             </shiro:hasAnyRole>
             <td>
               <shiro:hasAnyRole in="['Editor','Administrator']">
-                <g:link action="changeState" params="[state:'Unpublished']" id="${teacher.id}"><g:message code="teacher.unpublish.action"/></g:link>
-                <g:link action="changeState" params="[state:'Archived']" id="${teacher.id}"><g:message code="teacher.archive.action"/></g:link>
+                <g:link action="changeState" params="[state:'Unpublished']" id="${teacher.id}"><g:message code="article.unpublish.action"/></g:link>
+                <g:link action="delete" id="${teacher.id}" onclick="${deleteConfirmLabel}"><g:message code="teacher.delete.action"/></g:link>
               </shiro:hasAnyRole>
             </td>
           </tr>

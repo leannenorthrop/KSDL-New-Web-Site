@@ -41,22 +41,7 @@
   <body>
     <g:form id="addteacher" name="addteacher" action="save" method="post">
       <h1 class="ui-widget-header"><g:message code="teacher.create.title"/></h1>
-
-      <g:if test="${flash.message && !flash.isError}">
-        <p class="ui-widget ui-state-highlight ui-corner-all">
-          <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
-        </p>
-      </g:if>
-      <g:elseif test="${flash.message && flash.isError}">
-        <g:set var="errorsList"><g:renderErrors bean="${teacher}" as="list"></g:renderErrors></g:set>
-        <div class="ui-widget ui-state-error ui-corner-all">
-          <strong>
-            <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>
-          </strong>
-          <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"></g:message>
-          ${errorsList}
-        </div>
-      </g:elseif>
+      <g:render template="/messageBox" model="[flash: flash]"/>
 
       <g:hiddenField name="publishState" value="Unpublished"/>
       <g:hiddenField name="deleted" value="false"/>
@@ -64,6 +49,7 @@
       <g:hiddenField name="displayDate" value="false"/>
       <g:hiddenField name="home" value="false"/>
       <g:hiddenField name="featured" value="false"/>
+      <g:hiddenField name="category" value="T"/>
 
       <fieldset>
         <label for="title"><g:message code="teacher.title.label"/></label>
@@ -80,15 +66,14 @@
       </fieldset>
       <fieldset>
         <label for="category"><g:message code="teacher.category"/></label>
-        <g:select name="category" from="${['L', 'C', 'V', 'O']}" valueMessagePrefix="teacher.category" />
+        <g:select name="type" from="${['L', 'C', 'V', 'O']}" valueMessagePrefix="teacher.category" />
       </fieldset>
       <fieldset>
         <label for="summary"><g:message code="teacher.summary.label"/></label>
         <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:teacher,field:'summary','errors')}" value="${fieldValue(bean:teacher,field:'summary')}" minlength="5"/>
       </fieldset>
       <fieldset class="last">
-        <label for="content"><g:message code="teacher.content.label"/></label>
-        <g:textArea rows="35" cols="40" name="content" class="required ui-corner-all ${hasErrors(bean:teacher,field:'content','errors')}" value="${fieldValue(bean:teacher,field:'content')}" minlength="5"/>
+        <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:teacher]"/>
       </fieldset>
       <g:set var="submitBtnLabel"><g:message code="teacher.create.btn"/></g:set>
       <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>

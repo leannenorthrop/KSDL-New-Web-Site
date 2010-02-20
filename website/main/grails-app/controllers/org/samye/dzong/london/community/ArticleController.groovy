@@ -316,6 +316,7 @@ class ArticleController {
                 if (articleInstance.version > version) {
                     flash.isError = true
                     flash.message = "article.update.error"
+                    flash.args = [articleInstance]
                     articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
                     render(view: 'edit', model: [articleInstance: articleInstance, id: params.id])
                     return
@@ -329,6 +330,7 @@ class ArticleController {
             else {
                 flash.isError = true
                 flash.message = "article.update.error"
+                flash.args = [articleInstance]
                 render(view: 'edit', model: [articleInstance: articleInstance, id: params.id])
             }
         }
@@ -356,6 +358,7 @@ class ArticleController {
         else {
             flash.isError = true
             flash.message = "article.update.error"
+            flash.args = [articleInstance]
             render(view: 'create', model: [articleInstance: articleInstance, id: params.id])
         }
     }

@@ -64,6 +64,8 @@
       <g:hiddenField name="displayAuthor" value="false"/>
       <g:hiddenField name="displayDate" value="false"/>
       <g:hiddenField name="isRepeatable" value="false"/>
+      <g:hiddenField name="home" value="false"/>
+      <g:hiddenField name="featured" value="false"/>
 
       <fieldset>
         <label for="title"><g:message code="event.title.label"/></label>
@@ -71,7 +73,7 @@
       </fieldset>
       <fieldset>
         <label for="category"><g:message code="event.category.label"/></label>
-        <g:select name="category" from="${event.constraints.category.inList}" value="${event?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
+        <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
       </fieldset>
       <fieldset>
         <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>

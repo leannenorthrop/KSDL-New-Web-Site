@@ -23,12 +23,14 @@
 
 package org.samye.dzong.london.community
 
+import org.samye.dzong.london.events.Event
+
 /**
  * Service helper class for Teacher domain objects.
  *
  * TODO: internationalize
  * TODO: test
- * 
+ *
  * Author: Leanne Northrop
  * Date: 28th January 2010, 21:48
  */
@@ -109,5 +111,11 @@ class TeacherService {
         def teachers = Teacher.deleted().list(params);
         def total = Teacher.deleted().count();
         return [teachers: teachers, total: total]
+    }
+
+    def events(id) {
+        def teacher = Teacher.get(id)
+        def events = Event.findAllByLeaderAndPublishState(teacher,'Published');
+        return events
     }
 }

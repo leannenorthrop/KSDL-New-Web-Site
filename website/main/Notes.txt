@@ -11,8 +11,6 @@ Friday
 0. Upgrade
     - jQuery & theme
     - Grails
-1. Do development database with images and correct tagging.
-2. Labels, similar & linking for community meditation,wellbeing,buddhism
 3. Fix teachers and do About Us page (without vising or contact)
 4. Events
     - Venue
@@ -107,6 +105,8 @@ Sunday/Monday
 ================================================================================
     Niceties
 ================================================================================
+0. Cross linking in content to objects in system e.g. Articles, Teachers, Events etc.
+    with JavaScript to make insertion easier
 1. Add Flickr and support for gif & svg?
 Flickr:
   http://www.flickr.com/services/api/
