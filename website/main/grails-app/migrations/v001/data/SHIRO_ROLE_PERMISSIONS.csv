@@ -19,11 +19,15 @@ SHIRO_ROLE_ID,PERMISSIONS_STRING
 3,manageSite:error
 3,manageSite:info
 3,manageSite:textile
+3,manageSite:preview
 4,manageSite:error
 4,manageSite:info
 4,manageSite:textile
+4,manageSite:preview
 5,manageSite:error
 5,manageSite:info
 5,manageSite:textile
+5,manageSite:preview
 6,manageSite:error
 6,manageSite:info
+6,manageSite:preview

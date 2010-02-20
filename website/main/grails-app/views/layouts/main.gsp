@@ -61,7 +61,7 @@
 
     <div class="footer">
       <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-      <g:message code="footer.copyright" args="${[year]}"/> |
+      <g:message code="footer.copyright" args="${[year]}"/> <g:message code="title" default="Kagyu Samye Dzong London"/> |
       <g:link controller="home" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
       <g:link controller="home" action="changeCssTheme"><g:message code="footer.change.theme"/></g:link> |
       <g:link controller="home" action="siteMap"><g:message code="footer.site.map"/></g:link> |

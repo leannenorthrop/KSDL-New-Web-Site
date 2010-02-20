@@ -14,6 +14,16 @@ class ArticleService {
         return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
     }
 
+    def findSimilarAllCategories(article, params = []) {
+        def tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
+        for (tag in article.tags) {
+            tagQuery += "tl.tag.name = '${tag}' or "
+        }
+        tagQuery = tagQuery[0..-4] + "))"
+        def articles = Article.executeQuery("from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+        return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
+    }
+
     def countPublishedByTags(tags, inclusive = Boolean.FALSE) {
         def articles
         def tagQuery = ""
@@ -105,7 +115,7 @@ class ArticleService {
             return null
         }
         else {
-            def similar = findSimilar(articleInstance)
+            def similar = findSimilarAllCategories(articleInstance)
             return [ articleInstance : articleInstance, articles: similar ]
         }
     }

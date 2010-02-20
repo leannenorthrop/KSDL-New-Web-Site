@@ -67,6 +67,7 @@
                 <g:link action="changeState" params="[state:'Unpublished']" id="${articleInstance.id}"><g:message code="article.unpublish.action"/></g:link>
                 <g:link action="changeState" params="[state:'Archived']" id="${articleInstance.id}"><g:message code="article.archive.action"/></g:link>
                 <g:link action="afterPublishEdit" id="${articleInstance.id}"><g:message code="article.afterpublishedit.action"/></g:link>
+                <g:link action="delete" id="${articleInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
               </shiro:hasAnyRole>
             </td>
           </tr>

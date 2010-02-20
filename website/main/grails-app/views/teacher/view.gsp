@@ -22,31 +22,18 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Jan 30, 2010
-  Time: 7:00:41 PM
-  To change this template use File | Settings | File Templates.
+  Public display of teacher details.
+  User: Leanne Northrop
+  Date: Jan 30, 2010,7:00:41 PM
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.community.Article" %>
+<%@ page import="org.samye.dzong.london.community.Teacher" %>
 <html>
-    <head>
-        <title>${teacher?.title} ${teacher?.name}</title>
-        <meta name="layout" content="main" />
-    </head>
-    <body>
-        <div class="col1_80_Percent article">
-            <h2><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher?.name}</h2>
-
-            <div class="body group">
-                <img src="${createLink(controller: 'image', action: 'src', id: teacher?.image.id)}" title="${teacher?.image.name}" alt="${teacher?.image.name}" style="float:right;"/>
-                ${teacher.content.encodeAsTextile()}
-            </div><!-- /body -->
-        </div><!-- /left -->
-
-        <div class="col2_20_Percent">
-        </div>
-    </body>
+  <head>
+    <title><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher.name}</title>
+    <meta name="layout" content="main"/>
+  </head>
+  <body>
+    <g:render template="/teacher" model="[teacher: teacher, events:events]"/>
+  </body>
 </html>

@@ -55,7 +55,7 @@
         </fieldset>
         <fieldset>
           <label for="category"><g:message code="article.category.label"/></label>
-          <g:select name="category" from="${articleInstance.constraints.category.inList}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}"/>
+          <g:select name="category" from="${['M','N','C','W','B']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}"/>
         </fieldset>
         <fieldset>
           <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="help" action='textile'>Textile</g:link> for details.</em></label>

@@ -36,7 +36,7 @@ import org.samye.dzong.london.media.Image
 class Teacher extends Publishable {
     String name;
     String title;
-    String category;
+    String type;
     String summary;
     String content;
     Image image;
@@ -45,9 +45,9 @@ class Teacher extends Publishable {
     static constraints = {
         title(blank:false,inList:['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS'])
         name(blank:false,unique:true)
-        category(blank:false,inList:['L','V','C','O'])
+        type(blank:false,inList:['L','V','C','O'])
         summary(size:5..Integer.MAX_VALUE,blank:false)
-        content(size:5..Integer.MAX_VALUE,blank:false)
+        content(maxSize:Integer.MAX_VALUE,blank:true)
         image(nullable:true)
     }
 

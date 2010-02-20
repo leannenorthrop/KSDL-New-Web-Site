@@ -21,4 +21,8 @@ class ManageSiteController {
     def textile = {
         render(view:'textile-format',model:[])
     }
+
+    def preview = {
+        render(view: 'preview', model: [content: params.previewcontenttxt])
+    }    
 }

@@ -79,21 +79,7 @@
   <body>
 
     <h1 class="ui-widget-header"><g:message code="manage.teachers.title"/></h1>
-    <g:if test="${flash.message && !flash.isError}">
-      <p class="ui-widget ui-state-highlight ui-corner-all">
-        <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
-      </p>
-    </g:if>
-    <g:elseif test="${flash.message && flash.isError}">
-      <g:set var="errorsList"><g:renderErrors bean="${teacher}" as="list"></g:renderErrors></g:set>
-      <div class="ui-widget ui-state-error ui-corner-all">
-        <strong>
-          <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>
-        </strong>
-        <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"></g:message>
-        ${errorsList}
-      </div>
-    </g:elseif>
+    <g:render template="/messageBox" model="[flash: flash]"/>
     <div id="teacher-tabs">
       <ul>
         <li><a href="ajaxUnpublishedTeachers${listMaxParam}"><g:message code="teacher.unpublished"/></a></li>

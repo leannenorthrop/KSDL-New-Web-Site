@@ -21,23 +21,13 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 
-<%@ page import="org.samye.dzong.london.community.Article" %>
+<%@ page import="org.samye.dzong.london.community.Teacher" %>
 <html>
-    <head>
-        <title>${teacher?.title} ${teacher?.name}</title>
-        <meta name="layout" content="content-admin" />
-    </head>
-    <body>
-        <div class="col1_80_Percent article">
-            <h2><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher?.name}</h2>
-
-            <div class="body group">
-                <img src="${createLink(controller: 'image', action: 'src', id: teacher?.image.id)}" title="${teacher?.image.name}" alt="${teacher?.image.name}" style="float:right;"/>
-                ${teacher.content.encodeAsTextile()}
-            </div><!-- /body -->
-        </div><!-- /left -->
-
-        <div class="col2_20_Percent">
-        </div>
-    </body>
+  <head>
+    <title><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher.name}</title>
+    <meta name="layout" content="content-admin"/>
+  </head>
+  <body>
+    <g:render template="/teacher" model="[teacher: teacher, events:events]"/>
+  </body>
 </html>

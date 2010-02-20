@@ -31,7 +31,6 @@ import org.apache.shiro.SecurityUtils
  * Date: 26th January 2010, 19:00
  * TODO: test
  * TODO: internationalize
- * TODO: change publish to simple state change.
  */
 class TeacherController {
     def userLookupService
@@ -107,7 +106,8 @@ class TeacherController {
             redirect(uri: '/')
         }
         else {
-            return [teacher: teacher, id: params.id]
+            def events = teacherService.events(params.id);
+            return [teacher: teacher, id: params.id, events:events]
         }
     }
 
@@ -120,7 +120,8 @@ class TeacherController {
             redirect(action: list)
         }
         else {
-            return [teacher: teacher, id: params.id]
+            def events = teacherService.events(params.id);
+            return [teacher: teacher, id: params.id, events:events]
         }
     }
 
@@ -214,6 +215,7 @@ class TeacherController {
         else {
             flash.isError = true
             flash.message = "teacher.update.error"
+            flash.args = [teacher]
             render(view: 'create', model: [teacher: teacher, id: params.id])
         }
     }
@@ -237,7 +239,7 @@ class TeacherController {
             teacher.publishState = params.state
             teacher.deleted = false
             if (!teacher.hasErrors() && teacher.save()) {
-                flash.message = "Article ${teacher.title} has been moved to ${teacher.publishState}"
+                flash.message = "${teacher.name} has been moved to ${teacher.publishState}"
                 redirect(action: manage)
             }
             else {

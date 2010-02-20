@@ -34,7 +34,7 @@
   </p>
 </g:if>
 <g:elseif test="${(flash.message && flash.isError)}">
-  <g:set var="errorsList"><g:renderErrors bean="${articleInstance}" as="list"></g:renderErrors></g:set>
+  <g:set var="errorsList"><g:renderErrors bean="${flash.args[0]}" as="list"></g:renderErrors></g:set>
   <div class="ui-widget ui-state-error ui-corner-all">
     <strong>
       <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>

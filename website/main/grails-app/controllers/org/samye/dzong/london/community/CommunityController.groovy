@@ -1,5 +1,7 @@
 package org.samye.dzong.london.community
 
+import org.samye.dzong.london.events.Event
+
 class CommunityController {
     def articleService
 
@@ -19,7 +21,8 @@ class CommunityController {
         }
         def totalCommunity = Article.allCommunityArticlesNotOrdered().count()
         def totalVolunteer = volunteer.size()
-        return render(view: 'index',model: [topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]);
+        def events = Event.community('eventDate','desc').list()
+        return render(view: 'index',model: [events:events,topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]);
     }
 
     def list = {

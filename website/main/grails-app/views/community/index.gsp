@@ -38,9 +38,9 @@
     </div>
     <div class="col2_20_Percent">
       <div class="box">
-        Slide Show
+        <h2><g:message code="event.community"/></h2>
+        <g:render template="/eventlist" model="[events: events]"/>
       </div>
-
     </div>
     <div class="col1_80_Percent">
       <div class="col1_66_Percent">
