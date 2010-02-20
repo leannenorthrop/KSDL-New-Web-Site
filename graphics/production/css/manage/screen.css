@@ -3,7 +3,7 @@ Title:      Screen styles for managing site content
 */
 
 /* import stylesheets and hide from ie/mac \*/
-@import url("contentadmin/jquery-ui-1.7.2.custom.css");
+@import url("blue/jquery-ui-1.7.2.custom.css");
 @import url("forms.css");
 @import url("authentication.css");
 @import url("menu.css");
@@ -16,7 +16,13 @@ Title:      Screen styles for managing site content
 }
 
 .contentAdmin a {
-    color: #0073ea;
+    color: #3baae3;
+}
+
+.contentAdmin .content {
+    margin-top: 0.6em;
+    margin-bottom: 2em;
+    top: -16px;
 }
 
 .contentAdmin .content * {
@@ -48,7 +54,7 @@ div.list + div.manage {
 
 .paginateButtons a {
     border: none;
-    color: rgb(57, 134, 192);
+    color: #3baae3;
     margin: 0 3px;
     padding: 2px 6px;
 }
@@ -75,4 +81,87 @@ div.list + div.manage {
     padding: 5px;
     position: absolute;
     right: 0;
+}
+
+/* Header
+-------------------------------------------------*/
+#banner {
+    width: 100%;
+    background: rgb(205, 225, 238);
+}
+
+#banner img {
+    border: none;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+}
+
+#text {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 388px;
+    height: 200px;
+    background-image: url(images/headerbackground.png);
+    background-position: top left;
+    z-index: 5;
+}
+
+#text img {
+    position: relative;
+    top: 10px;
+    left: 10px;
+}
+
+#back {
+    background-image: url(images/back.png);
+    width: 100%;
+    height: 200px;
+    background-position: 10%;
+    background-repeat: x;
+}
+
+#mid {
+    background-image: url(images/mid.png);
+    width: 100%;
+    height: 200px;
+    background-position: 40%;
+    background-repeat: x;
+    opacity: 0.8;
+}
+
+#front {
+    background-image: url(images/front.png);
+    width: 100%;
+    height: 200px;
+    background-position: -10%;
+    background-repeat: x;
+    position: relative;
+    top: 24px;
+}
+
+#bannerImg {
+    float: right;
+}
+
+.nav {
+    top: -16px;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 1.75em;
+    font-size: smaller;
+    padding: 0.2em 1em;
+    text-align: center;
+    border: 1px solid rgb(113,179,226);
+    background: rgb(212,231,244);
+    background: rgba(212,231,244,0.7);
+    font-size: smaller;
+    padding: 0.2em 1em;    
 }

@@ -35,7 +35,6 @@
     <![if gte IE 7]>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/manage', file: 'screen.css')}"/>
-    <lsd:cssTheme app="${application}"/>
     <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:javascript library="jquery"/>
@@ -43,16 +42,22 @@
     <g:javascript src="jquery/jquery.validate.min.js"/>
     <g:layoutHead/>
   </head>
-  <body class="contentAdmin" style="min-width:85em">
+  <body class="contentAdmin" style="min-width:50em">
     <div id="banner">
-      <h1><g:message code="title" default="Kagyu Samye Dzong London"/></h1>
-      <g:set var="logo" value="${Image.findByName('Logo')}"/>
-      <g:if test="${logo}">
-        <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
-      </g:if>
+      <div id="text">
+        <img src="${resource(dir: 'css/manage/images/', file: 'heading.png')}"/>
+      </div>
+      <div id="back">
+        <div id="mid">
+          <img id="bannerImg" src="${resource(dir: 'css/manage/images/', file: 'whitetara.png')}"/>
+          <div id="front">
+          </div>
+        </div>
+      </div>
     </div>
 
-    <lsdc:nav current="manageSite"/>
+
+    %{--<lsdc:nav current="manageSite"/>--}%
     <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
     <div class="content">
       <g:layoutBody/>

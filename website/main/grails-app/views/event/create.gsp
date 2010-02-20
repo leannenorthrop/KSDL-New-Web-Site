@@ -32,13 +32,11 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.create.title"/></title>
-    <g:javascript>
-      $(function() {
+    <jq:jquery>
         $("#addevent").validate();
         $("#accordion").accordion();
-        $("#dateTabs").tabs({fx: { opacity: 'toggle' }});
-      });
-    </g:javascript>
+        $("#dateTabs").tabs({fx: { opacity: 'toggle' }});      
+    </jq:jquery>
   </head>
   <body>
     <g:form name="addevent" action="save" method="post">
