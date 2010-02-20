@@ -29,13 +29,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.community.Teacher" contentType="text/html;charset=UTF-8" %>
 <h2><g:message code="${heading}" default=""/></h2>
 <ol>
   <g:if test="${articles}">
     <g:each in="${articles}" status="i" var="articleInstance">
       <li class="group">
+      <g:if test="${!(articleInstance instanceof Teacher)}">
         <h3>${articleInstance.title}</h3>
+      </g:if>
+      <g:else>
+        <h3><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance.name}</h3>
+      </g:else>
         <g:if test="${articleInstance.displayAuthor}">
           <h4>by <a>${articleInstance.author.username}</a></h4>
         </g:if>

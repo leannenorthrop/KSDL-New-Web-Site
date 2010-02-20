@@ -35,6 +35,7 @@ import org.apache.shiro.SecurityUtils
 class TeacherController {
     def userLookupService
     def teacherService
+    def articleService
 
     def index = {
         def teachers = Teacher.findAllByPublishState("Published")
@@ -106,8 +107,21 @@ class TeacherController {
             redirect(uri: '/')
         }
         else {
+            /* TODO link in articles that mention the teacher
+            def aboutUsArticles = articleService.publishedByTags(['about us']);
+            aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
+            if (model['articles']) {
+                def articles = model['articles']
+                articles << aboutUsArticles
+            } else {
+                model['articles'] = aboutUsArticles
+            }*/
             def events = teacherService.events(params.id);
-            return [teacher: teacher, id: params.id, events:events]
+            def articles = []
+            if (teacher.name == 'Community'){
+                articles = articleService.publishedByTags(['about us']);
+            }
+            return [teacher: teacher, id: params.id, events:events, articles:articles]
         }
     }
 
@@ -209,7 +223,7 @@ class TeacherController {
         def teacher = new Teacher(params)
         teacher.author = userLookupService.lookup()
         if (!teacher.hasErrors() && teacher.save()) {
-            flash.message = "Article ${teacher.title} created"
+            flash.message = "${teacher.name} created"
             redirect(action: manage)
         }
         else {

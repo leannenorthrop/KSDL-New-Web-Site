@@ -22,41 +22,18 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 12, 2010
-  Time: 5:43:08 PM
-  To change this template use File | Settings | File Templates.
+  Display About Us article
+  User: Leanne Northrop
+  Date: Feb 19, 2010,2:44:11 PM
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
-  <head>
-    <title><g:message code="aboutUs"/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <div class="col1_80_Percent">
-      <g:render template="/toparticles" model="[articles:topArticles,displayTitle:false]"/>
-    </div>
-
-    <div class="col2_20_Percent">
-      <div class="box">
-        <h2><g:message code="footer.help"/></h2>
-        <ul>
-          <li><g:message code="footer.visit.us"/></li>
-          <li><g:message code='footer.contact.us'/></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="col1_50_Percent">
-      <g:render template="/articlelist" model="[articles:lineageTeachers, heading: 'teacher.category.L', controller: 'teacher', action:'view']"/>
-    </div>
-
-    <div class="col2_50_Percent">
-      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.heading.title', controller: 'teacher', action:'view']"/>
-    </div>
-
-  </body>
+    <head>
+        <title>${articleInstance?.title}</title>
+        <meta name="layout" content="main" />
+    </head>
+    <body>
+        <g:render template="/article" model="[articleInstance:articleInstance,articles:articles]"/>
+    </body>
 </html>
