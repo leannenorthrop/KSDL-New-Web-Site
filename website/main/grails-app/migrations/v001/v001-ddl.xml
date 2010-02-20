@@ -461,4 +461,38 @@
             <column name="NAME"/>
         </createIndex>
     </changeSet>
+    <changeSet author="v001-schema-54" id="Leanne Northrop">
+        <createTable schemaName="PUBLIC" tableName="SCHEDULE_RULE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_165"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODIFIER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="RULE_TYPE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DURATION" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_DATE_TIME" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="INTERVAL" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODIFIER_TYPE" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IS_RULE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_DATE_TIME" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
