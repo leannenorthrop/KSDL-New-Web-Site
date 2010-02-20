@@ -49,14 +49,23 @@
           <g:renderErrors bean="${imageInstance}" as="list"/>
         </div>
       </g:hasErrors>
+
       <input type="hidden" name="id" value="${imageInstance?.id}"/>
       <input type="hidden" name="version" value="${imageInstance?.version}"/>
       <input type="hidden" name="name" value="${imageInstance?.name}"/>
+
       <h2>${fieldValue(bean: imageInstance, field: 'name')}</h2>
-      <img src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" style="max-width: 350px;"/>
+
+      <g:if test="${imageInstance?.mimeType.endsWith('png')}">
+        <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" title="${imageInstance.name}" alt="${imageInstance.name}" class="pngImg"/>
+      </g:if>
+      <g:else>
+        <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" title="${imageInstance.name}" alt="${imageInstance.name}"/>
+      </g:else>
+
       <fieldset class="last">
         <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
-        <g:textArea rows="5" cols="40" name="tags" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
+        <g:textArea rows="5" cols="40" name="tags" class="ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
         <p class="tags_help">
           <g:message code="img.tag.help"/>
         </p>

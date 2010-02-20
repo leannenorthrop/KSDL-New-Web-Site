@@ -38,8 +38,8 @@ fieldset input[type="text"], fieldset input[type="password"],fieldset textarea {
     border-left: 1px solid #bbb;
     border-bottom: 1px solid #ddd;
     border-right: 1px solid #ddd;
-    background: white url(../themes/default/images/darkFadeTop.png) repeat-x top left;
-    background: white url(../themes/default/images/darkFadeTop.png) repeat-x top left;
+    background: white url(images/darkFadeTop.png) repeat-x top left;
+    background: white url(images/darkFadeTop.png) repeat-x top left;
 }
 
 fieldset input.required, fieldset textarea.required {
@@ -48,7 +48,7 @@ fieldset input.required, fieldset textarea.required {
 
 fieldset input:focus, fieldset textarea:focus, fieldset.select:focus {
     background: white;
-    border: 1px solid rgb(0, 115, 234);
+    border: 1px solid #0070a3;
 }
 
 form fieldset {
@@ -63,15 +63,15 @@ input[type="submit"],form a.button, form a.submit {
     right: 0.6em;
     padding: 0.35em 0.75em 0.4em 0.75em;
     color: white;
-    background: rgb(0, 115, 234) url(../site/images/buttonHighlight.png) repeat-x 0 50%;
-    border: 1px solid rgb(0, 115, 234);
+    background: #3baae3 url(images/buttonHighlight.png) repeat-x 0 50%;
+    border: 1px solid #0070a3;
     width: auto;
     overflow: hidden;
 }
 
 input[type="submit"]:hover,form a:hover.button, form a:hover.submit,input[type="submit"]:focus,input[type="submit"]:active,a:active.button, form a:active.submit  {
-    background: rgb(0, 69, 140);
-    border: 1px solid rgb(0, 69, 140);
+    background: #aed0ea;
+    border: 1px solid #0070a3;
     cursor: pointer;
 }
 
@@ -87,8 +87,8 @@ input[type="submit"]:hover,form a:hover.button, form a:hover.submit,input[type="
 
 .message {
     background: #f3f8fc url(images/information.png) 8px 50% no-repeat;
-    border: 1px solid #b2d1ff;
-    color: #006dba;
+    border: 1px solid #0070a3;
+    color: #3baae3;
     margin: 10px 0 5px 0;
     padding: 5px 5px 5px 35px;
 }
@@ -96,7 +96,7 @@ input[type="submit"]:hover,form a:hover.button, form a:hover.submit,input[type="
 label.message {
     border: none;
     background: transparent url(images/information.png) 0 50% no-repeat;
-    color: #006dba;
+    color: #3baae3;
     padding: 0 0 0 20px;
     width: auto;
     display: block;
@@ -110,7 +110,7 @@ form label em, form label strong {
 }
 
 form label strong {
-    color: rgb(0, 115, 234);
+    color: #3baae3;
 }
 
 form label strong em {
@@ -118,31 +118,33 @@ form label strong em {
 }
 
 .errors {
-    background: #fff3f3;
-    border: 1px solid #ff0084;
-    color: #ff0084;
+    background: #cd0a0c;
+    border: 1px solid #7f0607;
+    color: white;
     margin: 10px 0 5px 0;
     padding: 5px 0 5px 0;
 }
-.errors ul {
-    list-style: none;
+.errors ul, .ui-state-error ul {
+    list-style-type: none;
     padding: 0;
 }
-.errors li {
-    background: url(images/exclamation.png) 8px 0% no-repeat;
+.errors li,.ui-state-error li {
+    /*background: url(images/exclamation.png) 8px 0% no-repeat;*/
     line-height: 16px;
     padding-left: 30px;
+    list-style-image: url(images/exclamation.png);
+    list-style-position: inside;
 }
 
 .errors input, input.error, textarea.error, .errors select, select.error, fieldset input.error, fieldset textarea.error {
-    border: 1px solid #ff0084;
+    border: 1px solid #7f0607;
 }
 .error {
-    color: #ff0084;
+    color: #cd0a0c;
 }
 
 
-#updatearticle input[type="text"],#updatearticle textarea,#createarticle input[type="text"],#createarticle textarea,#publish input[type="text"], #publish textarea{
+#editteacher input[type="text"],#editteacher textarea,#addteacher input[type="text"],#addteacher textarea,#updatearticle input[type="text"],#updatearticle textarea,#createarticle input[type="text"],#createarticle textarea,#publish input[type="text"], #publish textarea{
     width: 100%;
 }
 

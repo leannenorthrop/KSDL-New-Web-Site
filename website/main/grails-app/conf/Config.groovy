@@ -30,7 +30,7 @@ grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 // enable Sitemesh preprocessing of GSP pages
 grails.views.gsp.sitemesh.preprocess=false
-grails.gsp.enable.reload = true 
+grails.gsp.enable.reload = true
 // scaffolding templates configuration
 grails.scaffolding.templates.domainSuffix = 'Instance'
 
@@ -42,6 +42,7 @@ grails.enable.native2ascii = true
 grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
+grails.views.javascript.library="jquery"
 
 // log4j configuration
 log4j = {
