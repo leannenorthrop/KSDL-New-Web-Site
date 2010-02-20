@@ -69,11 +69,21 @@
 </div><!-- /left -->
 
 <div class="col2_20_Percent">
-  <h2><g:message code="similar"/></h2>
-  <ul>
-    <g:each in="${events}" status="i" var="event">
-      <li class="event"><g:link controller="event" action="view" id="${event.id}">${event.title}</g:link></li>
-    </g:each>
-  </ul>
+  <div class="box">
+    <h2><g:message code="events.label"/></h2>
+    <ul>
+      <g:each in="${events}" status="i" var="event">
+        <li class="event"><g:link controller="event" action="view" id="${event.id}">${event.title}</g:link></li>
+      </g:each>
+    </ul>
+  </div>
+  <div class="box">
+    <h2><g:message code="similar"/></h2>
+    <ul>
+      <g:each in="${articles}" status="i" var="article">
+        <li class="article"><g:link controller="aboutUs" action="view" id="${article.id}">${article.title}</g:link></li>
+      </g:each>
+    </ul>
+  </div>
 </div>
 

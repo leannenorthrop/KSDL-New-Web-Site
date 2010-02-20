@@ -11,7 +11,6 @@ Friday
 0. Upgrade
     - jQuery & theme
     - Grails
-3. Fix teachers and do About Us page (without vising or contact)
 4. Events
     - Venue
     - Price
@@ -30,6 +29,7 @@ Sunday/Monday
 ================================================================================
                         FOR 28/02/2010
 ================================================================================
+0. Fix linking in png images.
 1. Register
     - Add captcha
     - Add ajax username unique check

@@ -34,6 +34,6 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-    <g:render template="/teacher" model="[teacher: teacher, events:events]"/>
+    <g:render template="/teacher" model="[teacher: teacher, events:events,articles:articles]"/>
   </body>
 </html>

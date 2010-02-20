@@ -24,12 +24,22 @@
 package org.samye.dzong.london.community
 
 class AboutUsController {
+    def articleService
 
     def index = {
-        def topArticles = Article.findAllByPublishStateAndCategory('Published', 'T',[sort: "datePublished", order: "desc"])
-        def allPublishedTeachers = Teacher.findAllByPublishState('Published', [sort: "name", order: "asc"])
-        def lineageTeachers = allPublishedTeachers.findAll { it.category == 'L'}
-        def teachers = allPublishedTeachers.findAll { it.category == 'C'}
-        model:[topArticles: topArticles, lineageTeachers: lineageTeachers, teachers:teachers];
+        def community = Teacher.findByName('Community');
+        def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
+        def teachers = Teacher.findAllByPublishStateAndType('Published', 'C',[sort: "name", order: "asc"])
+        teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
+        model:[topArticles: [community], lineageTeachers: lineageTeachers, teachers:teachers];
+    }
+
+    def view = {
+        def model = articleService.view(params.id)
+        if (!model) {
+            redirect(action:home)
+        } else {
+            render(view: 'view', model: model)
+        }
     }
 }
