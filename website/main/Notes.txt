@@ -7,24 +7,25 @@ April/May 2010 - Production deploy
 ================================================================================
                         FOR 22/02/2010
 ================================================================================
-Friday
+Sat
 0. Upgrade
     - jQuery & theme
     - Grails
-4. Events
-    - Venue
+    - Add Venues to base data set.
+1. Events
+    - Normal stuff without dates or prices
+    - Move date into new object
+    - Try date series
+    - Try date rule
+        - daily
+        - weekly
+        - monthly
+        - yearly
     - Price
-    - Teacher
-    - Organizer
-    - Publish
-    - Archived
-    - Deleted
-Sat
-5. Venue
-6. Footer - Contact Us
 
 Sunday/Monday
 7. CSS
+    - add support for class by category
 
 ================================================================================
                         FOR 28/02/2010
@@ -63,15 +64,17 @@ Sunday/Monday
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
-0. Therapists & Therapies
-1. Site Map
-2. About This Site
-3. Visiting Us
-4. Legal Notice
-5. Privacy and Cookies
-7. Textile markup of special characters
-8. Image form validation
-9. Functional tests for publishing articles to areas other than news.
+1. Venue
+2. Footer - Contact Us
+3. Therapists & Therapies
+4. Site Map
+5. About This Site
+6. Visiting Us
+7. Legal Notice
+8. Privacy and Cookies
+9. Textile markup of special characters
+10. Image form validation
+11. Functional tests for publishing articles to areas other than news.
     - Article navigation
     - Unpublish published
     - Delete Archived
@@ -81,14 +84,14 @@ Sunday/Monday
         - Edit article
         - After publish
         - After archive
-10. Database performance
-11. Cache pragmas
-12. Meta tags
-13. html, css validity, x-browser checks
-14. Tibetan support
+12. Database performance
+13. Cache pragmas
+14. Meta tags
+15. html, css validity, x-browser checks
+16. Tibetan support
     - browser/os check
     - hide/show tag
-15. Javascript support
+17. Javascript support
     - preparation for image carosels etc.
 
 ================================================================================

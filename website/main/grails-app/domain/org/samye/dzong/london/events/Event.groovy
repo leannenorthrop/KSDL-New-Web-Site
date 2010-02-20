@@ -79,6 +79,7 @@ class Event extends Publishable {
             content type: 'text'
             summary type: 'text'
         }
+        prices cascade:"all-delete-orphan"        
     }
 
     static namedQueries = {
