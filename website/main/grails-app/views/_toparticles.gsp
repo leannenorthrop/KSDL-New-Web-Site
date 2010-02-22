@@ -29,7 +29,7 @@
 
 <%@ page import="org.samye.dzong.london.community.Teacher; org.samye.dzong.london.community.Article" contentType="text/html;charset=UTF-8" %>
   <g:each in="${articles}" status="i" var="articleInstance">
-    <div class="box">
+    <div class="box article">
       <g:if test="${!(articleInstance instanceof Teacher)}">
         <h2>${articleInstance.title}</h2>
       </g:if>

@@ -154,6 +154,24 @@ class ScheduleRule {
     void setDays() {
     }
 
+    List getModifiers() {
+        def matcher = modifier =~ /[1-5][+-] [MTWFS][OUEHRA]/
+        def mods = matcher.collect() { it ->
+            def bits = it.split(" ")
+            if (bits[0][1] == '+') {
+                bits[0] = "" + bits[0][0]
+            } else {
+                bits[0] = "" + 5
+            }
+
+            return bits
+        }
+        return mods
+    }
+
+    void setModifiers() {
+    }
+
     List getOffsets() {
         def offsets = []
         offsets = modifier?.split(" ").findAll { it ->

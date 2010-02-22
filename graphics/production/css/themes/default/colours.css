@@ -160,24 +160,26 @@ legend {
 	background:#fff;
 	border:1px solid #bbb;
 }
+/*
 .article {
 	border-top:1px solid #666;
-}
-.box .article {
+}*/
+.box .article, .box .event {
 	border-top:3px solid #fff;
 }
-.article h2 {
+.article h2, .event h2 {
 	color:#333;
+	background:transparent;
 }
 
-.article a.image {
+.article a.image, .event a.image {
 	border:1px solid #bbb;
 	background:#fff;
 }
-.article a.image:hover {
+.article a.image:hover, .event a.image:hover {
 	border:1px solid #666;
 }
-.article p.meta {
+.article p.meta, .event p.meta {
 	color:#666;
 	border-top:1px dotted #999;
 	border-bottom:1px dotted #999;

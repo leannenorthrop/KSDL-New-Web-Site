@@ -22,48 +22,47 @@
   ----------------------------------------------------------------------------}%
 
 <%--
+  Template for displaying a single article along with related contents.
+
   User: Leanne Northrop
   Date: Feb 12, 2010, 8:32:39 PM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <div class="grid_12">
-      <h2>${articleInstance.title}</h2>
-
-<g:if test="${articleInstance.displayAuthor || articleInstance.displayDate}">
-  <ul>
-    <g:if test="${articleInstance.image}">
-      <li><img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/></li>
-    </g:if>
-    <g:if test="${articleInstance.displayDate && articleInstance.datePublished}">
-      <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></span></h3></li>
-    </g:if>
-    <g:if test="${articleInstance.displayAuthor}">
-      <li><h4>by <a>${articleInstance.author.username}</a></h4></li>
-    </g:if>
-  </ul>
-</g:if>
-
-<g:if test="${!articleInstance.displayAuthor && !articleInstance.displayDate}">
-  <div class="bodyNoDetails group">
-  <g:if test="${articleInstance?.image}">
-    <g:if test="${articleInstance?.image?.mimeType.endsWith('png')}">
-      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg" style="float:right"/>
+  <div class="grid article">
+    <g:if test="${!articleInstance.displayAuthor && !articleInstance.displayDate}">
+    <div class="grid_16 body ${articleInstance?.category}">
     </g:if>
     <g:else>
-      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" style="float:right"/>
+      <div class="grid_4 ${articleInstance?.category}" style="overflow-x: hidden;">
+        <g:if test="${articleInstance.datePublished}">
+          <h4><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></h4>
+        </g:if>
+        <g:if test="${articleInstance.displayAuthor}">
+          <h5>by <a>${articleInstance.author.username}</a></h5>
+        </g:if>
+      </div>
+
+      <div class="grid_12  ${articleInstance?.category}">
     </g:else>
-  </g:if>
-</g:if>
-<g:if test="${articleInstance.displayAuthor || articleInstance.displayDate}">
-  <div class="body group">
-</g:if>
-${articleInstance.content.encodeAsTextile()}
-</div><!-- /body -->
-</div><!-- /left -->
+    <g:if test="${articleInstance?.image && articleInstance?.image?.mimeType.endsWith('png')}">
+      <img src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
+    </g:if>
+    <g:elseif test="${articleInstance?.image}">
+      <img src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+    </g:elseif>
+      ${articleInstance.content.encodeAsTextile()}
+
+      <p class="meta">
+        <g:message code="article.labels"/> ${articleInstance?.tags?.join(", ")}
+      </p>
+      </div>
+   </div>
+</div>
 
 <div class="grid_4">
-  <h2><g:message code="similar"/></h2>
+  <h3><g:message code="similar"/></h3>
   <ul>
     <g:each in="${articles}" status="i" var="articleInstance">
       <li class="article"><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></li>

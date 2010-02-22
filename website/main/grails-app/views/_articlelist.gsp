@@ -29,27 +29,52 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="org.samye.dzong.london.community.Teacher" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.events.Event; org.samye.dzong.london.community.Teacher" contentType="text/html;charset=UTF-8" %>
+<g:set var="typeClass" value="${articles[0] instanceof Teacher ? 'teacher' : (articles[0] instanceof Event ? 'event' : '')}"/>
 <div class="box">
   <h2><g:message code="${heading}" default=""/></h2>
-  <ol>
+  <ul class="block articles">
     <g:if test="${articles}">
+
       <g:each in="${articles}" status="i" var="articleInstance">
-        <li class="group">
+
+        <g:set var="placementClass" value="${i == 0 ? 'first' : (i == articles.size ? 'last' :'')}"/>
+        <li class="${placementClass} article ${typeClass} ${articleInstance?.category}">
+
           <g:if test="${!(articleInstance instanceof Teacher)}">
-            <h3>${articleInstance.title}</h3>
+            <g:set var="articleHeading" value="${articleInstance.title}"/>
           </g:if>
           <g:else>
-            <h3><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance.name}</h3>
+            <g:set var="articleHeading"><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance.name}</g:set>
           </g:else>
-          <g:if test="${articleInstance.displayAuthor}">
-            <h4>by <a>${articleInstance.author.username}</a></h4>
+
+          <h3>
+            <g:if test="${articleInstance.content}">
+              <g:link controller="${controller}" action="${action}" id="${articleInstance.id}">${articleHeading}</g:link>
+            </g:if>
+            <g:else>
+              ${articleHeading}
+            </g:else>
+          </h3>
+
+          <g:if test="${articleInstance.displayAuthor || articleInstance.displayDate}">
+            <p class="meta">
+              <g:if test="${articleInstance.displayAuthor}">
+                by <a>${articleInstance.author.username}</a>
+              </g:if>
+              <g:if test="${articleInstance.displayAuthor && articleInstance.displayDate}">
+                --
+              </g:if>
+              <g:if test="${articleInstance.displayDate}">
+                <g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/>
+              </g:if>
+            </p>
           </g:if>
-          <g:if test="${articleInstance.displayDate}">
-            <h5><g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/></h5>
-          </g:if>
+
           <g:if test="${articleInstance.image}">
-            <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+            <a href="#" class="image">
+              <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+            </a>
           </g:if>
           <p>
             ${articleInstance.summary}
@@ -61,8 +86,9 @@
           </p>
         </li>
       </g:each>
+
     </g:if>
-  </ol>
+  </ul>
   <g:if test="${total > articles.size()}">
     <g:link action="${moreAction}"><em><g:message code="articles.more"/></em></g:link>
   </g:if>

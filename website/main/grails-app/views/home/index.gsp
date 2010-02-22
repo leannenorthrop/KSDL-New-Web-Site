@@ -10,14 +10,10 @@
   </head>
   <body>
     <div class="grid_12">
-      <div class="events box">
-        <g:render template="/eventlist" model="[events: events, heading: 'home.events']"/>
-      </div>
+      <g:render template="/eventlist" model="[events: events, heading: 'home.events']"/>
     </div>
     <div class="grid_4">
-      <div class="news box">
-        <g:render template="/shortnewslist" model="[articles: newsArticles, heading: 'home.news']"/>
-      </div>
+      <g:render template="/shortnewslist" model="[articles: newsArticles, heading: 'home.news']"/>
       <div class="box">
         <h2><g:message code="service.header"/></h2>
         <ul class="services">

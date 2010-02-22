@@ -57,6 +57,8 @@ h1#branding {
     margin-bottom: 0;
 }
 
+h1#branding img {
+}
 /* page heading
 ----------------------------------------------- */
 h2#page-heading {
@@ -318,7 +320,7 @@ input.search.button {
     margin: 0;
 }
 
-li.article {
+li.article,li.event {
     list-style-type:none;
 }
 
