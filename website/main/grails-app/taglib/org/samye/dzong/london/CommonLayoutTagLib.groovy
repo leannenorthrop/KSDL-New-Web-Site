@@ -8,10 +8,15 @@ class CommonLayoutTagLib {
 
      def nav = { attrs ->
         def navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism']
-        if (SecurityUtils.subject.hasRole ("Administrator")) {
+
+        try {
+            if (SecurityUtils.subject && SecurityUtils.subject.hasRole ("Administrator")) {
             navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
         } else if (SecurityUtils.subject && SecurityUtils.subject.principal != null) {
             navControllers =['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
+        }
+        } catch(error) {
+
         }
 
         def navList = {

@@ -30,17 +30,19 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<h2><g:message code="${heading}"/></h2>
-<ol>
-  <g:each in="${articles}" status="i" var="articleInstance">
-    <li>
-      <g:link controller="news" action="view" id="${articleInstance.id}">
-        <p>${articleInstance.title}</p>
-        <g:if test="${articleInstance.displayDate}">
-          <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em>
-        </g:if>
-        <p><g:message code="content.more"/></p>
-      </g:link>
-    </li>
-  </g:each>
-</ol>
+<div class="box">
+  <h2><g:message code="${heading}"/></h2>
+  <ol>
+    <g:each in="${articles}" status="i" var="articleInstance">
+      <li>
+        <g:link controller="news" action="view" id="${articleInstance.id}">
+          <p>${articleInstance.title}</p>
+          <g:if test="${articleInstance.displayDate}">
+            <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em>
+          </g:if>
+          <p><g:message code="content.more"/></p>
+        </g:link>
+      </li>
+    </g:each>
+  </ol>
+</div>

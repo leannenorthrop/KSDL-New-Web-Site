@@ -27,29 +27,83 @@
   User: Leanne Northrop
   Date: Feb 12, 2010,9:53:27 PM
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <g:set var="rule" value="${event?.dates[0]}"/>
-<div class="grid_12 event ${fieldValue(bean: event, field: "category")}">
-  <h2>${event?.title}</h2>
-  <h3><joda:format style="M-" date="${rule?.startDate}"/> (<joda:format style="-S" date="${rule?.startTime?.toLocalTime()}"/> ${fieldValue(bean: rule, field: "duration")})</h3>
-  <h4><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</h4>
-  <div class="body">
-    <g:if test="${event?.image}">
-      <g:if test="${event?.image?.mimeType.endsWith('png')}">
-        <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}" class="pngImg" style="float:right"/>
+<div class="grid_12">
+  <div class="grid event">
+    <div class="grid_4 ${event?.category}" style="overflow-x: hidden;">
+      <g:set var="startdate"><joda:format style="M-" date="${rule?.startDate}"/></g:set>
+      <g:set var="enddate"><joda:format style="M-" date="${rule?.endDate}"/></g:set>
+      <g:set var="days" value="${rule?.getDays().sort()}"/>
+
+      <g:if test="${!rule?.isRule}">
+        <h3>${startdate}</h3>
       </g:if>
       <g:else>
-        <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}" style="float:right"/>
+        <g:if test="${rule?.isDaily()}">
+          <h3><g:message code="day.interval.${rule?.interval}"/></h3>
+        </g:if>
+        <g:elseif test="${rule?.isWeekly()}">
+          <h3>
+            <g:each var="day" in="${days}" status="index">
+              <g:message code="${day}"/><g:if test="${index < rule?.getDays().size()-1}">,&nbsp;</g:if>
+            </g:each>
+          </h3>
+          <h4><g:message code="week.interval.${rule?.interval}"/></h4>
+        </g:elseif>
+        <g:elseif test="${rule?.isMonthly()}">
+          <h3>
+            <g:each var="modifiers" in="${rule?.getModifiers()}" status="index">
+                <g:message code="month.${modifiers[0]}"/>&nbsp;<g:message code="${modifiers[1]}"/>
+            </g:each>
+          </h3>
+          <h4><g:message code="month.interval.${rule?.interval}"/></h4>
+        </g:elseif>
+
+        <g:if test="${rule?.isBounded()}">
+          <h4><g:message code="from.until" args="${[startdate,enddate]}"/></h4>
+        </g:if>
       </g:else>
-    </g:if>
-    ${event.content.encodeAsTextile()}
-  </div><!-- /body -->
-  <p>
-    Posted: <g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.datePublished}"/>
-    Last Updated: <g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.lastUpdated}"/>
-  </p>
-</div><!-- /left -->
+
+      <h6><joda:format pattern="h:mm" value="${rule?.startTime?.toDateTimeToday()}"/> - <joda:format pattern="h:mm a" value="${rule?.endTime?.toDateTimeToday()}"/>  (${fieldValue(bean: rule, field: "duration")})</h6>
+
+      <g:if test="${event?.leader}">
+        <h5>${event?.leader}</h5>
+      </g:if>
+
+    </div>
+
+    <div class="grid_12 body ${event?.category}">
+      <g:if test="${event?.image && event?.image?.mimeType.endsWith('png')}">
+        <img src="${createLink(controller: 'image', action: 'src', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}" class="pngImg"/>
+      </g:if>
+      <g:elseif test="${event?.image}">
+        <img src="${createLink(controller: 'image', action: 'src', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
+      </g:elseif>
+      ${event.content.encodeAsTextile()}
+
+      <p class="meta">
+        <g:message code="article.labels"/> ${articleInstance?.tags?.join(", ")}
+        <g:if test="${event.datePublished}">
+          Posted: <span class="date"><g:formatDate format="dd MMMM, yyyy" date="${event.datePublished}"/></span>
+        </g:if>
+        <g:if test="${event.displayAuthor}">
+          by <a>${event.author.username}</a>
+        </g:if>
+      </p>
+    </div>
+  </div>
+</div>
 
 <div class="grid_4">
+  <h3><g:message code="similar"/></h3>
+  <ul>
+    <g:each in="${articles}" status="i" var="articleInstance">
+      <li class="article"><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></li>
+    </g:each>
+  </ul>
 </div>
+<div class="clear"></div>
+
+
+

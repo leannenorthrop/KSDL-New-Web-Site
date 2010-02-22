@@ -10,7 +10,7 @@ class CssThemesTagLib {
     def cssTheme = { attrs ->
         def themeCookie = request.getCookies().find() { it.name == "cssTheme"}
         if (!themeCookie) {
-            themeCookie = new Cookie("cssTheme","default")
+            themeCookie = new Cookie("cssTheme","Default")
             themeCookie.setMaxAge(60*60*24*365)
             themeCookie.setPath("/")
             response.addCookie(themeCookie)

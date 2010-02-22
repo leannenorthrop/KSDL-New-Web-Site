@@ -48,16 +48,23 @@
   <body class="${controllerName}">
     <div class="container_16">
       <div class="grid_16">
-        <h1 id="branding"><g:message code="title" default="Kagyu Samye Dzong London"/></h1>
-        <g:set var="logo" value="${Image.findByName('Logo')}"/>
-        <g:if test="${logo}">
-          <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
-        </g:if>
+        <h1 id="branding">
+          <g:set var="logo" value="${Image.findByName('Logo')}"/>
+          <g:if test="${logo}">
+            <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
+          </g:if>
+          <g:message code="title" default="Kagyu Samye Dzong London"/>
+        </h1>
       </div>
       <div class="clear"></div>
 
       <div class="grid_16">
         <lsdc:nav current="${controllerName}"/>
+      </div>
+      <div class="clear"></div>
+
+      <div class="grid_16">
+        <h2 id="page-heading"><g:layoutTitle/></h2>
       </div>
       <div class="clear"></div>
 
