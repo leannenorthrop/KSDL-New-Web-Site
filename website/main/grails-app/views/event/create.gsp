@@ -19,6 +19,8 @@
   -
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
+<joda:datePicker name="eventDate" precision="day" value="${event?.eventDate}" noSelection="['': '']" class="ui-corner-all" years="${2010..2050}"/>
+
   ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.joda.time.Minutes; org.joda.time.Hours; org.samye.dzong.london.events.Event;org.joda.time.*" %>
@@ -32,10 +34,28 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.create.title"/></title>
+    <g:set var="currentEventDate"><g:formatDate format="yyyy" date="${event?.eventDate}"/>,${event?.eventDate?.getMonth()},<g:formatDate format="dd" date="${event?.eventDate}"/></g:set>
     <jq:jquery>
-        $("#addevent").validate();
-        $("#accordion").accordion();
-        $("#dateTabs").tabs({fx: { opacity: 'toggle' }});      
+      $("#addevent").validate();
+      $("#accordion").accordion();
+      $("#dateTabs").tabs({fx: { opacity: 'toggle' }});
+      var d = new Date();
+      d.setFullYear(${currentEventDate});
+      $("#eventDatePicker").datepicker({
+        showOtherMonths: false,
+        dateFormat: 'dd-mm-yyyy',
+        defaultDate: d,
+        numberOfMonths: [2,3],
+        hideIfNoPrevNext: true,
+        minDate: '0d',
+        maxDate: '+3y',
+        stepMonths: 6,
+        onSelect: function(event, ui) {
+          var selected = $("#eventDatePicker").datepicker( 'getDate' );
+          selected = $.datepicker.formatDate('dd-mm-yy', selected);
+          $('#eventDate').attr('value', selected);
+        }
+      });
     </jq:jquery>
   </head>
   <body>
@@ -53,7 +73,7 @@
       <g:hiddenField name="featured" value="false"/>
 
       <div id="accordion">
-        <h3><a href="#">Title &amp; Summary</a></h3>
+        <h3><a href="#"><g:message code="event.details"/></a></h3>
         <div>
           <fieldset>
             <label for="title"><g:message code="event.title.label"/></label>
@@ -63,10 +83,6 @@
             <label for="summary"><g:message code="event.summary.label"/></label>
             <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:event,field:'summary','errors')}" value="${fieldValue(bean:event,field:'summary')}" minlength="5"/>
           </fieldset>
-        </div>
-
-        <h3><a href="#">Details</a></h3>
-        <div>
           <fieldset>
             <label for="category"><g:message code="event.category.label"/></label>
             <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
@@ -79,12 +95,12 @@
           <fieldset>
             <label for="image.id"><g:message code="event.image.label"/></label>
             <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-            <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('event')}" name="image.id" value="${event?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
+            <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('event')}" name="image.id" value="${event?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="= ui-corner-all"/>
           </fieldset>
           <fieldset>
             <label for="organizer.id"><g:message code="event.organizer.label"/></label>
             <g:set var="noSelectionLabel"><g:message code="no.img"/></g:set>
-            <g:select from="${org.samye.dzong.london.ShiroUser.list()}" name="organizer.id" value="${event?.organizer?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="username" class="required ui-corner-all"/>
+            <g:select from="${org.samye.dzong.london.ShiroUser.list()}" name="organizer.id" value="${event?.organizer?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="username" class="ui-corner-all"/>
           </fieldset>
           <fieldset>
             <label for="venue.id"><g:message code="event.venue.label"/></label>
@@ -92,7 +108,7 @@
           </fieldset>
         </div>
 
-        <h3><a href="#">Dates</a></h3>
+        <h3><a href="#"><g:message code="event.dates"/></a></h3>
         <div>
           <fieldset>
             <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>
@@ -100,10 +116,11 @@
             <g:select name="startTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${event?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
           </fieldset>
           <fieldset>
-            <label for="eventDurationHour"><g:message code="event.eventduration.label" default="Event Duration"/></label>
-            <g:select name="eventDurationHour" from="${0..24}" value="${event?.eventDuration?.toStandardHours()?.getHours()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'eventDuration','errors')}"/><g:message code="event.duration.hours"/>
-            <g:select name="eventDurationMin" from="${[0,5,10,15,20,30,40,45,50,55]}" value="${event?.eventDuration?.toStandardMinutes()?.getMinutes()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'eventDuration','errors')}"/><g:message code="event.duration.mins"/>
+            <label for="endTimeHour"><g:message code="event.endtime.label" default="End Time"/></label>
+            <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${event?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
+            <g:select name="endTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${event?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
           </fieldset>
+          <fieldset class="last"></fieldset>
           <div id="dateTabs">
             <ul>
               <li><a href="#once"><g:message code="event.once.title"/></a></li>
@@ -112,8 +129,9 @@
             </ul>
             <div id="once">
               <fieldset>
-                <label for="eventDate"><g:message code="event.eventdate.label" default="Event Date"/></label>
-                <joda:datePicker name="eventDate" precision="day" value="${event?.eventDate}" noSelection="['': '']" class="ui-corner-all" years="${2010..2050}"/>
+                <div id="eventDatePicker"></div>
+                <g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${event?.eventDate}"/></g:set>
+                <g:hiddenField name="eventDate" value="${defaultDate}"/>
               </fieldset>
             </div>
             <div id="regular">
@@ -127,7 +145,7 @@
           </div>
         </div>
 
-        <h3><a href="#">Prices</a></h3>
+        <h3><a href="#"><g:message code="event.prices"/></a></h3>
         <div>
           <fieldset>
             <label for="price">Price (coming soon)</label>
@@ -135,11 +153,10 @@
           </fieldset>
         </div>
 
-        <h3><a href="#">Full Description</a></h3>
+        <h3><a href="#"><g:message code="event.description"/></a></h3>
         <div>
           <fieldset>
-            <label for="content"><g:message code="event.content.label"/></label>
-            <g:textArea rows="35" cols="40" name="content" class="required ui-corner-all ${hasErrors(bean:event,field:'content','errors')}" value="${fieldValue(bean:event,field:'content')}" minlength="5"/>
+            <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:event]"/>
           </fieldset>
         </div>
       </div>

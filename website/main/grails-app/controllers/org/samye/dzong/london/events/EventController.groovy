@@ -25,6 +25,9 @@ package org.samye.dzong.london.events
 
 import org.apache.shiro.SecurityUtils
 import org.joda.time.*
+import java.text.SimpleDateFormat
+import java.text.DateFormat
+import java.text.ParsePosition
 
 /**
  * Web request handler for event information.
@@ -283,15 +286,35 @@ class EventController {
 
     def create = {
         def event = new Event()
+        event.eventDate = new Date(110,2,13)
         event.properties = params
         return ['event': event]
     }
 
     def save = {
-        def event = new Event(params)
+        def event = new Event()
         event.author = userLookupService.lookup()
-        event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour),Integer.valueOf(params.startTimeMin))
-        event.eventDuration =  new MutablePeriod(Integer.valueOf(params.eventDurationHour), Integer.valueOf(params.eventDurationMin), 0, 0).toPeriod()
+        try {
+            event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour),Integer.valueOf(params.startTimeMin))
+        } catch(error) {
+            log.info("Start time could not be set.",error)
+            flash.isError = true
+            flash.message = "event.starttime.update.error"
+            flash.args = [event]
+            render(view: 'create', model: [event: event, id: params.id])
+        }
+        try {
+            event.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour),Integer.valueOf(params.endTimeMin))
+        } catch(error) {
+            log.info("End time could not be set.",error)
+            flash.isError = true
+            flash.message = "event.endtime.update.error"
+            flash.args = [event]
+            render(view: 'create', model: [event: event, id: params.id])
+        }
+        params.eventDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
+        event.properties = params
+        event.eventDuration = new MutablePeriod(event.startTime.toDateTimeToday(),event.endTime.toDateTimeToday()).toPeriod()
         if (!event.hasErrors() && event.save()) {
             flash.message = "Event ${event.title} created"
             redirect(action: manage)
@@ -299,6 +322,7 @@ class EventController {
         else {
             flash.isError = true
             flash.message = "event.update.error"
+            flash.args = [event]
             render(view: 'create', model: [event: event, id: params.id])
         }
     }
