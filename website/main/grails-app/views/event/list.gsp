@@ -1,65 +1,38 @@
+%{------------------------------------------------------------------------------
+  - Copyright © 2010 Leanne Northrop
+  -
+  - This file is part of Samye Content Management System.
+  -
+  - Samye Content Management System is free software: you can redistribute it
+  - and/or modify it under the terms of the GNU General Public License as
+  - published by the Free Software Foundation, either version 3 of the License,
+  - or (at your option) any later version.
+  -
+  - Samye Content Management System is distributed in the hope that it will be
+  - useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Samye Content Management System.
+  - If not, see <http://www.gnu.org/licenses/>.
+  -
+  - BT plc, hereby disclaims all copyright interest in the program
+  - “Samye Content Management System” written by Leanne Northrop.
+  ----------------------------------------------------------------------------}%
 
 <%@ page import="org.samye.dzong.london.events.Event" %>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'event.label', default: 'Event')}" />
-        <title><g:message code="default.list.label" args="[entityName]" /></title>
-    </head>
-    <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
-            <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
-        </div>
-        <div class="body">
-            <h1><g:message code="default.list.label" args="[entityName]" /></h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                        
-                            <g:sortableColumn property="id" title="${message(code: 'event.id.label', default: 'Id')}" />
-                        
-                            <g:sortableColumn property="publishState" title="${message(code: 'event.publishState.label', default: 'Publish State')}" />
-                        
-                            <th><g:message code="event.author.label" default="Author" /></th>
-                   	    
-                            <g:sortableColumn property="displayAuthor" title="${message(code: 'event.displayAuthor.label', default: 'Display Author')}" />
-                        
-                            <g:sortableColumn property="displayDate" title="${message(code: 'event.displayDate.label', default: 'Display Date')}" />
-                        
-                            <g:sortableColumn property="datePublished" title="${message(code: 'event.datePublished.label', default: 'Date Published')}" />
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${eventInstanceList}" status="i" var="eventInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: "id")}</g:link></td>
-                        
-                            <td>${fieldValue(bean: eventInstance, field: "publishState")}</td>
-                        
-                            <td>${fieldValue(bean: eventInstance, field: "author")}</td>
-                        
-                            <td><g:formatBoolean boolean="${eventInstance.displayAuthor}" /></td>
-                        
-                            <td><g:formatBoolean boolean="${eventInstance.displayDate}" /></td>
-                        
-                            <td><g:formatDate date="${eventInstance.datePublished}" /></td>
-                        
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${eventInstanceTotal}" />
-            </div>
-        </div>
-    </body>
+  <head>
+    <title>${title}</title>
+    <meta name="layout" content="main">
+  </head>
+  <body>
+    <div class="col1_90_Percent">
+      <div class="box">
+        <h2><g:message code="event.today"/></h2>
+        <g:render template="/eventlist" model="[events: events]"/>
+      </div>
+    </div>
+  </body>
 </html>

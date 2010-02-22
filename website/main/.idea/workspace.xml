@@ -60,19 +60,10 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="create.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/event/create.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="135" column="75" selection-start="8243" selection-end="8243" vertical-scroll-proportion="-8.478261">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Event.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="68" column="66" selection-start="2345" selection-end="2345" vertical-scroll-proportion="-8.272727">
+            <state line="185" column="17" selection-start="5641" selection-end="5650" vertical-scroll-proportion="-17.568182">
               <folding />
             </state>
           </provider>
@@ -81,37 +72,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EventController.groovy" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="show.gsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/event/show.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="38" column="99" selection-start="1529" selection-end="1529" vertical-scroll-proportion="0.5404814">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/event/view.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="39" column="0" selection-start="1497" selection-end="1553" vertical-scroll-proportion="-11.021739">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="_event.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/_event.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="51" selection-start="2308" selection-end="2308" vertical-scroll-proportion="-29.25">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EventController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="318" column="94" selection-start="11904" selection-end="11904" vertical-scroll-proportion="0.56365615">
+            <state line="51" column="66" selection-start="1843" selection-end="1843" vertical-scroll-proportion="-7.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TimeOfDay.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/../../../../../../.grails/1.2.0/projects/main/plugins/joda-time-0.5/lib/joda-time-1.6.jar!/org/joda/time/TimeOfDay.class">
+      <file leaf-file-name="home.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/event/home.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="99" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
+            <state line="28" column="17" selection-start="1242" selection-end="1242" vertical-scroll-proportion="-0.2826087">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="content-admin.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/content-admin.gsp">
+      <file leaf-file-name="_eventlist.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/_eventlist.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="72" column="45" selection-start="3047" selection-end="3047" vertical-scroll-proportion="-17.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_contentWithPreview.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/_contentWithPreview.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="33" selection-start="2176" selection-end="2197" vertical-scroll-proportion="-32.5">
+            <state line="54" column="0" selection-start="2316" selection-end="2316" vertical-scroll-proportion="-35.1">
               <folding />
             </state>
           </provider>
@@ -127,22 +136,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/grails-app/conf/DataSource.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/migrations/v001/v001-ddl.xml" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/ScheduleRule.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
-        <option value="$PROJECT_DIR$/web-app/css/manage/menu.css" />
-        <option value="$PROJECT_DIR$/grails-app/views/image/edit.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/migrations/v001/v001-data.xml" />
-        <option value="$PROJECT_DIR$/grails-app/migrations/v001/data/PUBLISHABLE.csv" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/ready.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/events/EventService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/unpublished.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/edit.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/_editEvent.gsp" />
         <option value="$PROJECT_DIR$/web-app/css/manage/forms.css" />
-        <option value="$PROJECT_DIR$/web-app/css/manage/screen.css" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/publish.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/home.gsp" />
         <option value="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
-        <option value="$PROJECT_DIR$/grails-app/views/layouts/content-admin.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/event/create.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/list.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/Publishable.groovy" />
         <option value="$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy" />
         <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/_eventlist.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/view.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/event/show.gsp" />
       </list>
     </option>
   </component>
@@ -701,9 +710,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-1908" y="-178" width="1485" height="1078" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Data Sources" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32891986" sideWeight="0.6034483" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data Sources" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32891986" sideWeight="0.6034483" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -714,7 +723,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20173913" sideWeight="0.5020284" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294964" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.31986064" sideWeight="0.6034483" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Grails" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27247387" sideWeight="0.5951417" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Grails" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27247387" sideWeight="0.5951417" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38945234" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -756,58 +765,30 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/grails-app/migrations/test/articles.xml">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/publish.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="294" column="32" selection-start="134313" selection-end="135355" vertical-scroll-proportion="0.93121696">
+        <state line="22" column="69" selection-start="1119" selection-end="1119" vertical-scroll-proportion="-6.2173915">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/migrations/v001/data/PUBLISHABLE.csv">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/archived.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="66" selection-start="308" selection-end="308" vertical-scroll-proportion="0.027083334">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/migrations/v001/v001-data.xml">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/deleted.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="61" column="37" selection-start="7507" selection-end="7507" vertical-scroll-proportion="0.83915347">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/manage/forms.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="9" selection-start="3327" selection-end="3327" vertical-scroll-proportion="0.8116402">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/manage.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="42" selection-start="226" selection-end="226" vertical-scroll-proportion="-1.4130435">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/manage/screen.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="66" selection-start="593" selection-end="593" vertical-scroll-proportion="0.41979167">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/article/create.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="125" selection-start="3456" selection-end="3573" vertical-scroll-proportion="0.10122358">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="400" column="0" selection-start="15182" selection-end="15182" vertical-scroll-proportion="0.79935277">
+        <state line="400" column="27" selection-start="15246" selection-end="15246" vertical-scroll-proportion="-20.372093">
           <folding />
         </state>
       </provider>
@@ -815,37 +796,23 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/_article.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/list.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="16" selection-start="2171" selection-end="2712" vertical-scroll-proportion="0.5059459">
+        <state line="38" column="0" selection-start="1496" selection-end="1496" vertical-scroll-proportion="0.5404814">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/content-admin.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/edit.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="45" selection-start="3047" selection-end="3047" vertical-scroll-proportion="-17.0">
+        <state line="35" column="19" selection-start="1536" selection-end="1536" vertical-scroll-proportion="-9.891304">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/_contentWithPreview.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/Publishable.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="33" selection-start="2176" selection-end="2197" vertical-scroll-proportion="-32.5">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/event/create.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="135" column="75" selection-start="8243" selection-end="8243" vertical-scroll-proportion="-8.478261">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="66" selection-start="2345" selection-end="2345" vertical-scroll-proportion="-8.272727">
+        <state line="139" column="8" selection-start="4428" selection-end="4428" vertical-scroll-proportion="0.94323146">
           <folding />
         </state>
       </provider>
@@ -853,23 +820,68 @@
         <state />
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../.grails/1.2.0/projects/main/plugins/joda-time-0.5/lib/joda-time-1.6.jar!/org/joda/time/ReadablePartial.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="17" selection-start="155" selection-end="155" vertical-scroll-proportion="0.054166667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/../../../../../../.grails/1.2.0/projects/main/plugins/joda-time-0.5/lib/joda-time-1.6.jar!/org/joda/time/TimeOfDay.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="99" selection-start="260" selection-end="260" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="318" column="94" selection-start="11904" selection-end="11904" vertical-scroll-proportion="0.56365615">
+        <state line="51" column="66" selection-start="1843" selection-end="1843" vertical-scroll-proportion="-7.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/home.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="17" selection-start="1242" selection-end="1242" vertical-scroll-proportion="-0.2826087">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/_eventlist.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="0" selection-start="2316" selection-end="2316" vertical-scroll-proportion="-35.1">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="185" column="17" selection-start="5641" selection-end="5650" vertical-scroll-proportion="-17.568182">
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/ready.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="0" selection-start="3635" selection-end="3635" vertical-scroll-proportion="0.8249453">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/create.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="6" selection-start="2335" selection-end="2391" vertical-scroll-proportion="0.32713348">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/_event.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="51" selection-start="2308" selection-end="2308" vertical-scroll-proportion="-29.25">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/view.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="0" selection-start="1497" selection-end="1553" vertical-scroll-proportion="-11.021739">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/event/show.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="99" selection-start="1529" selection-end="1529" vertical-scroll-proportion="0.5404814">
           <folding />
         </state>
       </provider>

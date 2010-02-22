@@ -26,7 +26,6 @@
   Date: Jan 29, 2010,5:01:51 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.joda.time.*" %>
 <html>
   <head>
     <title>${title}</title>

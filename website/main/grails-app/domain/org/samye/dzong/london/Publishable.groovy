@@ -137,7 +137,6 @@ class Publishable implements Taggable {
         deleted {
             eq('deleted', Boolean.TRUE)
         }
-
     }
 
     String toString() {

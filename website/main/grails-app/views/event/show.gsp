@@ -34,21 +34,6 @@
     <meta name="layout" content="content-admin"/>
   </head>
   <body>
-    <div class="col1_80_Percent event ${fieldValue(bean: event, field: "category")}">
-      <h2>${event?.title}</h2>
-      <h3><joda:format style="M-" date="${event?.eventDate}"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h3>
-      <h4><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</h4>
-      <div class="body">
-        <img src="${createLink(controller: 'image', action: 'src', id: event?.image.id)}" title="${event?.image.name}" alt="${event?.image.name}" style="float:right;width:100px"/>
-        ${event.content.encodeAsTextile()}
-      </div><!-- /body -->
-      <p>
-        Posted: <g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.datePublished}"/>
-        Last Updated: <g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.lastUpdated}"/>
-      </p>
-    </div><!-- /left -->
-
-    <div class="col2_20_Percent">
-    </div>
+    <g:render template="/event" model="[event: event]"/>
   </body>
 </html>
