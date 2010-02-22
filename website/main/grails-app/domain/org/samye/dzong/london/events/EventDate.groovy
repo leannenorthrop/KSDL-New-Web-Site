@@ -1,4 +1,4 @@
-/*******************************************************************************
+/** *****************************************************************************
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,18 +19,20 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ ***************************************************************************** */
 
-package org.samye.dzong.london.shop
+package org.samye.dzong.london.events
 
-class Price {
-    Currency currency;
-    Double price;
-    String category;
+import org.samye.dzong.london.ScheduleRule
+
+class EventDate extends ScheduleRule {
+
+    boolean _deleted
+
+    static transients = ['_deleted']
+
+    static belongsTo = [ event : Event ]
 
     static constraints = {
-        currency(blank:false)
-        price(blank:false)
-        category(blank:false,inList:['F','O','S','M'])
     }
 }

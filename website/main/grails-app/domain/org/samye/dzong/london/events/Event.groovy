@@ -47,15 +47,11 @@ class Event extends Publishable {
     String content;
     Image image;
     Boolean isRepeatable;
-    Date eventDate;
-    TimeOfDay startTime;
-    TimeOfDay endTime;
     ShiroUser organizer;
     Teacher leader;
     Venue venue;
-    Period eventDuration;
 
-    static hasMany = [prices: EventPrice]
+    static hasMany = [prices: EventPrice,dates: EventDate]
 
     static constraints = {
         title(blank: false, unique: true,size:0..254)
@@ -63,25 +59,20 @@ class Event extends Publishable {
         content(size: 5..Integer.MAX_VALUE)
         isRepeatable(nullable: false)
         image(nullable: true)
-        eventDate(blank: false)
-        startTime(blank: false)
-        endTime(blank: false)
+        dates(nullable: false)
         prices(nullable:true)
         organizer(nullable:true)
         leader(nullable:true)
         venue(nullable:true)
-        eventDuration(blank: false)
     }
 
     static mapping = {
         columns {
-            startTime type: PersistentTimeOfDay
-            endTime type: PersistentTimeOfDay
-            eventDuration type: PersistentPeriod
             content type: 'text'
             summary type: 'text'
         }
-        prices cascade:"all-delete-orphan"
+        prices cascade: "all-delete-orphan"
+        dates cascade: "all-delete-orphan"
     }
 
     static namedQueries = {

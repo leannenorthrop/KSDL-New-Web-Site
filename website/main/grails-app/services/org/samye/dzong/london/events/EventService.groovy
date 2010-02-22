@@ -23,6 +23,11 @@
 
 package org.samye.dzong.london.events
 
+import org.joda.time.TimeOfDay
+import java.text.SimpleDateFormat
+import java.text.ParsePosition
+import org.joda.time.MutablePeriod
+
 class EventService {
     boolean transactional = true
     def userLookupService
@@ -215,4 +220,6 @@ class EventService {
         def total = Event.publishState("Ready For Publication").count();
         return [events: events, total: total]
     }
+
+
 }

@@ -22,7 +22,7 @@
 }
 
 .menuButton a:hover {
-    font-weight: bold;
+    text-decoration: underline;
 }
 
 .menuButton a.home {

@@ -33,11 +33,14 @@
   <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
   <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
   <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
+  <g:set var="eventDateLabel"><g:message code="event.eventDate.label"/></g:set>
+
   <body>
     <table>
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
+          <g:sortableColumn property="date" title="${eventDateLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
@@ -47,6 +50,7 @@
       </thead>
       <tbody>
         <g:each in="${events}" status="i" var="eventInstance">
+          <g:set var="rule" value="${eventInstance?.dates.toArray()[0]}"/>
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
               <shiro:hasRole name="Author">
@@ -56,6 +60,7 @@
                 ${fieldValue(bean: eventInstance, field: 'title')}
               </shiro:lacksRole>
             </td>
+            <td><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
               <td>${fieldValue(bean: eventInstance, field: 'author')}</td>

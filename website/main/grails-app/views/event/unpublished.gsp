@@ -44,11 +44,12 @@
       </thead>
       <tbody>
         <g:each in="${events}" status="i" var="eventInstance">
+          <g:set var="rule" value="${eventInstance?.dates.toArray()[0]}"/>
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
               <g:link action="edit" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
             </td>
-            <td><joda:format style="MS" date="${eventInstance?.eventDate}"/></td>
+            <td><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></td>
             <td><g:message code="${'publish.category.' + eventInstance?.category}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
