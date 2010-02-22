@@ -22,17 +22,17 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 12, 2010
-  Time: 9:53:27 PM
-  To change this template use File | Settings | File Templates.
+  Template for display an event and related items.
+
+  User: Leanne Northrop
+  Date: Feb 12, 2010,9:53:27 PM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<g:set var="rule" value="${event?.dates()[0]}"/>
 <div class="col1_80_Percent event ${fieldValue(bean: event, field: "category")}">
   <h2>${event?.title}</h2>
-  <h3><joda:format style="M-" date="${event?.eventDate}"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h3>
+  <h3><joda:format style="M-" date="${rule?.startDate}"/> (<joda:format style="-S" date="${rule?.startTime?.toLocalTime()}"/> ${fieldValue(bean: rule, field: "duration")})</h3>
   <h4><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</h4>
   <div class="body">
     <g:if test="${event?.image}">

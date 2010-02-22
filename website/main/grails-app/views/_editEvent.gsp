@@ -34,7 +34,7 @@
   <div>
     <fieldset>
       <label for="title"><g:message code="event.title.label"/></label>
-      <g:textField name="title" value="${fieldValue(bean:event,field:'title')}" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}" minlength="5"/>
+      <g:textField name="title" value="${event?.title}" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}" minlength="5"/>
     </fieldset>
     <fieldset>
       <label for="summary"><g:message code="event.summary.label"/></label>
@@ -47,7 +47,7 @@
     <fieldset>
       <label for="leader.id"><g:message code="event.leader.label"/></label>
       <g:set var="noSelectionLabel"><g:message code="please.select"/></g:set>
-      <g:select from="${org.samye.dzong.london.community.Teacher.list()}" name="leader.id" value="${event?.leader?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
+      <g:select from="${org.samye.dzong.london.community.Teacher.publishState('Published').list()}" name="leader.id" value="${event?.leader?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
     </fieldset>
     <fieldset>
       <label for="image.id"><g:message code="event.image.label"/></label>
@@ -66,18 +66,19 @@
     <fieldset>
       <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>
       <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
-      <g:select name="startTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${rule?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
+      <g:select name="startTimeMin" from="${[0,10,15,20,30,40,45]}" value="${rule?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
     </fieldset>
     <fieldset>
       <label for="endTimeHour"><g:message code="event.endtime.label" default="End Time"/></label>
       <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>&nbsp;:&nbsp;
-      <g:select name="endTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${rule?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
+      <g:select name="endTimeMin" from="${[0,10,15,20,30,40,45]}" value="${rule?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
     </fieldset>
   </div>
 
   <h3><a href="#"><g:message code="event.dates"/></a></h3>
   <div>
     <g:hiddenField id="ruletype" name="rule.type" value="0"/>
+    ${rule?.getDays()} ${rule?.getOffsets()}
     <div id="dateTabs">
       <ul>
         <li><a href="#once"><g:message code="event.once.title"/></a></li>
@@ -92,51 +93,51 @@
         <table>
           <tr>
             <td style="width:1em;">
-              <label><input type="radio" name="rule.ruleType1" value="always" checked="true"/><g:message code="always"/></label>
+              <label><input type="radio" id="alwaysradio" name="rule.ruleType1" value="always"/><g:message code="always"/></label>
             </td>
             <td style="height:3em;width:18em;">
-              <div id="always" style="display:block">
+              <div id="always" style="display:${rule?.isUnbounded() ? 'block' : 'none'}">
                 <label><g:message code="from"/>&nbsp;<input name="rule.from" type="text" id="alwaysFrom" style="width:auto"/></label>
               </div>
             </td>
           </tr>
           <tr>
-            <td style="width:1em;"><label><input type="radio" name="rule.ruleType1" value="period"/><g:message code="between"/></label></td>
+            <td style="width:1em;"><label><input id="between" type="radio" name="rule.ruleType1" value="period"/><g:message code="between"/></label></td>
             <td style="height:3em;width:18em;">
-              <div id="period" style="display:none">
+              <div id="period" style="display:${rule?.isBounded() ? 'block' : 'none'}">
                 <label><g:message code="from"/>&nbsp;<input type="text" name="rule.from" id="fromDatepicker" style="width:auto"/></label>&nbsp;<label><g:message code="until"/>&nbsp;<input type="text" name="rule.until" id="untilDatepicker" style="width:auto"/></label>
               </div>
             </td>
           </tr>
           <tr>
-            <td style="width:1em;"><input type="radio" name="rule.ruleType2" value="daily" checked="true">Daily</input></td>
+            <td style="width:1em;"><input type="radio" name="rule.ruleType2" id="dailyradio" value="daily" checked="${rule?.isDaily()}">Daily</input></td>
             <td style="height:2em;width:18em;">
-              <div id="daily">
-                <g:select name="rule.dailyinterval" from="${1..6}" valueMessagePrefix="day.interval" class="ui-corner-all"/>
+              <div id="daily" style="display:${rule?.isDaily() ? 'block' : 'none'}">
+                <g:select name="rule.dailyinterval" from="${1..6}" valueMessagePrefix="day.interval" class="ui-corner-all" value="${rule?.interval}"/>
               </div>
             </td>
           </tr>
           <tr>
-            <td style="width:1em;"><input type="radio" name="rule.ruleType2" value="weekly">Weekly</input></td>
+            <td style="width:1em;"><input type="radio" name="rule.ruleType2" id="weeklyradio" value="weekly" checked="${rule?.isWeekly()}">Weekly</input></td>
             <td style="height:2em;width:18em;">
-              <div id="weekly" style="display:none">
-                <g:select name="rule.weeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all"/>
+              <div id="weekly" style="display:${rule?.isWeekly() ? 'block' : 'none'}">
+                <g:select name="rule.weeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all" value="${rule?.interval}"/>
                 <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-                  <input type="checkbox" name="rule.weekly.${it}" id="rule.weekly.${it}"/><g:message code="${it}"/>
+                  <input type="checkbox" name="rule.weekly.${it}" id="ruleweekly${it}"/><g:message code="${it}"/>
                 </g:each>
               </div>
             </td>
           </tr>
           <tr>
-            <td style="width:1em;"><input type="radio" name="rule.ruleType2" value="monthly">Monthly</input></td>
+            <td style="width:1em;"><input type="radio" name="rule.ruleType2" id="monthlyradio" value="monthly" checked="${rule?.isMonthly()}">Monthly</input></td>
             <td style="height:13em;width:18em;">
-              <div id="monthly" style="display:none">
-                <g:select name="rule.monthlyinterval" from="${1..12}" valueMessagePrefix="month.interval" class="ui-corner-all"/>
-                <g:each in="${['one','two','three','four']}" var="instance">
+              <div id="monthly" style="display:${rule?.isMonthly() ? 'block' : 'none'}">
+                <g:select name="rule.monthlyinterval" from="${1..12}" valueMessagePrefix="month.interval" class="ui-corner-all" value="${rule?.interval}"/>
+                <g:each in="${['one','two']}" var="instance">
                   <fieldset>
-                    <g:select name="rule.monthly.${instance}.interval" from="${1..5}" valueMessagePrefix="month" class="ui-corner-all"/>
+                    <g:select name="rule.monthly.${instance}.interval" id="rulemonthly${instance}interval" from="${1..5}" valueMessagePrefix="month" class="ui-corner-all"/>
                     <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-                      <input type="checkbox" name="rule.monthly.${instance}.${it}"/><g:message code="${it}"/>
+                      <input type="checkbox" name="rule.monthly.${instance}.${it}" id="rulemonthly${instance}${it}"/><g:message code="${it}"/>
                     </g:each>
                   </fieldset>
                 </g:each>
@@ -171,17 +172,26 @@
   </g:if>
 </div>
 <g:set var="currentEventDate"><g:formatDate format="yyyy" date="${rule?.startDate}"/>,${rule?.startDate?.getMonth()},<g:formatDate format="dd" date="${rule?.startDate}"/></g:set>
+<g:set var="currentEndEventDate"><g:formatDate format="yyyy" date="${rule?.endDate}"/>,${rule?.endDate?.getMonth()},<g:formatDate format="dd" date="${rule?.endDate}"/></g:set>
 <g:javascript>
-      $("#alwaysFrom").datepicker({dateFormat: 'dd-mm-yy'});
+      var defaultDate = new Date(${currentEventDate});
+      defaultDate.setFullYear(${currentEventDate});
+      var endDate = new Date(${currentEndEventDate});
+      endDate.setFullYear(${currentEndEventDate});
+      $("#alwaysFrom").datepicker({dateFormat: 'dd-mm-yy',defaultDate: defaultDate,minDate: '0d', maxDate: '+3y',hideIfNoPrevNext: true});
       $("#fromDatepicker").datepicker({
           dateFormat: 'dd-mm-yy',
+          defaultDate: defaultDate,
+          minDate: '0d',
+          maxDate: '+3y',
+          hideIfNoPrevNext: true,
           onSelect: function(event, ui) {
             var selected = $("#fromDatepicker").datepicker( 'getDate' );
             //selected = $.datepicker.formatDate('dd-mm-yy', selected);
             $('#untilDatepicker').datepicker('option', {minDate: selected});
         }
       });
-      $("#untilDatepicker").datepicker({dateFormat: 'dd-mm-yy'});
+      $("#untilDatepicker").datepicker({dateFormat: 'dd-mm-yy',defaultDate: endDate,minDate: '0d', maxDate: '+3y',hideIfNoPrevNext: true});
       $("input[name|=rule.ruleType1]").change(function() {
           $("input[name|=rule.ruleType1]").each(function(index) {
             var id = $(this).val();
@@ -199,7 +209,6 @@
       $("#accordion").accordion();
       $("#dateTabs").tabs({
           fx: { opacity: 'toggle' },
-          event: 'mouseover',
           select: function(event, ui) {
               var selected = $("#dateTabs").tabs('option', 'selected');
               if (selected == 0) {
@@ -211,12 +220,10 @@
             return true;
           }
       });
-      var d = new Date();
-      d.setFullYear(${currentEventDate});
       $("#eventDatePicker").datepicker({
         showOtherMonths: false,
         dateFormat: 'dd-mm-yy',
-        defaultDate: d,
+        defaultDate: defaultDate,
         numberOfMonths: [3,3],
         hideIfNoPrevNext: true,
         minDate: '0d',
@@ -228,5 +235,35 @@
           $('#eventDate').attr('value', selected);
         }
       });
+      var defaultFormattedDate = $.datepicker.formatDate('dd-mm-yy', defaultDate);
+      var endFormattedDate = $.datepicker.formatDate('dd-mm-yy', endDate);
+      $("#alwaysFrom").attr("value",defaultFormattedDate);
+      $("#fromDatepicker").attr("value",defaultFormattedDate);
+      $("#untilDatepicker").attr("value",endFormattedDate);
+  <g:if test="${rule.isRule}">
+    $("#dateTabs").tabs('option', 'selected', 1);
+  </g:if>
+  <g:if test="${rule?.isUnbounded()}">
+    $("#alwaysradio").attr("checked","true");
+  </g:if>
+  <g:else>
+    $("#between").attr("checked","true");
+  </g:else>
+  <g:if test="${rule?.isDaily()}">
+    $("#dailyradio").attr("checked","true");
+  </g:if>
+  <g:elseif test="${rule?.isWeekly()}">
+    $("#weeklyradio").attr("checked","true");
+    <g:each in="${rule?.getDays()}" var="day">
+      $("#ruleweekly${day}").attr("checked","true");
+    </g:each>
+  </g:elseif>
+  <g:else>
+    $("#monthlyradio").attr("checked","true");
+    <g:each in="${['one','two']}" var="instance" status="index">
+      $("#rulemonthly${instance}${rule?.getDays()[index]}").attr("checked","true");
+      $("#rulemonthly${instance}interval").attr("value","${rule?.getOffsets()[index]}");
+    </g:each>
+  </g:else>
 </g:javascript>
 

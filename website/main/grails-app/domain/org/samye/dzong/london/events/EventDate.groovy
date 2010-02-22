@@ -35,4 +35,8 @@ class EventDate extends ScheduleRule {
 
     static constraints = {
     }
+
+    static mapping = {
+        sort startDate:"desc"
+    }
 }

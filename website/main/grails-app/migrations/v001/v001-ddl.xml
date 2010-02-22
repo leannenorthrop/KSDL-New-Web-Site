@@ -19,7 +19,7 @@
     <changeSet author="v001-schema-2" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="ARTICLE">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_152"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_138"/>
             </column>
             <column name="SUMMARY" type="${text-type}"/>
             <column name="IMAGE_ID" type="BIGINT"/>
@@ -30,7 +30,7 @@
     <changeSet author="v001-schema-3" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="AUDIT_LOG">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_155"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_141"/>
             </column>
             <column name="PROPERTY_NAME" type="VARCHAR(255)"/>
             <column name="LAST_UPDATED" type="DATETIME">
@@ -52,7 +52,7 @@
     <changeSet author="v001-schema-4" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="CONTACT">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_157"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_143"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -65,7 +65,7 @@
     <changeSet author="v001-schema-5" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="EMAIL">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_159"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_145"/>
             </column>
             <column name="ADDRESS" type="VARCHAR(255)"/>
             <column name="TYPE" type="VARCHAR(5)"/>
@@ -74,7 +74,7 @@
     <changeSet author="v001-schema-6" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="EVENT">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_162"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_148"/>
             </column>
             <column name="SUMMARY" type="${text-type}"/>
             <column name="TITLE" type="VARCHAR(254)"/>
@@ -89,7 +89,7 @@
     <changeSet author="v001-schema-7" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="IMAGE">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_166"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_152"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -131,7 +131,7 @@
     <changeSet author="v001-schema-9" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="PRICE">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_169"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_155"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -149,12 +149,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="EVENT_ID" type="BIGINT"/>
+            <column name="PRICES_IDX" type="INT"/>
         </createTable>
     </changeSet>
     <changeSet author="v001-schema-10" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="PUBLISHABLE">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_173"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_159"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -185,7 +186,7 @@
     <changeSet author="v001-schema-11" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="ROOM">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_175"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_161"/>
             </column>
             <column name="IMAGE_ID" type="BIGINT"/>
             <column name="DESCRIPTION" type="VARCHAR(255)"/>
@@ -195,7 +196,7 @@
     <changeSet author="v001-schema-12" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="SCHEDULE_RULE">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_179"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_165"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -224,12 +225,13 @@
                 <constraints nullable="false"/>
             </column>
             <column name="EVENT_ID" type="BIGINT"/>
+            <column name="DATES_IDX" type="INT"/>
         </createTable>
     </changeSet>
     <changeSet author="v001-schema-13" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="SHIRO_ROLE">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_183"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_169"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -248,7 +250,7 @@
     <changeSet author="v001-schema-15" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="SHIRO_USER">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_189"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_175"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -270,10 +272,10 @@
     </changeSet>
     <changeSet author="v001-schema-17" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="SHIRO_USER_ROLES">
-            <column name="SHIRO_ROLE_ID" type="BIGINT">
+            <column name="SHIRO_USER_ID" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="SHIRO_USER_ID" type="BIGINT">
+            <column name="SHIRO_ROLE_ID" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -281,7 +283,7 @@
     <changeSet author="v001-schema-18" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="TAG_LINKS">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_200"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_186"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -300,7 +302,7 @@
     <changeSet author="v001-schema-19" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="TAGS">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_202"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_188"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -313,7 +315,7 @@
     <changeSet author="v001-schema-20" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="TEACHER">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_205"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_191"/>
             </column>
             <column name="SUMMARY" type="${text-type}"/>
             <column name="IMAGE_ID" type="BIGINT"/>
@@ -326,7 +328,7 @@
     <changeSet author="v001-schema-21" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="TELEPHONE">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_210"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_196"/>
             </column>
             <column name="NUMBER" type="VARCHAR(255)"/>
             <column name="TYPE" type="VARCHAR(6)"/>
@@ -335,7 +337,7 @@
     <changeSet author="v001-schema-22" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="TRANSPORT">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_212"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_198"/>
             </column>
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
@@ -348,7 +350,7 @@
     <changeSet author="v001-schema-23" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="VENUE">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_214"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_200"/>
             </column>
             <column name="IMAGE_ID" type="BIGINT"/>
             <column name="ACCESS" type="VARCHAR(255)"/>
@@ -360,14 +362,14 @@
     <changeSet author="v001-schema-24" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="VENUE_ADDRESS">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_219"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_205"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="v001-schema-25" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="VENUE_EMAIL">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_221"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_207"/>
             </column>
         </createTable>
     </changeSet>
@@ -380,12 +382,12 @@
     <changeSet author="v001-schema-27" id="Leanne Northrop">
         <createTable schemaName="PUBLIC" tableName="VENUE_TELEPHONE">
             <column name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_228"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_214"/>
             </column>
         </createTable>
     </changeSet>
     <changeSet author="v001-schema-28" id="Leanne Northrop">
-        <addPrimaryKey columnNames="SHIRO_USER_ID, SHIRO_ROLE_ID" constraintName="SYS_IDX_194" schemaName="PUBLIC" tableName="SHIRO_USER_ROLES"/>
+        <addPrimaryKey columnNames="SHIRO_USER_ID, SHIRO_ROLE_ID" constraintName="SYS_IDX_180" schemaName="PUBLIC" tableName="SHIRO_USER_ROLES"/>
     </changeSet>
     <changeSet author="v001-schema-29" id="Leanne Northrop">
         <addForeignKeyConstraint baseColumnNames="IMAGE_ID" baseTableName="ARTICLE" baseTableSchemaName="PUBLIC" constraintName="FKD458CCF6B776D63" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="IMAGE"/>
@@ -442,17 +444,17 @@
         <addForeignKeyConstraint baseColumnNames="VENUE_ROOMS_ID" baseTableName="VENUE_ROOM" baseTableSchemaName="PUBLIC" constraintName="FK9A9DFCABE524B5D5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="VENUE"/>
     </changeSet>
     <changeSet author="v001-schema-47" id="Leanne Northrop">
-        <createIndex indexName="SYS_IDX_SYS_CT_151_154" schemaName="PUBLIC" tableName="ARTICLE" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_137_140" schemaName="PUBLIC" tableName="ARTICLE" unique="true">
             <column name="TITLE"/>
         </createIndex>
     </changeSet>
     <changeSet author="v001-schema-48" id="Leanne Northrop">
-        <createIndex indexName="SYS_IDX_SYS_CT_161_164" schemaName="PUBLIC" tableName="EVENT" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_147_150" schemaName="PUBLIC" tableName="EVENT" unique="true">
             <column name="TITLE"/>
         </createIndex>
     </changeSet>
     <changeSet author="v001-schema-49" id="Leanne Northrop">
-        <createIndex indexName="SYS_IDX_SYS_CT_165_168" schemaName="PUBLIC" tableName="IMAGE" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_151_154" schemaName="PUBLIC" tableName="IMAGE" unique="true">
             <column name="NAME"/>
         </createIndex>
     </changeSet>
@@ -467,22 +469,22 @@
         </createIndex>
     </changeSet>
     <changeSet author="v001-schema-52" id="Leanne Northrop">
-        <createIndex indexName="SYS_IDX_SYS_CT_177_185" schemaName="PUBLIC" tableName="SHIRO_ROLE" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_163_171" schemaName="PUBLIC" tableName="SHIRO_ROLE" unique="true">
             <column name="NAME"/>
         </createIndex>
     </changeSet>
     <changeSet author="v001-schema-53" id="Leanne Northrop">
-        <createIndex indexName="SYS_IDX_SYS_CT_189_204" schemaName="PUBLIC" tableName="TAGS" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_175_190" schemaName="PUBLIC" tableName="TAGS" unique="true">
             <column name="NAME"/>
         </createIndex>
     </changeSet>
     <changeSet author="v001-schema-54" id="Leanne Northrop">
-        <createIndex indexName="SYS_IDX_SYS_CT_193_207" schemaName="PUBLIC" tableName="TEACHER" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_179_193" schemaName="PUBLIC" tableName="TEACHER" unique="true">
             <column name="NAME"/>
         </createIndex>
     </changeSet>
     <changeSet author="v001-schema-55" id="Leanne Northrop">
-        <createIndex indexName="SYS_IDX_SYS_CT_201_216" schemaName="PUBLIC" tableName="VENUE" unique="true">
+        <createIndex indexName="SYS_IDX_SYS_CT_187_202" schemaName="PUBLIC" tableName="VENUE" unique="true">
             <column name="NAME"/>
         </createIndex>
     </changeSet>

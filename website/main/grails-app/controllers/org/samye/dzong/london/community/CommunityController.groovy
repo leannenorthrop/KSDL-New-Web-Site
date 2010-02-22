@@ -21,7 +21,7 @@ class CommunityController {
         }
         def totalCommunity = Article.allCommunityArticlesNotOrdered().count()
         def totalVolunteer = volunteer.size()
-        def events = Event.community('eventDate','desc').list()
+        def events = Event.community('featured','desc').list()
         return render(view: 'index',model: [events:events,topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]);
     }
 

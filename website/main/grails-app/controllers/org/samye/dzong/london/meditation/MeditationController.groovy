@@ -22,7 +22,7 @@ class MeditationController {
         }
 
         def total = Article.allMeditationArticlesNotOrdered.count();
-        def events = Event.meditation('eventDate','desc').list()
+        def events = Event.meditation('featured','desc').list()
         render(view: 'index', model:[meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total])
     }
 

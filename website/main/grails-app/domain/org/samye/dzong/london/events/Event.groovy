@@ -50,6 +50,8 @@ class Event extends Publishable {
     ShiroUser organizer;
     Teacher leader;
     Venue venue;
+    List prices;
+    List dates;
 
     static hasMany = [prices: EventPrice,dates: EventDate]
 
@@ -150,7 +152,41 @@ class Event extends Publishable {
 
         publishedDateRange {final startDate, final endDate, final orderCol, final orderDirection ->
             eq 'publishState', 'Published'
-            between 'eventDate', startDate,endDate
+            dates {
+                or {
+                    eq 'ruleType', 'period'
+                    eq 'isRule', Boolean.FALSE
+                }
+                and {
+                    or {
+                        between 'startDate', startDate,endDate
+                        between 'endDate', startDate,endDate
+                    }
+                }
+            }
+            order("${orderCol}", "${orderDirection}")
+        }
+
+        dailyOnDay { date ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            dates {
+                eq isRule, Boolean.TRUE
+                eq ruleType, 'always'
+                eq "modifierType", "D"
+                or {
+                    eq interval, 1
+                }
+            }
+        }
+
+        regular { final orderCol, final orderDirection ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            dates {
+                eq isRule, Boolean.TRUE
+                eq ruleType, 'always'
+            }
             order("${orderCol}", "${orderDirection}")
         }
     }
