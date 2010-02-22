@@ -1,4 +1,4 @@
-/*******************************************************************************
+/** *****************************************************************************
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,7 +19,7 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ ***************************************************************************** */
 
 package org.samye.dzong.london.events
 
@@ -49,27 +49,21 @@ class EventController {
 
     def home = {
         def events = Event.publishState('Published').list();
-        def todaysEvents = events.findAll() { it.eventDate.compareTo(new LocalDate()) <= 0};
-        def thisWeeksEvents = events.findAll() {it.eventDate.compareTo(new LocalDate(2010, 2, 7)) <= 0};
-        def thisMonthEvents = events.findAll() {it.eventDate.compareTo(new LocalDate(2010,2,28)) <= 0};
-        return [events: events,todaysEvents:todaysEvents, thisWeeksEvents:thisWeeksEvents,title: "Current Programme"]
+        def todaysEvents = Event.today().list();
+        def thisWeeksEvents = Event.thisWeek().list();
+        def thisMonthEvents = Event.thisMonth().list();
+        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, title: "Current Programme"]
     }
 
     def list = {
-        if (params.tags) {
-            def tags = params.tags.toLowerCase().split(",").toList()
-            def events = eventService.publishedByTags(tags)
-            model: [events: events, title: message(code: 'all.events.with.tags', args: params.tags), auditLogs: auditDetails]
-        } else {
-            def publishedEvents = Event.findAllByPublishState("Published")
-            model: [events: publishedEvents, title: message(code: 'all.events'), auditLogs: auditDetails]
-        }
+        def events = Event.publishState('Published').list();
+        return [events: events, title: 'events.all.title']
     }
 
     // the save and update actions only accept POST requests
-    static allowedMethods = [save: 'POST', update: 'POST',changeState: 'GET']
+    static allowedMethods = [save: 'POST', update: 'POST', changeState: 'GET']
 
-    def ajaxUnpublishedEvents = {
+    def ajaxUnpublished = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         def model
@@ -81,7 +75,7 @@ class EventController {
         render(view: 'unpublished', model: model)
     }
 
-    def ajaxPublishedEvents = {
+    def ajaxPublished = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
@@ -94,7 +88,7 @@ class EventController {
         render(view: 'published', model: model)
     }
 
-    def ajaxArchivedEvents = {
+    def ajaxArchived = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
@@ -107,7 +101,20 @@ class EventController {
         render(view: 'archived', model: model)
     }
 
-    def ajaxDeletedEvents = {
+    def ajaxReady = {
+        params.offset = params.offset ? params.offset.toInteger() : 0
+        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+            model = eventService.ready(params)
+        } else {
+            model = eventService.userReady(params)
+        }
+        render(view: 'ready', model: model)
+    }
+
+    def ajaxDeleted = {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
@@ -211,18 +218,60 @@ class EventController {
                 }
             }
 
+            try {
+                event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour), Integer.valueOf(params.startTimeMin))
+            } catch (error) {
+                log.info("Start time could not be set.", error)
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.starttime.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
+            }
+            try {
+                event.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour), Integer.valueOf(params.endTimeMin))
+            } catch (error) {
+                log.info("End time could not be set.", error)
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.endtime.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
+            }
+            try {
+                params.eventDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
+            } catch (error) {
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
+            }
+            try {
+                event.eventDuration = new MutablePeriod(event.startTime.toDateTimeToday(), event.endTime.toDateTimeToday()).toPeriod()
+            } catch (error) {
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
+            }
+            event.properties = params
             def isFirstPublish = event.publishState != 'Published'
             if (isFirstPublish) {
                 event.datePublished = new Date()
             }
 
-            event.properties = params
             event.publishState = "Published"
-            event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour),Integer.valueOf(params.startTimeMin))
-            event.eventDuration =  new MutablePeriod(Integer.valueOf(params.eventDurationHour), Integer.valueOf(params.eventDurationMin), 0, 0).toPeriod()
-            if (params.tags) {
-                event.parseTags(params.tags)
+            def tags = event.tags
+            def newtags = params.tags.split(',')
+            tags.each {tag ->
+                def found = newtags.find {newtag -> newtag == tag}
+                if (!found) {
+                    event.removeTag(tag)
+                }
             }
+            event.addTags(newtags)
 
             if (!event.hasErrors() && event.save()) {
                 if (isFirstPublish) {
@@ -262,12 +311,47 @@ class EventController {
                     return
                 }
             }
-            event.properties = params
-            event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour),Integer.valueOf(params.startTimeMin))
-            event.eventDuration =  new MutablePeriod(Integer.valueOf(params.eventDurationHour), Integer.valueOf(params.eventDurationMin), 0, 0).toPeriod()
-            if (params.tags) {
-                event.parseTags(params.tags)
+
+
+            try {
+                event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour), Integer.valueOf(params.startTimeMin))
+            } catch (error) {
+                log.info("Start time could not be set.", error)
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.starttime.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
             }
+            try {
+                event.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour), Integer.valueOf(params.endTimeMin))
+            } catch (error) {
+                log.info("End time could not be set.", error)
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.endtime.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
+            }
+            try {
+                params.eventDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
+            } catch (error) {
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
+            }
+            try {
+                event.eventDuration = new MutablePeriod(event.startTime.toDateTimeToday(), event.endTime.toDateTimeToday()).toPeriod()
+            } catch (error) {
+                event.hasErrors()
+                flash.isError = true
+                flash.message = "event.update.error"
+                flash.args = [event]
+                render(view: 'create', model: [event: event, id: params.id])
+            }
+            event.properties = params
             if (!event.hasErrors() && event.save()) {
                 flash.message = "Event ${event.title} updated"
                 redirect(action: manage)
@@ -275,6 +359,7 @@ class EventController {
             else {
                 flash.isError = true
                 flash.message = "event.update.error"
+                flash.args = [event]
                 render(view: 'edit', model: [event: event, id: params.id])
             }
         }
@@ -286,7 +371,7 @@ class EventController {
 
     def create = {
         def event = new Event()
-        event.eventDate = new Date(110,2,13)
+        event.eventDate = new Date(110, 2, 13)
         event.properties = params
         return ['event': event]
     }
@@ -295,26 +380,45 @@ class EventController {
         def event = new Event()
         event.author = userLookupService.lookup()
         try {
-            event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour),Integer.valueOf(params.startTimeMin))
-        } catch(error) {
-            log.info("Start time could not be set.",error)
+            event.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour), Integer.valueOf(params.startTimeMin))
+        } catch (error) {
+            log.info("Start time could not be set.", error)
+            event.hasErrors()
             flash.isError = true
             flash.message = "event.starttime.update.error"
             flash.args = [event]
             render(view: 'create', model: [event: event, id: params.id])
         }
         try {
-            event.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour),Integer.valueOf(params.endTimeMin))
-        } catch(error) {
-            log.info("End time could not be set.",error)
+            event.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour), Integer.valueOf(params.endTimeMin))
+        } catch (error) {
+            log.info("End time could not be set.", error)
+            event.hasErrors()
             flash.isError = true
             flash.message = "event.endtime.update.error"
             flash.args = [event]
             render(view: 'create', model: [event: event, id: params.id])
         }
-        params.eventDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
+        try {
+            params.eventDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
+        } catch (error) {
+            event.hasErrors()
+            flash.isError = true
+            flash.message = "event.update.error"
+            flash.args = [event]
+            render(view: 'create', model: [event: event, id: params.id])
+        }
+        try {
+            event.eventDuration = new MutablePeriod(event.startTime.toDateTimeToday(), event.endTime.toDateTimeToday()).toPeriod()
+        } catch (error) {
+            event.hasErrors()
+            flash.isError = true
+            flash.message = "event.update.error"
+            flash.args = [event]
+            render(view: 'create', model: [event: event, id: params.id])
+        }
         event.properties = params
-        event.eventDuration = new MutablePeriod(event.startTime.toDateTimeToday(),event.endTime.toDateTimeToday()).toPeriod()
+
         if (!event.hasErrors() && event.save()) {
             flash.message = "Event ${event.title} created"
             redirect(action: manage)

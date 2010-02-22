@@ -20,48 +20,54 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+
+<%--
+  List of articles ready for publication
+  User: Leanne Northrop
+  Date: Feb 18, 2010,3:21:19 PM
+--%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <g:set var="titleLabel"><g:message code="event.title.label"/></g:set>
-  <g:set var="lastUpdatedLabel"><g:message code="event.last.updated"/></g:set>
-  <g:set var="deleteConfirmLabel"><g:message code="event.delete.confirm"/></g:set>
-  <g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
-  <g:set var="eventDateLabel"><g:message code="event.eventdate.label"/></g:set>
-  <g:set var="categoryLabel"><g:message code="event.category.label"/></g:set>
+  <g:set var="titleLabel"><g:message code="article.title.label"/></g:set>
+  <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
+  <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+  <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
   <body>
     <table>
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
-          <g:sortableColumn property="date" title="${eventDateLabel}"/>
-          <g:sortableColumn property="category" title="${categoryLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
-          <th><g:message code="event.action.label"/></th>
+          <th><g:message code="article.action.label"/></th>
         </tr>
       </thead>
       <tbody>
         <g:each in="${events}" status="i" var="eventInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
-              <g:link action="edit" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
+              <shiro:hasRole name="Author">
+                <g:link action="edit" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
+              </shiro:hasRole>
+              <shiro:lacksRole name="Author">
+                ${fieldValue(bean: eventInstance, field: 'title')}
+              </shiro:lacksRole>
             </td>
-            <td><joda:format style="MS" date="${eventInstance?.eventDate}"/></td>
-            <td><g:message code="${'publish.category.' + eventInstance?.category}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
               <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
+              <shiro:hasRole name="Author">
+                <g:link action="changeState" params="[state:'Unpublished']" id="${eventInstance.id}"><g:message code="article.unpublish.action"/></g:link>
+              </shiro:hasRole>
               <shiro:hasAnyRole in="['Editor','Administrator']">
-                <g:link action="pre_publish" id="${eventInstance.id}"><g:message code="event.publish.action"/></g:link>
+                <g:link action="pre_publish" id="${eventInstance.id}"><g:message code="article.publish.action"/></g:link>
               </shiro:hasAnyRole>
-              <shiro:hasAnyRole in="['Author']">
-                <g:link action="changeState" params="[state:'Ready For Publication']" id="${eventInstance.id}"><g:message code="event.ready.action"/></g:link>
-                <g:link action="delete" id="${eventInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="event.delete.action"/></g:link>
-              </shiro:hasAnyRole>
+              <g:link action="delete" id="${eventInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
             </td>
           </tr>
         </g:each>

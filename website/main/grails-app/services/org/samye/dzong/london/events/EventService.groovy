@@ -161,6 +161,15 @@ class EventService {
         return [events: events, total: total]
     }
 
+    def userReady(params) {
+        def order = params.sort?: "title"
+        def dir = params.order?: "asc"
+        def username = userLookupService.username();
+        def events = Event.orderedAuthorPublishState(username,"Ready For Publication", order, dir).list(params);
+        def total = Event.authorPublishState(username,"Ready For Publication").count();
+        return [events: events, total: total]
+    }
+
     def userDeleted(params) {
         def username = userLookupService.username();
         def events = Event.deletedAuthor(username).list(params);
@@ -196,6 +205,14 @@ class EventService {
     def deleted(params) {
         def events = Event.deleted().list(params);
         def total = Event.deleted().count();
+        return [events: events, total: total]
+    }
+
+    def ready(params) {
+        def order = params.sort?: "title"
+        def dir = params.order?: "asc"
+        def events = Event.orderedPublishState("Ready For Publication", order, dir).list(params);
+        def total = Event.publishState("Ready For Publication").count();
         return [events: events, total: total]
     }
 }

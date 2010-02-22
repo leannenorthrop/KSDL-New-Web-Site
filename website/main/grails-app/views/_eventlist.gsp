@@ -35,7 +35,7 @@
   <g:each in="${events}" status="i" var="event">
     <li class="group">
       <h3>${event?.title}</h3>
-      <h4><joda:format style="M-" date="${event?.eventDate}"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h4>
+      <h4><g:formatDate date="${event?.eventDate}" type="date" style="LONG"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h4>
       <h5><g:link controller="teacher" action="view" id="${event?.leader?.id}"><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</g:link></h5>
 
       <g:if test="${event.image}">

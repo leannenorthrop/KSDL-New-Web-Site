@@ -160,6 +160,38 @@ class Event extends Publishable {
             eq 'category', 'W'
             order("${orderCol}", "${orderDir}")
         }
+
+        today {
+            def start = new Date()
+            start.setHours(0)
+            start.setMinutes(0)
+            start.setSeconds(0)
+            def end = new Date()
+            end.setHours(0)
+            end.setMinutes(0)
+            between 'eventDate', start,end
+            order("eventDate", "desc")
+        }
+
+        thisWeek {
+            def start = new Date()
+            start.setHours(0)
+            start.setMinutes(0)
+            start.setSeconds(0)
+            def end = start.plus(7)
+            between 'eventDate', start,end
+            order("eventDate", "desc")
+        }
+
+        thisMonth {
+            def start = new Date()
+            start.setHours(0)
+            start.setMinutes(0)
+            start.setSeconds(0)
+            def end = start.plus(31)
+            between 'eventDate', start,end
+            order("eventDate", "desc")
+        }
     }
 
     String toString() {
