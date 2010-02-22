@@ -57,9 +57,9 @@ class EventController {
         def tommorow = now + 1
         def endOfWeek = now + 7
         def endOfMonth = now + 31
-        def todaysEvents = Event.publishedDateRange(now, tommorow, "eventDate", "desc").list();
-        def thisWeeksEvents = Event.publishedDateRange(now, endOfWeek, "eventDate", "desc").list();
-        def thisMonthEvents = Event.publishedDateRange(now, endOfMonth, "eventDate", "desc").list();
+        def todaysEvents = Event.publishedDateRange(now, tommorow, "featured", "desc").list();
+        def thisWeeksEvents = Event.publishedDateRange(now, endOfWeek, "featured", "desc").list();
+        def thisMonthEvents = Event.publishedDateRange(now, endOfMonth, "featured", "desc").list();
         return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents, title: "Current Programme"]
     }
 
@@ -487,7 +487,7 @@ class EventController {
                     rule.interval = Integer.valueOf(ruleParam.monthlyinterval);
                     rule.modifierType = 'MD';
                     def modifier = ""
-                    ['one','two','three','four'].each { instance ->
+                    ['one','two'].each { instance ->
                         def interval = ruleParam.monthly[instance].interval;
                         if ('5' == interval) {
                             interval = '1-'

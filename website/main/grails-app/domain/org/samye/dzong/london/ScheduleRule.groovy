@@ -24,8 +24,8 @@
 package org.samye.dzong.london
 
 import org.joda.time.Period
-import org.joda.time.contrib.hibernate.PersistentPeriod
 import org.joda.time.TimeOfDay
+import org.joda.time.contrib.hibernate.PersistentPeriod
 import org.joda.time.contrib.hibernate.PersistentTimeOfDay
 
 class ScheduleRule {
@@ -65,5 +65,111 @@ class ScheduleRule {
 
     String toString() {
         return "from ${startDate} until ${endDate}: ${startTime} - ${endTime} (duration ${duration})\nis rule? ${isRule} type ${ruleType} interval ${interval} modifier ${modifier} mtype = ${modifierType}"
+    }
+
+    boolean isUnbounded() {
+        return 'always' == ruleType
+    }
+
+    void setUnbounded() {
+        ruleType = 'always'
+    }
+
+    void setUnbounded(w) {
+    }
+
+    boolean isBounded() {
+        return 'always' != ruleType
+    }
+
+    void setBounded() {
+        ruleType = 'period'
+    }
+
+
+    void setBounded(w) {
+    }
+
+    boolean isDaily() {
+        return 'D' == modifierType
+    }
+
+    void setDaily() {
+        modifierType = 'D'
+    }
+
+    void setDaily(d) {
+    }
+
+    boolean isWeekly() {
+        return 'W' == modifierType
+    }
+
+    void setWeekly() {
+        modifierType = 'W'
+    }
+
+    void setWeekly(w) {
+    }
+
+    boolean isMonthly() {
+        println "****${modifierType}"
+        return 'MP' == modifierType || 'MD' == modifierType
+    }
+
+    void setMonthly(byPosition) {
+    }
+
+    void setMonthlyByPosition() {
+        modifierType = 'MP'
+    }
+
+    void setMonthlyByDay() {
+        modifierType = 'MD'
+    }
+
+    boolean isYearly() {
+        return 'YP' == modifierType || 'YD' == modifierType
+    }
+
+    void setYearly(byPosition) {
+    }
+
+    void setYearlyByPosition() {
+        modifierType = 'YP'
+    }
+
+    void setYearlyByDay() {
+        modifierType = 'YD'
+    }
+
+    List getDays() {
+        def days = []
+        days = modifier?.split(" ").findAll { it ->
+            it ==~ /[MTWFS][OUEHRA]/
+        }
+        return days
+    }
+
+    void setDays() {
+    }
+
+    List getOffsets() {
+        def offsets = []
+        offsets = modifier?.split(" ").findAll { it ->
+            it ==~ /\d[+-]/
+        }
+        offsets = offsets.collect { it ->
+            if (it[1] == '-') {
+                return 5
+            } else {
+                return it[0]
+            }
+        }
+        return offsets
+    }
+
+
+    void setOffsets() {
     }
 }

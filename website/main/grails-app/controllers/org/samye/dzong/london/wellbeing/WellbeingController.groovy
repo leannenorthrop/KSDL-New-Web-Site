@@ -14,7 +14,7 @@ class WellbeingController {
         def topArticles = Article.homeWellbeingArticles('datePublished','desc').list()
         def articles = Article.featuredWellbeingArticles('datePublished','desc').list()
         def totalWellbeing = Article.allWellbeingArticlesNotOrdered().count()
-        def events = Event.meditation('eventDate','desc').list()
+        def events = Event.meditation('featured','desc').list()
         return render(view: 'index',model: [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events]);
     }
 

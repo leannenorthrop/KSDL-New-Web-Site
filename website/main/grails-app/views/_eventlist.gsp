@@ -22,33 +22,39 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 12, 2010
-  Time: 7:34:02 PM
-  To change this template use File | Settings | File Templates.
+  Template for displaying a list of events.
+  User: Leanne Northrop
+  Date: Feb 12, 2010, 7:34:02 PM
 --%>
-
 <%@ page contentType="text/html;charset=UTF-8" %>
 <h2><g:message code="${heading}"/></h2>
 <ol>
   <g:each in="${events}" status="i" var="event">
-    <li class="group">
-      <h3>${event?.title}</h3>
-      <h4><g:formatDate date="${event?.eventDate}" type="date" style="LONG"/> (<joda:format style="-S" date="${event?.startTime?.toLocalTime()}"/> ${fieldValue(bean: event, field: "eventDuration")})</h4>
-      <h5><g:link controller="teacher" action="view" id="${event?.leader?.id}"><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</g:link></h5>
+    <g:set var="rule" value="${event?.dates[0]}"/>
+    <g:if test="!rule?.isRule">
+      <li class="group">
+        <h3>${event?.title}</h3>
+        <h4>${rule}<!--g:formatDate date="rule?.startDate}" type="date" style="LONG"/--> (<joda:format style="-S" date="${rule?.startTime?.toLocalTime()}"/> - <joda:format style="-S" date="${rule?.endTime?.toLocalTime()}"/> ${fieldValue(bean: rule, field: "duration")})</h4>
+        <h5><g:link controller="teacher" action="view" id="${event?.leader?.id}"><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</g:link></h5>
 
-      <g:if test="${event.image}">
-        <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
-      </g:if>
-      <p>
-        ${event.summary}
-      </p>
-      <p>
-        <g:if test="${event.content}">
-          <g:link controller="event" action="view" id="${event.id}"><g:message code='content.more'/></g:link>
+        <g:if test="${event.image}">
+          <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
         </g:if>
-      </p>
-    </li>
+        <p>
+          ${event.summary}
+        </p>
+        <p>
+          <g:if test="${event.content}">
+            <g:link controller="event" action="view" id="${event.id}"><g:message code='content.more'/></g:link>
+          </g:if>
+        </p>
+      </li>
+    </g:if>
+    <g:elseif test="">
+
+    </g:elseif>
+    <g:else>
+
+    </g:else>
   </g:each>
 </ol>

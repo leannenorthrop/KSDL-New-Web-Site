@@ -7,20 +7,15 @@ April/May 2010 - Production deploy
 ================================================================================
                         FOR 22/02/2010
 ================================================================================
-Sat
+Sunday
 0. Upgrade
-    - jQuery & theme
     - Grails
-    - Add Venues to base data set.
 1. Events
-    - Normal stuff without dates or prices
-    - Move date into new object
-    - Try date series
     - Try date rule
+        - must set from date as today
         - daily
         - weekly
         - monthly
-        - yearly
     - Price
 
 Sunday/Monday
@@ -30,7 +25,17 @@ Sunday/Monday
 ================================================================================
                         FOR 28/02/2010
 ================================================================================
-0. Fix linking in png images.
+0. Fixes:
+    - When deleting items add (Deleted) to name/title to get around unique constraint
+    - event validation: need a list at top
+        - javascript check for teacher
+        - make sure list of teachers is published
+        - display of events: check for empty organizer
+        - add related events
+        - fix sortable columns
+        - archive
+        - ical creation
+    - Fix linking in png images.
 1. Register
     - Add captcha
     - Add ajax username unique check
@@ -64,6 +69,7 @@ Sunday/Monday
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
+0. Add email event organizer form
 1. Venue
 2. Footer - Contact Us
 3. Therapists & Therapies
@@ -93,7 +99,7 @@ Sunday/Monday
     - hide/show tag
 17. Javascript support
     - preparation for image carosels etc.
-
+18. Remove checks for Administrator role and give 'Admin' all roles
 ================================================================================
     For Release in April
 ================================================================================
