@@ -25,10 +25,14 @@ package org.samye.dzong.london
 
 import org.joda.time.Period
 import org.joda.time.contrib.hibernate.PersistentPeriod
+import org.joda.time.TimeOfDay
+import org.joda.time.contrib.hibernate.PersistentTimeOfDay
 
 class ScheduleRule {
-    Date startDateTime
-    Date endDateTime
+    Date startDate
+    Date endDate
+    TimeOfDay startTime;
+    TimeOfDay endTime;
     Period duration
     Boolean isRule
     String ruleType
@@ -37,8 +41,10 @@ class ScheduleRule {
     String modifierType
 
     static constraints = {
-        startDateTime(blank: false)
-        endDateTime(blank: true,nullable: true)
+        startTime(nullable: false)
+        endTime(nullable: false)
+        startTime(nullable: false)
+        endTime(nullable: false)
         duration(blank: true,nullable: true)
         isRule(blank: false)
         ruleType(blank: true,nullable: true)
@@ -49,7 +55,15 @@ class ScheduleRule {
 
     static mapping = {
         columns {
+            startTime type: PersistentTimeOfDay
+            endTime type: PersistentTimeOfDay
             duration type: PersistentPeriod
+            content type: 'text'
+            summary type: 'text'
         }
+    }
+
+    String toString() {
+        return "${startDate} ${startTime} ${endTime} until ${endDate} (duration ${duration}) is rule? ${isRule}"
     }
 }

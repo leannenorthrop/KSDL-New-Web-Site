@@ -120,7 +120,6 @@ form label strong em {
 .errors {
     background: #cd0a0c;
     border: 1px solid #7f0607;
-    color: white;
     margin: 10px 0 5px 0;
     padding: 5px 0 5px 0;
 }
@@ -144,7 +143,7 @@ form label strong em {
 }
 
 
-#editteacher input[type="text"],#editteacher textarea,#addteacher input[type="text"],#addteacher textarea,#updatearticle input[type="text"],#updatearticle textarea,#createarticle input[type="text"],#createarticle textarea,#publish input[type="text"], #publish textarea{
+#publishEvent input[type="text"],#publishEvent textarea,#editEvent input[type="text"],#editEvent textarea,#addevent input[type="text"],#addevent textarea,#editteacher input[type="text"],#editteacher textarea,#addteacher input[type="text"],#addteacher textarea,#updatearticle input[type="text"],#updatearticle textarea,#createarticle input[type="text"],#createarticle textarea,#publish input[type="text"], #publish textarea{
     width: 100%;
 }
 

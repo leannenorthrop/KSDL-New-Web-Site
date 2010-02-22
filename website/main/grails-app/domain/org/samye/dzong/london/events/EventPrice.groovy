@@ -25,7 +25,11 @@ package org.samye.dzong.london.events
 
 import org.samye.dzong.london.shop.Price
 
-class EventPrice extends Price{
+class EventPrice extends Price {
+    boolean _deleted
+
+    static transients = ['_deleted']
+
     static belongsTo = [ event : Event ]
 
     static constraints = {

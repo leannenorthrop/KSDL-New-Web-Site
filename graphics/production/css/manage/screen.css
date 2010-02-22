@@ -17,6 +17,7 @@ Title:      Screen styles for managing site content
 
 .contentAdmin a {
     color: #3baae3;
+    text-decoration: none;
 }
 
 .contentAdmin .content {
@@ -163,5 +164,5 @@ div.list + div.manage {
     background: rgb(212,231,244);
     background: rgba(212,231,244,0.7);
     font-size: smaller;
-    padding: 0.2em 1em;    
+    padding: 0.2em 1em;
 }

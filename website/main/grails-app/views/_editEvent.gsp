@@ -29,7 +29,6 @@
 --%>
 
 <%@ page import="org.joda.time.TimeOfDay" contentType="text/html;charset=UTF-8" %>
-
 <div id="accordion">
   <h3><a href="#"><g:message code="event.details"/></a></h3>
   <div>
@@ -43,7 +42,7 @@
     </fieldset>
     <fieldset>
       <label for="category"><g:message code="event.category.label"/></label>
-      <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
+      <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
     </fieldset>
     <fieldset>
       <label for="leader.id"><g:message code="event.leader.label"/></label>
@@ -70,13 +69,13 @@
   <div>
     <fieldset>
       <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>
-      <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${event?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
-      <g:select name="startTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${event?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
+      <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
+      <g:select name="startTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${rule?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
     </fieldset>
     <fieldset>
       <label for="endTimeHour"><g:message code="event.endtime.label" default="End Time"/></label>
-      <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${event?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
-      <g:select name="endTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${event?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
+      <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>&nbsp;:&nbsp;
+      <g:select name="endTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${rule?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
     </fieldset>
     <fieldset class="last"></fieldset>
     <div id="dateTabs">
@@ -88,7 +87,7 @@
       <div id="once">
         <fieldset>
           <div id="eventDatePicker"></div>
-          <g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${event?.eventDate}"/></g:set>
+          <g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></g:set>
           <g:hiddenField name="eventDate" value="${defaultDate}"/>
         </fieldset>
       </div>
@@ -124,7 +123,7 @@
     </div>
   </g:if>
 </div>
-<g:set var="currentEventDate"><g:formatDate format="yyyy" date="${event?.eventDate}"/>,${event?.eventDate?.getMonth()},<g:formatDate format="dd" date="${event?.eventDate}"/></g:set>
+<g:set var="currentEventDate"><g:formatDate format="yyyy" date="${rule?.startDate}"/>,${rule?.startDate?.getMonth()},<g:formatDate format="dd" date="${rule?.startDate}"/></g:set>
 <g:javascript>
       $("#accordion").accordion();
       $("#dateTabs").tabs({fx: { opacity: 'toggle' }});
