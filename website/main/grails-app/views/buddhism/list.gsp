@@ -34,7 +34,7 @@
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col_90_Percent">
+    <div class="grid_16">
       <g:render template="/articlelist" model="[articles:articles,heading:'buddhism.all.articles.title',controller:'community',action:'view',moreAction:'all']"/>
     </div>
   </body>

@@ -28,9 +28,8 @@
 --%>
 
 <%@ page import="org.samye.dzong.london.community.Teacher; org.samye.dzong.london.community.Article" contentType="text/html;charset=UTF-8" %>
-<ol>
   <g:each in="${articles}" status="i" var="articleInstance">
-    <li>
+    <div class="box">
       <g:if test="${!(articleInstance instanceof Teacher)}">
         <h2>${articleInstance.title}</h2>
       </g:if>
@@ -57,6 +56,5 @@
           <g:link controller="teacher" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
         </g:elseif>
       </p>
-    </li>
+    </div>
   </g:each>
-</ol>

@@ -28,19 +28,6 @@
     <title>${title}</title>
   </head>
   <body>
-    <div class="articles">
-      <ol>
-        <g:each in="${articleInstanceList}" status="i" var="articleInstance">
-          <li class="article">
-            <h2><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h2>
-            <h3>by <a>${articleInstance.author.username}</a></h3>
-            <g:if test="${articleInstance?.datePublished && articleInstance.displayDate}">
-              <g:set var="publishDate"><span class="pretty-date">${articleInstance?.datePublished.prettyDate()}</span></g:set>
-              <h4><g:message code="article.meta.published.on" args="${[publishDate]}"/></h4>
-            </g:if>
-            <p>${articleInstance.summary.encodeAsTextile()}</p>
-          </li>
-        </g:each>
-    </div>
+      <g:render template="/articlelist" model="[articles:articles,heading:'community.all.articles.title',controller:'home',action:'view',moreAction:'all']"/>    
   </body>
 </html>

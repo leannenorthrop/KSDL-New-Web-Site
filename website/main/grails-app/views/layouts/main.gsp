@@ -34,38 +34,52 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
     <![if gte IE 7]>
-    <lsd:cssTheme app="${application}"/>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
+    <lsd:cssTheme app="${application}"/>
     <![endif]>
+
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" href="${resource(dir: 'css/site', file: 'ie6.css')}" media="screen" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="${resource(dir: 'css/site', file: 'ie.css')}" media="screen" /><![endif]-->
 
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
 
     <g:layoutHead/>
   </head>
   <body class="${controllerName}">
-    <div class="banner">
-      <h1><g:message code="title" default="Kagyu Samye Dzong London"/></h1>
-      <g:set var="logo" value="${Image.findByName('Logo')}"/>
-      <g:if test="${logo}">
-        <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
-      </g:if>
-    </div>
+    <div class="container_16">
+      <div class="grid_16">
+        <h1 id="branding"><g:message code="title" default="Kagyu Samye Dzong London"/></h1>
+        <g:set var="logo" value="${Image.findByName('Logo')}"/>
+        <g:if test="${logo}">
+          <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
+        </g:if>
+      </div>
+      <div class="clear"></div>
 
-    <lsdc:nav current="${controllerName}"/>
+      <div class="grid_16">
+        <lsdc:nav current="${controllerName}"/>
+      </div>
+      <div class="clear"></div>
 
-    <div class="pagecontent group">
-      <g:layoutBody/>
-    </div>
+      <div class="grid pagecontent">
+        <g:layoutBody/>
+      </div>
+      <div class="clear"></div>
 
-    <lsdc:grid/>
 
-    <div class="footer">
-      <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-      <g:message code="footer.copyright" args="${[year]}"/> <g:message code="title" default="Kagyu Samye Dzong London"/> |
-      <g:link controller="home" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
-      <g:link controller="home" action="changeCssTheme"><g:message code="footer.change.theme"/></g:link> |
-      <g:link controller="home" action="siteMap"><g:message code="footer.site.map"/></g:link> |
-      <g:link controller="home" action="aboutThisSite"><g:message code="footer.about.this.site"/></g:link>
+      <div class="clear"></div>
+      <div class="grid_16" id="site_info">
+        <div class="box">
+          <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
+          <g:message code="footer.copyright" args="${[year]}"/> <g:message code="title" default="Kagyu Samye Dzong London"/> |
+          <g:link controller="home" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
+          <g:link controller="home" action="changeCssTheme"><g:message code="footer.change.theme"/></g:link> |
+          <g:link controller="home" action="siteMap"><g:message code="footer.site.map"/></g:link> |
+          <g:link controller="home" action="aboutThisSite"><g:message code="footer.about.this.site"/></g:link>
+        </div>
+      </div>
+      <div class="clear"></div>
+
     </div>
   </body>
 </html>

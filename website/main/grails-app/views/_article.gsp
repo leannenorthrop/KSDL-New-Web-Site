@@ -27,7 +27,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<div class="col1_80_Percent">
+<div class="grid_12">
       <h2>${articleInstance.title}</h2>
 
 <g:if test="${articleInstance.displayAuthor || articleInstance.displayDate}">
@@ -62,7 +62,7 @@ ${articleInstance.content.encodeAsTextile()}
 </div><!-- /body -->
 </div><!-- /left -->
 
-<div class="col2_20_Percent">
+<div class="grid_4">
   <h2><g:message code="similar"/></h2>
   <ul>
     <g:each in="${articles}" status="i" var="articleInstance">
@@ -70,3 +70,4 @@ ${articleInstance.content.encodeAsTextile()}
     </g:each>
   </ul>
 </div>
+<div class="clear"></div>

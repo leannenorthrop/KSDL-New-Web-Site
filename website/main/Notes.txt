@@ -10,14 +10,6 @@ April/May 2010 - Production deploy
 Sunday
 0. Upgrade
     - Grails
-1. Events
-    - Try date rule
-        - must set from date as today
-        - daily
-        - weekly
-        - monthly
-    - Price
-
 Sunday/Monday
 7. CSS
     - add support for class by category
@@ -35,6 +27,9 @@ Sunday/Monday
         - fix sortable columns
         - archive
         - ical creation
+        - prices
+        - finders
+        - auto set of end time
     - Fix linking in png images.
 1. Register
     - Add captcha

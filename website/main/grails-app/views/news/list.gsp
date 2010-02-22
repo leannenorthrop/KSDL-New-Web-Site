@@ -33,6 +33,8 @@
     <meta name="layout" content="main">
   </head>
   <body>
-    <g:render template="/articlelist" model="[articles:news,heading:'news.heading',controller:'news',action:'view',moreAction:'all']"/>
+    <div class="grid_16">
+      <g:render template="/articlelist" model="[articles:news,heading:'news.heading',controller:'news',action:'view',moreAction:'all']"/>
+    </div>
   </body>
 </html>

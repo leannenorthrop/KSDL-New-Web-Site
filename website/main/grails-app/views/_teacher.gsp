@@ -28,7 +28,7 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<div class="col1_80_Percent">
+<div class="grid_12">
       <h2><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher.name}</h2>
 
 <g:if test="${teacher.displayAuthor || teacher.displayDate}">
@@ -68,7 +68,7 @@
 </div><!-- /body -->
 </div><!-- /left -->
 
-<div class="col2_20_Percent">
+<div class="grid_4">
   <div class="box">
     <h2><g:message code="events.label"/></h2>
     <ul>
