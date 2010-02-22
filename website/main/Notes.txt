@@ -5,32 +5,50 @@ April 2010 - Performance tweaking, database backups, robustness & security testi
 April/May 2010 - Production deploy
 
 ================================================================================
-                        FOR 22/02/2010
-================================================================================
-Sunday
-0. Upgrade
-    - Grails
-Sunday/Monday
-7. CSS
-    - add support for class by category
-
-================================================================================
                         FOR 28/02/2010
 ================================================================================
 0. Fixes:
-    - When deleting items add (Deleted) to name/title to get around unique constraint
-    - event validation: need a list at top
-        - javascript check for teacher
-        - make sure list of teachers is published
+    - Home Page
+        - Email link
+        - Css
+            - short news list
+            - icons for contact links
+    - News Pages
+        - CSS
+            - short news list
+            - view news image wrong
+            - Related Items list
+        - missing message on meta
+        - ensure can't create news page without publish date ticked
+    - Events
         - display of events: check for empty organizer
-        - add related events
-        - fix sortable columns
-        - archive
-        - ical creation
-        - prices
-        - finders
-        - auto set of end time
+        - missing events.more message
+        - Edit
+            - event validation: need a list at top
+                - javascript check for teacher
+                - make sure list of teachers is published
+                - add related events
+                - fix sortable columns
+                - archive
+                - ical creation
+                - prices
+                - finders
+                - auto set of end time
+
+    - Meditation Page
+        - All Article list should not include links to Read More...
+    - Css
+        - color ratios
+        - short article/news list
+        - external site link
+    - About Us
+        - broken when no community article present (also need to i8n the article title)
+        - Teacher
+            - force toString to figure out title
+            - add none to title option
+    - When deleting items add (Deleted) to name/title to get around unique constraint
     - Fix linking in png images.
+
 1. Register
     - Add captcha
     - Add ajax username unique check
