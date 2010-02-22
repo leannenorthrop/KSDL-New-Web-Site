@@ -33,26 +33,26 @@
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col1_80_Percent">
+    <div class="grid_10">
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
-    <div class="col2_20_Percent">
+    <div class="grid_6">
       <div class="box">
         <h2><g:message code="event.community"/></h2>
         <g:render template="/eventlist" model="[events: events]"/>
       </div>
     </div>
-    <div class="col1_80_Percent">
-      <div class="col1_66_Percent">
-        <g:render template="/articlelist" model="[articles:community,controller:'community',action:'view',total:totalCommunity,moreAction:'list']"/>
-      </div>
-      <div class="col2_33_Percent">
-        <g:render template="/articlelist" model="[articles:volunteerOpportunities,controller:'community',action:'view',total:totalVolunteer,moreAction:'list']"/>
-      </div>
+    <div class="clear"></div>
+
+    <div class="grid_5">
+      <g:render template="/articlelist" model="[articles:community,controller:'community',action:'view',total:totalCommunity,moreAction:'list',heading:'community.articles.heading']"/>
     </div>
-    <div class="col2_20_Percent">
+    <div class="grid_5">
+      <g:render template="/articlelist" model="[articles:volunteerOpportunities,controller:'community',action:'view',total:totalVolunteer,moreAction:'list',heading:'community.volunteer.heading']"/>
+    </div>
+    <div class="grid_6">
       <div class="box">
-        Volunteer Form
+        <h2>Volunteer Form</h2>
       </div>
     </div>
   </body>

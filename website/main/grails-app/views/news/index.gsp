@@ -34,11 +34,10 @@
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col1_66_Percent articles box">
-      <h2><g:message code="news.heading"/></h2>
-      <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current']"/>
+    <div class="grid_12">
+      <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current', heading: 'news.heading']"/>
     </div>
-    <div class="col2_33_Percent">
+    <div class="grid_4">
       <!--div id="news-notifications" class="box">
         <h2>Keep in Touch</h2>
         <ul>

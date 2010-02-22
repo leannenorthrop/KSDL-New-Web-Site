@@ -21,3 +21,11 @@
  * “Samye Content Management System” written by Leanne Northrop.
  ******************************************************************************/
 
+hr
+{
+	border-color: #ccc;
+	border-style: solid;
+	border-width: 1px 0 0;
+	clear: both;
+	height: 0;
+}

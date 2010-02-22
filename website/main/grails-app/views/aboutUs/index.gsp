@@ -22,11 +22,9 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 12, 2010
-  Time: 5:43:08 PM
-  To change this template use File | Settings | File Templates.
+  Home Page for About Us
+  User: Leanne Northrop
+  Date: Feb 12, 2010, 5:43:08 PM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -36,11 +34,11 @@
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col1_80_Percent">
+    <div class="grid_12">
       <g:render template="/toparticles" model="[articles:topArticles,displayTitle:false]"/>
     </div>
 
-    <div class="col2_20_Percent">
+    <div class="grid_4">
       <div class="box">
         <h2><g:message code="footer.help"/></h2>
         <ul>
@@ -50,11 +48,13 @@
       </div>
     </div>
 
-    <div class="col1_50_Percent">
+    <div class="clear"></div>
+
+    <div class="grid_8">
       <g:render template="/articlelist" model="[articles:lineageTeachers, heading: 'teacher.category.L', controller: 'teacher', action:'view']"/>
     </div>
 
-    <div class="col2_50_Percent">
+    <div class="grid_8">
       <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.heading.title', controller: 'teacher', action:'view']"/>
     </div>
 

@@ -33,10 +33,10 @@
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col_90_Percent">
+    <div class="grid_12">
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
-    %{--<div class="col2_20_Percent">
+    <div class="grid_4">
       <div class="box">
         <h2>Video</h2>
       </div>
@@ -46,13 +46,13 @@
           <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
         </ol>
       </div>
-    </div>--}%
-    <div class="col1_33_Percent">
-      <div class="articles box">
-        <g:render template="/articlelist" model="[articles:meditationArticles,controller:'meditation',action:'view',total:total,moreAction:'all',heading:'meditation.articles.title']"/>
-      </div>
     </div>
-    <div class="col2_66_Percent">
+    <div class="clear"></div>
+
+    <div class="grid_5">
+      <g:render template="/articlelist" model="[articles:meditationArticles,controller:'meditation',action:'view',total:total,moreAction:'all',heading:'meditation.articles.title']"/>
+    </div>
+    <div class="grid_11">
       <div class="box">
         <h2><g:message code="event.meditation"/></h2>
         <g:render template="/eventlist" model="[events: events]"/>

@@ -9,17 +9,17 @@
 
   </head>
   <body>
-    <div class="col1_80_Percent">
+    <div class="grid_12">
       <div class="events box">
         <g:render template="/eventlist" model="[events: events, heading: 'home.events']"/>
       </div>
     </div>
-    <div class="col2_20_Percent">
+    <div class="grid_4">
       <div class="news box">
         <g:render template="/shortnewslist" model="[articles: newsArticles, heading: 'home.news']"/>
       </div>
       <div class="box">
-        <h1><g:message code="service.header"/></h1>
+        <h2><g:message code="service.header"/></h2>
         <ul class="services">
           <li class="email"><g:link controller="feed" action="index"><g:message code="service.email"/></g:link></li>
           <li class="rss"><g:link controller="feed" action="index"><g:message code="service.rss"/></g:link></li>
@@ -28,16 +28,18 @@
         </ul>
       </div>
     </div>
-    <div class="col1_50_Percent">
+    <div class="clear"></div>
+    <div class="grid_8">
       <g:render template="/toparticles" model="[articles:meditationArticles]"/>
     </div>
-    <div class="col2_50_Percent">
+    <div class="grid_8">
       <g:render template="/toparticles" model="[articles:communityArticles]"/>
     </div>
-    <div class="col1_50_Percent">
+    <div class="clear"></div>
+    <div class="grid_8">
       <g:render template="/toparticles" model="[articles:buddhismArticles]"/>
     </div>
-    <div class="col2_50_Percent">
+    <div class="grid_8">
       <g:render template="/toparticles" model="[articles:wellbeingArticles]"/>
     </div>
   </body>

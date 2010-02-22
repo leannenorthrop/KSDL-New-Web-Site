@@ -30,38 +30,40 @@
 --%>
 
 <%@ page import="org.samye.dzong.london.community.Teacher" contentType="text/html;charset=UTF-8" %>
-<h2><g:message code="${heading}" default=""/></h2>
-<ol>
-  <g:if test="${articles}">
-    <g:each in="${articles}" status="i" var="articleInstance">
-      <li class="group">
-      <g:if test="${!(articleInstance instanceof Teacher)}">
-        <h3>${articleInstance.title}</h3>
-      </g:if>
-      <g:else>
-        <h3><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance.name}</h3>
-      </g:else>
-        <g:if test="${articleInstance.displayAuthor}">
-          <h4>by <a>${articleInstance.author.username}</a></h4>
-        </g:if>
-        <g:if test="${articleInstance.displayDate}">
-          <h5><g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/></h5>
-        </g:if>
-        <g:if test="${articleInstance.image}">
-          <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-        </g:if>
-        <p>
-          ${articleInstance.summary}
-        </p>
-        <p>
-          <g:if test="${articleInstance.content}">
-            <g:link controller="${controller}" action="${action}" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+<div class="box">
+  <h2><g:message code="${heading}" default=""/></h2>
+  <ol>
+    <g:if test="${articles}">
+      <g:each in="${articles}" status="i" var="articleInstance">
+        <li class="group">
+          <g:if test="${!(articleInstance instanceof Teacher)}">
+            <h3>${articleInstance.title}</h3>
           </g:if>
-        </p>
-      </li>
-    </g:each>
+          <g:else>
+            <h3><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance.name}</h3>
+          </g:else>
+          <g:if test="${articleInstance.displayAuthor}">
+            <h4>by <a>${articleInstance.author.username}</a></h4>
+          </g:if>
+          <g:if test="${articleInstance.displayDate}">
+            <h5><g:formatDate format="dd MMMM, yyyy" date="${articleInstance?.datePublished}"/></h5>
+          </g:if>
+          <g:if test="${articleInstance.image}">
+            <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+          </g:if>
+          <p>
+            ${articleInstance.summary}
+          </p>
+          <p>
+            <g:if test="${articleInstance.content}">
+              <g:link controller="${controller}" action="${action}" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+            </g:if>
+          </p>
+        </li>
+      </g:each>
+    </g:if>
+  </ol>
+  <g:if test="${total > articles.size()}">
+    <g:link action="${moreAction}"><em><g:message code="articles.more"/></em></g:link>
   </g:if>
-</ol>
-<g:if test="${total > articles.size()}">
-  <g:link action="${moreAction}"><em><g:message code="articles.more"/></em></g:link>
-</g:if>
+</div>

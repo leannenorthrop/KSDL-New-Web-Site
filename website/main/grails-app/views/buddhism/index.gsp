@@ -27,26 +27,30 @@
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="col_90_Percent">
+    <div class="grid_12">
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
-    %{--<div class="col2_20_Percent">
-      <div class="box">
-        <h2>Video</h2>
+    <div class="grid_4">
+      <div class="col2_20_Percent">
+        <div class="box">
+          <h2>Video</h2>
+        </div>
+        <div class="box">
+          <h2><g:message code="meditation.resources"/></h2>
+          <ol>
+            <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
+          </ol>
+        </div>
       </div>
-      <div class="box">
-        <h2><g:message code="meditation.resources"/></h2>
-        <ol>
-          <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
-        </ol>
-      </div>
-    </div>--}%
-    <div class="col1_33_Percent">
+    </div>
+    <div class="clear"></div>
+
+    <div class="grid_4">
       <div class="articles box">
         <g:render template="/articlelist" model="[articles:articles,controller:'buddhism',action:'view',total:total,moreAction:'list',heading:'buddhism.articles.title']"/>
       </div>
     </div>
-    <div class="col2_66_Percent">
+    <div class="grid_12">
       <div class="box">
         <h2><g:message code="event.buddhism"/></h2>
         <g:render template="/eventlist" model="[events: events]"/>

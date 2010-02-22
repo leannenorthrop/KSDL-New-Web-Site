@@ -29,8 +29,8 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<g:set var="rule" value="${event?.dates()[0]}"/>
-<div class="col1_80_Percent event ${fieldValue(bean: event, field: "category")}">
+<g:set var="rule" value="${event?.dates[0]}"/>
+<div class="grid_12 event ${fieldValue(bean: event, field: "category")}">
   <h2>${event?.title}</h2>
   <h3><joda:format style="M-" date="${rule?.startDate}"/> (<joda:format style="-S" date="${rule?.startTime?.toLocalTime()}"/> ${fieldValue(bean: rule, field: "duration")})</h3>
   <h4><g:message code="teacher.title.${event?.leader?.title}"/> ${event?.leader?.name}</h4>
@@ -51,5 +51,5 @@
   </p>
 </div><!-- /left -->
 
-<div class="col2_20_Percent">
+<div class="grid_4">
 </div>

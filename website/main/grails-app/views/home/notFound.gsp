@@ -26,50 +26,60 @@
   User: Leanne
   Date: Jan 24, 2010, 2:00:21 PM
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.media.Image" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
     <title><g:message code="title"/> <g:message code="not.found"/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 
-    <!--link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/themes/pastel', file: 'screen.css')}" /-->
     <![if gte IE 7]>
-    <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <lsd:cssTheme app="${application}"/>
     <![endif]>
+
+    <!--[if IE 6]><link rel="stylesheet" type="text/css" href="${resource(dir: 'css/site', file: 'ie6.css')}" media="screen" /><![endif]-->
+    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="${resource(dir: 'css/site', file: 'ie.css')}" media="screen" /><![endif]-->
+
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
+
   </head>
   <body class="home">
-    <!--lsdc:nav current="${controllerName}"/-->
-    <div class='nav group'><ul><li class='first current'><a href='/main'><strong><g:message code="home"/></strong><em><g:message code="home.desc"/></em></a></li></ul></div>
+    <div class="container_16">
+      <div class="grid_16">
+        <h1 id="branding"><g:message code="title" default="Kagyu Samye Dzong London"/></h1>
+        <g:set var="logo" value="${Image.findByName('Logo')}"/>
+        <g:if test="${logo}">
+          <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
+        </g:if>
+      </div>
+      <div class="clear"></div>
+
+      <div class="grid_16">
+        <lsdc:nav current="${controllerName}"/>
+      </div>
+      <div class="clear"></div>
+
+      <div class="grid_16 pagecontent">
+        <h2 style="text-align:center"><g:message code="alert"/></h2>
+        <p style="text-align:center"><g:message code="error.notfound"/></p>
+      </div>
+      <div class="clear"></div>
 
 
-    <h1 style="text-align:center"><g:message code="alert"/></h1>
-    <p style="text-align:center"><g:message code="error.notfound"/></p>
-    <div class="watermark">
-      <span class="one"/>
-      <span class="two"/>
-      <span class="three"/>
-      <span class="four"/>
-    </div>
-    <div class="services">
-      <g:message code="service.header"/>
-      <ul>
-        <li><g:message code="service.email"/></li>
-        <li><g:message code="service.rss"/></li>
-        <li><g:message code="service.calendar"/></li>
-      </ul>
-    </div>
-    <div class="footer">
-      <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-      <g:message code="footer.copyright" args="${[year]}"/> |
-      <g:link controller="home" action="aboutUs"><g:message code="footer.about.us"/></g:link> |
-      <g:link controller="home" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
-      <g:link controller="home" action="help"><g:message code="footer.help"/></g:link> |
-      <g:link controller="home" action="changeCssTheme"><g:message code="footer.change.theme"/></g:link> |
-      <g:link controller="home" action="siteMap"><g:message code="footer.site.map"/></g:link> |
-      <g:link controller="home" action="aboutThisSite"><g:message code="footer.about.this.site"/></g:link>
+      <div class="clear"></div>
+      <div class="grid_16" id="site_info">
+        <div class="box">
+          <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
+          <g:message code="footer.copyright" args="${[year]}"/> <g:message code="title" default="Kagyu Samye Dzong London"/> |
+          <g:link controller="home" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
+          <g:link controller="home" action="changeCssTheme"><g:message code="footer.change.theme"/></g:link> |
+          <g:link controller="home" action="siteMap"><g:message code="footer.site.map"/></g:link> |
+          <g:link controller="home" action="aboutThisSite"><g:message code="footer.about.this.site"/></g:link>
+        </div>
+      </div>
+      <div class="clear"></div>
+
     </div>
   </body>
 </html>
