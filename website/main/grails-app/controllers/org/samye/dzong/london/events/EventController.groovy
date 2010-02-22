@@ -230,7 +230,7 @@ class EventController {
                 }
             }
 
-            def errorParams = [isError:false]
+            def errorParams = [isError: false]
             def dates = event.dates
             def rule = dates.find {it != null}
             handleDate(rule, params, errorParams)
@@ -239,7 +239,7 @@ class EventController {
                 flash.isError = true
                 flash.message = errorParams['message']
                 flash.args = errorParams['args']
-                render(view: 'create', model: [event: event, id: params.id,rule:rule])
+                render(view: 'create', model: [event: event, id: params.id, rule: rule])
             }
 
             event.properties = params
@@ -298,14 +298,14 @@ class EventController {
             }
             def dates = event.dates
             def rule = dates.find {it != null}
-            def errorParams = [isError:false]
+            def errorParams = [isError: false]
             handleDate(rule, params, errorParams)
 
             if (errorParams['isError']) {
                 flash.isError = true
                 flash.message = errorParams['message']
                 flash.args = errorParams['args']
-                render(view: 'create', model: [event: event, id: params.id,rule:rule])
+                render(view: 'create', model: [event: event, id: params.id, rule: rule])
             } else {
                 rule.save()
             }
@@ -319,7 +319,7 @@ class EventController {
                 flash.isError = true
                 flash.message = "event.update.error"
                 flash.args = [event]
-                render(view: 'edit', model: [event: event, id: params.id,rule:rule])
+                render(view: 'edit', model: [event: event, id: params.id, rule: rule])
             }
         }
         else {
@@ -352,7 +352,7 @@ class EventController {
         date.endDate = new Date()
         date.isRule = false
         date.save()
-        def errorParams = [isError:false]
+        def errorParams = [isError: false]
         handleDate(date, params, errorParams)
 
         if (errorParams['isError']) {
@@ -421,34 +421,98 @@ class EventController {
     }
 
     def handleDate(rule, params, errorParams) {
-        try {
-            rule.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour), Integer.valueOf(params.startTimeMin))
-        } catch (error) {
-            log.info("Start time could not be set.", error)
-            errorParams['isError'] = true
-            errorParams['message'] = "event.starttime.update.error"
-        }
-        try {
-            rule.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour), Integer.valueOf(params.endTimeMin))
-        } catch (error) {
-            log.info("End time could not be set.", error)
-            errorParams['isError'] = true
-            errorParams['message'] = "event.endtime.update.error"
-        }
-        try {
-            rule.startDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
-            rule.endDate = rule.startDate
-        } catch (error) {
-            log.info("Event date could not be set.", error)
-            errorParams['isError'] = true
-            errorParams['message'] = "event.update.error"
-        }
-        try {
-            rule.duration = new MutablePeriod(rule.startTime.toDateTimeToday(), rule.endTime.toDateTimeToday()).toPeriod()
-        } catch (error) {
-            log.info("Event duration could not be set.", error)
-            errorParams['isError'] = true
-            errorParams['message'] = "event.update.error"
+        def ruleParam = params.rule;
+        if (ruleParam.type) {
+            println "***************************${ruleParam}"
+
+            try {
+                rule.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour), Integer.valueOf(params.startTimeMin))
+            } catch (error) {
+                log.info("Start time could not be set.", error)
+                errorParams['isError'] = true
+                errorParams['message'] = "event.starttime.update.error"
+            }
+            try {
+                rule.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour), Integer.valueOf(params.endTimeMin))
+            } catch (error) {
+                log.info("End time could not be set.", error)
+                errorParams['isError'] = true
+                errorParams['message'] = "event.endtime.update.error"
+            }
+            rule.isRule = ruleParam.type == '1';
+            if (!rule.isRule) {
+                try {
+                    rule.startDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
+                    rule.endDate = rule.startDate
+                } catch (error) {
+                    log.info("Event date could not be set.", error)
+                    errorParams['isError'] = true
+                    errorParams['message'] = "event.update.error"
+                }
+            } else {
+                rule.ruleType = ruleParam.ruleType1;
+                if ('always' == rule.ruleType) {
+                    try {
+                        rule.startDate = new SimpleDateFormat("dd-MM-yyyy").parse(ruleParam.from[0], new ParsePosition(0))
+                        rule.endDate = rule.startDate
+                    } catch (error) {
+                        log.info("Event date could not be set.", error)
+                        errorParams['isError'] = true
+                        errorParams['message'] = "event.update.error"
+                    }
+                } else {
+                    try {
+                        rule.startDate = new SimpleDateFormat("dd-MM-yyyy").parse(ruleParam.from[1], new ParsePosition(0))
+                        rule.endDate = new SimpleDateFormat("dd-MM-yyyy").parse(ruleParam.until, new ParsePosition(0))
+                    } catch (error) {
+                        log.info("Event date could not be set.", error)
+                        errorParams['isError'] = true
+                        errorParams['message'] = "event.update.error"
+                    }
+                }
+
+                def ruleType = ruleParam.ruleType2;
+                if ('daily' == ruleType) {
+                    rule.interval = Integer.valueOf(ruleParam.dailyinterval);
+                    rule.modifierType = 'D';
+                } else if ('weekly' == ruleType) {
+                    rule.interval = Integer.valueOf(ruleParam.weeklyinterval);
+                    rule.modifierType = 'W';
+                    def modifier = ""
+                    ruleParam.weekly.each {
+                        modifier += it.key + " "
+                    }
+                    rule.modifier = modifier.trim()
+                } else if ('monthly' == ruleType) {
+                    rule.interval = Integer.valueOf(ruleParam.monthlyinterval);
+                    rule.modifierType = 'MD';
+                    def modifier = ""
+                    ['one','two','three','four'].each { instance ->
+                        def interval = ruleParam.monthly[instance].interval;
+                        if ('5' == interval) {
+                            interval = '1-'
+                        } else {
+                            interval += '+'
+                        }
+                        ruleParam.monthly[instance].each {
+                            if ('interval' != it.key) {
+                                modifier += interval + " " + it.key + " "
+                            }
+                        }
+                    }
+                    rule.modifier = modifier.trim()
+                }
+            }
+
+            try {
+                rule.duration = new MutablePeriod(rule.startTime.toDateTimeToday(), rule.endTime.toDateTimeToday()).toPeriod()
+            } catch (error) {
+                log.info("Event duration could not be set.", error)
+                errorParams['isError'] = true
+                errorParams['message'] = "event.update.error"
+            }
+
+            println "***************************${rule}"
         }
     }
 }

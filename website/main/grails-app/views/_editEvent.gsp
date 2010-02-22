@@ -63,10 +63,6 @@
       <label for="venue.id"><g:message code="event.venue.label"/></label>
       <g:select from="${org.samye.dzong.london.venue.Venue.list()}" name="venue.id" value="${event?.venue?.id}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
     </fieldset>
-  </div>
-
-  <h3><a href="#"><g:message code="event.dates"/></a></h3>
-  <div>
     <fieldset>
       <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>
       <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
@@ -77,11 +73,15 @@
       <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>&nbsp;:&nbsp;
       <g:select name="endTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${rule?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
     </fieldset>
+  </div>
+
+  <h3><a href="#"><g:message code="event.dates"/></a></h3>
+  <div>
+    <g:hiddenField id="ruletype" name="rule.type" value="0"/>
     <div id="dateTabs">
       <ul>
         <li><a href="#once"><g:message code="event.once.title"/></a></li>
         <li><a href="#regular"><g:message code="event.regular.title"/></a></li>
-        %{--<li><a href="#series"><g:message code="event.series.title"/></a></li>--}%
       </ul>
       <div id="once">
         <div id="eventDatePicker"></div>
@@ -89,39 +89,62 @@
         <g:hiddenField name="eventDate" value="${defaultDate}"/>
       </div>
       <div id="regular">
-        <fieldset>
-          <input type="radio" name="ruleType1" value="always" checked="true">Always</input>
-          <input type="radio" name="ruleType1" value="period">Period</input>
-        </fieldset>
-        <div id="always" style="display:block">
-        </div>
-        <div id="period" style="display:none">
-          <fieldset>
-            From: <input type="text" id="fromDatepicker" style="width:auto"/>&nbsp;Until: <input type="text" id="untilDatepicker" style="width:auto"/>
-          </fieldset>
-        </div>
-        <fieldset>
-          <input type="radio" name="ruleType2" value="daily" checked="true">Daily</input>
-          <input type="radio" name="ruleType2" value="weekly">Weekly</input>
-          <input type="radio" name="ruleType2" value="monthly">Monthly</input>
-          <input type="radio" name="ruleType2" value="yearly">Yearly</input>
-        </fieldset>
-        <div id="daily">
-          Every <g:select name="dailyInterval" from="${1..6}" class="ui-corner-all"/> day(s)
-        </div>
-        <div id="weekly" style="display:none">
-          Every <g:select name="weekInterval" from="${1..4}" class="ui-corner-all"/> week(s)
-        </div>
-        <div id="monthly" style="display:none">
-          Every <g:select name="weekInterval" from="${1..12}" class="ui-corner-all"/> month(s)
-        </div>
-        <div id="yearly" style="display:none">
-          Every <g:select name="weekInterval" from="${1..5}" class="ui-corner-all"/> year(s)
-        </div>
+        <table>
+          <tr>
+            <td style="width:1em;">
+              <label><input type="radio" name="rule.ruleType1" value="always" checked="true"/><g:message code="always"/></label>
+            </td>
+            <td style="height:3em;width:18em;">
+              <div id="always" style="display:block">
+                <label><g:message code="from"/>&nbsp;<input name="rule.from" type="text" id="alwaysFrom" style="width:auto"/></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:1em;"><label><input type="radio" name="rule.ruleType1" value="period"/><g:message code="between"/></label></td>
+            <td style="height:3em;width:18em;">
+              <div id="period" style="display:none">
+                <label><g:message code="from"/>&nbsp;<input type="text" name="rule.from" id="fromDatepicker" style="width:auto"/></label>&nbsp;<label><g:message code="until"/>&nbsp;<input type="text" name="rule.until" id="untilDatepicker" style="width:auto"/></label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:1em;"><input type="radio" name="rule.ruleType2" value="daily" checked="true">Daily</input></td>
+            <td style="height:2em;width:18em;">
+              <div id="daily">
+                <g:select name="rule.dailyinterval" from="${1..6}" valueMessagePrefix="day.interval" class="ui-corner-all"/>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:1em;"><input type="radio" name="rule.ruleType2" value="weekly">Weekly</input></td>
+            <td style="height:2em;width:18em;">
+              <div id="weekly" style="display:none">
+                <g:select name="rule.weeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all"/>
+                <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
+                  <input type="checkbox" name="rule.weekly.${it}" id="rule.weekly.${it}"/><g:message code="${it}"/>
+                </g:each>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td style="width:1em;"><input type="radio" name="rule.ruleType2" value="monthly">Monthly</input></td>
+            <td style="height:13em;width:18em;">
+              <div id="monthly" style="display:none">
+                <g:select name="rule.monthlyinterval" from="${1..12}" valueMessagePrefix="month.interval" class="ui-corner-all"/>
+                <g:each in="${['one','two','three','four']}" var="instance">
+                  <fieldset>
+                    <g:select name="rule.monthly.${instance}.interval" from="${1..5}" valueMessagePrefix="month" class="ui-corner-all"/>
+                    <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
+                      <input type="checkbox" name="rule.monthly.${instance}.${it}"/><g:message code="${it}"/>
+                    </g:each>
+                  </fieldset>
+                </g:each>
+              </div>
+            </td>
+          </tr>
+        </table>
       </div>
-      %{--<div id="series">
-        <h1>Coming Soon</h1>
-      </div>--}%
     </div>
   </div>
 
@@ -149,16 +172,24 @@
 </div>
 <g:set var="currentEventDate"><g:formatDate format="yyyy" date="${rule?.startDate}"/>,${rule?.startDate?.getMonth()},<g:formatDate format="dd" date="${rule?.startDate}"/></g:set>
 <g:javascript>
-      $("#fromDatepicker").datepicker({dateFormat: 'dd-mm-yy'});
+      $("#alwaysFrom").datepicker({dateFormat: 'dd-mm-yy'});
+      $("#fromDatepicker").datepicker({
+          dateFormat: 'dd-mm-yy',
+          onSelect: function(event, ui) {
+            var selected = $("#fromDatepicker").datepicker( 'getDate' );
+            //selected = $.datepicker.formatDate('dd-mm-yy', selected);
+            $('#untilDatepicker').datepicker('option', {minDate: selected});
+        }
+      });
       $("#untilDatepicker").datepicker({dateFormat: 'dd-mm-yy'});
-      $("input[name|=ruleType1]").change(function() {
-          $("input[name|=ruleType1]").each(function(index) {
+      $("input[name|=rule.ruleType1]").change(function() {
+          $("input[name|=rule.ruleType1]").each(function(index) {
             var id = $(this).val();
             $("#" + id).toggle();
           });
       });
-      $("input[name|=ruleType2]").change(function() {
-          $("input[name|=ruleType2]").each(function(index) {
+      $("input[name|=rule.ruleType2]").change(function() {
+          $("input[name|=rule.ruleType2]").each(function(index) {
             var id = $(this).val();
             $("#" + id).hide();
           });
@@ -166,15 +197,27 @@
           $("#" + id2).show();
       });
       $("#accordion").accordion();
-      $("#dateTabs").tabs({fx: { opacity: 'toggle' }});
-      $("#ruleTabs").tabs({fx: { opacity: 'toggle' }});
+      $("#dateTabs").tabs({
+          fx: { opacity: 'toggle' },
+          event: 'mouseover',
+          select: function(event, ui) {
+              var selected = $("#dateTabs").tabs('option', 'selected');
+              if (selected == 0) {
+                selected = 1;
+              } else {
+                selected = 0;
+              }
+              $("#ruletype").attr("value",selected);
+            return true;
+          }
+      });
       var d = new Date();
       d.setFullYear(${currentEventDate});
       $("#eventDatePicker").datepicker({
         showOtherMonths: false,
         dateFormat: 'dd-mm-yy',
         defaultDate: d,
-        numberOfMonths: [2,3],
+        numberOfMonths: [3,3],
         hideIfNoPrevNext: true,
         minDate: '0d',
         maxDate: '+3y',

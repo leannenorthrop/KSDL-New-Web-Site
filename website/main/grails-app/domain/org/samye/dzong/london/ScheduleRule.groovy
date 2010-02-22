@@ -64,6 +64,6 @@ class ScheduleRule {
     }
 
     String toString() {
-        return "${startDate} ${startTime} ${endTime} until ${endDate} (duration ${duration}) is rule? ${isRule}"
+        return "from ${startDate} until ${endDate}: ${startTime} - ${endTime} (duration ${duration})\nis rule? ${isRule} type ${ruleType} interval ${interval} modifier ${modifier} mtype = ${modifierType}"
     }
 }
