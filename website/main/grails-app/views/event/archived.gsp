@@ -24,7 +24,7 @@
 <html>
   <g:set var="titleLabel"><g:message code="event.title.label"/></g:set>
   <g:set var="lastUpdatedLabel"><g:message code="event.last.updated"/></g:set>
-  <g:set var="publishedOnLabel"><g:message code="event.published.on"/></g:set>
+  <g:set var="publishedOnLabel"><g:message code="event.eventDate.label"/></g:set>
   <g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
   <g:set var="categoryLabel"><g:message code="event.category.label"/></g:set>
   <body>
@@ -33,7 +33,7 @@
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
           <g:sortableColumn property="category" title="${categoryLabel}"/>
-          <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
+          <g:sortableColumn property="eventDate" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
@@ -50,7 +50,7 @@
             <td>
               ${fieldValue(bean: eventInstance, field: 'category')}
             </td>
-            <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.datePublished}"/></td>
+            <td><g:formatDate format="dd-MM-yyyy" date="${eventInstance?.eventDate}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Editor','Administrator']">
               <td>${fieldValue(bean: eventInstance, field: 'author')}</td>

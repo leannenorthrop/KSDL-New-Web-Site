@@ -26,7 +26,7 @@
   <g:set var="lastUpdatedLabel"><g:message code="event.last.updated"/></g:set>
   <g:set var="deleteConfirmLabel"><g:message code="event.delete.confirm"/></g:set>
   <g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
-  <g:set var="eventDateLabel"><g:message code="event.eventdate.label"/></g:set>
+  <g:set var="eventDateLabel"><g:message code="event.eventDate.label"/></g:set>
   <g:set var="categoryLabel"><g:message code="event.category.label"/></g:set>
   <body>
     <table>
