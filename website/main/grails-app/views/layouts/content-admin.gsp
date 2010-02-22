@@ -38,7 +38,7 @@
     <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:javascript library="jquery"/>
-    <g:javascript src="jquery/jquery-ui-1.7.2.custom.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.rc2.min.js"/>
     <g:javascript src="jquery/jquery.validate.min.js"/>
     <g:layoutHead/>
   </head>
@@ -64,8 +64,16 @@
     </div>
     <lsdc:grid/>
     <div class="footer">
-      <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-      <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
+    <ul>
+      <li>
+        <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
+        <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
+      </li>
+      <li>
+        Version <g:meta name="app.version"/> Built with Grails <g:meta name="app.grails.version"/>
+      </li>
+    </ul>
+
     </div>
   </body>
 </html>

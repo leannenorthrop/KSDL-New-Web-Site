@@ -38,5 +38,27 @@
             <column name="shiro_role_id" type="NUMERIC" header="SHIRO_ROLE_ID"/>
         </loadData>
     </changeSet>
+    <changeSet author="northrl" id="v001-data-06">
+        <loadData tableName="publishable" file="${v001-base-dir}/data/PUBLISHABLE.csv">
+            <column name="id" type="NUMERIC" header="ID"/>
+            <column name="version" type="NUMERIC" header="VERSION"/>
+            <column name="display_date" type="BOOLEAN" header="DISPLAY_DATE"/>
+            <column name="display_author" type="BOOLEAN" header="DISPLAY_AUTHOR"/>
+            <column name="last_updated" type="DATE" header="LAST_UPDATED"/>
+            <column name="deleted" type="BOOLEAN" header="DELETED"/>
+            <column name="author_id" type="NUMERIC" header="AUTHOR_ID"/>
+            <column name="publish_state" type="STRING" header="PUBLISH_STATE"/>
+            <column name="date_created" type="DATE" header="DATE_CREATED"/>
+            <column name="date_published" type="DATE" header="DATE_PUBLISHED"/>
+            <column name="home" type="BOOLEAN" header="HOME"/>
+            <column name="featured" type="BOOLEAN" header="FEATURED"/>
+            <column name="category" type="STRING" header="CATEGORY"/>
+        </loadData>
+
+        <sql><![CDATA[
+            insert into venue values(1, null, '', '', 'Manor Place', '');
+            insert into venue values(2, null, '', '', 'Spa Road', '');
+        ]]></sql>
+    </changeSet>
 </databaseChangeLog>
 
