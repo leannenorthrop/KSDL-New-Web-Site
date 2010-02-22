@@ -77,7 +77,6 @@
       <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>&nbsp;:&nbsp;
       <g:select name="endTimeMin" from="${new TimeOfDay().minuteOfHour().getMinimumValue()..new TimeOfDay().minuteOfHour().getMaximumValue()}" value="${rule?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
     </fieldset>
-    <fieldset class="last"></fieldset>
     <div id="dateTabs">
       <ul>
         <li><a href="#once"><g:message code="event.once.title"/></a></li>
@@ -85,15 +84,40 @@
         %{--<li><a href="#series"><g:message code="event.series.title"/></a></li>--}%
       </ul>
       <div id="once">
-        <fieldset>
-          <div id="eventDatePicker"></div>
-          <g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></g:set>
-          <g:hiddenField name="eventDate" value="${defaultDate}"/>
-        </fieldset>
+        <div id="eventDatePicker"></div>
+        <g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></g:set>
+        <g:hiddenField name="eventDate" value="${defaultDate}"/>
       </div>
       <div id="regular">
-        <!-- TODO: add regular dates -->
-        <h1>Coming Soon</h1>
+        <fieldset>
+          <input type="radio" name="ruleType1" value="always" checked="true">Always</input>
+          <input type="radio" name="ruleType1" value="period">Period</input>
+        </fieldset>
+        <div id="always" style="display:block">
+        </div>
+        <div id="period" style="display:none">
+          <fieldset>
+            From: <input type="text" id="fromDatepicker" style="width:auto"/>&nbsp;Until: <input type="text" id="untilDatepicker" style="width:auto"/>
+          </fieldset>
+        </div>
+        <fieldset>
+          <input type="radio" name="ruleType2" value="daily" checked="true">Daily</input>
+          <input type="radio" name="ruleType2" value="weekly">Weekly</input>
+          <input type="radio" name="ruleType2" value="monthly">Monthly</input>
+          <input type="radio" name="ruleType2" value="yearly">Yearly</input>
+        </fieldset>
+        <div id="daily">
+          Every <g:select name="dailyInterval" from="${1..6}" class="ui-corner-all"/> day(s)
+        </div>
+        <div id="weekly" style="display:none">
+          Every <g:select name="weekInterval" from="${1..4}" class="ui-corner-all"/> week(s)
+        </div>
+        <div id="monthly" style="display:none">
+          Every <g:select name="weekInterval" from="${1..12}" class="ui-corner-all"/> month(s)
+        </div>
+        <div id="yearly" style="display:none">
+          Every <g:select name="weekInterval" from="${1..5}" class="ui-corner-all"/> year(s)
+        </div>
       </div>
       %{--<div id="series">
         <h1>Coming Soon</h1>
@@ -125,13 +149,30 @@
 </div>
 <g:set var="currentEventDate"><g:formatDate format="yyyy" date="${rule?.startDate}"/>,${rule?.startDate?.getMonth()},<g:formatDate format="dd" date="${rule?.startDate}"/></g:set>
 <g:javascript>
+      $("#fromDatepicker").datepicker({dateFormat: 'dd-mm-yy'});
+      $("#untilDatepicker").datepicker({dateFormat: 'dd-mm-yy'});
+      $("input[name|=ruleType1]").change(function() {
+          $("input[name|=ruleType1]").each(function(index) {
+            var id = $(this).val();
+            $("#" + id).toggle();
+          });
+      });
+      $("input[name|=ruleType2]").change(function() {
+          $("input[name|=ruleType2]").each(function(index) {
+            var id = $(this).val();
+            $("#" + id).hide();
+          });
+          var id2 = $(this).val();
+          $("#" + id2).show();
+      });
       $("#accordion").accordion();
       $("#dateTabs").tabs({fx: { opacity: 'toggle' }});
+      $("#ruleTabs").tabs({fx: { opacity: 'toggle' }});
       var d = new Date();
       d.setFullYear(${currentEventDate});
       $("#eventDatePicker").datepicker({
         showOtherMonths: false,
-        dateFormat: 'dd-mm-yyyy',
+        dateFormat: 'dd-mm-yy',
         defaultDate: d,
         numberOfMonths: [2,3],
         hideIfNoPrevNext: true,
