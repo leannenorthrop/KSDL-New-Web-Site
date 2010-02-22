@@ -26,7 +26,7 @@
   <g:set var="lastUpdatedLabel"><g:message code="event.last.updated"/></g:set>
   <g:set var="publishedOnLabel"><g:message code="event.published.on"/></g:set>
   <g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
-  <g:set var="eventDateLabel"><g:message code="event.eventdate.label"/></g:set>
+  <g:set var="eventDateLabel"><g:message code="event.eventDate.label"/></g:set>
   <g:set var="categoryLabel"><g:message code="event.category.label"/></g:set>
   <body>
     <table>
@@ -49,7 +49,7 @@
             <td>
               <g:link action="show" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
             </td>
-            <td><joda:format style="MS" date="${eventInstance?.eventDate}"/></td>
+            <td><g:formatDate format="dd-MM-yyyy" date="${eventInstance?.eventDate}"/></td>
             <td><g:message code="${'publish.category.' + eventInstance?.category}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>

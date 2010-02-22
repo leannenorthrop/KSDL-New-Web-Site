@@ -49,10 +49,18 @@ class EventController {
 
     def home = {
         def events = Event.publishState('Published').list();
-        def todaysEvents = Event.today().list();
-        def thisWeeksEvents = Event.thisWeek().list();
-        def thisMonthEvents = Event.thisMonth().list();
-        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, title: "Current Programme"]
+
+        def now = new Date()
+        now.setHours(0)
+        now.setMinutes(0)
+        now.setSeconds(0)
+        def tommorow = now + 1
+        def endOfWeek = now + 7
+        def endOfMonth = now + 31
+        def todaysEvents = Event.publishedDateRange(now, tommorow, "eventDate", "desc").list();
+        def thisWeeksEvents = Event.publishedDateRange(now, endOfWeek, "eventDate", "desc").list();
+        def thisMonthEvents = Event.publishedDateRange(now, endOfMonth, "eventDate", "desc").list();
+        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents, title: "Current Programme"]
     }
 
     def list = {
@@ -371,7 +379,7 @@ class EventController {
 
     def create = {
         def event = new Event()
-        event.eventDate = new Date(110, 2, 13)
+        event.eventDate = new Date()
         event.properties = params
         return ['event': event]
     }
