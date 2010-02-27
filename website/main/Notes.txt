@@ -8,11 +8,6 @@ April/May 2010 - Production deploy
                         FOR 28/02/2010
 ================================================================================
 0. Fixes:
-    - Home Page
-        - Email link
-        - Css
-            - short news list
-            - icons for contact links
     - News Pages
         - CSS
             - short news list
@@ -58,10 +53,6 @@ April/May 2010 - Production deploy
 2. Settings to be pulled from web container as resources:
     - Email
     - Twitter
-3. Feeds
-    - fix
-    - add urls
-    - add audit log
 4. Twitter
     - add urls
 5. Users
