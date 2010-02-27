@@ -47,8 +47,8 @@
       <div class="box services">
         <h2><g:message code="service.header"/></h2>
         <ul>
-          <li class="email"><g:link controller="feed" action="index"><g:message code="service.email"/></g:link></li>
-          <li class="rss"><g:link controller="feed" action="index"><g:message code="service.rss"/></g:link></li>
+          <li class="email"><a href="http://visitor.constantcontact.com/manage/optin?v=001Qllubg_SeqJPuzfEQO27-PsaMuFhxMTC"><g:message code="service.email"/></a></li>
+          <li class="rss"><g:link controller="home" action="feed"><g:message code="service.rss"/></g:link></li>
           <li class="calendar"><g:link controller="feed" action="index"><g:message code="service.calendar"/></g:link></li>
           <li class="twitter"><a href="http://twitter.com/lsdci"><g:message code="service.twitter"/></a></li>
         </ul>

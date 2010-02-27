@@ -27,11 +27,11 @@
     <meta name="layout" content="main">
 </head>
 <body>
-<div class="col1_80_Percent box">
-    <h1><g:message code="rss.heading"/></h1>
+    <div class="grid_14">
+    <h3><g:message code="rss.heading"/></h3>
     <p><g:message code="rss.msg"/>
-        <ol>
-            <g:each in="${['news','meditation','wellbeing','community']}" var="feed">
+        <ol class="feeds">
+            <g:each in="${['news','meditation','wellbeing','community','buddhism']}" var="feed">
             <li class="rss">
               <g:set var="a">
                 <g:link controller="feed" action="${feed}"><g:message code="${feed}"/></g:link>
@@ -41,8 +41,6 @@
             </g:each>
         </ol>
     </p>
-</div>
-<div class="col2_20_Percent">
 </div>
 </body>
 </html>

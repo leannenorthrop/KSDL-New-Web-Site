@@ -1,100 +1,102 @@
 package org.samye.dzong.london.site
 
 class FeedController {
-	def auditLogService
     def articleService
 
-	def index = {}
+    def index = {}
 
-	def news = {
+    def news = {
         def articles = articleService.publishedByTags(['news'])
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
-		render(feedType:"rss", feedVersion:"2.0") {
-            title = "Kagyu Samye Dzong London News"
-            link = "http://localhost:8080/main/news/feed"
-            description = "Lastest news articles from Kagyu Samye Dzong London"
+        render(feedType:"rss", feedVersion:"2.0") {
+            title = message(code:'title') + ": " + message(code:'news')
+            link = createLink(controller:'news',action:'feed',absolute:true)
+            description = message(code:'rss.news.desc')
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
-                    link = "http://localhost:8080/main/article/view/${article.id}"
-					author = article.author.username
-					publishedDate = auditDetails[index][0] != null &&   auditDetails[index][0].dateCreated != null? auditDetails[index][0].dateCreated : new Date()
-					content(type:'text/html') {
-                    	article.content.encodeAsTextile()
-					}
+                    link = createLink(controller:'news',action:'view',absolute:true,id:article.id)
+                    author = article.author.username
+                    publishedDate = article.datePublished
+                    content(type:'text/html') {
+                        article.summary
+                    }
                 }
             }
         }
-	}
+    }
 
-	def meditation = {
+    def meditation = {
         def articles = articleService.publishedByTags(['meditation'])
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
-		render(feedType:"rss", feedVersion:"2.0") {
-            title = "Kagyu Samye Dzong London News"
-            link = "http://localhost:8080/main/meditation/feed"
-            description = "Lastest meditation articles from Kagyu Samye Dzong London"
+        render(feedType:"rss", feedVersion:"2.0") {
+            title = message(code:'title') + ": " + message(code:'meditation')
+            link = createLink(controller:'meditation',action:'feed',absolute:true)
+            description = message(code:'rss.meditation.desc')
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
-                    link = "http://localhost:8080/main/article/view/${article.id}"
-					author = article.author.username
-					publishedDate = auditDetails[index][0] != null &&   auditDetails[index][0].dateCreated != null? auditDetails[index][0].dateCreated : new Date()
-					content(type:'text/html') {
-                    	article.content.encodeAsTextile()
-					}
+                    link = createLink(controller:'meditation',action:'view',absolute:true,id:article.id)
+                    author = article.author.username
+                    publishedDate = article.datePublished
+                    content(type:'text/html') {
+                        article.summary
+                    }
                 }
             }
         }
-	}
+    }
 
-	def community = {
+    def community = {
         def articles = articleService.publishedByTags(['community'])
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
-		render(feedType:"rss", feedVersion:"2.0") {
-            title = "Kagyu Samye Dzong London Community Articles"
-            link = "http://localhost:8080/main/community/feed"
-            description = "Lastest community articles from Kagyu Samye Dzong London"
+        render(feedType:"rss", feedVersion:"2.0") {
+            title = message(code:'title') + ": " + message(code:'community')
+            link = createLink(controller:'community',action:'feed',absolute:true)
+            description = message(code:'rss.community.desc')
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
-                    link = "http://localhost:8080/main/article/view/${article.id}"
-					author = article.author.username
-					publishedDate = auditDetails[index][0] != null && auditDetails[index][0].dateCreated != null? auditDetails[index][0].dateCreated : new Date()
-					content(type:'text/html') {
-                    	article.content.encodeAsTextile()
-					}
+                    link = createLink(controller:'community',action:'view',absolute:true,id:article.id)
+                    author = article.author.username
+                    publishedDate = article.datePublished
+                    content(type:'text/html') {
+                        article.summary
+                    }
                 }
             }
         }
-	}
+    }
 
-	def wellbeing = {
+    def wellbeing = {
         def articles = articleService.publishedByTags(['wellbeing'])
-		def auditDetails = articles.collect { article ->
-			def id = Long.toString(article.id,10)
-			[auditLogService.publishedOn(id), auditLogService.createdOn(id), auditLogService.lastUpdatedOn(id)]
-		}
-		render(feedType:"rss", feedVersion:"2.0") {
-            title = "Kagyu Samye Dzong London Well-Being Articles"
-            link = "http://localhost:8080/main/wellbeing/feed"
-            description = "Lastest well-being articles from Kagyu Samye Dzong London"
+        render(feedType:"rss", feedVersion:"2.0") {
+            title = message(code:'title') + ": " + message(code:'wellbeing')
+            link = createLink(controller:'wellbeing',action:'feed',absolute:true)
+            description = message(code:'rss.wellbeing.desc')
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
-                    link = "http://localhost:8080/main/article/view/${article.id}"
-					author = article.author.username
-					publishedDate = auditDetails[index][0] != null &&   auditDetails[index][0].dateCreated != null? auditDetails[index][0].dateCreated : new Date()
-					content(type:'text/html') {
-                    	article.content.encodeAsTextile()
-					}
+                    link = createLink(controller:'wellbeing',action:'view',absolute:true,id:article.id)
+                    author = article.author.username
+                    publishedDate = article.datePublished
+                    content(type:'text/html') {
+                        article.summary
+                    }
                 }
             }
         }
-	}
+    }
+
+    def buddhism = {
+        def articles = articleService.publishedByTags(['buddhism'])
+        render(feedType:"rss", feedVersion:"2.0") {
+            title = message(code:'title') + ": " + message(code:'buddhism')
+            link = createLink(controller:'buddhism',action:'feed',absolute:true)
+            description = message(code:'rss.buddhism.desc')
+            articles.eachWithIndex { article,index ->
+                entry(article.title) {
+                    link = createLink(controller:'buddhism',action:'view',absolute:true,id:article.id)
+                    author = article.author.username
+                    publishedDate = article.datePublished
+                    content(type:'text/html') {
+                        article.summary
+                    }
+                }
+            }
+        }
+    }
 }

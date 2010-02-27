@@ -69,6 +69,11 @@ class HomeController {
         model:[]
     }
 
+    def feed = {
+        model:[]
+    }
+
+
     def internalError = {
         render(view:internalError)
     }

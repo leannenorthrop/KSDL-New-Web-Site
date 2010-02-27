@@ -36,64 +36,58 @@
         <g:set var="rule" value="${event?.dates[0]}"/>
         <g:set var="placementClass" value="${i == 0 ? 'first' : (i == events.size ? 'last' :'')}"/>
         <li class="event ${placementClass} ${event?.category}">
-
+            <g:if test="${event.image}">
+                <g:link controller="event" action="view" id="${event.id}"><img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/></g:link>
+            </g:if>
+        <div>
         <g:set var="eventHeading" value="${event.title}"/>
-        <h3>
+        <h4>
           <g:if test="${event.content}">
             <g:link controller="event" action="view" id="${event.id}">${eventHeading}</g:link>
           </g:if>
           <g:else>
             ${eventHeading}
           </g:else>
-        </h3>
+        </h4>
 
         <g:set var="startdate"><joda:format style="M-" date="${rule?.startDate}"/></g:set>
         <g:set var="enddate"><joda:format style="M-" date="${rule?.endDate}"/></g:set>
         <g:set var="days" value="${rule?.getDays().sort()}"/>
-
+    <p class="meta">
         <g:if test="${!rule?.isRule}">
-          <h4>${startdate}</h4>
+          ${startdate}
         </g:if>
         <g:else>
           <g:if test="${rule?.isDaily()}">
-            <h4><g:message code="day.interval.${rule?.interval}"/></h4>
+            <g:message code="day.interval.${rule?.interval}"/>
           </g:if>
           <g:elseif test="${rule?.isWeekly()}">
-            <h4>
               <g:each var="day" in="${days}" status="index">
                 <g:message code="${day}"/><g:if test="${index < rule?.getDays().size()-1}">,&nbsp;</g:if>
               </g:each>
-              <g:message code="week.interval.${rule?.interval}"/></h4>
+              <g:message code="week.interval.${rule?.interval}"/>
           </g:elseif>
           <g:elseif test="${rule?.isMonthly()}">
-            <h4>
               <g:each var="modifiers" in="${rule?.getModifiers()}" status="index">
                 <g:message code="month.${modifiers[0]}"/>&nbsp;<g:message code="${modifiers[1]}"/>
               </g:each>
               <g:message code="month.interval.${rule?.interval}"/>
-            </h4>
           </g:elseif>
 
           <g:if test="${rule?.isBounded()}">
-            <h4><g:message code="from.until" args="${[startdate,enddate]}"/></h4>
+            <g:message code="from.until" args="${[startdate,enddate]}"/>
           </g:if>
         </g:else>
 
         <g:if test="${event.displayAuthor || event.displayDate}">
-          <p class="meta">
-          <joda:format pattern="h:mm" value="${rule?.startTime?.toDateTimeToday()}"/> - <joda:format pattern="h:mm a" value="${rule?.endTime?.toDateTimeToday()}"/>  (${fieldValue(bean: rule, field: "duration")})
+          <joda:format pattern="h:mm" value="${rule?.startTime?.toDateTimeToday()}"/> - <joda:format pattern="h:mm a" value="${rule?.endTime?.toDateTimeToday()}"/>
 
           <g:if test="${event?.leader}">
             with ${event?.leader}
           </g:if>
-          </p>
         </g:if>
-
-        <g:if test="${event.image}">
-          <a href="#" class="image">
-            <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
-          </a>
-        </g:if>
+    </p>
+    </div>
         </li>
       </g:each>
 
