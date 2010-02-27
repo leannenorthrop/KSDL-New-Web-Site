@@ -22,9 +22,9 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Template for displaying a list of events.
+  Template for displaying a shortened list of events.
   User: Leanne Northrop
-  Date: Feb 12, 2010, 7:34:02 PM
+  Date: Feb 27, 2010, 7:16:02 PM
 --%>
 <%@ page import="org.samye.dzong.london.community.Teacher; org.samye.dzong.london.events.Event" contentType="text/html;charset=UTF-8" %>
 <div class="box border2">
@@ -94,14 +94,6 @@
             <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
           </a>
         </g:if>
-        <p>
-          ${event.summary}
-        </p>
-        <p>
-          <g:if test="${event.content}">
-            <g:link controller="event" action="view" id="${event.id}"><g:message code='content.more'/></g:link>
-          </g:if>
-        </p>
         </li>
       </g:each>
 

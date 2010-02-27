@@ -1,7 +1,7 @@
 body.buddhism {
     background-color: #e2deb5;
    background-image: url(images/endlessknot/yellow.png);
-    background-image: url(images/endlessknot/yellow.png),#e2deb5;
+    background-image: url(images/endlessknot/yellow.png), url(images/bg.jpg);
     border-color: #850007;
     border: 0;
 }
@@ -62,7 +62,7 @@ body.buddhism .box h2 {
     color:#6a0005;
 }
 
-body.buddhism .box.article h2 {
+body.buddhism .box.article h2,.buddhism h3 a  {
     color:#ffa529;
     background: transparent;
 }

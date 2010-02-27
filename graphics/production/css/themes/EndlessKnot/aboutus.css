@@ -1,7 +1,7 @@
 body.aboutUs {
     background-color: #e2deb5;
     background-image: url(images/endlessknot/orange.png);
-    background-image: url(images/endlessknot/orange.png), #e2deb5;
+    background-image: url(images/endlessknot/orange.png), url(images/bg.jpg);
 /*    background-image: url(images/bg.jpg);*/
     border-color: #ff3813;
     border: 0;

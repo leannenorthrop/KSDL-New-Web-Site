@@ -44,6 +44,9 @@
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
 
     <g:layoutHead/>
+    <g:javascript library="mootools"/>
+    <g:javascript library="mootools-more"/>
+    <g:javascript library="mootools-fluid16"/>
   </head>
   <body class="${controllerName}">
     <div class="container_16">

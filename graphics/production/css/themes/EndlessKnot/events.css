@@ -1,7 +1,7 @@
 body.event {
     background-color: #e2deb5;
     background-image: url(images/endlessknot/pink.png);
-    background-image: url(images/endlessknot/pink.png), #e2deb5;
+    background-image: url(images/endlessknot/pink.png), url(images/bg.jpg);
     border-color: #a60060;
     border: 0;
 }

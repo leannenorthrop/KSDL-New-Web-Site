@@ -1,7 +1,7 @@
 body.meditation {
     background-color: #e2deb5;
     background-image: url(images/endlessknot/purple.png);
-    background-image: url(images/endlessknot/purple.png), #e2deb5;
+    background-image: url(images/endlessknot/purple.png), url(images/bg.jpg);
     border-color: #7e5bad;
     border: 0;
 }
@@ -62,7 +62,7 @@ body.meditation .box h2 {
     color:#eee8d7;
 }
 
-body.meditation .box.article h2 {
+body.meditation .box.article h2, .meditation h3 a {
     color:#7e5bad;
     background: transparent;
 }
