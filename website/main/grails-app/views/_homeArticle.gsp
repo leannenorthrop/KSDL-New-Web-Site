@@ -22,22 +22,28 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Template for displaying shorten list of news items.
   User: Leanne Northrop
-  Date: Feb 12, 2010,8:49:38 PM
+  Date: Feb 27, 2010, 5:07:05 PM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
-<div class="box shortnews">
-  <h2><g:message code="${heading}"/></h2>
-  <ol>
-    <g:each in="${articles}" status="i" var="articleInstance">
-      <li>
-        <g:link controller="news" action="view" id="${articleInstance.id}">
-          <p>${articleInstance.title}</p>
-          <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em>
+<%@ page import="org.samye.dzong.london.events.Event; org.samye.dzong.london.community.Teacher" contentType="text/html;charset=UTF-8" %>
+<g:set var="typeClass" value="${articles[0] instanceof Teacher ? 'teacher' : (articles[0] instanceof Event ? 'event' : '')}"/>
+
+<g:if test="${articles}">
+    <g:set var="articleInstance" value="${articles[0]}"/>
+    <g:set var="articleHeading" value="${articleInstance.title}"/>
+
+    <div class="${controller}">
+    <h3><g:link controller="${controller}" action="${action}" id="${articleInstance.id}">${articleHeading}</g:link></h3>
+    <g:if test="${articleInstance.image}">
+        <g:set var="iurl" value="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}"/>
+        <img src="${iurl}"/>
+    </g:if>
+    <p style="display:hidden;">
+        <g:link controller="${controller}" action="${action}" id="${articleInstance.id}">
+        ${articleInstance.summary}
         </g:link>
-      </li>
-    </g:each>
-  </ol>
-</div>
+    </p>
+    </div>
+</g:if>
+

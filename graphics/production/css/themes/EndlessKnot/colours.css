@@ -39,7 +39,7 @@ a:hover {
 }
 
 h1#branding {
-    background:#f5f3e6;
+
 }
 
 h2#page-heading {
@@ -47,7 +47,7 @@ h2#page-heading {
 }
 
 .box {
-    background:#eee8d7;
+    background:transparent;
 }
 
 .box h2 {
@@ -198,3 +198,6 @@ legend {
     color:#524a41;
 }
 
+.container_16 {
+    background: rgb(255, 253, 249) url(images/papertile2.png) top left repeat;
+}

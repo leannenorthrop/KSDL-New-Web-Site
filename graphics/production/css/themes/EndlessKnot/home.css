@@ -1,7 +1,7 @@
 body.home {
     background-color: #e2deb5;
    background-image: url(images/endlessknot/red.png);
-    background-image: url(images/endlessknot/red.png),#e2deb5;
+    background-image: url(images/endlessknot/red.png), url(images/bg.jpg);
     border-color: #850007;
     border: 0;
 }
@@ -18,8 +18,8 @@ body.home #watermark1 {
     display: block;
     position:absolute;
     background-image: url(images/corner/red.png);
-    right:-43px;
-    top:-44px;
+    right:-35px;
+    top:-36px;
     width: 300px;
     height: 301px;
     z-index: 100;
@@ -66,4 +66,118 @@ body.home .box .article, body.home .box .event {
 
 body.home .article h2, body.home .event h2 {
     color:#850007;
+}
+
+body.home .border1 {
+    border-width: 13px;
+    -webkit-border-image: url("images/borderimage.png") 11 11 11 11 round;
+    -moz-border-image: url("images/borderimage.png") 11 11 11 11 round;
+}
+
+body.home .border1 h2 {
+    background: transparent;
+    color: #a40011;
+}
+
+
+body.home .border2 {
+    border-width: 70px;
+    -webkit-border-image: url("images/knotborderimage.png") 128 135 128 135 round;
+    -moz-border-image: url("images/knotborderimage.png") 128 135 128 135 round;
+}
+
+body.home .border2 h2 {
+    background: transparent;
+    color: #a40011;
+}
+
+
+body.home span.amp {
+    color: #a40011;
+}
+
+body.home .shortnews {
+    padding-bottom: 3em;
+}
+
+body.home .shortnews h2 {
+    background: none;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin: -10px -10px 0.9em -10px;
+    padding: 6px 12px;
+    border-bottom:1px solid #b64447;
+}
+
+body.home .shortnews ol {
+    list-style: none;
+    margin: 0;
+}
+
+body.home .shortnews ol li {
+    list-style: none;
+    margin: -10px -10px 0 -10px;
+    padding: 6px 12px;
+}
+
+body.home .services ul li a,
+body.home .shortnews ol li a {
+    display: block;
+    vertical-align: middle;
+}
+
+body.home .shortnews ol li a:hover,
+body.home .services ul li a:hover {
+    color: #b64447;
+}
+
+body.home .shortnews ol li a p {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+body.home .shortnews ol li a em{
+    float: right;
+}
+
+body.home .services li {
+    list-style: none;
+}
+
+body.home .services h2 {
+    background: none;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin: 1.6em -10px 0.9em -10px;
+    padding: 6px 12px;
+    border-bottom:1px solid #b64447;
+}
+
+li.email {
+    background: transparent url(images/Mail.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
+}
+
+li.rss {
+    background: transparent url(images/RSS.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
+}
+
+li.twitter {
+    background: transparent url(images/Twitter.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
+}
+
+li.calendar {
+    background: transparent url(images/iCal.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
 }

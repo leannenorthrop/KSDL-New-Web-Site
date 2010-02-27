@@ -1,7 +1,7 @@
 body.news {
     background-color: #e2deb5;
     background-image: url(images/endlessknot/paleblue.png);
-    background-image: url(images/endlessknot/paleblue.png), #e2deb5;
+    background-image: url(images/endlessknot/paleblue.png), url(images/bg.jpg);
     border-color: #850007;
     border: 0;
 }
@@ -101,5 +101,4 @@ body.news .box .first, body.news .block .first, body.news .block li.first {
 .articles li.N h6 {
     color:#375156;
 }
-
 

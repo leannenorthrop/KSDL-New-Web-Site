@@ -5,8 +5,9 @@ Grey Box Method - Layout CSS
 
 body {
     background: #eee;
+    font-family: constantia, palatino, 'times new roman';
     font-size: 11px;
-    padding: 0 0 40px;
+    min-width: 1024px;
 }
 
 /* anchors
@@ -20,7 +21,7 @@ a {
 ----------------------------------------------- */
 .container_12,
 .container_16 {
-    background: #fff;
+    font-size: 15px;
 }
 
 /* headings
@@ -132,7 +133,7 @@ p {
 }
 
 blockquote {
-    font-family: Georgia, 'Times New Roman', serif;
+    font-family: constantia, palatino, Georgia, 'Times New Roman', serif;
     font-size: 1.2em;
     padding-left: 1em;
 }

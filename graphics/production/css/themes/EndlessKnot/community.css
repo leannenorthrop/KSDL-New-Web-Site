@@ -1,7 +1,7 @@
 body.community {
     background-color: #e2deb5;
     background-image: url(images/endlessknot/blue.png);
-    background-image: url(images/endlessknot/blue.png), #e2deb5;
+    background-image: url(images/endlessknot/blue.png), url(images/bg.jpg);
     border-color: #7e5bad;
     border: 0;
 }
@@ -59,7 +59,7 @@ body.community .box h2 {
     color:#fff;
 }
 
-body.community .box.article h2 {
+body.community .box.article h2,.community h3 a  {
     color:#0055a4;
     background: transparent;
 }
