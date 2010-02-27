@@ -31,13 +31,13 @@
   <g:each in="${articles}" status="i" var="articleInstance">
     <div class="box article">
       <g:if test="${!(articleInstance instanceof Teacher)}">
-        <h2>${articleInstance.title}</h2>
+        <h2>${articleInstance?.title}</h2>
       </g:if>
       <g:else>
         <h2><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance.name}</h2>
       </g:else>
 
-      <g:if test="${articleInstance.image}">
+      <g:if test="${articleInstance?.image}">
         <g:if test="${articleInstance?.image?.mimeType.endsWith('png')}">
           <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
         </g:if>
@@ -46,13 +46,13 @@
         </g:else>
       </g:if>
       <p>
-        ${articleInstance.summary}
+        ${articleInstance?.summary}
       </p>
       <p>
-        <g:if test="${articleInstance.content && !(articleInstance instanceof Teacher)}">
+        <g:if test="${articleInstance?.content && !(articleInstance instanceof Teacher)}">
           <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
         </g:if>
-        <g:elseif test="${articleInstance.content && (articleInstance instanceof Teacher)}">
+        <g:elseif test="${articleInstance?.content && (articleInstance instanceof Teacher)}">
           <g:link controller="teacher" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
         </g:elseif>
       </p>

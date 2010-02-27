@@ -29,13 +29,13 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title><g:message code="news"/></title>
+    <title><g:message code="news.heading"/></title>
     <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
     <meta name="layout" content="main">
   </head>
   <body>
     <div class="grid_12">
-      <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current', heading: 'news.heading']"/>
+      <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current', heading: 'news.current.title']"/>
     </div>
     <div class="grid_4">
       <!--div id="news-notifications" class="box">
@@ -46,20 +46,7 @@
           <li class="rss"><g:link controller="feed" action="index">RSS Feeds</g:link></li>
         </ul>
       </div-->
-      <div id="news-archive" class="box">
-        <h2><g:message code="archive.news.heading"/></h2>
-        <ul>
-        <!-- TODO mark last child -->
-          <g:each in="${archivedArticles}" status="i" var="articleInstance">
-            <li class="article">
-              <span><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></span>
-              <g:if test="${articleInstance.displayDate}">
-                <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em>
-              </g:if>
-            </li>
-          </g:each>
-        </ul>
-      </div>
+      <g:render template="/shortnewslist" model="[events: archivedArticles, heading: 'archive.news.heading']"/>
     </div>
   </body>
 </html>

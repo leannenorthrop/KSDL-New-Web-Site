@@ -8,13 +8,16 @@ April/May 2010 - Production deploy
                         FOR 28/02/2010
 ================================================================================
 0. Fixes:
+    - Css 
+        - short article/news list
+        - external site link
+        - colours, menu and corner for every section,color ratios
     - News Pages
         - CSS
-            - short news list
-            - view news image wrong
-            - Related Items list
-        - missing message on meta
+            - Labels - link
+            - Headings
         - ensure can't create news page without publish date ticked
+        - add categories when searching for similar articles (check labels)
     - Events
         - display of events: check for empty organizer
         - missing events.more message
@@ -32,12 +35,8 @@ April/May 2010 - Production deploy
 
     - Meditation Page
         - All Article list should not include links to Read More...
-    - Css
-        - color ratios
-        - short article/news list
-        - external site link
+
     - About Us
-        - broken when no community article present (also need to i8n the article title)
         - Teacher
             - force toString to figure out title
             - add none to title option
