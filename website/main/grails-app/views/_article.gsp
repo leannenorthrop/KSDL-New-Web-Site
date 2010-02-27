@@ -44,7 +44,7 @@
         </g:if>
       </div>
 
-      <div class="grid_12  ${articleInstance?.category}">
+      <div class="grid_12 body ${articleInstance?.category}">
     </g:else>
     <g:if test="${articleInstance?.image && articleInstance?.image?.mimeType.endsWith('png')}">
       <img src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>

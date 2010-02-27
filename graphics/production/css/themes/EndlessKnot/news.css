@@ -1,0 +1,105 @@
+body.news {
+    background-color: #e2deb5;
+    background-image: url(images/endlessknot/paleblue.png);
+    background-image: url(images/endlessknot/paleblue.png), #e2deb5;
+    border-color: #850007;
+    border: 0;
+}
+
+body.news .container_16 {
+    border: 0.4em #00a49e double;
+}
+
+body.news #branding {
+    color: #00786a;
+}
+
+body.news #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/paleblue.png);
+    right:-43px;
+    top:-44px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+/* Footer
+*----------------------------------------------------------------------------*/
+body.news .nav ul,body.news #site_info .box {
+    background: #00837e;
+}
+
+body.news .nav ul li, body.news .nav ul li a{
+    color: #fff;
+    background: #00837e;
+}
+
+body.news .nav ul li a:active,
+body.news .nav ul li.current a,
+body.news .nav ul li:hover a,
+body.news .nav ul li a:hover,
+body.news .nav ul li a:focus {
+    color: #fff;
+    background: #00a49e;
+}
+
+
+body.news #page-heading {
+    color: #00786a;
+    border-bottom:1px solid #00a49e;
+}
+
+body.news .box h2 {
+    background:#00837e;
+    color:#fff;
+}
+
+body.news .box.article h2 {
+    color:#5b878f;
+    background: transparent;
+}
+
+body.news .box .article, body.news .box .event {
+    border-top:1px solid #6a4c71;
+}
+
+body.news .article h2, body.news .event h2 {
+    color:#375156;
+}
+
+body.news .article p.meta, body.news .event p.meta, .event.N p.meta {
+    color:#00a49e;
+    border-top:1px dotted #00a49e;
+    border-bottom:1px dotted #00a49e;
+}
+
+body.news .box .first, body.news .block .first, body.news .block li.first {
+    border-top: none;
+}
+
+.events li.N h3, .events li.N h3 a, .articles li.N h3, .articles li.N h3 a {
+    color:#375156;
+}
+.events li.N h3 a:hover,.articles li.N h3 a:hover {
+    color:#375156;
+}
+
+.event .N h4,
+.article .N h4,
+.event .N h3,
+.article .N h3,
+.event .N h5,
+.article .N h5,
+.event .N h6,
+.article .N h6,
+.events li.N h4,
+.articles li.N h4,
+.events li.N h5,
+.articles li.N h5,
+.events li.N h6,
+.articles li.N h6 {
+    color:#375156;
+}
+
+

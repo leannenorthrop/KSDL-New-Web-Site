@@ -46,15 +46,10 @@
     <div class="clear"></div>
 
     <div class="grid_4">
-      <div class="articles box">
         <g:render template="/articlelist" model="[articles:articles,controller:'buddhism',action:'view',total:total,moreAction:'list',heading:'buddhism.articles.title']"/>
-      </div>
     </div>
     <div class="grid_12">
-      <div class="box">
-        <h2><g:message code="event.buddhism"/></h2>
-        <g:render template="/eventlist" model="[events: events]"/>
-      </div>
+        <g:render template="/eventlist" model="[events: events,heading:'event.buddhism']"/>
     </div>
   </body>
 </html>

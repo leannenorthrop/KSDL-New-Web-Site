@@ -47,6 +47,7 @@
   </head>
   <body class="${controllerName}">
     <div class="container_16">
+      <div id="watermark1"></div>
       <div class="grid_16">
         <h1 id="branding">
           <g:set var="logo" value="${Image.findByName('Logo')}"/>

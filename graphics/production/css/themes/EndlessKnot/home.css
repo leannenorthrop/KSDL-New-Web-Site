@@ -1,0 +1,69 @@
+body.home {
+    background-color: #e2deb5;
+   background-image: url(images/endlessknot/red.png);
+    background-image: url(images/endlessknot/red.png),#e2deb5;
+    border-color: #850007;
+    border: 0;
+}
+
+body.home .container_16 {
+    border: 0.4em #AD2617 double;
+}
+
+body.home #branding {
+    color: #850007;
+}
+
+body.home #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/red.png);
+    right:-43px;
+    top:-44px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+/* Footer
+*----------------------------------------------------------------------------*/
+body.home .nav ul,body.home #site_info .box {
+    background: #b64447;
+}
+
+body.home .nav ul li, body.home .nav ul li a{
+    color: #fff;
+    background: #b64447;
+}
+
+body.home .nav ul li a:active,
+body.home .nav ul li.current a,
+body.home .nav ul li:hover a,
+body.home .nav ul li a:hover,
+body.home .nav ul li a:focus {
+    color: #fff;
+    background: #a40011;
+}
+
+
+body.home #page-heading {
+    color: #850007;
+    border-bottom:1px solid #b64447;
+}
+
+body.home .box h2 {
+    background:#a40011;
+    color:#d1c5a4;
+}
+
+body.home .box.article h2 {
+    color:#a40011;
+    background: transparent;
+}
+
+body.home .box .article, body.home .box .event {
+    border-top:1px solid #6a4c71;
+}
+
+body.home .article h2, body.home .event h2 {
+    color:#850007;
+}

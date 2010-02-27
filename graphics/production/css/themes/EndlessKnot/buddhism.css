@@ -1,0 +1,110 @@
+body.buddhism {
+    background-color: #e2deb5;
+   background-image: url(images/endlessknot/yellow.png);
+    background-image: url(images/endlessknot/yellow.png),#e2deb5;
+    border-color: #850007;
+    border: 0;
+}
+
+body.buddhism .container_16 {
+    border: 0.4em #ffa529 double;
+}
+
+body.buddhism #branding {
+    color: #ffa529;
+}
+
+body.buddhism #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/yellow.png);
+    right:-43px;
+    top:-44px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+
+
+/* Footer & Navigation
+*----------------------------------------------------------------------------*/
+body.buddhism .nav ul,body.buddhism #site_info .box {
+    background: #ffce29;
+}
+
+body.buddhism .nav ul li, body.buddhism .nav ul li a{
+    color: #fff;
+    background: #ffce29;
+}
+
+body.buddhism .nav ul li:hover a,
+body.buddhism .nav ul li a:hover,
+body.buddhism .nav ul li a:focus {
+    color: #665d51;
+    background: #eeb101;
+}
+
+body.buddhism .nav ul li a:active,
+body.buddhism .nav ul li.current a {
+    color: #665d51;
+    background: #eeb101;
+}
+
+/* Buddhism Pages
+----------------------------------------------- */
+body.buddhism #page-heading {
+    color: #ffa529;
+    border-bottom:1px solid #f9dc87;
+}
+
+body.buddhism .box h2 {
+    background:#ffce29;
+    color:#6a0005;
+}
+
+body.buddhism .box.article h2 {
+    color:#ffa529;
+    background: transparent;
+}
+
+body.buddhism .box .article, body.buddhism .box .event {
+    border-top:1px solid #ffa529;
+}
+
+body.buddhism .article h2, body.buddhism .event h2 {
+    color:#ffa529;
+}
+
+body.buddhism .article p.meta, body.buddhism .event p.meta, .event.B p.meta {
+    color:#ffa529;
+    border-top:1px dotted #ffa529;
+    border-bottom:1px dotted #ffa529;
+}
+
+.events li.B h3, .events li.B h3 a, .articles li.B h3, .articles li.B h3 a {
+    color:#ffa529;
+}
+.events li.B h3 a:hover,.articles li.B h3 a:hover {
+    color:#ffce4e;
+}
+
+.event .B h4,
+.article .B h4,
+.event .B h3,
+.article .B h3,
+.event .B h5,
+.article .B h5,
+.event .B h6,
+.article .B h6,
+.events li.B h4,
+.articles li.B h4,
+.events li.B h5,
+.articles li.B h5,
+.events li.B h6,
+.articles li.B h6 {
+    color:#ffce29;
+}
+body.buddhism .box .first, body.buddhism .block .first, body.buddhism .block li.first {
+    border-top: none;
+}
+

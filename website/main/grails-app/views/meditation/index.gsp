@@ -53,10 +53,7 @@
       <g:render template="/articlelist" model="[articles:meditationArticles,controller:'meditation',action:'view',total:total,moreAction:'all',heading:'meditation.articles.title']"/>
     </div>
     <div class="grid_11">
-      <div class="box">
-        <h2><g:message code="event.meditation"/></h2>
-        <g:render template="/eventlist" model="[events: events]"/>
-      </div>
+        <g:render template="/eventlist" model="[events: events, heading: 'event.meditation']"/>
     </div>
   </body>
 </html>
