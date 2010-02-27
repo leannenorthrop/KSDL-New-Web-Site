@@ -37,10 +37,7 @@
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
     <div class="grid_6">
-      <div class="box">
-        <h2><g:message code="event.community"/></h2>
-        <g:render template="/eventlist" model="[events: events]"/>
-      </div>
+        <g:render template="/eventlist" model="[events: events,heading:'event.community']"/>
     </div>
     <div class="clear"></div>
 

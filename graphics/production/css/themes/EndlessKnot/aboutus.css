@@ -1,0 +1,112 @@
+body.aboutUs {
+    background-color: #e2deb5;
+    background-image: url(images/endlessknot/orange.png);
+    background-image: url(images/endlessknot/orange.png), #e2deb5;
+/*    background-image: url(images/bg.jpg);*/
+    border-color: #ff3813;
+    border: 0;
+}
+
+body.aboutUs .container_16 {
+    border: 0.4em #ff3813 double;
+}
+
+body.aboutUs #branding {
+    color: #ff3813;
+}
+
+body.aboutUs #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/orange.png);
+    right:-43px;
+    top:-44px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+/* Footer
+*----------------------------------------------------------------------------*/
+body.aboutUs .nav ul,body.aboutUs #site_info .box {
+    background: #ff6922;
+}
+
+body.aboutUs .nav ul li, body.aboutUs .nav ul li a{
+    color: #fff;
+    background: #ff6922;
+}
+
+body.aboutUs .nav ul li a:active,
+body.aboutUs .nav ul li.current a,
+body.aboutUs .nav ul li:hover a,
+body.aboutUs .nav ul li a:hover,
+body.aboutUs .nav ul li a:focus {
+    color: #fff;
+    background: #e23400;
+}
+
+
+body.aboutUs #page-heading {
+    color: #ff6922;
+    border-bottom:1px solid #ffb16b;
+}
+
+body.aboutUs .box h2 {
+    background:#ff3813;
+    color:#850007;
+}
+
+body.aboutUs .box.article h2 {
+    color:#ff3813;
+    background: transparent;
+}
+
+body.aboutUs .box .article, body.aboutUs .box .event {
+    border-top:1px solid #6a4c71;
+}
+
+body.aboutUs .article h2, body.aboutUs .event h2 {
+    color:#ff3813;
+}
+
+body.aboutUs .article p.meta, body.aboutUs .event p.meta, .event.T p.meta {
+    color:#ffb16b;
+    border-top:1px dotted #6a4c71;
+    border-bottom:1px dotted #6a4c71;
+}
+
+body.aboutUs .box .first, body.aboutUs .block .first, body.aboutUs .block li.first {
+    border-top: none;
+}
+.article p.meta, .event.T p.meta {
+    color:#ffb16b;
+    border-top:1px dotted #ff9b40;
+    border-bottom:1px dotted #ff9b40;
+}
+
+.events li.T h3, .events li.T h3 a, .articles li.T h3, .articles li.T h3 a {
+    color:#ff9b40;
+}
+.events li.T h3 a:hover,.articles li.T h3 a:hover {
+    color:#ffb16b;
+}
+
+.event .T h4,
+.article .T h4,
+.event .T h3,
+.article .T h3,
+.event .T h5,
+.article .T h5,
+.event .T h6,
+.article .T h6,
+.events li.T h4,
+.articles li.T h4,
+.events li.T h5,
+.articles li.T h5,
+.events li.T h6,
+.articles li.T h6 {
+    color:#ffb16b;
+}
+
+
+

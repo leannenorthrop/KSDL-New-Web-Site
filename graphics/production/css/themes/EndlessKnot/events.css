@@ -1,0 +1,60 @@
+body.event {
+    background-color: #e2deb5;
+    background-image: url(images/endlessknot/pink.png);
+    background-image: url(images/endlessknot/pink.png), #e2deb5;
+    border-color: #a60060;
+    border: 0;
+}
+
+body.event .container_16 {
+    border: 0.4em #a60060 double;
+}
+
+body.event #branding {
+    color: #a60060;
+}
+
+body.event #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/pink.png);
+    right:-43px;
+    top:-44px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+/* Footer
+*----------------------------------------------------------------------------*/
+body.event .nav ul,body.event #site_info .box {
+    background: #e20078;
+}
+
+body.event .nav ul li, body.event .nav ul li a{
+    color: #fff;
+    background: #e20078;
+}
+
+body.event .nav ul li a:active,
+body.event .nav ul li.current a,
+body.event .nav ul li:hover a,
+body.event .nav ul li a:hover,
+body.event .nav ul li a:focus {
+    color: #fff;
+    background: #a60060;
+}
+
+
+body.event #page-heading {
+    color: #a60060;
+    border-bottom:1px solid #a60060;
+}
+
+body.event .box h2 {
+    color:#a60060;
+}
+
+
+
+
+

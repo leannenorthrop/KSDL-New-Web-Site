@@ -29,10 +29,7 @@
   <body>
     <div class="grid_12">
       <g:render template="/toparticles" model="[articles:topArticles]"/>
-      <div class="box">
-        <h2><g:message code="event.wellbeing"/></h2>
-        <g:render template="/eventlist" model="[events: events]"/>
-      </div>
+      <g:render template="/eventlist" model="[events: events,heading:'event.wellbeing']"/>
     </div>
     <div class="grid_4">
       <g:render template="/articlelist" model="[articles:articles,controller:'wellbeing',action:'view',total:total,moreAction:'list',heading:'wellbeing.articles.heading']"/>

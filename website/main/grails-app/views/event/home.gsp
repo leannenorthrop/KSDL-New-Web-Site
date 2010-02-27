@@ -33,25 +33,12 @@
   </head>
   <body>
     <div class="grid_12">
-      <div class="box">
-        <h2><g:message code="event.today"/></h2>
-        <g:render template="/eventlist" model="[events: todaysEvents]"/>
-      </div>
-      <div class="box">
-        <h2><g:message code="event.this.week"/></h2>
-        <g:render template="/eventlist" model="[events: thisWeeksEvents]"/>
-      </div>
-      <div class="box">
-        <h2><g:message code="event.this.month"/></h2>
-        <g:render template="/eventlist" model="[events: thisWeeksEvents]"/>
-      </div>
+        <g:render template="/eventlist" model="[events: todaysEvents, heading:'event.today']"/>
+        <g:render template="/eventlist" model="[events: thisWeeksEvents,heading: 'event.this.week']"/>
+        <g:render template="/eventlist" model="[events: thisWeeksEvents,heading:'event.this.month']"/>
     </div>
     <div class="grid_4">
-      <div class="box">
-        <h2><g:message code="event.regular"/></h2>
-        <ol>
-        </ol>
-      </div>
+        <g:render template="/eventlist" model="[events: todaysEvents, heading:'event.today']"/>
     </div>
   </body>
 </html>
