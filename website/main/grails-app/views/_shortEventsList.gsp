@@ -28,7 +28,7 @@
 --%>
 <%@ page import="org.samye.dzong.london.community.Teacher; org.samye.dzong.london.events.Event" contentType="text/html;charset=UTF-8" %>
 <div class="box border2">
-  <h2><g:message code="${heading}" default=""/></h2>
+  <h3><g:message code="${heading}" default=""/></h3>
   <ul class="block events">
     <g:if test="${events}">
 
