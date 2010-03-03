@@ -30,6 +30,8 @@ import org.joda.time.contrib.hibernate.*
 import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.community.Teacher
 import org.samye.dzong.london.venue.*
+import org.apache.commons.collections.FactoryUtils
+import org.apache.commons.collections.list.LazyList
 
 /**
  * Domain class for event information.
@@ -50,8 +52,8 @@ class Event extends Publishable {
     ShiroUser organizer;
     Teacher leader;
     Venue venue;
-    List prices;
-    List dates;
+    List prices = new ArrayList();
+    List dates = new ArrayList();
 
     static hasMany = [prices: EventPrice,dates: EventDate]
 
@@ -189,6 +191,11 @@ class Event extends Publishable {
             }
             order("${orderCol}", "${orderDirection}")
         }
+    }
+
+    def getPriceList() {
+        def pricePrototype = new EventPrice(currency: Currency.getInstance("GBP"), category: 'f', price: 0.0d)
+        return LazyList.decorate(prices,FactoryUtils.prototypeFactory(pricePrototype));
     }
 
     String toString() {

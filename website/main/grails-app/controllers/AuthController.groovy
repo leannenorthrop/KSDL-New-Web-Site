@@ -71,7 +71,7 @@ class AuthController {
         if (savedRequest) {
             targetUri = savedRequest.requestURI - request.contextPath
             if (savedRequest.queryString) targetUri = targetUri + '?' + savedRequest.queryString
-        } else {
+        } else if (!targetUri) {
             targetUri = "/manageSite/home";
         }
 

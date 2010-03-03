@@ -71,6 +71,16 @@
         <h5>${event?.leader}</h5>
       </g:if>
 
+      <g:if test="${event?.prices}">
+        <label for="price.full">Full Price</label>
+        <g:formatNumber name="price.full" number="${event?.prices[0].price}" type="currency" currencySymbol="${event?.prices[0].currency.getSymbol() == 'GBP' ? '£' : event?.prices[0].currency.getSymbol()}" roundingMode="HALF_DOWN"/>
+        <label for="price.subsidize">Subsidized Price</label>
+        <g:formatNumber name="price.subsidize" number="${event?.prices[1].price}" type="currency" currencySymbol="${event?.prices[1].currency.getSymbol() == 'GBP' ? '£' :event?.prices[1].currency.getSymbol()}" roundingMode="HALF_DOWN"/>
+        <label for="price.subsidize">Mature Person Price</label>
+        <g:formatNumber name="price.subsidize" number="${event?.prices[2].price}" type="currency" currencySymbol="${event?.prices[2].currency.getSymbol() == 'GBP' ? '£' : event?.prices[2].currency.getSymbol()}" roundingMode="HALF_DOWN"/>
+        <label for="price.other">Other Price</label>
+        <g:formatNumber name="price.other" number="${event?.prices[3].price}" type="currency" currencySymbol="${event?.prices[3].currency.getSymbol() == 'GBP' ? '£' :event?.prices[3].currency.getSymbol()}" roundingMode="HALF_DOWN" />
+      </g:if>
     </div>
 
     <div class="grid_12 body ${event?.category}">

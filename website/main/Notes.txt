@@ -5,22 +5,11 @@ April 2010 - Performance tweaking, database backups, robustness & security testi
 April/May 2010 - Production deploy
 
 ================================================================================
-                        FOR 28/02/2010
+                        FOR 5/03/2010
 ================================================================================
 0. Fixes:
-    - Css 
-        - short article/news list
-        - external site link
-        - colours, menu and corner for every section,color ratios
-    - News Pages
-        - CSS
-            - Labels - link
-            - Headings
-        - ensure can't create news page without publish date ticked
-        - add categories when searching for similar articles (check labels)
     - Events
         - display of events: check for empty organizer
-        - missing events.more message
         - Edit
             - event validation: need a list at top
                 - javascript check for teacher
@@ -29,42 +18,35 @@ April/May 2010 - Production deploy
                 - fix sortable columns
                 - archive
                 - ical creation
-                - prices
+                - prices: need to handle 0.0 prices and also format prices for edit.
                 - finders
                 - auto set of end time
-
-    - Meditation Page
-        - All Article list should not include links to Read More...
-
     - About Us
         - Teacher
             - force toString to figure out title
             - add none to title option
+    - News Pages
+        - CSS
+            - Labels - link
+            - Headings
+        - ensure can't create news page without publish date ticked
+        - add categories when searching for similar articles (check labels)
+    - Meditation Page
+        - All Article list should not include links to Read More...
     - When deleting items add (Deleted) to name/title to get around unique constraint
     - Fix linking in png images.
+    - Preview: use built in remote tag
+    - Css 
+        - external site link
+        - color ratios
 
 1. Register
-    - Add captcha
-    - Add ajax username unique check
     - Add jquery validation
     - Add jquery form css
     - Ensure is email
 2. Settings to be pulled from web container as resources:
     - Email
     - Twitter
-4. Twitter
-    - add urls
-5. Users
-    - Delete users 21/01
-    - Email as username check, password size
-    - Functional test for login with wrong username, sign out, and passwords do not match
-    - Shiro User password size
-    - jQuery form validation
-    - Make usernames comparision ignore case
-    - Move common code into separate service class
-    - Move common test code into separate class
-    - Move email content into templates
-6. Analytics
 7. Check build
 8. Check against mysql & generate SQL
 9. Deploy to development machine.
@@ -72,6 +54,20 @@ April/May 2010 - Production deploy
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
+5. Users
+    - Delete users
+    - Email as username check, password size
+    - Functional test for login with wrong username, sign out, and passwords do not match
+    - Shiro User password size
+    - Make usernames comparision ignore case
+    - Move common code into separate service class
+    - Move common test code into separate class
+    - Move email content into templates
+4. Twitter
+    - add urls
+1. Register
+    - Add captcha
+    - Add jquery validation
 0. Add email event organizer form
 1. Venue
 2. Footer - Contact Us

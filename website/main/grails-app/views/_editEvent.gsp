@@ -78,7 +78,6 @@
   <h3><a href="#"><g:message code="event.dates"/></a></h3>
   <div>
     <g:hiddenField id="ruletype" name="rule.type" value="0"/>
-    ${rule?.getDays()} ${rule?.getOffsets()}
     <div id="dateTabs">
       <ul>
         <li><a href="#once"><g:message code="event.once.title"/></a></li>
@@ -151,10 +150,16 @@
 
   <h3><a href="#"><g:message code="event.prices"/></a></h3>
   <div>
-    <fieldset>
-      <label for="price">Price (coming soon)</label>
-      <g:textField name="price" class="ui-corner-all"/>
-    </fieldset>
+    <g:set var="pricelabels" value="${[F: 'full',S: 'subsidize', M: 'mature',O:'other']}"/>
+    <g:each var="price" in="${event.prices}" status="i">
+      <fieldset>
+        <label for="priceList[${i}].price"><g:message code="event.price.${pricelabels[price.category]}"/></label>
+        <g:textField name="priceList[${i}].price" value="${price.price}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/>
+        <g:hiddenField name="priceList[${i}].id" value='${price.id}'/>
+        <g:hiddenField name="priceList[${i}]._deleted" value='${false}'/>
+        <g:hiddenField name="priceList[${i}].category" value='${price.category}'/>
+      </fieldset>
+    </g:each>
   </div>
 
   <h3><a href="#"><g:message code="event.description"/></a></h3>
