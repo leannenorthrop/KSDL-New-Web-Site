@@ -192,7 +192,8 @@ legend {
     background:#666;
 }
 #site_info a {
-    color:#fff;
+    font-weight: normal;
+    color:#333;
 }
 #site_info a:hover {
     color:#524a41;

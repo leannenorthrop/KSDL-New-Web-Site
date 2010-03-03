@@ -2,16 +2,18 @@ body.event {
     background-color: #e2deb5;
     background-image: url(images/endlessknot/pink.png);
     background-image: url(images/endlessknot/pink.png), url(images/bg.jpg);
-    border-color: #a60060;
+    border-color: rgb(166, 0, 96);
     border: 0;
 }
 
 body.event .container_16 {
-    border: 0.4em #a60060 double;
+    border: 0.4em rgb(166, 0, 96) double;
+    border: 0.4em rgba(166, 0, 96,0.8) double;
 }
 
 body.event #branding {
-    color: #a60060;
+    color: rgb(166, 0, 96);
+    color: rgba(166, 0, 96,0.8);
 }
 
 body.event #watermark1 {
@@ -26,28 +28,31 @@ body.event #watermark1 {
 }
 /* Footer
 *----------------------------------------------------------------------------*/
-body.event .nav ul,body.event #site_info .box {
-    background: #e20078;
+body.event #site_info .box {
+    background: rgb(166, 99, 138);
 }
 
-body.event .nav ul li, body.event .nav ul li a{
-    color: #fff;
-    background: #e20078;
+/* Navigation
+*----------------------------------------------------------------------------*/
+body.event .nav ul {
+    border-top: 1px solid rgb(166, 0, 96);
+    border-bottom: 1px solid rgb(166, 0, 96);
 }
 
 body.event .nav ul li a:active,
 body.event .nav ul li.current a,
-body.event .nav ul li:hover a,
 body.event .nav ul li a:hover,
 body.event .nav ul li a:focus {
-    color: #fff;
-    background: #a60060;
+    color:rgb(166, 0, 96);
+    font-weight: bold;
 }
 
 
 body.event #page-heading {
-    color: #a60060;
-    border-bottom:1px solid #a60060;
+    color: rgb(166, 50, 117);
+    color: rgba(166, 50, 117,0.8);
+    border-bottom:1px solid rgb(173, 64, 128);
+    border-bottom:1px solid rgba(173, 64, 128,0.8);
 }
 
 body.event .box h2 {

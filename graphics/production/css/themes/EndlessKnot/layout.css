@@ -56,10 +56,16 @@ h1#branding {
     text-align: left;
     padding: .7em 1em;
     margin-bottom: 0;
+    text-shadow: 2px 2px 5px rgba(175,175,175,0.8);
+    position: relative;
+    left: -15px;
+    font-style: italic;
 }
 
 h1#branding img {
     vertical-align: middle;
+    position: relative;
+    left: -25px;
 }
 
 /* page heading
@@ -80,7 +86,6 @@ h2#page-heading {
 .box h2 {
     font-size: 1em;
     font-weight: normal;
-    text-transform: uppercase;
     margin: -10px -10px 0 -10px;
     padding: 6px 12px;
 }
@@ -150,7 +155,6 @@ ul, ol {
 ----------------------------------------------- */
 ul.menu {
     list-style: none;
-    border-top: 1px solid #bbb;
 }
 
 ul.menu li {
@@ -161,14 +165,6 @@ ul.menu li a {
     display: block;
     padding: 4px 10px;
     border-bottom: 1px solid #ccc;
-}
-
-ul.menu li a:hover {
-    background: #eee;
-}
-
-ul.menu li a:active {
-    background: #ccc;
 }
 
 /* submenus
@@ -331,10 +327,6 @@ li.article,li.event {
     padding-top: .5em;
 }
 
-.box .article, .box .event {
-    padding: 13px 10px 0 10px;
-}
-
 .article h2, .event h2 {
     font-size: 2em;
     font-weight: normal;
@@ -350,7 +342,7 @@ li.article,li.event {
     font-size: 1.6em;
 }
 
-.box .first, .block .first, .block li.first {
+.box .first, .block .first, .block li.first, .box * li.first {
     border-top: none;
 }
 
@@ -392,5 +384,45 @@ li.article,li.event {
 ----------------------------------------------- */
 #site_info .box {
     margin-bottom: 10px;
+}
+
+.shortnews {
+    padding-bottom: 3em;
+}
+
+.shortnews h2 {
+    background: none;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: normal;
+    text-transform: uppercase;
+    margin: -10px -10px 0.9em -10px;
+    padding: 6px 12px;
+}
+
+.shortnews ol {
+    list-style: none;
+    margin: 0;
+}
+
+.shortnews ol li {
+    list-style: none;
+    margin: -10px -10px 0 -10px;
+    padding: 6px 12px;
+}
+
+.shortnews ol li a {
+    display: block;
+    vertical-align: middle;
+}
+
+.shortnews ol li a p {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.shortnews ol li a em{
+    float: right;
 }
 

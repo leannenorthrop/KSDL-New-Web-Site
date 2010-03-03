@@ -24,32 +24,26 @@ body.meditation #watermark1 {
     height: 301px;
     z-index: 100;
 }
-/* Footer
+
+/* Navigation
 *----------------------------------------------------------------------------*/
-body.meditation .nav ul,body.meditation #site_info .box {
-    background: #a88bdf;
-}
-
-body.meditation .nav ul,body.meditation #site_info .box {
-    background: #a88bdf;
-}
-
-body.meditation .nav ul li, body.meditation .nav ul li a{
-    color: #fff;
-    background: #a88bdf;
-}
-
-body.meditation .nav ul li:hover a,
-body.meditation .nav ul li a:hover,
-body.meditation .nav ul li a:focus {
-    color: #fff;
-    background: #7e5bad;
+body.meditation .nav ul {
+    border-top: 1px solid #7E5BAD;
+    border-bottom: 1px solid #7E5BAD;
 }
 
 body.meditation .nav ul li a:active,
-body.meditation .nav ul li.current a {
-    color: #fff;
-    background: #7e5bad;
+body.meditation .nav ul li.current a,
+body.meditation .nav ul li a:hover,
+body.meditation .nav ul li a:focus {
+    color:#7E5BAD;
+    font-weight: bold;
+}
+
+/* Footer
+*----------------------------------------------------------------------------*/
+body.meditation #site_info .box {
+    background: #a88bdf;
 }
 
 body.meditation #page-heading {
@@ -58,8 +52,8 @@ body.meditation #page-heading {
 }
 
 body.meditation .box h2 {
-    background:#7e5bad;
-    color:#eee8d7;
+    background:transparent;
+    color:#7E5BAD;
 }
 
 body.meditation .box.article h2, .meditation h3 a {

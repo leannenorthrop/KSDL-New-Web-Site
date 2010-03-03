@@ -48,7 +48,8 @@
     <g:javascript library="mootools-more"/>
     <g:javascript library="mootools-fluid16"/>
   </head>
-  <body class="${controllerName}">
+  <g:set var="bodyClass" value="${controllerName == 'teacher' ? 'aboutUs' : controllerName}"/>
+  <body class="${bodyClass}">
     <div class="container_16">
       <div id="watermark1"></div>
       <div class="grid_16">

@@ -1,77 +1,89 @@
 body.news {
     background-color: #e2deb5;
-    background-image: url(images/endlessknot/paleblue.png);
-    background-image: url(images/endlessknot/paleblue.png), url(images/bg.jpg);
-    border-color: #850007;
+    background-image: url(images/endlessknot/orange.png);
+    background-image: url(images/endlessknot/orange.png), url(images/bg.jpg);
+    border-color: rgb(248, 93, 1);
+    border-color: rgba(248, 93, 1, 0.8);
     border: 0;
 }
 
 body.news .container_16 {
-    border: 0.4em #00a49e double;
+    border: 0.4em rgb(236, 145, 34) double;
+    border: 0.4em rgba(236, 145, 34,0.8) double;
 }
 
 body.news #branding {
-    color: #00786a;
+    color: rgb(248, 93, 1);
+    color: rgba(248, 93, 1, 0.8);
 }
 
 body.news #watermark1 {
     display: block;
     position:absolute;
-    background-image: url(images/corner/paleblue.png);
+    background-image: url(images/corner/orange.png);
     right:-43px;
     top:-44px;
     width: 300px;
     height: 301px;
     z-index: 100;
 }
-/* Footer
-*----------------------------------------------------------------------------*/
-body.news .nav ul,body.news #site_info .box {
-    background: #00837e;
-}
 
-body.news .nav ul li, body.news .nav ul li a{
-    color: #fff;
-    background: #00837e;
+/* Navigation
+*----------------------------------------------------------------------------*/
+body.news .nav ul {
+    border-top: 1px solid rgb(248, 93, 1);
+    border-bottom: 1px solid rgb(248, 93, 1);
 }
 
 body.news .nav ul li a:active,
 body.news .nav ul li.current a,
-body.news .nav ul li:hover a,
 body.news .nav ul li a:hover,
 body.news .nav ul li a:focus {
-    color: #fff;
-    background: #00a49e;
+    color:rgb(229, 37, 0);
+    font-weight: bold;
+}
+
+/* Footer
+*----------------------------------------------------------------------------*/
+body.news #site_info .box {
+    background: #ec9122;
 }
 
 
 body.news #page-heading {
-    color: #00786a;
-    border-bottom:1px solid #00a49e;
+    color: rgb(236, 145, 34);
+    border-bottom:1px solid rgb(229, 37, 0);
+    border-bottom:1px solid rgba(236, 145, 34,0.5);
 }
 
-body.news .box h2 {
-    background:#00837e;
-    color:#fff;
-}
-
-body.news .box.article h2 {
-    color:#5b878f;
+body.news .box.article h2,
+body.news .box h2,
+body.home .services h2 {
     background: transparent;
+    color: #333;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 0 -10px 0.9em -10px;
+    padding: 6px 12px;
+    border-bottom:1px solid rgb(229, 37, 0);
+    border-bottom:1px solid rgba(236, 145, 34,0.5);
 }
 
 body.news .box .article, body.news .box .event {
-    border-top:1px solid #6a4c71;
+    border-top:none;
+    /* swash? */
 }
 
 body.news .article h2, body.news .event h2 {
-    color:#375156;
+    color:rgba(248, 93, 1, 0.8);
 }
 
 body.news .article p.meta, body.news .event p.meta, .event.N p.meta {
-    color:#00a49e;
-    border-top:1px dotted #00a49e;
-    border-bottom:1px dotted #00a49e;
+    color:rgb(248, 93, 1);
+    color:rgba(248, 93, 1, 0.8);
+    border-top:1px dotted rgb(236, 145, 34);
+    border-bottom:1px dotted rgb(236, 145, 34);
 }
 
 body.news .box .first, body.news .block .first, body.news .block li.first {
@@ -79,10 +91,10 @@ body.news .box .first, body.news .block .first, body.news .block li.first {
 }
 
 .events li.N h3, .events li.N h3 a, .articles li.N h3, .articles li.N h3 a {
-    color:#375156;
+    color:rgb(236, 94, 34);
 }
 .events li.N h3 a:hover,.articles li.N h3 a:hover {
-    color:#375156;
+    color:rgb(236, 145, 34);
 }
 
 .event .N h4,
@@ -99,6 +111,14 @@ body.news .box .first, body.news .block .first, body.news .block li.first {
 .articles li.N h5,
 .events li.N h6,
 .articles li.N h6 {
-    color:#375156;
+    color:rgb(236, 145, 34);
 }
 
+.box .article {
+    border: none;
+    margin-left: 0;
+}
+body.news span.amp {
+    color: rgb(248, 93, 1);
+    color: rgba(248, 93, 1, 0.8);
+}
