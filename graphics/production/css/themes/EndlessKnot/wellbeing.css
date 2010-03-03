@@ -26,39 +26,36 @@ body.wellbeing #watermark1 {
 }
 /* Footer
 *----------------------------------------------------------------------------*/
-
-body.wellbeing .nav ul, body.wellbeing #site_info .box {
+#site_info .box {
     background: #c0e271;
 }
 
-body.wellbeing .nav ul li, body.wellbeing .nav ul li a{
-    color: #fff;
-    background: #c0e271;
-}
-
-body.wellbeing .nav ul li:hover a,
-body.wellbeing .nav ul li a:hover,
-body.wellbeing .nav ul li a:focus {
-    color: #fff;
-    background: #7dc622;
+/* Navigation
+*----------------------------------------------------------------------------*/
+body.wellbeing .nav ul {
+    border-top: 1px solid rgb(125, 160, 10);
+    border-bottom: 1px solid rgb(125, 160, 10);
 }
 
 body.wellbeing .nav ul li a:active,
-body.wellbeing .nav ul li.current a {
-    color: #3b4520;
-    background: #7dc622;
+body.wellbeing .nav ul li.current a,
+body.wellbeing .nav ul li a:hover,
+body.wellbeing .nav ul li a:focus {
+    color:rgb(62, 118, 42);
+    font-weight: bold;
 }
+
 
 /* Well Being Pages
 ----------------------------------------------- */
 body.wellbeing #page-heading {
     color: #1e6400;
-    border-bottom:1px solid #7dc622;
+    border-bottom:1px solid #C0E271;
 }
 
 body.wellbeing .box h2 {
-    background:#7dc622;
-    color:#1e6400;
+    background:transparent;
+    color:#7dc622;
 }
 
 body.wellbeing .box.article h2,.wellbeing h3 a  {

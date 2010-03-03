@@ -1,94 +1,107 @@
 body.aboutUs {
     background-color: #e2deb5;
-    background-image: url(images/endlessknot/orange.png);
-    background-image: url(images/endlessknot/orange.png), url(images/bg.jpg);
-/*    background-image: url(images/bg.jpg);*/
-    border-color: #ff3813;
+    background-image: url(images/endlessknot/paleblue.png);
+    background-image: url(images/endlessknot/paleblue.png), url(images/bg.jpg);
+    border-color: #850007;
     border: 0;
 }
 
 body.aboutUs .container_16 {
-    border: 0.4em #ff3813 double;
+    border: 0.4em rgba(0, 164, 158, 0.8) double;
+    border: 0.4em #00a49e double;
 }
 
 body.aboutUs #branding {
-    color: #ff3813;
+    color: rgb(0, 120, 106);
+    color: rgba(0, 120, 106, 0.8);
 }
 
 body.aboutUs #watermark1 {
     display: block;
     position:absolute;
-    background-image: url(images/corner/orange.png);
+    background-image: url(images/corner/paleblue.png);
     right:-43px;
     top:-44px;
     width: 300px;
     height: 301px;
     z-index: 100;
 }
-/* Footer
+/* Navigation
 *----------------------------------------------------------------------------*/
-body.aboutUs .nav ul,body.aboutUs #site_info .box {
-    background: #ff6922;
-}
-
-body.aboutUs .nav ul li, body.aboutUs .nav ul li a{
-    color: #fff;
-    background: #ff6922;
+body.aboutUs .nav ul {
+    border-top: 1px solid rgb(0, 164, 158);
+    border-bottom: 1px solid rgb(0, 164, 158);
 }
 
 body.aboutUs .nav ul li a:active,
 body.aboutUs .nav ul li.current a,
-body.aboutUs .nav ul li:hover a,
 body.aboutUs .nav ul li a:hover,
 body.aboutUs .nav ul li a:focus {
-    color: #fff;
-    background: #e23400;
+    color:rgb(0, 164, 158);
+    color:rgba(0, 164, 158,0.8);
+    font-weight: bold;
 }
 
+/* Footer
+*----------------------------------------------------------------------------*/
+body.aboutUs #site_info .box {
+    background: #00a49e;
+    color: #a40011;
+}
 
 body.aboutUs #page-heading {
-    color: #ff6922;
-    border-bottom:1px solid #ffb16b;
+    color: #00a49e;
+    border-bottom:1px solid rgb(0, 164, 158);
+    border-bottom:1px solid rgba(0, 164, 158,0.5);
 }
 
-body.aboutUs .box h2 {
-    background:#ff3813;
-    color:#850007;
-}
-
+body.aboutUs .box h2,
 body.aboutUs .box.article h2 {
-    color:#ff3813;
+    color:#00786A;
     background: transparent;
+    border: none;
+    margin: 0;
+    display: none;
 }
 
 body.aboutUs .box .article, body.aboutUs .box .event {
-    border-top:1px solid #6a4c71;
+    border-top:1px solid ##00786A;
 }
 
 body.aboutUs .article h2, body.aboutUs .event h2 {
-    color:#ff3813;
+    color:#00786A;
 }
 
-body.aboutUs .article p.meta, body.aboutUs .event p.meta, .event.T p.meta {
-    color:#ffb16b;
-    border-top:1px dotted #6a4c71;
-    border-bottom:1px dotted #6a4c71;
+body.aboutUs .article p.meta, body.aboutUs .event p.meta, .event.T p.meta,.article p.meta, .event.T p.meta  {
+    color:#00786A;
+    border-top: 1px dotted #00A49E;
+    border-bottom: 1px dotted #00A49E;
 }
 
 body.aboutUs .box .first, body.aboutUs .block .first, body.aboutUs .block li.first {
     border-top: none;
 }
-.article p.meta, .event.T p.meta {
-    color:#ffb16b;
-    border-top:1px dotted #ff9b40;
-    border-bottom:1px dotted #ff9b40;
+
+body.aboutUs .box h2 {
+    background: none;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 1.6em -10px 0.9em -10px;
+    padding: 6px 12px;
+    border-bottom:1px solid rgb(0, 164, 158);
+    border-bottom:1px solid rgba(0, 164, 158,0.5);
 }
 
-.events li.T h3, .events li.T h3 a, .articles li.T h3, .articles li.T h3 a {
-    color:#ff9b40;
+.events li.T h3,
+.events li.T h3 a,
+.articles li.T h3,
+.articles li.T h3 a {
+    color:#00786A;
 }
-.events li.T h3 a:hover,.articles li.T h3 a:hover {
-    color:#ffb16b;
+.events li.T h3 a:hover,
+.articles li.T h3 a:hover {
+    color:#00786A;
 }
 
 .event .T h4,
@@ -105,7 +118,11 @@ body.aboutUs .box .first, body.aboutUs .block .first, body.aboutUs .block li.fir
 .articles li.T h5,
 .events li.T h6,
 .articles li.T h6 {
-    color:#ffb16b;
+    color:#00786A;
+}
+
+body.aboutUs .box {
+    margin-bottom: 0;
 }
 
 

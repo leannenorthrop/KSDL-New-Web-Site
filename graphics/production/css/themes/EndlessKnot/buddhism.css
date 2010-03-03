@@ -25,29 +25,25 @@ body.buddhism #watermark1 {
     z-index: 100;
 }
 
-
-/* Footer & Navigation
+/* Navigation
 *----------------------------------------------------------------------------*/
-body.buddhism .nav ul,body.buddhism #site_info .box {
-    background: #ffce29;
-}
-
-body.buddhism .nav ul li, body.buddhism .nav ul li a{
-    color: #fff;
-    background: #ffce29;
-}
-
-body.buddhism .nav ul li:hover a,
-body.buddhism .nav ul li a:hover,
-body.buddhism .nav ul li a:focus {
-    color: #665d51;
-    background: #eeb101;
+body.buddhism .nav ul {
+    border-top: 1px solid #ffce29;
+    border-bottom: 1px solid #ffce29;
 }
 
 body.buddhism .nav ul li a:active,
-body.buddhism .nav ul li.current a {
-    color: #665d51;
-    background: #eeb101;
+body.buddhism .nav ul li.current a,
+body.buddhism .nav ul li a:hover,
+body.buddhism .nav ul li a:focus {
+    color:#FFA529;
+    font-weight: bold;
+}
+
+/* Footer & Navigation
+*----------------------------------------------------------------------------*/
+body.buddhism #site_info .box {
+    background: #ffce29;
 }
 
 /* Buddhism Pages
@@ -58,8 +54,8 @@ body.buddhism #page-heading {
 }
 
 body.buddhism .box h2 {
-    background:#ffce29;
-    color:#6a0005;
+    background:transparent;
+    color:#ffce29;
 }
 
 body.buddhism .box.article h2,.buddhism h3 a  {
@@ -68,7 +64,7 @@ body.buddhism .box.article h2,.buddhism h3 a  {
 }
 
 body.buddhism .box .article, body.buddhism .box .event {
-    border-top:1px solid #ffa529;
+    border-top:1px solid #FFA529;
 }
 
 body.buddhism .article h2, body.buddhism .event h2 {
