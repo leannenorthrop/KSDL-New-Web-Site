@@ -24,7 +24,12 @@
 <%@ page import="org.samye.dzong.london.community.Teacher" %>
 <html>
   <head>
-    <title><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher.name}</title>
+    <title>
+        <g:if test="${teacher?.title != 'U'}">
+          <g:message code="${'teacher.title.' + teacher?.title}"/>
+        </g:if>
+        ${teacher.name}
+    </title>
     <meta name="layout" content="content-admin"/>
   </head>
   <body>

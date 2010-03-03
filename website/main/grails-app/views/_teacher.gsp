@@ -29,7 +29,12 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <div class="grid_12">
-      <h2><g:message code="${'teacher.title.' + teacher?.title}"/> ${teacher.name}</h2>
+      <h2>
+          <g:if test="${teacher?.title != 'U'}">
+            <g:message code="${'teacher.title.' + teacher?.title}"/>
+          </g:if>
+          ${teacher.name}
+      </h2>
 
 <g:if test="${teacher.displayAuthor || teacher.displayDate}">
   <ul>

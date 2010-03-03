@@ -4,6 +4,8 @@ March - Tidy Up, Css & Browser testing
 April 2010 - Performance tweaking, database backups, robustness & security testing
 April/May 2010 - Production deploy
 
+http://code.google.com/p/lsd-website/issues/entry
+
 ================================================================================
                         FOR 5/03/2010
 ================================================================================
