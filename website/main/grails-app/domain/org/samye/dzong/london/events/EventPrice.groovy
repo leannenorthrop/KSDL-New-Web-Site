@@ -34,4 +34,18 @@ class EventPrice extends Price {
 
     static constraints = {
     }
+
+    EventPrice() {
+        currency = Currency.getInstance("GBP")
+    }
+
+    EventPrice(EventPrice toBeCopied) {
+        this.currency = toBeCopied.currency;
+        this.price = toBeCopied.price
+        this.category = toBeCopied.category
+    }
+
+    String toString() {
+        return String.format("%s%f03.2", currency.getSymbol(), price);
+    }
 }

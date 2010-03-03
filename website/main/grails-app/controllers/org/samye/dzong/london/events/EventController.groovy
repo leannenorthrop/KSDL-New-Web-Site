@@ -28,6 +28,8 @@ import org.joda.time.*
 import java.text.SimpleDateFormat
 import java.text.ParsePosition
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
+import org.apache.commons.collections.FactoryUtils
+import org.apache.commons.collections.list.LazyList
 
 /**
  * Web request handler for event information.
@@ -339,6 +341,12 @@ class EventController {
         date.endDate = new Date()
         date.isRule = false
 
+        // Set default values
+        event.prices = event.getPriceList()
+        (0..3).each{
+            event.prices.get(it).category = it == 0 ? 'F' : (it == 1 ? 'S' : (it == 2 ? 'M' : 'O'));
+        }
+
         return [event: event, rule: date]
     }
 
@@ -367,6 +375,13 @@ class EventController {
         }
 
         event.properties = params
+
+        /*def _toBeDeleted = event.prices.findAll {it._deleted}
+        if (_toBeDeleted) {
+            event.prices.removeAll(_toBeDeleted)
+        }
+        println "************** ${event.prices}"
+        */
 
         if (!event.hasErrors() && event.save()) {
             flash.isError = false
