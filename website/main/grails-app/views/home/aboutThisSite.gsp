@@ -4,6 +4,8 @@
     <meta name="layout" content="main">
 </head>
 <body>
-        About This Web Site
+    <div class="grid_16" style="text-align:center;">
+        <h3>Coming Soon</h3>
+    </div>
 </body>
 </html>

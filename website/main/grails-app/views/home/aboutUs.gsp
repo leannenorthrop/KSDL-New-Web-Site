@@ -4,22 +4,8 @@
     <meta name="layout" content="main">
 </head>
 <body>
-    <div>
-        About Us
-    </div>
-    <div>
-        <div>
-            Lineage
-        </div>
-        <div>
-            Teachers
-        </div>
-        <div>
-            <ul>
-                <li>map</li>
-                <li>contact us</li>
-            </ul>
-        </div>
+    <div class="grid_16" style="text-align:center;">
+        <h3>Coming Soon</h3>
     </div>
 </body>
 </html>
