@@ -20,13 +20,12 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
-
 <%--
-  Template for displaying event details
-  User: Leanne Northrop
-  Date: Jan 30, 2010, 7:02:49 PM
---%>
+  Template for sending query email.
 
+  User: Leanne Northrop
+  Date: Feb 5, 2010,5:51:27 PM
+--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.events.Event" %>
 <html>
@@ -35,7 +34,24 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-    <g:render template="/event" model="[event: event,articles:similar]"/>
+    <g:form action="send" controller="event" id="${event?.id}">
+        <fieldset>
+            <legend><g:message code="event.query.title"/></legend>
+            <p>
+                <label for="email"><g:message code="event.query.your.email"/></label>
+                <input type="text" name="email"/>
+            </p>
+            <p>
+                <g:set var="subjectline"><g:message code="event.query.email.subjectline" args="${[event?.title]}"/></g:set>
+                <label><g:message code="event.query.email.subject"/></label>
+                <input type="text" name="subject" readonly="true" value="${subjectline}"/>
+            </p>
+            <p>
+              <label><g:message code="event.query.email.body"/></label>
+              <g:textArea name="body" rows="12" cols="40"/>
+            </p>
+            <g:submitButton class="button" name="send" value="Send">&nbsp;</g:submitButton>
+        </fieldset>
+    </g:form>
   </body>
 </html>
-

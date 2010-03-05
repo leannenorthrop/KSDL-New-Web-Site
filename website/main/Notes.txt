@@ -11,11 +11,7 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
 0. Fixes:
     - Events
-        - display of events: check for empty organizer
-        - Edit
-            - event validation: need a list at top
-                - add related events
-                - ical creation
+        - ical creation
     - About Us
         - Teacher
             - force toString to figure out title

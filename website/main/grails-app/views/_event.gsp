@@ -85,6 +85,13 @@
         </ul>
       </g:if>
 
+      <g:if test="event?.organizer">
+        <ul>
+          <li class="email">
+            <g:link controller="event" action="query" id="${event.id}"><g:message code="event.query"/></g:link>
+          </li>
+        </ul>
+      </g:if>
     </div>
 
     <div class="grid_12 body ${event?.category}">

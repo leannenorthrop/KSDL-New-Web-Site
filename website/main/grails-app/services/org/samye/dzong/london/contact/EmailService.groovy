@@ -6,6 +6,20 @@ class EmailService {
     def servletContext = SCH.servletContext
     boolean transactional = false
 
+    def sendEventQuery(final toEmail, final fromEmail, final theSubject, final theBody) {
+        sendMail {
+          to toEmail
+          replyTo fromEmail
+          subject "London Samye Dzong: ${theSubject}"
+          body theBody
+        }
+        if (servletContext && servletContext.getAttribute("greenmail")) {
+            def messages = servletContext.getAttribute("greenmail").getReceivedMessages().each {
+                println "Recieved ${GreenMailUtil.toString(it)}"
+            }
+        }
+    }
+
     def sendPasswordReset(email, token) {
         sendMail {
           to email
@@ -30,6 +44,7 @@ class EmailService {
             }
         }
     }
+
     def sendAccountVerification(email, token) {
         sendMail {
           to email
