@@ -225,7 +225,8 @@ class EventController {
         }
         else {
             def id = params.id;
-            return [event: event, id: id]
+            def similar = eventService.findSimilar(event)
+            return [event: event, id: id, similar:similar]
         }
     }
 
