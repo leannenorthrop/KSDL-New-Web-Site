@@ -5,7 +5,8 @@ import org.samye.dzong.london.community.Article
 
 class BuddhismController {
     def articleService
-
+    def eventService
+    
     def index = {
         redirect(action:home)
     }
@@ -30,5 +31,22 @@ class BuddhismController {
         } else {
             render(view: 'view', model: model)
         }
+    }
+
+    def event = {
+        def event = Event.get(params.id)
+        if (!event) {
+            flash.message = "Event not found with id ${params.id}"
+            redirect(action: home)
+        }
+        else {
+            def id = params.id;
+            def similar = eventService.findSimilar(event)
+            return [event: event, id: id, similar:similar]
+        }
+    }
+
+    def events = {
+        return eventService.list('B',params)
     }
 }

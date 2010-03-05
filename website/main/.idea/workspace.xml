@@ -60,46 +60,48 @@
   <component name="FileColors" enabled="true" enabledForTabs="true" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EventController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy">
+      <file leaf-file-name="BuddhismController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/buddhism/BuddhismController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="628" column="8" selection-start="23406" selection-end="23406" vertical-scroll-proportion="-2.0588236">
+            <state line="7" column="0" selection-start="183" selection-end="203" vertical-scroll-proportion="-3.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="help.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/home/help.gsp">
+      <file leaf-file-name="event.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/wellbeing/event.gsp">
           <provider selected="true" editor-type-id="text-editor">
             <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+              <folding>
+                <marker date="1267828223000" expanded="true" signature="0:1118" placeholder="%{--...--}%" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WellbeingController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/wellbeing/WellbeingController.groovy">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="0" selection-start="185" selection-end="205" vertical-scroll-proportion="-3.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HomeController.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/site/HomeController.groovy">
+      <file leaf-file-name="_event.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/_event.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="17" selection-start="2124" selection-end="2124" vertical-scroll-proportion="-23.0">
+            <state line="123" column="81" selection-start="5486" selection-end="5486" vertical-scroll-proportion="-26.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/home/index.gsp">
+      <file leaf-file-name="_eventlist.gsp" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/_eventlist.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="74" selection-start="2534" selection-end="2534" vertical-scroll-proportion="-8.76087">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="calendars.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/home/calendars.gsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="8" selection-start="1898" selection-end="1898" vertical-scroll-proportion="-12.152174">
+            <state line="113" column="12" selection-start="4823" selection-end="4823" vertical-scroll-proportion="0.9281609">
               <folding />
             </state>
           </provider>
@@ -108,7 +110,7 @@
       <file leaf-file-name="messages.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="350" column="0" selection-start="14209" selection-end="14209" vertical-scroll-proportion="-15.325582">
+            <state line="416" column="21" selection-start="16277" selection-end="16277" vertical-scroll-proportion="-0.7222222">
               <folding />
             </state>
           </provider>
@@ -117,40 +119,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="feed.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/home/feed.gsp">
+      <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/wellbeing/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="0" selection-start="1119" selection-end="1843" vertical-scroll-proportion="-6.2173915">
+            <state line="31" column="89" selection-start="1439" selection-end="1439" vertical-scroll-proportion="-8.76087">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Event.groovy" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy">
-          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-            <state />
-          </provider>
+      <file leaf-file-name="event.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/meditation/event.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="216" column="46" selection-start="6910" selection-end="6910" vertical-scroll-proportion="0.3511236">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Location.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/property/Location.class">
+      <file leaf-file-name="MeditationController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/meditation/MeditationController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="11" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0">
+            <state line="33" column="133" selection-start="1137" selection-end="1137" vertical-scroll-proportion="-12.576923">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DateTime.class" pinned="false" current="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/DateTime.class">
+      <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/community/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="11" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.0">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
@@ -166,22 +165,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/events/EventService.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/event/view.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/_event.gsp" />
-        <option value="$PROJECT_DIR$/web-app/css/themes/EndlessKnot/layout.css" />
-        <option value="$PROJECT_DIR$/web-app/css/themes/EndlessKnot/events.css" />
-        <option value="$PROJECT_DIR$/grails-app/views/event/query.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/contact/EmailService.groovy" />
-        <option value="$PROJECT_DIR$/Notes.txt" />
-        <option value="$PROJECT_DIR$/grails-app/conf/SecurityFilters.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/site/HomeController.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/home/index.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
-        <option value="$PROJECT_DIR$/grails-app/views/home/calendars.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/community/event.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/community/events.gsp" />
         <option value="$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/community/CommunityController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/events/EventService.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/_event.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/buddhism/BuddhismController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/buddhism/event.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/buddhism/events.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/wellbeing/events.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/wellbeing/event.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/wellbeing/WellbeingController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/wellbeing/index.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/views/meditation/event.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/meditation/MeditationController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/_eventlist.gsp" />
       </list>
     </option>
   </component>
@@ -259,6 +258,230 @@
               <option name="myItemId" value="grails-app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="wellbeing" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="meditation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="community" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buddhism" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="contact" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="community" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -298,6 +521,124 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="Resource Bundle 'messages'" />
               <option name="myItemType" value="com.intellij.lang.properties.projectView.ResourceBundleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="events" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="community" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="grails-app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="london" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="buddhism" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -881,99 +1222,113 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/Date.class">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/_shortEventsList.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="11" selection-start="646" selection-end="646" vertical-scroll-proportion="0.27513227">
+        <state line="41" column="237" selection-start="2181" selection-end="2186" vertical-scroll-proportion="2.4444444">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/DateTime.class">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="11" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.0">
+        <state line="151" column="44" selection-start="3969" selection-end="6045" vertical-scroll-proportion="1.7146853">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/property/Location.class">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/community/CommunityController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="11" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0">
+        <state line="6" column="0" selection-start="137" selection-end="157" vertical-scroll-proportion="-3.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../../../ical">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/buddhism/event.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="0" selection-start="2869" selection-end="2958" vertical-scroll-proportion="0.0">
-          <folding />
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1267828168000" expanded="true" signature="0:1118" placeholder="%{--...--}%" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/home/help.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/buddhism/events.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/Component.class">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/wellbeing/events.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="51" selection-start="1522" selection-end="1522" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1267828204000" expanded="true" signature="0:1118" placeholder="%{--...--}%" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/wellbeing/event.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding>
+            <marker date="1267828223000" expanded="true" signature="0:1118" placeholder="%{--...--}%" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/buddhism/BuddhismController.groovy">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="183" selection-end="203" vertical-scroll-proportion="-3.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/PropertyList.class">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/_event.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
+        <state line="123" column="81" selection-start="5486" selection-end="5486" vertical-scroll-proportion="-26.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/EventDate.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/community/index.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="29" selection-start="1214" selection-end="1214" vertical-scroll-proportion="-5.3863635">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/site/HomeController.groovy">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/wellbeing/index.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="17" selection-start="2124" selection-end="2124" vertical-scroll-proportion="-23.0">
+        <state line="31" column="89" selection-start="1439" selection-end="1439" vertical-scroll-proportion="-8.76087">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/ScheduleRule.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/meditation/event.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="10" selection-start="1655" selection-end="1655" vertical-scroll-proportion="50.863636">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/home/feed.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/wellbeing/WellbeingController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="0" selection-start="1119" selection-end="1843" vertical-scroll-proportion="-6.2173915">
+        <state line="7" column="0" selection-start="185" selection-end="205" vertical-scroll-proportion="-3.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/home/index.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/meditation/MeditationController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="74" selection-start="2534" selection-end="2534" vertical-scroll-proportion="-8.76087">
+        <state line="33" column="133" selection-start="1137" selection-end="1137" vertical-scroll-proportion="-12.576923">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="350" column="0" selection-start="14209" selection-end="14209" vertical-scroll-proportion="-15.325582">
+        <state line="416" column="21" selection-start="16277" selection-end="16277" vertical-scroll-proportion="-0.7222222">
           <folding />
         </state>
       </provider>
@@ -981,26 +1336,9 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/home/calendars.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/_eventlist.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="8" selection-start="1898" selection-end="1898" vertical-scroll-proportion="-12.152174">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="628" column="8" selection-start="23406" selection-end="23406" vertical-scroll-proportion="-2.0588236">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy">
-      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="216" column="46" selection-start="6910" selection-end="6910" vertical-scroll-proportion="0.3511236">
+        <state line="113" column="12" selection-start="4823" selection-end="4823" vertical-scroll-proportion="0.9281609">
           <folding />
         </state>
       </provider>
