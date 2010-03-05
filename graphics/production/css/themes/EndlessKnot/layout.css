@@ -262,7 +262,7 @@ legend {
     padding: .4em .8em;
 }
 
-fieldset.login p {
+fieldset p {
     margin-bottom: 1em;
     margin-top: 0pt;
 }
@@ -279,7 +279,7 @@ fieldset p select {
     width: 99%;
 }
 
-fieldset.login p label {
+fieldset p label {
     float: left;
     line-height: 2em;
     margin-right: 3%;
@@ -287,11 +287,11 @@ fieldset.login p label {
     width: 32%;
 }
 
-fieldset.login p input {
+fieldset p input, fieldset p textarea {
     width: 60%;
 }
 
-fieldset.login input.button {
+fieldset .button {
     margin-left: 35%;
 }
 

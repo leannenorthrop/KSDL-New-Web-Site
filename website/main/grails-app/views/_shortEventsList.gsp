@@ -35,15 +35,17 @@
       <g:each in="${events}" status="i" var="event">
         <g:set var="rule" value="${event?.dates[0]}"/>
         <g:set var="placementClass" value="${i == 0 ? 'first' : (i == events.size ? 'last' :'')}"/>
+        <g:set var="eventViewController"><g:message code="publish.category.controller.${event?.category}"/></g:set>
+
         <li class="event ${placementClass} ${event?.category}">
             <g:if test="${event.image}">
-                <g:link controller="event" action="view" id="${event.id}"><img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/></g:link>
+                <g:link controller="${eventViewController}" action="event" id="${event.id}"><img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/></g:link>
             </g:if>
         <div>
         <g:set var="eventHeading" value="${event.title}"/>
         <h4>
           <g:if test="${event.content}">
-            <g:link controller="event" action="view" id="${event.id}">${eventHeading}</g:link>
+            <g:link controller="${eventViewController}" action="event" id="${event.id}">${eventHeading}</g:link>
           </g:if>
           <g:else>
             ${eventHeading}
@@ -94,6 +96,6 @@
     </g:if>
   </ul>
   <g:if test="${total > events.size()}">
-    <g:link action="${moreAction}"><em><g:message code="events.more"/></em></g:link>
+    <g:link controller="${eventViewController}" action="events"><em><g:message code="events.more"/></em></g:link>
   </g:if>
 </div>

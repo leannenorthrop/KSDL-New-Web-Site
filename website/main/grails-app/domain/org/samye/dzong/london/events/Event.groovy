@@ -143,6 +143,12 @@ class Event extends Publishable {
             eq 'publishState', "Published"
         }
 
+        unorderedCategoryPublished { final category ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "Published"
+            eq 'category', "${category}"
+        }
+
         published {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', "Published"

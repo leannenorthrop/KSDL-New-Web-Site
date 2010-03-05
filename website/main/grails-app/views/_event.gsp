@@ -119,8 +119,9 @@
 <div class="grid_4">
   <h3><g:message code="similar"/></h3>
   <ul>
-    <g:each in="${articles}" status="i" var="articleInstance">
-      <li class="article"><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></li>
+    <g:each in="${articles}" status="i" var="eventInstance">
+      <g:set var="eventViewController"><g:message code="publish.category.controller.${eventInstance?.category}"/></g:set>
+      <li class="event"><g:link controller="${eventViewController}" action="event" id="${eventInstance.id}">${eventInstance.title}</g:link></li>
     </g:each>
   </ul>
 </div>

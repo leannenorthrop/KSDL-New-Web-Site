@@ -27,10 +27,62 @@ import org.joda.time.TimeOfDay
 import java.text.SimpleDateFormat
 import java.text.ParsePosition
 import org.joda.time.MutablePeriod
+import org.joda.time.DateTime
+import org.joda.time.Days
 
 class EventService {
     boolean transactional = true
     def userLookupService
+    def messageSource
+
+    def list(category, params=[]) {
+            try {
+                def dateParser = new SimpleDateFormat("yyyy-MM-dd")
+                def start;
+                def end;
+
+                if (params.start) {
+                    start = new DateTime(dateParser.parse(params.start).getTime())
+                    start = start.withTime(0, 0, 0, 0);
+                } else {
+                    start = new DateTime();
+                    start = start.withTime(0, 0, 0, 0);
+                }
+
+                if (params.end) {
+                    end = new DateTime(dateParser.parse(params.end).getTime())
+                    end = end.withTime(0, 0, 0, 0);
+                } else {
+                    end = new DateTime();
+                    end = end.withTime(0, 0, 0, 0);
+                }
+
+                if (!end.isAfter(start)) {
+                    def tmp = end
+                    end = start
+                    start = tmp
+                }
+
+                end = end.dayOfMonth().withMaximumValue()
+                int monthdays = Days.daysBetween(start, end).getDays();
+
+                start = start.toDate()
+                end = end.toDate()
+                def publishedEvents = Event.unorderedCategoryPublished(category).list(params);
+                def events = publishedEvents.findAll { event ->
+                    def rule = event.dates[0]
+                    return event.isOnDay(start, monthdays)
+                };
+
+                def formatter = new SimpleDateFormat(messageSource.getMessage('event.date.format',null,null))
+                def args = [formatter.format(start),formatter.format(end)]
+                return [events: events, title: messageSource.getMessage('event.between',args.toArray(),null)]
+            } catch(error) {
+                error.printStackTrace();
+                def events = Event.unorderedCategoryPublished(category).list(params);
+                return [events: events, title: messageSource.getMessage('events.all.title',null,null)]
+            }
+    }
 
     def findSimilar(event, params = []) {
         def tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'event' and ("
