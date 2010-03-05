@@ -9,6 +9,7 @@ class CommonLayoutTagLib {
      def nav = { attrs ->
         def navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism']
 
+         /*
         try {
             if (SecurityUtils.subject && SecurityUtils.subject.hasRole ("Administrator")) {
             navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
@@ -17,7 +18,7 @@ class CommonLayoutTagLib {
         }
         } catch(error) {
 
-        }
+        }  */
 
         def navList = {
             div (class:"nav group") {

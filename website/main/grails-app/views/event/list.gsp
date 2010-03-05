@@ -29,10 +29,7 @@
   </head>
   <body>
     <div class="col1_90_Percent">
-      <div class="box">
-        <h2><g:message code="event.today"/></h2>
         <g:render template="/eventlist" model="[events: events]"/>
-      </div>
     </div>
   </body>
 </html>

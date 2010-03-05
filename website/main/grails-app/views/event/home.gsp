@@ -38,6 +38,17 @@
         <g:render template="/eventlist" model="[events: thisMonthEvents,heading:'event.this.month']"/>
     </div>
     <div class="grid_4">
+        <div class="box">
+          <h3><g:message code="event.forthcoming"/></h3>
+          <ul>
+            <g:each var="date" in="${followingMonths}">
+              <g:set var="start"><g:formatDate format="yyyy-MM-dd" date="${date[0]}"/></g:set>
+              <g:set var="end"><g:formatDate format="yyyy-MM-dd" date="${date[1]}"/></g:set>
+              <g:set var="label"><g:formatDate format="MMMM, yyyy" date="${date[0]}"/></g:set>
+              <li><g:link controller="event" action="list" params="[sort:'title',order:'asc',start: start,end:end]">${label}</g:link></li>
+            </g:each>
+          </ul>
+        </div>
         <g:render template="/shortEventsList" model="[events: regularEvents, heading:'event.regular']"/>
     </div>
   </body>

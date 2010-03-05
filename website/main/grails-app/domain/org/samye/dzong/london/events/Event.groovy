@@ -120,12 +120,14 @@ class Event extends Publishable {
             eq('deleted', Boolean.TRUE)
         }
 
+        unorderedPublished {
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "Published"
+        }
+
         published {
             eq 'deleted', Boolean.FALSE
-            or {
-                eq 'publishState', "Published"
-                eq 'publishState', "Archived"
-            }
+            eq 'publishState', "Published"
             order("datePublished", "desc")
         }
 

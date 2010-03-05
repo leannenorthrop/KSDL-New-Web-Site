@@ -53,7 +53,7 @@ class EventController {
         def events = Event.publishState('Published').list();
 
         DateTime dt = new DateTime();
-        dt = dt.withTime(0, 0, 0, 0);
+        dt = dt.withTime(0,0,0,0)
         def now = dt.toDate()
 
         def publishedEvents = Event.published().list();
@@ -61,36 +61,89 @@ class EventController {
             event.isOnDay(now)
         }
 
+        now = now + 1
+        dt = new DateTime(now.getTime())
         DateTime endOfWeek = dt.dayOfWeek().withMaximumValue();
         int weekdays = Days.daysBetween(dt, endOfWeek).getDays();
         def thisWeeksEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
-            def isRegular = (rule.startDate == rule.endDate)
-            def isOnDays = event.isOnDay(now, weekdays)
-            println "${!isRegular} && ${isOnDays} = ${!isRegular && isOnDays}"
-            return !isRegular && isOnDays
+            def isRegular = rule.isUnbounded()
+            return !isRegular && event.isOnDay(now, weekdays)
         };
 
         DateTime endOfMonth = dt.dayOfMonth().withMaximumValue();
-        int monthdays = Days.daysBetween(dt, endOfMonth).getDays();
+        int monthdays = Days.daysBetween(endOfWeek, endOfMonth).getDays();
         def thisMonthEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
-            def isRegular = (rule.startDate == rule.endDate)
-            def isOnDays = event.isOnDay(now, monthdays)
-            println "${!isRegular} && ${isOnDays} = ${!isRegular && isOnDays}"
-            return !isRegular && isOnDays
+            def isRegular = rule.isUnbounded()
+            return !isRegular && event.isOnDay(endOfWeek.toDate(), monthdays)
         };
 
         def regularEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
-            rule.startDate == rule.endDate && rule.isRule
+            rule.isUnbounded()
         };
-        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, title: "Current Programme"]
+
+        def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
+        def followingMonths = (1..12).collect { month ->
+            def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
+            [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
+        }
+        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
     }
 
     def list = {
-        def events = Event.publishState('Published').list();
-        return [events: events, title: 'events.all.title']
+        if (params) {
+            try {
+                def dateParser = new SimpleDateFormat("yyyy-MM-dd")
+                def start;
+                def end;
+
+                if (params.start) {
+                    start = new DateTime(dateParser.parse(params.start).getTime())
+                    start = start.withTime(0, 0, 0, 0);
+                } else {
+                    start = new DateTime();
+                    start = start.withTime(0, 0, 0, 0);
+                }
+
+                if (params.end) {
+                    end = new DateTime(dateParser.parse(params.end).getTime())
+                    end = end.withTime(0, 0, 0, 0);
+                } else {
+                    end = new DateTime();
+                    end = end.withTime(0, 0, 0, 0);
+                }
+
+                if (!end.isAfter(start)) {
+                    def tmp = end
+                    end = start
+                    start = tmp
+                }
+
+                end = end.dayOfMonth().withMaximumValue()
+                int monthdays = Days.daysBetween(start, end).getDays();
+
+                start = start.toDate()
+                end = end.toDate()
+                def publishedEvents = Event.unorderedPublished().list(params);
+                def events = publishedEvents.findAll { event ->
+                    def rule = event.dates[0]
+                    return !(rule.startDate == rule.endDate) && event.isOnDay(start, monthdays)
+                };
+
+                def formatter = new SimpleDateFormat(message(code: 'event.date.format'))
+                def args = [formatter.format(start),formatter.format(end)]
+                return [events: events, title: message(code: 'event.between', args: args)]
+            } catch(error) {
+                error.printStackTrace();
+                def events = Event.unorderedPublished().list(params);
+                return [events: events, title: 'events.all.title']
+            }
+        } else {
+            def events = Event.unorderedPublished().list(params);
+            return [events: events, title: 'events.all.title']
+        }
     }
 
     // the save and update actions only accept POST requests
@@ -293,7 +346,6 @@ class EventController {
 
                     }
                 }
-                println "Published event. Publish date set to ${event.datePublished}"
                 flash.message = "Event ${event.title} has been Published"
                 redirect(action: manage)
             }
