@@ -44,6 +44,7 @@ class EventController {
     def userLookupService
     def eventService
     def twitterService
+    def emailService
 
     def index = {
         redirect(action: home)
@@ -228,6 +229,27 @@ class EventController {
             def similar = eventService.findSimilar(event)
             return [event: event, id: id, similar:similar]
         }
+    }
+
+    def query = {
+        def event = Event.get(params.id)
+        if (!event) {
+            flash.message = "Event not found with id ${params.id}"
+            redirect(action: home)
+        }
+        else {
+            def id = params.id;
+            def similar = eventService.findSimilar(event)
+            return [event: event, id: id, similar:similar]
+        }
+    }
+
+    def send = {
+        def event = Event.get(params.id)
+        if (event && params.email && params.body && params.subject) {
+            emailService.sendEventQuery(event.organizer.username, params.email, params.subject, params.body)
+        }
+        redirect(action: home)
     }
 
     def show = {
