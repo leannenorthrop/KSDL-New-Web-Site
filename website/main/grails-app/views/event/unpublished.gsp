@@ -26,14 +26,13 @@
   <g:set var="lastUpdatedLabel"><g:message code="event.last.updated"/></g:set>
   <g:set var="deleteConfirmLabel"><g:message code="event.delete.confirm"/></g:set>
   <g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
-  <g:set var="eventDateLabel"><g:message code="event.eventDate.label"/></g:set>
   <g:set var="categoryLabel"><g:message code="event.category.label"/></g:set>
   <body>
     <table>
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
-          <g:sortableColumn property="date" title="${eventDateLabel}"/>
+          <th><g:message code="event.eventDate.label"/></th>
           <g:sortableColumn property="category" title="${categoryLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">

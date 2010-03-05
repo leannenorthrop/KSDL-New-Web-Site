@@ -35,10 +35,10 @@
     <div class="grid_12">
         <g:render template="/eventlist" model="[events: todaysEvents, heading:'event.today']"/>
         <g:render template="/eventlist" model="[events: thisWeeksEvents,heading: 'event.this.week']"/>
-        <g:render template="/eventlist" model="[events: thisWeeksEvents,heading:'event.this.month']"/>
+        <g:render template="/eventlist" model="[events: thisMonthEvents,heading:'event.this.month']"/>
     </div>
     <div class="grid_4">
-        <g:render template="/eventlist" model="[events: todaysEvents, heading:'event.today']"/>
+        <g:render template="/shortEventsList" model="[events: regularEvents, heading:'event.regular']"/>
     </div>
   </body>
 </html>

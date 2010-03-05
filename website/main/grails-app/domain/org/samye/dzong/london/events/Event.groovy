@@ -35,7 +35,6 @@ import org.apache.commons.collections.list.LazyList
 
 /**
  * Domain class for event information.
- * TODO: add reoccurring dates & rule
  * TODO: test
  * TODO: add validation for date,time,duration
  * TODO: publishedByTags
@@ -57,6 +56,8 @@ class Event extends Publishable {
 
     static hasMany = [prices: EventPrice,dates: EventDate]
 
+    static transients = ['onDay']
+
     static constraints = {
         title(blank: false, unique: true,size:0..254)
         summary(size: 5..Integer.MAX_VALUE)
@@ -66,7 +67,7 @@ class Event extends Publishable {
         dates(nullable: false)
         prices(nullable:true)
         organizer(nullable:true)
-        leader(nullable:true)
+        leader(nullable:false)
         venue(nullable:true)
     }
 
@@ -119,6 +120,15 @@ class Event extends Publishable {
             eq('deleted', Boolean.TRUE)
         }
 
+        published {
+            eq 'deleted', Boolean.FALSE
+            or {
+                eq 'publishState', "Published"
+                eq 'publishState', "Archived"
+            }
+            order("datePublished", "desc")
+        }
+
         homePage { orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
@@ -151,46 +161,6 @@ class Event extends Publishable {
             eq 'category', 'W'
             order("${orderCol}", "${orderDir}")
         }
-
-        publishedDateRange {final startDate, final endDate, final orderCol, final orderDirection ->
-            eq 'publishState', 'Published'
-            dates {
-                or {
-                    eq 'ruleType', 'period'
-                    eq 'isRule', Boolean.FALSE
-                }
-                and {
-                    or {
-                        between 'startDate', startDate,endDate
-                        between 'endDate', startDate,endDate
-                    }
-                }
-            }
-            order("${orderCol}", "${orderDirection}")
-        }
-
-        dailyOnDay { date ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            dates {
-                eq isRule, Boolean.TRUE
-                eq ruleType, 'always'
-                eq "modifierType", "D"
-                or {
-                    eq interval, 1
-                }
-            }
-        }
-
-        regular { final orderCol, final orderDirection ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            dates {
-                eq isRule, Boolean.TRUE
-                eq ruleType, 'always'
-            }
-            order("${orderCol}", "${orderDirection}")
-        }
     }
 
     def getPriceList() {
@@ -200,5 +170,21 @@ class Event extends Publishable {
 
     String toString() {
         return "${title}"
+    }
+
+    boolean isOnDay(final date) {
+        if (dates && dates[0]) {
+            return dates[0].isOnDay(date)
+        } else {
+            return false;
+        }
+    }
+
+    boolean isOnDay(final startDate, final noOfDays) {
+        if (dates && dates[0]) {
+            return dates[0].isOnDay(startDate, noOfDays)
+        } else {
+            return false;
+        }
     }
 }

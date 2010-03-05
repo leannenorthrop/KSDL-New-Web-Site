@@ -52,17 +52,40 @@ class EventController {
     def home = {
         def events = Event.publishState('Published').list();
 
-        def now = new Date()
-        now.setHours(0)
-        now.setMinutes(0)
-        now.setSeconds(0)
-        def tommorow = now + 1
-        def endOfWeek = now + 7
-        def endOfMonth = now + 31
-        def todaysEvents = Event.publishedDateRange(now, tommorow, "featured", "desc").list();
-        def thisWeeksEvents = Event.publishedDateRange(now, endOfWeek, "featured", "desc").list();
-        def thisMonthEvents = Event.publishedDateRange(now, endOfMonth, "featured", "desc").list();
-        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents, title: "Current Programme"]
+        DateTime dt = new DateTime();
+        dt = dt.withTime(0, 0, 0, 0);
+        def now = dt.toDate()
+
+        def publishedEvents = Event.published().list();
+        def todaysEvents = publishedEvents.findAll { event ->
+            event.isOnDay(now)
+        }
+
+        DateTime endOfWeek = dt.dayOfWeek().withMaximumValue();
+        int weekdays = Days.daysBetween(dt, endOfWeek).getDays();
+        def thisWeeksEvents = publishedEvents.findAll { event ->
+            def rule = event.dates[0]
+            def isRegular = (rule.startDate == rule.endDate)
+            def isOnDays = event.isOnDay(now, weekdays)
+            println "${!isRegular} && ${isOnDays} = ${!isRegular && isOnDays}"
+            return !isRegular && isOnDays
+        };
+
+        DateTime endOfMonth = dt.dayOfMonth().withMaximumValue();
+        int monthdays = Days.daysBetween(dt, endOfMonth).getDays();
+        def thisMonthEvents = publishedEvents.findAll { event ->
+            def rule = event.dates[0]
+            def isRegular = (rule.startDate == rule.endDate)
+            def isOnDays = event.isOnDay(now, monthdays)
+            println "${!isRegular} && ${isOnDays} = ${!isRegular && isOnDays}"
+            return !isRegular && isOnDays
+        };
+
+        def regularEvents = publishedEvents.findAll { event ->
+            def rule = event.dates[0]
+            rule.startDate == rule.endDate && rule.isRule
+        };
+        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, title: "Current Programme"]
     }
 
     def list = {
@@ -376,12 +399,6 @@ class EventController {
 
         event.properties = params
 
-        /*def _toBeDeleted = event.prices.findAll {it._deleted}
-        if (_toBeDeleted) {
-            event.prices.removeAll(_toBeDeleted)
-        }
-        println "************** ${event.prices}"
-        */
 
         if (!event.hasErrors() && event.save()) {
             flash.isError = false

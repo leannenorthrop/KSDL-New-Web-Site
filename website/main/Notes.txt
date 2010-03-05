@@ -14,19 +14,12 @@ http://code.google.com/p/lsd-website/issues/entry
         - display of events: check for empty organizer
         - Edit
             - event validation: need a list at top
-                - javascript check for teacher
-                - make sure list of teachers is published
                 - add related events
-                - fix sortable columns
                 - archive
                 - ical creation
-                - prices: need to handle 0.0 prices and also format prices for edit.
-                - finders
-                - auto set of end time
     - About Us
         - Teacher
             - force toString to figure out title
-            - add none to title option
     - News Pages
         - CSS
             - Labels - link
@@ -38,7 +31,7 @@ http://code.google.com/p/lsd-website/issues/entry
     - When deleting items add (Deleted) to name/title to get around unique constraint
     - Fix linking in png images.
     - Preview: use built in remote tag
-    - Css 
+    - Css
         - external site link
         - color ratios
 
