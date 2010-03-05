@@ -73,6 +73,9 @@ class HomeController {
         model:[]
     }
 
+    def calendars = {
+        model:[]
+    }
 
     def internalError = {
         render(view:internalError)

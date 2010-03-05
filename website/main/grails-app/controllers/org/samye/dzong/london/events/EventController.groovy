@@ -30,6 +30,11 @@ import java.text.ParsePosition
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.apache.commons.collections.FactoryUtils
 import org.apache.commons.collections.list.LazyList
+import net.fortuna.ical4j.model.property.ProdId
+import net.fortuna.ical4j.model.property.Version
+import net.fortuna.ical4j.model.property.CalScale
+import net.fortuna.ical4j.data.CalendarOutputter
+import net.fortuna.ical4j.model.property.Attach
 
 /**
  * Web request handler for event information.
@@ -618,8 +623,48 @@ class EventController {
                 errorParams['isError'] = true
                 errorParams['message'] = "event.update.error"
             }
+        }
+    }
 
-            println "***************************${rule}"
+    def calendar = {
+        try {
+            def publishedEvents = null
+            if (params.type) {
+                if ("all" == params.type) {
+                    publishedEvents = Event.published().list();
+                } else if ("meditation" == params.type) {
+                    publishedEvents = Event.meditation("title", "desc").list();
+                } else if ("buddhism" == params.type) {
+                    publishedEvents = Event.buddhism("title", "desc").list();
+                } else if ("community" == params.type) {
+                    publishedEvents = Event.community("title", "desc").list();
+                } else if ("wellbeing" == params.type) {
+                    publishedEvents = Event.wellbeing("title", "desc").list();
+                }
+            } else {
+                publishedEvents = Event.published().list();
+            }
+
+            net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
+            calendar.getProperties().add(new ProdId("-//" + message(code:'title')+ "//iCal4j 1.0//EN"));
+            calendar.getProperties().add(Version.VERSION_2_0);
+            calendar.getProperties().add(CalScale.GREGORIAN);
+
+            publishedEvents.each { event ->
+                def iCalEvent = event.toiCalVEvent()
+                iCalEvent.getProperties().add(new Attach(new URI(createLink(action:'view',controller:'event',absolute:true,id:event.id).toString())));
+                calendar.getComponents().add(iCalEvent)
+            }
+
+            calendar.validate(true)
+
+            response.contentType = "text/calendar; charset=utf-8"
+
+            CalendarOutputter outputter = new CalendarOutputter();
+            outputter.output(calendar, response.outputStream);
+        } catch (error) {
+            log.error("Error generating a calendar ", error)
+            redirect(action: 'home')
         }
     }
 }

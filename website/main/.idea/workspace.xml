@@ -63,61 +63,43 @@
       <file leaf-file-name="EventController.groovy" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="251" column="30" selection-start="9315" selection-end="9315" vertical-scroll-proportion="-7.6666665">
+            <state line="628" column="8" selection-start="23406" selection-end="23406" vertical-scroll-proportion="-2.0588236">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="query.gsp" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/views/event/query.gsp">
+      <file leaf-file-name="help.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/home/help.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="46" selection-start="1732" selection-end="1737" vertical-scroll-proportion="-10.630435">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EmailService.groovy" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/contact/EmailService.groovy">
+      <file leaf-file-name="HomeController.groovy" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/site/HomeController.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="8" selection-start="259" selection-end="338" vertical-scroll-proportion="0.0">
+            <state line="75" column="17" selection-start="2124" selection-end="2124" vertical-scroll-proportion="-23.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="layout.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/css/themes/EndlessKnot/layout.css">
+      <file leaf-file-name="index.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/home/index.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="294" column="24" selection-start="4365" selection-end="4365" vertical-scroll-proportion="0.0">
+            <state line="51" column="74" selection-start="2534" selection-end="2534" vertical-scroll-proportion="-8.76087">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="events.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/css/themes/EndlessKnot/events.css">
+      <file leaf-file-name="calendars.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/home/calendars.gsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="19" selection-start="1576" selection-end="1576" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/web-app/css/themes/EndlessKnot/main.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Notes.txt" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Notes.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="8" selection-start="455" selection-end="455" vertical-scroll-proportion="0.051587302">
+            <state line="43" column="8" selection-start="1898" selection-end="1898" vertical-scroll-proportion="-12.152174">
               <folding />
             </state>
           </provider>
@@ -126,12 +108,51 @@
       <file leaf-file-name="messages.properties" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="423" column="39" selection-start="16306" selection-end="16306" vertical-scroll-proportion="-15.069767">
+            <state line="350" column="0" selection-start="14209" selection-end="14209" vertical-scroll-proportion="-15.325582">
               <folding />
             </state>
           </provider>
           <provider editor-type-id="ResourceBundle">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feed.gsp" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/grails-app/views/home/feed.gsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="22" column="0" selection-start="1119" selection-end="1843" vertical-scroll-proportion="-6.2173915">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Event.groovy" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy">
+          <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="216" column="46" selection-start="6910" selection-end="6910" vertical-scroll-proportion="0.3511236">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Location.class" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/property/Location.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="11" column="11" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DateTime.class" pinned="false" current="false" current-in-tab="false">
+        <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/DateTime.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="11" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -145,22 +166,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/grails-app/views/_eventlist.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/views/_shortEventsList.gsp" />
-        <option value="$PROJECT_DIR$/grails-app/taglib/org/samye/dzong/london/CommonLayoutTagLib.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/ScheduleRule.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/views/manageSite/home.gsp" />
         <option value="$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/events/EventService.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/conf/SecurityFilters.groovy" />
         <option value="$PROJECT_DIR$/grails-app/views/event/view.gsp" />
         <option value="$PROJECT_DIR$/grails-app/views/_event.gsp" />
         <option value="$PROJECT_DIR$/web-app/css/themes/EndlessKnot/layout.css" />
         <option value="$PROJECT_DIR$/web-app/css/themes/EndlessKnot/events.css" />
-        <option value="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
         <option value="$PROJECT_DIR$/grails-app/views/event/query.gsp" />
         <option value="$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/contact/EmailService.groovy" />
-        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy" />
         <option value="$PROJECT_DIR$/Notes.txt" />
+        <option value="$PROJECT_DIR$/grails-app/conf/SecurityFilters.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/conf/Config.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/site/HomeController.groovy" />
+        <option value="$PROJECT_DIR$/grails-app/views/home/index.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/i18n/messages.properties" />
+        <option value="$PROJECT_DIR$/grails-app/views/home/calendars.gsp" />
+        <option value="$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy" />
       </list>
     </option>
   </component>
@@ -253,7 +274,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
+              <option name="myItemId" value="i18n" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -271,38 +292,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
+              <option name="myItemId" value="i18n" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="london" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="grails-app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="london" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="contact" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+              <option name="myItemId" value="Resource Bundle 'messages'" />
+              <option name="myItemType" value="com.intellij.lang.properties.projectView.ResourceBundleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -886,58 +881,99 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web-app/css/site/reset.css">
+    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/Date.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="11" selection-start="646" selection-end="646" vertical-scroll-proportion="0.27513227">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/DateTime.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="11" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/property/Location.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="11" selection-start="443" selection-end="443" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../../../ical">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="0" selection-start="2869" selection-end="2958" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/home/help.gsp">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/site/grid.css">
+    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/Component.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-8.064815">
+        <state line="30" column="51" selection-start="1522" selection-end="1522" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/site/960.css">
+    <entry file="jar://$MAVEN_REPOSITORY$/net/fortuna/ical4j/ical4j/1.0-rc3/ical4j-1.0-rc3.jar!/net/fortuna/ical4j/model/PropertyList.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-8.030423">
+        <state line="5" column="13" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/themes/EndlessKnot/main.css">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/EventDate.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="27" column="29" selection-start="1214" selection-end="1214" vertical-scroll-proportion="-5.3863635">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/layouts/main.gsp">
+    <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/site/HomeController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="6" selection-start="3341" selection-end="3366" vertical-scroll-proportion="0.12816902">
+        <state line="75" column="17" selection-start="2124" selection-end="2124" vertical-scroll-proportion="-23.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/themes/EndlessKnot/layout.css">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/ScheduleRule.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="294" column="24" selection-start="4365" selection-end="4365" vertical-scroll-proportion="0.0">
+        <state line="40" column="10" selection-start="1655" selection-end="1655" vertical-scroll-proportion="50.863636">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web-app/css/themes/EndlessKnot/events.css">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/home/feed.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="69" column="19" selection-start="1576" selection-end="1576" vertical-scroll-proportion="0.0">
+        <state line="22" column="0" selection-start="1119" selection-end="1843" vertical-scroll-proportion="-6.2173915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grails-app/views/home/index.gsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="74" selection-start="2534" selection-end="2534" vertical-scroll-proportion="-8.76087">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/i18n/messages.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="423" column="39" selection-start="16306" selection-end="16306" vertical-scroll-proportion="-15.069767">
+        <state line="350" column="0" selection-start="14209" selection-end="14209" vertical-scroll-proportion="-15.325582">
           <folding />
         </state>
       </provider>
@@ -945,58 +981,26 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application.properties">
+    <entry file="file://$PROJECT_DIR$/grails-app/views/home/calendars.gsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/mail-0.9/grails-app/taglib/org/grails/mail/PlainTextMailTagLib.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/mail-0.9/src/groovy/org/grails/mail/MailMessageBuilder.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="186" column="16" selection-start="6939" selection-end="6946" vertical-scroll-proportion="0.7894737">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins/mail-0.9/grails-app/services/org/grails/mail/MailService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.33333334">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/services/org/samye/dzong/london/contact/EmailService.groovy">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="8" selection-start="259" selection-end="338" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grails-app/views/event/query.gsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="46" selection-start="1732" selection-end="1737" vertical-scroll-proportion="-10.630435">
+        <state line="43" column="8" selection-start="1898" selection-end="1898" vertical-scroll-proportion="-12.152174">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grails-app/controllers/org/samye/dzong/london/events/EventController.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="251" column="30" selection-start="9315" selection-end="9315" vertical-scroll-proportion="-7.6666665">
+        <state line="628" column="8" selection-start="23406" selection-end="23406" vertical-scroll-proportion="-2.0588236">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Notes.txt">
+    <entry file="file://$PROJECT_DIR$/grails-app/domain/org/samye/dzong/london/events/Event.groovy">
+      <provider editor-type-id="org.jetbrains.plugins.grails.perspectives.DomainClassesRelationsEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="8" selection-start="455" selection-end="455" vertical-scroll-proportion="0.051587302">
+        <state line="216" column="46" selection-start="6910" selection-end="6910" vertical-scroll-proportion="0.3511236">
           <folding />
         </state>
       </provider>
