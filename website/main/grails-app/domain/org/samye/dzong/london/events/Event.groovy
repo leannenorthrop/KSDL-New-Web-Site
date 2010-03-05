@@ -1,4 +1,4 @@
-/*******************************************************************************
+/** *****************************************************************************
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,7 +19,7 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ ***************************************************************************** */
 
 package org.samye.dzong.london.events
 
@@ -32,6 +32,24 @@ import org.samye.dzong.london.community.Teacher
 import org.samye.dzong.london.venue.*
 import org.apache.commons.collections.FactoryUtils
 import org.apache.commons.collections.list.LazyList
+import net.fortuna.ical4j.model.component.VEvent
+import net.fortuna.ical4j.util.UidGenerator
+import net.fortuna.ical4j.model.Recur
+import net.fortuna.ical4j.model.property.RRule
+import net.fortuna.ical4j.model.property.Summary
+import net.fortuna.ical4j.model.property.DtStart
+import net.fortuna.ical4j.model.property.Uid
+import net.fortuna.ical4j.model.property.DtEnd
+import net.fortuna.ical4j.model.TimeZoneRegistry
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory
+import net.fortuna.ical4j.model.property.Attendee
+import net.fortuna.ical4j.model.parameter.Role
+import net.fortuna.ical4j.model.property.Organizer
+import net.fortuna.ical4j.model.property.Description
+import net.fortuna.ical4j.model.property.Location
+import net.fortuna.ical4j.model.property.Attach
+import net.fortuna.ical4j.util.TimeZones
+import net.fortuna.ical4j.model.component.VTimeZone
 
 /**
  * Domain class for event information.
@@ -54,21 +72,21 @@ class Event extends Publishable {
     List prices = new ArrayList();
     List dates = new ArrayList();
 
-    static hasMany = [prices: EventPrice,dates: EventDate]
+    static hasMany = [prices: EventPrice, dates: EventDate]
 
     static transients = ['onDay']
 
     static constraints = {
-        title(blank: false, unique: true,size:0..254)
+        title(blank: false, unique: true, size: 0..254)
         summary(size: 5..Integer.MAX_VALUE)
         content(size: 5..Integer.MAX_VALUE)
         isRepeatable(nullable: false)
         image(nullable: true)
         dates(nullable: false)
-        prices(nullable:true)
-        organizer(nullable:true)
-        leader(nullable:false)
-        venue(nullable:true)
+        prices(nullable: true)
+        organizer(nullable: true)
+        leader(nullable: false)
+        venue(nullable: true)
     }
 
     static mapping = {
@@ -81,7 +99,7 @@ class Event extends Publishable {
     }
 
     static namedQueries = {
-        orderedAuthorPublishState { username, publishState, orderCol, orderDir ->
+        orderedAuthorPublishState {username, publishState, orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState
             author {
@@ -90,7 +108,7 @@ class Event extends Publishable {
             order("${orderCol}", "${orderDir}")
         }
 
-        authorPublishState { username, publishState ->
+        authorPublishState {username, publishState ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState
             author {
@@ -98,18 +116,18 @@ class Event extends Publishable {
             }
         }
 
-        orderedPublishState { publishState, orderCol, orderDir ->
+        orderedPublishState {publishState, orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState
             order("${orderCol}", "${orderDir}")
         }
 
-        publishState { publishState ->
+        publishState {publishState ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', publishState
         }
 
-        deletedAuthor { username ->
+        deletedAuthor {username ->
             eq('deleted', Boolean.TRUE)
             author {
                 eq('username', username)
@@ -131,33 +149,33 @@ class Event extends Publishable {
             order("datePublished", "desc")
         }
 
-        homePage { orderCol, orderDir ->
+        homePage {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             order("${orderCol}", "${orderDir}")
         }
 
-        meditation { orderCol, orderDir ->
+        meditation {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'M'
             order("${orderCol}", "${orderDir}")
         }
 
-        buddhism { orderCol, orderDir ->
+        buddhism {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'B'
             order("${orderCol}", "${orderDir}")
         }
 
-        community { orderCol, orderDir ->
+        community {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'C'
             order("${orderCol}", "${orderDir}")
         }
-        wellbeing { orderCol, orderDir ->
+        wellbeing {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'W'
@@ -167,7 +185,7 @@ class Event extends Publishable {
 
     def getPriceList() {
         def pricePrototype = new EventPrice(currency: Currency.getInstance("GBP"), category: 'f', price: 0.0d)
-        return LazyList.decorate(prices,FactoryUtils.prototypeFactory(pricePrototype));
+        return LazyList.decorate(prices, FactoryUtils.prototypeFactory(pricePrototype));
     }
 
     String toString() {
@@ -188,5 +206,55 @@ class Event extends Publishable {
         } else {
             return false;
         }
+    }
+
+    VEvent toiCalVEvent() {
+        EventDate date = dates[0]
+        VEvent iCalEvent = null
+        net.fortuna.ical4j.model.PropertyList properties;
+
+        // Generate a UID for the event..
+        UidGenerator ug = new UidGenerator(id.toString());
+
+        DateTime sd = date.startTime.toDateTime(new DateTime(date.startDate.getTime()))
+        DateTime ed = date.endTime.toDateTime(new DateTime(date.endDate.getTime()))
+
+        net.fortuna.ical4j.model.DateTime start = new net.fortuna.ical4j.model.DateTime(sd.toDate())
+        net.fortuna.ical4j.model.DateTime end  = new net.fortuna.ical4j.model.DateTime(ed.toDate())
+
+        if (dates[0].isRule) {
+            Recur recur = date.toRecur();
+            RRule rrule = new RRule(recur);
+
+            end  = new net.fortuna.ical4j.model.DateTime(sd.toDate())
+
+            iCalEvent = new VEvent(start, end, title);
+            properties = iCalEvent.getProperties()
+            properties.add(rrule);
+        } else {
+            iCalEvent = new VEvent(start,end, title);
+            properties = iCalEvent.getProperties()
+        }
+
+        TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
+        TimeZone timezone = registry.getTimeZone(TimeZones.GMT_ID);
+        VTimeZone tz = timezone.getVTimeZone();
+        properties.add(tz.getTimeZoneId());
+        properties.add(new Description(summary));
+        properties.add(new Location(venue.name));
+
+        /*if (organizer) {
+            URI mailToURI = new URI("MAILTO", organizer.username, null);
+            properties.add(new Organizer(mailToURI));
+        }*/
+
+        Uid id = ug.generateUid();
+        // net.fortuna.ical4j.model.Property.UID
+        properties.add(id)
+
+        //Summary summary = new Summary(summary);
+        //iCalEvent.getProperties().add(summary);
+
+        return iCalEvent
     }
 }
