@@ -47,8 +47,8 @@
           </g:else>
         </h3>
 
-        <g:set var="startdate"><joda:format style="M-" date="${rule?.startDate}"/></g:set>
-        <g:set var="enddate"><joda:format style="M-" date="${rule?.endDate}"/></g:set>
+        <g:set var="startdate"><g:formatDate date="${rule?.startDate}" type="date" format="d MMM yyyy"/></g:set>
+        <g:set var="enddate"><g:formatDate date="${rule?.endDate}" type="date" format="d MMM yyyy"/></g:set>
         <g:set var="days" value="${rule?.getDays().sort()}"/>
 
         <g:if test="${!rule?.isRule}">

@@ -180,7 +180,6 @@ class ScheduleRule {
                 if (next) {
                     def nextDate = new java.util.Date(next.getTime())
                     onDay = date.equals(nextDate)
-                    println "  ${date} == ${nextDate}? ${onDay}"
                 } else {
                     onDay = false
                 }
@@ -202,7 +201,6 @@ class ScheduleRule {
                 def nextDate = new java.util.Date(next.getTime())
                 for (int i = 0; i < noOfDays; i++) {
                     onDay = (startingDate + i).equals(nextDate)
-                    println "  ${startingDate + i} == ${nextDate}? ${onDay}"
                     if (onDay) break;
                 }
             } else {

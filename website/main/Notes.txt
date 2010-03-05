@@ -15,7 +15,6 @@ http://code.google.com/p/lsd-website/issues/entry
         - Edit
             - event validation: need a list at top
                 - add related events
-                - archive
                 - ical creation
     - About Us
         - Teacher
