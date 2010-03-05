@@ -37,7 +37,7 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-    <g:render template="/event" model="[event: event]"/>
+    <g:render template="/event" model="[event: event,articles:similar]"/>
   </body>
 </html>
 
