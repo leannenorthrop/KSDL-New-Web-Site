@@ -33,7 +33,7 @@
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
           <g:sortableColumn property="category" title="${categoryLabel}"/>
-          <g:sortableColumn property="eventDate" title="${publishedOnLabel}"/>
+          <th><g:message code="event.eventDate.label"/></th>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
           <shiro:hasAnyRole in="['Editor','Administrator']">
             <g:sortableColumn property="author" title="${authorLabel}"/>

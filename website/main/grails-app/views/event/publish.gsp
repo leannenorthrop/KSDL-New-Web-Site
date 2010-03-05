@@ -32,7 +32,12 @@
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.publish.title"/></title>
     <jq:jquery>
-      $("#publishEvent").validate();
+      var container = $("#jserrors");
+      $("#publishEvent").validate({
+		errorContainer: container,
+		errorLabelContainer: $("ol", container),
+		wrapper: 'li'
+	});
     </jq:jquery>
   </head>
   <body>

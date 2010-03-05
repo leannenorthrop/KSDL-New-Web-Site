@@ -27,10 +27,17 @@ import org.joda.time.Period
 import org.joda.time.TimeOfDay
 import org.joda.time.contrib.hibernate.PersistentPeriod
 import org.joda.time.contrib.hibernate.PersistentTimeOfDay
+import net.fortuna.ical4j.*
+import net.fortuna.ical4j.model.*
+import net.fortuna.ical4j.util.*
+import net.fortuna.ical4j.model.property.*
+import net.fortuna.ical4j.model.component.*
+import net.fortuna.ical4j.model.parameter.*
+import net.fortuna.ical4j.data.*
 
 class ScheduleRule {
-    Date startDate
-    Date endDate
+    java.util.Date startDate
+    java.util.Date endDate
     TimeOfDay startTime;
     TimeOfDay endTime;
     Period duration
@@ -63,19 +70,14 @@ class ScheduleRule {
         }
     }
 
+    static transients = ['unbounded','bounded','daily','weekly','monthly','monthlyByPosition','yearly','yearlyByPosition','yearlyByDay','days','modifiers','offsets','onDay','between','recur','isOnDay']
+
     String toString() {
         return "from ${startDate} until ${endDate}: ${startTime} - ${endTime} (duration ${duration})\nis rule? ${isRule} type ${ruleType} interval ${interval} modifier ${modifier} mtype = ${modifierType}"
     }
 
     boolean isUnbounded() {
         return 'always' == ruleType
-    }
-
-    void setUnbounded() {
-        ruleType = 'always'
-    }
-
-    void setUnbounded(w) {
     }
 
     boolean isBounded() {
@@ -86,19 +88,12 @@ class ScheduleRule {
         ruleType = 'period'
     }
 
-
-    void setBounded(w) {
-    }
-
     boolean isDaily() {
         return 'D' == modifierType
     }
 
     void setDaily() {
         modifierType = 'D'
-    }
-
-    void setDaily(d) {
     }
 
     boolean isWeekly() {
@@ -109,16 +104,10 @@ class ScheduleRule {
         modifierType = 'W'
     }
 
-    void setWeekly(w) {
-    }
-
     boolean isMonthly() {
-        println "****${modifierType}"
         return 'MP' == modifierType || 'MD' == modifierType
     }
 
-    void setMonthly(byPosition) {
-    }
 
     void setMonthlyByPosition() {
         modifierType = 'MP'
@@ -130,9 +119,6 @@ class ScheduleRule {
 
     boolean isYearly() {
         return 'YP' == modifierType || 'YD' == modifierType
-    }
-
-    void setYearly(byPosition) {
     }
 
     void setYearlyByPosition() {
@@ -151,9 +137,6 @@ class ScheduleRule {
         return days
     }
 
-    void setDays() {
-    }
-
     List getModifiers() {
         def matcher = modifier =~ /[1-5][+-] [MTWFS][OUEHRA]/
         def mods = matcher.collect() { it ->
@@ -167,9 +150,6 @@ class ScheduleRule {
             return bits
         }
         return mods
-    }
-
-    void setModifiers() {
     }
 
     List getOffsets() {
@@ -188,6 +168,97 @@ class ScheduleRule {
     }
 
 
-    void setOffsets() {
+    boolean isOnDay(final date) {
+        boolean onDay = false;
+
+        Recur r = toRecur()
+        if (r) {
+            if (isDaily() && interval == 1) {
+                onDay = true;
+            } else {
+                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(date))
+                if (next) {
+                    def nextDate = new java.util.Date(next.getTime())
+                    onDay = date.equals(nextDate)
+                    println "  ${date} == ${nextDate}? ${onDay}"
+                } else {
+                    onDay = false
+                }
+            }
+        } else {
+            onDay = startDate.equals(date)
+        }
+
+        return onDay
+    }
+
+    boolean isOnDay(final startingDate, final noOfDays) {
+        boolean onDay = false
+
+        Recur r = toRecur()
+        if (r) {
+            net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startingDate))
+            if (next) {
+                def nextDate = new java.util.Date(next.getTime())
+                for (int i = 0; i < noOfDays; i++) {
+                    onDay = (startingDate + i).equals(nextDate)
+                    println "  ${startingDate + i} == ${nextDate}? ${onDay}"
+                    if (onDay) break;
+                }
+            } else {
+                onDay = false;
+            }
+        } else {
+            for (int i = 0; i < noOfDays; i++) {
+                onDay = (startingDate + i).equals(startDate)
+                if (onDay) break;
+            }
+        }
+
+        return onDay
+    }
+
+    Recur toRecur() {
+        Recur recur = null
+
+        if (isRule) {
+            String type;
+            int count = 1;
+            if (isDaily()) {
+                type = Recur.DAILY;
+                count = 356;
+            } else if (isWeekly()) {
+                type = Recur.WEEKLY;
+                count = 52;
+            } else if (isMonthly()) {
+                type = Recur.MONTHLY;
+                count = 12;
+            } else if (isYearly()) {
+                type = Recur.YEARLY;
+                count = 1;
+            }
+
+            if (startDate == endDate) {
+                recur = new Recur(type,count);
+            } else {
+                recur = new Recur(type, new net.fortuna.ical4j.model.Date(endDate));
+            }
+
+            def daysList = recur.getDayList();
+            List days = getDays();
+            days.each {
+                daysList.add(new WeekDay(it));
+            }
+
+            List offsets = getOffsets()
+            def posList = recur.getSetPosList()
+            offsets.each {
+                posList.add(Integer.valueOf(it))
+            }
+            recur.setInterval(interval);
+            recur.setWeekStartDay(WeekDay.MO.getDay());
+        }
+
+        return recur
     }
 }

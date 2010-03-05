@@ -33,7 +33,7 @@
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
-          <g:sortableColumn property="date" title="${eventDateLabel}"/>
+          <th><g:message code="event.eventDate.label"/></th>
           <g:sortableColumn property="category" title="${categoryLabel}"/>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>

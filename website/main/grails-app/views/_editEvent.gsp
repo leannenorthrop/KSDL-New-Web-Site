@@ -29,8 +29,27 @@
 --%>
 
 <%@ page import="org.joda.time.TimeOfDay" contentType="text/html;charset=UTF-8" %>
+<div id="jserrors" class="ui-widget ui-state-error ui-corner-all" style="display:none;">
+    <strong>
+      <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>
+    </strong>
+    <ol>
+      <li><label for="title" class="error">Please enter a title of at least 5 characters.</label></li>
+      <li><label for="summary" class="error">Please add a summary of at least 5 characters.</label></li>
+      <li><label for="category" class="error">Please select a category.</label></li>
+      <li><label for="leader.id" class="error">Please select a leader.</label></li>
+      <li><label for="organizer.id" class="error">Please select an Organizer.</label></li>
+      <li><label for="priceList[0].price" class="error">Please enter a Full Price in the form 0.00.</label></li>
+      <li><label for="priceList[1].price" class="error">Please enter a Subsidized Price in the form 0.00.</label></li>
+      <li><label for="priceList[2].price" class="error">Please enter a Students/OAP Price in the form 0.00.</label></li>
+      <li><label for="priceList[3].price" class="error">Please enter a Other Price in the form 0.00.</label></li>
+      <li><label for="content" class="error">Please add a description to the Full Description.</label></li>
+    </ol>
+</div>
+
 <div id="accordion">
   <h3><a href="#"><g:message code="event.details"/></a></h3>
+
   <div>
     <fieldset>
       <label for="title"><g:message code="event.title.label"/></label>
@@ -42,12 +61,12 @@
     </fieldset>
     <fieldset>
       <label for="category"><g:message code="event.category.label"/></label>
-      <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
+      <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" validate="required:true, minlength:1" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
     </fieldset>
     <fieldset>
       <label for="leader.id"><g:message code="event.leader.label"/></label>
       <g:set var="noSelectionLabel"><g:message code="please.select"/></g:set>
-      <g:select from="${org.samye.dzong.london.community.Teacher.publishState('Published').list()}" name="leader.id" value="${event?.leader?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
+      <g:select from="${org.samye.dzong.london.community.Teacher.publishState('Published').list()}" name="leader.id" validate="required:true, minlength:1" value="${event?.leader?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
     </fieldset>
     <fieldset>
       <label for="image.id"><g:message code="event.image.label"/></label>
@@ -65,12 +84,12 @@
     </fieldset>
     <fieldset>
       <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>
-      <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>&nbsp;:&nbsp;
+      <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}" id="starttime"/>&nbsp;:&nbsp;
       <g:select name="startTimeMin" from="${[0,10,15,20,30,40,45]}" value="${rule?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
     </fieldset>
     <fieldset>
       <label for="endTimeHour"><g:message code="event.endtime.label" default="End Time"/></label>
-      <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>&nbsp;:&nbsp;
+      <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}" id="endtime"/>&nbsp;:&nbsp;
       <g:select name="endTimeMin" from="${[0,10,15,20,30,40,45]}" value="${rule?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
     </fieldset>
   </div>
@@ -154,7 +173,8 @@
     <g:each var="price" in="${event.prices}" status="i">
       <fieldset>
         <label for="priceList[${i}].price"><g:message code="event.price.${pricelabels[price.category]}"/></label>
-        <g:textField name="priceList[${i}].price" value="${price.price}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/>
+        <g:set var="pvalue"><g:formatNumber number="${price.price}" format="#,##0.00;(#,##0.00)" minIntegerDigits="1" maxFractionDigits="2" roundingMode="HALF_DOWN"/></g:set>
+        <g:textField name="priceList[${i}].price" value="${pvalue}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/>
         <g:hiddenField name="priceList[${i}].id" value='${price.id}'/>
         <g:hiddenField name="priceList[${i}]._deleted" value='${false}'/>
         <g:hiddenField name="priceList[${i}].category" value='${price.category}'/>
@@ -245,6 +265,11 @@
       $("#alwaysFrom").attr("value",defaultFormattedDate);
       $("#fromDatepicker").attr("value",defaultFormattedDate);
       $("#untilDatepicker").attr("value",endFormattedDate);
+      $("#starttime").change(function() {
+          var stv = $(this).val();
+          stv++;
+          $("#endtime").attr("value", stv);
+      });
   <g:if test="${rule.isRule}">
     $("#dateTabs").tabs('option', 'selected', 1);
   </g:if>

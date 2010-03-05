@@ -54,7 +54,7 @@
       <fieldset>
         <label for="title"><g:message code="teacher.title.label"/></label>
         <g:set var="noneLabel"><g:message code="no.img"/></g:set>
-        <g:select name="title" from="${['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS']}" noSelection="${['U':noneLabel]}"valueMessagePrefix="teacher.title" />
+        <g:select name="title" from="${['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS']}" noSelection="${['U':noneLabel]}" valueMessagePrefix="teacher.title" />
       </fieldset>
       <fieldset>
         <label for="name"><g:message code="teacher.name.label"/></label>

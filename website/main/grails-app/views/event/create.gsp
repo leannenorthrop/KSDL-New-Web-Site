@@ -35,7 +35,12 @@
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.create.title"/></title>
     <jq:jquery>
-      $("#addevent").validate();
+      var container = $("#jserrors");
+      $("#addevent").validate({
+		errorContainer: container,
+		errorLabelContainer: $("ol", container),
+		wrapper: 'li'
+	});
     </jq:jquery>
   </head>
   <body>

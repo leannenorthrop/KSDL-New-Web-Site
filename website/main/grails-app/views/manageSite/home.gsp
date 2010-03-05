@@ -41,6 +41,7 @@
             <li><b>Publishing Content</b>
                 <p>If you have permission as an Editor you will also see the Article, Teacher and Image areas but you will not be able to add content unless you also have Author permissionship. However you will be able to review content created by all users with Author permission that have used the 'Ready to Publish' action. You can click on items 'Ready to Publish' to review them - once you are happy you can use the 'Publish' action to make the item visible on the Public pages, however you will first be asked to add <em>at least 1</em> Label. Once Publication is complete you will be able to browse to the relevant area and preview the item.</p>
             </li><b>Events</b>
+              <p>Before creating events the Leader/Teacher for the event should be added and published.</p>
             </li>
             <li>Across the top of this page is a toolbar which displays the areas of the website you can access. Click on the toolbar to access the management pages for that area. If you have permission you will see Add or Create buttons and Action links. There are no cancel buttons - please either click on the toolbar to navigate around or use your browser's back button.</li>
             <li><b>Images</b>
