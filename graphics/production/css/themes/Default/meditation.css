@@ -1,0 +1,103 @@
+body.meditation {
+    background-color: #e2deb5;
+    background-image: url(images/endlessknot/purple.png);
+    background-image: url(images/endlessknot/purple.png), url(images/bg.jpg);
+    border-color: #7e5bad;
+    border: 0;
+}
+
+body.meditation .container_16 {
+    border: 0.4em #7e5bad double;
+}
+
+body.meditation #branding {
+    color: #7e5bad;
+}
+
+body.meditation #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/purple.png);
+    right:-43px;
+    top:-44px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+
+/* Navigation
+*----------------------------------------------------------------------------*/
+body.meditation .nav ul {
+    border-top: 1px solid #7E5BAD;
+    border-bottom: 1px solid #7E5BAD;
+}
+
+body.meditation .nav ul li a:active,
+body.meditation .nav ul li.current a,
+body.meditation .nav ul li a:hover,
+body.meditation .nav ul li a:focus {
+    color:#7E5BAD;
+    font-weight: bold;
+}
+
+/* Footer
+*----------------------------------------------------------------------------*/
+body.meditation #site_info .box {
+    background: #a88bdf;
+}
+
+body.meditation #page-heading {
+    color: #967d9a;
+    border-bottom:1px solid #b0a8bf;
+}
+
+body.meditation .box h2 {
+    background:transparent;
+    color:#7E5BAD;
+}
+
+body.meditation .box.article h2, .meditation h3 a {
+    color:#7e5bad;
+    background: transparent;
+}
+
+body.meditation .box .article, body.meditation .box .event {
+    border-top:1px solid #7e5bad;
+}
+
+body.meditation .article h2, body.meditation .event h2 {
+    color:#967d9a;
+}
+
+body.meditation .article p.meta, body.meditation .event p.meta, .event.M p.meta {
+    color:#967d9a;
+    border-top:1px dotted #6a4c71;
+    border-bottom:1px dotted #6a4c71;
+}
+
+.events li.M h3, .events li.M h3 a, .articles li.M h3, .articles li.M h3 a {
+    color:#6a4c71;
+}
+.events li.M h3 a:hover,.articles li.M h3 a:hover {
+    color:#b0a8bf;
+}
+
+.event .M h4,
+.article .M h4,
+.event .M h3,
+.article .M h3,
+.event .M h5,
+.article .M h5,
+.event .M h6,
+.article .M h6,
+.events li.M h4,
+.articles li.M h4,
+.events li.M h5,
+.articles li.M h5,
+.events li.M h6,
+.articles li.M h6 {
+    color:#b0a8bf;
+}
+body.meditation .box .first, body.meditation .block .first, body.meditation .block li.first {
+    border-top: none;
+}

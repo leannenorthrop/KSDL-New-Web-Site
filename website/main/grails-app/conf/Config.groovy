@@ -53,7 +53,6 @@ log4j = {
     //
     appenders {
         console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-        file name:'file', file:"lsd.log"
     }
 
     root {
@@ -68,7 +67,6 @@ log4j = {
           'com.gargoylesoftware.htmlunit.javascript.host.HTMLDocument',
           'com.gargoylesoftware.htmlunit.DefaultCssErrorHandler'
 
-
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
            'org.codehaus.groovy.grails.web.sitemesh', //  layouts
@@ -80,7 +78,9 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate',
-           'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine'
+           'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
+           stdout:"StackTrace"
+
 
     warn   'org.mortbay.log'
 
@@ -98,25 +98,32 @@ environments {
         grails {
            mail {
              //grails.mail.jndiName = "myMailSession"
-             //grails.mail.default.from="server@yourhost.com"
+             grails.mail.default.from="site@londonsamyedzong.org"
              host = "smtp.gmail.com"
-             username = "leanne.northrop@googlemail.com"
-             password = "37911061"
+             username = "site@londonsamyedzong.org"
+             password = "thx1138"
              props = ["mail.smtp.auth":"true",
                       "mail.smtp.socketFactory.port":"465",
                       "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
                       "mail.smtp.socketFactory.fallback":"false"]
            }
         }
-        grails.serverURL = "http://www.changeme.com"
+        grails.serverURL = "http://184.73.216.159"
+        grails.full.stacktrace=true
+        log4j = {
+            appenders {
+               'null' name:'stacktrace'
+               file name:'file', file:"/var/log/tomcat5/lsd.log"
+            }
+        }
     }
     development {
         println "Environment is set to Development"
         grails {
            mail {
              host = "0.0.0.0"
-             username = "leanne.northrop@googlemail.com"
-             password = "37911061"
+             username = "site@londonsamyedzong.org"
+             password = "change!t"
              props = ["mail.smtp.auth":"true",
                       "mail.smtp.socketFactory.port":com.icegreen.greenmail.util.ServerSetupTest.SMTP.port]
            }
@@ -129,8 +136,8 @@ environments {
         grails {
            mail {
              host = "0.0.0.0"
-             username = "leanne.northrop@googlemail.com"
-             password = "37911061"
+             username = "site@londonsamyedzong.org"
+             password = "change!t"
              props = ["mail.smtp.auth":"true",
                       "mail.smtp.socketFactory.port":com.icegreen.greenmail.util.ServerSetupTest.SMTP.port]
            }

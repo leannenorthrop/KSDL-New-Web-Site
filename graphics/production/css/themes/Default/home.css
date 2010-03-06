@@ -1,0 +1,167 @@
+body.home {
+    background-color: #e2deb5;
+    background-image: url(images/endlessknot/red.png);
+    background-image: url(images/endlessknot/red.png), url(images/bg.jpg);
+    border-color: #850007;
+    border: 0;
+}
+
+body.home .container_16 {
+    border: 0.4em #AD2617 double;
+}
+
+body.home #branding {
+    color: #850007;
+}
+
+body.home #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/red.png);
+    right:-35px;
+    top:-36px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+/* Navigation
+*----------------------------------------------------------------------------*/
+body.home .nav ul {
+    border-top: 1px solid #a40011;
+    border-bottom: 1px solid #a40011;
+}
+
+body.home .nav ul li a:active,
+body.home .nav ul li.current a,
+body.home .nav ul li a:hover,
+body.home .nav ul li a:focus {
+    color:#a40011;
+    font-weight: bold;
+}
+
+/* Footer
+*----------------------------------------------------------------------------*/
+body.home #site_info .box {
+    background: #b64447;
+    color: #a40011;
+}
+
+body.home #page-heading {
+    color: #850007;
+    border-bottom:1px dotted #b64447;
+    font-style:italic;
+}
+
+body.home .box h2 {
+    background:#a40011;
+    color:#d1c5a4;
+}
+
+body.home .box.article h2 {
+    color:#a40011;
+    background: transparent;
+}
+
+body.home .box .article, body.home .box .event {
+    border-top:none;
+}
+
+body.home .article h2, body.home .event h2 {
+    color:#850007;
+}
+
+body.home .border1 {
+    border-width: 13px;
+    -webkit-border-image: url("images/borderimage.png") 11 11 11 11 round;
+    -moz-border-image: url("images/borderimage.png") 11 11 11 11 round;
+}
+
+body.home .border1 h2 {
+    background: transparent;
+    color: #a40011;
+}
+
+
+body.home .border2 {
+    border-width: 70px;
+    -webkit-border-image: url("images/knotborderimage.png") 128 135 128 135 round;
+    -moz-border-image: url("images/knotborderimage.png") 128 135 128 135 round;
+}
+
+body.home .border2 h2 {
+    background: transparent;
+    color: #a40011;
+}
+
+
+body.home span.amp {
+    color: #a40011;
+}
+
+body.home .shortnews h2 {
+    color: #333;
+    border-bottom:1px solid #b64447;
+}
+
+body.home .shortnews ol li a:hover,
+body.home .services ul li a:hover {
+    color: #b64447;
+}
+
+body.home .services li {
+    list-style: none;
+}
+
+body.home .services h2 {
+    background: none;
+    color: #333;
+    font-size: 1.2em;
+    font-weight: normal;
+    margin: 1.6em -10px 0.9em -10px;
+    padding: 6px 12px;
+    border-bottom:1px solid #b64447;
+}
+
+li.email {
+    background: transparent url(images/Mail.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
+}
+
+li.rss {
+    background: transparent url(images/RSS.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
+}
+
+li.twitter {
+    background: transparent url(images/Twitter.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
+}
+
+li.calendar {
+    background: transparent url(images/iCal.png) top left no-repeat;
+    padding: 4px 0 4px 28px;
+    margin: 0;
+}
+
+body.home ol.feeds {
+    list-style: none;
+}
+
+body.home .event a img {
+    float: left;
+    border: 1px solid #aaa;
+    padding: 3px;
+    background: #ddd;
+    border-radius: 3px;
+}
+body.home .event div {
+    padding-left: 100px;
+    padding-top: 10px;
+}
+body.home .shortnews h2 {
+    background: none;
+    color: #333;
+}

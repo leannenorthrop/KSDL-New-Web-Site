@@ -34,7 +34,8 @@ class AuthController {
                 def newUser = new ShiroUser(username: params.username, passwordHash: new Sha1Hash(params.password).toHex(), passwordReset: token)
                 if (!newUser.hasErrors() && newUser.save()) {
                     log.trace "New account created for ${params.username}"
-                    emailService.sendAccountVerification(newUser.username,token)
+                    def baseUrl = createLink(controller:"admin", action:"requestPermission", absolute:"true").toString()
+                    emailService.sendAccountVerification(newUser.username,token,baseUrl)
                     flash.message = 'register.success'
                     redirect(controller: 'manageSite', action: 'info')
                 } else {
@@ -128,7 +129,8 @@ class AuthController {
                 def token = new Sha1Hash(new Date().toString()).toHex()
                 user.passwordReset = token
                 if (!user.hasErrors() && user.save()) {
-                    emailService.sendPasswordReset(user.username,token)
+                    def baseUrl = createLink(controller:"auth", action:"doPasswordReset", absolute:"true").toString()
+                    emailService.sendPasswordReset(user.username,token,baseUrl)
                     flash.message = "passwd.reset.success"
                     flash.args = msgParams
                     flash.isError = false

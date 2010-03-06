@@ -20,7 +20,7 @@ class EmailService {
         }
     }
 
-    def sendPasswordReset(email, token) {
+    def sendPasswordReset(email, token, baseUrl) {
         sendMail {
           to email
           subject "London Samye Dzong: Forgot your password?"
@@ -30,11 +30,11 @@ class EmailService {
 
           To reset your password, just click the link below and you'll be taken to a form where you can change your password:
 
-          http://localhost:8080/main/auth/doPasswordReset/${token}
+          ${baseUrl}/${token}
 
           If you did not request resetting of your password, please disregard this e-mail.
 
-          Please contact support@lsd.org with any questions.
+          Please contact site@londonsamyedzong.org with any questions.
 
           London Samye Dzong"""
         }
@@ -45,7 +45,7 @@ class EmailService {
         }
     }
 
-    def sendAccountVerification(email, token) {
+    def sendAccountVerification(email, token, baseUrl) {
         sendMail {
           to email
           subject "London Samye Dzong: Account Verification"
@@ -55,11 +55,11 @@ class EmailService {
 
           To enable your account, just click the link below and you'll be taken to a form where you can request particular access rights:
 
-          http://localhost:8080/main/admin/requestPermission/${token}
+          ${baseUrl}/${token}
 
           If you did not request an account, please disregard this e-mail.
 
-          Please contact support@lsd.org with any questions.
+          Please contact site@londonsamyedzong.org with any questions.
 
           London Samye Dzong"""
         }
