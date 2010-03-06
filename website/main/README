@@ -23,7 +23,7 @@ Before beginning please create your properties file under src/main/filters/<user
 
 3. Databases
 ===============================================================================
-1. Hypersonice
+1. Hypersonic
 
 2. Mysql-----------------------------------------------------------------------
 1. Start with mysqld_safe --user=<username> &

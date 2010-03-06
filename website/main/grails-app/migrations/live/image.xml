@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+    <changeSet author="northrl" id="test-image-data-01">
+        <loadData tableName="image" file="${live-dir}/data/IMAGE.csv">
+            <column name="version" type="NUMERIC" header="VERSION"/>
+            <column name="name" type="STRING" header="NAME"/>
+            <column name="mime_type" type="STRING" header="MIME_TYPE"/>
+            <column name="thumbnail" type="STRING" header="THUMBNAIL"/>
+            <column name="image" type="STRING" header="IMAGE"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
+

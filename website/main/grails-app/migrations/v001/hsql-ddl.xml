@@ -8,5 +8,6 @@
     <property name="varchar-2048" value="VARCHAR(2048)"/>
     <property name="varchar-500" value="VARCHAR(500)"/>
     <property name="blob" value="BLOB"/>
+    <property name="schema" value="PUBLIC"/>
     <include relativeToChangelogFile="true" file="v001-ddl.xml" />
 </databaseChangeLog>

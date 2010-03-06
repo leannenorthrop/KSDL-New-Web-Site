@@ -1,32 +1,34 @@
 coverage {
-	enabledByDefault = false
-	xml =true
-	exclusions = [
-	              '**/de/andreasschmitt/richui/taglib/renderer/**',
-	              '**/plugins/richui-0.4/src/groovy/de/andreasschmitt/richui/**',
-	              '**/de/andreasschmitt/richui/image/**',
-	              '**/org/jsecurity/**',
-	              '**/org/jsecurity/grails/**',
-	              '**/JsecDbRealm*',
-	              '**/*TagLib*/**',
-	              "**/*Tests*",
-				  "**/AuditLogEvent*",
-				  "**/AuditLogLis*",
-				  "**/org/apache/**/*",
-				  "**/org/grails/**/*",
-				  "**/feedsplugin/*",
-				  "**/Shiro*",
-				  "**/BuildConfig*",
-				  "**/Security*",
-	              '**/JsecAuthBase*',
-	              '**/JsecurityFilters*']
+    enabledByDefault = false
+    xml =true
+    exclusions = [
+                  '**/de/andreasschmitt/richui/taglib/renderer/**',
+                  '**/plugins/richui-0.4/src/groovy/de/andreasschmitt/richui/**',
+                  '**/de/andreasschmitt/richui/image/**',
+                  '**/org/jsecurity/**',
+                  '**/org/jsecurity/grails/**',
+                  '**/JsecDbRealm*',
+                  '**/*TagLib*/**',
+                  "**/*Tests*",
+                  "**/AuditLogEvent*",
+                  "**/AuditLogLis*",
+                  "**/org/apache/**/*",
+                  "**/org/grails/**/*",
+                  "**/feedsplugin/*",
+                  "**/Shiro*",
+                  "**/BuildConfig*",
+                  "**/Security*",
+                  '**/JsecAuthBase*',
+                  '**/JsecurityFilters*']
 
 }
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
-grails.project.test.reports.dir	= "target/test-reports"
+grails.project.test.reports.dir = "target/test-reports"
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
+
 grails.project.dependency.resolution = {
+    //pom true
     // inherit Grails' default dependencies
     inherits( "global" ) {
         // uncomment to disable ehcache

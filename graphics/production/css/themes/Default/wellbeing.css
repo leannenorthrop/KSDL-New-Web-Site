@@ -1,0 +1,105 @@
+body.wellbeing {
+    background-color: #e2deb5;
+    background-image: url(images/endlessknot/green.png);
+    background-image: url(images/endlessknot/green.png), url(images/bg.jpg);
+    border-color: #7e5bad;
+    border: 0;
+}
+
+body.wellbeing .container_16 {
+    border: 0.4em #3e762a double;
+}
+
+body.wellbeing #branding {
+    color: #1e6400;
+}
+
+body.wellbeing #watermark1 {
+    display: block;
+    position:absolute;
+    background-image: url(images/corner/green.png);
+    right:-43px;
+    top:-44px;
+    width: 300px;
+    height: 301px;
+    z-index: 100;
+}
+/* Footer
+*----------------------------------------------------------------------------*/
+#site_info .box {
+    background: #c0e271;
+}
+
+/* Navigation
+*----------------------------------------------------------------------------*/
+body.wellbeing .nav ul {
+    border-top: 1px solid rgb(125, 160, 10);
+    border-bottom: 1px solid rgb(125, 160, 10);
+}
+
+body.wellbeing .nav ul li a:active,
+body.wellbeing .nav ul li.current a,
+body.wellbeing .nav ul li a:hover,
+body.wellbeing .nav ul li a:focus {
+    color:rgb(62, 118, 42);
+    font-weight: bold;
+}
+
+
+/* Well Being Pages
+----------------------------------------------- */
+body.wellbeing #page-heading {
+    color: #1e6400;
+    border-bottom:1px solid #C0E271;
+}
+
+body.wellbeing .box h2 {
+    background:transparent;
+    color:#7dc622;
+}
+
+body.wellbeing .box.article h2,.wellbeing h3 a  {
+    color:#1e6400;
+    background: transparent;
+}
+
+body.wellbeing .box .article, body.wellbeing .box .event {
+    border-top:1px solid #1e6400;
+}
+
+body.wellbeing .article h2, body.wellbeing .event h2 {
+    color:#1e6400;
+}
+
+body.wellbeing .article p.meta, body.wellbeing .event p.meta, .event.W p.meta {
+    color:#1e6400;
+    border-top:1px dotted #1e6400;
+    border-bottom:1px dotted #1e6400;
+}
+
+.events li.W h3, .events li.W h3 a, .articles li.W h3, .articles li.W h3 a {
+    color:#3b4520;
+}
+.events li.W h3 a:hover,.articles li.W h3 a:hover {
+    color:#1e6400;
+}
+
+.event .W h4,
+.article .W h4,
+.event .W h3,
+.article .W h3,
+.event .W h5,
+.article .W h5,
+.event .W h6,
+.article .W h6,
+.events li.W h4,
+.articles li.W h4,
+.events li.W h5,
+.articles li.W h5,
+.events li.W h6,
+.articles li.W h6 {
+    color:#1e6400;
+}
+body.wellbeing .box .first, body.wellbeing .block .first, body.wellbeing .block li.first {
+    border-top: none;
+}

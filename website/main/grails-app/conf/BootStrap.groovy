@@ -24,6 +24,8 @@ class BootStrap {
                  def config = ConfigurationHolder.getConfig()
                  config.greenmail = greenMail
              }
+             production {
+             }
          }
     }
 

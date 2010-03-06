@@ -10,7 +10,32 @@ http://code.google.com/p/lsd-website/issues/entry
                         FOR 5/03/2010
 ================================================================================
 0. Fixes:
+    - When deleting items add (Deleted) to name/title to get around unique constraint
+    - Fix linking in png images.
+    - Stuff with quotes
+    - Preview: use built in remote tag
+    - Css
+        - move around
+    - home page & featured
+    - add notes
+1. Register
+    - Add jquery validation
+    - Add jquery form css
+    - Ensure exitis email
+3. Make war ROOT and deploy into Tomcat
+4. Upgrade to 1.2.1
+5. Ehcache
+7. Check build
+8. Check against mysql & generate SQL
+9. Deploy to development machine.
+
+================================================================================
+                        FOR 31/03/2010
+================================================================================
+Fixes
     - Events
+        - dont display more unless some
+        - featured before regular
     - About Us
         - Teacher
             - force toString to figure out title
@@ -22,27 +47,12 @@ http://code.google.com/p/lsd-website/issues/entry
         - add categories when searching for similar articles (check labels)
     - Meditation Page
         - All Article list should not include links to Read More...
-    - When deleting items add (Deleted) to name/title to get around unique constraint
-    - Fix linking in png images.
-    - Preview: use built in remote tag
     - Css
         - external site link
         - color ratios
-
-1. Register
-    - Add jquery validation
-    - Add jquery form css
-    - Ensure is email
 2. Settings to be pulled from web container as resources:
     - Email
     - Twitter
-7. Check build
-8. Check against mysql & generate SQL
-9. Deploy to development machine.
-
-================================================================================
-                        FOR 31/03/2010
-================================================================================
 5. Users
     - Delete users
     - Email as username check, password size

@@ -8,5 +8,6 @@
     <property name="varchar-2048" value="TEXT"/>
     <property name="varchar-500" value="TEXT"/>
     <property name="blob" value="LONGBLOB"/>
+    <property name="schema" value="londonsamyedzong"/>
     <include relativeToChangelogFile="true" file="v001-ddl.xml" />
 </databaseChangeLog>
