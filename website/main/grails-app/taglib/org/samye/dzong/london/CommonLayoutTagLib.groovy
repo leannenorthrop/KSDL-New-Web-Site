@@ -32,9 +32,9 @@ class CommonLayoutTagLib {
                         } else if (controllerName.equals (navControllers[-1])) {
                             mkp.yieldUnescaped ("<li class='last'>${aElem}</li>")
                         } else if (controllerName.equals (attrs.current) && controllerName.equals (navControllers[0])) {
-                            mkp.yieldUnescaped("<li class='first current'><a href='${resource(dir:'')}'><strong>${messageSource.getMessage(controllerName,null,null)}</strong><em>${messageSource.getMessage(controllerName+".desc",null,null)}</em></a></li>")
+                            mkp.yieldUnescaped("<li class='first current'><a href='${resource(dir:'/')}'><strong>${messageSource.getMessage(controllerName,null,null)}</strong><em>${messageSource.getMessage(controllerName+".desc",null,null)}</em></a></li>")
                         } else if (controllerName.equals (navControllers[0])){
-                            mkp.yieldUnescaped("<li class='first'><a href='${resource(dir:'')}'><strong>${messageSource.getMessage(controllerName,null,null)}</strong><em>${messageSource.getMessage(controllerName+".desc",null,null)}</em></a></li>")
+                            mkp.yieldUnescaped("<li class='first'><a href='${resource(dir:'/')}'><strong>${messageSource.getMessage(controllerName,null,null)}</strong><em>${messageSource.getMessage(controllerName+".desc",null,null)}</em></a></li>")
                         } else if (controllerName.equals (attrs.current)) {
                             mkp.yieldUnescaped ("<li class='current'>${aElem}</li>")
                         } else {
