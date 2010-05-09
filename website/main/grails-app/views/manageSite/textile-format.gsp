@@ -35,7 +35,7 @@
             </ol>
             <h3>Images & Objects</h3>
             <ol>
-                    <li>!imageName! </li>
+                    <li>[imageName](image)</li>
             </ol>
             <h3>Extras</h3>
             <ol>

@@ -1,0 +1,15 @@
+/*******************************************************************************
+ * Every Theme must have a screen.css file which _may_ be used to import other
+ * stylesheets _or_ contain all css styles. The Theme screen.css is always loaded
+ * after the site's layout stylesheets which means that Themes can modify the
+ * layout using cascading. However please note there are two stylesheets, one
+ * called ie.css and another ie6.css which are loaded after Themes which define
+ * fixes for Internet Explorer browsers.
+ * Images and fonts should be loaded relative to the directory that contains this
+ * file.
+ ******************************************************************************/
+
+
+/* uncomment the following example to import other stylesheets from the same directory */
+/* @import url("layout.css"); */
+
