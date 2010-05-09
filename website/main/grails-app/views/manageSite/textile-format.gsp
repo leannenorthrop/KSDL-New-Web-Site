@@ -13,11 +13,11 @@
                 <li><strong>*strong*</strong></li>
                 <li><i>__italic__</i></li>
                 <li><b>**bold**</b></li>
-                <li><cite>??citation??</cite></li>
+                <!--li><cite>??citation??</cite></li-->
                 <li><del>-deleted text-</del></li>
                 <li><ins>+inserted text+</ins></li>
-                <li><sup>^superscript^</sup></li>
-                <li><sub>~subscript~</sub></li>
+                <!--li><sup>^superscript^</sup></li>
+                <li><sub>~subscript~</sub></li-->
                 <li><span>%span%</span></li>
                 <li><code>@code@</code></li>
             </ol>
@@ -30,8 +30,8 @@
                     <li><b>pre.</b> Pre-formatted</li>
                     <li><b>#</b> Numeric list</li>
                     <li><b>*</b> Bulleted list</li>
-                    <li><b>fnn.</b> Footnote</li>
-                    <li>reference[1]<br/>fn1. footnote text</li>
+                    <!--li><b>fnn.</b> Footnote</li>
+                    <li>reference[1]<br/>fn1. footnote text</li-->
             </ol>
             <h3>Images & Objects</h3>
             <ol>

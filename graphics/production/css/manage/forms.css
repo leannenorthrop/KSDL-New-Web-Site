@@ -1,22 +1,5 @@
-form, .contentAdmin .content {
+form {
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    width: 85%;
-}
-
-.contentAdmin .content ul, .contentAdmin .content ol{
-    list-style: inherit;
-}
-
-.contentAdmin .article ul {
-    list-style:none;
-}
-
-.contentAdmin h1, .contentAdmin h2, .contentAdmin h3, .contentAdmin h4, .contentAdmin h5, .contentAdmin h6 {
-    padding-left: 1em;
-    line-height: 2em;
-    margin-bottom: 0.6em;
 }
 
 fieldset {
@@ -52,9 +35,7 @@ fieldset input:focus, fieldset textarea:focus, fieldset.select:focus {
 }
 
 form fieldset {
-    margin-left: auto;
-    margin-right: auto;
-    width: 90%;
+
 }
 /* ACTION BUTTONS */
 input[type="submit"],form a.button, form a.submit {

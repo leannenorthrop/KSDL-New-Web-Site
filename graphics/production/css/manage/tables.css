@@ -23,7 +23,6 @@ th {
 th a:link, th a:visited, th a:hover {
     color: #333;
     display: block;
-    font-size: 10px;
     text-decoration: none;
     width: 100%;
 }

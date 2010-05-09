@@ -26,3 +26,9 @@
 .entryForms .register {
     width: 48%;
 }
+
+.entryForms fieldset {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}

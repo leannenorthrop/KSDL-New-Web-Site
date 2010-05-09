@@ -23,6 +23,10 @@ class ManageSiteController {
     }
 
     def preview = {
-        render(view: 'preview', model: [content: params.previewcontenttxt])
-    }    
+        try {
+            render(view: 'preview', model: [content: params.previewcontenttxt])
+        } catch(error) {
+
+        }
+    }
 }

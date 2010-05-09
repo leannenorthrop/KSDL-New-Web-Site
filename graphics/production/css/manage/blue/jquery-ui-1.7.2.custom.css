@@ -48,7 +48,7 @@
 
 /* Component containers
 ----------------------------------*/
-.contentAdmin .ui-widget { font-family: Helvetica, Arial, sans-serif; font-size: 1.1em; }
+.contentAdmin .ui-widget { font-family: Helvetica, Arial, sans-serif; font-size: 1em; }
 .contentAdmin .ui-widget input, .contentAdmin .ui-widget select, .contentAdmin .ui-widget textarea, .contentAdmin .ui-widget button { font-family: Helvetica, Arial, sans-serif; font-size: 1em; }
 .contentAdmin .ui-widget-content { border: 1px solid #dddddd; background: #f2f5f7 url(images/ui-bg_highlight-hard_100_f2f5f7_1x100.png) 50% top repeat-x; color: #362b36; }
 .contentAdmin .ui-widget-content a { color: #362b36; }
@@ -302,7 +302,7 @@
 .contentAdmin .ui-datepicker .ui-datepicker-title { margin: 0 2.3em; line-height: 1.8em; text-align: center; }
 .contentAdmin .ui-datepicker .ui-datepicker-title select { float:left; font-size:1em; margin:1px 0; }
 .contentAdmin .ui-datepicker select.ui-datepicker-month-year {width: 100%;}
-.contentAdmin .ui-datepicker select.ui-datepicker-month, 
+.contentAdmin .ui-datepicker select.ui-datepicker-month,
 .contentAdmin .ui-datepicker select.ui-datepicker-year { width: 49%;}
 .contentAdmin .ui-datepicker .ui-datepicker-title select.ui-datepicker-year { float: right; }
 .contentAdmin .ui-datepicker table {width: 100%; font-size: .9em; border-collapse: collapse; margin:0 0 .4em; }
@@ -353,7 +353,7 @@
 ----------------------------------*/
 .contentAdmin .ui-dialog { position: relative; padding: .2em; width: 300px; }
 .contentAdmin .ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative;  }
-.contentAdmin .ui-dialog .ui-dialog-title { float: left; margin: .1em 0 .2em; } 
+.contentAdmin .ui-dialog .ui-dialog-title { float: left; margin: .1em 0 .2em; }
 .contentAdmin .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
 .contentAdmin .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
 .contentAdmin .ui-dialog .ui-dialog-titlebar-close:hover, .contentAdmin .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
