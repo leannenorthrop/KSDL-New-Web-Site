@@ -22,41 +22,30 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 18, 2010
-  Time: 1:20:27 PM
-  To change this template use File | Settings | File Templates.
+  User: Leanne Northrop
+  Date: Feb 18, 2010, 1:20:27 PM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <div id="content-tabs">
   <ul>
     <li><a href="#edit-tab"><g:message code="edit.tab.title" default="Edit"/></a></li>
+    <li><a href="#preview-tab" ><g:message code="preview.tab.title" default="Preview"/></a></li>    
     <li><a href="${createLink(controller: 'manageSite', action: 'textile')}" title="Hints Tab"><g:message code="hints.tab.title" default="Hints"/></a></li>
-    <li><a href="#preview-tab"><g:message code="preview.tab.titile" default="Preview"/></a></li>
   </ul>
   <div id="edit-tab">
     <label for="content"><g:message code="article.content.label"/></label>
-    <g:textArea rows="35" cols="40" name="content" class="ui-corner-all ${hasErrors(bean:publishableInstance,field:'content','errors')}" value="${fieldValue(bean:publishableInstance,field:'content')}"/>
-  </div>
-  <div id="Hints_Tab">
+    <lsdc:remoteField name="content" controller="manageSite" action="preview" update="preview-tab" paramName="previewcontenttxt" class="ui-corner-all ${hasErrors(bean:publishableInstance,field:'content','errors')}" value="${publishableInstance?.content}"/>
   </div>
   <div id="preview-tab">
   </div>
+  <div id="Hints_Tab">
+  </div>
 </div>
+
 <g:javascript>
   $("#content-tabs").tabs({
-    fx: { opacity: 'toggle' },
-    select: function(event, ui) {
-      if (ui.panel.id == 'preview-tab') {
-        var text = $('#content').val();
-        var url = '${createLink(controller: previewController, action: 'preview')}';
-        var dataString = 'previewcontenttxt=' + text;
-        $.post(url, dataString, function(data) {
-          $('#preview-tab').html(data);
-        });
-      }
-    }
+    fx: { opacity: 'toggle' }
   });
+  $("#edit-tab textarea").keyup();
 </g:javascript>
