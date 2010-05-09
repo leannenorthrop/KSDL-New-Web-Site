@@ -59,7 +59,7 @@
         </fieldset>
         <fieldset>
           <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="help" action='textile'>Textile</g:link> for details.</em></label>
-          <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${fieldValue(bean:articleInstance,field:'summary')}" minlength="5"/>
+          <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance.summary}" minlength="5"/>
         </fieldset>
         <fieldset>
           <g:render template="/contentWithPreview" model="[previewController: 'article',publishableInstance:articleInstance]"/>

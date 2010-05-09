@@ -43,37 +43,34 @@
     <g:layoutHead/>
   </head>
   <body class="contentAdmin" style="min-width:50em">
-    <div id="banner">
-      <div id="text">
-        <img src="${resource(dir: 'css/manage/images/', file: 'heading.png')}"/>
-      </div>
-      <div id="back">
-        <div id="mid">
-          <img id="bannerImg" src="${resource(dir: 'css/manage/images/', file: 'whitetara.png')}"/>
-          <div id="front">
-          </div>
-        </div>
-      </div>
+    <div class="grid_18">
+      <h1><g:message code="title" default="Kagyu Samye Dzong London"/>: Web-Site Content Management System</h1>
+      <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
     </div>
+    <div class="clear"></div>
 
-
-    %{--<lsdc:nav current="manageSite"/>--}%
-    <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
-    <div class="content">
+    <div class="grid content">
       <g:layoutBody/>
     </div>
-    <lsdc:grid/>
-    <div class="footer">
-    <ul>
-      <li>
-        <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-        <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
-      </li>
-      <li>
-        Version <g:meta name="app.version"/> Built with Grails <g:meta name="app.grails.version"/>
-      </li>
-    </ul>
+    <div class="clear"></div>
 
+    <div class="grid_18">
+      <div class="footer">
+        <ul>
+          <li>
+            <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
+            <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
+          </li>
+          <li>
+            Version <g:meta name="app.version"/> Built with Grails <g:meta name="app.grails.version"/>
+          </li>
+          <li>
+            ${(Runtime.getRuntime().freeMemory()/1024)/1024} Mb free of ${(Runtime.getRuntime().totalMemory()/1024)/1024} Mb
+          </li>
+        </ul>
+      </div>
     </div>
+    <div class="clear"></div>
+  </div>
   </body>
 </html>

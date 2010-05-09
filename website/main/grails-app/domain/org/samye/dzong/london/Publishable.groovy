@@ -79,66 +79,6 @@ class Publishable implements Taggable {
         tablePerHierarchy false
     }
 
-    static namedQueries = {
-        homePageArticles {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "Published"
-            eq 'home', Boolean.TRUE
-            order("datePublished", "desc")
-        }
-
-        featuredArticles { final category ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "Published"
-            eq 'category', category
-            or {
-                eq 'home', Boolean.TRUE
-                eq 'featured', Boolean.TRUE
-            }
-            order("datePublished", "desc")
-        }
-
-        authorPublishState { username, publishState ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            author {
-                eq 'username', username
-            }
-        }
-
-        publishState { publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            order(orderCol, orderDir)
-        }
-
-        deletedAuthor { username ->
-                eq('deleted', Boolean.TRUE)
-                author {
-                    eq('username', username)
-                }
-        }
-
-        orderedAuthorPublishState { username, publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            author {
-                eq 'username', username
-            }
-            order("${orderCol}", "${orderDir}")
-        }
-
-        orderedPublishState { publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            order("${orderCol}", "${orderDir}")
-        }
-
-        deleted {
-            eq('deleted', Boolean.TRUE)
-        }
-    }
-
     String toString() {
         return "${publishState} by ${author.username} on ${lastUpdated} (${deleted ? "Deleted" : "Not Deleted"})"
     }

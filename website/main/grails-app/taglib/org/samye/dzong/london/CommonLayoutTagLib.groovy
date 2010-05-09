@@ -1,6 +1,7 @@
 package org.samye.dzong.london
 import org.apache.shiro.SecurityUtils
 import groovy.xml.StreamingMarkupBuilder
+import org.codehaus.groovy.grails.plugins.web.taglib.JavascriptValue
 
 class CommonLayoutTagLib {
     static namespace = 'lsdc'
@@ -167,4 +168,31 @@ class CommonLayoutTagLib {
         }
         out << "</div>"
     }
+
+    def remoteField = { attrs, body ->
+		def paramName = attrs.paramName ? attrs.remove('paramName') : 'value'
+		def value = attrs.remove('value')
+		if(!value) value = ''
+		out << "<textArea rows=\"35\" cols=\"40\" name=\"${attrs.remove('name')}\" onkeyup=\""
+
+        if(attrs.params) {
+			if(attrs.params instanceof Map) {
+				attrs.params.put(paramName, new JavascriptValue('this.value'))
+			}
+			else {
+				attrs.params += "+'${paramName}='+this.value"
+			}
+		}
+		else {
+    		attrs.params = "'${paramName}='+this.value"
+		}
+		out << remoteFunction(attrs)
+		attrs.remove('params')
+		out << "\""
+		attrs.remove('url')
+		attrs.each { k,v->
+			out << " $k=\"$v\""
+		}
+		out <<" >${value}</textarea>"
+	}
 }

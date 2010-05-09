@@ -6,4 +6,46 @@ Title:      Screen styles and ie/win patches
 @import url("reset.css");
 @import url("text.css");
 @import url("grid.css");
+
+/* Mootools Kwicks
+----------------------------------------------- */
+#kwick-box {
+    padding:0;
+    overflow:hidden;
+}
+#kwick {
+    position: relative;
+}
+#kwick .kwicks {
+    display: block;
+    height: 180px;
+    list-style:none;
+    margin:0;
+    overflow:hidden;
+}
+#kwick li {
+    float: left;
+    margin:0;
+    padding:0;
+}
+#kwick .kwick {
+    display: block;
+    cursor: pointer;
+    overflow: hidden;
+    height: 160px;
+    width: 125px;
+    padding: 10px;
+}
+
+#kwick .kwick div img{
+    float: left;
+    max-height: 120px;
+    margin-right: 0.6em;
+    margin-bottom: 0.6em;
+}
+
+#kwick .kwick div p a {
+    font-weight: normal;
+    font-size: smaller;
+}
 /* end import/hide */

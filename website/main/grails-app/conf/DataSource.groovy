@@ -14,14 +14,14 @@ environments {
         dataSource {
             // one of 'create', 'create-drop','update'
             dbCreate = "update"
-//            url = "jdbc:mysql://localhost:3306/lsd"
-//            driverClassName = "com.mysql.jdbc.Driver"
-//            username = "northrl"
-//            password = "change!t"
-            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
-            driverClassName = "org.hsqldb.jdbcDriver"
-            username = "sa"
-            password = ""
+            url = "jdbc:mysql://localhost:3306/londonsamyedzong"
+            driverClassName = "com.mysql.jdbc.Driver"
+            username = "londonsamyedzong"
+            password = "change!t"
+//            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
+//            driverClassName = "org.hsqldb.jdbcDriver"
+//            username = "sa"
+//            password = ""
         }
     }
 
