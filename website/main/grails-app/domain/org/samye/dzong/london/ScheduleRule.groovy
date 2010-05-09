@@ -67,6 +67,7 @@ class ScheduleRule {
             duration type: PersistentPeriod
             content type: 'text'
             summary type: 'text'
+            interval column:'the_interval'
         }
     }
 

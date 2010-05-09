@@ -108,7 +108,7 @@ environments {
                       "mail.smtp.socketFactory.fallback":"false"]
            }
         }
-        grails.serverURL = "http://184.73.216.159"
+        grails.serverURL = "http://www.londonsamyedzong.org"
         grails.full.stacktrace=true
         log4j = {
             appenders {
