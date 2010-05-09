@@ -35,8 +35,6 @@
       <g:set var="minHeightEm" value="${5+(users.size()*3)}em;"/>
     </g:else>
     <g:form name="roles" action="assignRoles" style="min-height:${minHeightEm}">
-      <h1 class="ui-widget-header"><g:message code='role.perm.title' default="Manage UserPermissions"/></h1>
-
       <g:if test="${flash.message}">
         <g:if test="${flash.isError}">
           <p class="ui-widget ui-state-error ui-corner-all">

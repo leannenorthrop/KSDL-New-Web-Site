@@ -28,7 +28,6 @@
     </head>
 <body>
   <g:form name="requestRoles" controller="admin" action="requestRoles" class="ui-widget ui-corner-all" style="height: ${roles.size()*2}em">
-    <h1 class="ui-widget-header"><g:message code='req.perm.title'/></h1>
     <g:hiddenField name="id" value="${user?.passwordReset}" />
     <g:hiddenField type="hidden" name="reset" value="${user?.passwordReset}" />
 

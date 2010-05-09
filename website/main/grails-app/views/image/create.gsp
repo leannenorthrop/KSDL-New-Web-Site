@@ -41,18 +41,8 @@
   </head>
   <body>
     <g:uploadForm name="addimage" action="save">
-      <h1 class="ui-widget-header"><g:message code="image.create.title"/></h1>
-      <input type="hidden" name="thumbnail" value=""/>
-
-      <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-      </g:if>
-      <g:hasErrors bean="${imageInstance}">
-        <div class="errors">
-          <g:renderErrors bean="${imageInstance}" as="list"/>
-        </div>
-      </g:hasErrors>
-
+      <g:hiddenField name="thumbnail" value=""/>
+      <g:render template="/messageBox" model="[flash: flash]"/>
 
       <div id="src-tabs">
         <ul>
@@ -62,7 +52,7 @@
         <div id="upload">
           <fieldset>
             <label for="name"><g:message code="image.name"/></label>
-            <input type="text" id="name" name="name" class="${hasErrors(bean: articleInstance, field: 'name', 'errors')}" value="${fieldValue(bean: imageInstance, field: 'name')}"/>
+            <input type="text" id="name" name="name" class="required ${hasErrors(bean: imageInstance, field: 'name', 'errors')}" min-length="5" value="${fieldValue(bean: imageInstance, field: 'name')}"/>
           </fieldset>
           <fieldset>
             <label for="file"><g:message code="image.create.file"/></label>
@@ -70,7 +60,7 @@
           </fieldset>
           <fieldset class="last">
             <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
-            <g:textArea rows="5" cols="40" name="tags" class="ui-corner-all ${hasErrors(bean:articleInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
+            <g:textArea rows="5" cols="40" name="tags" class="required ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
             <p class="tags_help">
               <g:message code="img.tag.help"/>
             </p>

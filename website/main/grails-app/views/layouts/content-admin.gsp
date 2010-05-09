@@ -43,34 +43,47 @@
     <g:layoutHead/>
   </head>
   <body class="contentAdmin" style="min-width:50em">
-    <div class="grid_18">
-      <h1><g:message code="title" default="Kagyu Samye Dzong London"/>: Web-Site Content Management System</h1>
-      <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
-    </div>
-    <div class="clear"></div>
+    <div class="container_16">
+      <div class="grid_16 pagetitle">
+        <g:set var="logo" value="${Image.findByName('Logo')}"/>
+        <g:if test="${logo}">
+         <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" width="75px" title="${logo.name}" alt="${logo.name}"/>
+        </g:if>
+        <span>
+          <h1><g:message code="manage.home.title"/></h1>
+          <h2><g:layoutTitle/></h2>
+        </span>
+      </div>
+      <div class="grid_16">
+        <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
+      </div>
+      <div class="clear"></div>
 
-    <div class="grid content">
-      <g:layoutBody/>
-    </div>
-    <div class="clear"></div>
+      <div class="grid_1">&nbsp;</div>
+      <div class="grid_14">
+        <g:layoutBody/>
+      </div>
+      <div class="grid_1">&nbsp;</div>
+      <div class="clear"></div>
 
-    <div class="grid_18">
+      <!--div class="grid_18">
       <div class="footer">
         <ul>
           <li>
             <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-            <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
+      <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
           </li>
           <li>
             Version <g:meta name="app.version"/> Built with Grails <g:meta name="app.grails.version"/>
           </li>
           <li>
-            ${(Runtime.getRuntime().freeMemory()/1024)/1024} Mb free of ${(Runtime.getRuntime().totalMemory()/1024)/1024} Mb
+            ${(Runtime.getRuntime().freeMemory() / 1024) / 1024} Mb free of ${(Runtime.getRuntime().totalMemory() / 1024) / 1024} Mb
           </li>
         </ul>
       </div>
     </div>
     <div class="clear"></div>
-  </div>
+  </div-->
+    </div>
   </body>
 </html>

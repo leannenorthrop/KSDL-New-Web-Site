@@ -77,8 +77,6 @@
     </g:javascript>
   </head>
   <body>
-
-    <h1 class="ui-widget-header"><g:message code="manage.teachers.title"/></h1>
     <g:render template="/messageBox" model="[flash: flash]"/>
     <div id="teacher-tabs">
       <ul>

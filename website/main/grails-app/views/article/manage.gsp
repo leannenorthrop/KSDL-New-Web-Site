@@ -30,7 +30,6 @@
     <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
   </head>
   <body>
-    <h1 class="ui-widget-header"><g:message code="manage.articles.title"/></h1>
     <g:render template="/messageBox" model="[flash: flash]"/>
     <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
   </body>

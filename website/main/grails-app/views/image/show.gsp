@@ -23,22 +23,22 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.media.Image" %>
 <html>
-    <head>
-        <meta name="layout" content="content-admin" />
-        <title>View Image</title>
-    </head>
-    <body>
-        <div class="content">
-            <h2>${fieldValue(bean:imageInstance, field:'name')}</h2>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <img src="${createLink(controller:'image', action:'src', id:imageInstance.id)}"/>
-            <ul>
-                <g:each in="${imageInstance.tags}" status="i" var="tag">
-                    <li>${tag}</li>
-                </g:each>
-            </ul>
-        </div>
-    </body>
+  <head>
+    <meta name="layout" content="content-admin"/>
+    <title><g:message code="image.show.title" args="${[fieldValue(bean:imageInstance,field:'name')]}"/></title>
+  </head>
+  <body>
+    <g:if test="${flash.message}">
+      <div class="message">${flash.message}</div>
+    </g:if>
+    <img src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}"/>
+    <h3><g:message code="image.tag"/></h3>
+    <p><g:message code="image.label.msg"/>
+    <ul>
+      <g:each in="${imageInstance.tags}" status="i" var="tag">
+        <li>${tag}</li>
+      </g:each>
+    </ul>
+  </p>
+  </body>
 </html>

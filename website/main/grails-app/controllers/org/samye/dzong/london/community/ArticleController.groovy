@@ -221,12 +221,11 @@ class ArticleController {
             }
 
             articleInstance.properties = params
-            if (!params.tags) {
+            if (!params.tags || params.tags == "") {
                 flash.isError = true
                 flash.message = "Please enter at least one label."
                 return render(view: 'alter', model: [articleInstance: articleInstance], id: params.id)
-            }
-            if (!articleInstance.hasErrors() && articleInstance.save()) {
+            } else if (!articleInstance.hasErrors() && articleInstance.save()) {
                 def tags = articleInstance.tags
                 def newtags = params.tags.split(',')
                 tags.each {tag ->
