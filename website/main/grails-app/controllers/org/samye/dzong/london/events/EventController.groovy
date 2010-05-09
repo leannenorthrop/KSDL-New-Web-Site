@@ -87,7 +87,7 @@ class EventController {
 
         def regularEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
-            rule.isUnbounded()
+            rule.isRule
         };
 
         def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
@@ -135,9 +135,11 @@ class EventController {
                 def publishedEvents = Event.unorderedPublished().list(params);
                 def events = publishedEvents.findAll { event ->
                     def rule = event.dates[0]
-                    return !(rule.startDate == rule.endDate) && event.isOnDay(start, monthdays)
+                    println rule
+                    return !rule.isRule && event.isOnDay(start, monthdays)
                 };
 
+                println "Found ${publishedEvents.size} events returning ${events.size} events"
                 def formatter = new SimpleDateFormat(message(code: 'event.date.format'))
                 def args = [formatter.format(start),formatter.format(end)]
                 return [events: events, title: message(code: 'event.between', args: args)]
