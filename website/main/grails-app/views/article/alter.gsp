@@ -34,7 +34,6 @@
   </head>
   <body>
     <g:form name="publish" action="updatePublished" method="post">
-      <h1 class="ui-widget-header"><g:message code="article.alter.title" args="${[fieldValue(bean:articleInstance,field:'title')]}"/></h1>
 
       <g:render template="/messageBox" model="[flash: flash]"/>
 

@@ -34,8 +34,6 @@
   </head>
   <body>
     <g:form name="updatearticle" method="post" action="update">
-      <h1 class="ui-widget-header"><g:message code="article.edit.heading"/></h1>
-
       <g:render template="/messageBox" model="[flash: flash]"/>
 
       <g:hiddenField name="id" value="${articleInstance?.id}"/>

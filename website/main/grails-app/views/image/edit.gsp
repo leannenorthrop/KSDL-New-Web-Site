@@ -31,7 +31,7 @@
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="image.edit.title"/></title>
+    <title><g:message code="image.edit.title" args="${[fieldValue(bean:imageInstance,field:'name')]}"/></title>
     <g:javascript>
       $(function() {
         $("#imageform").validate();
@@ -40,21 +40,11 @@
   </head>
   <body>
     <g:form name="imageform" action="update" method="post">
-      <h1 class="ui-widget-header"><g:message code="image.edit.title"/></h1>
-      <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-      </g:if>
-      <g:hasErrors bean="${imageInstance}">
-        <div class="errors">
-          <g:renderErrors bean="${imageInstance}" as="list"/>
-        </div>
-      </g:hasErrors>
+      <g:hiddenField name="id" value="${imageInstance?.id}"/>
+      <g:hiddenField name="version" value="${imageInstance?.version}"/>
+      <g:hiddenField name="name" value="${imageInstance?.name}"/>
 
-      <input type="hidden" name="id" value="${imageInstance?.id}"/>
-      <input type="hidden" name="version" value="${imageInstance?.version}"/>
-      <input type="hidden" name="name" value="${imageInstance?.name}"/>
-
-      <h2>${fieldValue(bean: imageInstance, field: 'name')}</h2>
+      <g:render template="/messageBox" model="[flash: flash]"/>
 
       <g:if test="${imageInstance?.mimeType.endsWith('png')}">
         <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" title="${imageInstance.name}" alt="${imageInstance.name}" class="pngImg"/>
@@ -65,7 +55,7 @@
 
       <fieldset class="last">
         <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
-        <g:textArea rows="5" cols="40" name="tags" class="ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
+        <g:textArea rows="5" cols="40" name="tags" class="required ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
         <p class="tags_help">
           <g:message code="img.tag.help"/>
         </p>

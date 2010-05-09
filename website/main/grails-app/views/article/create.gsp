@@ -34,8 +34,6 @@
   </head>
   <body>
     <g:form id="createarticle" name="createarticle" action="save" method="post">
-      <h1 class="ui-widget-header"><g:message code="article.create.title"/></h1>
-
       <g:render template="/messageBox" model="[flash: flash]"/>
 
       <g:hiddenField name="publishState" value="Unpublished"/>

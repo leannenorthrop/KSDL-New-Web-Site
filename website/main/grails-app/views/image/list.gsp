@@ -34,8 +34,6 @@
     <title><g:message code="image.list.title"/></title>
   </head>
   <body>
-    <h1 class="ui-widget-header"><g:message code="image.list.title"/></h1>
-
     <g:if test="${flash.message && !flash.isError}">
       <p class="ui-widget ui-state-highlight ui-corner-all">
         <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>

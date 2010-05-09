@@ -120,22 +120,43 @@ class ImageController {
                     return
                 }
             }
+            if (!params.tags || params.tags == []) {
+                flash.message = "Labels can not be empty"
+                flash.isError = true
+                flash.args = [params.name]
+                render(view:'edit',model:[imageInstance:imageInstance, id: params.id])
+            }
+
             def image = imageInstance.image
             imageInstance.properties = params
             imageInstance.image = image
-            if (params.tags) {
-                imageInstance.parseTags(params.tags)
-            }
-            if(!imageInstance.hasErrors() && imageInstance.save()) {
-                flash.message = "Image ${params.id} updated"
+            if (!params.tags || params.tags == "") {
+                flash.isError = true
+                flash.message = "Please enter at least one label."
+                return render(view: 'edit', model: [imageInstance:imageInstance], id: params.id)
+            } else if(!imageInstance.hasErrors() && imageInstance.save()) {
+                def tags = imageInstance.tags
+                def newtags = params.tags.split(',')
+                tags.each {tag ->
+                    def found = newtags.find {newtag -> newtag == tag}
+                    if (!found) {
+                        imageInstance.removeTag(tag)
+                    }
+                }
+                imageInstance.addTags(newtags)
+                flash.message = "Image ${params.name} updated"
                 redirect(action:show,id:imageInstance.id)
             }
             else {
+                flash.isError = true
+                flash.message = "Image ${imageInstance.name} could not be updated due to an internal error. Please try again."
+                flash.args = [params.name]
                 render(view:'edit',model:[imageInstance:imageInstance, id: params.id])
             }
         }
         else {
             flash.message = "Image not found with id ${params.id}"
+            flash.args = [params.name]
             redirect(action:manage)
         }
     }
@@ -148,16 +169,21 @@ class ImageController {
 
     def save = {
         def f = request.getFile('image')
-        def contentType = f.getContentType()
-        def bytes = f.getBytes()
+        def contentType = f?.getContentType()
+        def bytes = f?.getBytes()
 
 
         def thumbnail
-        if (contentType.toLowerCase().endsWith("png")) {
-            bytes = imageService.pngToJpg(bytes)
-            thumbnail = imageService.thumbnail(bytes)
-        } else {
-            thumbnail = imageService.thumbnail(bytes)
+        try {
+            if (contentType.toLowerCase().endsWith("png")) {
+                bytes = imageService.pngToJpg(bytes)
+                thumbnail = imageService.thumbnail(bytes)
+            } else {
+                thumbnail = imageService.thumbnail(bytes)
+            }
+        } catch(error) {
+            thumbnail = []
+            contentType='image/png'
         }
 
         def imageInstance = new Image(params)
@@ -168,7 +194,7 @@ class ImageController {
             if (params.tags) {
                 imageInstance.parseTags(params.tags)
             }
-            flash.message = "Image ${imageInstance.id} created"
+            flash.message = "Image ${imageInstance.name} created"
             redirect(action:show,id:imageInstance.id)
         }
         else {

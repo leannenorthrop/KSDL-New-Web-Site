@@ -1,8 +1,4 @@
 TODO
-Time Line
-March - Contact Us, Visiting Us, Site Map, Volunteer Form, slide shows and videos, Tidy Up, Css & Browser testing
-April/May 2010 - Performance tweaking, database backups, robustness & security testing
-Late April/May 2010 - Production deploy
 
 http://code.google.com/p/lsd-website/issues/entry
 
