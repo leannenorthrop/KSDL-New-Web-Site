@@ -6,6 +6,8 @@ http://code.google.com/p/lsd-website/issues/entry
                         FOR 31/03/2010
 ================================================================================
 Fixes
+    - Robots: <meta name="ROBOTS" content=""> where content may be NOFOLLOW, INDEX, FOLLOW, NOARCHIVE, ALL, NONE
+    - Caching: Last-Modifed, Cache-Control (private, no-cache, must-validate, no-store, max-age=(seconds)), expires, Pragma: no-cache
     - Events
         - dont display more unless some
         - featured before regular
@@ -18,12 +20,12 @@ Fixes
             - Headings
         - ensure can't create news page without publish date ticked
         - add categories when searching for similar articles (check labels)
+        - finish theme uploading
     - Meditation Page
         - All Article list should not include links to Read More...
     - Css
         - external site link
         - color ratios
-0. Fixes:
     - When deleting items add (Deleted) to name/title to get around unique constraint
     - Fix linking in png images.
     - Stuff with quotes
@@ -37,7 +39,7 @@ Fixes
     - Add jquery form css
     - Ensure exitis email
 3. Make war ROOT and deploy into Tomcat
-4. Upgrade to 1.2.1
+4. Upgrade to 1.3.1
 5. Ehcache
 7. Check build
 8. Check against mysql & generate SQL
@@ -80,8 +82,6 @@ Fixes
         - After publish
         - After archive
 12. Database performance
-13. Cache pragmas
-14. Meta tags
 15. html, css validity, x-browser checks
 16. Tibetan support
     - browser/os check
@@ -90,7 +90,7 @@ Fixes
     - preparation for image carosels etc.
 18. Remove checks for Administrator role and give 'Admin' all roles
 ================================================================================
-    For Release in April
+    For Release
 ================================================================================
 1. SQL Hack checking
 2. Hack checking in general
