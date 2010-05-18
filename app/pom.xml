@@ -277,10 +277,26 @@
                         <fileset>
                             <directory>${basedir}/plugins</directory>
                             <excludes>
-                                <exclude>**/*.zip</exclude>
+                                <exclude>*.zip</exclude>
                             </excludes>
                             <includes>
-                                <include>**</include>
+                                <include>grails-audit-logging-0.5.2/**</include>
+                                <include>grails-code-coverage-1.1.7/**</include>
+                                <include>grails-feeds-1.5/**</include>
+                                <include>grails-functional-test-1.2.7/**</include>
+                                <include>grails-hibernate-1.2.2/**</include>
+                                <include>grails-ic-alendar-0.2.1/**</include>
+                                <include>grails-joda-time-0.5/**</include>
+                                <include>grails-jquery-1.4.1.1/**</include>
+                                <include>grails-magic-numbers-0.2.2/**</include>
+                                <include>grails-mail-0.9/**</include>
+                                <include>grails-pretty-date-0.1/**</include>
+                                <include>grails-quartz-0.4.1/**</include>
+                                <include>grails-shiro-1.0.1/**</include>
+                                <include>grails-taggable-0.6.1/**</include>
+                                <include>grails-tomcat-1.2.1/**</include>
+                                <include>grails-twitter-0.2/**</include>
+                                <include>image-tools-1.0.4/**</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
