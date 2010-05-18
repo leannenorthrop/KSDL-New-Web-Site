@@ -291,6 +291,34 @@
     </build>
     <profiles>
         <profile>
+            <id>Prepare Plugins</id>
+            <activation>
+                <file>
+                  <missing>${user.dir}/plugins/image-tools-1.0.4/application.properties</missing>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                          <execution>
+                            <phase>validate</phase>
+                            <configuration>
+                              <tasks>
+                                <unzip src="${basedir}/plugins/image-tools-1.0.4.zip" dest="${basedir}/plugins"/>
+                              </tasks>
+                            </configuration>
+                            <goals>
+                              <goal>run</goal>
+                            </goals>
+                          </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>tools</id>
             <activation>
                 <property>
