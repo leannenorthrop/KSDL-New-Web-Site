@@ -5,12 +5,44 @@ import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.ShiroRole
 import com.icegreen.greenmail.util.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import java.util.zip.*;
 
 class BootStrap {
      def imageService
      def greenMail
 
      def init = { servletContext ->
+         File.metaClass.unzip = { String dest ->
+          //in metaclass added methods, 'delegate' is the object on which
+          //the method is called. Here it's the file to unzip
+          def result = new ZipInputStream(new FileInputStream(delegate))
+          def destFile = new File(dest)
+          if(!destFile.exists()){
+            destFile.mkdir();
+          }
+          result.withStream{
+            def entry
+            while(entry = result.nextEntry){
+              if (!entry.isDirectory()){
+                new File(dest + File.separator + entry.name).parentFile?.mkdirs()
+                def output = new FileOutputStream(dest + File.separator
+                                                  + entry.name)
+                output.withStream{
+                  int len = 0;
+                  byte[] buffer = new byte[4096]
+                  while ((len = result.read(buffer)) > 0){
+                    output.write(buffer, 0, len);
+                  }
+                }
+             }
+             else {
+               new File(dest + File.separator + entry.name).mkdir()
+             }
+            }
+          }
+         }
+
+
          environments {
              development {
                  greenMail = new GreenMail(ServerSetupTest.ALL)

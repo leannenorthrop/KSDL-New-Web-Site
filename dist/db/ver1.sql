@@ -1,0 +1,1 @@
+INSERT INTO `londonsamyedzong`.`shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (2,'fileUploader:*');

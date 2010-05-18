@@ -116,6 +116,13 @@ environments {
                file name:'file', file:"/var/log/tomcat5/lsd.log"
             }
         }
+        fileuploader {
+            themes {
+                maxSize = 1000 * 1024 * 4 //4 mbytes
+                allowedExtensions = ["zip"]
+                path = "/tmp/docs/"
+            }
+        }
     }
     development {
         println "Environment is set to Development"
@@ -130,6 +137,13 @@ environments {
         }
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
         grails.serverURL = "http://localhost:8080/${appName}"
+        fileuploader {
+            themes {
+                maxSize = 1000 * 1024 * 4 //4 mbytes
+                allowedExtensions = ["zip"]
+                path = System.properties["user.dir"] + "/web-app/css/themes"
+            }
+        }
     }
     test {
         println "Environment is set to Test"
@@ -144,6 +158,13 @@ environments {
         }
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
         grails.serverURL = "http://localhost:8080/${appName}"
+        fileuploader {
+            themes {
+                maxSize = 1000 * 1024 * 4 //4 mbytes
+                allowedExtensions = ["zip"]
+                path = "/tmp/css/"
+            }
+        }
     }
 
 }

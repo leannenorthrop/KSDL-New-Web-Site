@@ -2,6 +2,7 @@ package org.samye.dzong.london.site
 import org.samye.dzong.london.*
 import org.samye.dzong.london.contact.EmailService
 import org.apache.shiro.SecurityUtils
+import com.lucastex.grails.fileuploader.UFile
 
 class AdminController {
     def emailService
@@ -10,6 +11,10 @@ class AdminController {
 
     def index = {
         redirect(controller: "manageSite", action: "home")
+    }
+
+    def uploadTheme = {
+        render(view: 'newTheme')
     }
 
     def roles = {
@@ -115,5 +120,24 @@ class AdminController {
             flash.message = "req.perm.user.not.found"
             redirect(controller: 'manageSite', action: 'error')
         }
+    }
+
+    def installTheme = {
+        def uploadedFile = UFile.findById(params.ufileId)
+        if (uploadedFile) {
+            def zipToUnzip = new File(uploadedFile.path)
+            zipToUnzip.unzip(System.properties["user.dir"] + "/web-app/css/themes")
+
+            flash.message = "theme.installed"
+            flash.args = [uploadedFile.path]
+            redirect(controller: 'manageSite', action: 'info')
+        } else {
+            redirect(controller: 'admin', action: 'themeUploadError')
+        }
+    }
+
+    def themeUploadError = {
+        flash.message = "theme.upload.error"
+        redirect(controller: 'manageSite', action: 'error')
     }
 }
