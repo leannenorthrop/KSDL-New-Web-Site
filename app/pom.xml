@@ -182,7 +182,7 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
-	    <finalName>ROOT</finalName>
+        <finalName>ROOT</finalName>
         <filters>
             <filter>../src/main/filters/${user.name}.properties</filter>
         </filters>
@@ -194,22 +194,6 @@
         </resources>
         <pluginManagement/>
         <plugins>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                  <execution>
-                    <phase>validate</phase>
-                    <configuration>
-                      <tasks>
-                        <unzip src="${user.dir}/app/plugins/image-tools-1.0.4.zip" dest="${user.dir}/app/plugins"/>
-                      </tasks>
-                    </configuration>
-                    <goals>
-                      <goal>run</goal>
-                    </goals>
-                  </execution>        
-                </executions>
-              </plugin>             
             <plugin>
                 <groupId>org.grails</groupId>
                 <artifactId>grails-maven-plugin</artifactId>
@@ -287,6 +271,16 @@
                             <directory>${basedir}/db</directory>
                             <includes>
                                 <include>**/*</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                        <fileset>
+                            <directory>${basedir}/plugins</directory>
+                            <excludes>
+                                <exclude>**/*.zip</exclude>
+                            </excludes>
+                            <includes>
+                                <include>**</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
