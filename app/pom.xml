@@ -297,6 +297,7 @@
                                 <include>grails-tomcat-1.2.1/**</include>
                                 <include>grails-twitter-0.2/**</include>
                                 <include>image-tools-1.0.4/**</include>
+                                <include>file-uploader-1.1/**</include>
                             </includes>
                             <followSymlinks>false</followSymlinks>
                         </fileset>
@@ -323,6 +324,7 @@
                             <configuration>
                               <tasks>
                                 <unzip src="${basedir}/plugins/image-tools-1.0.4.zip" dest="${basedir}/plugins"/>
+                                <unzip src="${basedir}/plugins/grails-file-uploader-1.1.zip" dest="${basedir}/plugins"/>                              
                               </tasks>
                             </configuration>
                             <goals>
