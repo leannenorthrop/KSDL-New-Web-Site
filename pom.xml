@@ -151,7 +151,7 @@
                             <configuration>
                               <tasks>
                                 <unzip src="${basedir}/app/plugins/image-tools-1.0.4.zip" dest="${basedir}/app/plugins"/>
-                                <unzip src="${basedir}/app/plugins/grails-file-uploader-1.1.zip" dest="${basedir}/plugins"/>
+                                <unzip src="${basedir}/app/plugins/grails-file-uploader-1.1.zip" dest="${basedir}/plugins/grails-file-uploader-1.1"/>
                               </tasks>
                             </configuration>
                             <goals>
