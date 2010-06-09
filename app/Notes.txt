@@ -141,3 +141,19 @@ Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly i
     Building
 ================================================================================
 export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
+mvn install -Dmaven.test.skip=true
+say y if prompted to uninstall plugins.
+
+================================================================================
+    Setting up database 
+================================================================================
+install mysql
+start mysql (e.g. mysqld --user=northrl
+mysql -h localhost -u root -p
+CREATE USER 'londonsamyedzong'@'localhost' IDENTIFIED BY 'change!t';
+GRANT ALL PRIVILEGES ON *.* TO 'londonsamyedzong'@'localhost' WITH GRANT OPTION;
+CREATE DATABASE londonsamyedzong;
+GRANT ALL ON londonsamyedzong.* TO 'londonsamyedzong'@'localhost';
+mysql -h localhost -u londonsamyedzong -p londonsamyedonzg < migrate.sql 
+
+

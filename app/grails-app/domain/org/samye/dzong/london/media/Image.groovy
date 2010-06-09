@@ -5,6 +5,8 @@ class Image implements Taggable {
     String mimeType
     byte[] image
     byte[] thumbnail
+    Date dateCreated
+    Date lastUpdated
 
     static auditable = true
 
@@ -13,6 +15,8 @@ class Image implements Taggable {
         mimeType(blank: false)
         image(blank: false)
         thumbnail()
+        dateCreated(nullable:true)
+        lastUpdated(nullable:true)
     }
 
     String toString() {
