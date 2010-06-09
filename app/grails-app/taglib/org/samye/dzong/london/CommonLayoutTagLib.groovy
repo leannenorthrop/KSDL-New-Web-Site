@@ -53,7 +53,7 @@ class CommonLayoutTagLib {
 
      def toolbar = { attrs ->
         def adminControllers =['home']
-        def adminClasses =[home: 'home', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event']
+        def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article'].each () { item ->
@@ -86,13 +86,13 @@ class CommonLayoutTagLib {
         }
 
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            ['roles'].each () { item ->
+            ['theme', 'roles'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Admin")) {
-            ['article', 'image', 'venue', 'event', 'roles'].each () { item ->
+            ['theme', 'article', 'image', 'venue', 'event', 'roles'].each () { item ->
                 adminControllers << item
             }
         }
@@ -112,6 +112,16 @@ class CommonLayoutTagLib {
                             elem = link (class: adminClasses[controller], controller: "admin", action:"roles",style:"color: #333;") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
+                        } else if (controller.equals ('theme')) {
+							if ("setdefault".equals(attrs.action)) {
+	                            elem = link (class: adminClasses[controller] + "Create", controller: controller, action:"add",style:"color: #333;") {
+	                                messageSource.getMessage ('toolbar.' + controller + '.add', null, null)
+	                            }								
+							} else {
+	                            elem = link (class: adminClasses[controller], controller: controller, action:"setdefault",style:"color: #333;") {
+	                                messageSource.getMessage ('toolbar.' + controller, null, null)
+	                            }
+							}
                         } else if (controller.equals ('auth')) {
                             if (SecurityUtils.subject.authenticated) {
                                 elem = link (class: 'logout', controller: controller, action: "signOut",style:"color: #333;") {

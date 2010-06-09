@@ -32,6 +32,7 @@
   <head>
     <title><g:message code="title" default="Kagyu Samye Dzong London"/> <g:layoutTitle/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW,NOARCHIVE">
     <![if gte IE 7]>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/manage', file: 'screen.css')}"/>

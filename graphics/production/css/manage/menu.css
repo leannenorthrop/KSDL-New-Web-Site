@@ -144,3 +144,20 @@
 .menuButton a:hover.teacherCreate {
     background: url(images/hover/clients_add_16.png) center left no-repeat;
 }
+
+
+
+.menuButton a.theme {
+    background: url(images/normal/services_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.theme {
+    background: url(images/hover/services_16.png) center left no-repeat;
+}
+.menuButton a.themeCreate {
+    background: url(images/normal/services_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.themeCreate {
+    background: url(images/hover/services_16.png) center left no-repeat;
+}
