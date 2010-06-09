@@ -16,11 +16,21 @@ class ImageController {
         if(!imageInstance) {
             println "no image ${params.id}"
             response.outputStream << ""
-        }
-        else {
-            response.setContentType('image/png')
-            byte[] image = imageInstance.image
-            response.outputStream << image
+        } else {
+			try {
+				if (request.getHeader("If-Modified-Since")) {
+					response.setStatus(304)
+				}				
+				response.setContentType(imageInstance.mimeType)
+				response.setDateHeader('Last-Modified', imageInstance.dateCreated.time)
+				response.setHeader("Cache-Control", "public")			
+				response.setHeader("ETag", "W/\"" + imageInstance.version + "\"")
+	 			byte[] image = imageInstance.image
+				response.setContentLength(image.size())			
+				response.outputStream << image
+			} catch(error) {
+				response.outputStream << ""
+			}
         }
     }
 
@@ -36,9 +46,20 @@ class ImageController {
             response.outputStream << ""
         }
         else {
-            response.setContentType('image/jpeg')
-            byte[] image = imageInstance.thumbnail
-            response.outputStream << image
+			try {
+				if (request.getHeader("If-Modified-Since")) {
+					response.setStatus(304)
+				}				
+				response.setContentType(imageInstance.mimeType)
+				response.setDateHeader('Last-Modified', imageInstance.dateCreated.time)
+				response.setHeader("Cache-Control", "public")			
+				response.setHeader("ETag", "W/\"" + imageInstance.version + "\"")
+	 			byte[] image = imageInstance.thumbnail
+				response.setContentLength(image.size())			
+				response.outputStream << image
+			} catch(error) {
+				response.outputStream << ""
+			}
         }
     }
 
