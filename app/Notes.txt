@@ -26,12 +26,10 @@ Fixes
     - Css
         - external site link
         - color ratios
+		- move around
     - When deleting items add (Deleted) to name/title to get around unique constraint
     - Fix linking in png images.
-    - Stuff with quotes
     - Preview: use built in remote tag
-    - Css
-        - move around
     - home page & featured
     - add notes
 1. Register
@@ -42,8 +40,7 @@ Fixes
 4. Upgrade to 1.3.1
 5. Ehcache
 7. Check build
-8. Check against mysql & generate SQL
-9. Deploy to development machine.
+
 2. Settings to be pulled from web container as resources:
     - Email
     - Twitter
@@ -70,7 +67,6 @@ Fixes
 7. Legal Notice
 8. Privacy and Cookies
 9. Textile markup of special characters
-10. Image form validation
 11. Functional tests for publishing articles to areas other than news.
     - Article navigation
     - Unpublish published
@@ -89,6 +85,7 @@ Fixes
 17. Javascript support
     - preparation for image carosels etc.
 18. Remove checks for Administrator role and give 'Admin' all roles
+
 ================================================================================
     For Release
 ================================================================================
