@@ -5,7 +5,38 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
-Fixes
+1. Profile
+2. About This Site
+3. Site Map
+4. Legal Notice, Privacy and Cookies
+5. Venue
+ - Contact Us
+ - Visiting Us
+ - Center Closure
+6. Therapists & Therapies
+8. Document Volunteer articles & do Volunteer Form
+9. URL mappings
+10. Register
+    - Add jquery validation
+    - Add jquery form css
+    - Ensure email exists
+    - Add captcha
+11. Settings to be pulled from web container as resources:
+    - Email
+    - Twitter
+12. Users
+    - Delete users
+    - Email as username check, password size
+    - Functional test for login with wrong username, sign out, and passwords do not match
+    - Shiro User password size
+    - Make usernames comparison ignore case
+    - Move common code into separate service class
+    - Move common test code into separate class
+    - Move email content into templates
+13. Twitter
+    - add urls
+14. Textile markup of special characters
+15. Fixes
     - Events
         - dont display more unless some
         - featured before regular
@@ -29,59 +60,8 @@ Fixes
     - Fix linking in png images.
     - home page & featured
     - add notes
-1. Register
-    - Add jquery validation
-    - Add jquery form css
-    - Ensure exitis email
-3. Make war ROOT and deploy into Tomcat
-4. Upgrade to 1.3.1
-5. Ehcache
-7. Check build
-
-2. Settings to be pulled from web container as resources:
-    - Email
-    - Twitter
-5. Users
-    - Delete users
-    - Email as username check, password size
-    - Functional test for login with wrong username, sign out, and passwords do not match
-    - Shiro User password size
-    - Make usernames comparision ignore case
-    - Move common code into separate service class
-    - Move common test code into separate class
-    - Move email content into templates
-4. Twitter
-    - add urls
-1. Register
-    - Add captcha
-    - Add jquery validation
-1. Venue
- - Contact Us
-3. Therapists & Therapies
-4. Site Map
-5. About This Site
-6. Visiting Us
-7. Legal Notice
-8. Privacy and Cookies
-9. Textile markup of special characters
-11. Functional tests for publishing articles to areas other than news.
-    - Article navigation
-    - Unpublish published
-    - Delete Archived
-    - News Articles Location
-    - Check unique validation
-    - Check validation
-        - Edit article
-        - After publish
-        - After archive
-12. Database performance
-15. html, css validity, x-browser checks
-16. Tibetan support
-    - browser/os check
-    - hide/show tag
-17. Javascript support
-    - preparation for image carosels etc.
-18. Remove checks for Administrator role and give 'Admin' all roles
+16. Remove checks for Administrator role and give 'Admin' all roles
+17. CSS for manage to be put back to Grid920
 
 ================================================================================
     For Release
@@ -89,11 +69,13 @@ Fixes
 1. SQL Hack checking
 2. Hack checking in general
 3. Unit and integration tests
-4. auto tidy
+4. auto tidy, html, css validity, x-browser checks
 5. auto validation
 6. error pages
 7. Commenting/documentation - check out grails documentation
+8. Database performance
 
+9. Find out why production database backup doesn't do images.
 ================================================================================
     Niceties
 ================================================================================
@@ -112,20 +94,31 @@ You Tube
     - Add Icons for Actions
     - Add other tags when viewing articles
 5. Searchable plugin
-
+6. Tibetan support
+    - browser/os check
+    - hide/show tag
 ================================================================================
     Stuff
 ================================================================================
 Look into ui-performance plugin
 Look into filterpane plugin
 Look into export plugin
-http://www.londonsamyedzong.org/lsd/
 neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bernardmordan@yahoo.co.uk, bmordan@evelina.southwark.sch.uk
 mvn grails:run-app -Dgrails.env=test
 - Caching: Last-Modifed, Cache-Control (private, no-cache, must-validate, no-store, max-age=(seconds)), expires, Pragma: no-cache
 
+Upgrade to 1.3.1
 
-
+11. Functional tests for publishing articles to areas other than news.
+    - Article navigation
+    - Unpublish published
+    - Delete Archived
+    - News Articles Location
+    - Check unique validation
+    - Check validation
+        - Edit article
+        - After publish
+        - After archive
 ================================================================================
     Tomcat 5.5
 ================================================================================
