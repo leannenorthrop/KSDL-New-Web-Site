@@ -53,46 +53,46 @@ class CommonLayoutTagLib {
 
      def toolbar = { attrs ->
         def adminControllers =['home']
-        def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event']
+        def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
-            ['article'].each () { item ->
+            ['profile','article'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("EventOrganiser")) {
-            ['event'].each () { item ->
+            ['profile','event'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
-            ['article', 'image', 'teacher'].each () { item ->
+            ['profile','article', 'image', 'teacher'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("VenueManager")) {
-            ['venue'].each () { item ->
+            ['profile','venue'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("EventOrganiser")) {
-            ['event'].each() { item ->
+            ['profile','event'].each() { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            ['theme', 'roles'].each () { item ->
+            ['profile','theme', 'roles'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Admin")) {
-            ['theme', 'article', 'image', 'venue', 'event', 'roles'].each () { item ->
+            ['profile', 'theme', 'article', 'image', 'venue', 'event', 'roles'].each () { item ->
                 adminControllers << item
             }
         }
@@ -112,6 +112,16 @@ class CommonLayoutTagLib {
                             elem = link (class: adminClasses[controller], controller: "admin", action:"roles",style:"color: #333;") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
+                        } else if (controller.equals ('profile')) {
+								if ("index".equals(attrs.action)) {
+	                            elem = link (class: adminClasses[controller] + "Edit", controller: controller, action:"edit",style:"color: #333;") {
+	                                messageSource.getMessage ('toolbar.' + controller + '.edit', null, null)
+	                            }								
+							} else {
+	                            elem = link (class: adminClasses[controller], controller: controller, action:"index",style:"color: #333;") {
+	                                messageSource.getMessage ('toolbar.' + controller, null, null)
+	                            }
+							}
                         } else if (controller.equals ('theme')) {
 							if ("setdefault".equals(attrs.action)) {
 	                            elem = link (class: adminClasses[controller] + "Create", controller: controller, action:"add",style:"color: #333;") {

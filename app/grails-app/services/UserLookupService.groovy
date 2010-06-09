@@ -11,6 +11,12 @@ class UserLookupService {
     def lookup() {
         ShiroUser.findByUsername(username())
     }
+    def find(username) {
+        ShiroUser.findByUsername(username)
+    }
+    def get(id) {
+        ShiroUser.get(id)
+    }
     def allRoles() {
         ShiroRole.list()
     }

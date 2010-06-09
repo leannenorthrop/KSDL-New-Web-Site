@@ -1,12 +1,32 @@
 package org.samye.dzong.london.site
 
+import org.samye.dzong.london.ShiroUser
+import org.samye.dzong.london.community.Profile
+
 class ManageSiteController {
+	def userLookupService
 
     def index = {
         redirect(action: "home")
     }
 
     def home = {
+		try {
+			def user = userLookupService.lookup()
+	        if (user && user.profile == null) {
+				def imageBytes = new File(servletContext.getRealPath('/images/user.png')).readBytes()
+	            def profile = new Profile(publicName: 'Not Known', mimeType: 'image/png', image: imageBytes, lastLoggedIn: new Date())
+	 			if (!profile.hasErrors() && profile.save()) {
+					user.profile = profile
+					user.save()
+				} else {
+					println profile.errors
+				}
+	        }
+		} catch(error) {
+			println error
+			log.warn "Unable to check existance of user profile", error
+		}	
         return render(view:'home')
     }
 

@@ -150,4 +150,5 @@ CREATE DATABASE londonsamyedzong;
 GRANT ALL ON londonsamyedzong.* TO 'londonsamyedzong'@'localhost';
 mysql -h localhost -u londonsamyedzong -p londonsamyedonzg < migrate.sql 
 
+mysqldump --no-data -u [username] -p [databasename] > structurebackup.sql
 
