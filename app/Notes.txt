@@ -136,3 +136,8 @@ mvn grails:run-app -Dgrails.env=test
     Tomcat 5.5
 ================================================================================
 Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly if not using sun java.
+
+================================================================================
+    Building
+================================================================================
+export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
