@@ -13,6 +13,7 @@ class AuthController {
     def emailService
     def messageSource
     def greenMail
+	def userLookupService
 
     def index = { redirect(action: "login", params: params) }
 
@@ -82,6 +83,16 @@ class AuthController {
             // password is incorrect.
             SecurityUtils.subject.login(authToken)
 
+			try {
+				def user = userLookupService.lookup()
+		        if (user && user.profile) {
+		            def profile = user.profile
+					profile.lastLoggedIn = new Date()
+		        }
+			} catch(error) {
+				log.warn "Unable to update last logged in date", error
+			}
+			
             log.info "Redirecting to '${targetUri}'."
             redirect(uri: targetUri)
         }
