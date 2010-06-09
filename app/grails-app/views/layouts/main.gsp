@@ -28,14 +28,22 @@
 ------------------------------------------------------------------------------->
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.media.Image" %>
+<%@ page import="org.samye.dzong.london.Setting" %>
+<g:if test="${params.theme}">
+    <g:set var="cssThemesDir" value="${params.theme}"/>
+</g:if>
+<g:else>
+    <g:set var="cssThemesDir" value="${Setting.findByName('DefaultTheme').value}"/>
+</g:else>
+
 <html>
   <head>
     <title><g:message code="title" default="Kagyu Samye Dzong London"/>: <g:layoutTitle/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-
+	<meta name="ROBOTS" content="ALL">
     <![if gte IE 7]>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
-    <lsd:cssTheme app="${application}"/>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/themes/' + cssThemesDir, file: 'screen.css')}"/>
     <![endif]>
 
     <!--[if IE 6]><link rel="stylesheet" type="text/css" href="${resource(dir: 'css/site', file: 'ie6.css')}" media="screen" /><![endif]-->

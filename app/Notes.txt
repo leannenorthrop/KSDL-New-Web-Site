@@ -6,8 +6,6 @@ http://code.google.com/p/lsd-website/issues/entry
                         FOR 31/03/2010
 ================================================================================
 Fixes
-    - Robots: <meta name="ROBOTS" content=""> where content may be NOFOLLOW, INDEX, FOLLOW, NOARCHIVE, ALL, NONE
-    - Caching: Last-Modifed, Cache-Control (private, no-cache, must-validate, no-store, max-age=(seconds)), expires, Pragma: no-cache
     - Events
         - dont display more unless some
         - featured before regular
@@ -29,7 +27,6 @@ Fixes
 		- move around
     - When deleting items add (Deleted) to name/title to get around unique constraint
     - Fix linking in png images.
-    - Preview: use built in remote tag
     - home page & featured
     - add notes
 1. Register
@@ -125,7 +122,7 @@ Look into export plugin
 http://www.londonsamyedzong.org/lsd/
 neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bernardmordan@yahoo.co.uk, bmordan@evelina.southwark.sch.uk
 mvn grails:run-app -Dgrails.env=test
-
+- Caching: Last-Modifed, Cache-Control (private, no-cache, must-validate, no-store, max-age=(seconds)), expires, Pragma: no-cache
 
 
 
