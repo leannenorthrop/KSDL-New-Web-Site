@@ -24,6 +24,14 @@ class ArticleService {
         return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
     }
 
+    def findByTag(tagname, params = []) {
+        def tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
+        tagQuery += "tl.tag.name = '${tagname}' or "
+        tagQuery = tagQuery[0..-4] + "))"
+        def articles = Article.executeQuery("from Article a where ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+        return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
+    }
+
     def countPublishedByTags(tags, inclusive = Boolean.FALSE) {
         def articles
         def tagQuery = ""

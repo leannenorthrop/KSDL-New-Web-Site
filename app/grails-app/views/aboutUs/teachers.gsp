@@ -24,41 +24,21 @@
 <%--
   Home Page for About Us
   User: Leanne Northrop
-  Date: Feb 12, 2010, 5:43:08 PM
+  Date: Jun 11, 2010, 7:21:08 PM
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title><g:message code="aboutUs"/></title>
+    <title><g:message code="teacher.heading.title"/></title>
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="grid_12">
-      <g:render template="/toparticles" model="[articles:topArticles,displayTitle:false]"/>
-    </div>
-
-    <div class="grid_4">
-      <div class="box">
-        <h2><g:message code="footer.help"/></h2>
-        <ul>
-          <li><g:link controller="aboutUs" action="contactUs" class="menuitem"><g:message code="footer.contact.us"/></g:link></li>
-          <li><g:link controller="aboutUs" action="visiting" class="menuitem"><g:message code="footer.visit.us"/></g:link></li>
-          <li><g:link controller="aboutUs" action="lineage" class="menuitem"><g:message code="teacher.category.L"/></g:link></li>
-          <li><g:link controller="aboutUs" action="teachers" class="menuitem"><g:message code="teacher.heading.title"/></g:link></li>
-        </ul>
-      </div>
+    <div class="grid_16">
+      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.category.L', controller: 'teacher', action:'view']"/>      
     </div>
 
     <div class="clear"></div>
-
-    <div class="grid_8">
-      <g:render template="/articlelist" model="[articles:lineageTeachers, heading: 'teacher.category.L', controller: 'teacher', action:'view']"/>
-    </div>
-
-    <div class="grid_8">
-      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.heading.title', controller: 'teacher', action:'view']"/>
-    </div>
 
   </body>
 </html>
