@@ -42,4 +42,12 @@ class AboutUsController {
             render(view: 'view', model: model)
         }
     }
+
+	def contact = {
+		model:[]
+	}
+	
+	def visiting = {
+		model:[]
+	}	
 }
