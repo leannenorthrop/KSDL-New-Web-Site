@@ -2,6 +2,7 @@ package org.samye.dzong.london.site
 import javax.servlet.http.Cookie
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.events.Event
+import org.samye.dzong.london.ShiroRole
 
 class HomeController {
     def articleService
@@ -57,8 +58,21 @@ class HomeController {
         model: []
     }
 
-    def aboutThisSite = {
-        model: []
+    def aboutThisSite = {		
+		def devUsers = [] as Set
+		def devs = ShiroRole.findAllByName("Admin")
+		devs = devs.findAll { item -> item.name != "Administrator"}
+		devs.each { item -> 
+			devUsers.addAll(item.users)
+		}
+				
+		def users = [] as Set
+		def roles = ShiroRole.findAllByNameNotEqual("Admin")
+		roles = roles.findAll { item -> item.name != "Administrator"}
+		roles.each { item -> 
+			users.addAll(item.users)
+		}
+        model: [developers: devUsers, users: users.sort()]
     }
 
     def changeCssTheme = {
@@ -77,6 +91,10 @@ class HomeController {
         model:[]
     }
 
+	def legal = {
+		model:[]
+	}
+	
     def internalError = {
         render(view:internalError)
     }
