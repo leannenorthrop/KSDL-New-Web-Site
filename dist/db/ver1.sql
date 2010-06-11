@@ -1,5 +1,11 @@
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (2,'fileUploader:*');
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (2,'theme:*');
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (1,'profile:*');
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (2,'profile:*');
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (3,'profile:*');
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (4,'profile:*');
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (5,'profile:*');
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (6,'profile:*');
 
 ALTER TABLE `image` ADD date_created DATETIME;
 ALTER TABLE `image` ADD last_updated DATETIME;

@@ -161,3 +161,18 @@
 .menuButton a:hover.themeCreate {
     background: url(images/hover/services_16.png) center left no-repeat;
 }
+
+.menuButton a.profile {
+    background: url(images/normal/user_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.profile {
+    background: url(images/hover/user_16.png) center left no-repeat;
+}
+.menuButton a.profileEdit {
+    background: url(images/normal/user_edit_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.profileEdit {
+    background: url(images/hover/user_edit_16.png) center left no-repeat;
+}
