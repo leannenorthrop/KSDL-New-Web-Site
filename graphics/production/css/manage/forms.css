@@ -1,21 +1,36 @@
+/* forms
+----------------------------------------------- */
 form {
     position: relative;
+	overflow:hidden;
+	font-size: 11px;
 }
 
 fieldset {
-    margin-top: 0.6em;
+    border:1px solid #bbb;
+    padding:10px;
+    position:relative;
+    background:#e9e9e9;
+    margin-bottom:10px;
+	margin-top: 0.6em;
+}
+legend {
+    font-size:1.1em;
+    padding:.4em .8em;
+    background:#fff;
+    border:1px solid #bbb;
 }
 
-fieldset label {
-    display: block;
-    margin-bottom: 0.3em;
+fieldset p label {
+    width:98%;
 }
 
-fieldset.last {
-    padding-bottom: 3em;
+fieldset p.last {
+	line-height:0;
+    padding-bottom: 0.5em;
 }
 
-fieldset input[type="text"], fieldset input[type="password"],fieldset textarea {
+fieldset p input[type="text"], fieldset p input[type="password"],fieldset p textarea,fieldset div textarea {
     padding: 5px;
     border-top: 1px solid #bbb;
     border-left: 1px solid #bbb;
@@ -23,20 +38,18 @@ fieldset input[type="text"], fieldset input[type="password"],fieldset textarea {
     border-right: 1px solid #ddd;
     background: white url(images/darkFadeTop.png) repeat-x top left;
     background: white url(images/darkFadeTop.png) repeat-x top left;
+	width: 98%;
 }
 
-fieldset input.required, fieldset textarea.required {
+fieldset p input.required, fieldset p textarea.required {
     border: 1px solid black;
 }
 
-fieldset input:focus, fieldset textarea:focus, fieldset.select:focus {
+fieldset p input:focus, fieldset p textarea:focus, fieldset p.select:focus {
     background: white;
     border: 1px solid #0070a3;
 }
 
-form fieldset {
-
-}
 /* ACTION BUTTONS */
 input[type="submit"],form a.button, form a.submit {
     position: absolute;
@@ -121,11 +134,6 @@ form label strong em {
 }
 .error {
     color: #cd0a0c;
-}
-
-
-#publishEvent input[type="text"],#publishEvent textarea,#editEvent input[type="text"],#editEvent textarea,#addevent input[type="text"],#addevent textarea,#editteacher input[type="text"],#editteacher textarea,#addteacher input[type="text"],#addteacher textarea,#updatearticle input[type="text"],#updatearticle textarea,#createarticle input[type="text"],#createarticle textarea,#publish input[type="text"], #publish textarea{
-    width: 100%;
 }
 
 fieldset p.tags_help {

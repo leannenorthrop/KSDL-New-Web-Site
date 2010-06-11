@@ -45,22 +45,22 @@
   </head>
   <body>
     <g:form name="addevent" action="save" method="post">
-      <h1 class="ui-widget-header"><g:message code="event.create.title"/></h1>
+        <g:hiddenField name="publishState" value="Unpublished"/>
+        <g:hiddenField name="deleted" value="false"/>
+        <g:hiddenField name="displayAuthor" value="false"/>
+        <g:hiddenField name="displayDate" value="false"/>
+        <g:hiddenField name="isRepeatable" value="false"/>
+        <g:hiddenField name="home" value="false"/>
+        <g:hiddenField name="featured" value="false"/>
 
-      <g:render template="/messageBox" model="[flash: flash]"/>
+        <fieldset>
+            <g:render template="/messageBox" model="[flash: flash]"/>            
+            
+            <g:render template="/editEvent" model="[event: event, rule:rule]"/>
 
-      <g:hiddenField name="publishState" value="Unpublished"/>
-      <g:hiddenField name="deleted" value="false"/>
-      <g:hiddenField name="displayAuthor" value="false"/>
-      <g:hiddenField name="displayDate" value="false"/>
-      <g:hiddenField name="isRepeatable" value="false"/>
-      <g:hiddenField name="home" value="false"/>
-      <g:hiddenField name="featured" value="false"/>
-
-      <g:render template="/editEvent" model="[event: event, rule:rule]"/>
-
-      <fieldset class="last"></fieldset>
-      <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>
+            <p class="last">&nbsp;</p>
+            <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>
+        </fieldset>
     </g:form>
   </body>
 </html>

@@ -39,29 +39,37 @@
     </g:javascript>
   </head>
   <body>
-    <g:form name="imageform" action="update" method="post">
-      <g:hiddenField name="id" value="${imageInstance?.id}"/>
-      <g:hiddenField name="version" value="${imageInstance?.version}"/>
-      <g:hiddenField name="name" value="${imageInstance?.name}"/>
+    <div class="container_16">
+        <div class="grid_8">
+            <g:if test="${imageInstance?.mimeType.endsWith('png')}">
+              <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" title="${imageInstance.name}" alt="${imageInstance.name}" class="pngImg"/>
+            </g:if>
+            <g:else>
+              <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" title="${imageInstance.name}" alt="${imageInstance.name}"/>
+            </g:else>            
+        </div>
+        <div class="grid_8">
+            <g:form name="imageform" action="update" method="post">
+              <g:hiddenField name="id" value="${imageInstance?.id}"/>
+              <g:hiddenField name="version" value="${imageInstance?.version}"/>
+              <g:hiddenField name="name" value="${imageInstance?.name}"/>
 
-      <g:render template="/messageBox" model="[flash: flash]"/>
-
-      <g:if test="${imageInstance?.mimeType.endsWith('png')}">
-        <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" title="${imageInstance.name}" alt="${imageInstance.name}" class="pngImg"/>
-      </g:if>
-      <g:else>
-        <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" title="${imageInstance.name}" alt="${imageInstance.name}"/>
-      </g:else>
-
-      <fieldset class="last">
-        <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
-        <g:textArea rows="5" cols="40" name="tags" class="required ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
-        <p class="tags_help">
-          <g:message code="img.tag.help"/>
-        </p>
-      </fieldset>
-      <g:set var="submitBtnLabel"><g:message code="image.edit.submit.btn"/></g:set>
-      <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
-    </g:form>
+              <fieldset>
+                  <legend>Labels</legend>
+                  <g:render template="/messageBox" model="[flash: flash]"/>
+                  <p>
+                    <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
+                    <g:textArea rows="5" cols="40" name="tags" class="required ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
+                  </p>
+                  <p class="tags_help">
+                      <g:message code="img.tag.help"/>
+                  </p>                  
+                  <p class="last"></p>
+                  <g:set var="submitBtnLabel"><g:message code="image.edit.submit.btn"/></g:set>
+                  <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+              </fieldset>
+            </g:form>
+        </div>
+    </div>
   </body>
 </html>

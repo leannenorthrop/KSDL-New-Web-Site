@@ -51,22 +51,26 @@
         </ul>
         <div id="upload">
           <fieldset>
-            <label for="name"><g:message code="image.name"/></label>
-            <input type="text" id="name" name="name" class="required ${hasErrors(bean: imageInstance, field: 'name', 'errors')}" min-length="5" value="${fieldValue(bean: imageInstance, field: 'name')}"/>
+              <legend>Details</legend>
+              <p>
+                <label for="name"><g:message code="image.name"/></label>
+                <input type="text" id="name" name="name" class="required ${hasErrors(bean: imageInstance, field: 'name', 'errors')}" min-length="5" value="${fieldValue(bean: imageInstance, field: 'name')}"/>
+              </p>
+              <p>
+                <label for="file"><g:message code="image.create.file"/></label>
+                <input type="file" id="image" name="image"/>
+              </p>
+              <p>
+                <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
+                <g:textArea rows="5" cols="40" name="tags" class="required ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
+              </p>
+              <p class="tags_help">
+                  <g:message code="img.tag.help"/>
+              </p>
+              <p class="last"></p>
+              <g:set var="submitBtnLabel"><g:message code="image.create.submit.btn"/></g:set>
+              <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
           </fieldset>
-          <fieldset>
-            <label for="file"><g:message code="image.create.file"/></label>
-            <input type="file" id="image" name="image"/>
-          </fieldset>
-          <fieldset class="last">
-            <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
-            <g:textArea rows="5" cols="40" name="tags" class="required ui-corner-all ${hasErrors(bean:imageInstance,field:'tags','errors')}" minlength="5">${imageInstance.tags.join(",")}</g:textArea>
-            <p class="tags_help">
-              <g:message code="img.tag.help"/>
-            </p>
-          </fieldset>
-          <g:set var="submitBtnLabel"><g:message code="image.create.submit.btn"/></g:set>
-          <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
         </div>
         <div id="flickr">
           <h1>Coming Soon</h1>

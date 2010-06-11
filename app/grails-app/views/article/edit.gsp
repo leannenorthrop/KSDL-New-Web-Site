@@ -42,29 +42,33 @@
       <g:hiddenField name="deleted" value="${articleInstance?.deleted}"/>
       <g:hiddenField name="displayAuthor" value="${articleInstance?.displayAuthor}"/>
       <g:hiddenField name="displayDate" value="${articleInstance?.displayDate}"/>
-
       <fieldset>
+            <legend>Details</legend>
+      <p>
         <label for="title"><g:message code="article.title.label"/></label>
         <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
-      </fieldset>
-      <fieldset>
+      </p>
+      <p>
         <label for="image.id"><g:message code="article.image.label"/></label>
         <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
         <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-      </fieldset>
-      <fieldset>
+      </p>
+      <p>
         <label for="category"><g:message code="event.category.label"/></label>
         <g:select name="category" from="${['M','N','C','W','B']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
-      </fieldset>
-      <fieldset>
+      </p>
+      <p>
         <label for="summary"><g:message code="article.summary.label"/></label>
         <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance.summary}" minlength="5"/>
+      </p>
       </fieldset>
-      <fieldset class="last">
+      <fieldset>
+        <legend>Content</legend>
         <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:articleInstance]"/>
+        <p class="last">&nbsp;</p>
+        <g:set var="submitBtnLabel"><g:message code="updatearticle.btn"/></g:set>
+        <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
       </fieldset>
-      <g:set var="submitBtnLabel"><g:message code="updatearticle.btn"/></g:set>
-      <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
     </g:form>
   </body>
 </html>

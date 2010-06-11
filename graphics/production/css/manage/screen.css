@@ -3,19 +3,19 @@ Title:      Screen styles for managing site content
 */
 
 /* import stylesheets and hide from ie/mac \*/
-@import url("blue/jquery-ui-1.7.2.custom.css");
 @import url("forms.css");
 @import url("authentication.css");
 @import url("menu.css");
 @import url("tables.css");
 @import url("image.css");
+@import url("widgets.css");
 /* end import/hide */
 
 .contentAdmin {
     width: 100%;
     background: #EEE;
     border-top: 5px solid rgb(113,179,226);
-    font: 13px/1.5 Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+	font: 13px/1.5 Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
 }
 
 .container_12,

@@ -31,7 +31,7 @@
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="teacher.edit.title"/></title>
+    <title><g:message code="teacher.edit.title" args="${[teacher]}"/></title>
     <g:javascript>
       $(function() {
         $("#editteacher").validate();
@@ -40,47 +40,51 @@
   </head>
   <body>
     <g:form name="editteacher" action="update" method="post">
-      <h1 class="ui-widget-header"><g:message code="teacher.edit.title" args="${[teacher]}"/></h1>
-
-      <g:render template="/messageBox" model="[flash: flash]"/>
-
-      <g:hiddenField name="publishState" value="Unpublished"/>
-      <g:hiddenField name="deleted" value="false"/>
-      <g:hiddenField name="displayAuthor" value="false"/>
-      <g:hiddenField name="displayDate" value="false"/>
-      <g:hiddenField name="id" value="${teacher?.id}"/>
-      <g:hiddenField name="version" value="${teacher?.version}"/>
-      <g:hiddenField name="home" value="false"/>
-      <g:hiddenField name="featured" value="false"/>
-      <g:hiddenField name="category" value="T"/>
-
-      <fieldset>
-        <label for="title"><g:message code="teacher.title.label"/></label>
-        <g:set var="noneLabel"><g:message code="no.img"/></g:set>
-        <g:select name="title" from="${['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS']}" noSelection="${['U':noneLabel]}" value="${fieldValue(bean:teacher,field:'title')}" valueMessagePrefix="teacher.title" />
-      </fieldset>
-      <fieldset>
-        <label for="name"><g:message code="teacher.name.label"/></label>
-        <g:textField name="name" value="${fieldValue(bean:teacher,field:'name')}" class="required ui-corner-all ${hasErrors(bean:teacher,field:'name','errors')}" minlength="5"/>
-      </fieldset>
-      <fieldset>
-        <label for="image.id"><g:message code="teacher.image.label"/></label>
-        <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('teacher')}" name="image.id" value="${teacher?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-      </fieldset>
-      <fieldset>
-        <label for="category"><g:message code="teacher.category"/></label>
-        <g:select name="type" from="${['L', 'C', 'V', 'O']}" valueMessagePrefix="teacher.category" value="${fieldValue(bean:teacher,field:'type')}" />
-      </fieldset>
-      <fieldset>
-        <label for="summary"><g:message code="teacher.summary.label"/></label>
-        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:teacher,field:'summary','errors')}" value="${fieldValue(bean:teacher,field:'summary')}" minlength="5"/>
-      </fieldset>
-      <fieldset class="last">
-        <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:teacher]"/>
-      </fieldset>
-      <g:set var="submitBtnLabel"><g:message code="teacher.save.btn"/></g:set>
-      <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+        <g:hiddenField name="publishState" value="Unpublished"/>
+        <g:hiddenField name="deleted" value="false"/>
+        <g:hiddenField name="displayAuthor" value="false"/>
+        <g:hiddenField name="displayDate" value="false"/>
+        <g:hiddenField name="id" value="${teacher?.id}"/>
+        <g:hiddenField name="version" value="${teacher?.version}"/>
+        <g:hiddenField name="home" value="false"/>
+        <g:hiddenField name="featured" value="false"/>
+        <g:hiddenField name="category" value="T"/>
+        
+        <fieldset>
+            <legend><g:message code="teacher.edit.title" args="${[teacher]}"/></legend>
+            
+            <g:render template="/messageBox" model="[flash: flash]"/>
+            
+              <p>
+                <label for="title"><g:message code="teacher.title.label"/></label>
+                <g:set var="noneLabel"><g:message code="no.img"/></g:set>
+                <g:select name="title" from="${['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS']}" noSelection="${['U':noneLabel]}" value="${fieldValue(bean:teacher,field:'title')}" valueMessagePrefix="teacher.title" />
+              </p>
+              <p>
+                <label for="name"><g:message code="teacher.name.label"/></label>
+                <g:textField name="name" value="${fieldValue(bean:teacher,field:'name')}" class="required ui-corner-all ${hasErrors(bean:teacher,field:'name','errors')}" minlength="5"/>
+              </p>
+              <p>
+                <label for="image.id"><g:message code="teacher.image.label"/></label>
+                <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+                <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('teacher')}" name="image.id" value="${teacher?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+              </p>
+              <p>
+                <label for="category"><g:message code="teacher.category"/></label>
+                <g:select name="type" from="${['L', 'C', 'V', 'O']}" valueMessagePrefix="teacher.category" value="${fieldValue(bean:teacher,field:'type')}" />
+              </p>
+              <p>
+                <label for="summary"><g:message code="teacher.summary.label"/></label>
+                <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:teacher,field:'summary','errors')}" value="${fieldValue(bean:teacher,field:'summary')}" minlength="5"/>
+              </p>
+          </fieldset>              
+          <fieldset class="last">
+              <legend>Content</legend>
+              <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:teacher]"/>
+              <p class="last">&nbsp;</p>
+              <g:set var="submitBtnLabel"><g:message code="teacher.save.btn"/></g:set>
+              <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+          </fieldset>
     </g:form>
   </body>
 </html>

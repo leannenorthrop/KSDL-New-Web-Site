@@ -3,18 +3,13 @@
     border: none;
 }
 
-.entryForms input[type="text"],input[type="password"] {
-    width: 20em;
-}
-
 .entryForms .signIn {
     width: 48%;
 }
 
 .entryForms form {
-    height: 20em;
+    height: 25em;
     position: relative;
-    border: 1px solid #aaa;
 }
 
 .entryForms .middle {

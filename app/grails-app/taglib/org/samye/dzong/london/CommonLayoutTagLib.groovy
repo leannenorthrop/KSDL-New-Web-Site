@@ -52,47 +52,47 @@ class CommonLayoutTagLib {
     }
 
      def toolbar = { attrs ->
-        def adminControllers =['home']
+        def adminControllers =['home', 'profile']
         def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
-            ['profile','article'].each () { item ->
+            ['article'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("EventOrganiser")) {
-            ['profile','event'].each () { item ->
+            ['event'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
-            ['profile','article', 'image', 'teacher'].each () { item ->
+            ['article', 'image', 'teacher'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("VenueManager")) {
-            ['profile','venue'].each () { item ->
+            ['venue'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("EventOrganiser")) {
-            ['profile','event'].each() { item ->
+            ['event'].each() { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            ['profile','theme', 'roles'].each () { item ->
+            ['theme', 'roles'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Admin")) {
-            ['profile', 'theme', 'article', 'image', 'venue', 'event', 'roles'].each () { item ->
+            ['theme', 'article', 'image', 'venue', 'event', 'roles'].each () { item ->
                 adminControllers << item
             }
         }

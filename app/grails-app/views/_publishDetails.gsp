@@ -30,14 +30,14 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<fieldset class="group">
+<p class="group">
   <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
   <textarea cols="5" rows="5" id="tags" name="tags" class="${hasErrors(bean: articleInstance, field: 'tags', 'errors')} required" minlength="3">${articleInstance.tags.join(",")}</textarea>
   <p class="tags_help">
     <g:message code="article.tag.help"/>
   </p>
-</fieldset>
-<fieldset class="last">
+</p>
+<p>
   <label for="displayAuthor"><g:message code="article.display.author"/>
   <g:checkBox name="displayAuthor" value="${articleInstance?.displayAuthor}"/>
   </label>
@@ -55,4 +55,4 @@
     <g:checkBox name="featured" value="${articleInstance?.featured}"/>
     </label>
   </label>
-</fieldset>
+</p>

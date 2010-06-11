@@ -5,7 +5,6 @@
 #createarticle input, #createarticle textarea,
 #updatearticle input, #updatearticle textarea,
 #publish input, #publish textarea {
-    width: 90%;
 }
 
 #news-notifications ul {
