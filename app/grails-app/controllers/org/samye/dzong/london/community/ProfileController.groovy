@@ -69,4 +69,20 @@ class ProfileController {
 			response.outputStream << ""
 		}
     }
+
+	def edit = {
+		try {
+			def user 
+			if (params.username) {
+				user = userLookupService.find(params.username)
+			} else if (params.id) {
+				user = userLookupService.get(params.id)
+			} else {
+				user = userLookupService.lookup()
+			}
+			render(view: 'edit', model:[user:user])
+		} catch(error) {
+			log.warn "Unable to check existance of user profile", error
+		}		
+	}
 }
