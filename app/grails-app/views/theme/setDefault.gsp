@@ -43,20 +43,22 @@
     <div class="container_16">  
         <div class="grid_4">
             <g:form name="setDefaultTheme" action="save" method="post">
-              <h1 class="ui-widget-header"><g:message code="theme.select.title"/></h1>
+                <fieldset>
+                  <legend><g:message code="theme.select.title"/></legend>
 
-              <g:render template="/messageBox" model="[flash: flash]"/>
+                  <g:render template="/messageBox" model="[flash: flash]"/>
 
-          	<p><g:if test="${cookie(name:'cssTheme')}">The default theme for new viewers is currently ${defaultTheme}.</g:if> You may change the way this website looks for
-          	    new users by selecting any of the options below and pressing the Save Changes button:<br/><br/>
+                  	<p><g:if test="${cookie(name:'cssTheme')}">The default theme for new viewers is currently ${defaultTheme}.</g:if> You may change the way this website looks for
+                  	    new users by selecting any of the options below and pressing the Save Changes button:<br/><br/>
   	    
-                <g:radioGroup name="theme" labels="${cssThemesDir}" values="${cssThemesDir}" value="${defaultTheme}" >
-                <p><g:message code="${it.label}" />: ${it.radio}</p>
-                </g:radioGroup>
-          	</p>
+                        <g:radioGroup name="theme" labels="${cssThemesDir}" values="${cssThemesDir}" value="${defaultTheme}" >
+                        <p><g:message code="${it.label}" />: ${it.radio}</p>
+                        </g:radioGroup>
+                  	</p>
   	
-              <fieldset class="last"></fieldset>
-              <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>
+                  <p class="last"></p>
+                  <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>
+              </fieldset>
             </g:form>
         </div>
         <div class="grid_12">

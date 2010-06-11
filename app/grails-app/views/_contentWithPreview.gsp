@@ -34,7 +34,6 @@
     <li><a href="${createLink(controller: 'manageSite', action: 'textile')}" title="Hints Tab"><g:message code="hints.tab.title" default="Hints"/></a></li>
   </ul>
   <div id="edit-tab">
-    <label for="content"><g:message code="article.content.label"/></label>
     <lsdc:remoteField name="content" controller="manageSite" action="preview" update="preview-tab" paramName="previewcontenttxt" class="ui-corner-all ${hasErrors(bean:publishableInstance,field:'content','errors')}" value="${publishableInstance?.content}"/>
   </div>
   <div id="preview-tab">

@@ -28,17 +28,28 @@
     <title><g:message code="image.show.title" args="${[fieldValue(bean:imageInstance,field:'name')]}"/></title>
   </head>
   <body>
-    <g:if test="${flash.message}">
-      <div class="message">${flash.message}</div>
-    </g:if>
-    <img src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}"/>
-    <h3><g:message code="image.tag"/></h3>
-    <p><g:message code="image.label.msg"/>
-    <ul>
-      <g:each in="${imageInstance.tags}" status="i" var="tag">
-        <li>${tag}</li>
-      </g:each>
-    </ul>
-  </p>
+    <div class="container_16">
+        <div class="grid_8">
+            <img src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" width="100%"/>
+        </div>
+        <div class="grid_8">
+            <form>
+                <fieldset>
+                    <legend>Details for ${fieldValue(bean:imageInstance,field:'name')}</legend>
+                    <g:if test="${flash.message}">
+                      <div class="message">${flash.message}</div>
+                    </g:if>
+
+                    <p><g:message code="image.label.msg"/>
+                        <ul>
+                          <g:each in="${imageInstance.tags}" status="i" var="tag">
+                            <li>${tag}</li>
+                          </g:each>
+                        </ul>
+                    </p>
+                </fieldset>
+            </form>
+        </div>
+    </div>
   </body>
 </html>

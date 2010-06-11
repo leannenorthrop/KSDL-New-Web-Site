@@ -43,27 +43,35 @@
 
       <shiro:hasAnyRole in="['Author']">
         <fieldset>
+            <legend>Details</legend>
+        <p>
           <label for="title"><g:message code="article.title.label"/></label>
           <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
-        </fieldset>
-        <fieldset>
+        </p>
+        <p>
           <label for="image.id"><g:message code="article.image.label"/></label>
           <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
           <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-        </fieldset>
-        <fieldset>
+        </p>
+        <p>
           <label for="category"><g:message code="article.category.label"/></label>
           <g:select name="category" from="${['M','N','C','W','B']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}"/>
-        </fieldset>
-        <fieldset>
+        </p>
+        <p>
           <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="help" action='textile'>Textile</g:link> for details.</em></label>
           <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance.summary}" minlength="5"/>
+        </p>
         </fieldset>
         <fieldset>
+          <legend>Content</legend>
           <g:render template="/contentWithPreview" model="[previewController: 'article',publishableInstance:articleInstance]"/>
         </fieldset>
       </shiro:hasAnyRole>
-      <g:render template="/publishDetails" model="[articleInstance:articleInstance]"/>
+      <fieldset>
+          <legend>Publication Options</legend>
+          <g:render template="/publishDetails" model="[articleInstance:articleInstance]"/>
+      </fieldset>
+      <p class="last">&nbsp;</p>
       <g:set var="submitBtnLabel"><g:message code="article.publish.btn"/></g:set>
       <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
     </g:form>

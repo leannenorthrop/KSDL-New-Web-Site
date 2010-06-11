@@ -60,29 +60,28 @@
       </div>
       <div class="clear"></div>
 
-      <div class="grid_16">
+      <div class="grid_16" style="min-width:50em">
         <g:layoutBody/>
       </div>
       <div class="clear"></div>
 
-      <!--div class="grid_18">
-      <div class="footer">
-        <ul>
-          <li>
-            <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
-      <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
-          </li>
-          <li>
-            Version <g:meta name="app.version"/> Built with Grails <g:meta name="app.grails.version"/>
-          </li>
-          <li>
-            ${(Runtime.getRuntime().freeMemory() / 1024) / 1024} Mb free of ${(Runtime.getRuntime().totalMemory() / 1024) / 1024} Mb
-          </li>
-        </ul>
+      <div class="grid_16">
+          <div class="footer">
+              <ul>
+                  <li>
+                      <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
+                      <g:message code="footer.copyright" args="${[year]}"/> Leanne Northrop
+                  </li>
+                  <li>
+                      Version <g:meta name="app.version"/> Built with Grails <g:meta name="app.grails.version"/>
+                  </li>
+                  <li>
+                      ${(Runtime.getRuntime().freeMemory() / 1024) / 1024} Mb free of ${(Runtime.getRuntime().totalMemory() / 1024) / 1024} Mb
+                  </li>
+              </ul>
+          </div>
       </div>
-    </div>
-    <div class="clear"></div>
-  </div-->
+      <div class="clear"></div>
     </div>
   </body>
 </html>

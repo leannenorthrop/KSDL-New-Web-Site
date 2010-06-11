@@ -1,40 +1,40 @@
 /* TABLES */
 
-table {
+.contentAdmin table {
     border: 1px solid #ccc;
     width: 100%
 }
-tr {
+.contentAdmin tr {
     border: 0;
 }
-td, th {
+.contentAdmin td, .contentAdmin th {
     line-height: 12px;
     padding: 5px 6px;
     text-align: left;
     vertical-align: top;
 }
-th {
+.contentAdmin th {
     background: rgb(235,244,250) url(images/darkFadeBottom.png) bottom repeat-x;
     color: #666;
     font-weight: bold;
     line-height: 17px;
     padding: 2px 6px;
 }
-th a:link, th a:visited, th a:hover {
+.contentAdmin th a:link, .contentAdmin th a:visited, .contentAdmin th a:hover {
     color: #333;
     display: block;
     text-decoration: none;
     width: 100%;
 }
-th.asc a, th.desc a {
+.contentAdmin th.asc a, .contentAdmin th.desc a {
     padding-left: 10px;
     background-position: left;
     background-repeat: no-repeat;
 }
-th.asc a {
+.contentAdmin th.asc a {
     background-image: url(images/sorted_asc.gif);
 }
-th.desc a {
+.contentAdmin th.desc a {
     background-image: url(images/sorted_desc.gif);
 }
 

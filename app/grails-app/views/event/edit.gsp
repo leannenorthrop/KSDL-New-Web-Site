@@ -43,24 +43,24 @@
   </head>
   <body>
     <g:form name="editEvent" action="update" method="post">
-      <h1 class="ui-widget-header"><g:message code="event.edit.title"/></h1>
+        <g:hiddenField name="id" value="${event?.id}"/>
+        <g:hiddenField name="version" value="${event?.version}"/>
+        <g:hiddenField name="publishState" value="Unpublished"/>
+        <g:hiddenField name="deleted" value="false"/>
+        <g:hiddenField name="displayAuthor" value="false"/>
+        <g:hiddenField name="displayDate" value="false"/>
+        <g:hiddenField name="isRepeatable" value="false"/>
+        <g:hiddenField name="home" value="false"/>
+        <g:hiddenField name="featured" value="false"/>  
+        
+        <fieldset>  
+            <g:render template="/messageBox" model="[flash: flash]"/>
 
-      <g:render template="/messageBox" model="[flash: flash]"/>
+            <g:render template="/editEvent" model="[event: event]"/>
 
-      <g:hiddenField name="id" value="${event?.id}"/>
-      <g:hiddenField name="version" value="${event?.version}"/>
-      <g:hiddenField name="publishState" value="Unpublished"/>
-      <g:hiddenField name="deleted" value="false"/>
-      <g:hiddenField name="displayAuthor" value="false"/>
-      <g:hiddenField name="displayDate" value="false"/>
-      <g:hiddenField name="isRepeatable" value="false"/>
-      <g:hiddenField name="home" value="false"/>
-      <g:hiddenField name="featured" value="false"/>
-
-      <g:render template="/editEvent" model="[event: event]"/>
-
-      <fieldset class="last"></fieldset>
-      <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>
+            <p class="last">&nbsp;</p>
+            <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>
+        </fieldset>
     </g:form>
   </body>
 </html>

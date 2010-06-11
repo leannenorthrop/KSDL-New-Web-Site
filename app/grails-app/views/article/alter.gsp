@@ -42,8 +42,11 @@
       <g:hiddenField name="deleted" value="${false}"/>
       <g:hiddenField name="publishState" value="Published"/>
 
-      <g:render template="/publishDetails" model="[articleInstance:articleInstance]"/>
-
+      <fieldset>
+          <legend>Publication Options</legend>
+              <g:render template="/publishDetails" model="[articleInstance:articleInstance]"/>
+      </legend>
+      <p class="last">&nbsp;</p>
       <g:set var="submitBtnLabel"><g:message code="article.publish.btn"/></g:set>
       <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
     </g:form>

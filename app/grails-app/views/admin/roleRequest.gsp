@@ -31,15 +31,18 @@
     <g:hiddenField name="id" value="${user?.passwordReset}" />
     <g:hiddenField type="hidden" name="reset" value="${user?.passwordReset}" />
 
-    <p><g:message code='req.perm.msg'/></p>
-
-    <ul>
-        <g:each var="role" in="${roles}">
-            <li><g:checkBox name="${'role.' + role.name}" /><g:message code='role.${role.name}'/></li>
-        </g:each>
-    </ul>
-    <g:set var="submitBtnLabel"><g:message code="req.perm.submit"/></g:set>
-    <g:submitButton name="requestRolesBtn" value="${submitBtnLabel}" id="requestRolesBtn" class="ui-corner-all"/>
+    <fieldset>
+        <legend><g:message code='req.perm.msg'/></legend>
+        
+        <ul>
+            <g:each var="role" in="${roles}">
+                <li><g:checkBox name="${'role.' + role.name}" /><g:message code='role.${role.name}'/></li>
+            </g:each>
+        </ul>
+        <p class="last">&nbsp;</p>
+        <g:set var="submitBtnLabel"><g:message code="req.perm.submit"/></g:set>
+        <g:submitButton name="requestRolesBtn" value="${submitBtnLabel}" id="requestRolesBtn" class="ui-corner-all"/>
+    </fieldset>
   </g:form>
 </body>
 </html>
