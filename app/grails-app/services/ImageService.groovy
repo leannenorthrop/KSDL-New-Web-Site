@@ -25,7 +25,7 @@ class ImageService {
             if (imageTool.getHeight() > 640 || imageTool.getWidth() > 640) {
                 imageTool.thumbnailSpecial(640, 640, 3, 1)
                 def imagetype = type.toLowerCase().indexOf("jpg") >= 0 ? "JPEG" : "PNG";
-                println("cropping ${imagetype}")
+				imagetype = type.toLowerCase().indexOf("jpeg") >= 0 ? "JPEG" : "PNG";
                 return imageTool.getBytes(imagetype)
             } else {
                 if (file instanceof String) {
@@ -43,6 +43,45 @@ class ImageService {
         }
     }
 
+	def isThumbnail(file) {
+		try {
+            def imageTool = new ImageTool()
+            imageTool.load(file)
+            imageTool.saveOriginal()
+            return imageTool.getHeight() <= 75 && imageTool.getWidth() <= 75
+        } catch (error) {
+            log.error(error)
+        }		
+	}
+	
+	def profileThumbnail(file,type) {
+        try {
+            def imageTool = new ImageTool()
+            imageTool.load(file)
+            imageTool.saveOriginal()
+            if (imageTool.getHeight() > 75 || imageTool.getWidth() > 75) {
+				imageTool.square()
+	            imageTool.swapSource()
+	            imageTool.thumbnailSpecial(75, 75, 3, 2)
+                def imagetype = type.toLowerCase().indexOf("jpg") >= 0 ? "JPEG" : "PNG";
+				imagetype = type.toLowerCase().indexOf("jpeg") >= 0 ? "JPEG" : "PNG";
+                return imageTool.getBytes(imagetype)	
+            } else {
+                if (file instanceof String) {
+                    try {
+                        return new File(file).readBytes()
+                    } catch (error) {
+                        return ""
+                    }
+                } else {
+                    return file
+                }
+            }
+        } catch (error) {
+            log.error(error)
+        }		
+	}
+	
     def thumbnail(image) {
         try {
             def imageTool = new ImageTool()

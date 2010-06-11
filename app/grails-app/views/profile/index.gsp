@@ -27,16 +27,20 @@
         <title><g:message code="profile.title" args="${[user.profile?.publicName]}"/></title>        
     </head>
     <body>
-        <p>
-            <g:if test="${user.profile?.image && user.profile?.mimeType?.endsWith('png')}">
-              <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}" class="pngImg"/>
-            </g:if>
-            <g:else>
-            ${createLink(controller: 'profile', action: 'src', id: 2)}
-              <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}"/>
-            </g:else> 
-            ${user.profile?.publicName} (${user.profile?.nickName}) 
-            ${user.roles?.join(", ")}          
-        </p>
+        <div class="container_16">
+            <div class="grid_3">
+                <g:if test="${user.profile?.image && user.profile?.mimeType?.endsWith('png')}">
+                  <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}" class="pngImg" style="max-width:100%"/>
+                </g:if>
+                <g:else>
+                  <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}" style="max-width:100%"/>
+                </g:else>                
+            </div>
+            <div class="grid_13">
+                <h4>${user.profile?.publicName} (${user.profile?.nickName})</h4>
+                <h5>${user.roles?.join(", ")}</h5>
+                <h6>Last Logged In: <g:formatDate format="dd-MM-yyyy HH:mm" date="${user.profile?.lastUpdated}"/></h6>                
+            </div>            
+        </div>
     </body>
 </html>

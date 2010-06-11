@@ -24,6 +24,7 @@ package org.samye.dzong.london.community
 
 class ProfileController {
 	def userLookupService
+	def imageService
 
     def index = { 
 		try {
@@ -53,7 +54,7 @@ class ProfileController {
 			}
 	        if (user && user.profile) {
 				byte[] image = user.profile.image
-				if (request.getHeader("If-Modified-Since")) {
+				if (request.getDateHeader("If-Modified-Since") > user.profile.lastUpdated.time) {
 					response.setStatus(304)
 				}				
 				response.setContentType(user.profile.mimeType)
@@ -83,6 +84,42 @@ class ProfileController {
 			render(view: 'edit', model:[user:user])
 		} catch(error) {
 			log.warn "Unable to check existance of user profile", error
+			render(view:'edit',model:[user:user])
 		}		
 	}
+	
+	def save = {
+		def user = userLookupService.lookup()
+		
+		try {
+	        def f = request.getFile('image')
+	        def contentType = f?.getContentType()
+	        def bytes = f?.getBytes()
+
+			user.profile.publicName = params.publicName
+			user.profile.nickName = params.nickName		
+			
+			if (bytes != null && bytes.length > 0) {
+				if (imageService.isThumbnail(bytes)) {
+		        	user.profile.mimeType = contentType
+		        	user.profile.image = bytes
+				} else {
+		        	user.profile.mimeType = "image/jpeg"
+		        	user.profile.image = imageService.profileThumbnail(bytes,contentType)				
+				}
+			}
+	        if(!user.profile.hasErrors() && user.profile.save()) {
+	            flash.message = "Your profile has been updated"
+	            redirect(action:index,id:user.id)
+	        }
+	        else {
+	            render(view:'edit',model:[user:user])
+	        }
+		} catch (error) {
+			log.error "Unable to save profile changes", error
+			flash.message = "Your profile could not be updated at this time."
+			flash.isError = true
+			render(view:'edit',model:[user:user])
+		}
+    }	
 }

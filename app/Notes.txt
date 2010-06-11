@@ -75,7 +75,6 @@ http://code.google.com/p/lsd-website/issues/entry
 7. Commenting/documentation - check out grails documentation
 8. Database performance
 
-9. Find out why production database backup doesn't do images.
 ================================================================================
     Niceties
 ================================================================================
@@ -144,4 +143,5 @@ GRANT ALL ON londonsamyedzong.* TO 'londonsamyedzong'@'localhost';
 mysql -h localhost -u londonsamyedzong -p londonsamyedonzg < migrate.sql 
 
 mysqldump --no-data -u [username] -p [databasename] > structurebackup.sql
+mysqldump  --max_allowed_packet=800M -u londonsamyedzong -p londonsamyedzong image | gzip > image.sql.gz
 

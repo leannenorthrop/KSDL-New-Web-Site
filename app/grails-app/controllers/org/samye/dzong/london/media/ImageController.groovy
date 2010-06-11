@@ -18,11 +18,11 @@ class ImageController {
             response.outputStream << ""
         } else {
 			try {
-				if (request.getHeader("If-Modified-Since")) {
+				if (request.getDateHeader("If-Modified-Since") > imageInstance.lastUpdated.time) {
 					response.setStatus(304)
 				}				
 				response.setContentType(imageInstance.mimeType)
-				response.setDateHeader('Last-Modified', imageInstance.dateCreated.time)
+				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
 				response.setHeader("Cache-Control", "public")			
 				response.setHeader("ETag", "W/\"" + imageInstance.version + "\"")
 	 			byte[] image = imageInstance.image
@@ -47,11 +47,11 @@ class ImageController {
         }
         else {
 			try {
-				if (request.getHeader("If-Modified-Since")) {
+				if (request.getDateHeader("If-Modified-Since") > imageInstance.lastUpdated.time) {
 					response.setStatus(304)
 				}				
 				response.setContentType(imageInstance.mimeType)
-				response.setDateHeader('Last-Modified', imageInstance.dateCreated.time)
+				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
 				response.setHeader("Cache-Control", "public")			
 				response.setHeader("ETag", "W/\"" + imageInstance.version + "\"")
 	 			byte[] image = imageInstance.thumbnail

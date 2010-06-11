@@ -1,3 +1,6 @@
+update image set last_updated = curdate() where last_updated IS NULL;
+update image set date_created = curdate() where date_created IS NULL;
+		
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (2,'fileUploader:*');
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (2,'theme:*');
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (1,'profile:*');
