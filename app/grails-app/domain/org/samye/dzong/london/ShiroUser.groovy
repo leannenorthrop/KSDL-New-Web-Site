@@ -2,7 +2,7 @@ package org.samye.dzong.london
 
 import org.samye.dzong.london.community.Profile
 
-class ShiroUser {
+class ShiroUser implements Comparable{
     String username
     String passwordHash
     String passwordReset
@@ -21,7 +21,11 @@ class ShiroUser {
         }
     }
 
+	int	compareTo(Object o) {
+		this.toString().compareTo(o.toString())
+	}
+	
     String toString() {
-        username
+        (profile != null && profile.publicName != null) ? profile.publicName :username
     }
 }

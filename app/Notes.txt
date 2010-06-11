@@ -5,8 +5,6 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
-1. Profile
-2. About This Site
 3. Site Map
 4. Legal Notice, Privacy and Cookies
 5. Venue
