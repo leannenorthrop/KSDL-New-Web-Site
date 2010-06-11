@@ -5,8 +5,18 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
-3. Site Map
-4. Privacy and Cookies
+1. Set site logo image
+2. In page form for email news letter
+3. About Us
+ - All Teachers
+ - Lineage
+ - Teachers
+ - Visiting
+ - Other
+4. Events
+ - Current
+ - Future
+ - Regular
 5. Venue
  - Contact Us
  - Visiting Us
@@ -60,7 +70,7 @@ http://code.google.com/p/lsd-website/issues/entry
     - add notes
 16. Remove checks for Administrator role and give 'Admin' all roles
 17. CSS for manage to be put back to Grid920
-
+18. Privacy and Cookies
 ================================================================================
     For Release
 ================================================================================

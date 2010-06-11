@@ -35,7 +35,13 @@
             </ol>
             <h3>Images & Objects</h3>
             <ol>
-                    <li>[imageName](image)</li>
+                    <li>[imageName](image) eg. [fMRI Scanner](image)</li>
+                    <li>[imageName,left](image)</li>
+                    <li>[imageName,right](image)</li>                    
+                    <li>[imageName,center](image)</li> 
+                    <li>[imageName,left,width,height](image) eg. [fMRI Scanner](image,right,50px,60px)</li>
+                    <li>[imageName,right,width,height](image)</li>                    
+                    <li>[imageName,center,width,height](image)</li>                                                           
             </ol>
             <h3>Extras</h3>
             <ol>

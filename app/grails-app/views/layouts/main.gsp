@@ -77,7 +77,9 @@
       <div class="clear"></div>
 
       <div class="grid_16">
-        <h2 id="page-heading"><g:layoutTitle/></h2>
+        <g:set var="siteTitle"><g:message code="title" default="Kagyu Samye Dzong London"/></g:set>
+        <g:set var="title"><g:layoutTitle/></g:set>
+        <h2 id="page-heading">${title.substring(siteTitle.size()+2)}</h2>
       </div>
       <div class="clear"></div>
 
