@@ -7,16 +7,6 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
 1. Set site logo image
 2. In page form for email news letter
-3. About Us
- - All Teachers
- - Lineage
- - Teachers
- - Visiting
- - Other
-4. Events
- - Current
- - Future
- - Regular
 5. Venue
  - Contact Us
  - Visiting Us

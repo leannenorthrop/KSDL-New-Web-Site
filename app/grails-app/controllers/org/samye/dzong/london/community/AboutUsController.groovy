@@ -50,4 +50,23 @@ class AboutUsController {
 	def visiting = {
 		model:[]
 	}	
+	
+	def lineage = {
+		def lineageArticles = []
+		def lineageTeachers = []
+        try {
+            lineageArticles = articleService.findByTag('lineage',[])
+			lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
+        } catch (error) {
+            log.error("AboutUs controller encountered an error.",error)
+        }
+		
+        model:[teachers:lineageTeachers,articles:lineageArticles];		
+	}
+	
+	def teachers = {
+		def teachers = Teacher.findAllByPublishState('Published', [sort: "name", order: "asc"])
+        teachers = teachers.findAll{teacher -> teacher.name != 'Community' && teacher.type != 'L'}
+        model:[teachers:teachers];		
+	}	
 }

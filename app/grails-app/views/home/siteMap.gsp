@@ -19,7 +19,10 @@
 							<g:link controller="aboutUs" action="contactUs" class="menuitem"><g:message code="footer.contact.us"/></g:link> 
 						</li> 
 						<li> 
-							<g:link controller="teachers" action="all" class="menuitem"><g:message code="teacher.heading.title"/></g:link> 
+							<g:link controller="aboutUs" action="lineage" class="menuitem"><g:message code="teacher.category.L"/></g:link> 
+						</li>						
+						<li> 
+							<g:link controller="aboutUs" action="teachers" class="menuitem"><g:message code="teacher.heading.title"/></g:link> 
 						</li> 
 					</ul> 
 				</li> 
@@ -38,13 +41,13 @@
 					<g:link controller="event" action="home" class="menuitem"><g:message code="event"/></g:link>  
 					<ul class="submenu"> 
 						<li> 
-							<g:link controller="event" action="index" class="menuitem"><g:message code="event.this.month"/></g:link> 
+							<g:link controller="event" action="current" class="menuitem"><g:message code="event.this.month"/></g:link> 
 						</li> 
 						<li> 
-							<g:link controller="event" action="index" class="menuitem"><g:message code="home.events"/></g:link> 
+							<g:link controller="event" action="future" class="menuitem"><g:message code="home.events"/></g:link> 
 						</li>		
 						<li> 
-							<g:link controller="event" action="index" class="menuitem"><g:message code="event.regular"/></g:link> 
+							<g:link controller="event" action="regular" class="menuitem"><g:message code="event.regular"/></g:link> 
 						</li>										
 					</ul> 
 				</li>

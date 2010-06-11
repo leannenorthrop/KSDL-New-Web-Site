@@ -26,6 +26,7 @@ package org.samye.dzong.london.events
 import org.apache.shiro.SecurityUtils
 import org.joda.time.*
 import java.text.SimpleDateFormat
+import org.joda.time.format.*
 import java.text.ParsePosition
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsParameterMap
 import org.apache.commons.collections.FactoryUtils
@@ -98,6 +99,38 @@ class EventController {
         return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
     }
 
+	def current = {
+        DateTime dt = new DateTime();
+        dt = dt.withTime(0,0,0,0)
+        def now = dt.toDate()
+		def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
+		def endOfThisMonth = dt.dayOfMonth().withMaximumValue();
+		def format = DateTimeFormat.forPattern("yyyy-MM-dd");
+		
+		redirect(action: list, params: ["start": format.print(startOfThisMonth),"end":format.print(endOfThisMonth)])
+	}
+	
+	def future = {
+        DateTime dt = new DateTime();
+        dt = dt.withTime(0,0,0,0)
+        def now = dt.toDate()
+		def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
+		def endOfThisMonth = dt.dayOfMonth().withMaximumValue();
+		def nextYear = endOfThisMonth.plusYears(1)
+		def format = DateTimeFormat.forPattern("yyyy-MM-dd");
+		
+		redirect(action: list, params: ["start": format.print(startOfThisMonth),"end":format.print(nextYear)])
+	}
+	
+	def regular = {
+		def publishedEvents = Event.published().list();
+		def regularEvents = publishedEvents.findAll { event ->
+            def rule = event.dates[0]
+            rule.isRule
+        };		
+		render(view: 'list', model:[events:regularEvents])
+	}
+			
     def list = {
         if (params) {
             try {
