@@ -52,7 +52,14 @@ class CommonLayoutTagLib {
     }
 
      def toolbar = { attrs ->
-        def adminControllers =['home', 'profile']
+        def adminControllers
+
+		if (SecurityUtils.subject.principal != null) {
+			adminControllers =['home', 'profile']
+		} else {
+			adminControllers =['home']
+		}
+		
         def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
