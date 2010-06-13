@@ -20,41 +20,23 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+%{--
+Slide-show for Meditation section
 
-<%--
-  Meditation Home Page
-  User: Leanne Northrop
-  Date: Jan 24, 2010, 2:00:21 PM
---%>
+Author: Leanne Northrop
+Date: 13th June, 2010, 12:54
+--}%
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <head>
-    <title><g:message code="meditation.home.title"/></title>
+<head>
+    <title>${album?.title}</title>
     <meta name="layout" content="main">
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>     
-  </head>
-  <body>
-    <div class="grid_12">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
-    </div>
-    <div class="grid_4">
-      <div class="box">
-          <g:render template="/thumbslideshow" model="[images:images,relUrl:'slideshow']"/>
-      </div>
-      <div class="box">
-        <h2><g:message code="meditation.resources"/></h2>
-        <ol>
-          <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
-        </ol>
-      </div>
+</head>
+<body>
+    <div class="grid_14" style="min-height:600px">
+        <g:render template="/slideshow" model="[album:album]"/>
     </div>
     <div class="clear"></div>
-
-    <div class="grid_5">
-      <g:render template="/articlelist" model="[articles:meditationArticles,controller:'meditation',action:'view',total:total,moreAction:'all',heading:'meditation.articles.title']"/>
-    </div>
-    <div class="grid_11">
-        <g:render template="/eventlist" model="[events: events, heading: 'event.meditation']"/>
-    </div>
-  </body>
+</body>
 </html>

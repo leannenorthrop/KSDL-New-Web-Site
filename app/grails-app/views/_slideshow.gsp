@@ -20,36 +20,25 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
-<html>
-  <head>
-    <title>
-      <g:message code="buddhism"/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <div class="grid_12">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
-    </div>
-    <div class="grid_4">
-      <div class="col2_20_Percent">
-        <div class="box">
-          <g:render template="/thumbslideshow" model="[images:images,relUrl:'slideshow']"/>
-        </div>
-        <div class="box">
-          <h2><g:message code="meditation.resources"/></h2>
-          <ol>
-            <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
-          </ol>
-        </div>
-      </div>
-    </div>
-    <div class="clear"></div>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
-    <div class="grid_4">
-        <g:render template="/articlelist" model="[articles:articles,controller:'buddhism',action:'view',total:total,moreAction:'list',heading:'buddhism.articles.title']"/>
-    </div>
-    <div class="grid_12">
-        <g:render template="/eventlist" model="[events: events,heading:'event.buddhism']"/>
-    </div>
-  </body>
-</html>
+%{--
+  Slide-show template
+
+  Author: Leanne Northrop
+  Date: 13th June, 2010, 12:54
+--}%
+<g:if test="${album?.images && album?.images.size() > 0}">
+<div id="show" class="slideshow" style="width:600px;height:500px"> 
+        <img src="${album?.images[0].src}" alt="${album?.images[0].name}" style="width:600px;height:500px" /> 
+</div>    
+<g:javascript>
+  var data = {
+      <g:each var="i" in="${ album?.images }">
+         '${i.src}': { caption: '${i.name}',thumbnail: '${i.thumbnail}'},
+      </g:each>	      
+      '${album?.images[0].src}': { caption: '${album?.images[0].name}',thumbnail: '${album?.images[0].thumbnail}' }
+  };
+  var myShow = new Slideshow('show', data, {controller: true, captions: true, titles: true, height: 500, thumbnails: true, width: 600, overlap: false, delay:6000});
+</g:javascript>
+</g:if>

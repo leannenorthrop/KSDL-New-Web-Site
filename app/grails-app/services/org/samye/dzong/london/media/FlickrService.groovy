@@ -43,6 +43,54 @@ class FlickrService {
 	}
 	
 	def getPhotoset(id) {
+		def album = new Expando()
+		
+		def info = flickr.get( path : '/services/rest/',
+		                       query: getPhotosetInfoParams(id),
+		                       contentType : TEXT,
+		                       headers : [Accept : 'application/xml'] )
+		def sluper = new XmlSlurper()
+		def infoTxt = info.getText()
+		def infoXml = sluper.parseText(infoTxt)
+		if (infoXml.@stat == 'ok') {
+			album.title = infoXml.photoset.title
+			album.description = infoXml.photoset.description
+		} else {
+			album.title = ""
+			album.description = ""
+			log.warn "Unable get photoset information " + xml.err.@code + " " + xml.err.@msg
+		}	
+
+		def result = flickr.get( path : '/services/rest/',
+		                       query: getPhotosetParams(id),
+		                       contentType : TEXT,
+		                       headers : [Accept : 'application/xml'] )
+
+		
+		def xml = sluper.parseText(result.getText())
+		if (xml.@stat == 'ok') {
+			def photos = xml.photoset.photo
+
+			album.images = photos.collect { photo ->
+			    def image = new Expando()
+			    image.name = photo.@title
+			    image.thumbnail = photo.@url_sq
+			    image.src = photo.@url_o
+			    image.width = photo.@width_o
+			    image.height = photo.@height_o
+			    image.isAlbumCover = photo.@isprimary == 1
+			    image.toString = { "$name" }
+			    image
+			}
+		} else {
+			album.images = []
+			log.warn "Unable get photoset photos " + xml.err.@code + " " + xml.err.@msg
+		}
+		
+		return album
+	}
+
+	def getMediumPhotoset(id) {
 		def result = flickr.get( path : '/services/rest/',
 		                       query: getPhotosetParams(id),
 		                       contentType : TEXT,
@@ -68,6 +116,60 @@ class FlickrService {
 			return []
 		}
 	}
+	
+	def getSmallPhotoset(id) {
+		def result = flickr.get( path : '/services/rest/',
+		                       query: getPhotosetParams(id),
+		                       contentType : TEXT,
+		                       headers : [Accept : 'application/xml'] )
+
+		def sluper = new XmlSlurper()
+		def xml = sluper.parseText(result.getText())
+		if (xml.@stat == 'ok') {
+			def photos = xml.photoset.photo
+
+			def images = photos.collect { photo ->
+			    def image = new Expando()
+			    image.name = photo.@title
+			    image.thumbnail = photo.@url_sq
+			    image.src = photo.@url_s
+			    image.width = photo.@width_s
+			    image.height = photo.@height_s
+			    image.isAlbumCover = photo.@isprimary == 1
+			    image.toString = { "$name is $width wide and $height tall" }
+			    image
+			}		
+		} else {
+			return []
+		}
+	}
+		
+	def getThumbnailPhotoset(id) {
+		def result = flickr.get( path : '/services/rest/',
+		                       query: getPhotosetParams(id),
+		                       contentType : TEXT,
+		                       headers : [Accept : 'application/xml'] )
+
+		def sluper = new XmlSlurper()
+		def xml = sluper.parseText(result.getText())
+		if (xml.@stat == 'ok') {
+			def photos = xml.photoset.photo
+
+			def images = photos.collect { photo ->
+			    def image = new Expando()
+			    image.name = photo.@title
+			    image.thumbnail = photo.@url_sq
+			    image.src = photo.@url_sq
+			    image.width = photo.@width_sq
+			    image.height = photo.@height_sq
+			    image.isAlbumCover = photo.@isprimary == 1
+			    image.toString = { "$name is $width wide and $height tall" }
+			    image
+			}		
+		} else {
+			return []
+		}
+	}	
 	
 	def requestUserPermission() {
 		def result = flickr.get( path : '/services/rest/',
@@ -147,6 +249,11 @@ class FlickrService {
 	}
 
 
+	def getPhotosetInfoParams(photoset_id) {
+		def params = ['api_key': key, 'photoset_id': photoset_id, 'method' : 'flickr.photosets.getInfo'] 
+		return ['api_key': key, 'photoset_id': photoset_id, 'method' : 'flickr.photosets.getInfo', api_sig: sign(params)]
+	}
+	
 	def getPhotosetParams(photoset_id) {
 		def params = ['api_key': key, 'photoset_id': photoset_id, 'extras':'url_sq,url_t,url_s,url_m,url_o','media':'photos', 'method' : 'flickr.photosets.getPhotos'] 
 		return [api_key: key, photoset_id: photoset_id, extras:'url_sq,url_t,url_s,url_m,url_o',media:'photos', method: 'flickr.photosets.getPhotos', api_sig: sign(params)]
