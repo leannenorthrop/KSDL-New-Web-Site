@@ -20,36 +20,23 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
-<html>
-  <head>
-    <title>
-      <g:message code="buddhism"/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <div class="grid_12">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
-    </div>
-    <div class="grid_4">
-      <div class="col2_20_Percent">
-        <div class="box">
-          <g:render template="/thumbslideshow" model="[images:images,relUrl:'slideshow']"/>
-        </div>
-        <div class="box">
-          <h2><g:message code="meditation.resources"/></h2>
-          <ol>
-            <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
-          </ol>
-        </div>
-      </div>
-    </div>
-    <div class="clear"></div>
+<%@ page contentType="text/html;charset=UTF-8" %>
 
-    <div class="grid_4">
-        <g:render template="/articlelist" model="[articles:articles,controller:'buddhism',action:'view',total:total,moreAction:'list',heading:'buddhism.articles.title']"/>
-    </div>
-    <div class="grid_12">
-        <g:render template="/eventlist" model="[events: events,heading:'event.buddhism']"/>
-    </div>
-  </body>
-</html>
+%{--
+  Thumbnail slide-show template
+
+  Author: Leanne Northrop
+  Date: 13th June, 2010, 12:54
+--}%
+<div id="show" class="slideshow" style="width:175px;height:175px"> 
+  <img src="${images[0].src}" alt="${images[0].name}" /> 
+</div>    
+<g:javascript>
+  var data = {
+      <g:each var="i" in="${ images }">
+         '${i.src}': { caption: '${i.name}'},
+      </g:each>	      
+      '${images[0].src}': { caption: '${images[0].name}' }
+  };
+  var myShow = new Slideshow.KenBurns('show', data, {href:"${relUrl}", controller: false, captions: false, titles: true, height: 175, thumbnails: false, width: 175, overlap: false, delay:6500});
+</g:javascript>

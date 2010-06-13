@@ -6,10 +6,10 @@
     <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="community"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="wellbeing"/>
-
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/> 
   </head>
   <body>
-      <div class="grid_16">
+      <div class="grid_12">
         <div class="box" id="kwick-box">
             <div id="kwick">
                 <ul class="kwicks">
@@ -36,6 +36,9 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div class="grid_4">
+        <g:render template="/thumbslideshow" model="[images:images,relUrl:'home/slideshow']"/>
     </div>
     <div class="clear"></div>
     <div class="grid_12">

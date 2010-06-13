@@ -6,7 +6,8 @@ import org.samye.dzong.london.community.Article
 class BuddhismController {
     def articleService
     def eventService
-    
+    def flickrService
+
     def index = {
         redirect(action:home)
     }
@@ -16,7 +17,15 @@ class BuddhismController {
         def articles = Article.featuredBuddhismArticles('datePublished','desc').list()
         def total = Article.allBuddhismArticlesNotOrdered().count()
         def events = Event.buddhism('featured','desc').list()
-        return render(view: 'index',model: [topArticles: topArticles, articles: articles,total:total,events:events]);
+
+		def images = []
+		try {
+			images = flickrService.getSmallPhotoset('72157623174318636')
+		} catch(error) {
+			
+		}
+		
+        return render(view: 'index',model: [images:images,topArticles: topArticles, articles: articles,total:total,events:events]);
     }
 
     def list = {
@@ -48,5 +57,10 @@ class BuddhismController {
 
     def events = {
         return eventService.list('B',params)
+    }
+
+    def slideshow = {
+		def album = flickrService.getPhotoset('72157623174318636')
+        model: [album:album]
     }
 }

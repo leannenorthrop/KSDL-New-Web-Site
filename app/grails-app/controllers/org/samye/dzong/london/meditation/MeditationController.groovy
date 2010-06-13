@@ -6,6 +6,7 @@ import org.samye.dzong.london.community.Article
 class MeditationController {
     def articleService
     def eventService
+	def flickrService
 
     def index = {
         redirect(action:home)
@@ -22,9 +23,16 @@ class MeditationController {
             log.error("Meditation controller encountered an error.",error)
         }
 
+		def images = []
+		try {
+			images = flickrService.getSmallPhotoset('72157623174318636')
+		} catch(error) {
+			
+		}
+
         def total = Article.allMeditationArticlesNotOrdered.count();
         def events = Event.meditation('featured','desc').list()
-        render(view: 'index', model:[meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total])
+        render(view: 'index', model:[images: images, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total])
     }
 
     def all = {
@@ -56,5 +64,10 @@ class MeditationController {
 
     def events = {
         return eventService.list('M',params)
+    }
+
+    def slideshow = {
+		def album = flickrService.getPhotoset('72157623174318636')
+        model: [album:album]
     }
 }

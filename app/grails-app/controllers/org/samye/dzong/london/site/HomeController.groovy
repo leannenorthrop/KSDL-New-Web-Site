@@ -6,8 +6,10 @@ import org.samye.dzong.london.ShiroRole
 
 class HomeController {
     def articleService
+	def flickrService
 
     def index = {
+		def images = flickrService.getSmallPhotoset('72157623174318636')
         def articles = Article.homeArticles("datePublished", "desc").list()
         def meditationArticles = articles.findAll { it.category == 'M'}
         def communityArticles = articles.findAll { it.category == 'C'}
@@ -16,7 +18,7 @@ class HomeController {
         def newsArticles = articles.findAll { it.category == 'N'}
 
         def events = Event.homePage('lastUpdated', 'asc').list()
-        model:[meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
+        model:[images: images, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
     }
 
     def list = {
@@ -40,6 +42,11 @@ class HomeController {
             def id = params.id;
             return [articleInstance: articleInstance, id: id]
         }
+    }
+
+    def slideshow = {
+		def album = flickrService.getPhotoset('72157623174318636')
+        model: [album:album]
     }
 
     def aboutUs = {
