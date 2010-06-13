@@ -3,13 +3,15 @@ import javax.servlet.http.Cookie
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.ShiroRole
+import org.samye.dzong.london.Setting
 
 class HomeController {
     def articleService
 	def flickrService
 
     def index = {
-		def images = flickrService.getSmallPhotoset('72157623174318636')
+	    def ss = Setting.homeSlideshow().list()
+		def images = flickrService.getSmallPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         def articles = Article.homeArticles("datePublished", "desc").list()
         def meditationArticles = articles.findAll { it.category == 'M'}
         def communityArticles = articles.findAll { it.category == 'C'}
@@ -45,7 +47,8 @@ class HomeController {
     }
 
     def slideshow = {
-		def album = flickrService.getPhotoset('72157623174318636')
+	    def ss = Setting.homeSlideshow().list()	
+		def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         model: [album:album]
     }
 

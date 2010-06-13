@@ -2,6 +2,7 @@ package org.samye.dzong.london.meditation
 
 import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.community.Article
+import org.samye.dzong.london.Setting
 
 class MeditationController {
     def articleService
@@ -25,7 +26,8 @@ class MeditationController {
 
 		def images = []
 		try {
-			images = flickrService.getSmallPhotoset('72157623174318636')
+		    def ss = Setting.meditationSlideshow().list()
+			images = flickrService.getSmallPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
 		} catch(error) {
 			
 		}
@@ -67,7 +69,8 @@ class MeditationController {
     }
 
     def slideshow = {
-		def album = flickrService.getPhotoset('72157623174318636')
+	    def ss = Setting.meditationSlideshow().list()	
+		def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         model: [album:album]
     }
 }

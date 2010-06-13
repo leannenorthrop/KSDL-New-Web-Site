@@ -15,7 +15,6 @@ class ThemeController {
     }
 
 	def save = {
-		println params
 		def defaultCSSThemeSetting = Setting.findByName('DefaultTheme')
 		if (!defaultCSSThemeSetting) {
 			defaultCSSThemeSetting = new Setting(name: 'DefaultTheme', value: params.theme)
