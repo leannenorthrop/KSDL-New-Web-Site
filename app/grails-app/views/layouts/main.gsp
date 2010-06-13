@@ -55,6 +55,7 @@
     <g:javascript library="mootools"/>
     <g:javascript library="mootools-more"/>
     <g:javascript library="mootools-fluid16"/>
+    <g:javascript library="slideshow"/>     
   </head>
   <g:set var="bodyClass" value="${controllerName == 'teacher' ? 'aboutUs' : controllerName}"/>
   <body class="${bodyClass}">
