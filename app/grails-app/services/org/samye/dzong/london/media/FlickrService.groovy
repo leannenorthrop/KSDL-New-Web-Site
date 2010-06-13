@@ -35,6 +35,29 @@ class FlickrService {
 			    album.description = photoset.description
 				album.albumId = photoset.@id
 			    album.toString = { "$name ($albumId)" }
+			
+				try {
+					def photos = flickr.get( path : '/services/rest/',
+					                       query: getPhotosetParams(photoset.@id),
+					                       contentType : TEXT,
+					                       headers : [Accept : 'application/xml'] )
+
+					def photosetPhotos = sluper.parseText(photos.getText())
+					if (photosetPhotos.@stat == 'ok') {
+						def photo = photosetPhotos.photoset.photo.find { 
+							it.@isprimary == 1 
+						}
+						def coverPhotoUrl = photo.@url_sq
+						album.src = coverPhotoUrl
+					} else {
+						log.warn "Unable get photoset cover photo " + xml.err.@code + " " + xml.err.@msg
+						album.src = ""
+					}
+				} catch(error) {
+					log.warn "Unable to get album cover photo", error
+					album.src = ""
+				}
+				
 			    album
 			}		
 		} else {

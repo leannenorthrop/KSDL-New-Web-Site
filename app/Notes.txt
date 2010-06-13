@@ -5,13 +5,31 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
+0. Css Fixes -
+    - News and goings on title
+    - about us links and teacher pages
+    - min height for page content
+    - min height for list of summaries
+    - remove change theme in footer
+    - fix width of front page kwick box
 1. Set site logo image
 2. In page form for email news letter
 5. Venue
  - Contact Us
  - Visiting Us
  - Center Closure
+ - Become a member
+ - Donations
+ - Feedback
+ - Other centers
+ - Room Hire
+ - Newsletter archive
+ - Volunteer article
 6. Therapists & Therapies
+7. Rooms
+    - Shop
+    - Shrine
+    - Library
 8. Document Volunteer articles & do Volunteer Form
 9. URL mappings
 10. Register

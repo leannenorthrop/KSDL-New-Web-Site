@@ -5,7 +5,7 @@ class Setting {
     String value
 
     static constraints = {
-        name(nullable: false, blank: false, unique:true,inList:['DefaultTheme'])
+        name(nullable: false, blank: false, unique:true,inList:['DefaultTheme','SSNone', 'SSHome', 'SSMeditation','SSBuddhism','FlickrFrob','FlickrUserId'])
         value(nullable: false, blank: false)
     }
 
@@ -13,6 +13,15 @@ class Setting {
         defaultTheme { name ->
             eq 'name', "DefaultTheme"
         }
+		homeSlideshow { name ->
+			eq 'name', "SSHome"
+		}
+		meditationSlideshow { name ->
+			eq 'name', "SSMeditation"
+		}
+		buddhistSlideshow { name ->
+			eq 'name', "SSBuddhism"
+		}				
     }
 
     String toString() {
