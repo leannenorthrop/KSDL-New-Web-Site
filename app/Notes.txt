@@ -89,9 +89,7 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
 0. Cross linking in content to objects in system e.g. Articles, Teachers, Events etc.
     with JavaScript to make insertion easier
-1. Add Flickr and support for gif & svg?
-Flickr:
-  http://www.flickr.com/services/api/
+1. Add support for svg?
 2. Printable css
 3. Videos
 You Tube
@@ -101,14 +99,12 @@ You Tube
     - Highlight new articles in editor view
     - Add Icons for Actions
     - Add other tags when viewing articles
-5. Searchable plugin
 6. Tibetan support
     - browser/os check
     - hide/show tag
 ================================================================================
     Stuff
 ================================================================================
-Look into ui-performance plugin
 Look into filterpane plugin
 Look into export plugin
 neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bernardmordan@yahoo.co.uk, bmordan@evelina.southwark.sch.uk
