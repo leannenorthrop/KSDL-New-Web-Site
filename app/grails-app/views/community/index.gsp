@@ -49,7 +49,25 @@
     </div>
     <div class="grid_6">
       <div class="box">
-        <h2>Volunteer Form</h2>
+          <g:form action="send" controller="community">
+              <fieldset>
+                  <legend><g:message code="community.volunteer.form.title"/></legend>
+                  <p>
+                      <label for="email"><g:message code="community.your.email"/></label>
+                      <input type="text" name="email"/>
+                  </p>
+                  <p>
+                      <g:set var="subjectline"><g:message code="community.volunteer.offer.title"/></g:set>
+                      <label><g:message code="community.email.subject"/></label>
+                      <input type="text" name="subject" readonly="true" value="${subjectline}"/>
+                  </p>
+                  <p>
+                    <label><g:message code="community.email.body"/></label>
+                    <g:textArea name="body" rows="12" cols="40"/>
+                  </p>
+                  <g:submitButton class="button" name="send" value="Send">&nbsp;</g:submitButton>
+              </fieldset>
+          </g:form>
       </div>
     </div>
   </body>

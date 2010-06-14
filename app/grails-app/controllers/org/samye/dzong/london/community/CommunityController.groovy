@@ -5,6 +5,7 @@ import org.samye.dzong.london.events.Event
 class CommunityController {
     def articleService
     def eventService
+	def emailService
 
     def index = {
         redirect(action:home)
@@ -55,5 +56,12 @@ class CommunityController {
 
     def events = {
         return eventService.list('C',params)
+    }
+
+    def send = {
+        if (params.email && params.body && params.subject) {
+            emailService.sendVolunteerRequest(params.email, params.subject, params.body)
+        }
+        redirect(action: home)
     }
 }
