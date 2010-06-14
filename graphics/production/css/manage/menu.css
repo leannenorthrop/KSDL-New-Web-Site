@@ -176,3 +176,10 @@
 .menuButton a:hover.profileEdit {
     background: url(images/hover/user_edit_16.png) center left no-repeat;
 }
+.menuButton a.slideshow {
+    background: url(images/slideshow.png) center left no-repeat;
+}
+
+.menuButton a:hover.slideshow {
+    background: url(images/slideshow.png) center left no-repeat;
+}

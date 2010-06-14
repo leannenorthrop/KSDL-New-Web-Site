@@ -1,47 +1,90 @@
+%{------------------------------------------------------------------------------
+  - Copyright © 2010 Leanne Northrop
+  -
+  - This file is part of Samye Content Management System.
+  -
+  - Samye Content Management System is free software: you can redistribute it
+  - and/or modify it under the terms of the GNU General Public License as
+  - published by the Free Software Foundation, either version 3 of the License,
+  - or (at your option) any later version.
+  -
+  - Samye Content Management System is distributed in the hope that it will be
+  - useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with Samye Content Management System.
+  - If not, see <http://www.gnu.org/licenses/>.
+  -
+  - BT plc, hereby disclaims all copyright interest in the program
+  - “Samye Content Management System” written by Leanne Northrop.
+  ----------------------------------------------------------------------------}%
 
+<%--
+  Template for displaying Rooms.
+  User: Leanne Northrop
+  Date: Jun 14, 2010, 2:57:23 PM
+--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.venue.Room" %>
+<g:if test="${params.max}">
+  <g:set var="listMaxParam" value="?max=${params.max}&sort=name&order=asc"/>
+</g:if>
+<g:else>
+  <g:set var="listMaxParam" value="?sort=name&order=asc"/>
+</g:else>
 <html>
-    <head>
-        <meta name="layout" content="content-admin" />
-        <title>Kagyu Samye Dzong London: Manage Room</title>
-    </head>
-    <body>
-        <div class="content">
-            <h1>Room List</h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <div class="list">
-                <table>
-                    <thead>
-                        <tr>
-                        
-                   	        <g:sortableColumn property="id" title="Id" />
-                        
-                   	        <g:sortableColumn property="name" title="Name" />
-                        
-                   	        <g:sortableColumn property="description" title="Description" />
-                        
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <g:each in="${roomInstanceList}" status="i" var="roomInstance">
-                        <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-                        
-                            <td><g:link action="show" id="${roomInstance.id}">${fieldValue(bean:roomInstance, field:'id')}</g:link></td>
-                        
-                            <td>${fieldValue(bean:roomInstance, field:'name')}</td>
-                        
-                            <td>${fieldValue(bean:roomInstance, field:'description')}</td>
-                        
-                        </tr>
-                    </g:each>
-                    </tbody>
-                </table>
-            </div>
-            <div class="paginateButtons">
-                <g:paginate total="${roomInstanceTotal}" />
-            </div>
-        </div>
-    </body>
+  <head>
+    <meta name="layout" content="content-admin"/>
+    <title><g:message code="manage.rooms.title" default="Manage Rooms"/></title>
+    <g:javascript>
+      var currentTabIndex = 0;
+      var currentTabDiv;
+      $(function() {
+        $('a.step').live('click', function() {
+          $("#room-tabs").tabs('url', currentTabIndex, this.href);
+          $(currentTabDiv).load(this.href);
+          return false;
+        });
+        $('a.nextLink').live('click', function() {
+          $("#room-tabs").tabs('url', currentTabIndex, this.href);
+          $(currentTabDiv).load(this.href);
+          return false;
+        });
+        $('a.prevLink').live('click', function() {
+          $("#room-tabs").tabs('url', currentTabIndex, this.href);
+          $(currentTabDiv).load(this.href);
+          return false;
+        });
+        $('th.sortable a').live('click', function() {
+          $("#room-tabs").tabs('url', currentTabIndex, this.href);
+          $(currentTabDiv).load(this.href);
+          return false;
+        });
+        $("#room-tabs").tabs({
+          fx: { opacity: 'toggle' },
+          select: function(event, ui) {
+            currentTabDiv = $(ui.panel);
+            currentTabIndex = $("#room-tabs").tabs('option', 'selected');
+          },
+          load: function(event, ui) {
+            currentTabDiv = $(ui.panel);
+            currentTabIndex = $("#room-tabs").tabs('option', 'selected');
+          }
+        });
+      });
+    </g:javascript>
+  </head>
+  <body>
+    <g:render template="/messageBox" model="[flash: flash]"/>
+    <div id="room-tabs">
+      <ul>
+        <li><a href="ajaxUnpublishedRooms${listMaxParam}"><g:message code="room.unpublished"/></a></li>
+        <li><a href="ajaxPublishedRooms${listMaxParam}"><g:message code="room.published"/></a></li>
+        <li><a href="ajaxDeletedRooms${listMaxParam}"><g:message code="room.deleted"/></a></li>
+      </ul>
+    </div>
+  </body>
 </html>
+

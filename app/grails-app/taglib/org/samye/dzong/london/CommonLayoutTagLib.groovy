@@ -60,7 +60,7 @@ class CommonLayoutTagLib {
 			adminControllers =['home']
 		}
 		
-        def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile']
+        def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article'].each () { item ->
@@ -75,13 +75,13 @@ class CommonLayoutTagLib {
         }
 
         if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
-            ['article', 'image', 'teacher'].each () { item ->
+            ['article', 'image', 'slideshow','teacher'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("VenueManager")) {
-            ['venue'].each () { item ->
+            ['venue','room'].each () { item ->
                 adminControllers << item
             }
         }
@@ -129,6 +129,10 @@ class CommonLayoutTagLib {
 	                                messageSource.getMessage ('toolbar.' + controller, null, null)
 	                            }
 							}
+                        } else if (controller.equals ('slideshow')) {
+                            elem = link (class: adminClasses[controller], controller: controller, action:"manage",style:"color: #333;") {
+                                messageSource.getMessage ('toolbar.' + controller, null, null)
+                            }
                         } else if (controller.equals ('theme')) {
 							if ("setdefault".equals(attrs.action)) {
 	                            elem = link (class: adminClasses[controller] + "Create", controller: controller, action:"add",style:"color: #333;") {
