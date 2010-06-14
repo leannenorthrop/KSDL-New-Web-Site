@@ -48,7 +48,7 @@
 
                   <g:render template="/messageBox" model="[flash: flash]"/>
 
-                  	<p><g:if test="${cookie(name:'cssTheme')}">The default theme for new viewers is currently ${defaultTheme}.</g:if> You may change the way this website looks for
+                  	<p><g:if test="${Setting.findByName('DefaultTheme').value}">The default theme for new viewers is currently ${Setting.findByName('DefaultTheme').value}.</g:if> You may change the way this website looks for
                   	    new users by selecting any of the options below and pressing the Save Changes button:<br/><br/>
   	    
                         <g:radioGroup name="theme" labels="${cssThemesDir}" values="${cssThemesDir}" value="${defaultTheme}" >
@@ -62,7 +62,7 @@
             </g:form>
         </div>
         <div class="grid_12">
-            <iframe id="previewFrame" src="${createLink (controller: 'home', action: 'index')}" width="100%" height="100%">
+            <iframe id="previewFrame" src="${createLink (controller: 'home', action: 'index')}" style="height:50em;width:85em;">
               <p>Your browser does not support iframes.</p>
             </iframe>
         </div>

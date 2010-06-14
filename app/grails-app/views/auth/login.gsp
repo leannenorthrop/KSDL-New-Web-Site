@@ -42,7 +42,7 @@
                   <label for="username"><g:message code="log.in.un"/></label>
                   <g:textField class="required ui-corner-all" name="username" value="${username}"/>
                 </p>
-                <p class="last">
+                <p>
                   <label for="password"><g:message code="log.in.pw"/></label>
                   <g:passwordField class="required ui-corner-all" name="password" value="${password}"/><br/>
                   <g:link action="resetPassword"><g:message code="passwd.reset.msg"/></g:link>
@@ -50,6 +50,7 @@
                 <!--fieldset class="last">
              <label class="rememberMe" for="rememberMe">Remember me?</label> <g:checkBox class="rememberMe" id="rememberMe" name="rememberMe" value="${rememberMe}"/>
                 </fieldset-->                
+                <p class="last">&nbsp;</p>
                 <g:set var="submitBtnLabel"><g:message code="log.in.btn"/></g:set>
                 <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>                
             </fieldset>
@@ -70,10 +71,11 @@
                       <label for="password"><g:message code="log.in.pw"/></label>
                       <g:passwordField name="password" value="" class="required ui-corner-all"/>
                     </p>
-                    <p class="last">
+                    <p>
                       <label for="passwordAgain"><g:message code="log.in.pw"/></label>
                       <g:passwordField name="passwordAgain" value="" class="required ui-corner-all"/>
                     </p>
+                    <p class="last">&nbsp;</p>
                     <g:set var="submitBtnLabel"><g:message code="register.btn"/></g:set>
                     <g:submitButton name="regsubmitbtn" value="${submitBtnLabel}" id="regsubmitbtn" class="ui-corner-all"/>
                 </fieldset>

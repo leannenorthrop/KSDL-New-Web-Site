@@ -53,8 +53,8 @@ fieldset p input:focus, fieldset p textarea:focus, fieldset p.select:focus {
 /* ACTION BUTTONS */
 input[type="submit"],form a.button, form a.submit {
     position: absolute;
-    bottom: 0.6em;
-    right: 0.6em;
+    bottom: 0.3em;
+    right: 2em;
     padding: 0.35em 0.75em 0.4em 0.75em;
     color: white;
     background: #3baae3 url(images/buttonHighlight.png) repeat-x 0 50%;

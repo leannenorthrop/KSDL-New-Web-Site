@@ -64,7 +64,8 @@
       <div id="watermark1"></div>
       <div class="grid_16">
         <h1 id="branding">
-          <g:set var="logo" value="${Image.findByName('Logo')}"/>
+          <g:set var="logoId" value="${Setting.findByName('Logo').value}"/>
+          <g:set var="logo" value="${Image.get(logoId)}"/>
           <g:if test="${logo}">
             <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
           </g:if>
@@ -97,7 +98,6 @@
           <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
           <g:message code="footer.copyright" args="${[year]}"/> <g:message code="title" default="Kagyu Samye Dzong London"/> |
           <g:link controller="home" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
-          <g:link controller="home" action="changeCssTheme"><g:message code="footer.change.theme"/></g:link> |
           <g:link controller="home" action="siteMap"><g:message code="footer.site.map"/></g:link> |
           <g:link controller="home" action="legal"><g:message code="footer.legal" default="Legal"/></g:link> |           
           <g:link controller="home" action="aboutThisSite"><g:message code="footer.about.this.site"/></g:link>
