@@ -2,6 +2,7 @@ package org.samye.dzong.london.site
 import org.samye.dzong.london.*
 import org.samye.dzong.london.contact.EmailService
 import org.apache.shiro.SecurityUtils
+import org.samye.dzong.london.Setting
 
 class AdminController {
     def emailService
@@ -116,4 +117,22 @@ class AdminController {
             redirect(controller: 'manageSite', action: 'error')
         }
     }
+
+	def settings = {
+		def flickrUserSetting = Setting.findByName('Logo')
+		if (!flickrUserSetting) {
+			flickrUserSetting = new Setting(name: 'Logo', value: 1)
+			flickrUserSetting.save()
+		} 		
+		model: [settings: Setting.findAll()]
+	}
+	
+	def save = {
+		params.settings.each { key,value ->
+			def setting = Setting.findByName(key)
+			setting.value = value
+			setting.save()
+		}
+		redirect(controller: 'manageSite', action: 'home')
+	}
 }

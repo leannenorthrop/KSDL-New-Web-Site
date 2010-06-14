@@ -24,7 +24,7 @@
 <html>
   <head>
     <title>
-      <g:message code='role.perm.title' default="Manage UserPermissions"/></title>
+      <g:message code='role.perm.title' default="Manage User Permissions"/></title>
     <meta name="layout" content="content-admin"/>
   </head>
   <body>

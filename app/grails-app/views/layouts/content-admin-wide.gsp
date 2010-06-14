@@ -27,6 +27,7 @@
   Date: Jun 9, 2010, 16:04:21 PM
 --%>
 <%@ page import="org.samye.dzong.london.media.Image" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.Setting" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
@@ -46,7 +47,8 @@
   <body class="contentAdmin" style="min-width:50em">
     <div class="container_16">
       <div class="grid_16 pagetitle">
-        <g:set var="logo" value="${Image.findByName('Logo')}"/>
+          <g:set var="logoId" value="${Setting.findByName('Logo').value}"/>
+          <g:set var="logo" value="${Image.get(logoId)}"/>
         <g:if test="${logo}">
          <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" width="75px" title="${logo.name}" alt="${logo.name}"/>
         </g:if>

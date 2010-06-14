@@ -12,7 +12,6 @@ http://code.google.com/p/lsd-website/issues/entry
     - min height for list of summaries
     - remove change theme in footer
     - fix width of front page kwick box
-1. Set site logo image
 2. In page form for email news letter
 5. Venue
  - Contact Us
@@ -25,7 +24,6 @@ http://code.google.com/p/lsd-website/issues/entry
  - Room Hire
  - Newsletter archive
 6. Therapists & Therapies
-8. Volunteer Form
 9. URL mappings
 10. Register
     - Add jquery validation

@@ -93,13 +93,13 @@ class CommonLayoutTagLib {
         }
 
         if (SecurityUtils.subject.hasRole ("Administrator")) {
-            ['theme', 'roles'].each () { item ->
+            ['settings', 'theme','roles'].each () { item ->
                 adminControllers << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Admin")) {
-            ['theme', 'article', 'image', 'venue', 'event', 'roles'].each () { item ->
+            ['settings', 'theme','article', 'image', 'venue', 'event', 'roles'].each () { item ->
                 adminControllers << item
             }
         }
@@ -133,7 +133,11 @@ class CommonLayoutTagLib {
                             elem = link (class: adminClasses[controller], controller: controller, action:"manage",style:"color: #333;") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
-                        } else if (controller.equals ('theme')) {
+                        } else if (controller.equals ('settings')) {
+	                            elem = link (class: 'settings', controller: 'admin', action:"settings",style:"color: #333;") {
+	                                messageSource.getMessage ('toolbar.settings', null, null)
+	                            }																
+	                        } else if (controller.equals ('theme')) {
 							if ("setdefault".equals(attrs.action)) {
 	                            elem = link (class: adminClasses[controller] + "Create", controller: controller, action:"add",style:"color: #333;") {
 	                                messageSource.getMessage ('toolbar.' + controller + '.add', null, null)

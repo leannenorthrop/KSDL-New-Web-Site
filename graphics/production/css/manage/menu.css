@@ -178,8 +178,26 @@
 }
 .menuButton a.slideshow {
     background: url(images/slideshow.png) center left no-repeat;
+	padding-left: 35px;
 }
 
-.menuButton a:hover.slideshow {
-    background: url(images/slideshow.png) center left no-repeat;
+.menuButton a:hover.settings {
+    background: url(images/hover/tool_config_16.png) center left no-repeat;
+}
+.menuButton a.settings {
+    background: url(images/normal/tool_config_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.room {
+    background: url(images/hover/square_16.png) center left no-repeat;
+}
+.menuButton a.room {
+    background: url(images/normal/square_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.roomCreate {
+    background: url(images/hover/square_add_16.png) center left no-repeat;
+}
+.menuButton a.roomCreate {
+    background: url(images/normal/square_add_16.png) center left no-repeat;
 }
