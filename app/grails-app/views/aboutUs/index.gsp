@@ -46,6 +46,32 @@
           <li><g:link controller="aboutUs" action="visiting" class="menuitem"><g:message code="footer.visit.us"/></g:link></li>
           <li><g:link controller="aboutUs" action="lineage" class="menuitem"><g:message code="teacher.category.L"/></g:link></li>
           <li><g:link controller="aboutUs" action="teachers" class="menuitem"><g:message code="teacher.heading.title"/></g:link></li>
+          <li>Locations
+              <ul>
+              <g:if test="${venues}">
+                <g:each var="venue" in="${ venues}">
+                  <li>${venue}
+                      <g:if test="${venue.rooms}">
+                      <ul>
+                        <g:findAll var="room" in="${venue.rooms}" expr="it.publishState == 'Published'">
+                        <li><g:link controller="aboutUs" action="room" id="${room.id}" class="menuitem">${room}</g:link></li>
+                        </g:findAll>
+                      </ul>
+                      </g:if>
+                  </li>
+                </g:each>          
+              </g:if>
+              </ul>
+          </li>
+          <li>Information
+                <ul>
+                <g:if test="${articles}">
+                  <g:each var="article" in="${articles}">
+                    <li><g:link controller="aboutUs" action="view" id="${article.id}" class="menuitem">${article?.title}</g:link></li>
+                  </g:each>          
+                </g:if>
+                </ul>
+            </li>          
         </ul>
       </div>
     </div>

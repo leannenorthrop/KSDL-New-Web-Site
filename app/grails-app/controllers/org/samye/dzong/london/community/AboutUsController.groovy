@@ -23,6 +23,9 @@
 
 package org.samye.dzong.london.community
 
+import org.samye.dzong.london.venue.Venue
+import org.samye.dzong.london.venue.Room
+
 class AboutUsController {
     def articleService
 
@@ -31,7 +34,12 @@ class AboutUsController {
         def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
         def teachers = Teacher.findAllByPublishStateAndType('Published', 'C',[sort: "name", order: "asc"])
         teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
-        model:[topArticles: [community], lineageTeachers: lineageTeachers, teachers:teachers];
+		def venues = Venue.findAll()
+		def allArticles = Article.allCommunityArticles('datePublished','desc').list()
+	    def articles = allArticles.findAll { article ->
+	            article.tags.find { tag -> "about us".equalsIgnoreCase(tag)}
+	    }		
+        model:[topArticles: [community], articles: articles, lineageTeachers: lineageTeachers, teachers:teachers,venues:venues];
     }
 
     def view = {
@@ -50,6 +58,10 @@ class AboutUsController {
 	def visiting = {
 		model:[]
 	}	
+	
+	def room = {
+		model:[room:Room.get(params.id)]
+	}
 	
 	def lineage = {
 		def lineageArticles = []

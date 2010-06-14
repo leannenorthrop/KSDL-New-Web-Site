@@ -24,13 +24,8 @@ http://code.google.com/p/lsd-website/issues/entry
  - Other centers
  - Room Hire
  - Newsletter archive
- - Volunteer article
 6. Therapists & Therapies
-7. Rooms
-    - Shop
-    - Shrine
-    - Library
-8. Document Volunteer articles & do Volunteer Form
+8. Volunteer Form
 9. URL mappings
 10. Register
     - Add jquery validation

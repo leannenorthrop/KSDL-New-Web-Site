@@ -13,14 +13,22 @@ class Venue extends Publishable {
     static hasMany = [rooms:Room]
 
     static constraints = {
-    	name(size:5..512,unique:true)
+    	name(maxSize:128,unique:true)
     	image(nullable:true)
-    	description(size:5..32000)
+    	description(maxSize:Integer.MAX_VALUE)
     	facilities(blank:true)
     	access(blank:true)
     	rooms(nullable:true)
     }
 
+	static mapping = {
+		rooms sort: 'name'
+	    columns {
+	        content type:'text'
+	        facilities type:'text'
+	        access type:'text'	
+	    }		
+	}
     String toString() {
 	    name
     }

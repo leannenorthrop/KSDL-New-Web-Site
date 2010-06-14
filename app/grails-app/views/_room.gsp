@@ -21,15 +21,26 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 
-<%@ page import="org.samye.dzong.london.venue.Room" %>
-<html>
-  <head>
-    <title>
-        ${room?.name}
-    </title>
-    <meta name="layout" content="content-admin"/>
-  </head>
-  <body>
-    <g:render template="/room" model="[room: room]"/>
-  </body>
-</html>
+<%--
+  Template for displaying room information
+  User: Leanne Northrop
+  Date: Jun 14, 2010, 3:51:06 PM
+--%>
+
+<%@ page contentType="text/html;charset=UTF-8" %>
+<div class="bodyNoDetails group">
+  <g:if test="${room?.image}">
+    <g:if test="${room?.image?.mimeType.endsWith('png')}">
+      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: room.image.id)}" title="${room.image.name}" alt="${room.image.name}" class="pngImg" style="float:right"/>
+    </g:if>
+    <g:else>
+      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: room.image.id)}" title="${room.image.name}" alt="${room.image.name}" style="float:right"/>
+    </g:else>
+  </g:if>
+<g:if test="${room?.content}">
+  ${room?.content?.encodeAsTextile()}
+</g:if>
+<g:else>
+  ${room?.summary?.encodeAsTextile()}
+</g:else>
+</div>

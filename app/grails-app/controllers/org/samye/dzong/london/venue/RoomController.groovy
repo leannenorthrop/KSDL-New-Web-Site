@@ -1,17 +1,69 @@
-
-
 package org.samye.dzong.london.venue
 
+import org.apache.shiro.SecurityUtils
+
 class RoomController {
-    
+    def userLookupService
+	def roomService
+	
     def index = { }
 
     // the delete, save and update actions only accept POST requests
-    static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+    static allowedMethods = [save:'POST', update:'POST', changeState: 'GET']
+
+	def ajaxUnpublishedRooms = {
+        params.offset = params.offset ? params.offset.toInteger() : 0
+        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+            model = roomService.unpublished(params)
+        } else {
+            model = roomService.userUnpublished(params)
+        }
+        render(view: 'unpublished', model: model)
+    }
+
+    def ajaxPublishedRooms = {
+        params.offset = params.offset ? params.offset.toInteger() : 0
+        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+            model = roomService.published(params)
+        } else {
+            model = roomService.userPublished(params)
+        }
+        render(view: 'published', model: model)
+    }
+
+    def ajaxArchivedRooms = {
+        params.offset = params.offset ? params.offset.toInteger() : 0
+        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+            model = roomService.archived(params)
+        } else {
+            model = roomService.userArchived(params)
+        }
+        render(view: 'archived', model: model)
+    }
+
+    def ajaxDeletedRooms = {
+        params.offset = params.offset ? params.offset.toInteger() : 0
+        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
+
+        def model
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+            model = roomService.deleted(params)
+        } else {
+            model = roomService.userDeleted(params)
+        }
+        render(view: 'deleted', model: model)
+    }
 
     def manage = {
-        params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
-        [ roomInstanceList: Room.list( params ), roomInstanceTotal: Room.count() ]
+        render(view: 'manage')
     }
 
     def show = {
@@ -21,26 +73,17 @@ class RoomController {
             flash.message = "Room not found with id ${params.id}"
             redirect(action:manage)
         }
-        else { return [ roomInstance : roomInstance ] }
+        else { return [ room : roomInstance ] }
     }
 
-    def delete = {
+    def view = {
         def roomInstance = Room.get( params.id )
-        if(roomInstance) {
-            try {
-                roomInstance.delete(flush:true)
-                flash.message = "Room ${params.id} deleted"
-                redirect(action:manage)
-            }
-            catch(org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "Room ${params.id} could not be deleted"
-                redirect(action:show,id:params.id)
-            }
-        }
-        else {
+
+        if(!roomInstance) {
             flash.message = "Room not found with id ${params.id}"
             redirect(action:manage)
         }
+        else { return [ room : roomInstance ] }
     }
 
     def edit = {
@@ -51,51 +94,123 @@ class RoomController {
             redirect(action:manage)
         }
         else {
-            return [ roomInstance : roomInstance ]
-        }
-    }
-
-    def update = {
-        def roomInstance = Room.get( params.id )
-        if(roomInstance) {
-            if(params.version) {
-                def version = params.version.toLong()
-                if(roomInstance.version > version) {
-                    
-                    roomInstance.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room while you were editing.")
-                    render(view:'edit',model:[roomInstance:roomInstance])
-                    return
-                }
-            }
-            roomInstance.properties = params
-            if(!roomInstance.hasErrors() && roomInstance.save()) {
-                flash.message = "Room ${params.id} updated"
-                redirect(action:show,id:roomInstance.id)
-            }
-            else {
-                render(view:'edit',model:[roomInstance:roomInstance])
-            }
-        }
-        else {
-            flash.message = "Room not found with id ${params.id}"
-            redirect(action:manage)
+            return [ room : roomInstance ]
         }
     }
 
     def create = {
         def roomInstance = new Room()
         roomInstance.properties = params
-        return ['roomInstance':roomInstance]
+        return ['room':roomInstance]
     }
 
     def save = {
         def roomInstance = new Room(params)
+		roomInstance.author = userLookupService.lookup()
         if(!roomInstance.hasErrors() && roomInstance.save()) {
-            flash.message = "Room ${roomInstance.id} created"
-            redirect(action:show,id:roomInstance.id)
+            flash.message = "Room ${roomInstance.name} created"
+            redirect(action:manage)
         }
         else {
-            render(view:'create',model:[roomInstance:roomInstance])
+			flash.isError = true
+			flash.message = "Could not create room due to the following errors:"
+			flash.args = [roomInstance]
+            render(view:'create',model:[room:roomInstance])
+        }
+    }
+
+    def delete = {
+        def room = Room.get(params.id)
+        if (room) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (room.version > version) {
+                    room.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room's details while you were editing.")
+                    redirect(action: manage)
+                    return
+                }
+            }
+            room.publishState = "Unpublished"
+            room.deleted = true
+            if (!room.hasErrors() && room.save()) {
+                flash.message = "room.deleted"
+                flash.args = [room];
+                redirect(action: manage)
+            }
+            else {
+                redirect(action: manage)
+            }
+        }
+        else {
+            flash.message = "room.not.found"
+            flash.args = params.id
+            redirect(action: manage)
+        }
+    }
+
+    def update = {
+        def room = Room.get(params.id)
+        if (room) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (room.version > version) {
+                    flash.isError = true
+                    teacher.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room's details while you were editing.")
+                    render(view: 'edit', model: [room: room, id: params.id])
+                    return
+                }
+            }
+            room.properties = params
+            if (!room.hasErrors() && room.save()) {
+                flash.message = "room.updated"
+                flash.args = [room]
+                redirect(action: manage)
+            }
+            else {
+                flash.isError = true
+                flash.message = "room.update.error"
+                flash.args = [room]
+                render(view: 'edit', model: [room: room, id: params.id])
+            }
+        }
+        else {
+            flash.message = "room.not.found"
+            flash.args = params.id
+            redirect(action: manage)
+        }
+    }
+
+    def changeState = {
+        def room = Room.get(params.id)
+        if (room) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (room.version > version) {
+                    flash.isError = true
+                    room.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room's details while you were editing.")
+                    redirect(action: manage)
+                    return
+                }
+            }
+            def isFirstPublish = room.publishState != 'Published' && params.state == 'Published'
+            if (isFirstPublish) {
+                room.datePublished = new Date()
+            }
+            room.publishState = params.state
+            room.deleted = false
+            if (!room.hasErrors() && room.save()) {
+                flash.message = "${room.name} has been moved to ${room.publishState}"
+                redirect(action: manage)
+            }
+            else {
+                flash.isError = true
+                redirect(action: manage)
+            }
+        }
+        else {
+            flash.message = "room.not.found"
+            flash.args = params.id
+            redirect(action: manage)
         }
     }
 }
