@@ -28,6 +28,7 @@
     <title><g:message code="venue.edit.title" args="${[venue?.name]}"/></title>
     <g:javascript>            
       var nextTelephoneId = ${venue.telephoneNumbersList.size()};
+      var nextEmailId = ${venue.emails.size()};      
       $(function() {
         $("#edit").validate();
         $("#addNewNumber").click(function() {
@@ -49,7 +50,7 @@
           });
           clone.removeAttr('id')
           clone.removeAttr('style')
-          $('.telephoneNumbers').parent().append(clone);  
+          $(this).parent().parent().append(clone);  
           nextTelephoneId++;
         });
         $("button.newnumber").click(function() {
@@ -61,6 +62,37 @@
             $('#edit').append(deleteMe)
             $(this).parent().remove();  
         });               
+        $("#addNewEmail").click(function() {
+          var type = $('.emailDetails select').val()
+          var email = $('.emailDetails input.email').val()
+          var name = $('.emailDetails input.name').val()
+          var clone = $('#emailTemplate').clone(true)          
+          clone.find(':hidden').each(function(index) {
+              var currName = $(this).attr('name');
+              if (currName == "type") {
+                  $(this).val(type)
+              } else if (currName == "address") {
+                  $(this).val(email)                  
+              } else if (currName == "button") {
+                  $(this).before("<input type='hidden' name='emailsList[" + nextEmailId + "].name' value='" + name + "'/>");
+                  $(this).before(name + ' (' + type + '): ' + email);
+              }
+              $(this).attr('name', 'emailsList[' + nextEmailId + '].' + currName);
+          });
+          clone.removeAttr('id')
+          clone.removeAttr('style')
+          $(this).parent().parent().append(clone);  
+          nextEmailId++;
+        });
+        $("button.newemail").click(function() {
+          $(this).parent().remove();  
+        }); 
+        $("button.existingemail").click(function() {
+            var deleteMe = $(this).parent().find(':hidden')
+            deleteMe.val('true')
+            $('#edit').append(deleteMe)
+            $(this).parent().remove();  
+        });        
       });
     </g:javascript>
   </head>
@@ -109,17 +141,37 @@
             <input type="hidden" name='telephoneNumbersList[${i}]._deleted' id='telephoneNumbersList[${i}]._deleted' value='false'/>
             ${number.name} (<g:message code="contact.${number.type}"/>): ${number.number}
             <button class="remove existingnumber" type="button">-</button>
-        </p>
+        </p>      
+        </g:each>
         <p id="telephoneNumberTemplate" style="display:none;visibility:hidden;">
             <input type="hidden" name="_deleted" value="false">
             <input type="hidden" name="type">            
             <input type="hidden" name="number">                        
             <button name="button" class="remove newnumber" type="button">-</button>
         </p>        
-        </g:each>
       </fieldset> 
       <fieldset>
-        <legend>Email Addresses</legend>
+        <legend><g:message code="contact.emails"/></legend>
+        <p class="emailDetails">
+            <label for="email"><g:message code="contact.email.new"/></label>
+            <g:select from="${['main','work','home','other']}" valueMessagePrefix="contact"></g:select> 
+            <g:textField name="contactName" class="ui-corner-all name" style="display: inline;width:10em" minlength="4" value="Contact Name"/>           
+            <g:textField name="email" class="ui-corner-all email" style="display: inline;width:20em" minlength="8" email="true" value="somewhere@overtherainbow.com"/>           
+            <button id="addNewEmail" class="add" type="button">+</button>
+        </p>        
+        <g:each var="email" in="${venue.emails}" status="i">
+        <p class="emails">
+            <input type="hidden" name='emailsList[${i}]._deleted' id='emailsList[${i}]._deleted' value='false'/>
+            ${email?.name} (<g:message code="contact.${email?.type}"/>): ${email?.address}
+            <button class="remove existingemail" type="button">-</button>
+        </p>       
+        </g:each>        
+        <p id="emailTemplate" style="display:none;visibility:hidden;">
+            <input type="hidden" name="_deleted" value="false">
+            <input type="hidden" name="type">            
+            <input type="hidden" name="address">                        
+            <button name="button" class="remove newemail" type="button">-</button>
+        </p>        
       </fieldset> 
       <fieldset>
         <legend>Addresses</legend>
