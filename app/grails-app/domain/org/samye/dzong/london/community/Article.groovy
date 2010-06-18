@@ -235,6 +235,13 @@ class Article extends Publishable {
             eq 'publishState', 'Published'
             order("${orderCol}", "${orderDir}")
         }
+
+        allAboutUsArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'A'
+            order("${orderCol}", "${orderDir}")
+        }
     }
 
     static mapping = {

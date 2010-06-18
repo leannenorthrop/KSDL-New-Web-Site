@@ -41,20 +41,24 @@
     <div class="grid_4">
       <div class="box">
         <h2><g:message code="footer.help"/></h2>
-        <ul>
-          <li><g:link controller="aboutUs" action="contactUs" class="menuitem"><g:message code="footer.contact.us"/></g:link></li>
-          <li><g:link controller="aboutUs" action="visiting" class="menuitem"><g:message code="footer.visit.us"/></g:link></li>
-          <li><g:link controller="aboutUs" action="lineage" class="menuitem"><g:message code="teacher.category.L"/></g:link></li>
-          <li><g:link controller="aboutUs" action="teachers" class="menuitem"><g:message code="teacher.heading.title"/></g:link></li>
-          <li>Locations
+        <ul class="menu">
+          <li class="menuitem"><g:link controller="aboutUs" action="contactUs"><g:message code="footer.contact.us"/></g:link></li>
+          <li class="menuitem"><g:link controller="aboutUs" action="visiting"><g:message code="footer.visit.us"/></g:link></li>
+          <li class="menuitem"><g:message code="teacher.heading.title"/>
+              <ul>
+                  <li class="menuitem"><g:link controller="aboutUs" action="lineage"><g:message code="teacher.lineage.heading.title"/></g:link></li>
+                  <li class="menuitem"><g:link controller="aboutUs" action="teachers"><g:message code="teacher.center.heading.title"/></g:link></li>
+              </ul>
+          </li>
+          <li class="menuitem">Locations
               <ul>
               <g:if test="${venues}">
-                <g:each var="venue" in="${ venues}">
-                  <li>${venue}
+                <g:each var="venue" in="${venues}">
+                  <li class="menuitem"><g:link controller="aboutUs" action="venue" id="${venue.id}" class="menuitem">${venue}</g:link>
                       <g:if test="${venue.rooms}">
                       <ul>
                         <g:findAll var="room" in="${venue.rooms}" expr="it.publishState == 'Published'">
-                        <li><g:link controller="aboutUs" action="room" id="${room.id}" class="menuitem">${room}</g:link></li>
+                        <li class="menuitem"><g:link controller="aboutUs" action="room" id="${room.id}" class="menuitem">${room}</g:link></li>
                         </g:findAll>
                       </ul>
                       </g:if>
@@ -63,11 +67,11 @@
               </g:if>
               </ul>
           </li>
-          <li>Information
+          <li class="menuitem">Information
                 <ul>
                 <g:if test="${articles}">
                   <g:each var="article" in="${articles}">
-                    <li><g:link controller="aboutUs" action="view" id="${article.id}" class="menuitem">${article?.title}</g:link></li>
+                    <li class="menuitem"><g:link controller="aboutUs" action="view" id="${article.id}" class="menuitem">${article?.title}</g:link></li>
                   </g:each>          
                 </g:if>
                 </ul>

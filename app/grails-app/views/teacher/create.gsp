@@ -71,7 +71,7 @@
             
             <p>
                 <label for="category"><g:message code="teacher.category"/></label>
-                <g:select name="type" from="${['L', 'C', 'V', 'O']}" valueMessagePrefix="teacher.category" />
+                <g:select name="type" from="${['L', 'C', 'V', 'O','T']}" valueMessagePrefix="teacher.category" />
             </p>
             
             <p>
