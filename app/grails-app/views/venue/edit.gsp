@@ -23,64 +23,114 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.venue.Venue" %>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta name="layout" content="main" />
-        <title><g:message code="venue.edit.title"/></title>
-    </head>
-    <body>
-        <div class="nav">
-            <span class="menuButton"><a class="home" href="${resource(dir:'')}">Home</a></span>
-            <span class="menuButton"><g:link class="list" action="list">Venue List</g:link></span>
-            <span class="menuButton"><g:link class="create" action="create">New Venue</g:link></span>
-        </div>
-        <div class="body">
-            <h1><g:message code="venue.edit.title"/></h1>
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-            <g:hasErrors bean="${venueInstance}">
-            <div class="errors">
-                <g:renderErrors bean="${venueInstance}" as="list" />
-            </div>
-            </g:hasErrors>
-            <g:form method="post" >
-                <input type="hidden" name="id" value="${venueInstance?.id}" />
-                <input type="hidden" name="version" value="${venueInstance?.version}" />
-                <div class="dialog">
-                    <table>
-                        <tbody>
+  <head>
+    <meta name="layout" content="content-admin"/>
+    <title><g:message code="venue.edit.title" args="${[venue?.name]}"/></title>
+    <g:javascript>            
+      var nextTelephoneId = ${venue.telephoneNumbersList.size()};
+      $(function() {
+        $("#edit").validate();
+        $("#addNewNumber").click(function() {
+          var type = $('.telephoneDetails select').val()
+          var number = $('.telephoneDetails input.number').val()
+          var name = $('.telephoneDetails input.name').val()
+          var clone = $('#telephoneNumberTemplate').clone(true)
+          clone.find(':hidden').each(function(index) {
+              var currName = $(this).attr('name');
+              if (currName == "type") {
+                  $(this).val(type)
+              } else if (currName == "number") {
+                  $(this).val(number)                  
+              } else if (currName == "button") {
+                  $(this).before("<input type='hidden' name='telephoneNumbersList[" + nextTelephoneId + "].name' value='" + name + "'/>");
+                  $(this).before(name + ' (' + type + '): ' + number);
+              }
+              $(this).attr('name', 'telephoneNumbersList[' + nextTelephoneId + '].' + currName);
+          });
+          clone.removeAttr('id')
+          clone.removeAttr('style')
+          $('.telephoneNumbers').parent().append(clone);  
+          nextTelephoneId++;
+        });
+        $("button.newnumber").click(function() {
+          $(this).parent().remove();  
+        }); 
+        $("button.existingnumber").click(function() {
+            var deleteMe = $(this).parent().find(':hidden')
+            deleteMe.val('true')
+            $('#edit').append(deleteMe)
+            $(this).parent().remove();  
+        });               
+      });
+    </g:javascript>
+  </head>
+  <body>
+    <g:form name="edit" method="post" action="update">
+      <g:render template="/messageBox" model="[flash: flash]"/>
 
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="name">Name:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:venueInstance,field:'name','errors')}">
-                                    <input type="text" id="name" name="name" value="${fieldValue(bean:venueInstance,field:'name')}"/>
-                                </td>
-                            </tr>
-
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="rooms">Rooms:</label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean:venueInstance,field:'rooms','errors')}">
-                                    <g:select name="rooms"
-from="${org.samye.dzong.london.venue.Room.list()}"
-size="5" multiple="yes" optionKey="id"
-value="${venueInstance?.rooms}" />
-
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-                <div class="buttons">
-                    <span class="button"><g:actionSubmit class="save" value="Update" /></span>
-                    <span class="button"><g:actionSubmit class="delete" onclick="return confirm('Are you sure?');" value="Delete" /></span>
-                </div>
-            </g:form>
-        </div>
-    </body>
+      <g:hiddenField name="id" value="${venue?.id}"/>
+      <g:hiddenField name="version" value="${venue?.version}"/>
+      <g:hiddenField name="publishState" value="Published"/>
+      <g:hiddenField name="deleted" value="${venue?.deleted}"/>
+      <g:hiddenField name="displayAuthor" value="${venue?.displayAuthor}"/>
+      <g:hiddenField name="displayDate" value="${venue?.displayDate}"/>
+      <g:hiddenField name="category" value="V"/>
+      <fieldset>
+            <legend><g:message code="details"/></legend>
+      <p>
+        <label for="name"><g:message code="venue.name.label"/></label>
+        <g:textField name="name" value="${fieldValue(bean:venue,field:'name')}" class="required ui-corner-all ${hasErrors(bean:venue,field:'name','errors')}" minlength="5"/>
+      </p>
+      <p>
+        <label for="image.id"><g:message code="venue.image.label"/></label>
+        <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('venue')}" name="image.id" value="${venue?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+      </p>
+      <p>
+        <label for="facilities"><g:message code="venue.facilities.label"/></label>
+        <g:textArea rows="5" cols="40" name="facilities" class="required ui-corner-all ${hasErrors(bean:venue,field:'facilities','errors')}" value="${venue.facilities}" minlength="5"/>
+      </p>      
+      <p>
+        <label for="access"><g:message code="venue.access.label"/></label>
+        <g:textArea rows="5" cols="40" name="access" class="required ui-corner-all ${hasErrors(bean:venue,field:'access','errors')}" value="${venue.access}" minlength="5"/>
+      </p>      
+      </fieldset>
+      <fieldset>
+        <legend><g:message code="contact.telephone.numbers"/></legend>
+        <p class="telephoneDetails">
+            <label for="telephoneNumber"><g:message code="contact.telephone.new"/></label>
+            <g:select from="${['main','work','home','fax','mobile','other']}" valueMessagePrefix="contact"></g:select> 
+            <g:textField name="contactName" class="ui-corner-all name" style="display: inline;width:10em" minlength="4" value="Contact Name"/>           
+            <g:textField name="telephoneNumber" class="ui-corner-all number" style="display: inline;width:20em" minlength="8" number="true" value="111111111111"/>           
+            <button id="addNewNumber" class="add" type="button">+</button>
+        </p>        
+        <g:each var="number" in="${venue.telephoneNumbers}" status="i">
+        <p class="telephoneNumbers">
+            <input type="hidden" name='telephoneNumbersList[${i}]._deleted' id='telephoneNumbersList[${i}]._deleted' value='false'/>
+            ${number.name} (<g:message code="contact.${number.type}"/>): ${number.number}
+            <button class="remove existingnumber" type="button">-</button>
+        </p>
+        <p id="telephoneNumberTemplate" style="display:none;visibility:hidden;">
+            <input type="hidden" name="_deleted" value="false">
+            <input type="hidden" name="type">            
+            <input type="hidden" name="number">                        
+            <button name="button" class="remove newnumber" type="button">-</button>
+        </p>        
+        </g:each>
+      </fieldset> 
+      <fieldset>
+        <legend>Email Addresses</legend>
+      </fieldset> 
+      <fieldset>
+        <legend>Addresses</legend>
+      </fieldset>  
+      <fieldset>
+        <legend>Content</legend>
+        <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:venue]"/>
+        <p class="last">&nbsp;</p>
+        <g:set var="submitBtnLabel"><g:message code="updatearticle.btn"/></g:set>
+        <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+      </fieldset>                    
+    </g:form>
+  </body>
 </html>

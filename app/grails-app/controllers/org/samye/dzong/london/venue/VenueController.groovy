@@ -2,11 +2,11 @@ package org.samye.dzong.london.venue
 
 class VenueController {
     // the delete, save and update actions only accept POST requests
-    static allowedMethods = [delete:'POST', save:'POST', update:'POST']
+    static allowedMethods = [delete:'GET', save:'POST', update:'POST']
 
     def manage = {
         params.max = Math.min((params.max ? params.max.toInteger() : 10),  100)
-        render(view:'manage',model:[ venueInstanceList: Venue.list( params ), venueInstanceTotal: Venue.count() ])
+        render(view:'manage',model:[ venues: Venue.notDeleted().list(), total: Venue.notDeleted().count() ])
     }
 
     def create = {
@@ -27,13 +27,15 @@ class VenueController {
         }
     }
 
-    /*
     def delete = {
         def venueInstance = Venue.get( params.id )
         if(venueInstance) {
             try {
-                venueInstance.delete(flush:true)
-                flash.message = "Venue ${params.id} deleted"
+				venueInstance.publishState = "Unpublished"
+	            venueInstance.deleted = true
+	            if (!venueInstance.hasErrors() && venueInstance.save()) {
+	                flash.message = "Venue ${venueInstance.name} deleted"
+	            }
                 redirect(action:manage)
             }
             catch(org.springframework.dao.DataIntegrityViolationException e) {
@@ -47,6 +49,7 @@ class VenueController {
         }
     }
 
+
     def edit = {
         def venueInstance = Venue.get( params.id )
 
@@ -55,11 +58,12 @@ class VenueController {
             redirect(action:manage)
         }
         else {
-            return [ venueInstance : venueInstance ]
+            return [ venue : venueInstance ]
         }
     }
 
     def update = {
+		println params
         def venueInstance = Venue.get( params.id )
         if(venueInstance) {
             if(params.version) {
@@ -72,17 +76,38 @@ class VenueController {
                 }
             }
             venueInstance.properties = params
+			def _toBeDeleted = venueInstance.addresses.findAll {it._deleted}
+			if (_toBeDeleted) {
+				venueInstance.addresses.removeAll(_toBeDeleted)
+			}
+			/*params.telephone.each { key,value ->
+				println "new number " + value
+				def number = new VenueTelephone(name: venueInstance.name, type: value, number: params.telephone.number[0])
+				number.save()
+				venueInstance.addToTelephoneNumbers(number)
+			}*/
+			_toBeDeleted = venueInstance.emails.findAll {it._deleted}
+			if (_toBeDeleted) {
+				venueInstance.emails.removeAll(_toBeDeleted)
+			}
+			_toBeDeleted = venueInstance.telephoneNumbers.findAll {it._deleted}
+			if (_toBeDeleted) {
+				venueInstance.telephoneNumbers.removeAll(_toBeDeleted)
+			}						
             if(!venueInstance.hasErrors() && venueInstance.save()) {
                 flash.message = "Venue ${params.id} updated"
-                redirect(action:show,id:venueInstance.id)
+                redirect(action:manage)
             }
             else {
-                render(view:'edit',model:[venueInstance:venueInstance])
+                flash.message = "Changes could not be saved because of the following:"	
+				flash.isError = true
+				flash.args = [venueInstance]
+                render(view:'edit',model:[venue:venueInstance])
             }
         }
         else {
             flash.message = "Venue not found with id ${params.id}"
             redirect(action:manage)
         }
-    }*/
+    }
 }

@@ -167,7 +167,7 @@ class CommonLayoutTagLib {
                             }
                         } else if (controller.equals (attrs.controller)) {
                             if ("manage".equals (attrs.action)) {
-                                if (SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser"]).any()) {
+                                if (!controller.equals('venue') && SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser"]).any()) {
                                     elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }

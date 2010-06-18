@@ -3,6 +3,10 @@ package org.samye.dzong.london.venue
 import org.samye.dzong.london.contact.*
 
 class VenueAddress extends Address {
+ 	boolean _deleted
+
+    static transients = ['_deleted']
+	
     static belongsTo = Venue
     static constraints = {
         placeName(maxSize:1024)

@@ -5,11 +5,11 @@ class Telephone extends Contact {
     String type;
 
     static constraints = {
-        number(email:true)
+        number(matches:"\\d+",blank:false)
         type(inList:['main','work','home','fax','mobile','other'])
     }
 
     String toString() {
-        "${number} (${type})"
+        "${number} (${name}:uyy ${type})"
     }
 }
