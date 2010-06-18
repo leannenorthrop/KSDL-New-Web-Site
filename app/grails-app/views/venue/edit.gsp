@@ -28,71 +28,71 @@
     <title><g:message code="venue.edit.title" args="${[venue?.name]}"/></title>
     <g:javascript>            
       var nextTelephoneId = ${venue.telephoneNumbersList.size()};
-      var nextEmailId = ${venue.emails.size()};      
+      var nextEmailId = ${venue.emails.size()};
+      var nextAddressId = ${venue.addresses.size()};            
       $(function() {
+        var removeNewHandler = function() {
+            $(this).parent().remove();  
+        };
+        $("button.newnumber").click(removeNewHandler); 
+        $("button.newemail").click(removeNewHandler);
+        $("button.newaddress").click(removeNewHandler);
+        
+        var removeExistingHandler = function() {
+            var deleteMe = $(this).parent().find(':hidden')
+            deleteMe.val('true')
+            $('#edit').append(deleteMe)
+            $(this).parent().remove();  
+        };
+        $("button.existingnumber").click(removeExistingHandler);
+        $("button.existingemail").click(removeExistingHandler);                     
+        $("button.existingaddress").click(removeExistingHandler);  
+        
         $("#edit").validate();
+        
+        var addNew = function(templateSelector,namePrefix,selector,nextId) {                                                                   
+          var clone = $(templateSelector).clone(true)
+          clone.find(':hidden').each(function(index) {
+              var currName = $(this).attr('name');
+              if (currName != "button" && currName != "type") {
+                  var value = $(selector + ' input.'+currName).val()
+                  $(this).val(value)
+              } else if (currName == "type") {
+                  var type= $(selector + ' select').val()
+                  $(this).val(type)
+              } 
+              else {
+                  var name = $(selector + ' input.name').val()
+                  $(this).before("<input type='hidden' name='" + namePrefix + "[" + nextId + "].name' value='" + name + "'/>");
+              }
+              $(this).attr('name', namePrefix + '[' + nextId + '].' + currName);
+          });
+          clone.removeAttr('id')
+          clone.removeAttr('style')
+          $(templateSelector).parent().append(clone);  
+          nextId++;
+          return clone;
+        };
         $("#addNewNumber").click(function() {
-          var type = $('.telephoneDetails select').val()
-          var number = $('.telephoneDetails input.number').val()
-          var name = $('.telephoneDetails input.name').val()
-          var clone = $('#telephoneNumberTemplate').clone(true)
-          clone.find(':hidden').each(function(index) {
-              var currName = $(this).attr('name');
-              if (currName == "type") {
-                  $(this).val(type)
-              } else if (currName == "number") {
-                  $(this).val(number)                  
-              } else if (currName == "button") {
-                  $(this).before("<input type='hidden' name='telephoneNumbersList[" + nextTelephoneId + "].name' value='" + name + "'/>");
-                  $(this).before(name + ' (' + type + '): ' + number);
-              }
-              $(this).attr('name', 'telephoneNumbersList[' + nextTelephoneId + '].' + currName);
-          });
-          clone.removeAttr('id')
-          clone.removeAttr('style')
-          $(this).parent().parent().append(clone);  
-          nextTelephoneId++;
+           var name = $('.telephoneDetails input.name').val() + " (" + $('.telephoneDetails select').val() + "): " + $('.telephoneDetails input.number').val();            
+           var newHtml = addNew('#telephoneNumberTemplate', 'telephoneNumbersList','.telephoneDetails',nextTelephoneId); 
+           newHtml.find('button').before(name)
         });
-        $("button.newnumber").click(function() {
-          $(this).parent().remove();  
-        }); 
-        $("button.existingnumber").click(function() {
-            var deleteMe = $(this).parent().find(':hidden')
-            deleteMe.val('true')
-            $('#edit').append(deleteMe)
-            $(this).parent().remove();  
-        });               
         $("#addNewEmail").click(function() {
-          var type = $('.emailDetails select').val()
-          var email = $('.emailDetails input.email').val()
-          var name = $('.emailDetails input.name').val()
-          var clone = $('#emailTemplate').clone(true)          
-          clone.find(':hidden').each(function(index) {
-              var currName = $(this).attr('name');
-              if (currName == "type") {
-                  $(this).val(type)
-              } else if (currName == "address") {
-                  $(this).val(email)                  
-              } else if (currName == "button") {
-                  $(this).before("<input type='hidden' name='emailsList[" + nextEmailId + "].name' value='" + name + "'/>");
-                  $(this).before(name + ' (' + type + '): ' + email);
-              }
-              $(this).attr('name', 'emailsList[' + nextEmailId + '].' + currName);
-          });
-          clone.removeAttr('id')
-          clone.removeAttr('style')
-          $(this).parent().parent().append(clone);  
-          nextEmailId++;
+           var name = $('.emailDetails input.name').val() + " (" + $('.emailDetails select').val() + "): " + $('.emailDetails input.address').val();             
+           var newHtml = addNew('#emailTemplate','emailsList','.emailDetails',nextEmailId); 
+           newHtml.find('button').before(name)           
         });
-        $("button.newemail").click(function() {
-          $(this).parent().remove();  
-        }); 
-        $("button.existingemail").click(function() {
-            var deleteMe = $(this).parent().find(':hidden')
-            deleteMe.val('true')
-            $('#edit').append(deleteMe)
-            $(this).parent().remove();  
-        });        
+        $("#addNewAddress").click(function() {
+           var name = $('.addressDetails input.name').val() + " (" + $('.addressDetails select').val() + "): ";
+           $('.addressDetails input').each(function(index) { 
+               if (index != 0) {
+                   name += $(this).val() + ' '
+               }
+           })
+           var newHtml = addNew('#addressTemplate','addressesList','.addressDetails',nextAddressId); 
+           newHtml.find('button').before(name)           
+        });                
       });
     </g:javascript>
   </head>
@@ -139,7 +139,7 @@
         <g:each var="number" in="${venue.telephoneNumbers}" status="i">
         <p class="telephoneNumbers">
             <input type="hidden" name='telephoneNumbersList[${i}]._deleted' id='telephoneNumbersList[${i}]._deleted' value='false'/>
-            ${number.name} (<g:message code="contact.${number.type}"/>): ${number.number}
+            ${number}
             <button class="remove existingnumber" type="button">-</button>
         </p>      
         </g:each>
@@ -156,13 +156,13 @@
             <label for="email"><g:message code="contact.email.new"/></label>
             <g:select from="${['main','work','home','other']}" valueMessagePrefix="contact"></g:select> 
             <g:textField name="contactName" class="ui-corner-all name" style="display: inline;width:10em" minlength="4" value="Contact Name"/>           
-            <g:textField name="email" class="ui-corner-all email" style="display: inline;width:20em" minlength="8" email="true" value="somewhere@overtherainbow.com"/>           
+            <g:textField name="email" class="ui-corner-all address" style="display: inline;width:20em" minlength="8" email="true" value="somewhere@overtherainbow.com"/>           
             <button id="addNewEmail" class="add" type="button">+</button>
         </p>        
         <g:each var="email" in="${venue.emails}" status="i">
         <p class="emails">
             <input type="hidden" name='emailsList[${i}]._deleted' id='emailsList[${i}]._deleted' value='false'/>
-            ${email?.name} (<g:message code="contact.${email?.type}"/>): ${email?.address}
+            ${email}
             <button class="remove existingemail" type="button">-</button>
         </p>       
         </g:each>        
@@ -174,7 +174,68 @@
         </p>        
       </fieldset> 
       <fieldset>
-        <legend>Addresses</legend>
+        <legend><g:message code="contact.addresses"/></legend>
+        <div class="addressDetails">
+            <p style="margin-bottom:0;">
+                <label for="email"><g:message code="contact.address.new"/></label>
+                <g:select from="${['main','work','home','other']}" valueMessagePrefix="contact"></g:select> 
+                <g:textField name="contactName" class="ui-corner-all name" style="width:10em" minlength="4" value="Contact Name"/>       
+            </p>
+            <p style="margin-bottom:0;">
+                <label for="placename" style="display:inline-block;width:8em"><g:message code="contact.address.placename"/></label>
+                <g:textField name="placename" class="ui-corner-all placeName" style="width:20em" minlength="4"/>
+            </p>
+            <p style="margin-bottom:0;">
+                <label for="streetnumber" style="display:inline-block;width:8em"><g:message code="contact.address.streetnumber"/></label>
+                <g:textField name="streetnumber" class="ui-corner-all streetNumber" style="width:20em" minlength="4"/>                
+            </p>
+            <p style="margin-bottom:0;">
+                <label for="line1" style="display:inline-block;width:8em"><g:message code="contact.address.line1"/></label>
+                <g:textField name="line1" class="ui-corner-all line1" style="width:20em" minlength="4"/>                
+            </p>
+            <p style="margin-bottom:0;">
+                <label for="line2" style="display:inline-block;width:8em"><g:message code="contact.address.line2"/></label>
+                <g:textField name="line2" class="ui-corner-all line2" style="width:20em"/>                
+            </p>
+            <p style="margin-bottom:0;">
+                <label for="posttown" style="display:inline-block;width:8em"><g:message code="contact.address.posttown"/></label>
+                <g:textField name="posttown" class="ui-corner-all postRown" style="width:20em"/>                
+            </p>
+            <p style="margin-bottom:0;">
+                <label for="county" style="display:inline-block;width:8em"><g:message code="contact.address.county"/></label>
+                <g:textField name="county" class="ui-corner-all county" style="width:20em"/>                
+            </p>
+            <p style="margin-bottom:0;">
+                <label for="country" style="display:inline-block;width:8em"><g:message code="contact.address.country"/></label>
+                <g:textField name="country" class="ui-corner-all country" style="width:20em"/>                
+            </p> 
+            <p style="margin-bottom:0;">
+                <label for="postcode" style="display:inline-block;width:8em"><g:message code="contact.address.postcode"/></label>
+                <g:textField name="postcode" class="ui-corner-all postCode" style="width:20em"/>                
+            </p>                                   
+                                                                     
+            <button id="addNewAddress" class="add" type="button">+</button>
+        </div>   
+        <g:each var="address" in="${venue.addresses}" status="i">
+        <p class="addresses">
+            <input type="hidden" name='addressesList[${i}]._deleted' id='addressesList[${i}]._deleted' value='false'/>
+            ${address}
+            <button class="remove existingaddress" type="button">-</button>
+        </p>       
+        </g:each>        
+        <p id="addressTemplate" style="display:none;visibility:hidden;">
+            <input type="hidden" name="_deleted" value="false">
+            <input type="hidden" name="type">            
+            <input type="hidden" name="placeName">                        
+            <input type="hidden" name="streetNumber">            
+            <input type="hidden" name="line1">                        
+            <input type="hidden" name="line2"> 
+            <input type="hidden" name="postTown">                        
+            <input type="hidden" name="county">            
+            <input type="hidden" name="country">                        
+            <input type="hidden" name="postCode">                                               
+            <button name="button" class="remove newemail" type="button">-</button>
+        </p>             
       </fieldset>  
       <fieldset>
         <legend>Content</legend>

@@ -24,6 +24,6 @@ class Address extends Contact {
     }
 
     String toString() {
-        "${placeName} (${type})"
+        "${name} (${type}): ${placeName}"
     }
 }

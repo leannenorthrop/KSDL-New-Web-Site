@@ -10,6 +10,6 @@ class Telephone extends Contact {
     }
 
     String toString() {
-        "${number} (${name}:uyy ${type})"
+        "${name} (${type}): ${number}"
     }
 }

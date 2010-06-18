@@ -7,8 +7,4 @@ class VenueTelephone extends Telephone {
 
     static transients = ['_deleted']	
     static belongsTo = Venue
-
-    String toString() {
-        "${type}: ${number}"
-    }
 }
