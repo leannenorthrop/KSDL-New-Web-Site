@@ -10,6 +10,6 @@ class Email extends Contact {
     }
 
     String toString() {
-        "${address} (${type})"
+        "${name} (${type}): ${address}"
     }
 }
