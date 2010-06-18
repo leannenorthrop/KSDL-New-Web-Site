@@ -38,14 +38,12 @@
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
     <div class="grid_4">
-      <div class="box">
-          <g:render template="/thumbslideshow" model="[images:images,relUrl:'slideshow']"/>
-      </div>
+      <g:render template="/thumbslideshow" model="[images:images,relUrl:'slideshow']"/>
       <div class="box">
         <h2><g:message code="meditation.resources"/></h2>
-        <ol>
-          <li><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
-        </ol>
+        <ul class="menu">
+          <li class="menuitem"><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
+        </ul>
       </div>
     </div>
     <div class="clear"></div>

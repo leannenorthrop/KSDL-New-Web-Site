@@ -30,14 +30,14 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <div class="box shortnews">
   <h2><g:message code="${heading}"/></h2>
-  <ol>
+  <ul class="menu">
     <g:each in="${articles}" status="i" var="articleInstance">
-      <li>
+      <li class="menuitem">
         <g:link controller="news" action="view" id="${articleInstance.id}">
-          <p>${articleInstance.title}</p>
-          <em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em>
+          <h3>${articleInstance.title}</h3>
+          <p><em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em><br/>${articleInstance.summary}</p>
         </g:link>
       </li>
     </g:each>
-  </ol>
+  </ul>
 </div>

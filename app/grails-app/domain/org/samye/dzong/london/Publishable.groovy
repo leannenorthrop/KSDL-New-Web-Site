@@ -72,7 +72,7 @@ class Publishable implements Taggable {
         deleted()
         home()
         featured()
-        category(blank:false,inList:['M','N','C','W','B','T','V','R'])
+        category(blank:false,inList:['M','N','C','W','B','T','V','R','A'])
     }
 
     static mapping = {

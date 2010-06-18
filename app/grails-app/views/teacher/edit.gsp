@@ -58,7 +58,7 @@
               <p>
                 <label for="title"><g:message code="teacher.title.label"/></label>
                 <g:set var="noneLabel"><g:message code="no.img"/></g:set>
-                <g:select name="title" from="${['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS']}" noSelection="${['U':noneLabel]}" value="${fieldValue(bean:teacher,field:'title')}" valueMessagePrefix="teacher.title" />
+                <g:select name="title" from="${['D','V','L','R','M','MS','MZ','MSS','K','HH','HE','HS']}" noSelection="${['U':noneLabel]}" value="${fieldValue(bean:teacher,field:'title')}" valueMessagePrefix="teacher.title" />
               </p>
               <p>
                 <label for="name"><g:message code="teacher.name.label"/></label>
@@ -71,7 +71,7 @@
               </p>
               <p>
                 <label for="category"><g:message code="teacher.category"/></label>
-                <g:select name="type" from="${['L', 'C', 'V', 'O']}" valueMessagePrefix="teacher.category" value="${fieldValue(bean:teacher,field:'type')}" />
+                <g:select name="type" from="${['L', 'C', 'V', 'O','T']}" valueMessagePrefix="teacher.category" value="${fieldValue(bean:teacher,field:'type')}" />
               </p>
               <p>
                 <label for="summary"><g:message code="teacher.summary.label"/></label>

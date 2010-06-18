@@ -39,7 +39,7 @@
     </div>
     <div class="grid_4">
         <div class="box">
-          <h3><g:message code="event.forthcoming"/></h3>
+          <h2><g:message code="event.forthcoming"/></h2>
           <ul>
             <g:each var="date" in="${followingMonths}">
               <g:set var="start"><g:formatDate format="yyyy-MM-dd" date="${date[0]}"/></g:set>

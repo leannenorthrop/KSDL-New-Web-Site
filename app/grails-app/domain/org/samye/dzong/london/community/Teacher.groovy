@@ -43,9 +43,9 @@ class Teacher extends Publishable {
     def messageSource
 
     static constraints = {
-        title(blank:false,inList:['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS','U'])
+        title(blank:false,inList:['V','L','R','M','MS','MZ','MSS','K','HH','HE','HS','U','D'])
         name(blank:false,unique:true)
-        type(blank:false,inList:['L','V','C','O'])
+        type(blank:false,inList:['L','V','C','O','T'])
         summary(size:5..Integer.MAX_VALUE,blank:false)
         content(maxSize:Integer.MAX_VALUE,blank:true)
         image(nullable:true)

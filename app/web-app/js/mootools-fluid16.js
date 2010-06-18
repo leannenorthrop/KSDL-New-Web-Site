@@ -39,7 +39,7 @@ window.addEvent('domready', function() {
             kwick.addEvent('mouseenter', function(e){
                 var obj = {};
                 obj[i] = {
-                    'width': [kwick.getStyle('width').toInt(), 450],
+                    'width': [kwick.getStyle('width').toInt(), 350],
                 };
                 kwicks.each(function(other, j){
                     if (other != kwick){

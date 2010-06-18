@@ -49,11 +49,12 @@
       <div class="clear"></div>
       <div class="box services">
         <h2><g:message code="service.header"/></h2>
-        <ul>
-          <li class="email"><a href="http://visitor.constantcontact.com/manage/optin?v=001Qllubg_SeqJPuzfEQO27-PsaMuFhxMTC"><g:message code="service.email"/></a></li>
-          <li class="rss"><g:link controller="home" action="feed"><g:message code="service.rss"/></g:link></li>
-          <li class="calendar"><g:link controller="home" action="calendars"><g:message code="service.calendar"/></g:link></li>
-          <li class="twitter"><a href="http://twitter.com/lsdci"><g:message code="service.twitter"/></a></li>
+        <ul class="menu">
+          <li class="email menuitem"><a href="http://visitor.constantcontact.com/manage/optin?v=001Qllubg_SeqJPuzfEQO27-PsaMuFhxMTC"><g:message code="service.email"/></a></li>
+          <li class="rss menuitem"><g:link controller="home" action="feed"><g:message code="service.rss"/></g:link></li>
+          <li class="calendar menuitem"><g:link controller="home" action="calendars"><g:message code="service.calendar"/></g:link></li>
+          <li class="twitter menuitem"><a href="http://twitter.com/lsdci"><g:message code="service.twitter"/></a></li>
+          <li class="facebook menuitem"><a href="http://www.facebook.com/home.php?#!/profile.php?id=842121574"><g:message code="service.twitter"/></a></li>          
         </ul>
       </div>
     </div>
