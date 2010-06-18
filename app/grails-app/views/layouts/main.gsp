@@ -97,7 +97,7 @@
         <div class="box">
           <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
           <g:message code="footer.copyright" args="${[year]}"/> <g:message code="title" default="Kagyu Samye Dzong London"/> |
-          <g:link controller="home" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
+          <g:link controller="aboutUs" action="contactUs"><g:message code="footer.contact.us"/></g:link> |
           <g:link controller="home" action="siteMap"><g:message code="footer.site.map"/></g:link> |
           <g:link controller="home" action="legal"><g:message code="footer.legal" default="Legal"/></g:link> |           
           <g:link controller="home" action="aboutThisSite"><g:message code="footer.about.this.site"/></g:link>
