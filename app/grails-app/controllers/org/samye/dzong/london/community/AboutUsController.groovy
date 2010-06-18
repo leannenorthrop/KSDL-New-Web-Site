@@ -51,12 +51,14 @@ class AboutUsController {
         }
     }
 
-	def contact = {
-		model:[]
+	def contactUs = {
+		def venues = Venue.notDeleted.list()
+		render(view: 'contact', model:[venues:venues])
 	}
 	
 	def visiting = {
-		model:[]
+		def venues = Venue.notDeleted.list()
+		model:[venues:venues]
 	}	
 	
 	def room = {
