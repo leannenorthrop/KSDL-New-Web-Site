@@ -21,87 +21,43 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 
-<%@ page import="org.samye.dzong.london.venue.Room" %>
 <%@ page import="org.samye.dzong.london.venue.Venue" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
     <head>
         <meta name="layout" content="content-admin" />
         <title><g:message code="venue.manage.title"/></title>
-        <g:javascript>
-                $(function() {
-                    $("#venues").tabs();
-                    <g:each in="${venueInstanceList}" status="i" var="venueInstance">
-                    $("#tabs-${i} .contactDetails").tabs();
-                    $("#tabs-${i} .findUsDetails").tabs();
-                    $("#tabs-${i} .roomDetails").tabs();
-                    </g:each>
-                });
-        </g:javascript>
     </head>
     <body>
-        <div class="jquery-ui content">
-            <g:if test="${flash.message}">
-            <div class="message">${flash.message}</div>
-            </g:if>
-
-            <g:if test="${venueInstanceList}">
-            <div id="venues">
-                <ul>
-                    <g:each in="${venueInstanceList}" status="i" var="venueInstance">
-                    <li><a href="#tabs-${i}">${fieldValue(bean:venueInstance, field:'name')}</a></li>
-                    </g:each>
-                </ul>
-                <g:each in="${venueInstanceList}" status="i" var="venueInstance">
-                <div id="tabs-${i}">
-                    <g:if test="${venueInstance.image}">
-                    <img src="${createLink(controller: 'image', action: 'src', id: venueInstance.image.id)}" title="${venueInstance.image.name}" alt="${venueInstance.image.name}"/>
-                    </g:if>
-                    <p>${fieldValue(bean:venueInstance, field:'description')}</p>
-                    <p>${fieldValue(bean:venueInstance, field:'facilities')}</p>
-                    <p>${fieldValue(bean:venueInstance, field:'access')}</p>
-%{--
-                    <div class="contactDetails">
-                        <ul>
-                            <li><a href="#tabs-${i} .contactDetails .addresses">Addresses</a></li>
-                            <li><a href="#tabs-${i} .contactDetails .emails">Email Addresses</a></li>
-                            <li><a href="#tabs-${i} .contactDetails .telephoneNumbers">Telephone Numbers</a></li>
-                        </ul>
-                        <div class="addresses">
-                        </div>
-                        <div class="emails">
-                        </div>
-                        <div class="telephoneNumbers">
-                        </div>
-                    </div>
-                    <div class="findUsDetails">
-                        <ul>
-                            <li><a href="#tabs-${i} .contactDetails .map">Map</a></li>
-                        </ul>
-                        <div class="map">
-                        </div>
-                    </div>
-                    <div class="roomDetails">
-                        <ul>
-                            <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
-                            <li><a href="#tabs-${i} .roomDetails .room${j}">${fieldValue(bean:roomInstance, field:'name')}</a></li>
-                            </g:each>
-                        </ul>
-                        <g:each in="${venueInstance.rooms}" status="j" var="roomInstance">
-                        <div class="room${j}">
-                            <g:if test="${roomInstance.image}">
-                            <img src="${createLink(controller: 'image', action: 'src', id: roomInstance.image.id)}" title="${roomInstance.image.name}" alt="${roomInstance.image.name}"/>
-                            </g:if>
-                            <p>${fieldValue(bean:roomInstance, field:'description')}</p>
-                        </div>
-                        </g:each>
-                    </div>
-                    <g:link action="delete">Delete</g:link> <g:link action="edit">Edit</g:link>
---}%
-                </div><!-- End of Venue Contents Tab -->
-                </g:each>
-            </div>
-            </g:if>
-        </div>
+        <g:set var="nameLabel"><g:message code="venue.name.label"/></g:set>
+        <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
+        <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>       
+        <table>
+          <thead>
+            <tr>
+              <g:sortableColumn property="name" title="${nameLabel}"/>
+              <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
+              <th><g:message code="article.action.label"/></th>
+            </tr>
+          </thead>
+          <tbody>
+            <g:each in="${venues}" status="i" var="venue">
+              <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                <td>
+                  <g:link action="edit" id="${venue.id}">${fieldValue(bean: venue, field: 'name')}</g:link>
+                </td>
+                <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${venue?.lastUpdated}"/></td>
+                <td>
+                    <g:link action="delete" id="${venue.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
+                </td>
+              </tr>
+            </g:each>
+          </tbody>
+        </table>
+        <g:if test="${total}">
+        <div class="manage paginateButtons">
+          <g:paginate total="${total}"/>
+        </div>      
+        </g:if> 
     </body>
 </html>
