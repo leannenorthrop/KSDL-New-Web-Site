@@ -76,24 +76,24 @@ class VenueController {
                 }
             }
             venueInstance.properties = params
-			def _toBeDeleted = venueInstance.addresses.findAll {it._deleted}
-			if (_toBeDeleted) {
-				venueInstance.addresses.removeAll(_toBeDeleted)
+			if (venueInstance.addresses) {
+				def _toBeDeleted = venueInstance.addresses.findAll {it._deleted}
+				if (_toBeDeleted) {
+					venueInstance.addresses.removeAll(_toBeDeleted)
+				}
 			}
-			/*params.telephone.each { key,value ->
-				println "new number " + value
-				def number = new VenueTelephone(name: venueInstance.name, type: value, number: params.telephone.number[0])
-				number.save()
-				venueInstance.addToTelephoneNumbers(number)
-			}*/
-			_toBeDeleted = venueInstance.emails.findAll {it._deleted}
-			if (_toBeDeleted) {
-				venueInstance.emails.removeAll(_toBeDeleted)
+			if (venueInstance.emails) {
+				def _toBeDeleted = venueInstance.emails.findAll {it._deleted}
+				if (_toBeDeleted) {
+					venueInstance.emails.removeAll(_toBeDeleted)
+				}
 			}
-			_toBeDeleted = venueInstance.telephoneNumbers.findAll {it._deleted}
-			if (_toBeDeleted) {
-				venueInstance.telephoneNumbers.removeAll(_toBeDeleted)
-			}						
+			if (venueInstance.telephoneNumbers) {
+				def _toBeDeleted = venueInstance.telephoneNumbers.findAll {it._deleted}
+				if (_toBeDeleted) {
+					venueInstance.telephoneNumbers.removeAll(_toBeDeleted)
+				}	
+			}					
             if(!venueInstance.hasErrors() && venueInstance.save()) {
                 flash.message = "Venue ${params.id} updated"
                 redirect(action:manage)
