@@ -5,9 +5,6 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
-1. Meta keywords
-2. Meta last modified
-3. if changed since
 4. Fixes
     - Textile markup of special characters/objects
     - Events
