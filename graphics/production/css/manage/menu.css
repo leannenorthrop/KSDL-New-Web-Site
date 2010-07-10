@@ -2,36 +2,48 @@
 
 .menuBar {
     background: #fff url(images/shadow.jpg) bottom repeat-x;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
     border-style: solid none solid none;
-    margin-top: 0;
-    margin-bottom: 0.6em;
     padding:0;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    max-width: 100%;
-    position: relative;
+	margin:0;
+    width: 100%;
+    position: fixed;
+	left:0;
+	top: 9em;
+	z-index: 11;
+	text-align:center;
+	min-width:1024px;
 }
 
 .menuButton {
-    font-size: 10px;
-    padding: 0 5px;
-    margin-right: 12px;
+    font-size: 1.1em;
+    padding: 5px 5px 5px 8px;
+    margin: 0 0 0 12px;
+	position:relative;
+	display:inline-block;
 }
 
 .menuButton a {
-    padding: 2px 3px;
-    padding-left: 25px;
+    padding: 0 3px 0 25px;
     text-decoration: none;
 }
 
-.menuButton a:hover {
-    text-decoration: underline;
+.menuButton:hover {
+    background:rgb(206, 206, 206);
+    background:rgba(206, 206, 206,0.9);
+	-webkit-transition-property: background;
+	-webkit-transition-duration: 0.75s;
+    -webkit-transition-timing-function: ease-out, cubic-bezier(0.5, 0.2, 0.3, 1.0);
+	-moz-transition-property: background;
+	-moz-transition-duration: 0.75s;
+    -moz-transition-timing-function: ease-out, cubic-bezier(0.5, 0.2, 0.3, 1.0);
+	-o-transition-property: background;
+	-o-transition-duration: 0.75s;
+    -o-transition-timing-function: ease-out, cubic-bezier(0.5, 0.2, 0.3, 1.0);
 }
 
 .menuButton a.home {
     background: url(images/house.png) center left no-repeat;
-
 }
 
 .menuButton a.login {
@@ -144,8 +156,6 @@
 .menuButton a:hover.teacherCreate {
     background: url(images/hover/clients_add_16.png) center left no-repeat;
 }
-
-
 
 .menuButton a.theme {
     background: url(images/normal/services_16.png) center left no-repeat;

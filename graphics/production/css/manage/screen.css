@@ -12,28 +12,39 @@ Title:      Screen styles for managing site content
 /* end import/hide */
 
 .contentAdmin {
+	min-width:1024px;
     width: 100%;
-    background: #EEE;
-    border-top: 5px solid rgb(113,179,226);
+    background: rgb(189, 177, 152);
+    margin-top: 10.75em;
+    margin-bottom: 5.75em;
 	font: 13px/1.5 Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
 }
-
+/*
 .container_12,
 .container_16 {
-    background:#fff;
-}
+    background:rgb(238, 238, 238);
+    background:rgba(238, 238, 238,0.7);
+}*/
 
 
 .contentAdmin .pagetitle {
-    background: rgb(212,231,244);
-    background: rgba(212,231,244,0.7);
+	height: 9em;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;	
+    background: rgb(43, 117, 147);
+	margin: 0;
+	z-index: 11;	
 }
 
 .contentAdmin .pagetitle img {
-    padding: 1em;
-    vertical-align: middle;
+    display: none;
+	visibility: hidden;
 }
 .contentAdmin .pagetitle span {
+	margin-top: 2em;
+	margin-left: 1.6em;
     vertical-align: middle;
     display: inline-block;
     width: 80%;
@@ -42,10 +53,17 @@ Title:      Screen styles for managing site content
     margin-bottom: 0;
     line-height: 1.6em;
     padding: 0;
+	color: rgb(205, 225, 238);
+}
+
+.contentAdmin .pagetitle h2 {
+	color: rgb(0,0,0);
+	color: rgba(0,0,0,0.8);
 }
 
 .contentAdmin h1 {
     font-size: 1.5em;
+	margin-bottom: 0.6em;
 }
 .contentAdmin h2 {
     font-size: 1.25em;
@@ -74,6 +92,11 @@ Title:      Screen styles for managing site content
     display: inline-block;    
 }
 
+.contentAdmin .content {
+	padding-top: 2.6em;
+	padding-bottom: 1.6em;
+}
+
 /* pagination
 --------------------------------------------- */
 .paginateButtons {
@@ -83,23 +106,36 @@ Title:      Screen styles for managing site content
     font-size: x-small;
     overflow: hidden;
     padding: 10px 3px;
+	text-decoration: none;
 }
 
 div.list + div.manage {
     background: rgb(235, 244, 250) url(images/darkFadeBottom.png) bottom repeat-x;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     border-top: 0;
 }
 
 .paginateButtons a {
     border: none;
-    color: #3baae3;
+    color: black;
+	background: #eeeeee;
     margin: 0 3px;
     padding: 2px 6px;
+    border: 1px solid black;
+	text-decoration: none;
+}
+.paginateButtons a:hover {
+	color:white;
+	background:rgb(205, 225, 238);
 }
 
 .paginateButtons span {
-    padding: 2px 3px;
+    padding: 2px 6px;
+    margin: 0 3px;
+    border: 1px solid black;
+    color: black;
+	font-weight: bold;
+	background: #eeeeee;
 }
 
 .paginateButtons .prevLink {
@@ -107,7 +143,7 @@ div.list + div.manage {
 }
 
 .paginateButtons .step {
-
+	font-size: bigger;
 }
 
 .paginateButtons .nextLink {
@@ -123,7 +159,11 @@ div.list + div.manage {
 }
 
 .footer {
-    margin-top: 2em;
+	height: 5em;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
     font-size: smaller;
     text-align: center;
     border-top: 1px solid rgb(113,179,226);
@@ -131,6 +171,8 @@ div.list + div.manage {
     background: rgba(212,231,244,0.7);
     font-size: smaller;
     padding: 1em;
+	display: none;
+	visibility: hidden;
 }
 
 .footer ul {

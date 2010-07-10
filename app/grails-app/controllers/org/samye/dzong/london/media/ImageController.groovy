@@ -217,10 +217,11 @@ class ImageController {
                 imageInstance.parseTags(params.tags)
             }
             flash.message = "Image ${imageInstance.name} created"
-            redirect(action:show,id:imageInstance.id)
+			flash.args = [imageInstance]
+            redirect(action:manage, params:[offset:0,max:50])
         }
         else {
-            flash.message = "Image not be saved"
+            flash.message = "Image can not be saved"
             flash.args = [imageInstance]
 			flash.isError = true	
             render(view:'create',model:[imageInstance:imageInstance])

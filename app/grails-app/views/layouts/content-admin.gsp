@@ -57,13 +57,10 @@
           <h2><g:layoutTitle/></h2>
         </span>
       </div>
-      <div class="grid_16">
-        <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
-      </div>
-      <div class="clear"></div>
+      <lsdc:toolbar controller="${controllerName}" action="${actionName}" id="${id}"/>
 
       <div class="grid_1">&nbsp;</div>
-      <div class="grid_14" style="min-height:45em">
+      <div class="grid_14 content">
         <g:layoutBody/>
       </div>
       <div class="grid_1">&nbsp;</div>
