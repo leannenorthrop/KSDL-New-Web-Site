@@ -19,7 +19,7 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
 
     @Override
     protected String getPattern(int groupOffset) {
-        return "(?:(?:(?<=\\W)|^)(\\[[a-zA-Z0-9 ,]{3,}\\])\\(([^\\)]+)\\))";
+        return "(?:(?:(?<=\\W)|^)(\\[[a-zA-Z0-9 ,.]{3,}\\])\\(([^\\)]+)\\))";
     }
 
     @Override
@@ -53,7 +53,18 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
                 a.setTitle(attributes[0]);
                 String href = urlBases.get(type) + "/" + attributes[0];
                 builder.image(a, href);
-            } else {
+            } else if (type.equals("video")) {
+                String[] attributes = name.split(",");
+				Attributes attr = new Attributes();
+				System.out.println("**** Type " + type + " url base is " + (String)urlBases.get(type));
+				String href = (String)urlBases.get(type) + "/" + attributes[0];
+                ((org.samye.dzong.london.HtmlDocumentBuilder)builder).video(attr, href);	
+			} else if (type.equals("file")) {
+                String[] attributes = name.split(",");
+				Attributes attr = new Attributes();				
+				String href = (String)urlBases.get(type) + "/" + attributes[0];
+                builder.link(href, name);
+			} else {
                 String href = (String)urlBases.get(type);
                 builder.link(href, name);
             }

@@ -12,6 +12,11 @@ class BootStrap {
      def greenMail
 
      def init = { servletContext ->
+		def configObject = ConfigurationHolder.getConfig()	
+		def filedir = servletContext.getRealPath('/')
+		configObject.fileuploader.attachments.path = filedir + "files"
+		println "****" + configObject.fileuploader.attachments.path
+						
          File.metaClass.unzip = { String dest ->
           //in metaclass added methods, 'delegate' is the object on which
           //the method is called. Here it's the file to unzip
