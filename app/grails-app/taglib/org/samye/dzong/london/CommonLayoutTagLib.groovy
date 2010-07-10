@@ -213,18 +213,18 @@ class CommonLayoutTagLib {
 		def paramName = attrs.paramName ? attrs.remove('paramName') : 'value'
 		def value = attrs.remove('value')
 		if(!value) value = ''
-		out << "<textArea rows=\"35\" cols=\"40\" name=\"${attrs.remove('name')}\" onkeyup=\""
+		out << "<textArea rows=\"35\" cols=\"40\" name=\"${attrs.remove('name')}\" onblur=\""
 
         if(attrs.params) {
 			if(attrs.params instanceof Map) {
-				attrs.params.put(paramName, new JavascriptValue('this.value'))
+				attrs.params.put(paramName, new JavascriptValue('escape(this.value)'))
 			}
 			else {
-				attrs.params += "+'${paramName}='+this.value"
+				attrs.params += "+'${paramName}='+escape(this.value)"
 			}
 		}
 		else {
-    		attrs.params = "'${paramName}='+this.value"
+    		attrs.params = "'${paramName}='+escape(this.value)"
 		}
 		out << remoteFunction(attrs)
 		attrs.remove('params')
