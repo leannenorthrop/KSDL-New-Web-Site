@@ -7,7 +7,7 @@ class ArticleService {
     def userLookupService
 
 	def handleIfNotModifiedSince(request,response) {
-		if (Publishable.allPublished().count() > 0) {
+		/*if (Publishable.allPublished().count() > 0) {
 			def newestPublishedItem= Publishable.allPublished().list()[0]
 			if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.datePublished.time) {
 				response.setStatus(304)
@@ -16,7 +16,8 @@ class ArticleService {
 			}
 			response.setDateHeader('Last-Modified', newestPublishedItem.datePublished.time)
 			response.setHeader("Cache-Control", "public")				
-		}		
+		}	*/
+		response.setHeader("Cache-Control", "public")	
 	}
 	
 	def addHeadersAndKeywords(model, request, response) {

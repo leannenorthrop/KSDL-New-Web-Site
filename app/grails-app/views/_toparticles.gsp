@@ -48,7 +48,7 @@
         </g:else>
       </g:if>
       <p>
-        ${articleInstance?.summary}
+        ${articleInstance?.summary?.encodeAsTextile()}
       </p>
       <p>
         <g:if test="${articleInstance?.content && !(articleInstance instanceof Teacher)}">

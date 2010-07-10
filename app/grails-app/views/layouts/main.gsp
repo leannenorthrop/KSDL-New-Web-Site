@@ -46,6 +46,7 @@
         <g:set var="title">Kagyu Tibetan Buddhist Center in London</g:set>
     </g:elseif>
     <title><g:message code="title" default="Kagyu Samye Dzong London"/>: ${title}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="ROBOTS" content="ALL" />
     <meta name="google-site-verification" content="bTJswZnvIBsrjhqIxlpIXIfvXa_wn7McR9PbSgwo_4Q" />	 

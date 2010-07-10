@@ -4,7 +4,6 @@ Grey Box Method - Layout CSS
 ----------------------------------------------- */
 
 body {
-    background: url(body_bkgrndcopy.jpg);
     font-size: 11px;
     padding: 0 0 40px;
 }
@@ -16,13 +15,6 @@ a {
     text-decoration: none;
 }
 
-/* 960 grid system container background
------------------------------------------------ */
-.container_12,
-.container_16 {
-    background: rgb(255, 245, 221);
-	background: rgba(255, 245, 221, 0.5);
-}
 
 /* headings
 ----------------------------------------------- */
@@ -46,18 +38,6 @@ h6 {
 
 h1 a {
     font-weight: normal;
-}
-
-/* branding
------------------------------------------------ */
-h1#branding {
-    font-weight: normal;
-    font-size: 3em;
-    text-align: left;
-    padding: .7em 1em;
-    margin-bottom: 0;
-	height: 108px;
-	color: rgb(223, 207, 147);
 }
 
 /* page heading
@@ -103,11 +83,6 @@ h2#page-heading {
     background-position: 99% 50%;
 }
 
-.box h2 a.hidden,
-.box h2 a.hidden:hover {
-    background-image: url("../img/switch_plus.gif");
-}
-
 .block {
     padding-top: 10px;
 }
@@ -148,7 +123,6 @@ ul, ol {
 ----------------------------------------------- */
 ul.menu {
     list-style: none;
-    border-top: 1px solid #bbb;
 }
 
 ul.menu li {
@@ -156,17 +130,7 @@ ul.menu li {
 }
 
 ul.menu li a {
-    display: block;
-    padding: 4px 10px;
     border-bottom: 1px solid #ccc;
-}
-
-ul.menu li a:hover {
-    background: #eee;
-}
-
-ul.menu li a:active {
-    background: #ccc;
 }
 
 /* submenus
@@ -231,11 +195,6 @@ thead th.table-head {
     font-size: 1em;
     font-weight: normal;
     text-transform: uppercase;
-}
-
-tbody th,
-tbody td {
-    background: #eee;
 }
 
 tfoot tr.total th {

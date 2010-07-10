@@ -1,0 +1,286 @@
+/*******************************************************************************
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ ******************************************************************************/
+
+hr
+{
+	border-color: rgb(224, 187, 82);
+	border-color: rgba(224, 187, 82,0.7);
+}
+
+body {
+	border-top: 5px solid #ffcb2d;
+	/*background: rgb(194, 58, 55) url(body_bkgrndcopy.jpg) repeat;*/
+	background: #efdda8 url(background-tile.png) repeat-x right top;
+}
+
+.container_12,
+.container_16 {
+	background: rgba(255, 245, 221, 0.2);
+	background: -webkit-gradient(linear, left 154, left bottom, color-stop(0.0, rgba(255,255,255,0)),
+	                color-stop(0.15, rgba(255, 245, 221, 0.5)), color-stop(1.0, rgba(255, 245, 221, 0.35)));
+}
+
+
+/* branding
+----------------------------------------------- */
+h1#branding {
+    font-weight: normal;
+    font-size: 3em;
+    text-align: left;
+    padding: .7em 1em;
+	background: rgb(194, 58, 55);
+}
+h1#branding img {
+	vertical-align:middle;
+	position:relative;
+}
+#watermark1 {
+	background: transparent url(shrinegrad.jpg) no-repeat;
+	width:275px;
+	height:154px;
+	position:absolute;
+	top:0;
+	right:-4.5%;
+	opacity:0.85;
+	z-index:1;
+}
+
+#watermark1 + div.grid_16 {	
+	margin:0;
+	padding:0;
+	background: transparent;
+	height: 154px;
+	position:relative;
+	margin-left:-5%;
+	width:110%;
+	display:block;
+	float:none;	
+}
+
+/* menus
+----------------------------------------------- */
+ul.menu {
+    border-top: 1px solid #bbb;
+}
+
+ul.menu li a {
+    border-bottom: 1px solid #ccc;
+}
+
+
+ul.menu li a:hover {
+    background: #eee;
+}
+
+ul.menu li a:active {
+    background: #ccc;
+}
+
+.box h2 a.hidden,
+.box h2 a.hidden:hover {
+    background-image: url("../img/switch_plus.gif");
+}
+
+tbody th,
+tbody td {
+    background: #eee;
+}
+
+/* navigation (horizontal subnavigation)
+----------------------------------------------- */
+#watermark1 + div.grid_16 + div.clear + div.grid_16 {
+	background: rgb(194, 58, 55);
+	background: -moz-linear-gradient(top, rgb(194, 58, 55), rgb(163, 59, 48));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(194, 58, 55)), to(rgb(163, 59, 48)));
+	filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr=#c23a37,endColorstr=#a33b30)
+		    progid:DXImageTransform.Microsoft.Shadow(color=#c23a37, strength=5px,direction=180);
+	-webkit-box-shadow: 0px 3px 5px rgba(194, 58, 55, 0.4);	
+	-moz-box-shadow: 0px 3px 5px rgba(194, 58, 55, 0.4);		
+	-o-box-shadow: 0px 3px 5px rgba(194, 58, 55, 0.4);		
+}
+
+.nav ul {
+  background:transparent;
+}
+
+.nav ul li a {
+	color:rgb(255, 219, 91);	
+}
+.nav ul li a:hover,
+.nav ul li a:active,
+.nav ul li a:focus {
+	color:white; 
+	border-bottom: 2px rgb(255, 219, 91) solid;
+}
+.nav ul li { 
+	background:transparent !important;
+	border-left: 2px solid rgb(194, 43, 39);	
+}
+
+.nav ul li.first {
+	border-left: none;
+}
+.nav ul li.current a  {
+	color:white; 
+}
+.nav ul li a em {
+	color:white;	
+	border-bottom: 2px transparent solid;	
+}
+.nav ul li.current a em,
+.nav ul li a:hover em,
+.nav ul li a:active em,
+.nav ul li a:focus em {
+	border-bottom: 2px rgb(255, 219, 91) solid;
+}
+
+a {
+	color: #000;
+}
+a:hover {
+	color:#8b1b00;
+}
+
+h2#page-heading {
+	border-bottom:1px solid #ccc;
+	border-color: rgb(226, 207, 148);
+	border-color: rgba(226, 207, 148,0.7);	
+}
+
+.box {
+	background: transparent url(background-trans-tile.png) repeat left top;
+	background:rgba(255, 244, 222, 0.5);
+	background: -moz-linear-gradient(top, rgba(255, 244, 222, 0.5), rgba(255, 244, 222,0.3));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 244, 222, 0.5)), to(rgba(255, 244, 222,0.3)));	
+}
+
+.box h2 {
+	color:#fff;
+	background:#8b1b00;
+}
+
+.box h2 a,
+.box h2 a.visible {
+	color:#fff;
+	background:#8b1b00 url("../img/switch_minus.gif") 97% 50% no-repeat;
+}
+
+.box h2 a:hover {
+	background-color:#111;
+}
+
+blockquote {
+	border-left:4px solid #ccc;
+}
+ul.section li a {
+	background:#bbb;
+}
+ul.section li a:hover {
+	background:#aaa;
+}
+ul.section li a:active {
+	color:#fff;
+	background:#6d0000;
+}
+ul.section li li a {
+	background:#ddd;
+	border-bottom:1px solid #eee;
+}
+ul.section li li a:hover {
+	background:#ccc;
+}
+ul.section li li a:active {
+	color:#000;
+	background:#fff;
+}
+ul.section ul li {
+	text-transform:none;
+}
+ul.section ul.current li a {
+	background:#eee;
+	border-bottom:1px solid #fff;
+}
+ul.section ul.current li a:hover {
+	background:#ddd;
+}
+ul.section ul.current li a:active {
+	background:#fff;
+}
+ul.section li a.current {
+	color:#fff;
+	background:#6d0000;
+}
+ul.section li a.current:hover {
+	background:#555;
+}
+ul.section li a.current:active {
+	background:#444;
+}
+ul.section li a.active {
+	background:#fff;
+}
+ul.section li.current > a.active,
+ul.section li.current > a.active:hover {
+	color:#fff;
+	background:#6d0000;
+}
+
+table {
+	border:1px solid #bbb;
+}
+thead th {
+	border-bottom:2px solid #888;
+	background:#bbb;
+}
+thead th.table-head {
+	color:#fff;
+	background:#555;
+	border:1px solid #555;
+}
+tbody th,
+tbody td {
+	border-top:1px solid #bbb;
+	border-bottom:1px solid #bbb;
+	background:#eee;
+}
+tbody tr.odd th,
+tbody tr.odd td {
+	background:#fff;
+}
+tfoot th,
+tfoot td {
+	border-top:2px solid #6d0000;
+	background:#eee;
+}
+tfoot tr.total th,
+tfoot tr.total td {
+	border-top:6px double #6d0000;
+}
+fieldset {
+	border:1px solid #bbb;
+	background:#e9e9e9;
+}
+legend {
+	background:#fff;
+	border:1px solid #bbb;
+}
