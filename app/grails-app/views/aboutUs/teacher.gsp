@@ -21,15 +21,24 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 
-<%@ page import="org.samye.dzong.london.venue.Room" %>
+<%--
+  Public display of teacher details.
+  User: Leanne Northrop
+  Date: Jan 30, 2010,7:00:41 PM
+--%>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.community.Teacher" %>
 <html>
   <head>
     <title>
-        ${room?.name}
+        <g:if test="${teacher?.title != 'U'}">
+          <g:message code="${'teacher.title.' + teacher?.title}"/>
+        </g:if>
+        ${teacher.name}
     </title>
     <meta name="layout" content="main"/>
   </head>
   <body>
-    <g:render template="/room" model="[room: room]"/>
+    <g:render template="/teacher" model="[teacher: teacher, events:events,articles:articles]"/>
   </body>
 </html>

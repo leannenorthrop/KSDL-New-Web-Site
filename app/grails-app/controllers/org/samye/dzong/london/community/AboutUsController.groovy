@@ -28,6 +28,7 @@ import org.samye.dzong.london.venue.Room
 
 class AboutUsController {
     def articleService
+    def teacherService
 
     def index = {
         def community = Teacher.findByName('Community');
@@ -63,6 +64,37 @@ class AboutUsController {
 	
 	def room = {
 		model:[room:Room.get(params.id)]
+	}
+	
+	def venue = {
+		def venues = []
+		venues << Venue.get(params.id)
+		render(view:'visiting',model:[venues:venues])
+	}	
+	
+	def teacher = {
+        def teacher = Teacher.get(params.id)
+        if (!teacher) {
+            // TODO: render 404
+            redirect(uri: '/')
+        }
+        else {
+            /* TODO link in articles that mention the teacher
+            def aboutUsArticles = articleService.publishedByTags(['about us']);
+            aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
+            if (model['articles']) {
+                def articles = model['articles']
+                articles << aboutUsArticles
+            } else {
+                model['articles'] = aboutUsArticles
+            }*/
+            def events = teacherService.events(params.id);
+            def articles = []
+            if (teacher.name == 'Community'){
+                articles = articleService.publishedByTags(['about us']);
+            }
+            return [teacher: teacher, id: params.id, events:events, articles:articles]
+        }		
 	}
 	
 	def lineage = {
