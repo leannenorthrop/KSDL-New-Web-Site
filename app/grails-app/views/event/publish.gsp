@@ -46,11 +46,7 @@
         <g:hiddenField name="version" value="${event?.version}"/>
         <g:hiddenField name="publishState" value="Unpublished"/>
         <g:hiddenField name="deleted" value="false"/>
-        <g:hiddenField name="displayAuthor" value="false"/>
-        <g:hiddenField name="displayDate" value="true"/>
         <g:hiddenField name="isRepeatable" value="false"/>
-        <g:hiddenField name="home" value="false"/>
-        <g:hiddenField name="featured" value="false"/>
         
         <fieldset>    
           <g:render template="/messageBox" model="[flash: flash]"/>

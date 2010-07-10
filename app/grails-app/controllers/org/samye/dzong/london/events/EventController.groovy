@@ -379,11 +379,6 @@ class EventController {
                     return
                 }
             }
-			
-			params.displayAuthor = false
-			params.displayDate = true
-			params.home = true
-			params.featured = true					
 
             def errorParams = [isError: false]
             def dates = event.dates
@@ -397,7 +392,6 @@ class EventController {
                 render(view: 'create', model: [event: event, id: params.id, rule: rule])
             }
 
-            event.properties = params
             event.properties = params
             def isFirstPublish = event.publishState != 'Published'
             if (isFirstPublish) {
