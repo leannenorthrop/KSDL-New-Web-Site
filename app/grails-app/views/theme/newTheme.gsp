@@ -47,10 +47,13 @@
 			<input type='hidden' name='successAction' value='install' /> 
 			<input type='hidden' name='successController' value='theme' /> 
 
-            <fieldset class="last">			
-			    <input type='file' name='file' /> 
-			</fieldset>
-			<input type='submit' name='submit' value='Submit' /> 
+            <fieldset>			
+                <p>
+			        <input type='file' name='file' /> 
+			    </p>
+    			<p class="last">&nbsp;</p>
+    			<input type='submit' name='submit' value='Submit' /> 
+			</fieldset>			
 		</g:form>
     </body>
 </html>

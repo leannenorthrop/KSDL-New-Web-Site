@@ -4,6 +4,7 @@ form {
     position: relative;
 	overflow:hidden;
 	font-size: 11px;
+	min-height: 10em;
 }
 
 fieldset {
@@ -53,12 +54,12 @@ fieldset p input:focus, fieldset p textarea:focus, fieldset p.select:focus {
 /* ACTION BUTTONS */
 input[type="submit"],form a.button, form a.submit {
     position: absolute;
-    bottom: 0.3em;
-    right: 2em;
+    bottom: 0.75em;
+    right: 0.75em;
     padding: 0.35em 0.75em 0.4em 0.75em;
-    color: white;
-    background: #3baae3 url(images/buttonHighlight.png) repeat-x 0 50%;
-    border: 1px solid #0070a3;
+    color: rgb(205, 225, 238);
+    background: rgb(43, 117, 147) url(images/buttonHighlight.png) repeat-x 0 50%;
+    border: 1px solid rgb(43, 117, 147);
     width: auto;
     overflow: hidden;
 }
@@ -66,17 +67,30 @@ input[type="submit"],form a.button, form a.submit {
 input[type="submit"]:hover,form a:hover.button, form a:hover.submit,input[type="submit"]:focus,input[type="submit"]:active,a:active.button, form a:active.submit  {
     background: #aed0ea;
     border: 1px solid #0070a3;
+	color:black;
     cursor: pointer;
 }
 
 /* MESSAGES AND ERRORS */
-.ui-state-highlight, .ui-state-error, .ui-state-highlight, .ui-state-error p {
+.ui-state-highlight, .ui-state-error, .ui-state-error p {
     margin-left: auto;
     margin-right: auto;
     width: 75%;
     padding: 0.3em;
     text-align: center;
     margin-bottom: 0.6em;
+	border: 1px solid rgb(139, 122, 91);
+	background: rgb(255, 241, 207);
+	background: rgba(255, 241, 207, 0.6);
+}
+.ui-state-highlight li, .ui-state-error li {
+	text-align: left;
+}
+p.ui-state-highlight span {
+	margin-right: 0.5em;
+}
+p.ui-state-highlight strong {
+	margin-right: 1em;
 }
 
 .message {
