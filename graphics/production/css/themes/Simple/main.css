@@ -23,7 +23,8 @@
 
 hr
 {
-	border-color: #ccc;
+	border-color: rgb(194, 58, 55);
+	border-color: rgba(194, 58, 55,0.7);	
 	border-style: solid;
 	border-width: 1px 0 0;
 	clear: both;

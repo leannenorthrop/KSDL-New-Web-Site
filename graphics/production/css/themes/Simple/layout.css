@@ -4,7 +4,7 @@ Grey Box Method - Layout CSS
 ----------------------------------------------- */
 
 body {
-    background: #880000;
+    background: url(body_bkgrndcopy.jpg);
     font-size: 11px;
     padding: 0 0 40px;
 }
@@ -20,7 +20,8 @@ a {
 ----------------------------------------------- */
 .container_12,
 .container_16 {
-    background: #fff;
+    background: rgb(255, 245, 221);
+	background: rgba(255, 245, 221, 0.5);
 }
 
 /* headings
@@ -55,6 +56,8 @@ h1#branding {
     text-align: left;
     padding: .7em 1em;
     margin-bottom: 0;
+	height: 108px;
+	color: rgb(223, 207, 147);
 }
 
 /* page heading

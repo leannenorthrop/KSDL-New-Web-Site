@@ -23,14 +23,14 @@
 
 hr
 {
-	border-color: #ccc;
+	border-color: rgb(194, 58, 55);
+	border-color: rgba(194, 58, 55,0.7);
 }
 
 body {
 	border-top: 5px solid #ffcb2d;
 	background: #8b1b00;
-	background: -moz-linear-gradient(top, #541000, #8b1b00);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#541000), to(#8b1b00));
+	background: url(body_bkgrndcopy.jpg);
 }
 
 a {
@@ -41,17 +41,19 @@ a:hover {
 }
 
 h1#branding {
-	background:#fff;
+	background:transparent;
 }
 
 h2#page-heading {
 	border-bottom:1px solid #ccc;
+	border-color: rgb(226, 207, 148);
+	border-color: rgba(226, 207, 148,0.7);	
 }
 
 .box {
 	background:#ddd;
-	background: -moz-linear-gradient(top, #eee, #ddd);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eee), to(#ddd));	
+	background: -moz-linear-gradient(top, rgba(255, 244, 222, 0.5), rgba(255, 244, 222,0.3));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 244, 222, 0.5)), to(rgba(255, 244, 222,0.3)));	
 }
 
 .box h2 {
