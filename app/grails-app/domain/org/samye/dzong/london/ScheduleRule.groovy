@@ -174,16 +174,23 @@ class ScheduleRule {
 
         Recur r = toRecur()
         if (r) {
-            if (isDaily() && interval == 1) {
+            if (isDaily() && interval == 1 && isUnbounded()) {
                 onDay = true;
             } else {
-                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(date))
-                if (next) {
-                    def nextDate = new java.util.Date(next.getTime())
-                    onDay = date.equals(nextDate)
-                } else {
-                    onDay = false
-                }
+				if (startDate.equals(date)) {
+					onDay = true;
+				} else {
+	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(date))
+	                if (next) {
+	                    def nextDate = new java.util.Date(next.getTime())
+						nextDate.setHours(0)
+						nextDate.setMinutes(0)
+						nextDate.setSeconds(0)										
+	                    onDay = date.equals(nextDate)
+	                } else {
+	                    onDay = false
+	                }
+				}
             }
         } else {
             onDay = startDate.equals(date)

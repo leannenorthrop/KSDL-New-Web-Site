@@ -147,7 +147,7 @@ class AuthController {
         SecurityUtils.subject?.logout()
 
         // For now, redirect back to the home page.
-        redirect(uri: "/")
+        redirect(controller:'manageSite',action:'home')
     }
 
     def unauthorized = {
