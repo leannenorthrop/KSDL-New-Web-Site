@@ -1,119 +1,101 @@
 <html>
 <body>
+<g:set var="theExample">h2{color:green}. This is a title
+
+h3. This is a subhead
+
+This is some text of *dubious character*. Isn't the use of "quotes" 
+just _lazy_ writing -- and theft of 'intellectual property' besides?</g:set>    
     <div class="content">
-            <h2>Supported Syntax</h2>
+        <h1>How do I format text?</h1>
+        <p>If you would like to make your writing more colourful or formatted in a special way it is possible to do this by inserting  characters with special meaning when you are writing content. For example if you would like to do this:</p>
+            <div style="border:1px solid black">
+            ${theExample.encodeAsTextile()}
+            </div><br/>
+            <p>Then you would type:
+            <pre style="border:1px solid black">${theExample}</pre>
+            </p>
+            <h1>Supported Formatting Options</h1>
             <p>
-                The following is a list showing supported Textile syntax features.
+                Below is a list of the special characters that are available.
+                It is a list showing supported <a href="http://www.textism.com/tools/textile/index.php">Textile</a> syntax features.
                 Generally unsupported syntax features are silently ignored
                 and the unsupported syntax is passed through verbatim to the output.
             </p>
             <h3>Text Styles</h3>
-            <ol>
-                <li><em>_emphasis_</em></li>
-                <li><strong>*strong*</strong></li>
-                <li><i>__italic__</i></li>
-                <li><b>**bold**</b></li>
-                <!--li><cite>??citation??</cite></li-->
-                <li><del>-deleted text-</del></li>
-                <li><ins>+inserted text+</ins></li>
-                <!--li><sup>^superscript^</sup></li>
-                <li><sub>~subscript~</sub></li-->
-                <li><span>%span%</span></li>
-                <li><code>@code@</code></li>
-            </ol>
-            <h3>Lists, Tables, Quotes & Paragraphs</h3>
-            <ol>
-                    <li><b>p.</b> Paragraph or a blank line between.</li>
-                    <li><b>hn.</b> heading e.g. <b>h1.</b> Is heading one, please put an empty line following.</li>
-                    <li><b>bq.</b> Blockquote</li>
-                    <li><b>bc.</b> Block code</li>
-                    <li><b>pre.</b> Pre-formatted</li>
-                    <li><b>#</b> Numeric list</li>
-                    <li><b>*</b> Bulleted list</li>
-                    <!--li><b>fnn.</b> Footnote</li>
-                    <li>reference[1]<br/>fn1. footnote text</li-->
-            </ol>
-            <h3>Images & Objects</h3>
-            <ol>
-                    <li>[imageName](image) eg. [fMRI Scanner](image)</li>
-                    <li>[imageName,left](image)</li>
-                    <li>[imageName,right](image)</li>                    
-                    <li>[imageName,center](image)</li> 
-                    <li>[imageName,left,width,height](image) eg. [fMRI Scanner](image,right,50px,60px)</li>
-                    <li>[imageName,right,width,height](image)</li>                    
-                    <li>[imageName,center,width,height](image)</li>                                                           
-            </ol>
+            <table>
+                <tr>
+                    <th>Special Characters</th><th>What it will look like</th>
+                </tr>
+                <g:each status="i" in="${['_emphasis_','*strong*','__italic__','**bold**','-overscore-','some %{color:blue}coloured% text','@programming code@']}" var="item">
+                <tr>
+                    <td>${item}</td>
+                    <td>${item.encodeAsTextile()}</td>                                                                                
+                </tr>                
+                </g:each>
+            </table>
+            <h3>Headings, Lists, Quotes & Paragraphs</h3>
+            <table>
+                <tr>
+                    <th>Special Characters</th><th>What it will look like</th>
+                </tr>
+                <g:set var="listeg1"># A numbered list<br/>
+# With multiple levels<br/>
+## one<br/>
+## two<br/>
+## three<br/>
+### even lower<br/>
+## four<br/>
+# five<br/></g:set>
+                <g:set var="listeg2">* A numbered list<br/>
+* With multiple levels<br/>
+** one<br/>
+** two<br/>
+** three<br/>
+*** even lower<br/>
+** four<br/>
+* five<br/></g:set>
+                <g:each status="i" in="${['h1. Heading One','h2. Heading Two','h3. Heading Three','h4. Heading Four','h5. Heading Five','h6. Heading Six', 'h2{color:green}. A Green Heading at Level 2',listeg1,listeg2,'bq. Will make this text a block quote.','pre. Uses HTML pre tag around this text.']}" var="item">
+                <tr>
+                    <td>${item}</td>
+                    <td>${item.encodeAsTextile()}</td>                                                                                
+                </tr>                
+                </g:each>
+            </table>                                         
+            <h3>Images & Links</h3>
+             <g:set var="externalLink">Display link to "BBC":http://www.bbc.co.uk</g:set>
+            <table>
+                <tr>
+                    <th>Special Characters</th><th>What it will look like</th>
+                </tr>
+                <g:each status="i" in="${['[Logo](image)','[Logo,left](image)','[Logo,right](image)','[Logo,center](image)','[Logo,left,30px,30px](image)','!http://www.samyeling.org/pix/sela7h.jpg!','[File Name](video)','Display link to [17th Gyalwa Karmapa](teacher) page on this site',externalLink]}" var="item">
+                <tr>
+                    <td>${item}</td>
+                    <td>${item.encodeAsTextile()}</td>                                                                                
+                </tr>                
+                </g:each>
+            </table>            
             <h3>Extras</h3>
-            <ol>
-                    <!--tr>
-                        <th colspan="3" align="left">Links</th>
-                    </tr>
-                    <li>"title":http://www.foo-bar.com</li>
-                    <li>!imageUrl!:http://www.foo-bar.com</td></tr-->
-                    <li>"quotes" to &#8220;quotes&#8221;</li>
-                    <li>'quotes' to &#8216;quotes&#8217;</li>
-                    <li>it's to it&#8217;s</li>
-                    <li>em -- dash to em &#8212; dash</li>
-                    <li>en - dash to en &#8211; dash</li>
-                    <li>2 x 4 to 2 &#215; 4</li>
-                    <li>foo(tm) to foo&#8482;</li>
-                    <li>foo(r) to foo&#174;</li>
-                    <li>foo(c) to foo&#169;</li>
-                </ol>
-                <h3>Advanced</h3>
-                <ol>
-                    <li>(class)</li>
-                    <li>(#id)</li>
-                    <li>{style}</li>
-                    <li>[language]</li>
-                    <!--tr>
-                        <th colspan="3" align="left">Alignment</th>
-                    </tr>
-                    <li>&lt; left</li>
-                    <li>&gt; right</li>
-                    <li>&lt;&gt; justify</li>
-                    <li>= center</li>
-                    <tr>
-                        <th colspan="3" align="left">Padding</th>
-                    </tr>
-                    <li>( pad left</li>
-                    <li>) pad right</li>
-                    <li>() pad left+right</td></tr-->
-                    <li><code>|_. a|_. table|_. header|<br/>
-    |a|table|row|<br/>
-    |a|table|row|</code>
-                    </li>
-                    <!--tr>
-                        <th colspan="3" align="left">Images</th>
-                    </tr>
-                    <li>!imageUrl!</td></tr-->
-                    <li>ABW(A Better Way)</li>
-                    <!--tr>
-                        <th colspan="3" align="left">Raw HTML</th>
-                    </tr>
-                    <li></li>
-                    <tr>
-                        <th colspan="3" align="left">Extended blocks</th>
-                    </tr>
-                    <li>bc..</li>
-                    <li>bq..</li>
-                    <tr>
-                        <th colspan="3" align="left">Escaped Markup</th>
-                    </tr>
-                    <li>==no &lt;b&gt;textile&lt;/b&gt; here==</li>
-                    <tr>
-                        <th colspan="3" align="left">Generated Content</th>
-                    </tr>
-                    <li>{toc}</li>
-                    <li>&nbsp;</td><td colspan="2">
-                        Table Of Contents<br/>
-                        options include style (any CSS style) and maxLevel.  Eg: {toc:style=disc|maxLevel=2}
-                        </li>
-                    <li>{glossary}</li>
-                    <li>&nbsp;</td><td colspan="2">
-                        Glossary<br/>
-                        options: style (any CSS style)   Eg: {glossary:style=disc}
-                        </td></tr-->
-            </ol>
+            <table>
+                <tr>
+                    <th>Special Characters</th><th>What it will look like</th>
+                </tr>
+                <g:each status="i" in="${['long (em) -- dash','short (en) - dash','the trademark symbol is (tm)','the rights resevered symbol is (r)','copyright symbol (c)','hover mouse over ABW(A Better Way) to see tooltip']}" var="item">
+                <tr>
+                    <td>${item}</td>
+                    <td>${item.encodeAsTextile()}</td>                                                                                
+                </tr>                
+                </g:each>
+            </table>        
+            <h3>Tables</h3> 
+            <p>If you would like to add a table use the following format:</p>
+            <p style="font-size:1.5em">
+|_. column heading 1 |_. column heading 2 |_. column heading 3|<br/>
+| first row column 1 value | first row column 2 value | first row column 3 value |<br/>
+| a | table | row |<br/>             
+            </p>
+${'''|_. column heading 1 |_. column heading 2 |_. column heading 3|
+| first row column 1 value | first row column 2 value | first row column 3 value |
+|a|table|row|'''.encodeAsTextile()}                
         </div>
 </html>

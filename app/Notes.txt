@@ -6,7 +6,6 @@ http://code.google.com/p/lsd-website/issues/entry
                         FOR 31/03/2010
 ================================================================================
 4. Fixes
-    - Textile markup of special characters/objects
     - Events
         - dont display more unless some
         - featured before regular

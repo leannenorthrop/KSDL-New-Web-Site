@@ -46,6 +46,7 @@ class Venue extends Publishable {
 	static namedQueries = {
         notDeleted { 
             eq 'deleted', Boolean.FALSE
+            order("name", "desc")
         }
 	}
 

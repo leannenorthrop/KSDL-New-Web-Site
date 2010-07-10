@@ -60,7 +60,7 @@
       </p>
       <p>
         <label for="summary"><g:message code="article.summary.label"/></label>
-        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance.summary}" minlength="5"/>
+        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance?.summary}" minlength="5"/>
       </p>
       </fieldset>
       <fieldset>

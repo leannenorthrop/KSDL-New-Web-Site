@@ -7,7 +7,7 @@ class ArticleService {
     def userLookupService
 
 	def handleIfNotModifiedSince(request,response) {
-		if (Publishable.published().count() > 0) {
+		if (Publishable.allPublished().count() > 0) {
 			def newestPublishedItem= Publishable.allPublished().list()[0]
 			if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.datePublished.time) {
 				response.setStatus(304)
