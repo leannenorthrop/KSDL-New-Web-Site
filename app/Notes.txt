@@ -101,8 +101,6 @@ neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bern
 mvn grails:run-app -Dgrails.env=test
 - Caching: Last-Modifed, Cache-Control (private, no-cache, must-validate, no-store, max-age=(seconds)), expires, Pragma: no-cache
 
-Upgrade to 1.3.1
-
 11. Functional tests for publishing articles to areas other than news.
     - Article navigation
     - Unpublish published
@@ -124,7 +122,6 @@ Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly i
 ================================================================================
 export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
 mvn install -Dmaven.test.skip=true
-say y if prompted to uninstall plugins.
 
 ================================================================================
     Setting up database 

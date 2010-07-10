@@ -34,24 +34,28 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-    <g:form action="send" controller="event" id="${event?.id}">
-        <fieldset>
-            <legend><g:message code="event.query.title"/></legend>
-            <p>
-                <label for="email"><g:message code="event.query.your.email"/></label>
-                <input type="text" name="email"/>
-            </p>
-            <p>
-                <g:set var="subjectline"><g:message code="event.query.email.subjectline" args="${[event?.title]}"/></g:set>
-                <label><g:message code="event.query.email.subject"/></label>
-                <input type="text" name="subject" readonly="true" value="${subjectline}"/>
-            </p>
-            <p>
-              <label><g:message code="event.query.email.body"/></label>
-              <g:textArea name="body" rows="12" cols="40"/>
-            </p>
-            <g:submitButton class="button" name="send" value="Send">&nbsp;</g:submitButton>
-        </fieldset>
-    </g:form>
+      <div class="grid_2">&nbsp;</div>
+      <div class="grid_12">
+        <g:form action="send" controller="event" id="${event?.id}">
+            <fieldset>
+                <legend><g:message code="event.query.title"/></legend>
+                <p>
+                    <label for="email"><g:message code="event.query.your.email"/></label>
+                    <input type="text" name="email"/>
+                </p>
+                <p>
+                    <g:set var="subjectline"><g:message code="event.query.email.subjectline" args="${[event?.title]}"/></g:set>
+                    <label><g:message code="event.query.email.subject"/></label>
+                    <input type="text" name="subject" readonly="true" value="${subjectline}"/>
+                </p>
+                <p>
+                  <label><g:message code="event.query.email.body"/></label>
+                  <g:textArea name="body" rows="12" cols="40"/>
+                </p>
+                <g:submitButton class="button" name="send" value="Send">&nbsp;</g:submitButton>
+            </fieldset>
+        </g:form>
+      </div>
+      <div class="grid_2">&nbsp;</div>    
   </body>
 </html>

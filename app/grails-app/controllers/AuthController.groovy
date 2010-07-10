@@ -7,6 +7,7 @@ import org.apache.shiro.web.WebUtils
 import org.apache.shiro.crypto.hash.Sha1Hash
 import org.samye.dzong.london.contact.EmailService
 import com.icegreen.greenmail.util.*
+import org.samye.dzong.london.community.Profile
 
 class AuthController {
     def shiroSecurityManager
@@ -33,6 +34,17 @@ class AuthController {
                 log.trace "Creating account for ${params.username}"
                 def token = new Sha1Hash(new Date().toString()).toHex()
                 def newUser = new ShiroUser(username: params.username, passwordHash: new Sha1Hash(params.password).toHex(), passwordReset: token)
+				try {
+					def imageBytes = new File(servletContext.getRealPath('/images/user.png')).readBytes()
+		            def profile = new Profile(publicName: 'Not Known', mimeType: 'image/png', image: imageBytes, lastLoggedIn: new Date())
+		 			if (!profile.hasErrors() && profile.save()) {
+						newUser.profile = profile
+					} else {
+						println profile.errors
+					}
+		        } catch(error){
+					log.warn "Creating profile for new user failed",error
+				}
                 if (!newUser.hasErrors() && newUser.save()) {
                     log.trace "New account created for ${params.username}"
                     def baseUrl = createLink(controller:"admin", action:"requestPermission", absolute:"true").toString()
@@ -88,7 +100,18 @@ class AuthController {
 		        if (user && user.profile) {
 		            def profile = user.profile
 					profile.lastLoggedIn = new Date()
-		        }
+		        } else {
+			        if (user && user.profile == null) {
+						def imageBytes = new File(servletContext.getRealPath('/images/user.png')).readBytes()
+			            def profile = new Profile(publicName: 'Not Known', mimeType: 'image/png', image: imageBytes, lastLoggedIn: new Date())
+			 			if (!profile.hasErrors() && profile.save()) {
+							user.profile = profile
+							user.save()
+						} else {
+							println profile.errors
+						}
+			        }			
+				}
 			} catch(error) {
 				log.warn "Unable to update last logged in date", error
 			}

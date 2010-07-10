@@ -175,21 +175,8 @@ body.aboutUs .grid_12 img {
 
 .container_16 {
 	position: relative;
-	overflow: hidden;
-}
-#watermark1 {
-	background: url(shrinegrad.jpg) no-repeat;
-	width:366px;
-	height:175px;
-	right: 0;
-	top: -20px;
-	position: absolute;
 }
 
-#watermark1 + div.grid_16 {
-	background: #c23a37;
-	margin-left:0;
-}
 
 #site_info{
 	margin-top:0.6em;

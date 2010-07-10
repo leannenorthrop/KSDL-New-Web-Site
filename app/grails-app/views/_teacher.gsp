@@ -45,7 +45,7 @@
       <li><h3><span class="date"><g:formatDate format="dd MMMM, yyyy" date="${teacher.datePublished}"/></span></h3></li>
     </g:if>
     <g:if test="${teacher.displayAuthor}">
-      <li><h4>by <a>${teacher.author.username}</a></h4></li>
+      <li><h4>by <a>${teacher.author}</a></h4></li>
     </g:if>
   </ul>
 </g:if>
