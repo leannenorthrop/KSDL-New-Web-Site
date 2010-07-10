@@ -38,7 +38,14 @@
 
 <html>
   <head>
-    <title><g:message code="title" default="Kagyu Samye Dzong London"/>: <g:layoutTitle/></title>
+    <g:set var="title"><g:layoutTitle/></g:set>
+    <g:if test="${controllerName == 'news' && actionName == 'home'}">
+        <g:set var="title">News</g:set>
+    </g:if>
+    <g:elseif test="${controllerName == 'home'}">
+        <g:set var="title">Kagyu Tibetan Buddhist Center in London</g:set>
+    </g:elseif>
+    <title><g:message code="title" default="Kagyu Samye Dzong London"/>: ${title}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="ROBOTS" content="ALL" />
     <meta name="google-site-verification" content="bTJswZnvIBsrjhqIxlpIXIfvXa_wn7McR9PbSgwo_4Q" />	 

@@ -41,7 +41,7 @@
     </g:if>
     <p style="display:hidden;">
         <g:link controller="${controller}" action="${action}" id="${articleInstance.id}">
-        ${articleInstance.summary}
+        ${articleInstance?.summary?.encodeAsTextile()}
         </g:link>
     </p>
     </div>

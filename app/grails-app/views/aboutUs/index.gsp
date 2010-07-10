@@ -83,11 +83,11 @@
     <div class="clear"></div>
 
     <div class="grid_8">
-      <g:render template="/articlelist" model="[articles:lineageTeachers, heading: 'teacher.category.L', controller: 'teacher', action:'view']"/>
+      <g:render template="/articlelist" model="[articles:lineageTeachers, heading: 'teacher.category.L', controller: 'aboutUs', action:'teacher']"/>
     </div>
 
     <div class="grid_8">
-      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.heading.title', controller: 'teacher', action:'view']"/>
+      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.heading.title', controller: 'aboutUs', action:'teacher']"/>
     </div>
 
   </body>

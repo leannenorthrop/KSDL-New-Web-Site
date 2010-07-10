@@ -1,23 +1,27 @@
 package org.samye.dzong.london.site
 
+import  org.samye.dzong.london.community.Article
+import com.sun.syndication.feed.synd.SyndImageImpl
+import org.samye.dzong.london.media.Image
+
 class FeedController {
     def articleService
 
     def index = {}
 
     def news = {
-        def articles = articleService.publishedByTags(['news'])
+        def articles = Article.newsArticles("datePublished","desc").list()
         render(feedType:"rss", feedVersion:"2.0") {
             title = message(code:'title') + ": " + message(code:'news')
             link = createLink(controller:'news',action:'feed',absolute:true)
             description = message(code:'rss.news.desc')
             articles.eachWithIndex { article,index ->
-                entry(article.title) {
+                entry(article?.title) {
                     link = createLink(controller:'news',action:'view',absolute:true,id:article.id)
-                    author = article.author.username
+                    author = article.author
                     publishedDate = article.datePublished
-                    content(type:'text/html') {
-                        article.summary
+					content(type:'text/html') {	
+						article.summary.encodeAsTextile()
                     }
                 }
             }
@@ -25,7 +29,7 @@ class FeedController {
     }
 
     def meditation = {
-        def articles = articleService.publishedByTags(['meditation'])
+        def articles = Article.allMeditationArticles("datePublished","desc").list()
         render(feedType:"rss", feedVersion:"2.0") {
             title = message(code:'title') + ": " + message(code:'meditation')
             link = createLink(controller:'meditation',action:'feed',absolute:true)
@@ -33,10 +37,10 @@ class FeedController {
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
                     link = createLink(controller:'meditation',action:'view',absolute:true,id:article.id)
-                    author = article.author.username
+                    author = article.author
                     publishedDate = article.datePublished
                     content(type:'text/html') {
-                        article.summary
+                        article.summary.encodeAsTextile()
                     }
                 }
             }
@@ -44,7 +48,7 @@ class FeedController {
     }
 
     def community = {
-        def articles = articleService.publishedByTags(['community'])
+        def articles = Article.allCommunityArticles("datePublished","desc").list()
         render(feedType:"rss", feedVersion:"2.0") {
             title = message(code:'title') + ": " + message(code:'community')
             link = createLink(controller:'community',action:'feed',absolute:true)
@@ -52,10 +56,10 @@ class FeedController {
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
                     link = createLink(controller:'community',action:'view',absolute:true,id:article.id)
-                    author = article.author.username
+                    author = article.author
                     publishedDate = article.datePublished
                     content(type:'text/html') {
-                        article.summary
+                        article.summary.encodeAsTextile()
                     }
                 }
             }
@@ -63,7 +67,7 @@ class FeedController {
     }
 
     def wellbeing = {
-        def articles = articleService.publishedByTags(['wellbeing'])
+        def articles = Article.allWellbeingArticles("datePublished","desc").list()
         render(feedType:"rss", feedVersion:"2.0") {
             title = message(code:'title') + ": " + message(code:'wellbeing')
             link = createLink(controller:'wellbeing',action:'feed',absolute:true)
@@ -71,10 +75,10 @@ class FeedController {
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
                     link = createLink(controller:'wellbeing',action:'view',absolute:true,id:article.id)
-                    author = article.author.username
+                    author = article.author
                     publishedDate = article.datePublished
                     content(type:'text/html') {
-                        article.summary
+                        article.summary.encodeAsTextile()
                     }
                 }
             }
@@ -82,7 +86,7 @@ class FeedController {
     }
 
     def buddhism = {
-        def articles = articleService.publishedByTags(['buddhism'])
+        def articles = Article.allBuddhismArticles("datePublished","desc").list()
         render(feedType:"rss", feedVersion:"2.0") {
             title = message(code:'title') + ": " + message(code:'buddhism')
             link = createLink(controller:'buddhism',action:'feed',absolute:true)
@@ -90,10 +94,10 @@ class FeedController {
             articles.eachWithIndex { article,index ->
                 entry(article.title) {
                     link = createLink(controller:'buddhism',action:'view',absolute:true,id:article.id)
-                    author = article.author.username
+                    author = article.author
                     publishedDate = article.datePublished
                     content(type:'text/html') {
-                        article.summary
+                        article.summary.encodeAsTextile()
                     }
                 }
             }

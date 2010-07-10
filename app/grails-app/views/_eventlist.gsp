@@ -98,7 +98,7 @@
             </a>
           </g:if>
           <p>
-            ${event.summary}
+            ${event?.summary?.encodeAsTextile()}
           </p>
           <p>
             <g:if test="${event.content}">
