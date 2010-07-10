@@ -51,6 +51,7 @@ class EventController {
     def eventService
     def twitterService
     def emailService
+	def articleService
 
     def index = {
         redirect(action: home)
@@ -65,7 +66,7 @@ class EventController {
 
         def publishedEvents = Event.published().list();
         def todaysEvents = publishedEvents.findAll { event ->
-            event.isOnDay(now)
+           	event.isOnDay(now)
         }
 
         now = now + 1
@@ -96,7 +97,9 @@ class EventController {
             def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
             [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
         }
-        return [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
+        def model = [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
 	def current = {
@@ -175,15 +178,21 @@ class EventController {
                 println "Found ${publishedEvents.size} events returning ${events.size} events"
                 def formatter = new SimpleDateFormat(message(code: 'event.date.format'))
                 def args = [formatter.format(start),formatter.format(end)]
-                return [events: events, title: message(code: 'event.between', args: args)]
+                def model = [events: events, title: message(code: 'event.between', args: args)]
+				articleService.addHeadersAndKeywords(model,request,response)
+				model
             } catch(error) {
                 error.printStackTrace();
                 def events = Event.unorderedPublished().list(params);
-                return [events: events, title: 'events.all.title']
+                def model = [events: events, title: 'events.all.title']
+				articleService.addHeadersAndKeywords(model,request,response)
+				model
             }
         } else {
             def events = Event.unorderedPublished().list(params);
-            return [events: events, title: 'events.all.title']
+            def model = [events: events, title: 'events.all.title']
+			articleService.addHeadersAndKeywords(model,request,response)
+			model
         }
     }
 

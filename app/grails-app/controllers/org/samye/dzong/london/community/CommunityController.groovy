@@ -24,16 +24,21 @@ class CommunityController {
         def totalCommunity = Article.allCommunityArticlesNotOrdered().count()
         def totalVolunteer = volunteer.size()
         def events = Event.community('featured','desc').list()
-        return render(view: 'index',model: [events:events,topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]);
+		def model = [events:events,topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]
+		articleService.addHeadersAndKeywords(model,request,response)
+        return render(view: 'index',model: model);
     }
 
     def list = {
         def articles = Article.allCommunityArticles('datePublished', 'desc').list()
-        render(view: 'list', model:[ articles: articles, title: 'community.all.articles.title'])
+		def model = [ articles: articles, title: 'community.all.articles.title']
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
+		articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -50,12 +55,16 @@ class CommunityController {
         else {
             def id = params.id;
             def similar = eventService.findSimilar(event)
-            return [event: event, id: id, similar:similar]
+            def model = [event: event, id: id, similar:similar]
+			articleService.addHeadersAndKeywords(model,request,response)
+			model
         }
     }
 
     def events = {
-        return eventService.list('C',params)
+        def model = eventService.list('C',params)
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
     def send = {

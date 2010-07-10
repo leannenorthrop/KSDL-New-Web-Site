@@ -27,16 +27,21 @@ class BuddhismController {
 			
 		}
 		
-        return render(view: 'index',model: [images:images,topArticles: topArticles, articles: articles,total:total,events:events]);
+		def model = [images:images,topArticles: topArticles, articles: articles,total:total,events:events]
+		articleService.addHeadersAndKeywords(model,request,response)
+        return render(view: 'index',model: model);
     }
 
     def list = {
         def articles = Article.allBuddhismArticles('datePublished', 'desc').list()
-        render(view: 'list', model:[ articles: articles, title: 'buddhism.all.articles.title'])
+		def model = [ articles: articles, title: 'buddhism.all.articles.title']
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
+		articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -53,12 +58,16 @@ class BuddhismController {
         else {
             def id = params.id;
             def similar = eventService.findSimilar(event)
-            return [event: event, id: id, similar:similar]
+            def model = [event: event, id: id, similar:similar]
+			articleService.addHeadersAndKeywords(model,request,response)
+			model
         }
     }
 
     def events = {
-        return eventService.list('B',params)
+        def model = eventService.list('B',params)
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
     def slideshow = {

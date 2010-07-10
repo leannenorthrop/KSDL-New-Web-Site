@@ -84,7 +84,7 @@ class Publishable implements Taggable {
     }
 
     static namedQueries = {
-        published {  ->
+        allPublished {  ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', "Published"
             order("datePublished", "desc")

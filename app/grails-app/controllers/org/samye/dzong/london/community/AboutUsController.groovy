@@ -37,11 +37,14 @@ class AboutUsController {
         teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
 		def venues = Venue.notDeleted.list()
 		def allArticles = Article.allAboutUsArticles("title", "asc").list()
-        model:[topArticles: [community], articles: allArticles, lineageTeachers: lineageTeachers, teachers:teachers,venues:venues];
+        def model = [topArticles: [community], articles: allArticles, lineageTeachers: lineageTeachers, teachers:teachers,venues:venues];
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
     def view = {
         def model = articleService.view(params.id)
+		articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -51,22 +54,30 @@ class AboutUsController {
 
 	def contactUs = {
 		def venues = Venue.notDeleted.list()
-		render(view: 'contact', model:[venues:venues])
+		def model = [venues:venues]
+		articleService.addHeadersAndKeywords(model,request,response)
+		render(view: 'contact', model:model)
 	}
 	
 	def visiting = {
 		def venues = Venue.notDeleted.list()
-		model:[venues:venues]
+		def model = [venues:venues]
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
 	}	
 	
 	def room = {
-		model:[room:Room.get(params.id)]
+		def model = [room:Room.get(params.id)]
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
 	}
 	
 	def venue = {
 		def venues = []
 		venues << Venue.get(params.id)
-		render(view:'visiting',model:[venues:venues])
+		def model = [venues:venues]
+		articleService.addHeadersAndKeywords(model,request,response)
+		render(view:'visiting',model:model)
 	}	
 	
 	def teacher = {
@@ -90,7 +101,9 @@ class AboutUsController {
             if (teacher.name == 'Community'){
                 articles = articleService.publishedByTags(['about us']);
             }
-            return [teacher: teacher, id: params.id, events:events, articles:articles]
+            def model = [teacher: teacher, id: params.id, events:events, articles:articles]
+			articleService.addHeadersAndKeywords(model,request,response)
+			model
         }		
 	}
 	
@@ -104,12 +117,16 @@ class AboutUsController {
             log.error("AboutUs controller encountered an error.",error)
         }
 		
-        model:[teachers:lineageTeachers,articles:lineageArticles];		
+        def model = [teachers:lineageTeachers,articles:lineageArticles];		
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
 	}
 	
 	def teachers = {
 		def teachers = Teacher.findAllByPublishState('Published', [sort: "name", order: "asc"])
         teachers = teachers.findAll{teacher -> teacher.name != 'Community' && teacher.type != 'L'}
-        model:[teachers:teachers];		
+        def model = [teachers:teachers];		
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
 	}	
 }

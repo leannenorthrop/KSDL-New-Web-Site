@@ -34,16 +34,21 @@ class MeditationController {
 
         def total = Article.allMeditationArticlesNotOrdered.count();
         def events = Event.meditation('featured','desc').list()
-        render(view: 'index', model:[images: images, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total])
+		def model = [images: images, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total]
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'index', model:model)
     }
 
     def all = {
         def articles = Article.allMeditationArticles('datePublished', 'desc').list()
-        render(view: 'list', model:[ articles: articles, title: 'meditation.all.articles.title'])
+		def model = [ articles: articles, title: 'meditation.all.articles.title']
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
+		articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -60,12 +65,16 @@ class MeditationController {
         else {
             def id = params.id;
             def similar = eventService.findSimilar(event)
-            return [event: event, id: id, similar:similar]
+			def model =  [event: event, id: id, similar:similar]
+			articleService.addHeadersAndKeywords(model,request,response)
+            model
         }
     }
 
     def events = {
-        return eventService.list('M',params)
+        def model = eventService.list('M',params)
+		articleService.addHeadersAndKeywords(model,request,response)
+        model
     }
 
     def slideshow = {

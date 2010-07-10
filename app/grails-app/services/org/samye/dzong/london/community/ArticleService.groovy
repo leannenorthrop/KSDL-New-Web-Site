@@ -1,9 +1,68 @@
 package org.samye.dzong.london.community
 
+import org.samye.dzong.london.Publishable
+
 class ArticleService {
     boolean transactional = true
     def userLookupService
 
+	def handleIfNotModifiedSince(request,response) {
+		if (Publishable.published().count() > 0) {
+			def newestPublishedItem= Publishable.allPublished().list()[0]
+			if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.datePublished.time) {
+				response.setStatus(304)
+				response.flushBuffer()
+				return				
+			}
+			response.setDateHeader('Last-Modified', newestPublishedItem.datePublished.time)
+			response.setHeader("Cache-Control", "public")				
+		}		
+	}
+	
+	def addHeadersAndKeywords(model, request, response) {
+		if (model) {
+			try {
+				def result = model.groupBy {
+					try {
+						return it.value.datePublished || it.value[0].datePublished
+					} catch (error) {
+						return false
+					}
+				}
+				def articles = result[true].collect {
+				    it.value
+				}
+				articles = articles.flatten()
+				def dates = articles.collect { 
+					it.datePublished
+				}
+				def newest = dates.max()
+				if (newest) {
+					response.setDateHeader('Last-Modified', newest.time)
+				}
+				def etag = 0
+				articles.each {
+					if (it.version) {
+						etag += etag + (31 * it.version)
+					}
+				}
+				response.setHeader("ETag", "W\"${etag}\"")
+						
+				def allTags = [] as Set
+				articles.each {
+					if (it.tags) {
+						allTags.addAll it.tags
+					} else {
+						""
+					}
+				}
+				model << [keywords:allTags]
+			} catch(error) {
+				log.error "Unable to fetch keywords/last published date", error
+			}
+		}		
+	}
+	
     def findSimilar(article, params = []) {
         def tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
         for (tag in article.tags) {
