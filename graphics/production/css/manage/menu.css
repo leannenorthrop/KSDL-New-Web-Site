@@ -201,3 +201,17 @@
 .menuButton a.roomCreate {
     background: url(images/normal/square_add_16.png) center left no-repeat;
 }
+
+.menuButton a:hover.file {
+    background: url(images/hover/document_up_16.png) center left no-repeat;
+}
+.menuButton a.file {
+    background: url(images/normal/document_up_16.png) center left no-repeat;
+}
+
+.menuButton a:hover.fileCreate {
+    background: url(images/hover/document_add_16.png) center left no-repeat;
+}
+.menuButton a.fileCreate {
+    background: url(images/normal/document_add_16.png) center left no-repeat;
+}

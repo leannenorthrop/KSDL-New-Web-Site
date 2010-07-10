@@ -370,6 +370,11 @@ class EventController {
                     return
                 }
             }
+			
+			params.displayAuthor = false
+			params.displayDate = true
+			params.home = true
+			params.featured = true					
 
             def errorParams = [isError: false]
             def dates = event.dates
@@ -414,6 +419,8 @@ class EventController {
             }
             else {
                 flash.message = "Event ${event.title} could not be ${params.state} due to an internal error. Please try again."
+				flash.args = [event]
+				flash.isError=true
                 redirect(action: pre_publish, id: params.id)
             }
         }

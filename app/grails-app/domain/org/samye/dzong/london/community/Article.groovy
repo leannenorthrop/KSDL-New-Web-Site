@@ -242,6 +242,7 @@ class Article extends Publishable {
             eq 'category', 'A'
             order("${orderCol}", "${orderDir}")
         }
+
     }
 
     static mapping = {

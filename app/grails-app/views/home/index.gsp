@@ -9,6 +9,11 @@
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/> 
   </head>
   <body>
+      <div class="grid_16">
+        <g:render template="/toparticles" model="[articles:topArticles]"/>
+      </div>
+      <div class="clear"></div>
+            
       <div class="grid_12">
         <div class="box" id="kwick-box">
             <div id="kwick">
@@ -54,7 +59,7 @@
           <li class="rss menuitem"><g:link controller="home" action="feed"><g:message code="service.rss"/></g:link></li>
           <li class="calendar menuitem"><g:link controller="home" action="calendars"><g:message code="service.calendar"/></g:link></li>
           <li class="twitter menuitem"><a href="http://twitter.com/lsdci"><g:message code="service.twitter"/></a></li>
-          <li class="facebook menuitem"><a href="http://www.facebook.com/home.php?#!/profile.php?id=842121574"><g:message code="service.twitter"/></a></li>          
+          <li class="facebook menuitem"><a href="http://www.facebook.com/home.php?#!/profile.php?id=842121574"><g:message code="service.facebook"/></a></li>          
         </ul>
       </div>
     </div>

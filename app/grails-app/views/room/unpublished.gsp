@@ -23,13 +23,17 @@
 <html>
 <g:set var="titleLabel"><g:message code="room.name.label"/></g:set>
 <g:set var="lastUpdatedLabel"><g:message code="room.last.updated"/></g:set>
+<g:set var="categoryLabel"><g:message code="room.venue.label"/></g:set>
 <g:set var="deleteConfirmLabel"><g:message code="room.delete.confirm"/></g:set>
+<g:set var="roomHireLabel"><g:message code="room.forHire.label"/></g:set>
 <g:set var="authorLabel"><g:message code="room.author.label"/></g:set>
 <body>
     <table>
         <thead>
             <tr>
                 <g:sortableColumn property="name" title="${titleLabel}" />
+                <g:sortableColumn property="venue.id" title="${categoryLabel}"/>
+                <g:sortableColumn property="forHire" title="${roomHireLabel}"/>                
                 <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}" />
                 <shiro:hasAnyRole in="['Editor','Administrator']">
                 <g:sortableColumn property="author" title="${authorLabel}"/>
@@ -43,6 +47,8 @@
                 <td>
                     <g:link action="edit" id="${room.id}">${room}</g:link>
                 </td>
+                <td>${room?.venue?.name}</td>
+                <td><g:message code="${room?.forHire ? 'true' : 'false'}"/></td>                
                 <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.lastUpdated}"/></td>
                 <shiro:hasAnyRole in="['Editor','Administrator']">
                 <td>${fieldValue(bean:room, field:'author')}</td>

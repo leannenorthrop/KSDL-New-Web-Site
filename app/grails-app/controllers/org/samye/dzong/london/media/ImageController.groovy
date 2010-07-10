@@ -178,6 +178,7 @@ class ImageController {
         else {
             flash.message = "Image not found with id ${params.id}"
             flash.args = [params.name]
+			flash.isError = true
             redirect(action:manage)
         }
     }
@@ -219,6 +220,9 @@ class ImageController {
             redirect(action:show,id:imageInstance.id)
         }
         else {
+            flash.message = "Image not be saved"
+            flash.args = [imageInstance]
+			flash.isError = true	
             render(view:'create',model:[imageInstance:imageInstance])
         }
     }
