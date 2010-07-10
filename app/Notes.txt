@@ -5,47 +5,11 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
-0. Css Fixes -
-    - News and goings on title
-    - about us links and teacher pages
-    - min height for page content
-    - min height for list of summaries
-    - remove change theme in footer
-    - fix width of front page kwick box
-2. In page form for email news letter
-5. Venue
- - Contact Us
- - Visiting Us
- - Center Closure
- - Become a member
- - Donations
- - Feedback
- - Other centers
- - Room Hire
- - Newsletter archive
-6. Therapists & Therapies
-9. URL mappings
-10. Register
-    - Add jquery validation
-    - Add jquery form css
-    - Ensure email exists
-    - Add captcha
-11. Settings to be pulled from web container as resources:
-    - Email
-    - Twitter
-12. Users
-    - Delete users
-    - Email as username check, password size
-    - Functional test for login with wrong username, sign out, and passwords do not match
-    - Shiro User password size
-    - Make usernames comparison ignore case
-    - Move common code into separate service class
-    - Move common test code into separate class
-    - Move email content into templates
-13. Twitter
-    - add urls
-14. Textile markup of special characters
-15. Fixes
+1. Meta keywords
+2. Meta last modified
+3. if changed since
+4. Fixes
+    - Textile markup of special characters/objects
     - Events
         - dont display more unless some
         - featured before regular
@@ -65,13 +29,48 @@ http://code.google.com/p/lsd-website/issues/entry
         - external site link
         - color ratios
 		- move around
+        - News and goings on title
+        - about us links and teacher pages
+        - min height for page content
+        - min height for list of summaries
+        - remove change theme in footer
+        - fix width of front page kwick box		
+    - Register
+        - Add jquery validation
+        - Add jquery form css
+        - Ensure email exists
+        - Add captcha
     - When deleting items add (Deleted) to name/title to get around unique constraint
     - Fix linking in png images.
     - home page & featured
     - add notes
-16. Remove checks for Administrator role and give 'Admin' all roles
-17. CSS for manage to be put back to Grid920
-18. Privacy and Cookies
+    - Twitter
+        - add urls
+    - check email and twitter settings
+    - In page form for email news letter
+    - Venue
+         - Center Closure
+         - Feedback
+         - Room Hire
+         - Newsletter archive
+    - Therapists & Therapies
+    - URL mappings
+    - Users
+        - Delete users
+        - Email as username check, password size
+        - Functional test for login with wrong username, sign out, and passwords do not match
+        - Shiro User password size
+        - Make usernames comparison ignore case
+        - Move common code into separate service class
+        - Move common test code into separate class
+        - Move email content into templates    
+    - Profile
+    - caching facebook
+    - Highlight new articles in editor view
+    - Add Icons for Actions    
+5. Remove checks for Administrator role and give 'Admin' all roles
+6. Privacy and Cookies
+
 ================================================================================
     For Release
 ================================================================================
@@ -87,8 +86,6 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
     Niceties
 ================================================================================
-0. Cross linking in content to objects in system e.g. Articles, Teachers, Events etc.
-    with JavaScript to make insertion easier
 1. Add support for svg?
 2. Printable css
 3. Videos
@@ -96,8 +93,6 @@ You Tube
   http://code.google.com/apis/youtube/overview.html
 4. Article Niceties
     - Commentable between authors & editors
-    - Highlight new articles in editor view
-    - Add Icons for Actions
     - Add other tags when viewing articles
 6. Tibetan support
     - browser/os check
@@ -105,8 +100,7 @@ You Tube
 ================================================================================
     Stuff
 ================================================================================
-Look into filterpane plugin
-Look into export plugin
+
 neilt@soi.city.ac.uk,lamazangmo@samye.org, ksdl-web-group@googlegroups.com, bernardmordan@yahoo.co.uk, bmordan@evelina.southwark.sch.uk
 mvn grails:run-app -Dgrails.env=test
 - Caching: Last-Modifed, Cache-Control (private, no-cache, must-validate, no-store, max-age=(seconds)), expires, Pragma: no-cache
@@ -123,6 +117,7 @@ Upgrade to 1.3.1
         - Edit article
         - After publish
         - After archive
+        
 ================================================================================
     Tomcat 5.5
 ================================================================================

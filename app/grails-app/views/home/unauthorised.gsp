@@ -35,7 +35,7 @@
 <body>
     <div class="grid_16 pagecontent">
       <h2 style="text-align:center"><g:message code="alert"/></h2>
-      <p style="text-align:center"><g:message code="error.notfound"/></p>
+      <p style="text-align:center"><g:message code="error.unauthorized"/></p>
     </div>
     <div class="clear"></div>
 </body>

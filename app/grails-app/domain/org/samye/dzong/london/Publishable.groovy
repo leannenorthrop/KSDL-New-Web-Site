@@ -83,4 +83,12 @@ class Publishable implements Taggable {
         return "${publishState} by ${author.username} on ${lastUpdated} (${deleted ? "Deleted" : "Not Deleted"})"
     }
 
+    static namedQueries = {
+        published {  ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "Published"
+            order("datePublished", "desc")
+        }
+	}
+
 }
