@@ -10,9 +10,14 @@ class HomeController {
 	def flickrService
 
     def index = {
+		def versions = []
+		
 	    def ss = Setting.homeSlideshow().list()
 		def images = flickrService.getSmallPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         def articles = Article.homeArticles("datePublished", "desc").list()
+		articles.each{ article ->
+			versions << article.version
+		}
         def meditationArticles = articles.findAll { it.category == 'M'}
         def communityArticles = articles.findAll { it.category == 'C'}
         def buddhismArticles = articles.findAll{ it.category == 'B'}
@@ -20,6 +25,10 @@ class HomeController {
         def newsArticles = articles.findAll { it.category == 'N'}
 		def topArticles = articles.findAll { it.title == 'Home Page'}
         def events = Event.homePage('lastUpdated', 'asc').list()
+		events.each{ event ->
+			versions << event.version
+		}
+		response.setHeader("ETag", "W\"${versions.max()}\"")
         model:[topArticles:topArticles, images: images, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
     }
 

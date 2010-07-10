@@ -18,8 +18,10 @@ class ImageController {
             response.outputStream << ""
         } else {
 			try {
-				if (request.getDateHeader("If-Modified-Since") > imageInstance.lastUpdated.time) {
+				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time) {
 					response.setStatus(304)
+					response.flushBuffer()
+					return
 				}				
 				response.setContentType(imageInstance.mimeType)
 				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
@@ -47,8 +49,10 @@ class ImageController {
         }
         else {
 			try {
-				if (request.getDateHeader("If-Modified-Since") > imageInstance.lastUpdated.time) {
+				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time) {
 					response.setStatus(304)
+					response.flushBuffer()
+					return					
 				}				
 				response.setContentType(imageInstance.mimeType)
 				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
