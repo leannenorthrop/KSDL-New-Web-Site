@@ -44,7 +44,6 @@ class ThemeController {
 			def path = FilenameUtils.getFullPathNoEndSeparator(zipToUnzip.absolutePath) 
 			try {
 				FileUtils.deleteDirectory(new File(path))
-				uploadedFile.delete()
 			} catch (error) {
 				log.warn "Unable to delete directory " + path, error
 			}

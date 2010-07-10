@@ -58,8 +58,6 @@ class EventController {
     }
 
     def home = {
-        def events = Event.publishState('Published').list();
-
         DateTime dt = new DateTime();
         dt = dt.withTime(0,0,0,0)
         def now = dt.toDate()
@@ -68,7 +66,7 @@ class EventController {
         def todaysEvents = publishedEvents.findAll { event ->
            	event.isOnDay(now)
         }
-
+		
         now = now + 1
         dt = new DateTime(now.getTime())
         DateTime endOfWeek = dt.dayOfWeek().withMaximumValue();
@@ -89,15 +87,27 @@ class EventController {
 
         def regularEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
-            rule.isRule
+            rule.isRule && rule.isUnbounded()
         };
 
         def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
-        def followingMonths = (1..12).collect { month ->
-            def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
-            [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
+        def followingMonths = []
+		(1..12).each { month ->
+			def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
+			boolean foundAnEvent = false;
+			for (event in publishedEvents) {
+				if (!event.dates[0].isUnbounded()) {
+					foundAnEvent = event.isOnDay(followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().getDayOfMonth())
+					if (foundAnEvent) {
+						break;
+					}
+				}
+			}
+            if (foundAnEvent) {
+	            followingMonths << [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
+			}
         }
-        def model = [events: events, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
+        def model = [events: publishedEvents, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
 		articleService.addHeadersAndKeywords(model,request,response)
 		model
     }
@@ -171,11 +181,9 @@ class EventController {
                 def publishedEvents = Event.unorderedPublished().list(params);
                 def events = publishedEvents.findAll { event ->
                     def rule = event.dates[0]
-                    println rule
                     return !rule.isRule && event.isOnDay(start, monthdays)
                 };
 
-                println "Found ${publishedEvents.size} events returning ${events.size} events"
                 def formatter = new SimpleDateFormat(message(code: 'event.date.format'))
                 def args = [formatter.format(start),formatter.format(end)]
                 def model = [events: events, title: message(code: 'event.between', args: args)]
@@ -580,8 +588,6 @@ class EventController {
     def handleDate(rule, params, errorParams) {
         def ruleParam = params.rule;
         if (ruleParam.type) {
-            println "***************************${ruleParam}"
-
             try {
                 rule.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour), Integer.valueOf(params.startTimeMin))
             } catch (error) {
