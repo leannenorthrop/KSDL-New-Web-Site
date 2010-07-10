@@ -60,7 +60,7 @@ class CommonLayoutTagLib {
 			adminControllers =['home']
 		}
 		
-        def adminClasses =[home: 'home', theme: 'theme', article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room']
+        def adminClasses =[home: 'home', theme: 'theme', file:'file',article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article'].each () { item ->
@@ -75,7 +75,7 @@ class CommonLayoutTagLib {
         }
 
         if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
-            ['article', 'image', 'slideshow','teacher'].each () { item ->
+            ['article', 'image', 'slideshow','file','teacher'].each () { item ->
                 adminControllers << item
             }
         }

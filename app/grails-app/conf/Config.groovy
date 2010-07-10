@@ -122,6 +122,11 @@ environments {
                 allowedExtensions = ["zip"]
                 path = "/tmp/docs/"
             }
+			attachments {
+                maxSize = 1000 * 1024 * 12 //12 mbytes
+                allowedExtensions = ["mp4","m4v","doc","zip","txt","pdf","avi","mp3","rtf","mov"]
+                path = "/tmp/docs/"			
+			}
         }
     }
     development {
@@ -143,6 +148,11 @@ environments {
                 allowedExtensions = ["zip"]
                 path = System.properties["user.dir"] + "/web-app/css/themes"
             }
+			attachments {
+                maxSize = 1000 * 1024 * 12 //12 mbytes
+                allowedExtensions = ["mp4","m4v","doc","zip","txt","pdf","avi","mp3","rtf","mov"]
+                path = "/"		
+			}
         }
     }
     test {
@@ -164,6 +174,11 @@ environments {
                 allowedExtensions = ["zip"]
                 path = "/tmp/css/"
             }
+			attachments {
+                maxSize = 1000 * 1024 * 12 //12 mbytes
+                allowedExtensions = ["mp4","m4v","doc","zip","txt","pdf","avi","mp3","rtf","mov"]
+                path = "/tmp/docs/"			
+			}
         }
     }
 

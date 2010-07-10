@@ -1,3 +1,5 @@
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (4,'file:*');
+INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (4,'fileuploader:*');
 insert into `setting` values(2, 0, 'Logo', '1');
 
 DROP TABLE IF EXISTS `room`;

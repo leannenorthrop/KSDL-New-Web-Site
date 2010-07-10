@@ -47,6 +47,7 @@ class ThemeController {
 			} catch (error) {
 				log.warn "Unable to delete directory " + path, error
 			}
+			uploadedFile.delete()
             flash.message = "theme.installed"
             flash.args = [cssDir.name]
             redirect(controller: 'manageSite', action: 'info')
