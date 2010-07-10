@@ -130,7 +130,7 @@ class CommonLayoutTagLib {
 	                            }
 							}
                         } else if (controller.equals ('slideshow')) {
-                            elem = link (class: adminClasses[controller], controller: controller, action:"manage",style:"color: #333;") {
+                            elem = link (class: adminClasses[controller], controller: controller, action:"manage",style:"color: #333;width:auto;height:auto;display:inline-block;") {
                                 messageSource.getMessage ('toolbar.' + controller, null, null)
                             }
                         } else if (controller.equals ('settings')) {

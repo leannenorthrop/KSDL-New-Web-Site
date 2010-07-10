@@ -39,20 +39,40 @@
 </p>
 <p>
   <label for="displayAuthor"><g:message code="article.display.author"/>
-  <g:checkBox name="displayAuthor" value="${articleInstance?.displayAuthor}"/>
+  <g:if test="${articleInstance?.displayAuthor}">
+      <input type="checkbox" name="displayAuthor" id="displayAuthor" checked="true"></input>    
+  </g:if>
+  <g:else>
+      <input type="checkbox" name="displayAuthor" id="displayAuthor"></input>
+  </g:else>  
   </label>
   <label for="displayDate"><g:message code="article.display.date"/>
   <g:if test="${'N' == articleInstance?.category}">
-    <g:checkBox name="displayDate" value="${Boolean.TRUE}"/>
+    <input type="checkbox" name="displayDate" id="displayDate" checked="true"></input>
   </g:if>
   <g:else>
-    <g:checkBox name="displayDate" value="${articleInstance?.displayDate}"/>
+    <g:if test="${articleInstance?.displayDate}">
+        <input type="checkbox" name="displayDate" id="displayDate" checked="true"></input>    
+    </g:if>
+    <g:else>
+        <input type="checkbox" name="displayDate" id="displayDate"></input>
+    </g:else>
   </g:else>
     <label for="home"><g:message code="article.display.home"/>
-    <g:checkBox name="home" value="${articleInstance?.home}"/>
+        <g:if test="${articleInstance?.home}">
+            <input type="checkbox" name="home" id="home" checked="true"></input>    
+        </g:if>
+        <g:else>
+            <input type="checkbox" name="home" id="home"></input>
+        </g:else>        
     </label>
     <label for="featured"><g:message code="article.display.featured"/>
-    <g:checkBox name="featured" value="${articleInstance?.featured}"/>
+    <g:if test="${articleInstance?.featured}">
+        <input type="checkbox" name="featured" id="featured" checked="true"></input>    
+    </g:if>
+    <g:else>
+        <input type="checkbox" name="featured" id="featured"></input>
+    </g:else>    
     </label>
   </label>
 </p>

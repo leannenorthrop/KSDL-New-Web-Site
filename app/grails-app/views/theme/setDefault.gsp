@@ -62,7 +62,7 @@
             </g:form>
         </div>
         <div class="grid_12">
-            <iframe id="previewFrame" src="${createLink (controller: 'home', action: 'index')}" style="height:50em;width:85em;">
+            <iframe id="previewFrame" src="${createLink (controller: 'home', action: 'index')}" style="min-height:50em;min-width:65em;width:100%;height:100%;">
               <p>Your browser does not support iframes.</p>
             </iframe>
         </div>

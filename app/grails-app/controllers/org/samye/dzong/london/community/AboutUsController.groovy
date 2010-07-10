@@ -36,11 +36,8 @@ class AboutUsController {
         def teachers = Teacher.findAllByPublishStateAndType('Published', 'C',[sort: "name", order: "asc"])
         teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
 		def venues = Venue.notDeleted.list()
-		def allArticles = Article.allCommunityArticles('datePublished','desc').list()
-	    def articles = allArticles.findAll { article ->
-	            article.tags.find { tag -> "about us".equalsIgnoreCase(tag)}
-	    }		
-        model:[topArticles: [community], articles: articles, lineageTeachers: lineageTeachers, teachers:teachers,venues:venues];
+		def allArticles = Article.allAboutUsArticles("title", "asc").list()
+        model:[topArticles: [community], articles: allArticles, lineageTeachers: lineageTeachers, teachers:teachers,venues:venues];
     }
 
     def view = {
