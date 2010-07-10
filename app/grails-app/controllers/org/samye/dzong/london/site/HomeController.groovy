@@ -10,14 +10,9 @@ class HomeController {
 	def flickrService
 
     def index = {
-		def versions = []
-		
 	    def ss = Setting.homeSlideshow().list()
 		def images = flickrService.getSmallPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         def articles = Article.homeArticles("datePublished", "desc").list()
-		articles.each{ article ->
-			versions << article.version
-		}
         def meditationArticles = articles.findAll { it.category == 'M'}
         def communityArticles = articles.findAll { it.category == 'C'}
         def buddhismArticles = articles.findAll{ it.category == 'B'}
@@ -25,22 +20,24 @@ class HomeController {
         def newsArticles = articles.findAll { it.category == 'N'}
 		def topArticles = articles.findAll { it.title == 'Home Page'}
         def events = Event.homePage('lastUpdated', 'asc').list()
-		events.each{ event ->
-			versions << event.version
-		}
-		response.setHeader("ETag", "W\"${versions.max()}\"")
-        model:[topArticles:topArticles, images: images, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
+		
+        def model = [topArticles:topArticles, images: images, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
     def list = {
+	    def model = []
         if (params.tags) {
             def tags = params.tags.toLowerCase().split(",").toList()
             def articles = articleService.publishedByTags(tags)
-            model: [articleInstanceList: articles, title: 'Articles With Tags ' + params.tags]
+            model =[articleInstanceList: articles, title: 'Articles With Tags ' + params.tags]
         } else {
             def publishedArticles = Article.findAllByPublishState("Published")
-            model: [articleInstanceList: publishedArticles, title: "All Articles"]
+            model =[articleInstanceList: publishedArticles, title: "All Articles"]
         }
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
     def view = {
@@ -51,30 +48,18 @@ class HomeController {
         }
         else {
             def id = params.id;
-            return [articleInstance: articleInstance, id: id]
+            def model = [articleInstance: articleInstance, id: id]
+			articleService.addHeadersAndKeywords(model,request,response)
+			model
         }
     }
 
     def slideshow = {
 	    def ss = Setting.homeSlideshow().list()	
 		def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
-        model: [album:album]
-    }
-
-    def aboutUs = {
-        model: []
-    }
-
-    def contactUs = {
-        model: []
-    }
-
-    def help = {
-        model: []
-    }
-
-    def siteMap = {
-        model: []
+        def model = [album:album]
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
     def aboutThisSite = {		
@@ -91,11 +76,9 @@ class HomeController {
 		roles.each { item -> 
 			users.addAll(item.users)
 		}
-        model: [developers: devUsers, users: users.sort()]
-    }
-
-    def changeCssTheme = {
-        model:[]
+        def model = [developers: devUsers, users: users.sort()]
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 
     def error = {
@@ -122,13 +105,5 @@ class HomeController {
         flash.message = "not.found"
         flash.default = "Oops! Did we lose a page?"
         render(notFound)
-    }
-
-    def setCSSTheme = {
-        def themeCookie = new Cookie("cssTheme",params.id)
-        themeCookie.setMaxAge(60*60*24*365)
-        themeCookie.setPath("/")
-        response.addCookie(themeCookie)
-        redirect(uri: '/')
     }
 }

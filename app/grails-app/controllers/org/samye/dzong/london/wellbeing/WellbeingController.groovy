@@ -16,16 +16,21 @@ class WellbeingController {
         def articles = Article.featuredWellbeingArticles('datePublished','desc').list()
         def totalWellbeing = Article.allWellbeingArticlesNotOrdered().count()
         def events = Event.wellbeing('featured','desc').list()
-        return render(view: 'index',model: [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events]);
+		def model = [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events]
+		articleService.addHeadersAndKeywords(model,request,response)
+        return render(view: 'index',model: model);
     }
 
     def list = {
         def articles = Article.allWellbeingArticles('datePublished', 'desc').list()
-        render(view: 'list', model:[ articles: articles, title: 'wellbeing.all.articles.title'])
+		def model = [ articles: articles, title: 'wellbeing.all.articles.title']
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
+		articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -42,11 +47,15 @@ class WellbeingController {
         else {
             def id = params.id;
             def similar = eventService.findSimilar(event)
-            return [event: event, id: id, similar:similar]
+			def model = [event: event, id: id, similar:similar]
+			articleService.addHeadersAndKeywords(model,request,response)
+            model
         }
     }
 
     def events = {
-        return eventService.list('W',params)
+        def model = eventService.list('W',params)
+		articleService.addHeadersAndKeywords(model,request,response)
+		model
     }
 }

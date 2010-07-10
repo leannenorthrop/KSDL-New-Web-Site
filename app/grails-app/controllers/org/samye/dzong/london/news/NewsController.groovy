@@ -14,21 +14,28 @@ class NewsController {
         def archivedArticles = Article.archivedNewsArticles('datePublished', 'desc').list(max:8)
         def totalPublishedNewsArticles = Article.categoryArticles('N').count()
         def totalArchived = Article.categoryArticles('N').count()
-        render(view: 'index', model:[ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles])
+		def model = [ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles]
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'index', model:model)
     }
 
     def current = {
         def news = Article.newsArticles('datePublished', 'desc').list()
-        render(view: 'list', model:[ news: news, title: 'news.current.title'])
+		def model = [ news: news, title: 'news.current.title']
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'list', model:model)
     }
 
     def archived = {
         def news = Article.archivedNewsArticles('datePublished', 'desc').list()
-        render(view: 'list', model:[ news: news, title: 'news.archived.title'])
+		def model = [ news: news, title: 'news.archived.title']
+		articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
+		articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
