@@ -5,6 +5,8 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         FOR 31/03/2010
 ================================================================================
+sql - all events must have organizer
+
 4. Fixes
     - Events
         - dont display more unless some

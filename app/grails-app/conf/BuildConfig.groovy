@@ -34,11 +34,13 @@ grails.project.dependency.resolution = {
         // uncomment to disable ehcache
         // excludes 'ehcache'
     }
-    log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
+    log "info" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
         grailsPlugins()
         grailsHome()
-
+/*		plugins {
+			build "org.grails.plugins:db-util:0.4"
+		}*/
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         mavenLocal()
