@@ -139,7 +139,7 @@ class EventController {
 		def publishedEvents = Event.published().list();
 		def regularEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
-            rule.isRule
+            rule.isRule && rule.isUnbounded()
         };		
 		render(view: 'list', model:[events:regularEvents])
 	}
@@ -181,7 +181,7 @@ class EventController {
                 def publishedEvents = Event.unorderedPublished().list(params);
                 def events = publishedEvents.findAll { event ->
                     def rule = event.dates[0]
-                    return !rule.isRule && event.isOnDay(start, monthdays)
+                    return !rule.isUnbounded() && event.isOnDay(start, monthdays)
                 };
 
                 def formatter = new SimpleDateFormat(message(code: 'event.date.format'))
@@ -334,6 +334,7 @@ class EventController {
             }
             event.publishState = "Unpublished"
             event.deleted = true
+            event.title = event.title + ' (Deleted)'
             if (!event.hasErrors() && event.save()) {
                 flash.message = "Event ${event.title} deleted"
                 redirect(action: manage)
@@ -356,9 +357,7 @@ class EventController {
             redirect(action: manage)
         }
         else {
-            def dates = event.dates
-            def rule = dates.find {it != null}
-            return [event: event, id: params.id, rule: rule]
+            return [event: event, id: params.id]
         }
     }
 
@@ -370,9 +369,7 @@ class EventController {
             redirect(action: manage)
         }
         else {
-            def dates = event.dates
-            def rule = dates.find {it != null}
-            return render(view: 'publish', model: [event: event, rule: rule], id: params.id)
+            return render(view: 'publish', model: [event: event], id: params.id)
         }
     }
 
@@ -388,19 +385,38 @@ class EventController {
                 }
             }
 
-            def errorParams = [isError: false]
-            def dates = event.dates
-            def rule = dates.find {it != null}
-            handleDate(rule, params, errorParams)
-
             if (errorParams['isError']) {
                 flash.isError = true
                 flash.message = errorParams['message']
                 flash.args = errorParams['args']
-                render(view: 'create', model: [event: event, id: params.id, rule: rule])
+                render(view: 'create', model: [event: event, id: params.id)
             }
 
             event.properties = params
+    		if (event.prices) {
+    			def _toBeDeleted = event.prices.findAll {it._deleted}
+    			def _toBeSaved = event.prices.findAll {!it._deleted}    			
+    			if (_toBeSaved) {
+    			    _toBeSaved.each{
+    			        it.save()}
+    			}    			
+    			if (_toBeDeleted) {
+    				event.prices.removeAll(_toBeDeleted)
+    			}
+    		}
+
+    		if (event.dates) {
+    			def _toBeDeleted = event.dates.findAll {it._deleted}
+    			def _toBeSaved = event.dates.findAll {!it._deleted}    			
+    			if (_toBeSaved) {
+    			    _toBeSaved.each{
+    			        it.save()}
+    			}
+    			if (_toBeDeleted) {
+    				event.dates.removeAll(_toBeDeleted)
+    			}    			
+    		}
+    		            
             def isFirstPublish = event.publishState != 'Published'
             if (isFirstPublish) {
                 event.datePublished = new Date()
@@ -506,26 +522,10 @@ class EventController {
     }
 
     def save = {
-        log.debug "*********${params}"
         def event = new Event()
         event.author = userLookupService.lookup()
 
         event.properties = params
-		if (event.prices) {
-			def _toBeDeleted = event.prices.findAll {it._deleted}
-			if (_toBeDeleted) {
-				event.prices.removeAll(_toBeDeleted)
-			}
-		}
-		
-		log.debug "******${event.dates}"
-		if (event.dates) {
-			def _toBeDeleted = event.dates.findAll {it._deleted}
-			if (_toBeDeleted) {
-				event.dates.removeAll(_toBeDeleted)
-			}
-		}		
-		
         if (!event.hasErrors() && event.save()) {
             flash.isError = false
             flash.message = "Event ${event.title} created"
@@ -578,98 +578,6 @@ class EventController {
             flash.message = "Event not found with id ${params.id}"
             flash.isError = true
             redirect(action: manage)
-        }
-    }
-
-    def handleDate(rule, params, errorParams) {
-        def ruleParam = params.rule;
-        if (ruleParam.type) {
-            try {
-                rule.startTime = new TimeOfDay(Integer.valueOf(params.startTimeHour), Integer.valueOf(params.startTimeMin))
-            } catch (error) {
-                log.info("Start time could not be set.", error)
-                errorParams['isError'] = true
-                errorParams['message'] = "event.starttime.update.error"
-            }
-            try {
-                rule.endTime = new TimeOfDay(Integer.valueOf(params.endTimeHour), Integer.valueOf(params.endTimeMin))
-            } catch (error) {
-                log.info("End time could not be set.", error)
-                errorParams['isError'] = true
-                errorParams['message'] = "event.endtime.update.error"
-            }
-            rule.isRule = ruleParam.type == '1';
-            if (!rule.isRule) {
-                try {
-                    rule.startDate = new SimpleDateFormat("dd-MM-yyyy").parse(params.eventDate, new ParsePosition(0))
-                    rule.endDate = rule.startDate
-                } catch (error) {
-                    log.info("Event date could not be set.", error)
-                    errorParams['isError'] = true
-                    errorParams['message'] = "event.update.error"
-                }
-            } else {
-                rule.ruleType = ruleParam.ruleType1;
-                if ('always' == rule.ruleType) {
-                    try {
-                        rule.startDate = new SimpleDateFormat("dd-MM-yyyy").parse(ruleParam.from[0], new ParsePosition(0))
-                        rule.endDate = rule.startDate
-                    } catch (error) {
-                        log.info("Event date could not be set.", error)
-                        errorParams['isError'] = true
-                        errorParams['message'] = "event.update.error"
-                    }
-                } else {
-                    try {
-                        rule.startDate = new SimpleDateFormat("dd-MM-yyyy").parse(ruleParam.from[1], new ParsePosition(0))
-                        rule.endDate = new SimpleDateFormat("dd-MM-yyyy").parse(ruleParam.until, new ParsePosition(0))
-                    } catch (error) {
-                        log.info("Event date could not be set.", error)
-                        errorParams['isError'] = true
-                        errorParams['message'] = "event.update.error"
-                    }
-                }
-
-                def ruleType = ruleParam.ruleType2;
-                if ('daily' == ruleType) {
-                    rule.interval = Integer.valueOf(ruleParam.dailyinterval);
-                    rule.modifierType = 'D';
-                } else if ('weekly' == ruleType) {
-                    rule.interval = Integer.valueOf(ruleParam.weeklyinterval);
-                    rule.modifierType = 'W';
-                    def modifier = ""
-                    ruleParam.weekly.each {
-                        modifier += it.key + " "
-                    }
-                    rule.modifier = modifier.trim()
-                } else if ('monthly' == ruleType) {
-                    rule.interval = Integer.valueOf(ruleParam.monthlyinterval);
-                    rule.modifierType = 'MD';
-                    def modifier = ""
-                    ['one','two'].each { instance ->
-                        def interval = ruleParam.monthly[instance].interval;
-                        if ('5' == interval) {
-                            interval = '1-'
-                        } else {
-                            interval += '+'
-                        }
-                        ruleParam.monthly[instance].each {
-                            if ('interval' != it.key) {
-                                modifier += interval + " " + it.key + " "
-                            }
-                        }
-                    }
-                    rule.modifier = modifier.trim()
-                }
-            }
-
-            try {
-                rule.duration = new MutablePeriod(rule.startTime.toDateTimeToday(), rule.endTime.toDateTimeToday()).toPeriod()
-            } catch (error) {
-                log.info("Event duration could not be set.", error)
-                errorParams['isError'] = true
-                errorParams['message'] = "event.update.error"
-            }
         }
     }
 

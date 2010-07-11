@@ -50,7 +50,6 @@
 
             <g:render template="/editEvent" model="[event: event]"/>
 
-            <p class="last">&nbsp;</p>
             <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>
         </fieldset>
     </g:form>
