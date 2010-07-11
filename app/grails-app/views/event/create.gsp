@@ -54,14 +54,12 @@
         <g:hiddenField name="home" value="false"/>
         <g:hiddenField name="featured" value="false"/>
 
-        <fieldset>
-            <g:render template="/messageBox" model="[flash: flash]"/>            
-            
-            <g:render template="/editEvent" model="[event: event, rule:rule]"/>
+        <g:render template="/messageBox" model="[flash: flash]"/>            
+        
+        <g:render template="/editEvent" model="[event: event, rule:rule]"/>
 
-            <p class="last">&nbsp;</p>
-            <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>
-        </fieldset>
+        <p class="last">&nbsp;</p>
+        <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>
     </g:form>
   </body>
 </html>
