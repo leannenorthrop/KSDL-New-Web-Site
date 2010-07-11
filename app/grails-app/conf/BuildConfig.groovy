@@ -33,17 +33,11 @@ grails.project.dependency.resolution = {
     inherits( "global" ) {
         // uncomment to disable ehcache
         // excludes 'ehcache'
-        excludes "slf4j-api","log4j"
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
-        //grailsPlugins()
-        //grailsHome()
-        plugins {
-        	runtime( "org.grails.plugins:hibernate:1.2.2" ) {
-        		excludes "javassist","slf4j-api"
-        	}
-        }        
+        grailsPlugins()
+        grailsHome()     
 
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
@@ -53,10 +47,6 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-    }
-    dependencies {
-        // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
-        //build 'mysql:mysql-connector-java:5.0.8','log4j:log4j:1.2.14','slfj4j:slf4j-api:1.5.2'
     }
 
 }

@@ -20,11 +20,8 @@
         </includes>
       </fileSet>      
       <fileSet>
-        <directory>${basedir}/dist/db</directory>
+        <directory>${basedir}/dist</directory>
         <outputDirectory>/</outputDirectory>
-        <includes>
-          <include>v*.sql</include>
-        </includes>
       </fileSet>      
     </fileSets>  
 </assembly>
