@@ -29,16 +29,16 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<p class="details">
+<p class="${propval}Details">
     <label for="thing"><g:message code="${labelCode}"/></label>
-    <g:textField name="thing" class="ui-corner-all ${propval}" style="display: inline;width:10em" minlength="4" value=""/>                     
+    <g:textField name="${propval}" class="ui-corner-all ${propval}" style="display: inline;width:10em" minlength="4" value=""/>                     
     <button class="add" type="button">+</button>
 </p>        
-<g:each var="number" in="${list}" status="i">
-<p class="existing">
-    <input type="hidden" name='${listName}[${i}]._deleted' id='${listName}[${i}]._deleted' value='false'/>
-    ${number}
-    <button class="remove existing" type="button">-</button>
+<g:each var="thing" in="${list}" status="i">
+<p class="${propval}Existing">
+    <input type="hidden" name='${listName}[${i}]._deleted' value='false'/>
+    ${thing}
+    <button class="remove ${propval}Existing" type="button">-</button>
 </p>      
 </g:each>
 <p id="${propval}Template" style="display:none;visibility:hidden;">
@@ -60,12 +60,12 @@
         $(this).parent().remove();  
     };
     
-    var addNew = function(templateSelector,namePrefix,selector) {                                                                
-      var clone = $(templateSelector).clone(true)
+    var addNew = function(templateSelector,namePrefix,selector) {                                                             
+      var clone = $(templateSelector).clone(true)    
       clone.find(':hidden').each(function(index) {
           var currName = $(this).attr('name');
           if (currName != "button") {
-              var value = $(selector + ' input.'+currName).val()
+              var value = $(selector + ' .'+currName).val()
               $(this).val(value)
           }
           $(this).attr('name', namePrefix + '[' + nextId + '].' + currName);
@@ -78,10 +78,10 @@
     };
     
     $("button.new").click(removeNewHandler); 
-    $("button.existing").click(removeExistingHandler);    
-    $("p.details button.add").click(function() {
-       var name = $('p.details input').val();            
-       var newHtml = addNew('#${propval}Template', '${listName}','p.details'); 
+    $("button.${propval}Existing").click(removeExistingHandler);    
+    $("p.${propval}Details button.add").click(function() {
+       var name = $('p.${propval}Details input').val();            
+       var newHtml = addNew('#${propval}Template', '${listName}','p.${propval}Details'); 
        newHtml.find('button').before(name);
     });             
 </g:javascript>

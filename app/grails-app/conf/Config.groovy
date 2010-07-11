@@ -31,7 +31,7 @@ grails.views.default.codec="none" // none, html, base64
 grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 // enable Sitemesh preprocessing of GSP pages
-grails.views.gsp.sitemesh.preprocess=true
+grails.views.gsp.sitemesh.preprocess=false
 grails.gsp.enable.reload = true
 // scaffolding templates configuration
 grails.scaffolding.templates.domainSuffix = ''
@@ -177,8 +177,15 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate',
            'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
+           'org.quartz',
+           'net.sf.ehcache',
+           'grails.spring',
+           'org.apache.tomcat',
+           'org.codehaus.groovy',
+           'org.apache.catalina',
+           'org.apache.coyote,',
+           'org.apache.commons.digester',
            stdout:"StackTrace"
 
 

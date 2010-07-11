@@ -37,7 +37,13 @@
       $("#editEvent").validate({
 		errorContainer: container,
 		errorLabelContainer: $("ol", container),
-		wrapper: 'li'
+		wrapper: 'li',
+        submitHandler: function(form) {
+            $("#additionalPriceHiddenFields").remove();
+            $("#additionalPriceFields").remove();
+            $("#priceTemplate").remove();
+            form.submit();
+         }		
 	});
     </jq:jquery>
   </head>

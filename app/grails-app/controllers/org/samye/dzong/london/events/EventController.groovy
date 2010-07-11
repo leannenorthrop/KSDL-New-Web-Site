@@ -442,6 +442,8 @@ class EventController {
     }
 
     def update = {
+        println "*********${params}"
+        
         def event = Event.get(params.id)
         if (event) {
             if (params.version) {
@@ -457,7 +459,7 @@ class EventController {
             def dates = event.dates
             def rule = dates.find {it != null}
             def errorParams = [isError: false]
-            handleDate(rule, params, errorParams)
+            //handleDate(rule, params, errorParams)
 
             if (errorParams['isError']) {
                 flash.isError = true
@@ -469,6 +471,12 @@ class EventController {
             }
 
             event.properties = params
+			if (event.prices) {
+				def _toBeDeleted = event.prices.findAll {it._deleted}
+				if (_toBeDeleted) {
+					event.prices.removeAll(_toBeDeleted)
+				}
+			}            
             if (!event.hasErrors() && event.save()) {
                 flash.message = "Event ${event.title} updated"
                 redirect(action: manage)
@@ -498,17 +506,11 @@ class EventController {
         date.endDate = new Date()
         date.isRule = false
 
-        // Set default values
-        event.prices = event.getPriceList()
-        (0..3).each{
-            event.prices.get(it).category = it == 0 ? 'F' : (it == 1 ? 'S' : (it == 2 ? 'M' : 'O'));
-        }
-
         return [event: event, rule: date]
     }
 
     def save = {
-        println "*********${params}"
+        log.debug "*********${params}"
         def event = new Event()
         event.author = userLookupService.lookup()
         def EventDate date = new EventDate()
@@ -519,22 +521,16 @@ class EventController {
         date.isRule = false
         date.save()
         def errorParams = [isError: false]
-        handleDate(date, params, errorParams)
-
-        if (errorParams['isError']) {
-            event.hasErrors()
-            flash.isError = true
-            flash.message = errorParams['message']
-            flash.args = [event]
-            render(view: 'create', model: [event: event, id: params.id, rule: date])
-        } else {
-            date.save()
-            event.addToDates(date)
-        }
+        //handleDate(date, params, errorParams)
 
         event.properties = params
-
-
+		if (event.prices) {
+			def _toBeDeleted = event.prices.findAll {it._deleted}
+			if (_toBeDeleted) {
+				event.prices.removeAll(_toBeDeleted)
+			}
+		}
+		
         if (!event.hasErrors() && event.save()) {
             flash.isError = false
             flash.message = "Event ${event.title} created"
