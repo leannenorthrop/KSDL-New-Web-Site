@@ -30,16 +30,10 @@
 
 <%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
 
-
-<g:set var="multipleDateList" value="${event.dateList.size() > 1 ? event.dateList : []}"/>
-<g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.startDate}"/></g:set>
-<g:set var="currentEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.startDate}"/></g:set>
-<g:set var="currentEndEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.endDate}"/></g:set>
-
 <fieldset>
     <legend>Dates</legend> 
         
-    <g:radioGroup name="event.dateList[0].ruleType" 
+    <g:radioGroup name="dateList[0].ruleType" 
                   values="['once','several','between','always']" 
                   labels="['event.once.title','event.several.title','event.regular.dates.title','event.regular.title']" 
                   value="${firstDate.ruleType}" >
@@ -53,6 +47,7 @@
     </div>
     
     <div id="several" style="display:none;height:20em;">
+        <g:set var="multipleDateList" value="${event.dateList.size() > 1 ? event.dateList : []}"/>        
         <g:render template="/clone" model="[propval: 'startDate',labelCode:'event.date',listName:'dateList',nextId:multipleDateList.size(),list:multipleDateList]"/>
     </div>
     
@@ -66,11 +61,13 @@
 
 </fieldset>
 
+<g:set var="currentEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.startDate}"/></g:set>
+<g:set var="currentEndEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.endDate}"/></g:set>
 <g:javascript>   
-    var defaultDate = new Date(${currentEventDate});
-    defaultDate.setFullYear(${currentEventDate});
-    var endDate = new Date(${currentEndEventDate});
-    endDate.setFullYear(${currentEndEventDate});
+    var start = "${currentEventDate}".split("-");
+    var end = "${currentEndEventDate}".split("-");    
+    var defaultDate = new Date(start[2],start[1],start[0]);
+    var endDate = new Date(end[2],end[1],end[0]);
 
     $("#singleDate").datepicker({
         showOtherMonths: false,
@@ -80,8 +77,18 @@
         hideIfNoPrevNext: true,
         minDate: '0d',
         maxDate: '+3y',
-        stepMonths: 3
+        stepMonths: 3,
+        currentText: 'Today'
     });
+    
+    $("#several * #startDate").datepicker({
+          dateFormat: 'dd-mm-yy',
+          defaultDate: defaultDate,
+          minDate: '0d',
+          maxDate: '+3y',
+          hideIfNoPrevNext: true,
+        currentText: 'Today'          
+      });
   
     $("input[name$=.ruleType]").change(function() {
         $("input[name$=.ruleType]").each(function(index) {

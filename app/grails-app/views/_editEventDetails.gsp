@@ -147,9 +147,8 @@
       </p>  
 </fieldset>
 <g:javascript>   
-  $("#starttime").change(function() {
+  $("#startTimeHour").change(function() {
       var stv = $(this).val();
-      stv++;
-      $("#endtime").attr("value", stv);
+      $("#endTimeHour").attr("value", ++stv);
   });
 </g:javascript>

@@ -25,6 +25,8 @@ package org.samye.dzong.london.events
 
 import org.samye.dzong.london.ScheduleRule
 import org.joda.time.*
+import java.text.SimpleDateFormat
+
 class EventDate extends ScheduleRule {
 
     boolean _deleted
@@ -48,5 +50,19 @@ class EventDate extends ScheduleRule {
     EventDate(EventDate toBeCopied) {
         super(toBeCopied)
         println "Copy constructor" + this.ruleType        
-    }    
+    }   
+    
+    String toString() {
+        def f = new SimpleDateFormat("dd-MM-yyyy");
+        if (isRule) {
+            if (isBounded()) {
+                return "${f.format(startDate)} ${f.format(endDate)} ${startTime} - ${endTime} (duration ${duration})"; 
+            } else {
+                return f.format(startDate) + " ${startTime} - ${endTime} (duration ${duration})";            
+            }
+        } else {
+            return f.format(startDate);
+        }
+    }
+     
 }

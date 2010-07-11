@@ -212,7 +212,7 @@
 .contentAdmin .ui-tabs .ui-state-active {font-weight:bold;}
 /* Datepicker
 ----------------------------------*/
-.contentAdmin .ui-datepicker { width: 17em; padding: .2em .2em 0; position:relative;}
+.contentAdmin .ui-datepicker { width: 17em; padding: .2em .2em 0; position:relative;background:white;border:1px solid black;}
 .contentAdmin .ui-datepicker .ui-datepicker-header { position:relative; padding:.2em 0; }
 .contentAdmin .ui-datepicker .ui-datepicker-prev, .contentAdmin .ui-datepicker .ui-datepicker-next { position:absolute; top: 2px; width: 1.8em; height: 1.8em; }
 .contentAdmin .ui-datepicker .ui-datepicker-prev-hover, .contentAdmin .ui-datepicker .ui-datepicker-next-hover { top: 1px; }
@@ -236,6 +236,8 @@
 .contentAdmin .ui-datepicker .ui-datepicker-buttonpane { background-image: none; margin: .7em 0 0 0; padding:0 .2em; border-left: 0; border-right: 0; border-bottom: 0; }
 .contentAdmin .ui-datepicker .ui-datepicker-buttonpane button { float: right; margin: .5em .2em .4em; cursor: pointer; padding: .2em .6em .3em .6em; width:auto; overflow:visible; }
 .contentAdmin .ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current { float:left; }
+.contentAdmin .ui-datepicker .ui-state-active { background: rgb(233, 233, 233); border: 1px solid black;}
+.contentAdmin .ui-datepicker .ui-datepicker-next span,.contentAdmin .ui-datepicker .ui-datepicker-prev span  {text-indent: -1000px;}
 
 /* with multiple calendars */
 .contentAdmin .ui-datepicker.ui-datepicker-multi { width:auto; }
