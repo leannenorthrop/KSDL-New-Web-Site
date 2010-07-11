@@ -104,8 +104,91 @@
                 timefields += '<input type="hidden" name="dateList[0].endTimeMin" value="' + endTimeMin + '">';                
 
                 $("#once").append(timefields);
-            }      
-        } else {           
+            } else {
+                // to do get the correct date here
+                var selected = $("#singleDate").datepicker( 'getDate' );
+                var year = $.datepicker.formatDate('yy', selected);
+                var month = $.datepicker.formatDate('mm', selected);
+                var day = $.datepicker.formatDate('dd', selected);
+                                
+                timefields += '<input type="hidden" name="dateList[0].isRule" value="true">';                                   
+                timefields += '<input type="hidden" name="dateList[0].startDate_year" value="' + year + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].startDate_month" value="' + month + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].startDate_day" value="' + day + '">';                                                                              
+                timefields += '<input type="hidden" name="dateList[0].startTimeHour" value="' + startTimeHour + '">';   
+                timefields += '<input type="hidden" name="dateList[0].startTimeMin" value="' + startTimeMin + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].endTimeHour" value="' + endTimeHour + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].endTimeMin" value="' + endTimeMin + '">';
+                               
+                if (type == 'between') {                    
+                    // to do get the correct end date
+                    timefields += '<input type="hidden" name="dateList[0].endDate_year" value="' + year + '">';                                              
+                    timefields += '<input type="hidden" name="dateList[0].endDate_month" value="' + month + '">';                                              
+                    timefields += '<input type="hidden" name="dateList[0].endDate_day" value="' + day + '">';                    
+                } else {
+                    timefields += '<input type="hidden" name="dateList[0].endDate_year" value="' + year + '">';                                              
+                    timefields += '<input type="hidden" name="dateList[0].endDate_month" value="' + month + '">';                                              
+                    timefields += '<input type="hidden" name="dateList[0].endDate_day" value="' + day + '">';                    
+                }
+                
+                var tabs = $('#' + type + ' #' + type + 'RuleType').tabs();
+                var selected = tabs.tabs('option', 'selected');
+                switch(selected)
+                {
+                    // Daily
+                    case 0:
+                      var interval = $('#' + type + 'RuleType #ruledailyinterval option:selected').val();                                    
+                      timefields += '<input type="hidden" name="dateList[0].modifierType" value="D">';  
+                      timefields += '<input type="hidden" name="dateList[0].modifier" value="">';                        
+                      timefields += '<input type="hidden" name="dateList[0].interval" value="' + interval + '">';                                              
+                      break;
+                      
+                    // Weekly                    
+                    case 1:
+                      var interval = $('#' + type + 'RuleType #ruleweeklyinterval option:selected').val(); 
+                      var modifier = '';
+                      $('#' + type + 'Weekly input:checked').each(function(index) {
+                          var n = $(this).attr('name');
+                          var m = n.substring(n.length-2);
+                          modifier += m + ' ';
+                      });
+                      modifier = modifier.trim();
+                      
+                      timefields += '<input type="hidden" name="dateList[0].modifierType" value="W">';                                               
+                      timefields += '<input type="hidden" name="dateList[0].interval" value="' + interval + '">';                        
+                      timefields += '<input type="hidden" name="dateList[0].modifier" value="' + modifier + '">';                       
+                      break;
+                      
+                    // Monthly
+                    case 2:
+                      var interval = $('#' + type + 'RuleType #rulemonthlyinterval option:selected').val();                                    
+                      var modifier = '';  
+                      var names = ['one','two']; 
+                      var i = 0;
+                      for (i=0; i < names.length; i++) {
+                          var name = names[i];
+                          var weekInterval = $('#' + type + 'Monthly #rulemonthly' + name + 'interval').val();
+                          weekInterval = (weekInterval == 5) ? '1-' : '' + weekInterval + '+';
+                          $('#' + type + 'Monthly input:checked').each(function(index) {
+                              var n = $(this).attr('name');
+                              if (n.match(name)) {
+                                  var m = n.substring(n.length-2);
+                                  modifier += weekInterval + ' ' + m + ' ';
+                              }
+                          });
+                      }
+                      modifier = modifier.trim();
+                                                               
+                      timefields += '<input type="hidden" name="dateList[0].modifierType" value="MD">';  
+                      timefields += '<input type="hidden" name="dateList[0].interval" value="' + interval + '">';                        
+                      timefields += '<input type="hidden" name="dateList[0].modifier" value="' + modifier + '">';                                             
+                      break;
+                    default:
+                      break;
+                }
+                $('#' + type + ' #' + type + 'RuleType').append(timefields); 
+            }     
+        } else if (type == 'several'){           
             var thedates = [];
                                     
             // For each of newly added numbers add to date array                        
@@ -151,6 +234,7 @@
             });                    
             $("#several").append(timefields);            
         }
+        
         return true;
     };
 

@@ -37,21 +37,21 @@
         <li><a href="#${prop}Monthly"><g:message code="c" default="Monthly"/></a></li>
     </ul>
     <div id="${prop}Daily" style="height:13em;width:90%;">
-        <g:select name="rule.dailyinterval" from="${1..6}" valueMessagePrefix="day.interval" class="ui-corner-all" value="${rule?.interval}"/>            
+        <g:select name="ruledailyinterval" from="${1..6}" valueMessagePrefix="day.interval" class="ui-corner-all" value="${rule?.interval}"/>            
     </div>
     <div id="${prop}Weekly" style="height:13em;width:90%;">
-        <g:select name="rule.weeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all" value="${rule?.interval}"/>
+        <g:select name="ruleweeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all" value="${rule?.interval}"/>
         <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-            <input type="checkbox" name="rule.weekly.${it}" class="ruleweekly${it}"/><g:message code="${it}"/>
+            <input type="checkbox" name="ruleweekly${it}" class="ruleweekly${it}"/><g:message code="${it}"/>
         </g:each>            
     </div>
     <div id="${prop}Monthly" style="height:13em;width:90%;">
-        <g:select name="rule.monthlyinterval" from="${1..12}" valueMessagePrefix="month.interval" class="ui-corner-all" value="${rule?.interval}"/>
+        <g:select name="rulemonthlyinterval" from="${1..12}" valueMessagePrefix="month.interval" class="ui-corner-all" value="${rule?.interval}"/>
         <g:each in="${['one','two']}" var="instance">
             <p>
-                <g:select name="rule.monthly.${instance}.interval" class="rulemonthly${instance}interval ui-corner-all" from="${1..5}" valueMessagePrefix="month"/>
+                <g:select name="rulemonthly${instance}interval" class="rulemonthly${instance}interval ui-corner-all" from="${1..5}" valueMessagePrefix="month"/>
                 <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-                    <input type="checkbox" name="rule.monthly.${instance}.${it}" class="rulemonthly${instance}${it}"/><g:message code="${it}"/>
+                    <input type="checkbox" name="rulemonthly${instance}${it}" class="rulemonthly${instance}${it}"/><g:message code="${it}"/>
                 </g:each>
             </p>
         </g:each>            

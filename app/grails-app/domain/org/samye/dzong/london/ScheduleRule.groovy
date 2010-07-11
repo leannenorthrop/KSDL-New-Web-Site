@@ -115,8 +115,16 @@ class ScheduleRule {
     }
 
     boolean isBounded() {
-        return 'between' != ruleType
+        return 'between' == ruleType
     }
+    
+    boolean isSeveral() {
+        return 'several' == ruleType
+    }  
+    
+    boolean isSeveral() {
+        return 'once' == ruleType
+    }      
 
     void setBounded() {
         ruleType = 'between'
