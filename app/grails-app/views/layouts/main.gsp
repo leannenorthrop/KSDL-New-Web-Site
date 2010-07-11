@@ -75,8 +75,9 @@
       <div class="grid_16">
         <h1 id="branding">
           <g:set var="logoId" value="${Setting.findByName('Logo').value}"/>
-          <g:if test="${logoId}">
-            <img src="${createLink(controller: 'image', action: 'src', id: logoId)}" title="Logo" alt="Logo"/>
+          <g:set var="logo" value="${Image.get(logoId)}"/>
+          <g:if test="${logo}">
+            <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" title="${logo.name}" alt="${logo.name}"/>
           </g:if>
           <g:message code="title" default="Kagyu Samye Dzong London"/>
         </h1>

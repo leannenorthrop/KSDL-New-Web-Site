@@ -63,7 +63,7 @@ class VenueController {
     }
 
     def update = {
-		println params['telephoneNumbersList[0]']
+		println params
         def venueInstance = Venue.get( params.id )
         if(venueInstance) {
             if(params.version) {
@@ -74,7 +74,7 @@ class VenueController {
                     render(view:'edit',model:[venueInstance:venueInstance])
                     return
                 }
-            }           
+            }
             venueInstance.properties = params
 			if (venueInstance.addresses) {
 				def _toBeDeleted = venueInstance.addresses.findAll {it._deleted}
@@ -90,6 +90,11 @@ class VenueController {
 			}
 			if (venueInstance.telephoneNumbers) {
 				def _toBeDeleted = venueInstance.telephoneNumbersList.findAll {it._deleted}
+    			def _toBeSaved = venueInstance.telephoneNumbersList.findAll {!it._deleted}    			
+    			if (_toBeSaved) {
+    			    _toBeSaved.each{
+    			        it.save()}
+    			}				
 				if (_toBeDeleted) {
 					venueInstance.telephoneNumbers.removeAll(_toBeDeleted)
 				}	

@@ -24,11 +24,8 @@
 package org.samye.dzong.london.events
 
 import org.samye.dzong.london.shop.Price
-import java.text.NumberFormat
 
 class EventPrice extends Price {
-    def messageSource
-
     boolean _deleted
 
     static transients = ['_deleted']
@@ -40,8 +37,6 @@ class EventPrice extends Price {
 
     EventPrice() {
         currency = Currency.getInstance("GBP")
-        category = 'f'
-        price = 0.0d
     }
 
     EventPrice(EventPrice toBeCopied) {
@@ -51,10 +46,6 @@ class EventPrice extends Price {
     }
 
     String toString() {
-        def locale = Locale.UK
-        def thecategory = messageSource.getMessage('event.price.'+category,null,locale)
-        def currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        def currencyOut = currencyFormatter.format(price);
-        return messageSource.getMessage('event.display.price',[thecategory, currencyOut].toArray(),locale)
+        return String.format("%s%f03.2", currency.getSymbol(), price);
     }
 }

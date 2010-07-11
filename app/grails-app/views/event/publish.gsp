@@ -31,6 +31,14 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.publish.title"/></title>
+    <jq:jquery>
+      var container = $("#jserrors");
+      $("#publishEvent").validate({
+		errorContainer: container,
+		errorLabelContainer: $("ol", container),
+		wrapper: 'li'
+	});
+    </jq:jquery>
   </head>
   <body>
     <g:form name="publishEvent" action="publish" method="post">
@@ -45,6 +53,7 @@
 
           <g:render template="/editEvent" model="[event: event,showPublication:Boolean.TRUE]"/>
 
+          <p class="last">&nbsp;</p>
           <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.publish.btn', default: 'Publish')}"/>
         </fieldset>
     </g:form>

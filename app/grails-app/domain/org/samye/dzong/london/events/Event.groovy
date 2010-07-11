@@ -84,9 +84,9 @@ class Event extends Publishable {
         image(nullable: true)
         dates(nullable: false)
         prices(nullable: true)
-        organizer(nullable: false)
+        organizer(nullable: true)
         leader(nullable: false)
-        venue(nullable: false)
+        venue(nullable: true)
     }
 
     static mapping = {
@@ -190,21 +190,14 @@ class Event extends Publishable {
     }
 
     def getPriceList() {
-        return LazyList.decorate(prices, FactoryUtils.instantiateFactory(EventPrice.class));
+        def pricePrototype = new EventPrice(currency: Currency.getInstance("GBP"), category: 'f', price: 0.0d)
+        return LazyList.decorate(prices, FactoryUtils.prototypeFactory(pricePrototype));
     }
-    
-    def getDateList() {
-        return LazyList.decorate(dates,FactoryUtils.instantiateFactory(EventDate.class))
-    }    
 
     String toString() {
         return "${title}"
     }
 
-    def calculateDerivedValues() {
-        dates.each { it.calculateDerivedValues() }
-    }
-    
     boolean isOnDay(final date) {
         if (dates && dates[0]) {
             return dates[0].isOnDay(date)
