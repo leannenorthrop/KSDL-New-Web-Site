@@ -1,9 +1,0 @@
-<component name="CopyrightManager">
-  <copyright>
-    <option name="notice" value="Copyright © &amp;#36;today.year Leanne Northrop&#10; &#10;This file is part of Samye Content Management System.&#10;&#10;Samye Content Management System is free software: you can redistribute it &#10;and/or modify it under the terms of the GNU General Public License as &#10;published by the Free Software Foundation, either version 3 of the License, &#10;or (at your option) any later version.&#10;&#10;Samye Content Management System is distributed in the hope that it will be &#10;useful,but WITHOUT ANY WARRANTY; without even the implied warranty of&#10;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10;GNU General Public License for more details.&#10;&#10;You should have received a copy of the GNU General Public License&#10;along with Samye Content Management System.  &#10;If not, see &lt;http://www.gnu.org/licenses/&gt;.&#10;&#10;BT plc, hereby disclaims all copyright interest in the program &#10;“Samye Content Management System” written by Leanne Northrop." />
-    <option name="keyword" value="Copyright" />
-    <option name="allowReplaceKeyword" value="" />
-    <option name="myName" value="LSD GPL" />
-    <option name="myLocal" value="true" />
-  </copyright>
-</component>
