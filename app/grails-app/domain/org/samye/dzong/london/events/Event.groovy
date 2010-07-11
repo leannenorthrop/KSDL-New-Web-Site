@@ -84,9 +84,9 @@ class Event extends Publishable {
         image(nullable: true)
         dates(nullable: false)
         prices(nullable: true)
-        organizer(nullable: true)
+        organizer(nullable: false)
         leader(nullable: false)
-        venue(nullable: true)
+        venue(nullable: false)
     }
 
     static mapping = {

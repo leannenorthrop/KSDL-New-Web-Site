@@ -37,6 +37,7 @@
     <jq:jquery>
       var container = $("#jserrors");
       $("#addevent").validate({
+        onfocusout: false,
 		errorContainer: container,
 		errorLabelContainer: $("ol", container),
 		wrapper: 'li'

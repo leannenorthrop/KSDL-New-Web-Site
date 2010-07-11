@@ -48,9 +48,16 @@
 </div>
 
 <div id="accordion">
-  <h3><a href="#"><g:message code="event.details"/></a></h3>
-
-  <div>
+    <ul>
+    <li><a href="#details"><g:message code="event.details"/></a></li>
+    <li><a href="#dates"><g:message code="event.dates"/></a></li>  
+    <li><a href="#prices"><g:message code="event.prices"/></a></li>
+    <li><a href="#content"><g:message code="event.description"/></a></li>
+    <g:if test="${showPublication}">
+      <li><a href="#pub"><g:message code="event.publication.details"/></a></li>
+    </g:if>
+    </ul>
+  <div id="details">
         <p>
           <label for="title"><g:message code="event.title.label"/></label>
           <g:textField name="title" value="${event?.title}" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}" minlength="5"/>
@@ -59,43 +66,38 @@
           <label for="summary"><g:message code="event.summary.label"/></label>
           <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:event,field:'summary','errors')}" value="${fieldValue(bean:event,field:'summary')}" minlength="5"/>
         </p>
+        <p>          
+          <label for="image.id"><g:message code="event.image.label"/></label>
+          <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+          <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('event')}" name="image.id" value="${event?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="= ui-corner-all"/>          
+        </p>
         <p>
-          <label for="category"><g:message code="event.category.label"/></label>
-          <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" validate="required:true, minlength:1" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
+            <label for="category"><g:message code="event.category.label"/></label>
+            <g:select name="category" from="${['M','N','C','W','B']}" value="${event?.category}" valueMessagePrefix="publish.category" validate="required:true, minlength:1" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>    
+            
+            <label for="venue.id"><g:message code="event.venue.label"/></label>
+            <g:select from="${org.samye.dzong.london.venue.Venue.list()}" name="venue.id" value="${event?.venue?.id}" optionKey="id" optionValue="name" class="required ui-corner-all"/>                    
         </p>
         <p>
           <label for="leader.id"><g:message code="event.leader.label"/></label>
           <g:set var="noSelectionLabel"><g:message code="please.select"/></g:set>
           <g:select from="${org.samye.dzong.london.community.Teacher.publishState('Published').list()}" name="leader.id" validate="required:true, minlength:1" value="${event?.leader?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
-        </p>
-        <p>
-          <label for="image.id"><g:message code="event.image.label"/></label>
-          <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-          <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('event')}" name="image.id" value="${event?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="= ui-corner-all"/>
-        </p>
-        <p>
+          
           <label for="organizer.id"><g:message code="event.organizer.label"/></label>
           <g:set var="noSelectionLabel"><g:message code="no.img"/></g:set>
-          <g:select from="${org.samye.dzong.london.ShiroUser.list()}" name="organizer.id" value="${event?.organizer?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="username" class="ui-corner-all"/>
+          <g:select from="${org.samye.dzong.london.ShiroUser.list()}" name="organizer.id" value="${event?.organizer?.id}" noSelection="${['null':noSelectionLabel]}" optionKey="id" optionValue="username" class="ui-corner-all"/>          
         </p>
-        <p>
-          <label for="venue.id"><g:message code="event.venue.label"/></label>
-          <g:select from="${org.samye.dzong.london.venue.Venue.list()}" name="venue.id" value="${event?.venue?.id}" optionKey="id" optionValue="name" class="required ui-corner-all"/>
-        </p>
-        <p>
+        <p>                        
           <label for="startTimeHour"><g:message code="event.starttime.label" default="Start Time"/></label>
           <g:select name="startTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.startTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}" id="starttime"/>&nbsp;:&nbsp;
           <g:select name="startTimeMin" from="${[0,10,15,20,30,40,45]}" value="${rule?.startTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
-        </p>
-        <p>
+
           <label for="endTimeHour"><g:message code="event.endtime.label" default="End Time"/></label>
           <g:select name="endTimeHour" from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" value="${rule?.endTime?.getHourOfDay()}" noSelection="${['null':'Select Hour...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}" id="endtime"/>&nbsp;:&nbsp;
           <g:select name="endTimeMin" from="${[0,10,15,20,30,40,45]}" value="${rule?.endTime?.getMinuteOfHour()}" noSelection="${['null':'Select Minute...']}" class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
         </p>  
   </div>
-
-  <h3><a href="#"><g:message code="event.dates"/></a></h3>
-  <div>
+  <div id="dates">
     <g:hiddenField id="ruletype" name="rule.type" value="0"/>
     <div id="dateTabs">
       <ul>
@@ -166,9 +168,7 @@
       </div>
     </div>
   </div>
-
-  <h3><a href="#"><g:message code="event.prices"/></a></h3>
-  <div>
+  <div id="prices">
     <g:set var="pricelabels" value="${[F: 'full',S: 'subsidize', M: 'mature',O:'other']}"/>
     <g:each var="price" in="${event.prices}" status="i">
       <p>
@@ -182,23 +182,19 @@
     </g:each>
   </div>
 
-  <h3><a href="#"><g:message code="event.description"/></a></h3>
-  <div>
-    <p>
+  <div id="content">
       <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:event]"/>
-    </p>
   </div>
 
   <g:if test="${showPublication}">
-    <h3><a href="#"><g:message code="event.publication.details"/></a></h3>
-    <div>
+    <div id="pub">
       <g:render template="/publishDetails" model="[articleInstance:event]"/>
     </div>
   </g:if>
 </div>
 <g:set var="currentEventDate"><g:formatDate format="yyyy" date="${rule?.startDate}"/>,${rule?.startDate?.getMonth()},<g:formatDate format="dd" date="${rule?.startDate}"/></g:set>
 <g:set var="currentEndEventDate"><g:formatDate format="yyyy" date="${rule?.endDate}"/>,${rule?.endDate?.getMonth()},<g:formatDate format="dd" date="${rule?.endDate}"/></g:set>
-<g:javascript>
+<g:javascript>   
       var defaultDate = new Date(${currentEventDate});
       defaultDate.setFullYear(${currentEventDate});
       var endDate = new Date(${currentEndEventDate});
@@ -231,25 +227,17 @@
           var id2 = $(this).val();
           $("#" + id2).show();
       });
-      $("#accordion").accordion();
+      $("#accordion").tabs({
+            fx: { opacity: 'toggle' },
+        });
       $("#dateTabs").tabs({
-          fx: { opacity: 'toggle' },
-          select: function(event, ui) {
-              var selected = $("#dateTabs").tabs('option', 'selected');
-              if (selected == 0) {
-                selected = 1;
-              } else {
-                selected = 0;
-              }
-              $("#ruletype").attr("value",selected);
-            return true;
-          }
+          fx: { opacity: 'toggle' }
       });
       $("#eventDatePicker").datepicker({
         showOtherMonths: false,
         dateFormat: 'dd-mm-yy',
         defaultDate: defaultDate,
-        numberOfMonths: [3,3],
+        numberOfMonths: [1,3],
         hideIfNoPrevNext: true,
         minDate: '0d',
         maxDate: '+3y',

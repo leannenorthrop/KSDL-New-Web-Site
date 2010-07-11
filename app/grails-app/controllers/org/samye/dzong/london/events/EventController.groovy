@@ -303,7 +303,7 @@ class EventController {
 
     def send = {
         def event = Event.get(params.id)
-        if (event && params.email && params.body && params.subject) {
+        if (event && event.organizer && params.email && params.body && params.subject) {
             emailService.sendEventQuery(event.organizer.username, params.email, params.subject, params.body)
         }
         redirect(action: home)
@@ -489,6 +489,7 @@ class EventController {
     def create = {
         def event = new Event()
         event.properties = params
+        event.organizer = userLookupService.lookup()
 
         def EventDate date = new EventDate()
         date.startDate = new Date()
@@ -507,6 +508,7 @@ class EventController {
     }
 
     def save = {
+        println "*********${params}"
         def event = new Event()
         event.author = userLookupService.lookup()
         def EventDate date = new EventDate()
@@ -576,11 +578,14 @@ class EventController {
             }
             else {
                 flash.message = "Event ${event.title} could not be ${params.state} due to an internal error. Please try again."
+                flash.isError = true
+                flash.args = [event]
                 redirect(action: manage)
             }
         }
         else {
             flash.message = "Event not found with id ${params.id}"
+            flash.isError = true
             redirect(action: manage)
         }
     }

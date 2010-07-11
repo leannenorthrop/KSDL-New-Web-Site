@@ -39,7 +39,7 @@
 			<input type='hidden' name='successAction' value='install' /> 
 			<input type='hidden' name='successController' value='file' /> 
 
-            <fieldset class="last">			
+            <fieldset class="last">			 
 			    <input type='file' name='file' /> 
 			</fieldset>
 			<input type='submit' name='submit' value='Submit' /> 
