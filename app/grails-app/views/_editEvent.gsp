@@ -71,24 +71,7 @@
         var startDate = $("#startDate").val();
         var type = $("input[name$=ruleType]:checked").val();  
         var timefields = ''; 
-        alert(1);
-        if (type == 'several') {
-            $("#several p input:hidden").filter(function(index) {
-                var n = $(this).attr('name');
-                var a = n.match("^dateList");
-                var b = n.match('startDate');
-                return a && b;
-            }).each(function(index){
-                timefields += '<input type="hidden" name="dateList[' + index + '].startTimeHour" value="' + startTimeHour + '">';
-                timefields += '<input type="hidden" name="dateList[' + index + '].startTimeMin" value="' + startTimeMin + '">';
-                timefields += '<input type="hidden" name="dateList[' + index + '].endTimeHour" value="' + endTimeHour + '">';
-                timefields += '<input type="hidden" name="dateList[' + index + '].endTimeMin" value="' + endTimeMin + '">';                                                
-                timefields += '<input type="hidden" name="dateList[' + index + '].isRule" value="false">';   
-                timefields += '<input type="hidden" name="dateList[' + index + '].endDate" value="' + startDate + '">';                                                                                
-            }); 
-            $("#several").append(timefields);
-        } else {              
-            alert(2);            
+        if (type != 'several') {                  
             $("#several p input:hidden").each(function(index) {
                 var n = $(this).attr('name');
                 if (n.match('^dateList') && !n.match('_deleted')) {
@@ -101,9 +84,7 @@
                     }
                 }
             }); 
-            alert(3);        
             if (type == 'once') {                                
-                alert(4);
                 var selected = $("#singleDate").datepicker( 'getDate' );
                 var year = $.datepicker.formatDate('yy', selected);
                 var month = $.datepicker.formatDate('mm', selected);
@@ -116,9 +97,51 @@
                 timefields += '<input type="hidden" name="dateList[0].endDate_year" value="' + year + '">';                                              
                 timefields += '<input type="hidden" name="dateList[0].endDate_month" value="' + month + '">';                                              
                 timefields += '<input type="hidden" name="dateList[0].endDate_day" value="' + day + '">';
-                                alert(timefields);
+                
+                timefields += '<input type="hidden" name="dateList[0].startTimeHour" value="' + startTimeHour + '">';   
+                timefields += '<input type="hidden" name="dateList[0].startTimeMin" value="' + startTimeMin + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].endTimeHour" value="' + endTimeHour + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].endTimeMin" value="' + endTimeMin + '">';                
+
                 $("#once").append(timefields);
             }      
+        } else {           
+            var thedates = [];
+            $("#several p input:hidden").each(function(index) {
+                var n = $(this).attr('name');
+                if (n.match('^dateList') && n.match('startDate')) {
+                    var s = $(this).val();
+                    thedates.push(s);
+                }
+            });
+
+            $("#several p input:hidden").each(function(index) {
+                try {
+                    var n = $(this).attr('name');
+                    if (n.match('^dateList') && n.match('_deleted')) {
+                        var i = n.substring(9, n.indexOf(']'));
+                        var selected = thedates[i].split('-');
+                        var year = selected[2];
+                        var month = selected[1];
+                        var day = selected[0];                    
+                        timefields += '<input type="hidden" name="dateList[' + i + '].startTimeHour" value="' + startTimeHour + '">';   
+                        timefields += '<input type="hidden" name="dateList[' + i + '].startTimeMin" value="' + startTimeMin + '">';                                              
+                        timefields += '<input type="hidden" name="dateList[' + i + '].endTimeHour" value="' + endTimeHour + '">';                                              
+                        timefields += '<input type="hidden" name="dateList[' + i + '].endTimeMin" value="' + endTimeMin + '">';
+                        timefields += '<input type="hidden" name="dateList[' + i + '].startDate_year" value="' + year + '">';                                              
+                        timefields += '<input type="hidden" name="dateList[' + i + '].startDate_month" value="' + month + '">';                                              
+                        timefields += '<input type="hidden" name="dateList[' + i + '].startDate_day" value="' + day + '">';                                                                              
+                        timefields += '<input type="hidden" name="dateList[' + i + '].isRule" value="false">';   
+                        timefields += '<input type="hidden" name="dateList[' + i + '].endDate_year" value="' + year + '">';                                              
+                        timefields += '<input type="hidden" name="dateList[' + i + '].endDate_month" value="' + month + '">';                                              
+                        timefields += '<input type="hidden" name="dateList[' + i + '].endDate_day" value="' + day + '">';                    
+                        $(this).remove();
+                    }
+                } catch(error) {
+                    
+                }
+            });                    
+            $("#several").append(timefields);            
         }
         return true;
     };
