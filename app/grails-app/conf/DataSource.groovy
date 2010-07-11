@@ -22,6 +22,18 @@ environments {
 //            driverClassName = "org.hsqldb.jdbcDriver"
 //            username = "sa"
 //            password = ""
+            pooled = true
+            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            properties {
+                maxActive = 50
+                maxIdle = 25
+                minIdle = 5
+                initialSize = 5
+                minEvictableIdleTimeMillis = 60000
+                timeBetweenEvictionRunsMillis = 60000
+                maxWait = 10000
+                validationQuery = "set names 'utf8'"
+            }
         }
     }
 
@@ -39,6 +51,18 @@ environments {
         dataSource {
             dbCreate = "update"
             jndiName = "java:comp/env/jdbc/LsdDS"
-        }
+            pooled = true
+            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
+            properties {
+                maxActive = 50
+                maxIdle = 25
+                minIdle = 5
+                initialSize = 5
+                minEvictableIdleTimeMillis = 60000
+                timeBetweenEvictionRunsMillis = 60000
+                maxWait = 10000
+                validationQuery = "set names 'utf8'"
+            }
+        }        
     }
 }

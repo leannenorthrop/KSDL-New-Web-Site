@@ -1,3 +1,5 @@
+set names 'utf8';
+
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (1,'image:*');
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (2,'image:*');
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (3,'image:*');
@@ -17,3 +19,88 @@ INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (3,'fileUploader:*');
 INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (3,'file:*');
 update event set organizer_id = 2 where organizer_id is null;
+    
+ALTER TABLE DATABASECHANGELOG ENGINE=InnoDB;
+ALTER TABLE DATABASECHANGELOGLOCK ENGINE=InnoDB;
+ALTER TABLE address ENGINE=InnoDB;
+ALTER TABLE article ENGINE=InnoDB;
+ALTER TABLE audit_log ENGINE=InnoDB;
+ALTER TABLE contact ENGINE=InnoDB;
+ALTER TABLE email ENGINE=InnoDB;
+ALTER TABLE event ENGINE=InnoDB;
+ALTER TABLE image ENGINE=InnoDB;
+ALTER TABLE pending_email_confirmation ENGINE=InnoDB;
+ALTER TABLE price ENGINE=InnoDB;
+ALTER TABLE profile ENGINE=InnoDB;
+ALTER TABLE publishable ENGINE=InnoDB;
+ALTER TABLE room ENGINE=InnoDB;
+ALTER TABLE schedule_rule ENGINE=InnoDB;
+ALTER TABLE setting ENGINE=InnoDB;
+ALTER TABLE shiro_role ENGINE=InnoDB;
+ALTER TABLE shiro_role_permissions ENGINE=InnoDB;
+ALTER TABLE shiro_user ENGINE=InnoDB;
+ALTER TABLE shiro_user_permissions ENGINE=InnoDB;
+ALTER TABLE shiro_user_roles ENGINE=InnoDB;
+ALTER TABLE tag_links ENGINE=InnoDB;
+ALTER TABLE tags ENGINE=InnoDB;
+ALTER TABLE teacher ENGINE=InnoDB;
+ALTER TABLE telephone ENGINE=InnoDB;
+ALTER TABLE transport ENGINE=InnoDB;
+ALTER TABLE ufile ENGINE=InnoDB;
+ALTER TABLE venue ENGINE=InnoDB;
+ALTER TABLE venue_address ENGINE=InnoDB;
+ALTER TABLE venue_email ENGINE=InnoDB;
+ALTER TABLE venue_telephone ENGINE=InnoDB;
+ALTER TABLE venue_venue_address ENGINE=InnoDB;
+ALTER TABLE venue_venue_email ENGINE=InnoDB;
+ALTER TABLE venue_venue_telephone ENGINE=InnoDB;
+
+ALTER TABLE DATABASECHANGELOG CHARACTER SET utf8;
+ALTER TABLE DATABASECHANGELOGLOCK CHARACTER SET utf8;
+ALTER TABLE address CHARACTER SET utf8;
+ALTER TABLE article CHARACTER SET utf8;
+ALTER TABLE audit_log CHARACTER SET utf8;
+ALTER TABLE contact CHARACTER SET utf8;
+ALTER TABLE email CHARACTER SET utf8;
+ALTER TABLE event CHARACTER SET utf8;
+ALTER TABLE image CHARACTER SET utf8;
+ALTER TABLE pending_email_confirmation CHARACTER SET utf8;
+ALTER TABLE price CHARACTER SET utf8;
+ALTER TABLE profile CHARACTER SET utf8;
+ALTER TABLE publishable CHARACTER SET utf8;
+ALTER TABLE room CHARACTER SET utf8;
+ALTER TABLE schedule_rule CHARACTER SET utf8;
+ALTER TABLE setting CHARACTER SET utf8;
+ALTER TABLE shiro_role CHARACTER SET utf8;
+ALTER TABLE shiro_role_permissions CHARACTER SET utf8;
+ALTER TABLE shiro_user CHARACTER SET utf8;
+ALTER TABLE shiro_user_permissions CHARACTER SET utf8;
+ALTER TABLE shiro_user_roles CHARACTER SET utf8;
+ALTER TABLE tag_links CHARACTER SET utf8;
+ALTER TABLE tags CHARACTER SET utf8;
+ALTER TABLE teacher CHARACTER SET utf8;
+ALTER TABLE telephone CHARACTER SET utf8;
+ALTER TABLE transport CHARACTER SET utf8;
+ALTER TABLE ufile CHARACTER SET utf8;
+ALTER TABLE venue CHARACTER SET utf8;
+ALTER TABLE venue_address CHARACTER SET utf8;
+ALTER TABLE venue_email CHARACTER SET utf8;
+ALTER TABLE venue_telephone CHARACTER SET utf8;
+ALTER TABLE venue_venue_address CHARACTER SET utf8;
+ALTER TABLE venue_venue_email CHARACTER SET utf8;
+ALTER TABLE venue_venue_telephone CHARACTER SET utf8;
+
+
+ALTER TABLE article MODIFY content longtext CHARACTER SET utf8;
+ALTER TABLE article MODIFY summary longtext CHARACTER SET utf8;
+ALTER TABLE event MODIFY content longtext CHARACTER SET utf8;
+ALTER TABLE event MODIFY summary longtext CHARACTER SET utf8;
+ALTER TABLE room MODIFY content longtext CHARACTER SET utf8;
+ALTER TABLE room MODIFY summary longtext CHARACTER SET utf8;
+ALTER TABLE teacher MODIFY content longtext CHARACTER SET utf8;
+ALTER TABLE teacher MODIFY summary longtext CHARACTER SET utf8;
+ALTER TABLE venue MODIFY content longtext CHARACTER SET utf8;
+ALTER TABLE venue MODIFY facilities longtext CHARACTER SET utf8;
+ALTER TABLE venue MODIFY access longtext CHARACTER SET utf8;
+
+

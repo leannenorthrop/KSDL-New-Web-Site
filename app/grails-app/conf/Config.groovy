@@ -32,9 +32,9 @@ grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 // enable Sitemesh preprocessing of GSP pages
 grails.views.gsp.sitemesh.preprocess=true
-grails.gsp.enable.reload = false
+grails.gsp.enable.reload = true
 // scaffolding templates configuration
-grails.scaffolding.templates.domainSuffix = 'Instance'
+grails.scaffolding.templates.domainSuffix = ''
 
 // Set to false to use the new Grails 1.2 JSONBuilder in the render method
 grails.json.legacy.builder=false
@@ -46,55 +46,12 @@ grails.logging.jul.usebridge = true
 grails.spring.bean.packages = []
 grails.views.javascript.library="jquery"
 
-// log4j configuration
-log4j = {
-    // Example of changing the log pattern for the default console
-    // appender:
-    //
-    appenders {
-        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    }
-
-    root {
-        warn 'stdout', 'file'
-        additivity = true
-    }
-
-    fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',
-          'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
-          'com.gargoylesoftware.htmlunit.html.HtmlPage',
-          'com.gargoylesoftware.htmlunit.javascript.host.html.HTMLDocument',
-          'com.gargoylesoftware.htmlunit.javascript.host.HTMLDocument',
-          'com.gargoylesoftware.htmlunit.DefaultCssErrorHandler'
-
-    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
-           'org.codehaus.groovy.grails.web.pages', //  GSP
-           'org.codehaus.groovy.grails.web.sitemesh', //  layouts
-           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
-           'org.codehaus.groovy.grails.web.mapping', // URL mapping
-           'org.codehaus.groovy.grails.commons', // core / classloading
-           'org.codehaus.groovy.grails.plugins', // plugins
-           'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
-           'org.springframework',
-           'org.hibernate',
-           'net.sf.ehcache.hibernate',
-           'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
-           stdout:"StackTrace"
-
-
-    warn   'org.mortbay.log'
-
-    trace   'org.samye'
-}
-
-auditLog {
-  actor = 'userPrincipal.name'
-}
-
 // set per-environment serverURL stem for creating absolute links
+def logfileName = ${user.dir} + '/lsd.log'
 environments {
     production {
         println "Environment is set to Production"
+        logfileName = '/home/londonsamyedzong/logs/lsd.log'
         grails {
            mail {
              //grails.mail.jndiName = "myMailSession"
@@ -182,4 +139,54 @@ environments {
         }
     }
 
+}
+
+// log4j configuration
+log4j = {
+    appenders {
+       console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+       rollingFile name: "file", file: logfileName, maxFileSize:'512MB', maxBackupIndex:10,layout:pattern(conversionPattern: '%d{ISO8601} [%t] %p %c %x - %m%n')
+    }
+    production{
+        root { 
+            info 'stdout', 'file'
+            additivity = true
+        }
+    }
+    development {
+       root { 
+            debug 'stdout','file'
+            additivity = true            
+        }
+    }
+
+    fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',
+          'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
+          'com.gargoylesoftware.htmlunit.html.HtmlPage',
+          'com.gargoylesoftware.htmlunit.javascript.host.html.HTMLDocument',
+          'com.gargoylesoftware.htmlunit.javascript.host.HTMLDocument',
+          'com.gargoylesoftware.htmlunit.DefaultCssErrorHandler'
+
+    error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
+           'org.codehaus.groovy.grails.web.pages', //  GSP
+           'org.codehaus.groovy.grails.web.sitemesh', //  layouts
+           'org.codehaus.groovy.grails.web.mapping.filter', // URL mapping
+           'org.codehaus.groovy.grails.web.mapping', // URL mapping
+           'org.codehaus.groovy.grails.commons', // core / classloading
+           'org.codehaus.groovy.grails.plugins', // plugins
+           'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
+           'org.springframework',
+           'org.hibernate',
+           'net.sf.ehcache.hibernate',
+           'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
+           stdout:"StackTrace"
+
+
+    warn   'org.mortbay.log'
+
+    trace   'org.samye'
+}
+
+auditLog {
+  actor = 'userPrincipal.name'
 }
