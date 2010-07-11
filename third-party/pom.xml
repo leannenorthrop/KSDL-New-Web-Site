@@ -17,7 +17,7 @@
                     <phase>validate</phase>
                     <configuration>
                       <tasks>
-                        <untar compression="gzip" src="${user.dir}/maven/wiki.tgz" dest="${basedir}/third-party/maven"/>
+                        <untar compression="gzip" src="${user.dir}/maven/wiki.tgz" dest="${basedir}/maven"/>
                       </tasks>
                     </configuration>
                     <goals>
