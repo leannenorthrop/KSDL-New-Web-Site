@@ -33,6 +33,8 @@ window.addEvent('domready', function() {
 
     // Kwick Box
     if ($('kwick-box')) {
+        var kwicksb = $$('#kwick-box');
+        kwicksb.setStyle('display','block');       
         var kwicks = $$('#kwick .kwick');
         var fx = new Fx.Elements(kwicks, {wait: false, duration: 200, transition: Fx.Transitions.quadOut});
         kwicks.each(function(kwick, i){

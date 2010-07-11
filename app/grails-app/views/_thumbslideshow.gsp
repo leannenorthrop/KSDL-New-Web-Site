@@ -30,7 +30,7 @@
 --}%
 <g:if test="${images && images.size() > 0}">
 <div id="show" class="slideshow" style="width:175px;height:175px"> 
-  <img src="${images[0].src}" alt="${images[0].name}" /> 
+  <img src="${images[0].src}" alt="${images[0].name}" style="width:175px;height:175px;overflow:hidden"/> 
 </div>    
 <g:javascript>
   var data = {

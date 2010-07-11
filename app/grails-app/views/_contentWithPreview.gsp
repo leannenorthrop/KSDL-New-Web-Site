@@ -33,12 +33,12 @@
     <li><a href="#preview-tab" ><g:message code="preview.tab.title" default="Preview"/></a></li>    
     <li><a href="${createLink(controller: 'manageSite', action: 'textile')}" title="Hints Tab"><g:message code="hints.tab.title" default="Hints"/></a></li>
   </ul>
-  <div id="edit-tab">
+  <div id="edit-tab" style="height:45em;overflow-y:scroll;">
     <lsdc:remoteField name="content" controller="manageSite" action="preview" update="preview-tab" paramName="previewcontenttxt" class="ui-corner-all ${hasErrors(bean:publishableInstance,field:'content','errors')}" value="${publishableInstance?.content}"/>
   </div>
-  <div id="preview-tab">
+  <div id="preview-tab" style="height:45em;overflow-y:scroll;">
   </div>
-  <div id="Hints_Tab">
+  <div id="Hints_Tab" style="height:45em;overflow-y:scroll;">
   </div>
 </div>
 
