@@ -18,6 +18,7 @@ class FlickrService {
     boolean transactional = true
 
 	def getPhotosets(id) {
+	    try {
 		def result = flickr.get( path : '/services/rest/',
 		                       query: getPhotoSetListParams(id),
 		                       contentType : TEXT,
@@ -63,11 +64,14 @@ class FlickrService {
 		} else {
 			return []
 		}
+	    } catch(error) {
+	        return []
+	    }
 	}
 	
 	def getPhotoset(id) {
 		def album = new Expando()
-		
+		try {
 		def info = flickr.get( path : '/services/rest/',
 		                       query: getPhotosetInfoParams(id),
 		                       contentType : TEXT,
@@ -109,6 +113,9 @@ class FlickrService {
 			album.images = []
 			log.warn "Unable get photoset photos " + xml.err.@code + " " + xml.err.@msg
 		}
+	    } catch(error) {
+	        album.images = []
+	    }
 		
 		return album
 	}
@@ -141,30 +148,34 @@ class FlickrService {
 	}
 	
 	def getSmallPhotoset(id) {
-		def result = flickr.get( path : '/services/rest/',
-		                       query: getPhotosetParams(id),
-		                       contentType : TEXT,
-		                       headers : [Accept : 'application/xml'] )
+	    try {
+    		def result = flickr.get( path : '/services/rest/',
+    		                       query: getPhotosetParams(id),
+    		                       contentType : TEXT,
+    		                       headers : [Accept : 'application/xml'] )
 
-		def sluper = new XmlSlurper()
-		def xml = sluper.parseText(result.getText())
-		if (xml.@stat == 'ok') {
-			def photos = xml.photoset.photo
+    		def sluper = new XmlSlurper()
+    		def xml = sluper.parseText(result.getText())
+    		if (xml.@stat == 'ok') {
+    			def photos = xml.photoset.photo
 
-			def images = photos.collect { photo ->
-			    def image = new Expando()
-			    image.name = photo.@title
-			    image.thumbnail = photo.@url_sq
-			    image.src = photo.@url_s
-			    image.width = photo.@width_s
-			    image.height = photo.@height_s
-			    image.isAlbumCover = photo.@isprimary == 1
-			    image.toString = { "$name is $width wide and $height tall" }
-			    image
-			}		
-		} else {
-			return []
-		}
+    			def images = photos.collect { photo ->
+    			    def image = new Expando()
+    			    image.name = photo.@title
+    			    image.thumbnail = photo.@url_sq
+    			    image.src = photo.@url_s
+    			    image.width = photo.@width_s
+    			    image.height = photo.@height_s
+    			    image.isAlbumCover = photo.@isprimary == 1
+    			    image.toString = { "$name is $width wide and $height tall" }
+    			    image
+    			}		
+    		} else {
+    			return []
+    		}
+	    } catch(e) {
+	    }
+        return []	    
 	}
 		
 	def getThumbnailPhotoset(id) {

@@ -58,7 +58,7 @@
               <shiro:hasAnyRole in="['Editor','Administrator']">
                 <g:link action="pre_publish" id="${eventInstance.id}"><g:message code="event.publish.action"/></g:link>
               </shiro:hasAnyRole>
-              <shiro:hasAnyRole in="['Author']">
+              <shiro:hasAnyRole in="['Administrator','EventOrganiser']">
                 <g:link action="changeState" params="[state:'Ready For Publication']" id="${eventInstance.id}"><g:message code="event.ready.action"/></g:link>
                 <g:link action="delete" id="${eventInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="event.delete.action"/></g:link>
               </shiro:hasAnyRole>

@@ -15,7 +15,7 @@
       <div class="clear"></div>
             
       <div class="grid_12">
-        <div class="box" id="kwick-box">
+        <div class="box" id="kwick-box" style="display:none;">
             <div id="kwick">
                 <ul class="kwicks">
                     <li>
