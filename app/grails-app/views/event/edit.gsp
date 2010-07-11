@@ -32,14 +32,6 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.edit.title"/></title>
-    <jq:jquery>
-      var container = $("#jserrors");
-      $("#editEvent").validate({
-		errorContainer: container,
-		errorLabelContainer: $("ol", container),
-		wrapper: 'li'
-	});
-    </jq:jquery>
   </head>
   <body>
     <g:form name="editEvent" action="update" method="post">
@@ -58,7 +50,6 @@
 
             <g:render template="/editEvent" model="[event: event]"/>
 
-            <p class="last">&nbsp;</p>
             <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>
         </fieldset>
     </g:form>   

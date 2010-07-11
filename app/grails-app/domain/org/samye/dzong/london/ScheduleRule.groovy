@@ -34,6 +34,7 @@ import net.fortuna.ical4j.model.property.*
 import net.fortuna.ical4j.model.component.*
 import net.fortuna.ical4j.model.parameter.*
 import net.fortuna.ical4j.data.*
+import org.joda.time.*
 
 class ScheduleRule {
     java.util.Date startDate
@@ -73,20 +74,60 @@ class ScheduleRule {
 
     static transients = ['unbounded','bounded','daily','weekly','monthly','monthlyByPosition','yearly','yearlyByPosition','yearlyByDay','days','modifiers','offsets','onDay','between','recur','isOnDay']
 
+    ScheduleRule() {
+        this.startDate = new Date()
+        this.startTime = new TimeOfDay(9, 0)
+        this.endTime = new TimeOfDay(10, 0)
+        this.endDate = new Date()
+        this.isRule = false
+        this.ruleType = "once"
+        this.interval = 1
+        this.modifierType = "D"
+    }
+
+    ScheduleRule(ScheduleRule toBeCopied) {
+        this.startDate = toBeCopied.startDate
+        this.startTime = toBeCopied.startTime
+        this.endTime = toBeCopied.endTime
+        this.endDate = toBeCopied.endDate
+        this.isRule = toBeCopied.isRule
+        this.ruleType = toBeCopied.ruleType
+        this.duration = toBeCopied.duration
+        this.interval = toBeCopied.interval
+        this.modifier = toBeCopied.modifier
+        this.modifierType = toBeCopied.modifierType
+    }
+    
     String toString() {
         return "from ${startDate} until ${endDate}: ${startTime} - ${endTime} (duration ${duration})\nis rule? ${isRule} type ${ruleType} interval ${interval} modifier ${modifier} mtype = ${modifierType}"
     }
 
+    def calculateDerivedValues() {
+        try {
+            rule.duration = new MutablePeriod(startTime.toDateTimeToday(), endTime.toDateTimeToday()).toPeriod()
+        } catch (error) {
+            log.warn("Event duration could not be set.", error)
+        }
+    }
+    
     boolean isUnbounded() {
         return 'always' == ruleType
     }
 
     boolean isBounded() {
-        return 'always' != ruleType
+        return 'between' == ruleType
     }
+    
+    def isSeveral() {
+        return 'several' == ruleType
+    }  
+    
+    def isOnce() {
+        return 'once' == ruleType
+    }      
 
     void setBounded() {
-        ruleType = 'period'
+        ruleType = 'between'
     }
 
     boolean isDaily() {

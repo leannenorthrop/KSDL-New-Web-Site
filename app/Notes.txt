@@ -24,6 +24,53 @@ http://code.google.com/p/lsd-website/issues/entry
 - Image search & filtering
 - article manage shopmanager role
 - calendar view for events?
+home page
+	- editable list of links
+	- home articles should link to appropriate section
+
+about us
+	- room hire
+
+events
+	- up and coming list should display event menu
+	- calendar view
+	- link to icalendar
+
+buddhism
+	- menu
+meditation
+	- menu
+volunteer
+	- home articles cut down
+	- email needs confirmation page
+	- list page doesn't need box heading
+well being
+	- list page doesn't need box heading
+	- more teachers list should go to consultants
+	- check event totals go to events list
+
+news
+	- older has wrong articles
+site map
+	xml
+
+about this site
+	- needs link to report problems
+	
+search
+
+manage site
+	- home
+		- text
+	- nav bar needs help
+	- tag manager
+	- link list manager
+	- profile
+		- add password
+	- images
+		- add filter
+	- bookmarks for tabs
+	- commentable for content
 
 - Events
     - dont display more unless some
@@ -63,7 +110,6 @@ http://code.google.com/p/lsd-website/issues/entry
     - Move common test code into separate class
     - Move email content into templates    
 - Profile
-- caching facebook
 - Highlight new articles in editor view
 - Add Icons for Actions    
 5. Remove checks for Administrator role and give 'Admin' all roles

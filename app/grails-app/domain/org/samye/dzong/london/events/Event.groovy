@@ -84,9 +84,9 @@ class Event extends Publishable {
         image(nullable: true)
         dates(nullable: false)
         prices(nullable: true)
-        organizer(nullable: true)
+        organizer(nullable: false)
         leader(nullable: false)
-        venue(nullable: true)
+        venue(nullable: false)
     }
 
     static mapping = {
@@ -158,6 +158,10 @@ class Event extends Publishable {
         homePage {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
+            eq 'home', Boolean.TRUE
+            dates {
+                eq "isRule", Boolean.FALSE
+            }
             order("${orderCol}", "${orderDir}")
         }
 
@@ -165,6 +169,10 @@ class Event extends Publishable {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'M'
+            or {
+                eq 'featured', Boolean.TRUE  
+                eq 'home', Boolean.TRUE                          
+            }
             order("${orderCol}", "${orderDir}")
         }
 
@@ -172,6 +180,10 @@ class Event extends Publishable {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'B'
+            or {
+                eq 'featured', Boolean.TRUE  
+                eq 'home', Boolean.TRUE                          
+            }        
             order("${orderCol}", "${orderDir}")
         }
 
@@ -179,25 +191,40 @@ class Event extends Publishable {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'C'
+            or {
+                eq 'featured', Boolean.TRUE  
+                eq 'home', Boolean.TRUE                          
+            }       
             order("${orderCol}", "${orderDir}")
         }
         wellbeing {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'W'
+            or {
+                eq 'featured', Boolean.TRUE  
+                eq 'home', Boolean.TRUE                          
+            }
             order("${orderCol}", "${orderDir}")
         }
     }
 
     def getPriceList() {
-        def pricePrototype = new EventPrice(currency: Currency.getInstance("GBP"), category: 'f', price: 0.0d)
-        return LazyList.decorate(prices, FactoryUtils.prototypeFactory(pricePrototype));
+        return LazyList.decorate(prices, FactoryUtils.instantiateFactory(EventPrice.class));
     }
+    
+    def getDateList() {
+        return LazyList.decorate(dates,FactoryUtils.instantiateFactory(EventDate.class))
+    }    
 
     String toString() {
         return "${title}"
     }
 
+    def calculateDerivedValues() {
+        dates.each { it.calculateDerivedValues() }
+    }
+    
     boolean isOnDay(final date) {
         if (dates && dates[0]) {
             return dates[0].isOnDay(date)

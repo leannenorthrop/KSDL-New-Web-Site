@@ -30,7 +30,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <div id="shopmenu" class="box">
 <h2><g:message code="shop.menu.title"/></h2>
-${menu.encodeAsTextile()}
+${menu?.encodeAsTextile()}
 <g:javascript>
 var urlBase = '${createLink(controller: "shop", action: "displayAll")}';
 $("#shopmenu ul:first").addClass('menu');

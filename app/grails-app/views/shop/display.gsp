@@ -31,7 +31,7 @@
 <html>
     <head>
         <title>${product?.title}</title>
-        <meta name="layout" content="shop" />
+        <meta name="layout" content="shopTemplate" />
     </head>
     <body>
         <g:render template="/product" model="[product:product]"/>

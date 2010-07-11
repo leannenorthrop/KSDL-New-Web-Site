@@ -111,7 +111,7 @@ class Article extends Publishable {
         }
 
         homeBuddhismArticles { final orderCol, final orderDir ->
-            eq 'home', Boolean.TRUE
+            eq 'home', Boolean.TRUE                          
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'B'
@@ -140,10 +140,10 @@ class Article extends Publishable {
         }
 
         homeWellbeingArticles { final orderCol, final orderDir ->
-            eq 'home', Boolean.TRUE
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'W'
+            eq 'home', Boolean.TRUE           
             order("${orderCol}", "${orderDir}")
         }
 
@@ -169,10 +169,10 @@ class Article extends Publishable {
         }
 
         homeCommunityArticles { final orderCol, final orderDir ->
-            eq 'home', Boolean.TRUE
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'C'
+            eq 'home', Boolean.TRUE        
             order("${orderCol}", "${orderDir}")
         }
 
@@ -198,18 +198,15 @@ class Article extends Publishable {
         }
 
         homeMeditationArticles { final orderCol, final orderDir ->
-            eq 'home', Boolean.TRUE
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'M'
+            eq 'home', Boolean.TRUE           
             order("${orderCol}", "${orderDir}")
         }
 
         featuredNewsArticles { final orderCol, final orderDir ->
-            or {
-                eq 'home', Boolean.TRUE
-                eq 'featured', Boolean.TRUE
-            }
+            eq 'home', Boolean.TRUE 
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'N'

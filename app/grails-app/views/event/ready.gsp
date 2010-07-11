@@ -66,9 +66,9 @@
               <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasRole name="Author">
+              <shiro:hasAnyRole in="['Editor','Administrator','EventOrganiser']">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${eventInstance.id}"><g:message code="article.unpublish.action"/></g:link>
-              </shiro:hasRole>
+              </shiro:hasAnyRole>
               <shiro:hasAnyRole in="['Editor','Administrator']">
                 <g:link action="pre_publish" id="${eventInstance.id}"><g:message code="article.publish.action"/></g:link>
               </shiro:hasAnyRole>
