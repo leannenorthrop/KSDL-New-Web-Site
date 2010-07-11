@@ -33,6 +33,7 @@ class VenueController {
             try {
 				venueInstance.publishState = "Unpublished"
 	            venueInstance.deleted = true
+                venueInstance.title += "(Deleted)" 	            
 	            if (!venueInstance.hasErrors() && venueInstance.save()) {
 	                flash.message = "Venue ${venueInstance.name} deleted"
 	            }
@@ -78,12 +79,22 @@ class VenueController {
             venueInstance.properties = params
 			if (venueInstance.addresses) {
 				def _toBeDeleted = venueInstance.addresses.findAll {it._deleted}
+    			def _toBeSaved = venueInstance.addresses.findAll {!it._deleted}    			
+    			if (_toBeSaved) {
+    			    _toBeSaved.each{
+    			        it.save()}
+    			}				
 				if (_toBeDeleted) {
 					venueInstance.addresses.removeAll(_toBeDeleted)
 				}
 			}
 			if (venueInstance.emails) {
 				def _toBeDeleted = venueInstance.emails.findAll {it._deleted}
+    			def _toBeSaved = venueInstance.emails.findAll {!it._deleted}    			
+    			if (_toBeSaved) {
+    			    _toBeSaved.each{
+    			        it.save()}
+    			}				
 				if (_toBeDeleted) {
 					venueInstance.emails.removeAll(_toBeDeleted)
 				}

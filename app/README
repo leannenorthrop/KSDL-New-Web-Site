@@ -10,9 +10,11 @@ mvn grails:run-app
 
 3. Databases
 ===============================================================================
-1. Hypersonic
+3.1 Hypersonic Database
 
-3.1 Setting up database 
+java -classpath ./lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:./db/mydb --dbname.0 xdb &
+
+3.2 MYSQL Database 
 -------------------------------------------------------------------------------
 install mysql
 start mysql (e.g. mysqld --user=...)
@@ -27,9 +29,15 @@ cd ./db/dist
 mysql -h localhost -u londonsamyedzong -p londonsamyedzong < backup.sql
 
 3.2 Backups
-mysqldump --no-data -u [username] -p [databasename] > structurebackup.sql
+mysqldump --no-data -u londonsamyedzong -p londonsamyedzong > structurebackup.sql
 mysqldump  --max_allowed_packet=800M -u londonsamyedzong -p londonsamyedzong image | gzip > image.sql.gz
 
     Tomcat 5.5
 ================================================================================
 Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly if not using sun java.
+
+Upgrade
+scp ./target/ROOT-1.0.6-SNAPSHOT.zip root@84.234.17.49:/home/londonsamyedzong/Versions/ROOT-1.0.6-SNAPSHOT.zip
+ssh root@84.234.17.49
+cd /home/londonsamyedzong/
+./upgrade.sh

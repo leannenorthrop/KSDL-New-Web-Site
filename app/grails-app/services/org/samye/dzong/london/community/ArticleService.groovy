@@ -22,6 +22,7 @@ class ArticleService {
 	
 	def addHeadersAndKeywords(model, request, response) {
 		if (model) {
+		    def allTags = [] as Set
 			try {
 				def result = model.groupBy {
 					try {
@@ -49,7 +50,6 @@ class ArticleService {
 				}
 				response.setHeader("ETag", "W\"${etag}\"")
 						
-				def allTags = [] as Set
 				articles.each {
 					if (it.tags) {
 						allTags.addAll it.tags
@@ -57,9 +57,10 @@ class ArticleService {
 						""
 					}
 				}
-				model << [keywords:allTags]
 			} catch(error) {
-				log.error "Unable to fetch keywords/last published date", error
+				log.warn "Unable to fetch keywords/last published date", error
+			} finally {
+				model.put('keywords',allTags)
 			}
 		}		
 	}

@@ -2,10 +2,12 @@ package org.samye.dzong.london.wellbeing
 
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.events.Event
+import org.samye.dzong.london.community.Teacher
 
 class WellbeingController {
     def articleService
     def eventService
+    def teacherService    
 
     def index = {
         redirect(action:home)
@@ -16,7 +18,8 @@ class WellbeingController {
         def articles = Article.featuredWellbeingArticles('datePublished','desc').list()
         def totalWellbeing = Article.allWellbeingArticlesNotOrdered().count()
         def events = Event.wellbeing('featured','desc').list()
-		def model = [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events]
+        def therapists = Teacher.findAllByPublishStateAndType('Published', 'T',[sort: "name", order: "asc"])        
+		def model = [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events,therapists:therapists]
 		articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }

@@ -42,7 +42,12 @@
         <g:each in="${articles}" status="i" var="articleInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
+              <shiro:hasAnyRole in="['Author','Administrator']">    
               <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
+              </shiro:hasAnyRole>
+              <shiro:lacksAllRoles in="['Author','Administrator']">
+              ${fieldValue(bean: articleInstance, field: 'title')}
+              </shiro:lacksAllRoles>              
             </td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
             <shiro:hasAnyRole in="['Administrator']">

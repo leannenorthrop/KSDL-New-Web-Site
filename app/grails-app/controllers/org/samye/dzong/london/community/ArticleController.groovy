@@ -24,7 +24,6 @@
 package org.samye.dzong.london.community
 
 import org.apache.shiro.SecurityUtils
-import com.burtbeckwith.grails.twitter.service.*
 
 /**
  *
@@ -32,7 +31,6 @@ import com.burtbeckwith.grails.twitter.service.*
 class ArticleController {
     def userLookupService
     def articleService
-    def twitterService
 
     def index = {
         if (params.tags) {
@@ -158,6 +156,7 @@ class ArticleController {
             }
             articleInstance.publishState = "Unpublished"
             articleInstance.deleted = true
+            articleInstance.title += "(Deleted)" 
             if (!articleInstance.hasErrors() && articleInstance.save()) {
                 flash.message = "Article ${articleInstance.title} deleted"
                 redirect(action: manage)
@@ -284,12 +283,6 @@ class ArticleController {
             }
             if (!articleInstance.hasErrors() && articleInstance.save()) {
                 if (isFirstPublish) {
-                    try {
-
-                        twitterService.setStatus("We've just published ${articleInstance.title}.'", [username: 'lsdci', password: 'change!t']);
-                    } catch (error) {
-
-                    }
                 }
                 println "Published article. Publish date set to ${articleInstance.datePublished}"
                 flash.message = "Article ${articleInstance.title} has been Published"
@@ -381,11 +374,6 @@ class ArticleController {
             articleInstance.deleted = false
             if (!articleInstance.hasErrors() && articleInstance.save()) {
                 if (isFirstPublish) {
-                    try {
-                        twitterService.setStatus("We've just published ${articleInstance}.'", [username: 'lsdci', password: 'change!t']);
-                    } catch (error) {
-
-                    }
                 }
                 flash.message = "Article ${articleInstance.title} has been moved to ${articleInstance.publishState}"
                 redirect(action: manage)

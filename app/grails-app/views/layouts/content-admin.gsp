@@ -39,15 +39,15 @@
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/manage', file: 'screen.css')}"/>
     <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
-    <g:javascript library="jquery"/>
-    <g:javascript src="jquery/jquery-ui-1.8.rc2.min.js"/>
+    <g:javascript src="jquery/jquery-1.4.2.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
     <g:javascript src="jquery/jquery.validate.min.js"/>
     <g:layoutHead/>
   </head>
   <body class="contentAdmin" style="min-width:50em">
     <div class="container_16">
       <div class="grid_16 pagetitle">
-          <g:set var="logoId" value="${Setting.findByName('Logo').value}"/>
+          <g:set var="logoId" value="${Setting.findByName('Logo')?.value ?: 1}"/>
           <g:set var="logo" value="${Image.get(logoId)}"/>
         <g:if test="${logo}">
          <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" width="75px" title="${logo.name}" alt="${logo.name}"/>

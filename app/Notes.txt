@@ -3,70 +3,85 @@ TODO
 http://code.google.com/p/lsd-website/issues/entry
 
 ================================================================================
-                        FOR 31/03/2010
+                        To Do
 ================================================================================
-4. Fixes
-    - Events
-        - dont display more unless some
-        - featured before regular
-    - About Us
-        - Teacher
-            - force toString to figure out title
-    - News Pages
-        - CSS
-            - Labels - link
-            - Headings
-        - ensure can't create news page without publish date ticked
-        - add categories when searching for similar articles (check labels)
-        - finish theme uploading
-    - Meditation Page
-        - All Article list should not include links to Read More...
-    - Css
-        - external site link
-        - color ratios
-		- move around
-        - News and goings on title
-        - about us links and teacher pages
-        - min height for page content
-        - min height for list of summaries
-        - remove change theme in footer
-        - fix width of front page kwick box		
-    - Register
-        - Add jquery validation
-        - Add jquery form css
-        - Ensure email exists
-        - Add captcha
-    - When deleting items add (Deleted) to name/title to get around unique constraint
-    - Fix linking in png images.
-    - home page & featured
-    - add notes
-    - Twitter
-        - add urls
-    - check email and twitter settings
-    - In page form for email news letter
-    - Venue
-         - Center Closure
-         - Feedback
-         - Room Hire
-         - Newsletter archive
-    - Therapists & Therapies
-    - URL mappings
-    - Users
-        - Delete users
-        - Email as username check, password size
-        - Functional test for login with wrong username, sign out, and passwords do not match
-        - Shiro User password size
-        - Make usernames comparison ignore case
-        - Move common code into separate service class
-        - Move common test code into separate class
-        - Move email content into templates    
-    - Profile
-    - caching facebook
-    - Highlight new articles in editor view
-    - Add Icons for Actions    
+- product
+    - preview menu
+    - autocomplete menu categories?
+- search    
+- slideshow ratio 16:9
+- textile embedding
+    - youtube
+    - flash
+    - donation button
+    - flickr slideshow
+- default event/article images (always image present)    
+- List of links editor
+    - sign up email followed by donation
+- room hire in footer and about us
+- donate - about us and shop
+- Keyword/tag/labels manager
+- Image search & filtering
+- article manage shopmanager role
+- calendar view for events?
+
+- Events
+    - dont display more unless some
+    - featured before regular
+- News Pages
+    - CSS
+        - Labels - link
+        - Headings
+    - ensure can't create news page without publish date ticked
+    - add categories when searching for similar articles (check labels)
+    - finish theme uploading
+- Meditation Page
+    - All Article list should not include links to Read More...	
+- Register
+    - Add jquery validation
+    - Add jquery form css
+    - Ensure email exists
+    - Add captcha
+- When deleting items add (Deleted) to name/title to get around unique constraint
+- Fix linking in png images.
+- home page & featured
+- add notes
+- check email settings
+- In page form for email news letter
+- Venue
+     - Feedback
+     - Room Hire
+     - Newsletter archive
+- URL mappings
+- Users
+    - Delete users
+    - Email as username check, password size
+    - Functional test for login with wrong username, sign out, and passwords do not match
+    - Shiro User password size
+    - Make usernames comparison ignore case
+    - Move common code into separate service class
+    - Move common test code into separate class
+    - Move email content into templates    
+- Profile
+- caching facebook
+- Highlight new articles in editor view
+- Add Icons for Actions    
 5. Remove checks for Administrator role and give 'Admin' all roles
 6. Privacy and Cookies
 
+
+================================================================================
+    Design
+================================================================================
+    - external site link
+    - color ratios
+	- move around
+    - News and goings on title
+    - about us links and teacher pages
+    - min height for page content
+    - min height for list of summaries
+    - fix width of front page kwick box
+    
 ================================================================================
     For Release
 ================================================================================
@@ -78,6 +93,7 @@ http://code.google.com/p/lsd-website/issues/entry
 6. error pages
 7. Commenting/documentation - check out grails documentation
 8. Database performance
+stress test for 400
 
 ================================================================================
     Niceties
@@ -111,30 +127,3 @@ mvn grails:run-app -Dgrails.env=test
         - Edit article
         - After publish
         - After archive
-        
-================================================================================
-    Tomcat 5.5
-================================================================================
-Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly if not using sun java.
-
-================================================================================
-    Building
-================================================================================
-export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
-mvn install -Dmaven.test.skip=true
-
-================================================================================
-    Setting up database 
-================================================================================
-install mysql
-start mysql (e.g. mysqld --user=northrl
-mysql -h localhost -u root -p
-CREATE USER 'londonsamyedzong'@'localhost' IDENTIFIED BY 'change!t';
-GRANT ALL PRIVILEGES ON *.* TO 'londonsamyedzong'@'localhost' WITH GRANT OPTION;
-CREATE DATABASE londonsamyedzong;
-GRANT ALL ON londonsamyedzong.* TO 'londonsamyedzong'@'localhost';
-mysql -h localhost -u londonsamyedzong -p londonsamyedonzg < migrate.sql 
-
-mysqldump --no-data -u [username] -p [databasename] > structurebackup.sql
-mysqldump  --max_allowed_packet=800M -u londonsamyedzong -p londonsamyedzong image | gzip > image.sql.gz
-

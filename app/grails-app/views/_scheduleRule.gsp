@@ -42,7 +42,7 @@
     <div id="${prop}Weekly" style="height:13em;width:90%;">
         <g:select name="ruleweeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all" value="${rule?.interval}"/>
         <g:each var="day" in="${['MO','TU','WE','TH','FR','SA','SU']}">
-            <g:if test="${rule?.modifier.contains(day)}">
+            <g:if test="${rule?.modifier?.contains(day)}">
             <input type="checkbox" name="ruleweekly${day}" class="ruleweekly${day}" checked="yes"/><g:message code="${day}"/>            
             </g:if>
             <g:else>

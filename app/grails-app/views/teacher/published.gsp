@@ -48,7 +48,7 @@
         <g:each in="${teachers}" status="i" var="teacher">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
-              <g:link action="show" id="${teacher.id}">${fieldValue(bean: teacher, field: 'name')}</g:link>
+              <g:link action="show" id="${teacher.id}">${teacher}</g:link>
             </td>
             <td><g:message code="${'teacher.category.' + teacher?.type}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.datePublished}"/></td>

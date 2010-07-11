@@ -50,12 +50,21 @@
             </g:else>
           </h3>
 
-          <g:set var="startdate"><g:formatDate date="${rule?.startDate}" type="date" format="d MMM yyyy"/></g:set>
-          <g:set var="enddate"><g:formatDate date="${rule?.endDate}" type="date" format="d MMM yyyy"/></g:set>
+          <g:set var="startdate"><g:formatDate date="${rule?.startDate}" format="d MMMM yyyy"/></g:set>
+          <g:set var="enddate"><g:formatDate date="${rule?.endDate}" format="d MMMM yyyy"/></g:set>
           <g:set var="days" value="${rule?.getDays().sort()}"/>
 
           <g:if test="${!rule?.isRule}">
-            <h4>${startdate}</h4>
+            <g:if test="${rule?.isSeveral()}">
+            <h4>
+                <g:each var="d" in="${event.dates}">
+                    <g:formatDate date="${d?.startDate}" format="d MMMM yyyy"/>,
+                </g:each>
+            </h4>
+            </g:if>
+            <g:else>
+            <h4>${startdate}</h4>            
+            </g:else>
           </g:if>
           <g:else>
             <g:if test="${rule?.isDaily()}">

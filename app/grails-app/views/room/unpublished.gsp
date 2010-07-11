@@ -45,7 +45,12 @@
         <g:each in="${rooms}" status="i" var="room">
             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                 <td>
-                    <g:link action="edit" id="${room.id}">${room}</g:link>
+                    <shiro:hasAnyRole in="['Author','Administrator']">    
+                    <g:link action="edit" id="${room.id}">${fieldValue(bean: room, field: 'title')}</g:link>
+                    </shiro:hasAnyRole>
+                    <shiro:lacksAllRoles in="['Author','Administrator']">
+                    ${fieldValue(bean: room, field: 'title')}
+                    </shiro:lacksAllRoles>                    
                 </td>
                 <td>${room?.venue?.name}</td>
                 <td><g:message code="${room?.forHire ? 'true' : 'false'}"/></td>                

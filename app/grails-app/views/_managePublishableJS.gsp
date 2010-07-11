@@ -31,11 +31,10 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 
-<g:javascript>
+<jq:jquery>
   var currentTabIndex = 0;
   var currentTabDiv;
   var tabsId = "#${tabsId}";
-  $(function() {
     $('a.step').live('click', function() {
       $(tabsId).tabs('url', currentTabIndex, this.href);
       $(currentTabDiv).load(this.href);
@@ -59,13 +58,13 @@
     $(tabsId).tabs({
       fx: { opacity: 'toggle' },
       select: function(event, ui) {
-        currentTabDiv = $(ui.panel);
-        currentTabIndex = $(tabsId).tabs('option', 'selected');
-      },
-      load: function(event, ui) {
-        currentTabDiv = $(ui.panel);
-        currentTabIndex = $(tabsId).tabs('option', 'selected');
-      }
+          currentTabDiv = $(ui.panel);
+          currentTabIndex = $(tabsId).tabs('option', 'selected');
+        },
+        load: function(event, ui) {
+          currentTabDiv = $(ui.panel);
+          currentTabIndex = $(tabsId).tabs('option', 'selected');
+        }      
+      
     });
-  });
-</g:javascript>
+</jq:jquery>

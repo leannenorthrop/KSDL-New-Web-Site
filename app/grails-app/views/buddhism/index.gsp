@@ -31,19 +31,18 @@
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
     <div class="grid_4">
-      <div class="col2_20_Percent">
-         <g:render template="/thumbslideshow" model="[images:images,relUrl:'slideshow']"/>
+        <g:render template="/slideshowLink" model="[album:album,relUrl:'slideshow']"/>
         <div class="box">
           <h2><g:message code="meditation.resources"/></h2>
           <ul class="menu">
             <li class="menuitem"><g:link action="list"><g:message code="meditation.articles"/></g:link></li>
           </ul>
         </div>
-      </div>
     </div>
     <div class="clear"></div>
 
     <div class="grid_4">
+      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.category.L', controller: 'buddhism', action:'teacher']"/>        
         <g:render template="/articlelist" model="[articles:articles,controller:'buddhism',action:'view',total:total,moreAction:'list',heading:'buddhism.articles.title']"/>
     </div>
     <div class="grid_12">

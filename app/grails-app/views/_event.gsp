@@ -32,8 +32,8 @@
 <div class="grid_12">
   <div class="grid event">
     <div class="grid_4 ${event?.category}" style="overflow-x: hidden;">
-      <g:set var="startdate"><joda:format style="M-" date="${rule?.startDate}"/></g:set>
-      <g:set var="enddate"><joda:format style="M-" date="${rule?.endDate}"/></g:set>
+      <g:set var="startdate"><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></g:set>
+      <g:set var="enddate"><g:formatDate format="dd-MM-yyyy" date="${rule?.endDate}"/></g:set>
       <g:set var="days" value="${rule?.getDays().sort()}"/>
 
       <g:if test="${!rule?.isRule}">

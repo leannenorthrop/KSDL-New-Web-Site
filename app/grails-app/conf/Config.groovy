@@ -110,12 +110,6 @@ environments {
         }
         grails.serverURL = "http://www.londonsamyedzong.org"
         grails.full.stacktrace=true
-        log4j = {
-            appenders {
-               'null' name:'stacktrace'
-               file name:'file', file:"/var/log/tomcat5/lsd.log"
-            }
-        }
         fileuploader {
             themes {
                 maxSize = 1000 * 1024 * 4 //4 mbytes

@@ -46,7 +46,12 @@
           <g:set var="rule" value="${eventInstance?.dates.toArray()[0]}"/>
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
+              <shiro:hasAnyRole in="['Author','Administrator']">    
               <g:link action="edit" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
+              </shiro:hasAnyRole>
+              <shiro:lacksAllRoles in="['Author','Administrator']">
+              ${fieldValue(bean: eventInstance, field: 'title')}
+              </shiro:lacksAllRoles>
             </td>
             <td><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></td>
             <td><g:message code="${'publish.category.' + eventInstance?.category}"/></td>

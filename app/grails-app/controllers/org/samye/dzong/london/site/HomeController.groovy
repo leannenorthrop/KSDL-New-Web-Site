@@ -11,8 +11,13 @@ class HomeController {
 	def flickrService
 
     def index = {
-	    def ss = Setting.homeSlideshow().list()
-		def images = flickrService.getSmallPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
+		def album
+		try {
+		    def ss = Setting.homeSlideshow().list()
+			album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
+		} catch(error) {
+			
+		}
         def articles = Article.homeArticles("datePublished", "desc").list()
         def meditationArticles = articles.findAll { it.category == 'M'}
         def communityArticles = articles.findAll { it.category == 'C'}
@@ -22,7 +27,7 @@ class HomeController {
 		def topArticles = articles.findAll { it.title == 'About Us'}
         def events = Event.homePage('lastUpdated', 'asc').list()
 		
-        def model = [topArticles:topArticles, images: images, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
+        def model = [topArticles:topArticles, album: album, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
 		articleService.addHeadersAndKeywords(model,request,response)
 		model
     }

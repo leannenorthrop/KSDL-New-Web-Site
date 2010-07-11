@@ -24,17 +24,17 @@ class MeditationController {
             log.error("Meditation controller encountered an error.",error)
         }
 
-		def images = []
+		def album
 		try {
 		    def ss = Setting.meditationSlideshow().list()
-			images = flickrService.getSmallPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
+			album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
 		} catch(error) {
 			
 		}
 
         def total = Article.allMeditationArticlesNotOrdered.count();
         def events = Event.meditation('featured','desc').list()
-		def model = [images: images, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total]
+		def model = [album: album, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total]
 		articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)
     }

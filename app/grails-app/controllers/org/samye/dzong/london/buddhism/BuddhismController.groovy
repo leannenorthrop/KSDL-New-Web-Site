@@ -3,11 +3,13 @@ package org.samye.dzong.london.buddhism
 import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.Setting
+import org.samye.dzong.london.community.Teacher
 
 class BuddhismController {
     def articleService
     def eventService
     def flickrService
+    def teacherService
 
     def index = {
         redirect(action:home)
@@ -18,16 +20,17 @@ class BuddhismController {
         def articles = Article.featuredBuddhismArticles('datePublished','desc').list()
         def total = Article.allBuddhismArticlesNotOrdered().count()
         def events = Event.buddhism('featured','desc').list()
+        def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
 
-		def images = []
+		def album
 		try {
 		    def ss = Setting.buddhistSlideshow().list()
-			images = flickrService.getSmallPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
+			album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
 		} catch(error) {
 			
 		}
 		
-		def model = [images:images,topArticles: topArticles, articles: articles,total:total,events:events]
+		def model = [album:album,topArticles: topArticles, articles: articles,total:total,events:events,teachers:lineageTeachers]
 		articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }
@@ -75,4 +78,31 @@ class BuddhismController {
 		def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         model: [album:album]
     }
+    
+	def teacher = {
+        def teacher = Teacher.get(params.id)
+        if (!teacher) {
+            // TODO: render 404
+            redirect(uri: '/')
+        }
+        else {
+            /* TODO link in articles that mention the teacher
+            def aboutUsArticles = articleService.publishedByTags(['about us']);
+            aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
+            if (model['articles']) {
+                def articles = model['articles']
+                articles << aboutUsArticles
+            } else {
+                model['articles'] = aboutUsArticles
+            }*/
+            def events = teacherService.events(params.id);
+            def articles = []
+            if (teacher.name == 'Community'){
+                articles = articleService.publishedByTags(['about us']);
+            }
+            def model = [teacher: teacher, id: params.id, events:events, articles:articles]
+			articleService.addHeadersAndKeywords(model,request,response)
+			model
+        }		
+	}    
 }

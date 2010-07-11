@@ -31,6 +31,6 @@ class Price {
     static constraints = {
         currency(blank:false)
         price(blank:false)
-        category(blank:false,inList:['F','O','S','M'])
+        category(blank:false,inList:['F','O','S','M','D'])
     }
 }

@@ -152,6 +152,7 @@ class TeacherController {
             }
             teacher.publishState = "Unpublished"
             teacher.deleted = true
+            teacher.title += "(Deleted)" 
             if (!teacher.hasErrors() && teacher.save()) {
                 flash.message = "teacher.deleted"
                 flash.args = [teacher];

@@ -38,7 +38,7 @@
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
     <div class="grid_4">
-      <g:render template="/thumbslideshow" model="[images:images,relUrl:'slideshow']"/>
+      <g:render template="/slideshowLink" model="[album:album,relUrl:'slideshow']"/>      
       <div class="box">
         <h2><g:message code="meditation.resources"/></h2>
         <ul class="menu">

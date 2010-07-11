@@ -177,6 +177,10 @@ ul.menu ul li a {
     padding-left: 30px;
 }
 
+ul.menu ul li ul li a {
+    padding-left: 60px;
+}
+
 /* section menus
 ----------------------------------------------- */
 ul li.first {

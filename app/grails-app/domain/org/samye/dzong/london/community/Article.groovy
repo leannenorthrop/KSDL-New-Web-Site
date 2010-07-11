@@ -243,6 +243,42 @@ class Article extends Publishable {
             order("${orderCol}", "${orderDir}")
         }
 
+         allShopArticlesNotOrdered {
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'S'
+        }
+
+        allShopArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'S'
+            order("${orderCol}", "${orderDir}")
+        }
+        
+        allNonFeaturedShopArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'S'
+            eq 'featured', Boolean.FALSE            
+            order("${orderCol}", "${orderDir}")
+        }        
+
+        featuredShopArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'S'
+            eq 'featured', Boolean.TRUE
+            order("${orderCol}", "${orderDir}")
+        }
+
+        homeShopArticles { final orderCol, final orderDir ->
+            eq 'home', Boolean.TRUE
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', 'Published'
+            eq 'category', 'S'
+            order("${orderCol}", "${orderDir}")
+        }
     }
 
     static mapping = {

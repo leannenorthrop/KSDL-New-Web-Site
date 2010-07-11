@@ -49,7 +49,6 @@ class EventController {
     //flash.message = "${message(code: 'default.updated.message', args: [message(code: 'event.label', default: 'Event'), event.id])}"
     def userLookupService
     def eventService
-    def twitterService
     def emailService
 	def articleService
 
@@ -428,11 +427,6 @@ class EventController {
 
             if (!event.hasErrors() && event.save()) {
                 if (isFirstPublish) {
-                    try {
-                        twitterService.setStatus("We've just published ${event.title}.'", [username: 'lsdci', password: 'change!t']);
-                    } catch (error) {
-
-                    }
                 }
                 flash.message = "Event ${event.title} has been Published"
                 redirect(action: manage)
@@ -589,11 +583,6 @@ class EventController {
             event.deleted = false
             if (!event.hasErrors() && event.save()) {
                 if (isFirstPublish) {
-                    try {
-                        twitterService.setStatus("We've just published ${event}.'", [username: 'lsdci', password: 'change!t']);
-                    } catch (error) {
-
-                    }
                 }
                 flash.message = "Event ${event.title} has been moved to ${event.publishState}"
                 redirect(action: manage)
