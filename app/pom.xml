@@ -66,7 +66,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.0.8</version>
-            <scope>provided</scope>
         </dependency>
         <!--dependency>
             <groupId>javassist</groupId>
@@ -166,7 +165,6 @@
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail</artifactId>
             <version>1.3.1b</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.fortuna.ical4j</groupId>
@@ -281,62 +279,6 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>${basedir}/web-app</directory>
-                            <includes>
-                                <!--include>css/**/*</include-->
-                                <include>images/**/*</include>
-                                <include>*.ico</include>
-                            </includes>
-                            <excludes>
-                                <exclude>css/**/*</exclude>
-                                <exclude>js/**</exclude>
-                                <exclude>META-INF/**</exclude>
-                                <exclude>WEB-INF/**</exclude>
-                            </excludes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                        <fileset>
-                            <directory>${basedir}/db</directory>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                        <fileset>
-                            <directory>${basedir}/plugins</directory>
-                            <excludes>
-                                <exclude>*.zip</exclude>
-                            </excludes>
-                            <includes>
-                                <include>grails-audit-logging-0.5.2/**</include>
-                                <include>grails-code-coverage-1.1.7/**</include>
-                                <include>grails-feeds-1.5/**</include>
-                                <include>grails-functional-test-1.2.7/**</include>
-                                <include>grails-hibernate-1.2.2/**</include>
-                                <include>grails-ic-alendar-0.2.1/**</include>
-                                <include>grails-joda-time-0.5/**</include>
-                                <include>grails-jquery-1.4.1.1/**</include>
-                                <include>grails-magic-numbers-0.2.2/**</include>
-                                <include>grails-mail-0.9/**</include>
-                                <include>grails-pretty-date-0.1/**</include>
-                                <include>grails-quartz-0.4.1/**</include>
-                                <include>grails-shiro-1.0.1/**</include>
-                                <include>grails-taggable-0.6.1/**</include>
-                                <include>grails-tomcat-1.2.1/**</include>
-                                <include>grails-twitter-0.2/**</include>
-                                <include>image-tools-1.0.4/**</include>
-                                <include>file-uploader-1.1/**</include>
-                            </includes>
-                            <followSymlinks>false</followSymlinks>
-                        </fileset>
-                    </filesets>
-                </configuration>
             </plugin>
         </plugins>
     </build>
