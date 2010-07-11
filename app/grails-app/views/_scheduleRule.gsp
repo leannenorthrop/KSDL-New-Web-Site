@@ -74,6 +74,8 @@
     <g:set var="firstWeekInterval"/>
     <g:set var="oneDays" value="${[]}"/>    
     <g:set var="twoDays" value="${[]}"/>    
+    <g:set var="oneInterval"/>
+    <g:set var="twoInterval"/>
     <g:each in="${matcher}" var="weekModifiers" status="i">
         <g:set var="weekInterval" value="${weekModifiers.split()[0]}"/>            
         <g:set var="weekDay" value="${weekModifiers.split()[1]}"/>     
@@ -81,11 +83,21 @@
             <g:set var="firstWeekInterval" value="${weekModifiers.split()[0]}"/>                                                                
         </g:if>
         <g:if test="${firstWeekInterval == weekInterval}">
-            <g:set var="oneInterval" value="weekInterval"/>
+            <g:if test="${weekInterval == '1-'}">
+                <g:set var="oneInterval" value="5"/>            
+            </g:if>
+            <g:else>
+                <g:set var="oneInterval" value="${Integer.valueOf(weekInterval[0..0])}"/>
+            </g:else>
             <g:set var="oneDays" value="${oneDays << weekDay}"/>
         </g:if>        
         <g:else>
-            <g:set var="twoInterval" value="weekInterval"/>        
+            <g:if test="${weekInterval == '1-'}">
+                <g:set var="twoInterval" value="5"/>            
+            </g:if>
+            <g:else>
+                <g:set var="twoInterval" value="${Integer.valueOf(weekInterval[0..0])}"/>
+            </g:else>       
             <g:set var="twoDays" value="${twoDays << weekDay}"/>
         </g:else>
     </g:each>    
@@ -93,6 +105,8 @@
     <g:set var="twoids"><g:each in="${twoDays}">"rulemonthlytwo${it}",</g:each></g:set>        
     <g:set var="js">
         $("#${prop}Monthly input").val([${oneids}${twoids}]);
+        $("#rulemonthlyoneinterval").val(${oneInterval});
+        $("#rulemonthlytwointerval").val(${twoInterval});        
     </g:set>
 </g:elseif>
 <g:javascript>
