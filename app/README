@@ -1,5 +1,6 @@
 1. Build Instructions
 ===============================================================================
+export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
 mvn clean assembly:assembly 
 
 2. Running Instructions
@@ -11,14 +12,24 @@ mvn grails:run-app
 ===============================================================================
 1. Hypersonic
 
-2. Mysql
-1. Start with mysqld_safe --user=<username> &
-2. Build database:
-
+3.1 Setting up database 
+-------------------------------------------------------------------------------
+install mysql
+start mysql (e.g. mysqld --user=...)
 mysql -h localhost -u root -p
-CREATE DATABASE londonsamyedzong; (You can remove previous by DROP DATABASE londonsamyedzong;)
+CREATE USER 'londonsamyedzong'@'localhost' IDENTIFIED BY 'change!t';
+GRANT ALL PRIVILEGES ON *.* TO 'londonsamyedzong'@'localhost' WITH GRANT OPTION;
+CREATE DATABASE londonsamyedzong;
 GRANT ALL ON londonsamyedzong.* TO 'londonsamyedzong'@'localhost';
-exit
+mysql -h localhost -u londonsamyedzong -p londonsamyedonzg < migrate.sql 
 
 cd ./db/dist
 mysql -h localhost -u londonsamyedzong -p londonsamyedzong < backup.sql
+
+3.2 Backups
+mysqldump --no-data -u [username] -p [databasename] > structurebackup.sql
+mysqldump  --max_allowed_packet=800M -u londonsamyedzong -p londonsamyedzong image | gzip > image.sql.gz
+
+    Tomcat 5.5
+================================================================================
+Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly if not using sun java.
