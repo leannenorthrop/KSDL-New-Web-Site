@@ -190,14 +190,21 @@ class Event extends Publishable {
     }
 
     def getPriceList() {
-        def pricePrototype = new EventPrice(currency: Currency.getInstance("GBP"), category: 'f', price: 0.0d)
-        return LazyList.decorate(prices, FactoryUtils.prototypeFactory(pricePrototype));
+        return LazyList.decorate(prices, FactoryUtils.instantiateFactory(EventPrice.class));
     }
+    
+    def getDateList() {
+        return LazyList.decorate(dates,FactoryUtils.instantiateFactory(EventDate.class))
+    }    
 
     String toString() {
         return "${title}"
     }
 
+    def calculateDerivedValues() {
+        dates.each { it.calculateDerivedValues() }
+    }
+    
     boolean isOnDay(final date) {
         if (dates && dates[0]) {
             return dates[0].isOnDay(date)

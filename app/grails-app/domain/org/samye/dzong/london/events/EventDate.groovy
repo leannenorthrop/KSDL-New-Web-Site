@@ -24,7 +24,7 @@
 package org.samye.dzong.london.events
 
 import org.samye.dzong.london.ScheduleRule
-
+import org.joda.time.*
 class EventDate extends ScheduleRule {
 
     boolean _deleted
@@ -39,4 +39,14 @@ class EventDate extends ScheduleRule {
     static mapping = {
         sort startDate:"desc"
     }
+
+    EventDate() {
+        super()
+        println "Default constructor" + this.ruleType
+    }
+
+    EventDate(EventDate toBeCopied) {
+        super(toBeCopied)
+        println "Copy constructor" + this.ruleType        
+    }    
 }

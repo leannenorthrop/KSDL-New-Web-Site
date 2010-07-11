@@ -40,6 +40,8 @@ class EventPrice extends Price {
 
     EventPrice() {
         currency = Currency.getInstance("GBP")
+        category = 'f'
+        price = 0.0d
     }
 
     EventPrice(EventPrice toBeCopied) {

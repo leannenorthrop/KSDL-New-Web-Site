@@ -32,20 +32,6 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.edit.title"/></title>
-    <jq:jquery>
-      var container = $("#jserrors");
-      $("#editEvent").validate({
-		errorContainer: container,
-		errorLabelContainer: $("ol", container),
-		wrapper: 'li',
-        submitHandler: function(form) {
-            $("#additionalPriceHiddenFields").remove();
-            $("#additionalPriceFields").remove();
-            $("#priceTemplate").remove();
-            form.submit();
-         }		
-	});
-    </jq:jquery>
   </head>
   <body>
     <g:form name="editEvent" action="update" method="post">

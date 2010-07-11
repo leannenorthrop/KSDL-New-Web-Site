@@ -34,21 +34,6 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.create.title"/></title>
-    <jq:jquery>
-      var container = $("#jserrors");
-      $("#addevent").validate({
-        onfocusout: false,
-		errorContainer: container,
-		errorLabelContainer: $("ol", container),
-		wrapper: 'li',
-        submitHandler: function(form) {
-            $("#additionalPriceHiddenFields").remove();
-            $("#additionalPriceFields").remove();
-            $("#priceTemplate").remove();
-            form.submit();
-         }		
-	});
-    </jq:jquery>
   </head>
   <body>
     <g:form name="addevent" action="save" method="post">
@@ -62,9 +47,8 @@
 
         <g:render template="/messageBox" model="[flash: flash]"/>            
         
-        <g:render template="/editEvent" model="[event: event, rule:rule]"/>
-
-        <p class="last">&nbsp;</p>
+        <g:render template="/editEvent" model="[event: event]"/>
+        
         <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>
     </g:form>
   </body>
