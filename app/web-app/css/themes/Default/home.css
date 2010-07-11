@@ -134,12 +134,6 @@ li.rss {
     margin: 0;
 }
 
-li.twitter {
-    background: transparent url(images/Twitter.png) top left no-repeat;
-    padding: 4px 0 4px 28px;
-    margin: 0;
-}
-
 li.calendar {
     background: transparent url(images/iCal.png) top left no-repeat;
     padding: 4px 0 4px 28px;

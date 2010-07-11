@@ -29,7 +29,8 @@
 --%>
 
 <%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
-
+<g:set var="currentEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.startDate}"/></g:set>
+<g:set var="currentEndEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.endDate}"/></g:set>
 <fieldset>
     <legend>Dates</legend> 
         
@@ -52,17 +53,18 @@
     </div>
     
     <div id="between" style="display:none;height:20em;">
+         <g:message code="event.between"/> <g:textField name="startingOnDate" class="ui-corner-all" style="display: inline;width:10em" minlength="4" value="${currentEventDate}"/>          
+         <g:message code="event.and"/> <g:textField name="endingOnDate" class="ui-corner-all" style="display: inline;width:10em" minlength="4" value="${currentEndEventDate}"/>  
         <g:render template="/scheduleRule" model="[prop: 'between',rule:firstDate]"/>
     </div>
           
     <div id="always" style="display:none;height:20em;">
+        <g:message code="event.startingfrom"/> <g:textField name="startingFromDate" class="ui-corner-all" style="display: inline;width:10em" minlength="4" value="${currentEventDate}"/>          
         <g:render template="/scheduleRule" model="[prop:'always',rule:firstDate]"/>
     </div>
 
 </fieldset>
 
-<g:set var="currentEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.startDate}"/></g:set>
-<g:set var="currentEndEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.endDate}"/></g:set>
 <g:javascript>   
     var start = "${currentEventDate}".split("-");
     var end = "${currentEndEventDate}".split("-");    
@@ -81,14 +83,16 @@
         currentText: 'Today'
     });
     
-    $("#several * #startDate").datepicker({
-          dateFormat: 'dd-mm-yy',
-          defaultDate: defaultDate,
-          minDate: '0d',
-          maxDate: '+3y',
-          hideIfNoPrevNext: true,
-        currentText: 'Today'          
-      });
+    $("#several * #startDate,#between #startingOnDate,#between #endingOnDate,#always #startingFromDate").each(function(index){
+          $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            defaultDate: defaultDate,
+            minDate: '0d',
+            maxDate: '+3y',
+            hideIfNoPrevNext: true,
+            currentText: 'Today'          
+        });
+    });
   
     $("input[name$=.ruleType]").change(function() {
         $("input[name$=.ruleType]").each(function(index) {

@@ -38,14 +38,6 @@
       <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current', heading: 'news.current.title']"/>
     </div>
     <div class="grid_4">
-      <!--div id="news-notifications" class="box">
-        <h2>Keep in Touch</h2>
-        <ul>
-          <li class="email">Sign up for Email newsletter</li>
-          <li class="twitter">Follow us on Twitter</li>
-          <li class="rss"><g:link controller="feed" action="index">RSS Feeds</g:link></li>
-        </ul>
-      </div-->
       <g:render template="/shortnewslist" model="[events: archivedArticles, heading: 'archive.news.heading']"/>
     </div>
   </body>

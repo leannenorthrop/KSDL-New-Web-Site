@@ -8,7 +8,7 @@ class CommonLayoutTagLib {
     def messageSource
 
      def nav = { attrs ->
-        def navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism']
+        def navControllers = ['home', 'aboutUs', 'event', 'buddhism', 'meditation','community','wellbeing','news','shop']
 
          /*
         try {
@@ -60,7 +60,7 @@ class CommonLayoutTagLib {
 			adminControllers =['home']
 		}
 		
-        def adminClasses =[home: 'home', theme: 'theme', file:'file',article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room']
+        def adminClasses =[home: 'home', theme: 'theme', file:'file',article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room',shop:'shop']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article','room','teacher'].each () { item ->
@@ -112,9 +112,9 @@ class CommonLayoutTagLib {
 
         adminControllers << 'auth'
         def toolbar = {
-            div (class:"menuBar ui-tab-selected"){
+            div (class:"menuBar"){
                 adminControllers.each () { controller ->
-                    def max = controller == 'image' ? 50 : 10
+                    def max = controller == 'image' ? 50 : 30
                     span (class:"menuButton") {
                         def elem
                         if (controller.equals ('home')) {

@@ -231,4 +231,54 @@ class ImageController {
             render(view:'create',model:[imageInstance:imageInstance])
         }
     }
+    
+    def createProductImage = {
+        def f = request.getFile('image')     
+        def name = f.getOriginalFilename().replace('.',' ')
+        if (Image.findByName(name)) {
+            def imageInstance = Image.findByName(name)
+            render(contentType:"text/xml") {
+                product{
+                    image(name:imageInstance.name,id:imageInstance.id)
+                }
+            }            
+        } else {
+            def contentType = f?.getContentType()
+            def bytes = f?.getBytes()
+
+            def thumbnail
+            try {
+                if (contentType.toLowerCase().endsWith("png")) {
+                    bytes = imageService.pngToJpg(bytes)
+                    thumbnail = imageService.thumbnail(bytes)
+                } else {
+                    thumbnail = imageService.thumbnail(bytes)
+                }
+            } catch(error) {
+                thumbnail = []
+                contentType='image/png'
+            }
+
+            def imageInstance = new Image(params)
+            imageInstance.name = name
+            imageInstance.thumbnail = thumbnail
+            imageInstance.mimeType = contentType
+            imageInstance.image = imageService.read(imageInstance.image, imageInstance.mimeType)
+            if(!imageInstance.hasErrors() && imageInstance.save()) {
+                imageInstance.parseTags("product")
+                render(contentType:"text/xml") {
+                    product{
+                        image(name:imageInstance.name,id:imageInstance.id)
+                    }
+                }
+            }
+            else {
+                render(contentType:"text/xml") {
+                    product {
+                        image(name:imageInstance.name,id:-1)
+                    }
+                }
+            }
+        }
+    }    
 }

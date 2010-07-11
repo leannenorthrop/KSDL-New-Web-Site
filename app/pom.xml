@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.londonsamyedzong</groupId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.6-SNAPSHOT</version>
     <artifactId>app</artifactId>
     <packaging>grails-app</packaging>
     <name>London Samye Dzong Website</name>
@@ -16,22 +16,6 @@
        <system>Google Code</system>
        <url>http://code.google.com/p/lsd-website/issues</url>
     </issueManagement>
-    <ciManagement>
-       <system>hudson</system>
-       <url>http://205.143.144.244:8080/</url>
-       <notifiers>
-           <notifier>
-               <type>twitter</type>
-               <sendOnError>true</sendOnError>
-               <sendOnFailure>true</sendOnFailure>
-               <sendOnSuccess>false</sendOnSuccess>
-               <sendOnWarning>false</sendOnWarning>
-               <configuration>
-                   <address>leanne.northrop@googlemail.com</address>
-               </configuration>
-           </notifier>
-       </notifiers>
-    </ciManagement>
     <url>http://code.google.com/p/lsd-website/</url>
     <scm>
         <connection>scm:svn:http://lsd-website.googlecode.com/svn/trunk/</connection>
@@ -134,12 +118,12 @@
         </dependency>
             
         <!-- For ease of development and testing, we include the HSQLDB database. -->
-        <!--dependency>
+        <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>1.8.0.10</version>
+            <version>2.0.0</version>
             <scope>runtime</scope>
-        </dependency-->
+        </dependency>
         <!-- Use Log4J for logging. This artifact also pulls in the Log4J JAR. -->
         <dependency>
             <groupId>org.slf4j</groupId>

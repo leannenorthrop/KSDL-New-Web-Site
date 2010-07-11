@@ -5,7 +5,7 @@ class Setting {
     String value
 
     static constraints = {
-        name(nullable: false, blank: false, unique:true,inList:['DefaultTheme','SSNone', 'SSHome', 'SSMeditation','SSBuddhism','FlickrFrob','FlickrUserId','Logo'])
+        name(nullable: false, blank: false, unique:true,inList:['DefaultTheme','SSNone', 'SSHome', 'SSMeditation','SSBuddhism','FlickrFrob','FlickrUserId','Logo','ShopMenu'])
         value(nullable: false, blank: false)
     }
 

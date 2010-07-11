@@ -8,6 +8,10 @@ class Image implements Taggable {
     Date dateCreated
     Date lastUpdated
 
+    boolean _deleted
+
+    static transients = ['_deleted']
+    
     static auditable = true
 
     static constraints = {
@@ -19,6 +23,20 @@ class Image implements Taggable {
         lastUpdated(nullable:true)
     }
 
+    Image() {
+        name = 'New'
+        mimeType = "image/jpeg"
+        image = []
+        thumbnail = []
+    }
+
+    Image(Image toBeCopied) {
+        this.name = toBeCopied.name + ' Copy'
+        this.mimeType = toBeCopied.mimeType
+        this.image = toBeCopied.image
+        this.thumbnail = toBeCopied.thumbnail
+    }
+    
     String toString() {
         return "${name} (${mimeType})"
     }

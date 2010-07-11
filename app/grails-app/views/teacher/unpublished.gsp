@@ -41,7 +41,12 @@
         <g:each in="${teachers}" status="i" var="teacher">
             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                 <td>
+                    <shiro:hasAnyRole in="['Author','Administrator']">    
                     <g:link action="edit" id="${teacher.id}">${teacher}</g:link>
+                    </shiro:hasAnyRole>
+                    <shiro:lacksAllRoles in="['Author','Administrator']">
+                    ${teacher}
+                    </shiro:lacksAllRoles>                    
                 </td>
                 <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.lastUpdated}"/></td>
                 <shiro:hasAnyRole in="['Editor','Administrator']">
@@ -64,3 +69,4 @@
     </div>
 </body>
 </html>
+

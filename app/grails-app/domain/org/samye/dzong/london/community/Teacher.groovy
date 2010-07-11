@@ -100,6 +100,11 @@ class Teacher extends Publishable {
     }
 
     String toString() {
-        return name
+        if (title == 'U') {
+            return name
+        } else {
+            def locale = Locale.UK
+            return messageSource.getMessage('teacher.title.' + title + '.msg',[name].toArray(),locale)
+        }
     }
 }

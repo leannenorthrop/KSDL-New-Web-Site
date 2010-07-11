@@ -14,10 +14,12 @@ environments {
         dataSource {
             // one of 'create', 'create-drop','update'
             dbCreate = "update"
+            
             url = "jdbc:mysql://localhost:3306/londonsamyedzong"
             driverClassName = "com.mysql.jdbc.Driver"
             username = "londonsamyedzong"
             password = "change!t"
+/*
 //            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
             url = "jdbc:hsqldb:hsql://localhost/xdb"
             driverClassName = "org.hsqldb.jdbcDriver"

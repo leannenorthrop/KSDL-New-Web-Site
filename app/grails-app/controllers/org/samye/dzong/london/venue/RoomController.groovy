@@ -132,6 +132,7 @@ class RoomController {
             }
             room.publishState = "Unpublished"
             room.deleted = true
+            room.title += "(Deleted)"             
             if (!room.hasErrors() && room.save()) {
                 flash.message = "room.deleted"
                 flash.args = [room];

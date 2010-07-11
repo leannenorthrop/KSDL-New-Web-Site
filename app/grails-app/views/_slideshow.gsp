@@ -39,6 +39,6 @@
       </g:each>	      
       '${album?.images[0].src}': { caption: '${album?.images[0].name}',thumbnail: '${album?.images[0].thumbnail}' }
   };
-  var myShow = new Slideshow('show', data, {controller: true, captions: true, titles: true, height: 500, thumbnails: true, width: 600, overlap: false, delay:6000});
+  var myShow = new Slideshow.KenBurns('show', data, {controller: true, captions: true, titles: true, height: 500, thumbnails: true, width: 600, overlap: false, delay:6000});
 </g:javascript>
 </g:if>

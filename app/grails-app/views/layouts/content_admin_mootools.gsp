@@ -49,7 +49,7 @@
   <body class="contentAdmin" style="min-width:50em">
     <div class="container_16">
       <div class="grid_16 pagetitle">
-          <g:set var="logoId" value="${Setting.findByName('Logo').value}"/>
+          <g:set var="logoId" value="${Setting.findByName('Logo')?.value ?: 1}"/>
           <g:set var="logo" value="${Image.get(logoId)}"/>
         <g:if test="${logo}">
          <img src="${createLink(controller: 'image', action: 'src', id: logo.id)}" width="75px" title="${logo.name}" alt="${logo.name}"/>

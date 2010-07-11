@@ -18,6 +18,7 @@ class FlickrService {
     boolean transactional = true
 
 	def getPhotosets(id) {
+	    try {
 		def result = flickr.get( path : '/services/rest/',
 		                       query: getPhotoSetListParams(id),
 		                       contentType : TEXT,
@@ -122,7 +123,7 @@ class FlickrService {
 	
 	def getPhotoset(id) {
 		def album = new Expando()
-		
+		try {
 		def info = flickr.get( path : '/services/rest/',
 		                       query: getPhotosetInfoParams(id),
 		                       contentType : TEXT,
@@ -164,6 +165,9 @@ class FlickrService {
 			album.images = []
 			log.warn "Unable get photoset photos " + xml.err.@code + " " + xml.err.@msg
 		}
+	    } catch(error) {
+	        album.images = []
+	    }
 		
 		return album
 	}
@@ -196,15 +200,16 @@ class FlickrService {
 	}
 	
 	def getSmallPhotoset(id) {
-		def result = flickr.get( path : '/services/rest/',
-		                       query: getPhotosetParams(id),
-		                       contentType : TEXT,
-		                       headers : [Accept : 'application/xml'] )
+	    try {
+    		def result = flickr.get( path : '/services/rest/',
+    		                       query: getPhotosetParams(id),
+    		                       contentType : TEXT,
+    		                       headers : [Accept : 'application/xml'] )
 
-		def sluper = new XmlSlurper()
-		def xml = sluper.parseText(result.getText())
-		if (xml.@stat == 'ok') {
-			def photos = xml.photoset.photo
+    		def sluper = new XmlSlurper()
+    		def xml = sluper.parseText(result.getText())
+    		if (xml.@stat == 'ok') {
+    			def photos = xml.photoset.photo
 
     			def images = photos.collect { photo ->
     			    def image = new Expando()

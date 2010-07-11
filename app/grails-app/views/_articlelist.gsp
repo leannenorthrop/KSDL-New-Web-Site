@@ -45,7 +45,7 @@
             <g:set var="articleHeading" value="${articleInstance.title}"/>
           </g:if>
           <g:else>
-            <g:set var="articleHeading"><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance.name}</g:set>
+            <g:set var="articleHeading">${articleInstance}</g:set>
           </g:else>
 
           <h3>

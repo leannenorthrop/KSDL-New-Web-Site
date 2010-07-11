@@ -10,7 +10,7 @@
       <fileSet>
         <includes>
           <include>${project.basedir}/README*</include>
-        </includes>
+        </includes>      
       </fileSet>
       <fileSet>
         <directory>${project.build.directory}</directory>          

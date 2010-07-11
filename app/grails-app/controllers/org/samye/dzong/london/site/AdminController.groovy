@@ -3,6 +3,7 @@ import org.samye.dzong.london.*
 import org.samye.dzong.london.contact.EmailService
 import org.apache.shiro.SecurityUtils
 import org.samye.dzong.london.Setting
+import org.samye.dzong.london.community.Profile
 
 class AdminController {
     def emailService
@@ -46,6 +47,22 @@ class AdminController {
                 users.each() { user ->
                     def id = user.id
                     def name = user.username
+                    
+                    try {
+    			        if (user.profile == null) {
+    						def imageBytes = new File(servletContext.getRealPath('/images/user.png')).readBytes()
+    			            def profile = new Profile(publicName: 'Not Known', mimeType: 'image/png', image: imageBytes, lastLoggedIn: new Date())
+    			 			if (!profile.hasErrors() && profile.save()) {
+    							user.profile = profile
+    							user.save()
+    						} else {
+    							println profile.errors
+    						}
+    			        }			
+        			} catch(error) {
+        				log.warn "Unable to create user profile", error
+        			}
+        			                    
                     def roleValue = params["${id}-${rolename}"]
                     if ("on".equals(roleValue)) {
                         log.trace "Adding ${name} to ${rolename}"

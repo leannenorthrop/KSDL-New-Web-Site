@@ -44,6 +44,7 @@
         <ul class="menu">
           <li class="menuitem"><g:link controller="aboutUs" action="contactUs"><g:message code="footer.contact.us"/></g:link></li>
           <li class="menuitem"><g:link controller="aboutUs" action="visiting"><g:message code="footer.visit.us"/></g:link></li>
+          <li class="menuitem"><g:link controller="aboutUs" action="roomHire"><g:message code="footer.room.hire"/></g:link></li>           
           <li class="menuitem"><g:message code="teacher.heading.title"/>
               <ul>
                   <li class="menuitem"><g:link controller="aboutUs" action="lineage"><g:message code="teacher.lineage.heading.title"/></g:link></li>
@@ -83,7 +84,7 @@
     <div class="clear"></div>
 
     <div class="grid_8">
-      <g:render template="/articlelist" model="[articles:lineageTeachers, heading: 'teacher.category.L', controller: 'aboutUs', action:'teacher']"/>
+      <g:render template="/articlelist" model="[articles:visitingTeachers, heading: 'teacher.category.V', controller: 'aboutUs', action:'teacher']"/>
     </div>
 
     <div class="grid_8">

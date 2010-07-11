@@ -32,12 +32,12 @@ class AboutUsController {
 
     def index = {
         def community = Teacher.findByName('Community');
-        def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
+        def visitingTeachers = Teacher.findAllByPublishStateAndType('Published', 'V',[sort: "name", order: "asc"])
         def teachers = Teacher.findAllByPublishStateAndType('Published', 'C',[sort: "name", order: "asc"])
         teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
 		def venues = Venue.notDeleted.list()
 		def allArticles = Article.allAboutUsArticles("title", "asc").list()
-        def model = [topArticles: [community], articles: allArticles, lineageTeachers: lineageTeachers, teachers:teachers,venues:venues];
+        def model = [topArticles: [community], articles: allArticles, visitingTeachers: visitingTeachers, teachers:teachers,venues:venues];
 		articleService.addHeadersAndKeywords(model,request,response)
 		model
     }
