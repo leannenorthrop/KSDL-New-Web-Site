@@ -43,11 +43,12 @@
     </ol>
 </div>
 
-<g:render template="/editEventDetails" model="[event: event, rule:rule]"/>
+<g:set var="firstDate" value="${event.dateList[0] ?: event.dateList.get(0)}"/>
+<g:render template="/editEventDetails" model="[event: event, firstDate:firstDate]"/>
 
-<g:render template="/editEventDates" model="[event: event, rule:rule]"/>
+<g:render template="/editEventDates" model="[event: event, firstDate:firstDate]"/>
 
-<g:render template="/editEventPrices" model="[event: event, rule:rule]"/>
+<g:render template="/editEventPrices" model="[event: event]"/>
 
 <fieldset>
   <legend>Content</legend>
@@ -60,4 +61,87 @@
     <g:render template="/publishDetails" model="[articleInstance:event]"/>
     </g:if>
 </fieldset>
+
+<jq:jquery>
+    var bindDateParams = function() {
+        var startTimeHour = $("#startTimeHour").val();
+        var startTimeMin = $("#startTimeMin").val();
+        var endTimeHour = $("#endTimeHour").val();
+        var endTimeMin = $("#endTimeMin").val();  
+        var startDate = $("#startDate").val();
+        var type = $("input[name$=ruleType]:checked").val();  
+        var timefields = ''; 
+        alert(1);
+        if (type == 'several') {
+            $("#several p input:hidden").filter(function(index) {
+                var n = $(this).attr('name');
+                var a = n.match("^dateList");
+                var b = n.match('startDate');
+                return a && b;
+            }).each(function(index){
+                timefields += '<input type="hidden" name="dateList[' + index + '].startTimeHour" value="' + startTimeHour + '">';
+                timefields += '<input type="hidden" name="dateList[' + index + '].startTimeMin" value="' + startTimeMin + '">';
+                timefields += '<input type="hidden" name="dateList[' + index + '].endTimeHour" value="' + endTimeHour + '">';
+                timefields += '<input type="hidden" name="dateList[' + index + '].endTimeMin" value="' + endTimeMin + '">';                                                
+                timefields += '<input type="hidden" name="dateList[' + index + '].isRule" value="false">';   
+                timefields += '<input type="hidden" name="dateList[' + index + '].endDate" value="' + startDate + '">';                                                                                
+            }); 
+            $("#several").append(timefields);
+        } else {              
+            alert(2);            
+            $("#several p input:hidden").each(function(index) {
+                var n = $(this).attr('name');
+                if (n.match('^dateList') && !n.match('_deleted')) {
+                    $(this).remove();
+                } else if (n.match('_deleted')) {
+                    if (n.match("0")) {
+                        $(this).val('false');
+                    } else {
+                        $(this).val('true');
+                    }
+                }
+            }); 
+            alert(3);        
+            if (type == 'once') {                                
+                alert(4);
+                var selected = $("#singleDate").datepicker( 'getDate' );
+                var year = $.datepicker.formatDate('yy', selected);
+                var month = $.datepicker.formatDate('mm', selected);
+                var day = $.datepicker.formatDate('dd', selected);                                
+                
+                timefields += '<input type="hidden" name="dateList[0].startDate_year" value="' + year + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].startDate_month" value="' + month + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].startDate_day" value="' + day + '">';                                                                              
+                timefields += '<input type="hidden" name="dateList[0].isRule" value="false">';   
+                timefields += '<input type="hidden" name="dateList[0].endDate_year" value="' + year + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].endDate_month" value="' + month + '">';                                              
+                timefields += '<input type="hidden" name="dateList[0].endDate_day" value="' + day + '">';
+                                alert(timefields);
+                $("#once").append(timefields);
+            }      
+        }
+        return true;
+    };
+
+    var removeFields = function(){
+        $("#additionalPriceHiddenFields").remove();
+        $("#additionalPriceFields").remove();
+        $("#priceTemplate").remove(); 
+        $("[name^=rule]").remove();
+    };
+    var container = $("#jserrors");
+    $("form").validate({
+        onfocusout: false,
+    	errorContainer: container,
+    	errorLabelContainer: $("ol", container),
+    	wrapper: 'li',
+        submitHandler: function(form) {
+            if (bindDateParams()) {
+                removeFields();
+                form.submit();
+            }
+            return true;
+        }		
+    });    
+</jq:jquery>
 

@@ -456,36 +456,33 @@ class EventController {
                     return
                 }
             }
-            def dates = event.dates
-            def rule = dates.find {it != null}
-            def errorParams = [isError: false]
-            //handleDate(rule, params, errorParams)
-
-            if (errorParams['isError']) {
-                flash.isError = true
-                flash.message = errorParams['message']
-                flash.args = errorParams['args']
-                render(view: 'create', model: [event: event, id: params.id, rule: rule])
-            } else {
-                rule.save()
-            }
 
             event.properties = params
-			if (event.prices) {
-				def _toBeDeleted = event.prices.findAll {it._deleted}
-				if (_toBeDeleted) {
-					event.prices.removeAll(_toBeDeleted)
-				}
-			}            
+    		if (event.prices) {
+    			def _toBeDeleted = event.prices.findAll {it._deleted}
+    			if (_toBeDeleted) {
+    				event.prices.removeAll(_toBeDeleted)
+    			}
+    		}
+
+    		log.debug "******${event.dates}"
+    		if (event.dates) {
+    			def _toBeDeleted = event.dates.findAll {it._deleted}
+    			if (_toBeDeleted) {
+    				event.dates.removeAll(_toBeDeleted)
+    			}
+    		}		
+
             if (!event.hasErrors() && event.save()) {
-                flash.message = "Event ${event.title} updated"
+                flash.isError = false
+                flash.message = "Event ${event.title} created"
                 redirect(action: manage)
             }
             else {
                 flash.isError = true
                 flash.message = "event.update.error"
                 flash.args = [event]
-                render(view: 'edit', model: [event: event, id: params.id, rule: rule])
+                render(view: 'create', model: [event: event, id: params.id])
             }
         }
         else {
@@ -498,30 +495,13 @@ class EventController {
         def event = new Event()
         event.properties = params
         event.organizer = userLookupService.lookup()
-
-        def EventDate date = new EventDate()
-        date.startDate = new Date()
-        date.startTime = new TimeOfDay(9, 0)
-        date.endTime = new TimeOfDay(10, 0)
-        date.endDate = new Date()
-        date.isRule = false
-
-        return [event: event, rule: date]
+        return [event: event]
     }
 
     def save = {
         log.debug "*********${params}"
         def event = new Event()
         event.author = userLookupService.lookup()
-        def EventDate date = new EventDate()
-        date.startDate = new Date()
-        date.startTime = new TimeOfDay(9, 0)
-        date.endTime = new TimeOfDay(10, 0)
-        date.endDate = new Date()
-        date.isRule = false
-        date.save()
-        def errorParams = [isError: false]
-        //handleDate(date, params, errorParams)
 
         event.properties = params
 		if (event.prices) {
@@ -530,6 +510,14 @@ class EventController {
 				event.prices.removeAll(_toBeDeleted)
 			}
 		}
+		
+		log.debug "******${event.dates}"
+		if (event.dates) {
+			def _toBeDeleted = event.dates.findAll {it._deleted}
+			if (_toBeDeleted) {
+				event.dates.removeAll(_toBeDeleted)
+			}
+		}		
 		
         if (!event.hasErrors() && event.save()) {
             flash.isError = false
@@ -540,7 +528,7 @@ class EventController {
             flash.isError = true
             flash.message = "event.update.error"
             flash.args = [event]
-            render(view: 'create', model: [event: event, id: params.id, rule: date])
+            render(view: 'create', model: [event: event, id: params.id])
         }
     }
 

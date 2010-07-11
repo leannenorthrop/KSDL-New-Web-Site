@@ -116,15 +116,15 @@
         </label>
         <g:select name="startTimeHour" 
                   from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" 
-                  value="${rule?.startTime?.getHourOfDay()}" 
+                  value="${firstDate?.startTime?.getHourOfDay()}" 
                   noSelection="${['null':'Select Hour...']}" 
-                  class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}" id="starttime"/>
+                  class="ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
                   
         &nbsp;:&nbsp;
         
         <g:select name="startTimeMin" 
                   from="${[0,10,15,20,30,40,45]}" 
-                  value="${rule?.startTime?.getMinuteOfHour()}" 
+                  value="${firstDate?.startTime?.getMinuteOfHour()}" 
                   noSelection="${['null':'Select Minute...']}" 
                   class="required ui-corner-all ${hasErrors(bean:event,field:'startTime','errors')}"/>
 
@@ -133,16 +133,15 @@
         </label>
         <g:select name="endTimeHour" 
                   from="${new TimeOfDay().hourOfDay().getMinimumValue()..new TimeOfDay().hourOfDay().getMaximumValue()}" 
-                  value="${rule?.endTime?.getHourOfDay()}" 
+                  value="${firstDate?.endTime?.getHourOfDay()}" 
                   noSelection="${['null':'Select Hour...']}" 
-                  class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}" 
-                  id="endtime"/>
+                  class="ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
                   
         &nbsp;:&nbsp;
         
         <g:select name="endTimeMin" 
                   from="${[0,10,15,20,30,40,45]}" 
-                  value="${rule?.endTime?.getMinuteOfHour()}" 
+                  value="${firstDate?.endTime?.getMinuteOfHour()}" 
                   noSelection="${['null':'Select Minute...']}" 
                   class="required ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
       </p>  

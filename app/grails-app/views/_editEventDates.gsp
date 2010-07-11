@@ -29,172 +29,50 @@
 --%>
 
 <%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
+
+
+<g:set var="multipleDateList" value="${event.dateList.size() > 1 ? event.dateList : []}"/>
+<g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.startDate}"/></g:set>
+<g:set var="currentEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.startDate}"/></g:set>
+<g:set var="currentEndEventDate"><g:formatDate format="dd-MM-yyyy" date="${firstDate.endDate}"/></g:set>
+
 <fieldset>
     <legend>Dates</legend> 
-    
-    <g:radioGroup name="rule.type" 
-                  values="[1,2,3,4]" 
+        
+    <g:radioGroup name="event.dateList[0].ruleType" 
+                  values="['once','several','between','always']" 
                   labels="['event.once.title','event.several.title','event.regular.dates.title','event.regular.title']" 
-                  value="1" >
+                  value="${firstDate.ruleType}" >
                   <g:message code="${it.label}" />: ${it.radio}&nbsp;
     </g:radioGroup>
     
     <p></p>
     
-    <div id="d1" style="display:none;height:20em;">
-      <div id="eventDatePicker"></div>
-      <g:set var="defaultDate"><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></g:set>
-      <g:hiddenField name="eventDate" value="${defaultDate}"/>
+    <div id="once" style="display:none;height:20em;">
+        <div id="singleDate"></div>    
     </div>
     
-    <div id="d2" style="display:none;height:20em;">
+    <div id="several" style="display:none;height:20em;">
+        <g:render template="/clone" model="[propval: 'startDate',labelCode:'event.date',listName:'dateList',nextId:multipleDateList.size(),list:multipleDateList]"/>
     </div>
     
-    <div id="d3" style="display:none;height:20em;">
-        <div>
-          <label for="rule.from">
-              <g:message code="from"/>
-          </label>
-          <input type="text" 
-                 name="rule.from" 
-                 class="fromDatepicker" 
-                 style="width:auto"/>&nbsp;
+    <div id="between" style="display:none;height:20em;">
+        <g:render template="/scheduleRule" model="[prop: 'between',rule:firstDate]"/>
+    </div>
           
-          <label for="rule.until">
-              <g:message code="until"/>
-          </label>
-          <input type="text" 
-                 name="rule.until" 
-                 class="untilDatepicker" 
-                 style="width:auto"/>
-        </div>          
-         <table style="background:transparent;border:0px;">
-              <tr>
-                <td style="width:1em;"><input type="radio" name="rule.ruleType2" class="dailyradio" value="daily" checked="${rule?.isDaily()}">Daily</input></td>
-                <td style="height:2em;width:18em;">
-                  <div class="daily" style="display:${rule?.isDaily() ? 'block' : 'none'}">
-                    <g:select name="rule.dailyinterval" from="${1..6}" valueMessagePrefix="day.interval" class="ui-corner-all" value="${rule?.interval}"/>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:1em;"><input type="radio" name="rule.ruleType2" class="weeklyradio" value="weekly" checked="${rule?.isWeekly()}">Weekly</input></td>
-                <td style="height:2em;width:18em;">
-                  <div class="weekly" style="display:${rule?.isWeekly() ? 'block' : 'none'}">
-                    <g:select name="rule.weeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all" value="${rule?.interval}"/>
-                    <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-                      <input type="checkbox" name="rule.weekly.${it}" class="ruleweekly${it}"/><g:message code="${it}"/>
-                    </g:each>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:1em;"><input type="radio" name="rule.ruleType2" class="monthlyradio" value="monthly" checked="${rule?.isMonthly()}">Monthly</input></td>
-                <td style="height:13em;width:18em;">
-                  <div class="monthly" style="display:${rule?.isMonthly() ? 'block' : 'none'}">
-                    <g:select name="rule.monthlyinterval" from="${1..12}" valueMessagePrefix="month.interval" class="ui-corner-all" value="${rule?.interval}"/>
-                    <g:each in="${['one','two']}" var="instance">
-                      <p>
-                        <g:select name="rule.monthly.${instance}.interval" class="rulemonthly${instance}interval ui-corner-all" from="${1..5}" valueMessagePrefix="month"/>
-                        <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-                          <input type="checkbox" name="rule.monthly.${instance}.${it}" class="rulemonthly${instance}${it}"/><g:message code="${it}"/>
-                        </g:each>
-                      </p>
-                    </g:each>
-                  </div>
-                </td>
-              </tr>
-            </table>        
-    </div>      
-    <div id="d4" style="display:none;height:20em;">
-        <div>
-          <label><g:message code="from"/>&nbsp;<input name="rule.from" type="text" class="alwaysFrom" style="width:auto"/></label>
-        </div>          
-      <table style="background:transparent;border:0px">
-        <tr>
-          <td style="width:1em;"><input type="radio" name="rule.ruleType2" class="dailyradio" value="daily" checked="${rule?.isDaily()}">Daily</input></td>
-          <td style="height:2em;width:18em;">
-            <div class="daily" style="display:${rule?.isDaily() ? 'block' : 'none'}">
-              <g:select name="rule.dailyinterval" from="${1..6}" valueMessagePrefix="day.interval" class="ui-corner-all" value="${rule?.interval}"/>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="width:1em;"><input type="radio" name="rule.ruleType2" class="weeklyradio" value="weekly" checked="${rule?.isWeekly()}">Weekly</input></td>
-          <td style="height:2em;width:18em;">
-            <div class="weekly" style="display:${rule?.isWeekly() ? 'block' : 'none'}">
-              <g:select name="rule.weeklyinterval" from="${1..4}" valueMessagePrefix="week.interval" class="ui-corner-all" value="${rule?.interval}"/>
-              <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-                <input type="checkbox" name="rule.weekly.${it}" class="ruleweekly${it}"/><g:message code="${it}"/>
-              </g:each>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td style="width:1em;"><input type="radio" name="rule.ruleType2" class="monthlyradio" value="monthly" checked="${rule?.isMonthly()}">Monthly</input></td>
-          <td style="height:13em;width:18em;">
-            <div class="monthly" style="display:${rule?.isMonthly() ? 'block' : 'none'}">
-              <g:select name="rule.monthlyinterval" from="${1..12}" valueMessagePrefix="month.interval" class="ui-corner-all" value="${rule?.interval}"/>
-              <g:each in="${['one','two']}" var="instance">
-                <p>
-                  <g:select name="rule.monthly.${instance}.interval" class="rulemonthly${instance}interval ui-corner-all" from="${1..5}" valueMessagePrefix="month"/>
-                  <g:each in="${['MO','TU','WE','TH','FR','SA','SU']}">
-                    <input type="checkbox" name="rule.monthly.${instance}.${it}" class="rulemonthly${instance}${it}"/><g:message code="${it}"/>
-                  </g:each>
-                </p>
-              </g:each>
-            </div>
-          </td>
-        </tr>
-      </table>
+    <div id="always" style="display:none;height:20em;">
+        <g:render template="/scheduleRule" model="[prop:'always',rule:firstDate]"/>
     </div>
-    <p></p>
-</fieldset>
-<g:set var="currentEventDate"><g:formatDate format="yyyy" date="${rule?.startDate}"/>,${rule?.startDate?.getMonth()},<g:formatDate format="dd" date="${rule?.startDate}"/></g:set>
-<g:set var="currentEndEventDate"><g:formatDate format="yyyy" date="${rule?.endDate}"/>,${rule?.endDate?.getMonth()},<g:formatDate format="dd" date="${rule?.endDate}"/></g:set>
-<g:javascript>   
-      var defaultDate = new Date(${currentEventDate});
-      defaultDate.setFullYear(${currentEventDate});
-      var endDate = new Date(${currentEndEventDate});
-      endDate.setFullYear(${currentEndEventDate});
-      $(".alwaysFrom").datepicker({dateFormat: 'dd-mm-yy',defaultDate: defaultDate,minDate: '0d', maxDate: '+3y',hideIfNoPrevNext: true});
-      $(".fromDatepicker").datepicker({
-          dateFormat: 'dd-mm-yy',
-          defaultDate: defaultDate,
-          minDate: '0d',
-          maxDate: '+3y',
-          hideIfNoPrevNext: true,
-          onSelect: function(event, ui) {
-            var selected = $("#fromDatepicker").datepicker( 'getDate' );
-            //selected = $.datepicker.formatDate('dd-mm-yy', selected);
-            $('#untilDatepicker').datepicker('option', {minDate: selected});
-        }
-      });
-      $(".untilDatepicker").datepicker({dateFormat: 'dd-mm-yy',defaultDate: endDate,minDate: '0d', maxDate: '+3y',hideIfNoPrevNext: true});
-      $("input[name|=rule.type]").change(function() {
-            $("input[name|=rule.type]").each(function(index) {
-              var id = $(this).val();
-              $("#d" + id).hide();
-            });
-            var id2 = $(this).val();
-            $("#d" + id2).show();            
-        });
-      $("input[name|=rule.ruleType1]").change(function() {
-          $("input[name|=rule.ruleType1]").each(function(index) {
-            var id = $(this).val();
-            $("." + id).toggle();
-          });
-      });
-      $("input[name|=rule.ruleType2]").change(function() {
-          $("input[name|=rule.ruleType2]").each(function(index) {
-            var id = $(this).val();
-            $("." + id).hide();
-          });
-          var id2 = $(this).val();
-          $("." + id2).show();
-      });
 
-      $("#eventDatePicker").datepicker({
+</fieldset>
+
+<g:javascript>   
+    var defaultDate = new Date(${currentEventDate});
+    defaultDate.setFullYear(${currentEventDate});
+    var endDate = new Date(${currentEndEventDate});
+    endDate.setFullYear(${currentEndEventDate});
+
+    $("#singleDate").datepicker({
         showOtherMonths: false,
         dateFormat: 'dd-mm-yy',
         defaultDate: defaultDate,
@@ -202,36 +80,19 @@
         hideIfNoPrevNext: true,
         minDate: '0d',
         maxDate: '+3y',
-        stepMonths: 6,
-        onSelect: function(event, ui) {
-          var selected = $("#eventDatePicker").datepicker( 'getDate' );
-          selected = $.datepicker.formatDate('dd-mm-yy', selected);
-          $('#eventDate').attr('value', selected);
-        }
-      });
-      var defaultFormattedDate = $.datepicker.formatDate('dd-mm-yy', defaultDate);
-      var endFormattedDate = $.datepicker.formatDate('dd-mm-yy', endDate);
-      $(".alwaysFrom").attr("value",defaultFormattedDate);
-      $(".fromDatepicker").attr("value",defaultFormattedDate);
-      $(".untilDatepicker").attr("value",endFormattedDate);
+        stepMonths: 3
+    });
+  
+    $("input[name$=.ruleType]").change(function() {
+        $("input[name$=.ruleType]").each(function(index) {
+            var id = $(this).val();
+            $("#" + id).hide();
+        });
+        var id2 = $(this).val();
+        $("#" + id2).show();            
+    });
 
-  <g:if test="${rule?.isDaily()}">
-    $(".dailyradio").attr("checked","true");
-  </g:if>
-  <g:elseif test="${rule?.isWeekly()}">
-    $(".weeklyradio").attr("checked","true");
-    <g:each in="${rule?.getDays()}" var="day">
-      $("#ruleweekly${day}").attr("checked","true");
-    </g:each>
-  </g:elseif>
-  <g:else>
-    $(".monthlyradio").attr("checked","true");
-    <g:each in="${['one','two']}" var="instance" status="index">
-      $("#rulemonthly${instance}${rule?.getDays()[index]}").attr("checked","true");
-      $("#rulemonthly${instance}interval").attr("value","${rule?.getOffsets()[index]}");
-    </g:each>
-  </g:else>
-  var showDatePanel = $("input[name|=rule.type]:checked").val();
-  $("#d" + showDatePanel).show();  
+    var showDatePanel = $("input[name$=.ruleType]:checked").val();
+    $("#" + showDatePanel).show();  
 </g:javascript>
 
