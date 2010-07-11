@@ -261,8 +261,6 @@
 .contentAdmin .ui-datepicker-rtl .ui-datepicker-group { float:right; }
 .contentAdmin .ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
 .contentAdmin .ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header { border-right-width:0; border-left-width:1px; }
-.contentAdmin * .ui-datepicker-prev span { color: transparent;}
-.contentAdmin * .ui-datepicker-next span { color: transparent; }
 /* IE6 IFRAME FIX (taken from datepicker 1.5.3 */
 .contentAdmin .ui-datepicker-cover {
     display: none; /*sorry for IE5*/

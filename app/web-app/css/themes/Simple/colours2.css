@@ -47,9 +47,8 @@ h1#branding {
     font-weight: normal;
     font-size: 3em;
     text-align: left;
-	color:transparent;
     padding: .7em 1em;
-	background: rgb(194, 58, 55) url(logo.png) no-repeat 156px 6px;
+	background: rgb(194, 58, 55);
 }
 h1#branding img {
 	vertical-align:middle;
