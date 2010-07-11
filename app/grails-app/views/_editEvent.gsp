@@ -107,6 +107,8 @@
             }      
         } else {           
             var thedates = [];
+                                    
+            // For each of newly added numbers add to date array                        
             $("#several p input:hidden").each(function(index) {
                 var n = $(this).attr('name');
                 if (n.match('^dateList') && n.match('startDate')) {
@@ -115,27 +117,33 @@
                 }
             });
 
+            var startIndexOfNewItems = ${event.dateList.size()};
             $("#several p input:hidden").each(function(index) {
                 try {
                     var n = $(this).attr('name');
                     if (n.match('^dateList') && n.match('_deleted')) {
                         var i = n.substring(9, n.indexOf(']'));
-                        var selected = thedates[i].split('-');
-                        var year = selected[2];
-                        var month = selected[1];
-                        var day = selected[0];                    
-                        timefields += '<input type="hidden" name="dateList[' + i + '].startTimeHour" value="' + startTimeHour + '">';   
-                        timefields += '<input type="hidden" name="dateList[' + i + '].startTimeMin" value="' + startTimeMin + '">';                                              
-                        timefields += '<input type="hidden" name="dateList[' + i + '].endTimeHour" value="' + endTimeHour + '">';                                              
-                        timefields += '<input type="hidden" name="dateList[' + i + '].endTimeMin" value="' + endTimeMin + '">';
-                        timefields += '<input type="hidden" name="dateList[' + i + '].startDate_year" value="' + year + '">';                                              
-                        timefields += '<input type="hidden" name="dateList[' + i + '].startDate_month" value="' + month + '">';                                              
-                        timefields += '<input type="hidden" name="dateList[' + i + '].startDate_day" value="' + day + '">';                                                                              
-                        timefields += '<input type="hidden" name="dateList[' + i + '].isRule" value="false">';   
-                        timefields += '<input type="hidden" name="dateList[' + i + '].endDate_year" value="' + year + '">';                                              
-                        timefields += '<input type="hidden" name="dateList[' + i + '].endDate_month" value="' + month + '">';                                              
-                        timefields += '<input type="hidden" name="dateList[' + i + '].endDate_day" value="' + day + '">';                    
-                        $(this).remove();
+                        if (i >= startIndexOfNewItems){
+                            var selected = thedates[i-startIndexOfNewItems].split('-');
+                            var year = selected[2];
+                            var month = selected[1];
+                            var day = selected[0];                    
+                            timefields += '<input type="hidden" name="dateList[' + i + '].startTimeHour" value="' + startTimeHour + '">';   
+                            timefields += '<input type="hidden" name="dateList[' + i + '].startTimeMin" value="' + startTimeMin + '">';                                              
+                            timefields += '<input type="hidden" name="dateList[' + i + '].endTimeHour" value="' + endTimeHour + '">';                                              
+                            timefields += '<input type="hidden" name="dateList[' + i + '].endTimeMin" value="' + endTimeMin + '">';
+                            timefields += '<input type="hidden" name="dateList[' + i + '].startDate_year" value="' + year + '">';                                              
+                            timefields += '<input type="hidden" name="dateList[' + i + '].startDate_month" value="' + month + '">';                                              
+                            timefields += '<input type="hidden" name="dateList[' + i + '].startDate_day" value="' + day + '">';                                                                              
+                            timefields += '<input type="hidden" name="dateList[' + i + '].isRule" value="false">';   
+                            timefields += '<input type="hidden" name="dateList[' + i + '].endDate_year" value="' + year + '">';                                              
+                            timefields += '<input type="hidden" name="dateList[' + i + '].endDate_month" value="' + month + '">';                                              
+                            timefields += '<input type="hidden" name="dateList[' + i + '].endDate_day" value="' + day + '">';
+                            if (i > 0) {
+                                timefields += '<input type="hidden" name="dateList[' + i + '].ruleType" value="several">';
+                            }                    
+                            $(this).remove();
+                        }
                     }
                 } catch(error) {
                     

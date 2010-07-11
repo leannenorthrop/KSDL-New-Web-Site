@@ -442,8 +442,6 @@ class EventController {
     }
 
     def update = {
-        println "*********${params}"
-        
         def event = Event.get(params.id)
         if (event) {
             if (params.version) {
@@ -460,17 +458,26 @@ class EventController {
             event.properties = params
     		if (event.prices) {
     			def _toBeDeleted = event.prices.findAll {it._deleted}
+    			def _toBeSaved = event.prices.findAll {!it._deleted}    			
+    			if (_toBeSaved) {
+    			    _toBeSaved.each{
+    			        it.save()}
+    			}    			
     			if (_toBeDeleted) {
     				event.prices.removeAll(_toBeDeleted)
     			}
     		}
 
-    		log.debug "******${event.dates}"
     		if (event.dates) {
     			def _toBeDeleted = event.dates.findAll {it._deleted}
+    			def _toBeSaved = event.dates.findAll {!it._deleted}    			
+    			if (_toBeSaved) {
+    			    _toBeSaved.each{
+    			        it.save()}
+    			}
     			if (_toBeDeleted) {
     				event.dates.removeAll(_toBeDeleted)
-    			}
+    			}    			
     		}		
 
             if (!event.hasErrors() && event.save()) {

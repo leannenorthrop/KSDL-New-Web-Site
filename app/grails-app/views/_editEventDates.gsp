@@ -47,7 +47,7 @@
     </div>
     
     <div id="several" style="display:none;height:20em;">
-        <g:set var="multipleDateList" value="${event.dateList.size() > 1 ? event.dateList : []}"/>        
+        <g:set var="multipleDateList" value="${firstDate.ruleType == 'several' ? event.dateList : []}"/>        
         <g:render template="/clone" model="[propval: 'startDate',labelCode:'event.date',listName:'dateList',nextId:multipleDateList.size(),list:multipleDateList]"/>
     </div>
     
