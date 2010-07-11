@@ -37,7 +37,7 @@
 </g:else>
 <div id="${tabsId}">
   <ul>
-    <shiro:hasAnyRole in="['Author','Administrator','Editor','VenueManager','EventOrganiser']">
+    <shiro:hasAnyRole in="['Author','Administrator','Editor','EventOrganiser','ShopManager']">
     <li><a href="ajaxUnpublished${listMaxParam}"><g:message code="article.unpublished"/></a></li>
     </shiro:hasAnyRole>
     <li><a href="ajaxReady${listMaxParam}"><g:message code="article.ready"/></a></li>

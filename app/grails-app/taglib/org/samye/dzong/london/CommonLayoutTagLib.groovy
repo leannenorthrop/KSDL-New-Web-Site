@@ -55,7 +55,7 @@ class CommonLayoutTagLib {
         def adminControllers
 
 		if (SecurityUtils.subject.principal != null) {
-			adminControllers =['home', 'profile','image']
+			adminControllers =['home', 'profile','image','slideshow']
 		} else {
 			adminControllers =['home']
 		}
@@ -63,7 +63,7 @@ class CommonLayoutTagLib {
         def adminClasses =[home: 'home', theme: 'theme', file:'file',article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
-            ['article','room','teacher','slideshow'].each () { item ->
+            ['article','room','teacher'].each () { item ->
                 adminControllers << item
             }
         }
@@ -80,6 +80,12 @@ class CommonLayoutTagLib {
             }
         }
 
+        if (SecurityUtils.subject.hasRole ("ShopManager")) {
+            ['article','shop'].each () { item ->
+                adminControllers << item
+            }
+        }
+        
         if (SecurityUtils.subject.hasRole ("VenueManager")) {
             ['venue','room'].each () { item ->
                 adminControllers << item
@@ -99,7 +105,7 @@ class CommonLayoutTagLib {
         }
 
         if (SecurityUtils.subject.hasRole ("Admin")) {
-            ['settings', 'theme','article', 'venue', 'event', 'roles'].each () { item ->
+            ['settings', 'theme','article', 'image', 'venue', 'event', 'roles'].each () { item ->
                 adminControllers << item
             }
         }
@@ -172,7 +178,7 @@ class CommonLayoutTagLib {
 	                                    messageSource.getMessage ('toolbar.' + controller, null, null)
 	                                }	
 								}
-                                if (!controller.equals('venue') && SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser","Administrator","Editor"]).any()) {
+                                if (!controller.equals('venue') && SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser","Administrator","Editor","ShopManager"]).any()) {
                                     elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }

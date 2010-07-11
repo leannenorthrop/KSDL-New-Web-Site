@@ -34,6 +34,14 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="event.create.title"/></title>
+    <jq:jquery>
+      var container = $("#jserrors");
+      $("#addevent").validate({
+		errorContainer: container,
+		errorLabelContainer: $("ol", container),
+		wrapper: 'li'
+	});
+    </jq:jquery>
   </head>
   <body>
     <g:form name="addevent" action="save" method="post">
@@ -50,7 +58,7 @@
         <g:render template="/editEvent" model="[event: event]"/>
         
         <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>
-    </g:form>
+    </g:form>  
   </body>
 </html>
 

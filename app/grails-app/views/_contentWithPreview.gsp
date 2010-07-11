@@ -46,5 +46,5 @@
   $("#content-tabs").tabs({
     fx: { opacity: 'toggle' }
   });
-  $("#edit-tab textarea").blur();
+  $("#edit-tab textarea").keyup();
 </g:javascript>

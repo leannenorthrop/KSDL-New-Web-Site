@@ -19,9 +19,12 @@ environments {
             username = "londonsamyedzong"
             password = "change!t"
 //            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
-//            driverClassName = "org.hsqldb.jdbcDriver"
-//            username = "sa"
-//            password = ""
+            url = "jdbc:hsqldb:hsql://localhost/xdb"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "SA"
+            password = ""
+            dialect = org.hibernate.dialect.HSQLDialect            
+*/
             pooled = true
             dialect = org.hibernate.dialect.MySQL5InnoDBDialect
             properties {
@@ -34,6 +37,7 @@ environments {
                 maxWait = 10000
                 validationQuery = "select 1"
             }
+
         }
     }
 
@@ -51,18 +55,6 @@ environments {
         dataSource {
             dbCreate = "update"
             jndiName = "java:comp/env/jdbc/LsdDS"
-            pooled = true
-            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-            properties {
-                maxActive = 50
-                maxIdle = 25
-                minIdle = 5
-                initialSize = 5
-                minEvictableIdleTimeMillis = 60000
-                timeBetweenEvictionRunsMillis = 60000
-                maxWait = 10000
-                validationQuery = "select 1"
-            }
-        }        
+        }
     }
 }

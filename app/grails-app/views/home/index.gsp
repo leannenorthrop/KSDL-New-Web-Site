@@ -11,36 +11,6 @@
   <body>
       <div class="grid_16">
         <g:render template="/toparticles" model="[articles:topArticles]"/>
-      </div>
-      <div class="clear"></div>
-            
-      <div class="grid_12">
-        <div class="box" id="kwick-box" style="display:none;">
-            <div id="kwick">
-                <ul class="kwicks">
-                    <li>
-                        <div class="kwick one" href="#">
-                            <g:render template="/homeArticle" model="[articles:meditationArticles,controller:'meditation',action:'home']"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="kwick two" href="#">
-                            <g:render template="/homeArticle" model="[articles:communityArticles,controller:'community',action:'home']"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="kwick three" href="#">
-                            <g:render template="/homeArticle" model="[articles:buddhismArticles,controller:'buddhism',action:'home']"/>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="kwick four" href="#">
-                            <g:render template="/homeArticle" model="[articles:wellbeingArticles,controller:'wellbeing',action:'home']"/>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
     <div class="grid_4">
         <g:render template="/thumbslideshow" model="[images:images,relUrl:'home/slideshow']"/>

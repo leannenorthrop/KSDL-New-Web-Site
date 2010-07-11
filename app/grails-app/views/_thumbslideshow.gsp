@@ -29,8 +29,8 @@
   Date: 13th June, 2010, 12:54
 --}%
 <g:if test="${images && images.size() > 0}">
-<div id="show" class="slideshow" style="width:175px;height:175px"> 
-  <img src="${images[0].src}" alt="${images[0].name}" style="width:175px;height:175px;overflow:hidden"/> 
+<div id="show" class="slideshow" style="width:100px;height:100px"> 
+  <img src="${images[0].src}" alt="${images[0].name}" style="width:100px;height:100px;overflow:hidden"/> 
 </div>    
 <g:javascript>
   var data = {

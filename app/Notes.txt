@@ -29,6 +29,7 @@ http://code.google.com/p/lsd-website/issues/entry
         - about us links and teacher pages
         - min height for page content
         - min height for list of summaries
+        - remove change theme in footer
         - fix width of front page kwick box		
     - Register
         - Add jquery validation
@@ -110,6 +111,30 @@ mvn grails:run-app -Dgrails.env=test
         - Edit article
         - After publish
         - After archive
+        
+================================================================================
+    Tomcat 5.5
+================================================================================
+Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly if not using sun java.
 
+================================================================================
+    Building
+================================================================================
+export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
+mvn install -Dmaven.test.skip=true
 
+================================================================================
+    Setting up database 
+================================================================================
+install mysql
+start mysql (e.g. mysqld --user=northrl
+mysql -h localhost -u root -p
+CREATE USER 'londonsamyedzong'@'localhost' IDENTIFIED BY 'change!t';
+GRANT ALL PRIVILEGES ON *.* TO 'londonsamyedzong'@'localhost' WITH GRANT OPTION;
+CREATE DATABASE londonsamyedzong;
+GRANT ALL ON londonsamyedzong.* TO 'londonsamyedzong'@'localhost';
+mysql -h localhost -u londonsamyedzong -p londonsamyedonzg < migrate.sql 
+
+mysqldump --no-data -u [username] -p [databasename] > structurebackup.sql
+mysqldump  --max_allowed_packet=800M -u londonsamyedzong -p londonsamyedzong image | gzip > image.sql.gz
 

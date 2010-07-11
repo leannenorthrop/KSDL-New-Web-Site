@@ -19,7 +19,7 @@ class HomeController {
         def buddhismArticles = articles.findAll{ it.category == 'B'}
         def wellbeingArticles = articles.findAll { it.category == 'W'}
         def newsArticles = articles.findAll { it.category == 'N'}
-		def topArticles = articles.findAll { it.category == 'H'}
+		def topArticles = articles.findAll { it.title == 'About Us'}
         def events = Event.homePage('lastUpdated', 'asc').list()
 		
         def model = [topArticles:topArticles, images: images, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
