@@ -26,20 +26,29 @@
 
   User: Leanne Northrop
   Date: Jun 30, 2010, 23:04
+  
+  <g:hiddenField name="priceList[${i}].category" value='${price.category}'/>
+      <g:textField name="priceList[${i}].price" value="${pvalue}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/>  
+  <g:set var="pvalue"><g:formatNumber number="${price.price}" format="#,##0.00;(#,##0.00)" minIntegerDigits="1" maxFractionDigits="2" roundingMode="HALF_DOWN"/></g:set>        
+  <g:set var="priceType"><g:textField name="priceList[${i}].price" value="${pvalue}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/> </g:set>  
 --%>
 
 <%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
 <fieldset>
   <legend>Prices</legend>  
-  <g:set var="pricelabels" value="${[F: 'full',S: 'subsidize', M: 'mature',O:'other']}"/>
-  <g:each var="price" in="${event.prices}" status="i">
-    <p>
-      <label for="priceList[${i}].price"><g:message code="event.price.${pricelabels[price.category]}"/></label>
-      <g:set var="pvalue"><g:formatNumber number="${price.price}" format="#,##0.00;(#,##0.00)" minIntegerDigits="1" maxFractionDigits="2" roundingMode="HALF_DOWN"/></g:set>
-      <g:textField name="priceList[${i}].price" value="${pvalue}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/>
-      <g:hiddenField name="priceList[${i}].id" value='${price.id}'/>
-      <g:hiddenField name="priceList[${i}]._deleted" value='${false}'/>
-      <g:hiddenField name="priceList[${i}].category" value='${price.category}'/>
-    </p>
-  </g:each>
+  <g:render template="/clone" model="[propval: 'price',labelCode:'event.price',listName:'priceList',nextId:event.priceList.size(),list:event.priceList]"/>
+  
+  <div id="additionalPriceHiddenFields" style="display:none;visibility:hidden;">
+      <input type="hidden" name="category"> 
+  </div>
+  <div id="additionalPriceFields" style="display:none;visibility:hidden;">
+      <g:select name="pricecategory" from="${['F','S', 'M','O']}" valueMessagePrefix="event.price" class="category"/>
+  </div>  
+  <g:javascript> 
+    var html = $("#additionalPriceHiddenFields").html();
+    $("#priceTemplate").append(html);
+    var html2 = $("#additionalPriceFields").html(); 
+    $("p.priceDetails button.add").before(html2);    
+  </g:javascript>   
+  
 </fieldset>

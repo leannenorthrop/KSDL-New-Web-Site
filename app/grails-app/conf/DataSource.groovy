@@ -32,7 +32,7 @@ environments {
                 minEvictableIdleTimeMillis = 60000
                 timeBetweenEvictionRunsMillis = 60000
                 maxWait = 10000
-                validationQuery = "set names 'utf8'"
+                validationQuery = "select 1"
             }
         }
     }
@@ -61,7 +61,7 @@ environments {
                 minEvictableIdleTimeMillis = 60000
                 timeBetweenEvictionRunsMillis = 60000
                 maxWait = 10000
-                validationQuery = "set names 'utf8'"
+                validationQuery = "select 1"
             }
         }        
     }
