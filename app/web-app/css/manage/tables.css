@@ -6,9 +6,6 @@
 	background: rgba(233, 233, 233,0.7);
     width: 100%
 }
-.contentAdmin fieldset table, .contentAdmin table.ui-datepicker-calendar {
-    background: white;
-}
 .contentAdmin tr {
     border: 0;
 }

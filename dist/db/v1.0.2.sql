@@ -1,1 +1,0 @@
-INSERT INTO `shiro_role_permissions` (shiro_role_id,permissions_string) VALUES (3,'slideshow:*');

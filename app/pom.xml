@@ -6,7 +6,7 @@
     <groupId>org.londonsamyedzong</groupId>
     <version>1.0.4-SNAPSHOT</version>
     <artifactId>app</artifactId>
-    <packaging>war</packaging>
+    <packaging>grails-app</packaging>
     <name>London Samye Dzong Website</name>
     <organization>
        <name>Kagyu Samye Dzong London Tibetan Buddhist Centre</name>
@@ -67,11 +67,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.0.8</version>
         </dependency>
-        <!--dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.11.0.GA</version>
-        </dependency-->
         <dependency>
             <groupId>org.grails</groupId>
             <artifactId>grails-crud</artifactId>
@@ -108,34 +103,7 @@
             <artifactId>aspectjrt</artifactId>
             <version>1.6.6</version>
         </dependency>
-        <!-- Grails defaults to Ehache for the second-level Hibernate cache. -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-ehcache</artifactId>
-            <version>3.3.1.GA</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-                <artifactId>ehcache-web</artifactId>
-                <version>2.0.0</version>
-            </dependency>
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <version>2.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <!-- We have JCL-over-SLF4J instead. -->
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <!-- For ease of development and testing, we include the HSQLDB database. -->
         <!--dependency>
             <groupId>hsqldb</groupId>
@@ -169,7 +137,7 @@
         <dependency>
             <groupId>net.fortuna.ical4j</groupId>
             <artifactId>ical4j</artifactId>
-            <version>[1.0-rc2,)</version>
+            <version>1.0-rc2</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -215,9 +183,6 @@
     </pluginRepositories>
     <build>
         <finalName>ROOT</finalName>
-        <filters>
-            <filter>../src/main/filters/${user.name}.properties</filter>
-        </filters>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
@@ -249,69 +214,61 @@
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
+                    <source>1.6</source>
+                    <target>1.6</target>
                 </configuration>
-            </plugin>
+            </plugin>   
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.4</version>                 
                 <executions>
-                    <execution>
-                        <id>Fetch Design Files</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>${project.groupId}</groupId>
-                                    <artifactId>graphics</artifactId>
-                                    <version>${project.version}</version>
-                                    <type>jar</type>
-                                    <overWrite>true</overWrite>
-                                    <outputDirectory>web-app</outputDirectory>
-                                    <excludes>META-INF/**/*</excludes>
-                                    <includes>css/**/*,images/**/*</includes>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
+                  <execution>
+                    <phase>package</phase>
+                    <configuration>
+                      <tasks>
+                          <zip destfile="${project.build.directory}/ROOT.war">
+                            <zipfileset src="${project.build.directory}/${project.artifactId}-${project.version}.war">
+                                <patternset>
+                                    <exclude name="**/log4j*"/>
+                                    <exclude name="**/slf4j*"/>
+                                    <exclude name="**/mysql*"/> 
+                                    <exclude name="**/activation.jar"/>                                                                                                                    
+                                    <exclude name="**/ant-1.6.5.jar"/>                                                                                                                                                        
+                                    <exclude name="**/*-jdk14-*.jar"/>  
+                                    <exclude name="**/backport*.jar"/>                                                                                                                                                                                                                                
+                                    <exclude name="**/javassist-3.4.GA.jar"/>       
+                                    <exclude name="**/mail-1.4.jar"/>                                                                                                                                                                                                                                                                                                        
+                                  </patternset>                                    
+                            </zipfileset>
+                          </zip>
+                      </tasks>
+                    </configuration>                        
+                    <goals>
+                      <goal>run</goal>
+                    </goals>
+                  </execution>
                 </executions>
-            </plugin>
+              </plugin>             
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2-beta-5</version>
+                <configuration>
+                  <descriptors>
+                    <descriptor>${basedir}/assembly.xml</descriptor>
+                  </descriptors>
+                </configuration>  
+                 <executions>
+                      <execution>
+                        <phase>package</phase>                      
+                        <goals>
+                          <goal>single</goal>
+                        </goals>
+                      </execution>
+                    </executions>                              
+              </plugin>             
         </plugins>
     </build>
-    <profiles>
-        <profile>
-            <id>Prepare Plugins</id>
-            <activation>
-                <file>
-                  <missing>${user.dir}/plugins/image-tools-1.0.4/application.properties</missing>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                          <execution>
-                            <phase>validate</phase>
-                            <configuration>
-                              <tasks>
-                                <unzip src="${basedir}/plugins/image-tools-1.0.4.zip" dest="${basedir}/plugins"/>
-                                <unzip src="${basedir}/plugins/grails-file-uploader-1.1.zip" dest="${basedir}/plugins/grails-file-uploader-1.1"/>
-                              </tasks>
-                            </configuration>
-                            <goals>
-                              <goal>run</goal>
-                            </goals>
-                          </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
+    <profiles> 
         <profile>
             <id>tools</id>
             <activation>
