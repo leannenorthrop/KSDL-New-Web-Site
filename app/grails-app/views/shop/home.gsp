@@ -1,7 +1,7 @@
 <html>
     <head>
         <title><g:message code="shop.title"/></title>
-        <meta name="layout" content="shop">     
+        <meta name="layout" content="shopTemplate">     
     </head>
     <body>  
         <g:render template="/toparticles" model="[articles:topArticles]"/>    

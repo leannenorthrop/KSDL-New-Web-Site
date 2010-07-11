@@ -28,8 +28,10 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<g:if test="${articles}">
 <ul>
     <g:each in="${articles}" status="i" var="articleInstance">
     <li class="article"><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></li>
     </g:each>
 </ul>
+</g:if>

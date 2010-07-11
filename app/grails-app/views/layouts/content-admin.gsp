@@ -44,7 +44,7 @@
     <g:javascript src="jquery/jquery.validate.min.js"/>
     <g:layoutHead/>
   </head>
-  <body class="contentAdmin" style="min-width:50em">
+  <body class="contentAdmin" style="min-width:70em">
     <div class="container_16">
       <div class="grid_16 pagetitle">
           <g:set var="logoId" value="${Setting.findByName('Logo')?.value ?: 1}"/>

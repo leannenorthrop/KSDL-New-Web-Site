@@ -15,9 +15,24 @@ class FileController {
 	def create = {
 		[]
 	}
+	
+	def delete = {
+        def uploadedFile = UFile.findById(params.id)
+        if (uploadedFile) {
+            try{
+                uploadedFile.delete()
+            } catch(error) {
+                
+            }
+            flash.message = "file.deleted"
+            flash.args = [uploadedFile.name]
+            redirect(controller: 'manageSite', action: 'info')
+        } else {
+            redirect(controller: 'file', action: 'error')
+        }
+	}	
 
     def install = {
-		println "ok"
         def uploadedFile = UFile.findById(params.ufileId)
         if (uploadedFile) {
             flash.message = "file.installed"
