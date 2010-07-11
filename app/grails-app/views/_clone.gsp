@@ -36,7 +36,7 @@
 </p>        
 <g:each var="thing" in="${list}" status="i">
 <p class="${propval}Existing">
-    <input type="hidden" name='${listName}[${i}]._deleted' value='false'/>
+    <input type="hidden" name='${listName}[${i}]._deleted' value='false'/>   
     ${thing}
     <button class="remove ${propval}Existing" type="button">-</button>
 </p>      
@@ -44,44 +44,44 @@
 <p id="${propval}Template" style="display:none;visibility:hidden;">
     <input type="hidden" name="_deleted" value="false">     
     <input type="hidden" name="${propval}">                        
-    <button name="button" class="remove new" type="button">-</button>
+    <button name="button" class="remove ${propval}New" type="button">-</button>
 </p>
 
 <g:javascript>            
-    var nextId = ${nextId};           
-    var removeNewHandler = function() {
+    var ${propval}NextId = ${nextId};           
+    var ${propval}RemoveNewHandler = function() {
         $(this).parent().remove();  
     };
     
-    var removeExistingHandler = function() {
+    var ${propval}RemoveExistingHandler = function() {
         var deleteMe = $(this).parent().find(':hidden')
         deleteMe.val('true')
         $(this).parents("form").append(deleteMe)
         $(this).parent().remove();  
     };
     
-    var addNew = function(templateSelector,namePrefix,selector) {                                                             
+    var ${propval}AddNew = function(templateSelector,namePrefix,selector) {                                                             
       var clone = $(templateSelector).clone(true)    
       clone.find(':hidden').each(function(index) {
           var currName = $(this).attr('name');
           if (currName != "button") {
               var value = $(selector + ' .'+currName).val()
-              $(this).val(value)
+              $(this).val(value);
           }
-          $(this).attr('name', namePrefix + '[' + nextId + '].' + currName);
+          $(this).attr('name', namePrefix + '[' + ${propval}NextId + '].' + currName);
       });
       clone.removeAttr('id')
       clone.removeAttr('style')
       $(templateSelector).parent().append(clone);  
-      nextId++;
+      ${propval}NextId++;
       return clone;
     };
     
-    $("button.new").click(removeNewHandler); 
-    $("button.${propval}Existing").click(removeExistingHandler);    
+    $("button.${propval}New").click(${propval}RemoveNewHandler); 
+    $("button.${propval}Existing").click(${propval}RemoveExistingHandler);    
     $("p.${propval}Details button.add").click(function() {
        var name = $('p.${propval}Details input').val();            
-       var newHtml = addNew('#${propval}Template', '${listName}','p.${propval}Details'); 
+       var newHtml = ${propval}AddNew('#${propval}Template', '${listName}','p.${propval}Details'); 
        newHtml.find('button').before(name);
     });             
 </g:javascript>
