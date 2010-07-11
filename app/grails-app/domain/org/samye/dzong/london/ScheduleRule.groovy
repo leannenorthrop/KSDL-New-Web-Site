@@ -118,11 +118,11 @@ class ScheduleRule {
         return 'between' == ruleType
     }
     
-    boolean isSeveral() {
+    def isSeveral() {
         return 'several' == ruleType
     }  
     
-    boolean isSeveral() {
+    def isOnce() {
         return 'once' == ruleType
     }      
 

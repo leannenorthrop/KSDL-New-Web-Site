@@ -389,7 +389,7 @@ class EventController {
                 flash.isError = true
                 flash.message = errorParams['message']
                 flash.args = errorParams['args']
-                render(view: 'create', model: [event: event, id: params.id)
+                render(view: 'create', model: [event: event, id: params.id])
             }
 
             event.properties = params
