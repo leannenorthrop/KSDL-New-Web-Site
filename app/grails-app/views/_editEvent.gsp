@@ -117,7 +117,7 @@
                 }
             });
 
-            var startIndexOfNewItems = ${event.dateList.size()};
+            var startIndexOfNewItems = ${firstDate.ruleType == 'several' ? event.dateList.size() : 0};
             $("#several p input:hidden").each(function(index) {
                 try {
                     var n = $(this).attr('name');
