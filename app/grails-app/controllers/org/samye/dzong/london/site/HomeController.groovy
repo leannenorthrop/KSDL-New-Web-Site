@@ -126,7 +126,7 @@ class HomeController {
 							actions.eachWithIndex { value,index ->
 								url {
 									loc(createLink(controller:controller,action:value,absolute:true))
-									['priority','changeFreq','lastmod'].each { key ->
+									['priority','changefreq','lastmod'].each { key ->
 										if (props[key] && props[key][index]) {
 											"${key}"(props[key][index])
 										}
