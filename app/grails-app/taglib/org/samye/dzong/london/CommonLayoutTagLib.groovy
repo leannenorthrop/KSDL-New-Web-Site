@@ -55,12 +55,12 @@ class CommonLayoutTagLib {
         def adminControllers
 
 		if (SecurityUtils.subject.principal != null) {
-			adminControllers =['home', 'profile','image','slideshow']
+			adminControllers =['home', 'profile','image','slideshow','links']
 		} else {
 			adminControllers =['home']
 		}
 		
-        def adminClasses =[home: 'home', theme: 'theme', file:'file',article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room',shop:'shop']
+        def adminClasses =[home: 'home', theme: 'theme', file:'file',article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room',shop:'shop',links:'links']
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article','room','teacher'].each () { item ->
@@ -173,12 +173,12 @@ class CommonLayoutTagLib {
                             }
                         } else if (controller.equals (attrs.controller)) {
                             if ("manage".equals (attrs.action)) {
-								if (controller.equals('venue')) {
+								if (controller.equals('venue') || controller.equals('links')) {
 									elem = link (class: "${adminClasses[controller]}", controller: controller, action: "manage", params: [offset: 0, max:max],style:"color: #333;") {
 	                                    messageSource.getMessage ('toolbar.' + controller, null, null)
 	                                }	
 								}
-                                if (!controller.equals('venue') && SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser","Administrator","Editor","ShopManager"]).any()) {
+                                if (!(controller.equals('venue') || controller.equals('links'))  && SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser","Administrator","Editor","ShopManager"]).any()) {
                                     elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
                                         messageSource.getMessage ("toolbar.${controller}.create", null, null)
                                     }

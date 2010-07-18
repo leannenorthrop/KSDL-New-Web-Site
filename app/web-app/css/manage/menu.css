@@ -239,3 +239,6 @@
 .menuButton a.shopCreate {
     background: url(images/normal/shopping_cart_add_16.png) center left no-repeat;
 }
+.menuButton a.links {
+    background: url(images/normal/notepad_16.png) center left no-repeat;
+}
