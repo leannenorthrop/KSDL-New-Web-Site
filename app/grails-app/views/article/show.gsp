@@ -29,5 +29,6 @@
   </head>
   <body>
     <g:render template="/article" model="[articleInstance: articleInstance, articles:[]]"/>
+    <comments:render bean="${articleInstance}" />    
   </body>
 </html>

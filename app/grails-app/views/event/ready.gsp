@@ -42,7 +42,7 @@
           <g:sortableColumn property="title" title="${titleLabel}"/>
           <th><g:message code="event.eventDate.label"/></th>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="article.action.label"/></th>
@@ -62,14 +62,14 @@
             </td>
             <td><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
-            <shiro:hasAnyRole in="['Editor','Administrator']">
+            <shiro:hasAnyRole in="['Editor','Admin']">
               <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator','EventOrganiser']">
-                <g:link action="changeState" params="[state:'Unpublished']" id="${eventInstance.id}"><g:message code="article.unpublish.action"/></g:link>
+              <shiro:hasAnyRole in="['Admin','EventOrganiser']">
+                <g:link action="changeState" params="[state:'Ready For Publication']" id="${eventInstance.id}"><g:message code="event.ready.action"/></g:link>              
               </shiro:hasAnyRole>
-              <shiro:hasAnyRole in="['Editor','Administrator']">
+              <shiro:hasAnyRole in="['Editor','Admin']">
                 <g:link action="pre_publish" id="${eventInstance.id}"><g:message code="article.publish.action"/></g:link>
               </shiro:hasAnyRole>
               <g:link action="delete" id="${eventInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>

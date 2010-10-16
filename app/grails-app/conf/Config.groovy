@@ -48,12 +48,13 @@ grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
 grails.spring.bean.packages = []
 grails.views.javascript.library="jquery"
+grails.gorm.autoFlush=true
 
 // set per-environment serverURL stem for creating absolute links
 def logfileName = 'target/lsd.log'
 environments {
     production {
-        log.info "Environment is set to Production"
+        println "Environment is set to Production"
         logfileName = '/home/londonsamyedzong/logs/lsd.log'
         grails {
            mail {
@@ -174,7 +175,6 @@ log4j = {
            'org.codehaus.groovy.grails.plugins', // plugins
            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
            'org.springframework',
-           'org.hibernate',
            'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
            'org.quartz',
            'net.sf.ehcache',
@@ -187,11 +187,17 @@ log4j = {
            stdout:"StackTrace"
 
 
-    warn   'org.mortbay.log'
+    warn    'org.hibernate',
+            'org.mortbay.log'
 
-    trace   'org.samye'
+    trace   'org.samye',
+            'grails.app'
 }
 
 auditLog {
   actor = 'userPrincipal.name'
+}
+
+grails.commentable.poster.evaluator = { 
+    org.samye.dzong.london.ShiroUser.findByUsername(org.apache.shiro.SecurityUtils.getSubject().getPrincipal())
 }

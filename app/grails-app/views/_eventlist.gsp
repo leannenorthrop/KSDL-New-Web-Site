@@ -35,7 +35,7 @@
 
       <g:each in="${events}" status="i" var="event">
         <g:set var="rule" value="${event?.dates[0]}"/>
-        <g:set var="placementClass" value="${i == 0 ? 'first' : (i == events.size ? 'last' :'')}"/>
+        <g:set var="placementClass" value="${i == 0 ? 'first' : (i == events?.size ? 'last' :'')}"/>
         <g:set var="eventViewController"><g:message code="publish.category.controller.${event?.category}"/></g:set>
 
         <li class="event ${placementClass} ${event?.category}">

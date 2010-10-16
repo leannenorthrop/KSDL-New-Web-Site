@@ -6,7 +6,7 @@ class VenueController {
 
     def manage = {
         params.max = Math.min((params.max ? params.max.toInteger() : 10),  100)
-        render(view:'manage',model:[ venues: Venue.notDeleted().list(), total: Venue.notDeleted().count() ])
+        render(view:'manage',model:[ venues: Venue.notDeleted().list(), total: Venue.notDeletedCount().count() ])
     }
 
     def create = {

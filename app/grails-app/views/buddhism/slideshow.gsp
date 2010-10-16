@@ -32,6 +32,11 @@
     <title>${album?.title}</title>
     <meta name="layout" content="main">
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>     
+    <g:javascript library="mootools/mootools"/>
+    <g:javascript library="mootools/mootools-more"/>
+    <g:javascript library="mootools/mootools-fluid16"/>
+    <g:javascript library="mootools/slideshow"/>     
+    <g:javascript library="mootools/slideshow.kenburns"/>    
 </head>
 <body>
     <div class="grid_14" style="min-height:600px">

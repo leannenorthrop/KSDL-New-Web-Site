@@ -45,8 +45,6 @@
         <g:hiddenField name="home" value="false"/>
         <g:hiddenField name="featured" value="false"/>
 
-        <g:render template="/messageBox" model="[flash: flash]"/>            
-        
         <g:render template="/editEvent" model="[event: event]"/>
         
         <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.add.btn', default: 'Add event')}"/>

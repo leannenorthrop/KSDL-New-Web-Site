@@ -38,7 +38,7 @@
 
       <g:each in="${articles}" status="i" var="articleInstance">
 
-        <g:set var="placementClass" value="${i == 0 ? 'first' : (i == articles.size ? 'last' :'')}"/>
+        <g:set var="placementClass" value="${i == 0 ? 'first' : (i == articles?.size ? 'last' :'')}"/>
         <li class="${placementClass} article ${typeClass} ${articleInstance?.category}">
 
           <g:if test="${!(articleInstance instanceof Teacher)}">

@@ -28,7 +28,7 @@
       <thead>
         <tr>
           <g:sortableColumn property="room" title="${titleLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="room.action.label"/></th>
@@ -44,7 +44,7 @@
               <td>${fieldValue(bean: room, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator']">
+              <shiro:hasAnyRole in="['Editor','Administrator','VenueManager']">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${room.id}"><g:message code="room.unpublish.action"/></g:link>
               </shiro:hasAnyRole>
             </td>

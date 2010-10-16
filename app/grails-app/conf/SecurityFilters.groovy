@@ -10,7 +10,7 @@ class SecurityFilters {
                 if (!controllerName) return true
                 if (!actionName) return true
 
-                def allowedControllers = ['home', 'help', 'feed', 'news','meditation','community','wellbeing','buddhism','aboutUs']
+                def allowedControllers = ['home', 'help', 'feed', 'news','meditation','community','wellbeing','buddhism','aboutUs','commentable']
                 def allowedActions = ['home','frob','slideshow','view', 'index', 'src', 'thumbnail', 'welcome', 'requestPermission', 'requestRoles', 'error', 'info','list','all','query','send','calendar','events','event','current','future','regular','displayAll','display']
                 if (allowedControllers.contains(controllerName) || allowedActions.contains(actionName)){
                     return true

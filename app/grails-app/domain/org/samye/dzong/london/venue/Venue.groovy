@@ -49,6 +49,9 @@ class Venue extends Publishable {
             eq 'deleted', Boolean.FALSE
             order("name", "desc")
         }
+        notDeletedCount { 
+            eq 'deleted', Boolean.FALSE
+        }        
 	}
 
     def getAddressesList() {

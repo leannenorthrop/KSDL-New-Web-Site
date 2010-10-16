@@ -6,18 +6,28 @@ class ArticleService {
     boolean transactional = true
     def userLookupService
 
-	def handleIfNotModifiedSince(request,response) {
-		/*if (Publishable.allPublished().count() > 0) {
-			def newestPublishedItem= Publishable.allPublished().list()[0]
-			if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.datePublished.time) {
-				response.setStatus(304)
-				response.flushBuffer()
-				return				
-			}
-			response.setDateHeader('Last-Modified', newestPublishedItem.datePublished.time)
-			response.setHeader("Cache-Control", "public")				
-		}	*/
-		response.setHeader("Cache-Control", "public")	
+	def handleIfNotModifiedSince(request,response) {	
+	    try {		    
+    		if (Publishable.allPublishedNonOrdered().count() > 0) {
+    			def newestPublishedItem= Publishable.allPublished().list()[0]		    
+        		def now = new Date()
+        		now = now + 7
+        		response.setDateHeader('Expires', now.time)			
+        		response.setDateHeader('Last-Modified', newestPublishedItem.lastUpdated.time)		
+        		response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
+				    
+    			if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.lastUpdated.time) {
+    				response.setStatus(304)
+    				response.flushBuffer()
+    				return				
+    			}
+    		} 
+		} catch (error) {
+    		def now = new Date()
+    		now = now + 7
+    		response.setDateHeader('Expires', now.time)			
+    		response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")		    
+		}	
 	}
 	
 	def addHeadersAndKeywords(model, request, response) {
@@ -36,7 +46,7 @@ class ArticleService {
 				}
 				articles = articles.flatten()
 				def dates = articles.collect { 
-					it.datePublished
+					it.lastUpdated
 				}
 				def newest = dates.max()
 				if (newest) {
@@ -81,7 +91,13 @@ class ArticleService {
             tagQuery += "tl.tag.name = '${tag}' or "
         }
         tagQuery = tagQuery[0..-4] + "))"
-        def articles = Article.executeQuery("from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+        def articles = []
+        try {
+            log.debug "**params = ${params} ********** from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc"
+            articles = Article.executeQuery("from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+        } catch (error) {
+            log.error error
+        }
         return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
     }
 

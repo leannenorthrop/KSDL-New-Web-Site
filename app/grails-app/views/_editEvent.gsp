@@ -268,6 +268,12 @@
             }
             return true;
         }		
-    });    
+    });  
+    $("#image\\.id").change(function() {
+        var src = $("option:selected", this).val();
+        var href = '${createLink(controller: 'image', action:'thumbnail', id:'0')}';
+        $("#thumb_image").attr("srcid",src);
+        $("#thumb_image").attr("src",href.replace('0',src));
+    });      
 </jq:jquery>
 

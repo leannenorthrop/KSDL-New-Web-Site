@@ -50,26 +50,26 @@
             <legend>Details</legend>
       <p>
         <label for="title"><g:message code="article.title.label"/></label>
-        <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
+        <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','error')}" minlength="5"/>
       </p>
-      <span style="float:left;width: 50%;">
-          <p>
-            <label for="image.id"><g:message code="article.image.label"/></label>
-            <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-            <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-          </p>
-          <p>
-            <label for="category"><g:message code="event.category.label"/></label>
-            <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
-          </p>
-      </span>
-      <span style="float:right;width: 49%;">
-          <lsdc:thumbnail srcid="${articleInstance?.image?.id}" id="thumb_image"/>
-      </span>
-      <span class="clear"></span>
+        <span style="float:left;width: 14em;">
+            <p>
+              <label for="image.id" style="display:inline-block;width:6em;"><g:message code="article.image.label"/></label>
+              <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+              <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="ui-corner-all"/>
+            </p>
+            <p>
+              <label for="category" style="display:inline-block;width:6em;"><g:message code="article.category.label"/></label>
+              <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'category','errors')}"/>
+            </p>
+        </span>
+        <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.Setting.findByName('ThumbSize').value}">
+            <lsdc:thumbnail srcid="${articleInstance?.image?.id}" id="thumb_image"/>
+        </span>
+        <span class="clear"></span>  
       <p>
         <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="manageSite" action='textile' target="_blank">Textile</g:link> for details.</em></label>
-        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance.summary}" minlength="5"/>
+        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','error')}" value="${articleInstance.summary}" minlength="5"/>
       </p>
       </fieldset>
       <fieldset>
@@ -89,5 +89,9 @@
         </span>
       </fieldset>
     </g:form>
+      <fieldset>
+          <legend>Comments</legend>    
+          <lsdc:comments bean="${articleInstance}" />                   
+      </fieldset> 
   </body>
 </html>

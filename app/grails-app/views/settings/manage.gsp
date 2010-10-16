@@ -29,7 +29,6 @@
   </head>
   <body>
     <g:form name="settings" action="save">
-        <g:render template="/messageBox" model="[flash: flash]"/>
       <table>
         <thead>
           <tr>
@@ -60,6 +59,11 @@
               <g:elseif test="${it.name == 'SiteMessage'}">
               <td><g:textArea name="settings.${it.name}" value="${it.value}" rows="8" cols="40"/></td>
               </g:elseif>
+              <g:elseif test="${it.name.startsWith('Show')}">
+              <td><g:select name="settings.${it.name}"
+                              from="${[message(code:'true'),message(code:'false')]}"
+                              value="${message(code:it.value)}"/></td>
+              </g:elseif>              
               <g:else>
               <td><g:textField name="settings.${it.name}" value="${it.value}" /></td>
               </g:else>

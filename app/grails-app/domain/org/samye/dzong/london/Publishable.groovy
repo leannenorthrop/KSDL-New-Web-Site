@@ -23,6 +23,7 @@
 
 package org.samye.dzong.london
 import org.grails.taggable.*
+import org.grails.comments.*
 
 /**
  * All content that contains long text content should be inherited from this
@@ -44,7 +45,7 @@ import org.grails.taggable.*
  * TODO: Test
  * TODO: Change dates to joda dates
  */
-class Publishable implements Taggable {
+class Publishable implements Taggable, Commentable  {
     String publishState
     ShiroUser author
     Date datePublished
@@ -89,6 +90,10 @@ class Publishable implements Taggable {
             eq 'publishState', "Published"
             order("datePublished", "desc")
         }
+        allPublishedNonOrdered {  ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "Published"
+        }        
 	}
 
 }

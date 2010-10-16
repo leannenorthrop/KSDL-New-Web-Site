@@ -30,18 +30,18 @@
 <g:form name="${type}LinkListForm" action="${type}">
 <fieldset>
     <p class="${type}LinkOptions">
-        <label for="linkname" style="width:15em;"><g:message code="linkname.label" default="Public Name"/></label>
+        <label for="linkname"  style="display:inline-block;width:9em;"><g:message code="linkname.label" default="Public Name"/></label>
         <g:textField name="linkname" class="ui-corner-all name" style="display: inline;width:10em" minlength="4" value=""/><br/>  
-        <label for="linktype"><g:message code="linktypelabel" default="Type"/></label>
+        <label for="linktype" style="display:inline-block;width:9em;"><g:message code="linktypelabel" default="Type"/></label>
         <g:select name="linktype" from="${['I', 'E']}" valueMessagePrefix="link.type" class="type"/><br/> 
         <span class="E" style="display:none;">      
-            <label for="linkhref"><g:message code="linkname.href" default="Full URL"/></label>
+            <label for="linkhref" style="display:inline-block;width:9em;"><g:message code="linkname.href" default="Full URL"/></label>
             <g:textField name="linkhref" class="ui-corner-all href" style="display: inline;width:45em" minlength="4" value=""/>                           
         </span>
         <span class="I" style="display:inline;">
-            <label for="controller"><g:message code="link.controller" default="Section"/></label>
+            <label for="controller" style="display:inline-block;width:9em;"><g:message code="link.controller" default="Section"/></label>
             <g:select name="controller" from="${controllers}" valueMessagePrefix="link.controller" class="controller"/><br/>
-            <label for="action"><g:message code="link.action" default="Page"/></label>            
+            <label for="action" style="display:inline-block;width:9em;"><g:message code="link.action" default="Page"/></label>            
             <g:select name="action" from="${[]}" class="action"/>        
         </span>
         <button class="add" type="button">+</button>

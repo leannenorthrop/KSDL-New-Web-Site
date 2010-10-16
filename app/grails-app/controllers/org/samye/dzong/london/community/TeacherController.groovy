@@ -49,7 +49,7 @@ class TeacherController {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
             model = teacherService.unpublished(params)
         } else {
             model = teacherService.userUnpublished(params)
@@ -62,7 +62,7 @@ class TeacherController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
             model = teacherService.published(params)
         } else {
             model = teacherService.userPublished(params)
@@ -75,7 +75,7 @@ class TeacherController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
             model = teacherService.archived(params)
         } else {
             model = teacherService.userArchived(params)
@@ -88,7 +88,7 @@ class TeacherController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
             model = teacherService.deleted(params)
         } else {
             model = teacherService.userDeleted(params)
@@ -103,7 +103,9 @@ class TeacherController {
     def view = {
         def teacher = Teacher.get(params.id)
         if (!teacher) {
-            // TODO: render 404
+            flash.isError = true
+            flash.message = "teacher.not.found"
+            flash.args = params.id
             redirect(uri: '/')
         }
         else {
@@ -129,6 +131,7 @@ class TeacherController {
         def teacher = Teacher.get(params.id)
 
         if (!teacher) {
+            flash.isError = true
             flash.message = "teacher.not.found"
             flash.args = params.id
             redirect(action: list)
@@ -145,6 +148,7 @@ class TeacherController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (teacher.version > version) {
+                    flash.isError = true                    
                     teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
                     redirect(action: manage)
                     return
@@ -152,19 +156,24 @@ class TeacherController {
             }
             teacher.publishState = "Unpublished"
             teacher.deleted = true
-            teacher.title += "(Deleted)" 
+            teacher.name += " (Deleted)" 
             if (!teacher.hasErrors() && teacher.save()) {
                 flash.message = "teacher.deleted"
                 flash.args = [teacher];
                 redirect(action: manage)
             }
             else {
+                flash.isError = true
+                flash.message = "teacher.delete.error"
+                flash.args = [teacher];                
+                flash.bean = teacher;                
                 redirect(action: manage)
             }
         }
         else {
             flash.message = "teacher.not.found"
             flash.args = params.id
+            flash.isError = true
             redirect(action: manage)
         }
     }
@@ -175,6 +184,7 @@ class TeacherController {
         if (!teacher) {
             flash.message = "teacher.not.found"
             flash.args = params.id
+            flash.isError = true            
             redirect(action: manage)
         }
         else {
@@ -198,18 +208,21 @@ class TeacherController {
             if (!teacher.hasErrors() && teacher.save()) {
                 flash.message = "teacher.updated"
                 flash.args = [teacher]
+                flash.bean = teacher
                 redirect(action: manage)
             }
             else {
                 flash.isError = true
                 flash.message = "teacher.update.error"
                 flash.args = [teacher]
+                flash.bean = teacher
                 render(view: 'edit', model: [teacher: teacher, id: params.id])
             }
         }
         else {
             flash.message = "teacher.not.found"
             flash.args = params.id
+            flash.isError = true            
             redirect(action: manage)
         }
     }
@@ -231,6 +244,7 @@ class TeacherController {
             flash.isError = true
             flash.message = "teacher.update.error"
             flash.args = [teacher]
+            flash.bean = teacher
             render(view: 'create', model: [teacher: teacher, id: params.id])
         }
     }
@@ -259,12 +273,16 @@ class TeacherController {
             }
             else {
                 flash.isError = true
+                flash.message = "teacher.update.error"
+                flash.args = [teacher]
+                flash.bean = teacher                
                 redirect(action: manage)
             }
         }
         else {
             flash.message = "teacher.not.found"
             flash.args = params.id
+            flash.isError = true
             redirect(action: manage)
         }
     }

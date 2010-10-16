@@ -36,6 +36,7 @@
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW,NOARCHIVE">
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/manage', file: 'screen.css')}"/>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>     
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:javascript library="mootools/mootools"/>
     <g:javascript library="mootools/mootools-more"/>

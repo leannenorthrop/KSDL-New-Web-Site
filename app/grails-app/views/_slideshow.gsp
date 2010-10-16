@@ -30,16 +30,17 @@
 --}%
 <html>
 <head>
-    <g:javascript library="mootools"/>
-    <g:javascript library="mootools-more"/>
-    <g:javascript library="mootools-fluid16"/>
-    <g:javascript library="slideshow"/>     
-    <g:javascript library="slideshow.kenburns"/>
+    <g:javascript library="mootools/mootools"/>
+    <g:javascript library="mootools/mootools-more"/>
+    <g:javascript library="mootools/mootools-fluid16"/>
+    <g:javascript library="mootools/slideshow"/>     
+    <g:javascript library="mootools/slideshow.kenburns"/>  
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>    
 </head>
 <body>
 <g:if test="${album?.images && album?.images.size() > 0}">
-<div id="show" class="slideshow" style="width:600px;height:500px"> 
-        <img src="${album?.images[0].src}" alt="${album?.images[0].name}" style="width:600px;height:500px;overflow:hidden" /> 
+    <div id="show" class="slideshow" style="width:600px;height:500px"> 
+    <img src="${album?.images[0].src}" alt="${album?.images[0].name}" style="width:600px;height:500px;overflow:hidden" /> 
 </div>    
 <g:javascript>
   var data = {

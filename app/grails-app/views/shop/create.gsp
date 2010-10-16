@@ -43,8 +43,6 @@
         <g:hiddenField name="home" value="false"/>
         <g:hiddenField name="featured" value="false"/>
         <g:hiddenField name="category" value="P"/>        
-
-        <g:render template="/messageBox" model="[flash: flash]"/>            
         
         <g:render template="/editProduct" model="[product: product]"/>
         

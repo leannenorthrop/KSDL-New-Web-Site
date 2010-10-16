@@ -52,7 +52,7 @@
           <legend>Details</legend>
       <p>
         <label for="title"><g:message code="article.title.label"/></label>
-        <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
+        <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','error')}" minlength="5"/>
       </p>
       <span style="float:left;width: 50%;">
           <p>
@@ -62,7 +62,7 @@
           </p>
           <p>
             <label for="category"><g:message code="event.category.label"/></label>
-            <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
+            <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
           </p>
       </span>
       <span style="float:right;width: 49%;">
@@ -71,7 +71,7 @@
       <span class="clear"></span>
       <p>
         <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="manageSite" action='textile' target="_blank">Textile</g:link> for details.</em></label>
-        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance?.summary}" minlength="5"/>
+        <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','error')}" value="${articleInstance?.summary}" minlength="5"/>
       </p>
       </fieldset>
       <fieldset>

@@ -41,8 +41,6 @@
         <g:hiddenField name="isRepeatable" value="false"/>
         
         <fieldset>    
-          <g:render template="/messageBox" model="[flash: flash]"/>
-
           <g:render template="/editEvent" model="[event: event,showPublication:Boolean.TRUE]"/>
 
           <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.publish.btn', default: 'Publish')}"/>

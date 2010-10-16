@@ -2,8 +2,8 @@ import org.samye.dzong.london.*
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
-import org.apache.shiro.web.SavedRequest
-import org.apache.shiro.web.WebUtils
+import org.apache.shiro.web.util.SavedRequest
+import org.apache.shiro.web.util.WebUtils
 import org.apache.shiro.crypto.hash.Sha1Hash
 import org.samye.dzong.london.contact.EmailService
 import com.icegreen.greenmail.util.*
@@ -46,16 +46,16 @@ class AuthController {
 		        } catch(error){
 					log.warn "Creating profile for new user failed",error
 				}
-                if (!newUser.hasErrors() && newUser.save()) {
-                    log.trace "New account created for ${params.username}"
-                    def baseUrl = createLink(controller:"admin", action:"requestPermission", absolute:"true").toString()
-                    emailService.sendAccountVerification(newUser.username,token,baseUrl)
-                    flash.message = 'register.success'
-                    redirect(controller: 'manageSite', action: 'welcome')
-                } else {
-                    log.info "There was a problem creating a new account for ${params.username}"
-                    flash.isError = true
-                    flash.message = 'register.success.internal.error'
+        if (!newUser.hasErrors() && newUser.save()) {
+            log.trace "New account created for ${params.username}"
+            def baseUrl = createLink(controller:"admin", action:"requestPermission", absolute:"true").toString()
+            emailService.sendAccountVerification(newUser.username,token,baseUrl)
+            flash.message = 'register.success'
+            redirect(controller: 'manageSite', action: 'welcome')
+        } else {
+            log.info "There was a problem creating a new account for ${params.username}"
+            flash.isError = true
+            flash.message = 'register.success.internal.error'
                     redirect(controller: 'manageSite', action: 'welcome')
                 }
             } catch (Exception e) {
@@ -103,7 +103,7 @@ class AuthController {
 				def user = userLookupService.lookup()
 		        if (user && user.profile) {
 		            def profile = user.profile
-					profile.lastLoggedIn = new Date()
+					      profile.lastLoggedIn = new Date()
 		        } else {
 			        if (user && user.profile == null) {
 						def imageBytes = new File(servletContext.getRealPath('/images/user.png')).readBytes()

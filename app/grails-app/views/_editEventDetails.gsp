@@ -51,31 +51,31 @@
                     value="${fieldValue(bean:event,field:'summary')}" 
                     minlength="5"/>
       </p>
-      <p>          
-        <label for="image.id">
-            <g:message code="event.image.label"/>
-        </label>
-        <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-        <g:select from="${Image.findAllByTag('event')}" 
-                  name="image.id" 
-                  value="${event?.image?.id}" 
-                  noSelection="${['null':noImgLabel]}" 
-                  optionKey="id" 
-                  optionValue="name" 
-                  class="= ui-corner-all"/>          
-      </p>
+      <span style="float:left;width: 20em;min-height:${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px">
+            <p>
+              <label for="image.id" style="display:inline-block;width:10em;"><g:message code="event.image.label"/></label>
+              <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+              <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('event')}" name="image.id" value="${event?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="ui-corner-all"/>
+            </p>
+      </span>
+      <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px; min-height:${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px">
+            <lsdc:thumbnail srcid="${teacher?.image?.id}" id="thumb_image"/>
+      </span>
+      <span class="clear"></span>  
+                  
       <p>
-          <label for="category">
+          <label for="category" style="display:inline-block;width:10em;">
               <g:message code="event.category.label"/>
           </label>
           <g:select name="category" 
-                    from="${['M','N','C','W','B']}" 
+                    from="${['M','C','W','B']}" 
                     value="${event?.category}" 
                     valueMessagePrefix="publish.category" 
                     validate="required:true, minlength:1" 
                     class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>    
-          
-          <label for="venue.id">
+      </p>
+      <p>          
+          <label for="venue.id" style="display:inline-block;width:10em;">
               <g:message code="event.venue.label"/>
           </label>
           <g:select from="${Venue.list()}" 
@@ -86,7 +86,7 @@
                     class="required ui-corner-all"/>                    
       </p>
       <p>
-        <label for="leader.id">
+        <label for="leader.id" style="display:inline-block;width:10em;">
             <g:message code="event.leader.label"/>
         </label>
         <g:set var="noSelectionLabel"><g:message code="please.select"/></g:set>
@@ -98,8 +98,9 @@
                   optionKey="id" 
                   optionValue="name" 
                   class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
-        
-        <label for="organizer.id">
+      </p>
+      <p>        
+        <label for="organizer.id" style="display:inline-block;width:10em;">
             <g:message code="event.organizer.label"/>
         </label>
         <g:set var="noSelectionLabel"><g:message code="no.img"/></g:set>
@@ -111,7 +112,7 @@
                   class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>          
       </p>
       <p>                        
-        <label for="startTimeHour">
+        <label for="startTimeHour" style="display:inline-block;width:10em;">
             <g:message code="event.starttime.label" default="Start Time"/>
         </label>
         <g:select name="startTimeHour" 

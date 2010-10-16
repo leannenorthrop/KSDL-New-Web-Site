@@ -35,7 +35,7 @@
           <th><g:message code="teacher.category"/></th>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="teacher.action.label"/></th>
@@ -65,11 +65,11 @@
             </td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.lastUpdated}"/></td>
-            <shiro:hasAnyRole in="['Editor','Administrator']">
+            <shiro:hasAnyRole in="['Editor','Admin']">
               <td>${fieldValue(bean: teacher, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator']">
+              <shiro:hasAnyRole in="['Editor','Admin']">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${teacher.id}"><g:message code="teacher.unpublish.action"/></g:link>
                 <g:link action="delete" id="${teacher.id}" onclick="${deleteConfirmLabel}"><g:message code="teacher.delete.action"/></g:link>
               </shiro:hasAnyRole>

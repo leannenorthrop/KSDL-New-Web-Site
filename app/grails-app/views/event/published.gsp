@@ -37,7 +37,7 @@
           <g:sortableColumn property="category" title="${categoryLabel}"/>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="event.action.label"/></th>
@@ -54,11 +54,11 @@
             <td><g:message code="${'publish.category.' + eventInstance?.category}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.datePublished}"/></td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
-            <shiro:hasAnyRole in="['Editor','Administrator']">
+            <shiro:hasAnyRole in="['Editor','Admin']">
               <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator']">
+              <shiro:hasAnyRole in="['Editor','Admin']">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${eventInstance.id}"><g:message code="event.unpublish.action"/></g:link>
                 <g:link action="changeState" params="[state:'Archived']" id="${eventInstance.id}"><g:message code="event.archive.action"/></g:link>
               </shiro:hasAnyRole>

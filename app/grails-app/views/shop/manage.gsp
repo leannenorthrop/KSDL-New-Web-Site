@@ -30,7 +30,6 @@
     <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
   </head>
   <body>
-    <g:render template="/messageBox" model="[flash: flash]"/>
     <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
   </body>
 </html>

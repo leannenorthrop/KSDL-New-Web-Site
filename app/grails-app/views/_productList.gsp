@@ -35,7 +35,7 @@
 
       <g:each in="${products}" status="i" var="product">
 
-        <g:set var="placementClass" value="${i == 0 ? 'first' : (i == products.size() ? 'last' :'')}"/>
+        <g:set var="placementClass" value="${i == 0 ? 'first' : (i == products?.size() ? 'last' :'')}"/>
         <li class="${placementClass}">
 
           <g:set var="productTitle">${product?.title}</g:set>

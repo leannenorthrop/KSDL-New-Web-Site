@@ -210,7 +210,7 @@ class EventController {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = eventService.unpublished(params)
         } else {
             model = eventService.userUnpublished(params)
@@ -223,7 +223,7 @@ class EventController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = eventService.published(params)
         } else {
             model = eventService.userPublished(params)
@@ -236,7 +236,7 @@ class EventController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = eventService.archived(params)
         } else {
             model = eventService.userArchived(params)
@@ -249,7 +249,7 @@ class EventController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = eventService.ready(params)
         } else {
             model = eventService.userReady(params)
@@ -262,7 +262,7 @@ class EventController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = eventService.deleted(params)
         } else {
             model = eventService.userDeleted(params)
@@ -356,6 +356,9 @@ class EventController {
             redirect(action: manage)
         }
         else {
+            if (!flash.message) {
+                flash.message = "Please ensure that a Teacher entry has been created and published under the Teachers/Therapists menu before creating a new Event. Also please ensure the selected Organizer has configured their public details by going to the Settings -> About Me menu."
+            }            
             return [event: event, id: params.id]
         }
     }
@@ -505,6 +508,9 @@ class EventController {
         def event = new Event()
         event.properties = params
         event.organizer = userLookupService.lookup()
+        if (!flash.message) {
+            flash.message = "Please ensure that a Teacher entry has been created and published under the Teachers/Therapists menu before creating a new Event. Also please ensure the selected Organizer has configured their public details by going to the Settings -> About Me menu."
+        }
         return [event: event]
     }
 

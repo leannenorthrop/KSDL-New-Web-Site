@@ -46,7 +46,9 @@
                 <g:message code="alert"/>
             </strong><br/>
             <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
-            <g:renderErrors bean="${articleInstance}" as="list"></g:renderErrors>
+            <g:if test="${flash.bean}">
+                <g:renderErrors bean="${flash.bean}" as="list"></g:renderErrors>
+            </g:if>
         </div>
     </g:if>
     <g:else>

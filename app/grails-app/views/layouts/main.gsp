@@ -95,7 +95,7 @@
                 ${title.substring(siteTitle.size()+2)}
             </g:if>
             <g:else>
-            ${title}
+                ${title}
             </g:else>
         </h2>
       </div>
