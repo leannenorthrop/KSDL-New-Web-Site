@@ -1,0 +1,61 @@
+/* forms
+----------------------------------------------- */
+form {
+    overflow: hidden;
+}
+
+fieldset {
+    padding: 10px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+legend {
+    padding: .4em .8em;
+}
+
+fieldset.login p {
+    margin-bottom: 1em;
+    margin-top: 0pt;
+}
+
+fieldset p label {
+    width: 98%;
+}
+
+fieldset p input {
+    width: 98%;
+}
+
+fieldset p select {
+    width: 99%;
+}
+
+fieldset.login p label {
+    float: left;
+    line-height: 2em;
+    margin-right: 3%;
+    text-align: right;
+    width: 32%;
+}
+
+fieldset.login p input {
+    width: 60%;
+}
+
+fieldset.login input.button {
+    margin-left: 35%;
+}
+
+form p.notice {
+    font-weight: bold;
+}
+
+input.search.text {
+    width: 66%;
+}
+
+input.search.button {
+    width: 28%;
+    margin-left: 2%;
+}

@@ -34,11 +34,8 @@
     <title><g:layoutTitle/></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="ROBOTS" content="NOINDEX, NOFOLLOW,NOARCHIVE">
-    <![if gte IE 7]>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/manage', file: 'screen.css')}"/>
-    <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>
-    <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
     <g:javascript library="mootools/mootools"/>
     <g:javascript library="mootools/mootools-more"/>

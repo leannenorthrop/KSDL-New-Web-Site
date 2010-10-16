@@ -1,0 +1,77 @@
+/*-----------------------------------------------
+Navigation
+----------------------------------------------- */
+
+/* navigation (horizontal subnavigation)
+----------------------------------------------- */
+
+div.container_16 div.banner + div.clear + div {
+	z-index:3;
+	position:relative;
+	margin-left:-5%;
+	margin-right:0;
+	width:109.35%;
+	font-weight:bold;	
+	text-align:center;
+	display:block;
+	overflow:hidden;	
+        top: -8px;
+}
+.nav {
+	width:100%;
+}
+.nav ul,.nav ul * { 
+	margin:0;
+}
+.nav ul {
+  position:relative;
+  width:100%;  
+  list-style: none !important;
+}
+.nav ul li {
+	cursor:pointer;
+	display:inline-block;
+	list-style:none;
+	padding: 0.5em 0.6em 0.3em 0.6em;		
+}
+.nav ul li a {
+	position: relative;
+	text-decoration:none;
+	text-align:left;
+	margin:0;
+	padding:0;	
+}
+
+.nav ul li a strong {
+    display: block;
+}
+
+.nav ul li a em {
+    display: none;
+}
+
+/* Shop Navigation Menu
+-----------------------------------------------------------------------------*/
+.box h2 a,
+.box h2 a.visible {
+    display: block;
+    padding: 6px 12px;
+    margin: -6px -12px;
+    border: none;
+}
+
+.box h2 a.hidden,
+.box h2 a.hidden:hover {
+    background-image: url("../img/switch_plus.gif");
+}
+.grid_4 .box h2 a {
+    background-position: 97% 50%;
+}
+
+.grid_5 .box h2 a {
+    background-position: 98% 50%;
+}
+
+.grid_12 .box h2 a {
+    background-position: 99% 50%;
+}

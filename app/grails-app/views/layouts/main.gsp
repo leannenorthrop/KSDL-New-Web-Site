@@ -50,7 +50,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="ROBOTS" content="ALL" />
-    <meta name="google-site-verification" content="bTJswZnvIBsrjhqIxlpIXIfvXa_wn7McR9PbSgwo_4Q" />	 
     <meta name="keywords" content="${keywords?.join(',')}" />
     <![if gte IE 7]>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>

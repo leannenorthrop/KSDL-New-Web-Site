@@ -1,0 +1,60 @@
+/* ----------------------------------------------------------------------------
+    Content Style not including images, font, or colours 
+---------------------------------------------------------------------------- */
+
+/* General Positioning & Sizing
+-----------------------------------------------------------------------------*/
+* {
+    word-wrap:break-word;
+    text-overflow: ellipsis;
+}
+body {
+    min-width: 960px;
+    overflow-x: auto;
+}
+
+.container_16 {
+	position: relative;
+}
+
+
+/* minimum height for pages with short content
+----------------------------------------------- */
+.pagecontent {    
+	min-height: 40em;
+}
+
+/* articles
+----------------------------------------------- */
+/* Top Articles on each section page */
+.grid_12 .top h3 {
+    display:none;
+}
+
+p.meta {
+    display:block;
+}
+
+#site_msg { 
+    padding: 0.6em 2.3em;
+    z-index:4;
+    position: fixed;
+    top : 25px;
+    width: 40%;
+    margin-left:30%;
+    margin-right:30%;    
+	border-radius:6px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;		
+	-o-border-radius:6px;    
+}
+#site_msg span {
+    display: block;
+    width:24px;
+    height:24px;   
+    position: relative; 
+    top: -0.3em;
+    left: -1.8em;
+    background: transparent url(images/close.png) no-repeat top left;
+    cursor:pointer;
+}
