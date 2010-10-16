@@ -29,13 +29,17 @@
     <g:javascript>
       $(function() {
         $("#publish").validate();
-      });
+        $("#image\\.id").change(function() {
+            var src = $("option:selected", this).val();
+            var href = '${createLink(controller: 'image', action:'thumbnail', id:'0')}';
+            $("#thumb_image").attr("srcid",src);
+            $("#thumb_image").attr("src",href.replace('0',src));
+        });         
+      });       
     </g:javascript>
   </head>
   <body>
     <g:form name="publish" action="publish" method="post">
-      <g:render template="/messageBox" model="[flash: flash]"/>
-
       <g:hiddenField name="id" value="${articleInstance?.id}"/>
       <g:hiddenField name="version" value="${articleInstance?.version}"/>
       <g:hiddenField name="deleted" value="${false}"/>
@@ -48,17 +52,23 @@
           <label for="title"><g:message code="article.title.label"/></label>
           <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
         </p>
+        <span style="float:left;width: 50%;">
+            <p>
+              <label for="image.id"><g:message code="article.image.label"/></label>
+              <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+              <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+            </p>
+            <p>
+              <label for="category"><g:message code="article.category.label"/></label>
+              <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}"/>
+            </p>
+        </span>
+        <span style="float:right;width: 49%;">
+            <lsdc:thumbnail srcid="${articleInstance?.image?.id}" id="thumb_image"/>
+        </span>
+        <span class="clear"></span>        
         <p>
-          <label for="image.id"><g:message code="article.image.label"/></label>
-          <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-          <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-        </p>
-        <p>
-          <label for="category"><g:message code="article.category.label"/></label>
-          <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}"/>
-        </p>
-        <p>
-          <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="help" action='textile'>Textile</g:link> for details.</em></label>
+          <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="manageSite" action='textile' target="_blank">Textile</g:link> for details.</em></label>
           <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance.summary}" minlength="5"/>
         </p>
         </fieldset>
@@ -70,10 +80,11 @@
       <fieldset>
           <legend>Publication Options</legend>
           <g:render template="/publishDetails" model="[articleInstance:articleInstance]"/>
+          <p class="last">&nbsp;</p>
+          <g:set var="submitBtnLabel"><g:message code="article.publish.btn"/></g:set>
+          <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/> 
+          <g:actionSubmit value="${message(code:'cancel')}" action="manage" class="ui-corner-all cancel"/>          
       </fieldset>
-      <p class="last">&nbsp;</p>
-      <g:set var="submitBtnLabel"><g:message code="article.publish.btn"/></g:set>
-      <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
     </g:form>
   </body>
 </html>

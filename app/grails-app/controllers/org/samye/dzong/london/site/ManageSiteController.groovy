@@ -14,7 +14,7 @@ class ManageSiteController {
         return render(view:'welcome')
     }
         
-    def home = {
+    def landing = {
 		try {
 			def user = userLookupService.lookup()
 	        if (user && user.profile == null) {

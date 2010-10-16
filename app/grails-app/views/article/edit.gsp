@@ -29,13 +29,17 @@
     <g:javascript>
       $(function() {
         $("#updatearticle").validate();
+        $("#image\\.id").change(function() {
+            var src = $("option:selected", this).val();
+            var href = '${createLink(controller: 'image', action:'thumbnail', id:'0')}';
+            $("#thumb_image").attr("srcid",src);
+            $("#thumb_image").attr("src",href.replace('0',src));
+        });        
       });
     </g:javascript>
   </head>
   <body>
     <g:form name="updatearticle" method="post" action="update">
-      <g:render template="/messageBox" model="[flash: flash]"/>
-
       <g:hiddenField name="id" value="${articleInstance?.id}"/>
       <g:hiddenField name="version" value="${articleInstance?.version}"/>
       <g:hiddenField name="publishState" value="${articleInstance?.publishState}"/>
@@ -48,17 +52,23 @@
         <label for="title"><g:message code="article.title.label"/></label>
         <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
       </p>
+      <span style="float:left;width: 50%;">
+          <p>
+            <label for="image.id"><g:message code="article.image.label"/></label>
+            <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+            <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+          </p>
+          <p>
+            <label for="category"><g:message code="event.category.label"/></label>
+            <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
+          </p>
+      </span>
+      <span style="float:right;width: 49%;">
+          <lsdc:thumbnail srcid="${articleInstance?.image?.id}" id="thumb_image"/>
+      </span>
+      <span class="clear"></span>
       <p>
-        <label for="image.id"><g:message code="article.image.label"/></label>
-        <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-      </p>
-      <p>
-        <label for="category"><g:message code="event.category.label"/></label>
-        <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
-      </p>
-      <p>
-        <label for="summary"><g:message code="article.summary.label"/></label>
+        <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="manageSite" action='textile' target="_blank">Textile</g:link> for details.</em></label>
         <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance.summary}" minlength="5"/>
       </p>
       </fieldset>
@@ -66,8 +76,17 @@
         <legend>Content</legend>
         <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:articleInstance]"/>
         <p class="last">&nbsp;</p>
-        <g:set var="submitBtnLabel"><g:message code="updatearticle.btn"/></g:set>
-        <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+        <span style="float:left;width: 75%;">
+            <g:set var="submitBtnLabel"><g:message code="updatearticle.btn"/></g:set>
+            <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+            <shiro:hasRole name="Editor">
+                <g:actionSubmit value="${message(code:'updateandpubarticle.btn')}" action="updateAndPublish" class="ui-corner-all"/>
+            </shiro:hasRole>        
+            <input type="button" class="ui-corner-all cancel" value="${message(code:'cancel')}" onclick="window.history.back();"/>   
+        </span>
+        <span style="float:right;width: 24%;">    
+            <g:actionSubmit value="${message(code:'article.delete.btn')}" action="delete" class="ui-corner-all" style="float:right;"/>
+        </span>
       </fieldset>
     </g:form>
   </body>

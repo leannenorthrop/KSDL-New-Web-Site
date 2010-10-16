@@ -106,6 +106,9 @@ div.banner h2 {
 /* ----------------------------------------------------------------------------
     Footer
 ---------------------------------------------------------------------------- */
+/*#footer {
+    background: #9c381e url(images/motif.png) no-repeat bottom right;
+}*/
 #footer .contact .address {
     color: rgb(253, 237, 196);
     color: rgba(253, 237, 196,0.8);    
@@ -146,6 +149,19 @@ div.banner h2 {
 }
 
 div.container_16 div.banner + div.clear + div {}
+
+/*
+div.container_16 div.banner + div.clear + div {
+	border-top: 1px solid #ff9933;
+	color: #ffd14f;
+	background: #9c381e;	
+	background: rgb(154, 36, 11);
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=180);
+	-webkit-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);	
+	-moz-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
+	-o-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
+}
+*/
 
 .nav ul li {
 	background: rgb(154, 36, 11) url(images/sep.png) repeat-y top right;    

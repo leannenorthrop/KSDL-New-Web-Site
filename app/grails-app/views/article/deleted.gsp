@@ -29,7 +29,7 @@
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="article.action.label"/></th>
@@ -41,7 +41,7 @@
             <td>
               <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
             </td>
-            <shiro:hasAnyRole in="['Editor','Administrator']">
+            <shiro:hasAnyRole in="['Editor','Admin']">
               <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>

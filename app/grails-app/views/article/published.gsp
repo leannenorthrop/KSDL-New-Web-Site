@@ -41,7 +41,7 @@
           <g:sortableColumn property="featured" title="${isFeaturedLabel}"/>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="article.action.label"/></th>
@@ -51,7 +51,12 @@
         <g:each in="${articles}" status="i" var="articleInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
-              <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
+                <shiro:hasRole name="Editor">
+                    <g:link action="pre_publish" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
+                </shiro:hasRole>
+                <shiro:lacksRole name="Editor">
+                    <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
+                </shiro:lacksRole>              
             </td>
             <td><g:message code="${'publish.category.' + articleInstance?.category}"/></td>
             %{--<td><g:message code="${articleInstance?.tags.join(',')}"/></td>--}%
@@ -63,10 +68,10 @@
               <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator']">
+              <shiro:hasAnyRole in="['Editor','Admin']">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${articleInstance.id}"><g:message code="article.unpublish.action"/></g:link>
                 <g:link action="changeState" params="[state:'Archived']" id="${articleInstance.id}"><g:message code="article.archive.action"/></g:link>
-                <g:link action="afterPublishEdit" id="${articleInstance.id}"><g:message code="article.afterpublishedit.action"/></g:link>
+                <g:link action="pre_publish" id="${articleInstance.id}"><g:message code="article.afterpublishedit.action"/></g:link>
                 <g:link action="delete" id="${articleInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
               </shiro:hasAnyRole>
             </td>

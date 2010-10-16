@@ -20,35 +20,30 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
-
-<%--
-  Change article publication details.
-  User: Leanne Northrop
-  Date: Feb 18, 2010,4:52:14 PM
---%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
+    <title><g:message code="passwd.change" default="Change Password"/></title>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="article.alter.title" args="${[fieldValue(bean:articleInstance,field:'title')]}"/></title>
   </head>
   <body>
-    <g:form name="publish" action="updatePublished" method="post">
-      <g:hiddenField name="id" value="${articleInstance?.id}"/>
-      <g:hiddenField name="version" value="${articleInstance?.version}"/>
-      <g:hiddenField name="deleted" value="${false}"/>
-      <g:hiddenField name="publishState" value="Published"/>
-
+    <g:form id="changePassword" name="changePassword" action="savePassword" class="ui-widget ui-corner-all" style="min-height: 20em;">
+      <g:hiddenField name="id" value="${user?.username}"/>
       <fieldset>
-          <legend>Publication Options</legend>
-              <g:render template="/publishDetails" model="[articleInstance:articleInstance]"/>
-      </legend>
-      <p class="last">&nbsp;</p>
-      <g:set var="submitBtnLabel"><g:message code="article.publish.btn"/></g:set>
-      <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+          <legend><g:message code="passwd.change" default="Change Password"/></legend>
+          <p>
+            <label for="password"><g:message code="passwd.un.new"/></label>
+            <g:passwordField name="password" value="" class="required ui-corner-all"/>
+          </p>
+          <p>
+            <label for="password2"><g:message code="passwd.un.new.again"/></label>
+            <g:passwordField name="password2" value="" class="required ui-corner-all"/>
+          </p>
+          <p class="last">&nbsp;</p>
+          <g:set var="submitBtnLabel"><g:message code="passwd.save.btn"/></g:set>
+          <g:submitButton name="changePasswordBtn" value="${submitBtnLabel}" id="changePasswordBtn" class="ui-corner-all"/>
+        </fieldset>
     </g:form>
   </body>
 </html>
-
-
 
