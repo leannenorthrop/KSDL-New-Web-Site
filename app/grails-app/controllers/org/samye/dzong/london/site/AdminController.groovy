@@ -14,77 +14,6 @@ class AdminController {
         redirect(controller: "manageSite", action: "home")
     }
 
-    def roles = {
-        log.trace "Looking up Users and Roles"
-        def users = userLookupService.allUsers();
-        def roles = userLookupService.allRoles();
-        log.trace "Removing Admin role"
-        roles = roles.findAll { item ->
-            item.name != 'Admin'
-        }
-
-        try {
-          def adminRole = ShiroRole.findByName('Admin')
-          users = users.findAll{ item ->
-              !item.roles.find { role -> role == adminRole}
-          }
-        } catch(error) {
-          log.warn "Unabled to find Admin role...skipping"
-        }
-        log.trace "Rendering assignRoles with ${users.size()} users and ${roles.size()}"
-        render(view: 'assignRoles', model:[users: users, roles:roles]);
-    }
-
-    // TODO: need optimisitic locking checks
-    def assignRoles = {
-        log.trace "Assigning roles to users (no locking checks)"
-        def users = userLookupService.allUsers();
-        def roles = userLookupService.allRoles();
-        try {
-          roles.each() { role ->
-              def rolename = role.name
-              if (rolename != 'Admin') {
-                users.each() { user ->
-                    def id = user.id
-                    def name = user.username
-                    
-                    try {
-    			        if (user.profile == null) {
-    						def imageBytes = new File(servletContext.getRealPath('/images/user.png')).readBytes()
-    			            def profile = new Profile(publicName: 'Not Known', mimeType: 'image/png', image: imageBytes, lastLoggedIn: new Date())
-    			 			if (!profile.hasErrors() && profile.save()) {
-    							user.profile = profile
-    							user.save()
-    						} else {
-    							println profile.errors
-    						}
-    			        }			
-        			} catch(error) {
-        				log.warn "Unable to create user profile", error
-        			}
-        			                    
-                    def roleValue = params["${id}-${rolename}"]
-                    if ("on".equals(roleValue)) {
-                        log.trace "Adding ${name} to ${rolename}"
-                        user.addToRoles(role)
-                    } else {
-                        log.trace "Removing ${name} from ${rolename}"
-                        user.removeFromRoles(role)
-                    }
-                }
-              }
-          }
-          flash.message = "role.perm.success"
-          flash.isError = false
-          redirect(action: 'roles')
-        } catch (error) {
-          log.error "Could not save permission changes ", error
-          flash.message = "role.perm.failure"
-          flash.isError = true
-          redirect(action: 'roles')
-        }
-    }
-
     def requestPermission = {
         log.trace "Request to set account permissions for ${params.id}"
         def user = ShiroUser.findByPasswordReset(params.id)
@@ -134,29 +63,4 @@ class AdminController {
             redirect(controller: 'manageSite', action: 'error')
         }
     }
-
-	def settings = {
-		def flickrUserSetting = Setting.findByName('Logo')
-		if (!flickrUserSetting) {
-			flickrUserSetting = new Setting(name: 'Logo', value: 1)
-			flickrUserSetting.save()
-		} 		
-		model: [settings: Setting.list()]
-	}
-	
-	def save = {
-	    log.debug "Saving settings"
-		params.settings.each { key,value ->
-		    try {
-		        log.debug "Looking for ${key}"
-    			def setting = Setting.findByName(key)
-    			setting.value = value.toString()
-    			log.debug "Attempting to save ${setting}"
-    			setting.save(flush:true)
-		    } catch(error) {
-		        log.error "Unable to save setting ${key}", error
-		    }
-		}
-		redirect(controller: 'manageSite', action: 'home')
-	}
 }

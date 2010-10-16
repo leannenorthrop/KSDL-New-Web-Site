@@ -34,6 +34,7 @@ class Setting {
     }
 
     static mapping = {
+        cache usage:'read-write', include:'non-lazy'
         columns {
             value type:'text'
         }

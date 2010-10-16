@@ -32,7 +32,7 @@ class Venue extends Publishable {
     }
 
 	static mapping = {
-	    cache true 
+	    cache usage:'nonstrict-read-write', include:'non-lazy'
 	    columns {
 	        content type:'text'
 	        facilities type:'text'

@@ -27,22 +27,19 @@
         <title><g:message code="add.file.title"/></title>       
     </head>
     <body>        			                			        
-        <g:form name="fileUploader" controller="fileUploader" action="process" method="post" enctype="multipart/form-data" > 
-            
-            <h1 class="ui-widget-header"><g:message code="add.file.title"/></h1>
-            
-            <p>You may use this page to upload new files.
-               Maximum file size is 12Mb</p>
+        <g:form id="fileUploader" controller="fileUploader" action="process" method="post" enctype="multipart/form-data" > 
 			<input type='hidden' name='upload' value='attachments' /> 
 			<input type='hidden' name='errorAction' value='error' /> 
 			<input type='hidden' name='errorController' value='file' /> 
 			<input type='hidden' name='successAction' value='install' /> 
 			<input type='hidden' name='successController' value='file' /> 
 
-            <fieldset class="last">			
-			    <input type='file' name='file' /> 
+            <fieldset>			
+                <p class="last">
+			        <input type='file' name='file' /> 
+			    </p>
+    			<g:submitButton name="submit" value="${message(code:'file.create.submit.btn')}" id="submit" class="ui-corner-all"/>
 			</fieldset>
-			<input type='submit' name='submit' value='Submit' /> 
 		</g:form>
     </body>
 </html>

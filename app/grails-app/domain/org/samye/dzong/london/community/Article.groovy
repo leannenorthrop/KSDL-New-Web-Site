@@ -240,6 +240,14 @@ class Article extends Publishable {
             order("${orderCol}", "${orderDir}")
         }
 
+        aboutUsTopArticles { final orderCol, final orderDir ->
+            eq 'deleted', Boolean.FALSE
+            eq 'featured', Boolean.TRUE
+            eq 'publishState', 'Published'
+            eq 'category', 'A'
+            order("${orderCol}", "${orderDir}")
+        }
+        
          allShopArticlesNotOrdered {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'

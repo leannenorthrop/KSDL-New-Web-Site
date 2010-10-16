@@ -27,8 +27,9 @@ class AuthController {
         def username = params.username
         if (ShiroUser.findByUsername(username)) {
             log.trace "Username ${username} is in use."
+            flash.isError = true
             flash.message = "register.username.in.use"
-            redirect(action: "login", params: params)
+            redirect(controller: "manageSite", action: "welcome")
         } else if (params.password.equals(params.passwordAgain)) {
             try {
                 log.trace "Creating account for ${params.username}"
@@ -40,7 +41,7 @@ class AuthController {
 		 			if (!profile.hasErrors() && profile.save()) {
 						newUser.profile = profile
 					} else {
-						println profile.errors
+						log.error profile.errors
 					}
 		        } catch(error){
 					log.warn "Creating profile for new user failed",error
@@ -50,21 +51,24 @@ class AuthController {
                     def baseUrl = createLink(controller:"admin", action:"requestPermission", absolute:"true").toString()
                     emailService.sendAccountVerification(newUser.username,token,baseUrl)
                     flash.message = 'register.success'
-                    redirect(controller: 'manageSite', action: 'info')
+                    redirect(controller: 'manageSite', action: 'welcome')
                 } else {
                     log.info "There was a problem creating a new account for ${params.username}"
+                    flash.isError = true
                     flash.message = 'register.success.internal.error'
-                    redirect(action: "login", params: params)
+                    redirect(controller: 'manageSite', action: 'welcome')
                 }
             } catch (Exception e) {
                 log.error "There was an error creating a new account for ${params.username}", e
-                flash.message = message(code: "login.failed")
-                redirect(controller: 'manageSite', action: 'error')
+                flash.isError = true
+                flash.message = 'register.success.internal.error'
+                redirect(controller: 'manageSite', action: 'welcome')
             }
         } else {
             log.trace "Register for ${params.username} passwords do not match."
-            flash.message = message(code: "register.passwords.match.failure")
-            redirect(action: "login", params: params)
+            flash.isError = true
+            flash.message = "register.passwords.match.failure"
+            redirect(controller: 'manageSite', action: 'welcome')
         }
     }
 
@@ -108,7 +112,7 @@ class AuthController {
 							user.profile = profile
 							user.save()
 						} else {
-							println profile.errors
+							log.warn profile.errors
 						}
 			        }			
 				}
@@ -124,6 +128,7 @@ class AuthController {
             // on the login page.
             log.info "Authentication failure for user '${params.username}'."
             flash.message = message(code: "login.failed")
+            flash.isError = true
 
             // Keep the username and "remember me" setting so that the
             // user doesn't have to enter them again.
@@ -171,15 +176,18 @@ class AuthController {
                 } else {
                     log.warn "Could not save password reset token for user ${params.username}"
                     flash.message = "passwd.reset.internal.error"
+                    flash.isError = true
                 }
             } else {
                 log.trace "User ${params.username} could not be found"
                 flash.message = "passwd.reset.failure"
                 flash.args = msgParams
+                flash.isError = true
             }
         } catch (error) {
             log.error "Password reset failure for user '${params.username}'.", error
             flash.message = "passwd.reset.failure"
+            flash.isError = true
         }
         redirect(action: "resetPassword")
     }

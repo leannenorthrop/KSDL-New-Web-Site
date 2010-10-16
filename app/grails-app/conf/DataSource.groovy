@@ -1,16 +1,16 @@
-/*dataSource {
+dataSource {
     pooled = true
     properties {
-        maxActive = 50
+        maxActive = 200
         maxIdle = 25
         minIdle = 5
-        initialSize = 5
+        initialSize = 25
         minEvictableIdleTimeMillis = 60000
         timeBetweenEvictionRunsMillis = 60000
         maxWait = 10000
-        validationQuery = "select 1"
+        validationQuery = "select count(*) from shiro_role"
     }    
-}*/
+}
 
 hibernate {
     cache.use_second_level_cache=true
@@ -24,7 +24,8 @@ environments {
         dataSource {
             // one of 'create', 'create-drop','update'
             dbCreate = "update"
-            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
+//            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
+            url = "jdbc:hsqldb:hsql://localhost/lsd"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""

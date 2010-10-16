@@ -14,7 +14,7 @@ class ImageController {
             imageInstance = Image.findByName( params.id )
         }
         if(!imageInstance) {
-            println "no image ${params.id}"
+            log.warn "no image ${params.id}"
             response.outputStream << ""
         } else {
 			try {
@@ -49,7 +49,7 @@ class ImageController {
             imageInstance = Image.findByName( params.id )
         }
         if(!imageInstance) {
-            println "no image ${params.id}"
+            log.warn "no image ${params.id}"
             response.outputStream << ""
         }
         else {
@@ -105,6 +105,7 @@ class ImageController {
 
     def manage = {
         params.max = Math.min( params.max ? params.max.toInteger() : 10,  100)
+        flash.message = "image.manage.help"
         render(view:'list',model:[ imageInstanceList: Image.list( params ), imageInstanceTotal: Image.count() ])
     }
 
@@ -128,11 +129,13 @@ class ImageController {
             }
             catch(org.springframework.dao.DataIntegrityViolationException e) {
                 flash.message = "Image ${params.id} could not be deleted"
+                flash.isError = true
                 redirect(action:show,id:params.id)
             }
         }
         else {
             flash.message = "Image not found with id ${params.id}"
+            flash.isError = true            
             redirect(action:list)
         }
     }
@@ -142,6 +145,7 @@ class ImageController {
 
         if(!imageInstance) {
             flash.message = "Image not found with id ${params.id}"
+            flash.isError = true            
             redirect(action:manage)
         }
         else {
@@ -186,13 +190,15 @@ class ImageController {
             if(params.version) {
                 def version = params.version.toLong()
                 if(imageInstance.version > version) {
+                    flash.isError = true
+                    flash.message = 'image.save.error'
                     imageInstance.errors.rejectValue("version", "image.optimistic.locking.failure", "Another user has updated this Image while you were editing.")
                     render(view:'edit',model:[imageInstance:imageInstance, id: params.id])
                     return
                 }
             }
             if (!params.tags || params.tags == []) {
-                flash.message = "Labels can not be empty"
+                flash.message = "image.tags.save.error"
                 flash.isError = true
                 flash.args = [params.name]
                 render(view:'edit',model:[imageInstance:imageInstance, id: params.id])
@@ -203,7 +209,7 @@ class ImageController {
             imageInstance.image = image
             if (!params.tags || params.tags == "") {
                 flash.isError = true
-                flash.message = "Please enter at least one label."
+                flash.message = "image.tags.save.error"
                 return render(view: 'edit', model: [imageInstance:imageInstance], id: params.id)
             } else if(!imageInstance.hasErrors() && imageInstance.save()) {
                 def tags = imageInstance.tags
@@ -215,7 +221,8 @@ class ImageController {
                     }
                 }
                 imageInstance.addTags(newtags)
-                flash.message = "Image ${params.name} updated"
+                flash.message = "image.updated"
+                flash.args = [params.name]
                 redirect(action:show,id:imageInstance.id)
             }
             else {
@@ -236,6 +243,9 @@ class ImageController {
     def create = {
         def imageInstance = new Image()
         imageInstance.properties = params
+        if (!flash.message) {
+            flash.message = "image.create.help"
+        }
         return ['imageInstance':imageInstance]
     }
 
@@ -244,13 +254,14 @@ class ImageController {
         def contentType = f?.getContentType()
         def bytes = f?.getBytes()
 
+        def imageInstance = new Image(params)
+        
         def thumbnail
         try {
             def mimeType = contentType.toLowerCase()
             if (mimeType.contains("svg")) {
                 thumbnail = bytes                
-            }
-            else if (mimeType.endsWith("png") || mimeType.endsWith("gif")) {
+            } else if (mimeType.endsWith("png") || mimeType.endsWith("gif")) {
                 bytes = imageService.pngToJpg(bytes)
                 thumbnail = imageService.thumbnail(bytes,mimeType)
                 imageInstance.image = imageService.read(imageInstance.image, imageInstance.mimeType)                
@@ -259,11 +270,11 @@ class ImageController {
                 imageInstance.image = imageService.read(imageInstance.image, imageInstance.mimeType)                
             }
         } catch(error) {
+            log.error "Unable to create thumbnail.", error
             thumbnail = []
             contentType='image/png'
         }
 
-        def imageInstance = new Image(params)
         imageInstance.thumbnail = thumbnail
         imageInstance.mimeType = contentType
         if(!imageInstance.hasErrors() && imageInstance.save()) {

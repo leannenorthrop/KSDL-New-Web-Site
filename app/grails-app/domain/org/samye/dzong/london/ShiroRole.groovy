@@ -10,6 +10,10 @@ class ShiroRole {
         name(nullable: false, blank: false, unique: true)
     }
 
+    static mapping = {
+        cache usage:'read-write', include:'non-lazy'
+    }
+    
 	String toString() {
 		name
 	}

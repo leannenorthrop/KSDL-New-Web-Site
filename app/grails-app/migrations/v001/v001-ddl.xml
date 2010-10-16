@@ -39,7 +39,7 @@
             </column>
             <column name="CONTENT" type="${text-type}"/>
             <column name="IMAGE_ID" type="BIGINT"/>
-            <column name="SUMMARY" type="${text-type}"/>
+            <column name="SUMMARY" type="${varchar-2048}"/>
             <column name="TITLE" type="VARCHAR(255)"/>
         </createTable>
         <createTable tableName="AUDIT_LOG">
@@ -96,10 +96,10 @@
             </column>
             <column name="CONTENT" type="${text-type}"/>
             <column name="IMAGE_ID" type="BIGINT"/>
-            <column name="IS_REPEATABLE" type="BIT"/>
+            <column name="IS_REPEATABLE" type="${boolean}"/>
             <column name="LEADER_ID" type="BIGINT"/>
             <column name="ORGANIZER_ID" type="BIGINT"/>
-            <column name="SUMMARY" type="${text-type}"/>
+            <column name="SUMMARY" type="${varchar-2048}"/>
             <column name="TITLE" type="VARCHAR(254)"/>
             <column name="VENUE_ID" type="BIGINT"/>
         </createTable>
@@ -121,7 +121,7 @@
             <column name="NAME" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="THUMBNAIL" type="${blob}">
+            <column name="THUMBNAIL" type="${short_blob}">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -215,7 +215,7 @@
             <column name="CURRENCY" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="PRICE" type="float">
+            <column name="PRICE" type="DOUBLE">
                 <constraints nullable="false"/>
             </column>
             <column name="CLASS" type="VARCHAR(255)">
@@ -232,16 +232,16 @@
             <column name="CONTENT" type="${text-type}">
                 <constraints nullable="false"/>
             </column>
-            <column name="ISDISCOUNT" type="BIT">
+            <column name="ISDISCOUNT" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
-            <column name="ISDOWNLOADABLE" type="BIT">
+            <column name="ISDOWNLOADABLE" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
-            <column name="ISNEW" type="BIT">
+            <column name="ISNEW" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
-            <column name="SUMMARY" type="${text-type}">
+            <column name="SUMMARY" type="${varchar-2048}">
                 <constraints nullable="false"/>
             </column>
             <column name="TITLE" type="VARCHAR(254)">
@@ -263,7 +263,7 @@
             <column name="DATE_CREATED" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="IMAGE" type="${blob}">
+            <column name="IMAGE" type="${short_blob}">
                 <constraints nullable="false"/>
             </column>
             <column name="LAST_LOGGED_IN" type="DATETIME">
@@ -293,15 +293,15 @@
             </column>
             <column name="DATE_CREATED" type="DATETIME"/>
             <column name="DATE_PUBLISHED" type="DATETIME"/>
-            <column name="DELETED" type="BIT">
+            <column name="DELETED" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
-            <column name="DISPLAY_AUTHOR" type="BIT"/>
-            <column name="DISPLAY_DATE" type="BIT"/>
-            <column name="FEATURED" type="BIT">
+            <column name="DISPLAY_AUTHOR" type="${boolean}"/>
+            <column name="DISPLAY_DATE" type="${boolean}"/>
+            <column name="FEATURED" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
-            <column name="HOME" type="BIT">
+            <column name="HOME" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
             <column name="LAST_UPDATED" type="DATETIME"/>
@@ -331,10 +331,10 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="ROOM_PK"/>
             </column>
             <column name="CONTENT" type="${text-type}"/>
-            <column name="FOR_HIRE" type="BIT"/>
+            <column name="FOR_HIRE" type="${boolean}"/>
             <column name="IMAGE_ID" type="BIGINT"/>
             <column name="NAME" type="VARCHAR(255)"/>
-            <column name="SUMMARY" type="${text-type}"/>
+            <column name="SUMMARY" type="${varchar-2048}"/>
             <column name="VENUE_ID" type="BIGINT"/>
         </createTable>
         <createTable tableName="SCHEDULE_RULE">
@@ -352,7 +352,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="THE_INTERVAL" type="INT"/>
-            <column name="IS_RULE" type="BIT">
+            <column name="IS_RULE" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
             <column name="MODIFIER" type="VARCHAR(255)"/>
@@ -449,7 +449,7 @@
             <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="CHECKED_OUT" type="BIT">
+            <column name="CHECKED_OUT" type="${boolean}">
                 <constraints nullable="false"/>
             </column>
             <column name="DATE_CREATED" type="DATETIME">
@@ -524,7 +524,7 @@
             <column name="CONTENT" type="${text-type}"/>
             <column name="IMAGE_ID" type="BIGINT"/>
             <column name="NAME" type="VARCHAR(255)"/>
-            <column name="SUMMARY" type="${text-type}"/>
+            <column name="SUMMARY" type="${varchar-2048}"/>
             <column name="TITLE" type="VARCHAR(3)"/>
             <column name="TYPE" type="VARCHAR(1)"/>
         </createTable>

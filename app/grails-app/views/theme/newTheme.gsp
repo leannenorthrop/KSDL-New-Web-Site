@@ -33,14 +33,6 @@
     </head>
     <body>
         <g:form name="fileUploader" controller="fileUploader" action="process" method="post" enctype="multipart/form-data" > 
-            <g:render template="/messageBox" model="[flash: flash]"/>
-            
-            <h1 class="ui-widget-header"><g:message code="add.theme.title"/></h1>
-            
-            <p>You may use this page to upload new Themes as a zip file which contains <emph>at least</emph> one CSS file at the top-level called screen.css.
-               The name of the zip file will be used as the name of the Theme and should not contain any numbers or punctuation.
-               You may include other files within the zip file which are included via screen.css such as images, fonts, or other CSS files.
-               Maximum zip file size is 4Mb</p>
 			<input type='hidden' name='upload' value='themes' /> 
 			<input type='hidden' name='errorAction' value='error' /> 
 			<input type='hidden' name='errorController' value='theme' /> 
@@ -48,11 +40,10 @@
 			<input type='hidden' name='successController' value='theme' /> 
 
             <fieldset>			
-                <p>
+                <p class="last">
 			        <input type='file' name='file' /> 
 			    </p>
-    			<p class="last">&nbsp;</p>
-    			<input type='submit' name='submit' value='Submit' /> 
+                 <g:submitButton id="submit" name="submit" class="ui-corner-all" value="${message(code:'save.theme.btn')}"/>
 			</fieldset>			
 		</g:form>
     </body>

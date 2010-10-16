@@ -10,6 +10,10 @@ class ThemeController {
         redirect(action: "setdefault")
     }
 
+	def manage = {
+        return render(view:'setDefault')
+    }
+    
     def setdefault = {
         return render(view:'setDefault')
     }
@@ -31,6 +35,9 @@ class ThemeController {
 	}
 	
     def add = {
+        if (!flash.message) {
+            flash.message = "You may use this page to upload new Themes as a zip file which contains <emph>at least</emph> one CSS file at the top-level called screen.css. The name of the zip file will be used as the name of the Theme and should not contain any numbers or punctuation. You may include other files within the zip file which are included via screen.css such as images, fonts, or other CSS files. Maximum zip file size is 4Mb"
+        }
         render(view: 'newTheme')
     }
 	
@@ -49,7 +56,7 @@ class ThemeController {
 			}
             flash.message = "theme.installed"
             flash.args = [cssDir.name]
-            redirect(controller: 'manageSite', action: 'info')
+            redirect(action: 'manage')
         } else {
             redirect(controller: 'theme', action: 'error')
         }

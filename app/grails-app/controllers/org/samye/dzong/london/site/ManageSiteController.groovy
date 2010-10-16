@@ -7,9 +7,13 @@ class ManageSiteController {
 	def userLookupService
 
     def index = {
-        redirect(action: "home")
+        redirect(action: "welcome")
     }
-
+    
+    def welcome = {
+        return render(view:'welcome')
+    }
+        
     def home = {
 		try {
 			def user = userLookupService.lookup()

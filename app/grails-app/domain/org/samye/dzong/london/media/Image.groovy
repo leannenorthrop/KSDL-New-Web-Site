@@ -22,6 +22,10 @@ class Image implements Taggable {
         dateCreated(nullable:true)
         lastUpdated(nullable:true)
     }
+    
+    static mapping = {
+        cache usage:'nonstrict-read-write'
+    }
 
     Image() {
         name = 'New'

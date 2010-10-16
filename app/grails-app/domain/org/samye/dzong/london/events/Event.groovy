@@ -90,6 +90,7 @@ class Event extends Publishable {
     }
 
     static mapping = {
+        cache usage:'read-write', include:'non-lazy'
         columns {
             content type: 'text'
             summary type: 'text'

@@ -17,6 +17,9 @@ class SlideshowController {
 			userId = flickrUserSetting.value
 		}
 			
+		if (!flash.message) {
+		    flash.message = 'manage.slideshow.help'
+	    }
 		def albums = flickrService.getPhotosets(userId)
 		render(view: 'manage', model:[albums:albums])
 	}

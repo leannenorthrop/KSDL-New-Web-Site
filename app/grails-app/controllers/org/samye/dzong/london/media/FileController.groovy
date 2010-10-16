@@ -9,10 +9,13 @@ class FileController {
 
     def manage = {
 		def files = UFile.list()
-        render(view:'manage',model:[ files: files])
+        render(view:'manage',model:[files: files])
     }
 
 	def create = {
+	    if (!flash.message) {
+	        flash.message = "You may use this page to upload new files. Maximum file size is 12Mb"
+        }
 		[]
 	}
 	
@@ -22,14 +25,16 @@ class FileController {
             try{
                 uploadedFile.delete()
             } catch(error) {
-                
+                log.error error
             }
             flash.message = "file.deleted"
             flash.args = [uploadedFile.name]
-            redirect(controller: 'manageSite', action: 'info')
         } else {
-            redirect(controller: 'file', action: 'error')
+            flash.message = "file.delete.error"
+            flash.args = [uploadedFile.name]
+            flash.isError = true            
         }
+        redirect(controller: 'file', action: 'manage')        
 	}	
 
     def install = {
@@ -37,21 +42,25 @@ class FileController {
         if (uploadedFile) {
             flash.message = "file.installed"
             flash.args = [uploadedFile.name]
-            redirect(controller: 'manageSite', action: 'info')
         } else {
-            redirect(controller: 'file', action: 'error')
+            flash.message = "file.install.error"
+            flash.args = [uploadedFile.name]
+            flash.isError = true            
         }
+        redirect(controller: 'file', action: 'manage')        
     }
 
     def error = {
-        flash.message = "file.upload.error"
-        redirect(controller: 'manageSite', action: 'error')
+        flash.isError = true
+        def msg = flash.message
+        flash.message = msg
+        redirect(controller: 'file', action: 'create')
     }
 
 	def src = {
-		def imageInstance = UFile.findByName(params.id)
-        if(!imageInstance) {
-            println "no file found for ${params.id}"
+		def fileInstance = UFile.findByName(params.id)
+        if(!fileInstance) {
+            log.warn "no file found for ${params.id}"
             response.outputStream << ""
         } else {
 	 		def os = response.outputStream
@@ -64,11 +73,11 @@ class FileController {
 				response.setHeader("Cache-Control", "public")			
 				response.setHeader("ETag", "W/\"" + imageInstance.id + "\"")
 				response.setContentLength((int)imageInstance.size)			
-				def f = new File(imageInstance.path)
+				def f = new File(fileInstance.path)
 				def is = f.newInputStream()
 				IOUtils.copy(is,os)
 			} catch(error) {
-				println error
+				log.error error
 			}
         }		
 	}

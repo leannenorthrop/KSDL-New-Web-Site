@@ -3,21 +3,19 @@ Title:      Screen styles for managing site content
 */
 
 /* import stylesheets and hide from ie/mac \*/
+@import url("theme/jquery-ui-1.8.5.custom.css");
 @import url("forms.css");
-@import url("menu.css");
 @import url("tables.css");
 @import url("image.css");
-@import url("widgets.css");
 @import url("authentication.css");
+@import url("menu.css");
 /* end import/hide */
 
 .contentAdmin {
-	min-width:1024px;
     width: 100%;
-    background: rgb(189, 177, 152);
-    margin-top: 10.75em;
+    background: white;
     margin-bottom: 5.75em;
-	font: 13px/1.5 Helvetica, Arial, 'Liberation Sans', FreeSans, sans-serif;
+	font: normal 85% HelveticaNeue, Helvetica, Arial, 'Liberation Sans', FreeSans, verdana,tahoma,sans-serif;
 }
 /*
 .container_12,
@@ -26,40 +24,6 @@ Title:      Screen styles for managing site content
     background:rgba(238, 238, 238,0.7);
 }*/
 
-
-.contentAdmin .pagetitle {
-	height: 9em;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;	
-    background: rgb(43, 117, 147);
-	margin: 0;
-	z-index: 11;	
-}
-
-.contentAdmin .pagetitle img {
-    display: none;
-	visibility: hidden;
-}
-.contentAdmin .pagetitle span {
-	margin-top: 2em;
-	margin-left: 1.6em;
-    vertical-align: middle;
-    display: inline-block;
-    width: 80%;
-}
-.contentAdmin .pagetitle h1,.contentAdmin .pagetitle h2 {
-    margin-bottom: 0;
-    line-height: 1.6em;
-    padding: 0;
-	color: rgb(205, 225, 238);
-}
-
-.contentAdmin .pagetitle h2 {
-	color: rgb(0,0,0);
-	color: rgba(0,0,0,0.8);
-}
 
 .contentAdmin h1 {
     font-size: 1.5em;
