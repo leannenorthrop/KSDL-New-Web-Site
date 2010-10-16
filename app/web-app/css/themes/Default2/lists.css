@@ -1,0 +1,149 @@
+/* ----------------------------------------------------------------------------
+    Link Menus 
+---------------------------------------------------------------------------- */
+/* menus
+----------------------------------------------- */
+
+div.menu {
+    padding: 0;
+}
+
+div.menu h2 {
+    margin: 0;
+}
+
+div.menu .block {
+    padding-top: 0;
+}
+div.menu {
+    padding: 0;
+}
+
+div.menu h2 {
+    margin: 0;
+}
+
+div.menu .block {
+    padding-top: 0;
+}
+
+/* menus
+----------------------------------------------- */
+.shortnews ul,
+ul.menu {
+    list-style: none;
+}
+
+.shortnews ul,
+ul.menu li {
+    margin: 0;
+}
+
+.shortnews ul,
+ul.menu li a {
+    display: block;
+}
+ul.menu li a {
+    padding: 4px 15px;
+}
+
+/* submenus
+----------------------------------------------- */
+ul.menu ul {
+    list-style: none;
+    margin: 0;
+}
+
+ul.menu ul li a {
+    padding-left: 30px;
+}
+
+ul.menu ul li ul li a {
+    padding-left: 60px;
+}
+
+/* section menus
+----------------------------------------------- */
+ul li.first {
+    border-top: none;
+}
+
+ul.section {
+    border-top: 0;
+    margin-bottom: 0;
+}
+
+ul.section li {
+    text-transform: uppercase;
+}
+
+ul.section ul li {
+    text-transform: none;
+}
+
+ul.section li a.active {
+    cursor: default;
+}
+
+ul.section li.current > a.active,
+ul.section li.current > a.active:hover {
+    cursor: default;
+}
+
+.shortnews ul li {
+    margin: 0;
+    margin-left: 0.6em;
+}
+
+.block {
+    padding-top: 10px;
+}
+
+ul.events {
+	list-style: none;
+}
+
+ul.events li, ul.articles li {
+	position: relative;
+	min-height: 12em;
+	margin-left: 1em;
+}
+ul.events li h4 {
+	display: block;
+}
+ul.events li h5 {
+	display: inline;
+}
+.event a,
+.article a{
+    padding: .3em 0;
+    margin-bottom: .8em;    
+}
+body.event ul.events li.event, 
+body.buddhism ul.events li.event,
+body.wellbeing ul.events li.event,
+body.meditation ul.events li.event, 
+body.community ul.events li.event {
+	min-height: 15.5em;
+}
+
+body.event .grid_4 ul.events li.event {
+	min-height: 7.5em;
+}
+
+body.home ul.events li.event {
+	min-height: 9.5em;
+}
+
+li.article {
+    list-style-type:none;
+}
+
+.first {
+    border-top: none ! important;
+    border-left:none ! important;
+}
+.last {
+    border-bottom: none ! important;
+    border-right:none ! important;
+}

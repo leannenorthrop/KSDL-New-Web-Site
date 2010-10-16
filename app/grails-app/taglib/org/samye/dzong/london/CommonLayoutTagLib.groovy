@@ -22,7 +22,7 @@ class CommonLayoutTagLib {
         }  */
 
         def navList = {
-            div (id:"nav group") {
+            div (class:"nav group") {
                 ul {
                     navControllers.each { controllerName ->
                         def aElem = link (controller:controllerName) {

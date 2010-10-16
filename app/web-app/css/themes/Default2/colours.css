@@ -1,0 +1,259 @@
+/* ----------------------------------------------------------------------------
+    General 
+---------------------------------------------------------------------------- */
+/* Site font colour unless other-wise specified */
+body {
+   color: black;
+}
+
+a {
+   color: #323232;
+}
+a:visited {
+    color: #111;
+}
+a:hover {
+   color:#6d0101; 
+}
+
+#site_msg {
+    background: white;
+    background: rgba(255,255,255,0.85);  
+    border: 3px #aaa solid;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, strength=15px,direction=45);
+	-webkit-box-shadow: 5px 5px 45px rgba(0, 0, 0, 0.4);	
+	-moz-box-shadow: 5px 5px 45px rgba(0, 0, 0, 0.4);		
+	-o-box-shadow: 5px 5px 45px rgba(0, 0, 0, 0.4);    
+}
+/* ----------------------------------------------------------------------------
+    Background 
+---------------------------------------------------------------------------- */
+hr
+{
+	border-color: rgb(219, 120, 37);
+	border-color: rgba(219, 120, 37,0.7);
+}
+
+body {
+	border-top: 5px solid #ffcb2d;
+	/*background: rgb(194, 58, 55) url(body_bkgrndcopy.jpg) repeat;*/
+	background: rgb(250, 237, 200) url(images/background-tile.png) repeat-x right top;
+}
+
+.container_16,
+.container_12 {
+    background: rgb(251, 245, 208);
+	background: rgba(251, 245, 208, 0.2);
+	background: -webkit-gradient(linear, left 154, left bottom, color-stop(0.0, rgba(255,255,255,0)),
+	                color-stop(0.15, rgba(251, 245, 208, 0.5)), color-stop(1.0, rgba(251, 245, 208, 0.35)));
+}
+
+/* ----------------------------------------------------------------------------
+    Banner 
+---------------------------------------------------------------------------- */
+body {
+    border-top: 7px solid #ff9933;
+}
+div.banner h1 {
+    color: white;
+}
+
+div.banner h2 {
+    color: #e5a842;    
+}
+
+#watermark1 {
+    background: #9c381e;
+}
+#watermark2 {
+    background: #9b2728;
+    background: #9b2728 url(images/bannerbg.png) no-repeat top right;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=0);
+    -webkit-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);	
+    -moz-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);		
+    -o-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);*/	
+}
+
+/* ----------------------------------------------------------------------------
+    Footer
+---------------------------------------------------------------------------- */
+#footer {
+    background: #9c381e url(images/motif.png) no-repeat bottom right;
+}
+
+#footer .contact .address {
+    color: rgb(253, 237, 196);
+    color: rgba(253, 237, 196,0.8);    
+}
+
+#footer .contact .telephone {
+    color: rgb(253, 237, 196);
+    color: rgba(253, 237, 196,0.8);    
+}
+
+#footer .box {
+	color:#ccc;
+	font-size:x-small;
+}
+#footer a {
+	color:#fff;
+	font-weight:bold;
+	font-size:12px;
+}
+#footer a:hover {
+	color:rgb(219, 120, 37);
+	color:rgba(255, 184, 45,0.8);	
+}
+
+/* ----------------------------------------------------------------------------
+    Navigation
+---------------------------------------------------------------------------- */
+div.container_16 div.banner + div.clear + div {
+	border-top: 1px solid #ff9933;
+	color: #ffd14f;
+	background: #9c381e;	
+	background: rgb(154, 36, 11);
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=180);
+	-webkit-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);	
+	-moz-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
+	-o-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
+}
+
+.nav ul li a {
+    color: #ffd14f;	    
+    -webkit-transition:background-color,color 0.5s ease-in;  
+    -moz-transition:background-color,color 0.5s ease-in;  
+    -o-transition:background-color,color 0.5s ease-in;  
+    transition:background-color,color 0.5s ease-in;
+}
+
+.nav ul li:hover,
+.nav ul li.current {
+    background: rgb(116, 13, 13); 
+    background: rgba(116, 13, 13,0.8);     
+}
+
+.nav ul li a:hover,
+.nav ul li.current a {
+    background: rgb(116, 13, 13); 
+    background: rgba(116, 13, 13,0.8);         
+	color: white;
+}
+
+/* ----------------------------------------------------------------------------
+    Content
+---------------------------------------------------------------------------- */
+hr {
+	border-color: #d1c5a4;
+}
+h2#page-heading {
+    color: rgb(192, 80, 30);
+    border-bottom:1px solid rgb(235, 155, 30);
+    border-bottom:1px solid rgba(235, 155, 30,0.8); 
+    text-shadow: rgb(255, 184, 45) 0 0 20px;
+    text-shadow: rgba(255, 184, 45,0.7) 0 0 20px;                                    
+}
+
+p.meta {
+	color:#4d6a4b;
+}
+
+/*
+.article {
+	border-top:1px solid #6d0000;
+}*/
+.box .article, .box .event {
+	border-top:1px solid #CCCCCC;
+}
+.article h2, .event h2 {
+	color:#8b1b00;
+	background:transparent;
+}
+
+/* About Us
+-----------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------------
+    Lists
+---------------------------------------------------------------------------- */
+ul.menu {
+    border-top: 1px solid #4a5eb2;
+}
+
+ul.menu li a {
+    border-bottom: 1px solid #95bdde;
+    color:#094e7b;    
+}
+
+
+ul.menu li a:hover {
+    background: rgb(195, 221, 242);
+    background: rgba(195, 221, 242,0.8);    
+    color:#094e7b;
+}
+
+ul.menu li a:active {
+    color:#094e7b;    
+    background: #95bdde;
+}
+
+/* ----------------------------------------------------------------------------
+    Tables
+---------------------------------------------------------------------------- */
+tbody th,
+tbody td {
+    background: #eee;
+}
+
+/* Widgets
+-----------------------------------------------------------------------------*/
+
+/* Knockout */
+.knockout {
+   color: #fff;
+   text-shadow: 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* Highlight (orange) */
+.active {
+   color: #D1700E;
+}
+
+/* Knockout anchor */
+.knockout a,
+#nav * {
+   color: #fff;
+   text-shadow: 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* Blue knockout anchor */
+.knockout a {
+   color: #a9c0d3;
+}
+
+a.from-external-source,
+a.from-external-source:visited {
+    color: #888888;
+}
+
+/* Default anchor hover/focus */
+a:hover, a:focus {
+/*    color: #123E60; */
+   text-decoration: underline;
+   outline: none;
+}
+
+/* Knockout anchor hover/focus */
+.knockout a:hover, .knockout a:focus {
+   color: #fff;
+}
+
+/* Default anchor active */
+a:active {
+   color: #D1700E;
+}
+
+/* Knockout anchor active */
+.knockout a:active {
+   color: #fff;
+}

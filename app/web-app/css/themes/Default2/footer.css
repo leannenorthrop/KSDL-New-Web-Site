@@ -1,0 +1,19 @@
+#footer {
+    height: 9.3em;  
+    position: relative;
+    top:12%;
+	margin-left:0;
+	margin-right:0;
+	width:100%;
+}
+
+#footer div.contact {
+    padding-left: 1.9em;
+    padding-top: 0.9em;   
+    width: 90%; 
+}
+
+#footer .box {
+    padding-left: 2.85em;
+    margin-bottom: 0.9em;
+}

@@ -50,11 +50,11 @@ grails.spring.bean.packages = []
 grails.views.javascript.library="jquery"
 
 // set per-environment serverURL stem for creating absolute links
-def logfileName = ${java.user.dir} + '/lsd.log'
+def logfileName = 'target/lsd.log'
 environments {
     production {
-        println "Environment is set to Production"
-//        logfileName = '/home/londonsamyedzong/logs/lsd.log'
+        log.info "Environment is set to Production"
+        logfileName = '/home/londonsamyedzong/logs/lsd.log'
         grails {
            mail {
              //grails.mail.jndiName = "myMailSession"
