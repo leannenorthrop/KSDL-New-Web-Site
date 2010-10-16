@@ -30,15 +30,12 @@
   <body>
     <div class="container_16">
         <div class="grid_8">
-            <img src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" width="100%"/>
+            <img src="${createLink(controller: 'image', action: 'src', id: imageInstance.id)}" style="max-width: 200px"/>
         </div>
         <div class="grid_8">
             <form>
                 <fieldset>
                     <legend>Details for ${fieldValue(bean:imageInstance,field:'name')}</legend>
-                    <g:if test="${flash.message}">
-                      <div class="message">${flash.message}</div>
-                    </g:if>
 
                     <p><g:message code="image.label.msg"/>
                         <ul>

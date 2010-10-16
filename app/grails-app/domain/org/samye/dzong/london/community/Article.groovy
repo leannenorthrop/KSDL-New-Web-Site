@@ -25,6 +25,7 @@ package org.samye.dzong.london.community
 import org.samye.dzong.london.Publishable
 import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.media.Image
+import org.grails.comments.*
 
 /**
  * Domain class for storing article information.
@@ -224,6 +225,7 @@ class Article extends Publishable {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Archived'
             eq 'category', 'N'
+            order("${orderCol}", "${orderDir}")            
         }
 
         homeArticles { final orderCol, final orderDir ->

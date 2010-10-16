@@ -1,5 +1,6 @@
 package org.samye.dzong.london.site
 
+import org.samye.dzong.london.Publishable
 import org.samye.dzong.london.Setting
 import com.lucastex.grails.fileuploader.UFile
 import org.apache.commons.io.*
@@ -26,6 +27,14 @@ class ThemeController {
 			defaultCSSThemeSetting.value = params.theme
 		}
 		if (!defaultCSSThemeSetting.hasErrors() && defaultCSSThemeSetting.save()) {
+		    Publishable.allPublished.list().each { publishable ->
+		        try {
+		            publishable.lastUpdated = new Date()
+		            publishable.save()
+		        } catch (error) {
+		            log.warn("Saving new modified time failed.",error)
+		        }
+		    }
             flash.message = "Web-Site Theme is now ${defaultCSSThemeSetting.value}"
             redirect(controller: 'manageSite', action: 'info')
         }
@@ -63,6 +72,7 @@ class ThemeController {
     }
 
     def error = {
+        flash.isError = true
         flash.message = "theme.upload.error"
         redirect(controller: 'manageSite', action: 'error')
     }	

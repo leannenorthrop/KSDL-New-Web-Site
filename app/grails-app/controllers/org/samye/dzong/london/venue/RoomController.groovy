@@ -15,7 +15,7 @@ class RoomController {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = roomService.unpublished(params)
         } else {
             model = roomService.userUnpublished(params)
@@ -28,7 +28,7 @@ class RoomController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = roomService.published(params)
         } else {
             model = roomService.userPublished(params)
@@ -41,7 +41,7 @@ class RoomController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = roomService.archived(params)
         } else {
             model = roomService.userArchived(params)
@@ -54,7 +54,7 @@ class RoomController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = roomService.deleted(params)
         } else {
             model = roomService.userDeleted(params)
@@ -71,6 +71,7 @@ class RoomController {
 
         if(!roomInstance) {
             flash.message = "Room not found with id ${params.id}"
+            flash.isError = true
             redirect(action:manage)
         }
         else { return [ room : roomInstance ] }
@@ -81,6 +82,7 @@ class RoomController {
 
         if(!roomInstance) {
             flash.message = "Room not found with id ${params.id}"
+            flash.isError = true            
             redirect(action:manage)
         }
         else { return [ room : roomInstance ] }
@@ -91,6 +93,7 @@ class RoomController {
 
         if(!roomInstance) {
             flash.message = "Room not found with id ${params.id}"
+            flash.isError = true            
             redirect(action:manage)
         }
         else {
@@ -114,7 +117,8 @@ class RoomController {
         else {
 			flash.isError = true
 			flash.message = "Could not create room due to the following errors:"
-			flash.args = [roomInstance]
+            flash.args = [roomInstance]			
+            flash.bean = roomInstance
             render(view:'create',model:[room:roomInstance])
         }
     }
@@ -125,6 +129,7 @@ class RoomController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (room.version > version) {
+                    flash.isError = true                    
                     room.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room's details while you were editing.")
                     redirect(action: manage)
                     return
@@ -132,17 +137,20 @@ class RoomController {
             }
             room.publishState = "Unpublished"
             room.deleted = true
-            room.title += "(Deleted)"             
+            room.name += " (Deleted)"             
             if (!room.hasErrors() && room.save()) {
                 flash.message = "room.deleted"
-                flash.args = [room];
+                flash.args = [room];                
                 redirect(action: manage)
             }
             else {
+                flash.isError = true                  
+                flash.bean = room
                 redirect(action: manage)
             }
         }
         else {
+            flash.isError = true            
             flash.message = "room.not.found"
             flash.args = params.id
             redirect(action: manage)
@@ -171,10 +179,12 @@ class RoomController {
                 flash.isError = true
                 flash.message = "room.update.error"
                 flash.args = [room]
+                flash.bean = room
                 render(view: 'edit', model: [room: room, id: params.id])
             }
         }
         else {
+            flash.isError = true
             flash.message = "room.not.found"
             flash.args = params.id
             redirect(action: manage)
@@ -205,12 +215,14 @@ class RoomController {
             }
             else {
                 flash.isError = true
+                flash.bean = room
                 redirect(action: manage)
             }
         }
         else {
             flash.message = "room.not.found"
             flash.args = params.id
+            flash.isError = true
             redirect(action: manage)
         }
     }

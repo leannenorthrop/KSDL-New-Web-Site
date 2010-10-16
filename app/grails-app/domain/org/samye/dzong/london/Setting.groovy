@@ -5,7 +5,7 @@ class Setting {
     String value
 
     static constraints = {
-        name(nullable: false, blank: false, unique:true,inList:['DefaultTheme','SSNone', 'SSHome', 'SSMeditation','SSBuddhism','FlickrFrob','FlickrUserId','Logo','ShopMenu','SiteMessage'])
+        name(maxSize:128,nullable: false, blank: false, unique:true,inList:['DefaultTheme','SSNone', 'SSHome', 'SSMeditation','SSBuddhism','FlickrFrob','FlickrUserId','Logo','ShopMenu','SiteMessage','ThumbSize','ShowHome','ShowAboutUs','ShowEvents','ShowBuddhism','ShowMeditation','ShowVolunteer','ShowWellBeing','ShowNews','ShowShop'])
         value(nullable: false, blank: false)
     }
 
@@ -31,6 +31,33 @@ class Setting {
 		siteMessage {
 		    eql 'name', "SiteMessage"
 		}
+        showHome{
+		    eql 'name', "ShowHome"
+		}
+		showAboutUs{
+		    eql 'name', "ShowAboutUs"
+		}
+		showEvents{
+		    eql 'name', "ShowEvent"
+		}
+		showBuddhism{
+		    eql 'name', "ShowBuddhism"
+		}
+		showMeditation{
+		    eql 'name', "ShowMeditation"
+		}
+		showVolunteer{
+		    eql 'name', "ShowCommunity"
+		}
+		showWellbeing{
+		    eql 'name', "ShowWellbeing"
+		}
+		showNews{
+		    eql 'name', "ShowNews"
+		}
+		showShop{
+		    eql 'name', "ShowShop"
+		}		
     }
 
     static mapping = {

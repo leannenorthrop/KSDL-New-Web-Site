@@ -38,7 +38,7 @@
       <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current', heading: 'news.current.title']"/>
     </div>
     <div class="grid_4">
-      <g:render template="/shortnewslist" model="[events: archivedArticles, heading: 'archive.news.heading']"/>
+      <g:render template="/shortnewslist" model="[articles: archivedArticles, heading: 'archive.news.heading']"/>
     </div>
   </body>
 </html>

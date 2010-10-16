@@ -10,10 +10,12 @@ class NewsController {
     }
 
     def home = {
-        def articles = Article.featuredNewsArticles('datePublished', 'desc').list(max:15)
+        def articles = Article.featuredNewsArticles('datePublished', 'desc').list()
         def archivedArticles = Article.archivedNewsArticles('datePublished', 'desc').list(max:8)
-        def totalPublishedNewsArticles = Article.categoryArticles('N').count()
-        def totalArchived = Article.categoryArticles('N').count()
+        archivedArticles.each { a -> println "Archived ${a}"}
+        articles.each { a -> println "Articles ${a}"}
+        def totalPublishedNewsArticles = articles.size()
+        def totalArchived = archivedArticles.size()
 		def model = [ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles]
 		articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)

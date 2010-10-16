@@ -33,7 +33,6 @@
 <html>
 <head>
     <title>Oops! There was a problem with the server.</title>
-    <meta name="layout" content="main">
 </head>
 <body>
     <div class="grid_16 pagecontent">
@@ -41,7 +40,7 @@
         <h3>Error Details</h3>
 
         <div class="message">
-            <strong>Error ${request.'javax.servlet.error.status_code'}:</strong> ${request.'javax.servlet.error.message'.encodeAsHTML()}<br/>
+            <strong>Error ${request.'javax.servlet.error.status_code'}:</strong> ${request.'javax.servlet.error.message'}<br/>
             <strong>Servlet:</strong> ${request.'javax.servlet.error.servlet_name'}<br/>
             <strong>URI:</strong> ${request.'javax.servlet.error.request_uri'}<br/>
             <g:if test="${exception}">

@@ -149,6 +149,7 @@ class ArticleController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (articleInstance.version > version) {
+                    flash.isError = true
                     articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
                     redirect(action: manage)
                     return
@@ -162,11 +163,15 @@ class ArticleController {
                 redirect(action: manage)
             }
             else {
+                flash.bean = articleInstance
+                flash.isError = true
+                flash.message = "Can not delete ${articleInstance} at this time."
                 redirect(action: manage)
             }
         }
         else {
             flash.message = "Article not found with id ${params.id}"
+            flash.isError = true
             redirect(action: manage)
         }
     }
@@ -176,6 +181,7 @@ class ArticleController {
 
         if (!articleInstance) {
             flash.message = "Article not found with id ${params.id}"
+            flash.isError = true
             redirect(action: manage)
         }
         else {
@@ -188,6 +194,7 @@ class ArticleController {
 
         if (!articleInstance) {
             flash.message = "Article not found with id ${params.id}"
+            flash.isError = true
             redirect(action: manage)
         }
         else {
@@ -200,6 +207,7 @@ class ArticleController {
 
         if (!articleInstance) {
             flash.message = "Article not found with id ${params.id}"
+            flash.isError = true
             redirect(action: manage)
         }
         else {
@@ -213,6 +221,7 @@ class ArticleController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (articleInstance.version > version) {
+                    flash.isError = true
                     flash.message = "Article ${articleInstance.title} was being edited - please try again."
                     redirect(action: manage)
                     return
@@ -223,6 +232,7 @@ class ArticleController {
             if (!params.tags || params.tags == "") {
                 flash.isError = true
                 flash.message = "Please enter at least one label."
+                flash.bean = articleInstance
                 return render(view: 'alter', model: [articleInstance: articleInstance], id: params.id)
             } else if (!articleInstance.hasErrors() && articleInstance.save()) {
                 def tags = articleInstance.tags
@@ -240,12 +250,14 @@ class ArticleController {
             }
             else {
                 flash.isError = true
+                flash.bean = articleInstance
                 flash.message = "Article ${articleInstance.title} could not be updated due to an internal error. Please try again."
                 return render(view: 'afterPublishEdit', model: [articleInstance: articleInstance], id: params.id)
             }
         }
         else {
             flash.message = "Article not found with id ${params.id}"
+            flash.isError = true
             redirect(action: manage)
         }
     }
@@ -256,6 +268,7 @@ class ArticleController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (articleInstance.version > version) {
+                    flash.isError = true
                     flash.message = "Article ${articleInstance.title} was being edited - please try again."
                     redirect(action: manage)
                     return
@@ -282,19 +295,19 @@ class ArticleController {
                 articleInstance.addTags(newtags)
             }
             if (!articleInstance.hasErrors() && articleInstance.save()) {
-                if (isFirstPublish) {
-                }
-                println "Published article. Publish date set to ${articleInstance.datePublished}"
+                log.debug "Published article. Publish date set to ${articleInstance.datePublished}"
                 flash.message = "Article ${articleInstance.title} has been Published"
                 redirect(action: manage)
             }
             else {
+                flash.bean = articleInstance
                 flash.isError = true
                 flash.message = "Article ${articleInstance.title} could not be ${params.publishState} due to an internal error. Please try again."
                 return render(view: 'publish', model: [articleInstance: articleInstance], id: params.id)
             }
         }
         else {
+            flash.isError = true
             flash.message = "Article not found with id ${params.id}"
             redirect(action: manage)
         }
@@ -323,11 +336,13 @@ class ArticleController {
                 flash.isError = true
                 flash.message = "article.update.error"
                 flash.args = [articleInstance]
+                flash.bean = articleInstance
                 render(view: 'edit', model: [articleInstance: articleInstance, id: params.id])
             }
         }
         else {
             flash.message = "Article not found with id ${params.id}"
+            flash.isError = true
             redirect(action: manage)
         }
     }
@@ -355,11 +370,13 @@ class ArticleController {
                 flash.isError = true
                 flash.message = "article.update.error"
                 flash.args = [articleInstance]
+                flash.bean = articleInstance
                 render(view: 'edit', model: [articleInstance: articleInstance, id: params.id])
             }
         }
         else {
             flash.message = "Article not found with id ${params.id}"
+            flash.isError = true            
             redirect(action: manage)
         }
     }    
@@ -383,6 +400,7 @@ class ArticleController {
             flash.isError = true
             flash.message = "article.update.error"
             flash.args = [articleInstance]
+            flash.bean = articleInstance
             render(view: 'create', model: [articleInstance: articleInstance, id: params.id])
         }
     }
@@ -393,6 +411,7 @@ class ArticleController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (articleInstance.version > version) {
+                    flash.isError = true                    
                     flash.message = "Article ${articleInstance.title} was being edited - please try again."
                     redirect(action: manage)
                     return
@@ -405,19 +424,23 @@ class ArticleController {
             articleInstance.publishState = params.state
             articleInstance.deleted = false
             if (!articleInstance.hasErrors() && articleInstance.save()) {
-                if (isFirstPublish) {
-                }
                 flash.message = "Article ${articleInstance.title} has been moved to ${articleInstance.publishState}"
                 redirect(action: manage)
             }
             else {
+                flash.isError = true                
                 flash.message = "Article ${articleInstance.title} could not be ${params.state} due to an internal error. Please try again."
                 redirect(action: manage)
             }
         }
         else {
             flash.message = "Article not found with id ${params.id}"
+                flash.isError = true            
             redirect(action: manage)
         }
     }
+    
+    def onAddComment = { comment ->
+        log.debug comment
+    }    
 }

@@ -32,22 +32,24 @@
   <h3><g:message code="${heading}"/></h3>
   <ul>
     <g:each in="${articles}" status="i" var="articleInstance">
-      <li class=" ${(i == 0 ? 'first' : '')?:(i == articleInstance.size() ? 'first' : '')}">
-        <g:link controller="news" action="view" id="${articleInstance.id}">
-          <h3>${articleInstance.title}</h3>          
-          <g:if test="${articleInstance.image}">
-              <a href="#">
-                <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-              </a>
-            </g:if>
-            <g:else>
-              <a href="#">
-                <img class="defaultImg">&nbsp;</img>
-              </a>
-            </g:else>          
-        </g:link>
-        <p><em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em><br/>${articleInstance.summary}</p>        
-      </li>
+      <g:if test="${articleInstance}">
+          <li class=" ${(i == 0 ? 'first' : '')?:(i == articles?.size() ? 'last' : '')}">
+            <g:link controller="news" action="view" id="${articleInstance.id}">
+              <h3>${articleInstance.title}</h3>          
+              <g:if test="${articleInstance?.image}">
+                  <a href="#">
+                    <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance?.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+                  </a>
+                </g:if>
+                <g:else>
+                  <a href="#">
+                    <img class="defaultImg">&nbsp;</img>
+                  </a>
+                </g:else>          
+            </g:link>
+            <p><em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em><br/>${articleInstance.summary.encodeAsTextile()}</p>        
+          </li>
+      </g:if>
     </g:each>
   </ul>
 </div>

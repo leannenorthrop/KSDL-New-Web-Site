@@ -22,6 +22,10 @@
       <fileSet>
         <directory>${basedir}/dist</directory>
         <outputDirectory>/</outputDirectory>
-      </fileSet>      
+      </fileSet>  
+      <fileSet>
+        <directory>${basedir}/db</directory>
+        <outputDirectory>/db</outputDirectory>
+      </fileSet>            
     </fileSets>  
 </assembly>

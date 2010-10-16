@@ -31,7 +31,7 @@
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="event.edit.title"/></title>
+    <title><g:message code="event.edit.title" args="${[event]}"/></title>
   </head>
   <body>
     <g:form name="editEvent" action="update" method="post">
@@ -46,8 +46,6 @@
         <g:hiddenField name="featured" value="false"/>  
         
         <fieldset>  
-            <g:render template="/messageBox" model="[flash: flash]"/>
-
             <g:render template="/editEvent" model="[event: event]"/>
 
             <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>

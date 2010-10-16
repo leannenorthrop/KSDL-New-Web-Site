@@ -2,13 +2,23 @@ package org.samye.dzong.london
 import org.apache.shiro.SecurityUtils
 import groovy.xml.StreamingMarkupBuilder
 import org.codehaus.groovy.grails.plugins.web.taglib.JavascriptValue
+import org.samye.dzong.london.Setting
 
 class CommonLayoutTagLib {
     static namespace = 'lsdc'
     def messageSource
 
      def nav = { attrs ->
-        def navControllers = ['home', 'aboutUs', 'event', 'buddhism', 'meditation','community','wellbeing','news','shop']
+        def navControllers = []
+        ['home', 'aboutUs', 'event', 'buddhism', 'meditation','community','wellbeing','news','shop'].each { it ->
+          def isShow = true
+          try {
+              isShow = Setting.findByName("Show" + it.capitalize()).value
+          } catch (error) {log.warn "Unable to get setting ${'Show' + it.capitalize()}"}
+          if (isShow == 'true' || isShow == 'Yes') {
+              navControllers << it
+          }
+        }
 
          /*
         try {
@@ -62,25 +72,28 @@ class CommonLayoutTagLib {
 		}
 		
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
-            ['article','room','teacher'].each () { item ->
+            ['article','room','teacher','links'].each () { item ->
                 content << item
             }
+            media << 'file'
         }
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("EventOrganiser")) {
             ['event'].each () { item ->
                 content << item
             }
+            media << 'file'
         }
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("VenueManager")) {
             ['room'].each () { item ->
                 content << item
             }
+            media << 'file'
         }
         
-        if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
-            ['article', 'teacher'].each () { item ->
+        if (SecurityUtils.subject.hasRole ("Author")) {
+            ['article', 'teacher','links'].each () { item ->
                 content << item
             }
             media << 'file'
@@ -99,7 +112,7 @@ class CommonLayoutTagLib {
         }
 
         if (SecurityUtils.subject.hasRole ("EventOrganiser")) {
-            ['event'].each() { item ->
+            ['event', 'teacher'].each() { item ->
                 content << item
             }
         }
@@ -112,11 +125,10 @@ class CommonLayoutTagLib {
         }
 
         if (SecurityUtils.subject.hasRole ("Admin")) {
-            ['article', 'venue', 'teacher','room','event', 'shop'].each () { item ->
+            ['article', 'venue', 'teacher','room','event', 'shop','links'].each () { item ->
                 content << item
             }
         }
-        content << 'links'
 
         content = content as Set
         media = media as Set
@@ -226,4 +238,16 @@ class CommonLayoutTagLib {
 		}
 		out <<" >${value}</textarea>"
 	}
+	
+	def comments =  { attrs, body ->
+		def bean = attrs.bean
+		def noEscape = attrs.containsKey('noEscape') ? attrs.noEscape : false
+		
+		plugin.isAvailable(name:"grails-ui") {
+			noEscape = true
+		}
+		if(bean?.metaClass?.hasProperty(bean, "comments")) {
+			out << g.render(template:"/comments/comments", model:[commentable:bean, noEscape:noEscape])
+		}		
+	}	
 }

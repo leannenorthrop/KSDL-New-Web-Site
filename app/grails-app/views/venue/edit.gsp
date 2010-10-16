@@ -98,7 +98,6 @@
   </head>
   <body>
     <g:form name="edit" method="post" action="update">
-      <g:render template="/messageBox" model="[flash: flash]"/>
 
       <g:hiddenField name="id" value="${venue?.id}"/>
       <g:hiddenField name="version" value="${venue?.version}"/>

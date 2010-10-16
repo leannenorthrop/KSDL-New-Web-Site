@@ -35,7 +35,14 @@
     <g:javascript>
       $(function() {
         $("#addroom").validate();
-      });
+        $("#createarticle").validate();
+        $("#image\\.id").change(function() {
+            var src = $("option:selected", this).val();
+            var href = '${createLink(controller: 'image', action:'thumbnail', id:'0')}';
+            $("#thumb_image").attr("srcid",src);
+            $("#thumb_image").attr("src",href.replace('0',src));
+        });
+      });      
     </g:javascript>
   </head>
   <body>
@@ -50,25 +57,30 @@
         
         <fieldset>
             <legend>Details</legend>
-            <g:render template="/messageBox" model="[flash: flash]"/>
             <p>
                 <label for="name"><g:message code="room.name.label"/></label>
                 <g:textField name="name" value="${fieldValue(bean:room,field:'name')}" class="required ui-corner-all ${hasErrors(bean:room,field:'name','errors')}" minlength="5"/>
             </p>
             
-            <p>
-                <label for="image.id"><g:message code="room.image.label"/></label>
-                <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-                <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('room')}" name="image.id" value="${room?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-            </p>
+            <span style="float:left;width: 14em;min-height:${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px">
+                <p>
+                  <label for="image.id" style="display:inline-block;width:6em;"><g:message code="room.image.label"/></label>
+                  <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+                  <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('room')}" name="image.id" value="${room?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="ui-corner-all"/>
+                </p>
+            </span>
+            <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px; min-height:${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px">
+                <lsdc:thumbnail srcid="${room?.image?.id}" id="thumb_image"/>
+            </span>
+            <span class="clear"></span>   
             
             <p>
-                <label for="venue.id"><g:message code="room.venue.label"/></label>
+                <label for="venue.id" style="display:inline-block;width:6em;"><g:message code="room.venue.label"/></label>
                 <g:select from="${org.samye.dzong.london.venue.Venue.findAll()}" name="venue.id" value="${room?.venue?.id}" optionKey="id" optionValue="name"/>
             </p>
             
             <p>
-                <label for="forHire.id"><g:message code="room.forHire.label"/></label>
+                <label for="forHire.id" style="display:inline-block;width:6em;"><g:message code="room.forHire.label"/></label>
                 <g:checkBox name="forHire" value="${room?.forHire}" checked="${room?.forHire}"/>
             </p>
                         
@@ -82,8 +94,7 @@
                 <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:room]"/>
             
                 <p class="last">&nbsp;</p>
-                <g:set var="submitBtnLabel"><g:message code="room.create.submit.btn"/></g:set>
-                <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+                <g:submitButton name="submitbtn" value="${message(code:'room.create.submit.btn')}" id="submitbtn" class="ui-corner-all"/>
             </fieldset>
         </fieldset>
     </g:form>

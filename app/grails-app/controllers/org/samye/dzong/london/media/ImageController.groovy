@@ -181,7 +181,7 @@ class ImageController {
             } 
         } 
         flash.message = "Thumbnails updated"
-        redirect(action:manage,params:[offset:0,max:50])
+        redirect(controller:'settings',action:'manage')
     }
     
     def update = {

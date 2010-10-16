@@ -45,7 +45,6 @@ environments {
 
     production {
         dataSource {
-            dbCreate = "update"
             url = "jdbc:hsqldb:hsql://localhost/lsd"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"

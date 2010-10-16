@@ -77,14 +77,21 @@
     </g:javascript>
   </head>
   <body>
-    <g:render template="/messageBox" model="[flash: flash]"/>
-    <div id="room-tabs">
-      <ul>
-        <li><a href="ajaxUnpublishedRooms${listMaxParam}"><g:message code="room.unpublished"/></a></li>
-        <li><a href="ajaxPublishedRooms${listMaxParam}"><g:message code="room.published"/></a></li>
-        <li><a href="ajaxDeletedRooms${listMaxParam}"><g:message code="room.deleted"/></a></li>
-      </ul>
-    </div>
+      <form>
+          <fieldset>      
+              <div id="room-tabs">
+                  <ul>
+                      <li><a href="ajaxUnpublishedRooms${listMaxParam}"><g:message code="room.unpublished"/></a></li>
+                      <li><a href="ajaxPublishedRooms${listMaxParam}"><g:message code="room.published"/></a></li>
+                      <li><a href="ajaxDeletedRooms${listMaxParam}"><g:message code="room.deleted"/></a></li>
+                  </ul>
+              </div>
+              <shiro:hasAnyRole in="${['VenueManager','Admin']}">
+                <p class="last">&nbsp;</p>
+                <g:actionSubmit value="${message(code:'add.article.btn')}" action="create" class="ui-corner-all"/>
+              </shiro:hasAnyRole>
+          </fieldset> 
+      </form>   
   </body>
 </html>
 

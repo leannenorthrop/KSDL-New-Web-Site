@@ -76,15 +76,22 @@
       });
     </g:javascript>
   </head>
-  <body>
-    <g:render template="/messageBox" model="[flash: flash]"/>
-    <div id="teacher-tabs">
-      <ul>
-        <li><a href="ajaxUnpublishedTeachers${listMaxParam}"><g:message code="teacher.unpublished"/></a></li>
-        <li><a href="ajaxPublishedTeachers${listMaxParam}"><g:message code="teacher.published"/></a></li>
-        <li><a href="ajaxDeletedTeachers${listMaxParam}"><g:message code="teacher.deleted"/></a></li>
-      </ul>
-    </div>
-  </body>
+    <body>
+        <form>
+            <fieldset>
+                <div id="teacher-tabs">
+                    <ul>
+                        <li><a href="ajaxUnpublishedTeachers${listMaxParam}"><g:message code="teacher.unpublished"/></a></li>
+                        <li><a href="ajaxPublishedTeachers${listMaxParam}"><g:message code="teacher.published"/></a></li>
+                        <li><a href="ajaxDeletedTeachers${listMaxParam}"><g:message code="teacher.deleted"/></a></li>
+                    </ul>
+                </div>
+                <shiro:hasAnyRole in="${['Author','Admin','EventOrganiser']}">
+                    <p class="last">&nbsp;</p>
+                    <g:actionSubmit value="${message(code:'add.article.btn')}" action="create" class="ui-corner-all"/>
+                </shiro:hasAnyRole>    
+            </fieldset>
+        </form>
+    </body>
 </html>
 

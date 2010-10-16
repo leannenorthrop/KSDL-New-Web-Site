@@ -29,7 +29,7 @@
       <thead>
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="event.action.label"/></th>
@@ -41,11 +41,12 @@
             <td>
               <g:link action="show" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
             </td>
-            <shiro:hasAnyRole in="['Editor','Administrator']">
+            <shiro:hasAnyRole in="['Editor','Admin']">
               <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator','EventOrganiser']">
+              <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
+                <g:link action="changeState" params="[state:'Ready For Publication']" id="${eventInstance.id}"><g:message code="event.ready.action"/></g:link>                            
                 <g:link action="changeState" params="[state:'Unpublished']" id="${eventInstance.id}"><g:message code="event.unpublish.action"/></g:link>
               </shiro:hasAnyRole>
             </td>

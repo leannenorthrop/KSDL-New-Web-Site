@@ -1,7 +1,7 @@
 1. Build Instructions
 ===============================================================================
 export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
-mvn clean assembly:assembly 
+mvn clean assembly:assembly -Dmaven.test.skip=true
 
 2. Running Instructions
 ===============================================================================

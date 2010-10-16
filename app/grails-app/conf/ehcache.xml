@@ -11,6 +11,7 @@
             timeToLiveSeconds="120"
             overflowToDisk="false"
             diskPersistent="false"
+            timeToIdleSeconds="300"            
             />
 
     <cache name="Slideshow"
@@ -20,12 +21,12 @@
 
     <cache name="org.hibernate.cache.UpdateTimestampsCache"
            maxElementsInMemory="10000"
-           timeToIdleSeconds="300"
+           timeToIdleSeconds="900"
             />
 
     <cache name="org.hibernate.cache.StandardQueryCache"
            maxElementsInMemory="10000"
-           timeToIdleSeconds="300"
+           timeToIdleSeconds="900"
             />
 
 

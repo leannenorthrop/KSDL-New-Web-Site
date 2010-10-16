@@ -69,11 +69,11 @@
             </shiro:hasAnyRole>
             <td>
               <shiro:hasAnyRole in="['Editor','Admin']">
-                <g:link action="changeState" params="[state:'Unpublished']" id="${articleInstance.id}"><g:message code="article.unpublish.action"/></g:link>
+                <g:link action="changeState" params="[state:'Ready For Publication']" id="${articleInstance.id}"><g:message code="article.prepublish.action"/></g:link>              
                 <g:link action="changeState" params="[state:'Archived']" id="${articleInstance.id}"><g:message code="article.archive.action"/></g:link>
                 <g:link action="pre_publish" id="${articleInstance.id}"><g:message code="article.afterpublishedit.action"/></g:link>
-                <g:link action="delete" id="${articleInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
-              </shiro:hasAnyRole>
+                <g:link action="delete" id="${articleInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>                
+              </shiro:hasAnyRole>                
             </td>
           </tr>
         </g:each>

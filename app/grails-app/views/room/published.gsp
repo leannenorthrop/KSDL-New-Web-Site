@@ -40,7 +40,7 @@
           <g:sortableColumn property="forHire" title="${roomHireLabel}"/>
           <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="room.action.label"/></th>
@@ -60,7 +60,7 @@
               <td>${fieldValue(bean: room, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
-              <shiro:hasAnyRole in="['Editor','Administrator']">
+              <shiro:hasAnyRole in="['Editor','Admin','VenueManager']">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${room.id}"><g:message code="room.unpublish.action"/></g:link>
                 <g:link action="delete" id="${room.id}" onclick="${deleteConfirmLabel}"><g:message code="room.delete.action"/></g:link>
               </shiro:hasAnyRole>

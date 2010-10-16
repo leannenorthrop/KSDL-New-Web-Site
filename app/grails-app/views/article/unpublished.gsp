@@ -45,7 +45,7 @@
               <shiro:hasAnyRole in="['Author','Admin']">    
               <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
               </shiro:hasAnyRole>
-              <shiro:lacksAllRoles in="['Author','Administrator']">
+              <shiro:lacksAllRoles in="['Author','Admin']">
               ${fieldValue(bean: articleInstance, field: 'title')}
               </shiro:lacksAllRoles>              
             </td>

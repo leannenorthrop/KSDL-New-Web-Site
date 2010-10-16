@@ -31,7 +31,7 @@
             <tr>
                 <g:sortableColumn property="title" title="${titleLabel}" />
                 <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}" />
-                <shiro:hasAnyRole in="['Editor','Administrator']">
+                <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
                 <g:sortableColumn property="author" title="${authorLabel}"/>
                 </shiro:hasAnyRole>
                 <th><g:message code="teacher.action.label"/></th>
@@ -41,22 +41,22 @@
         <g:each in="${teachers}" status="i" var="teacher">
             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                 <td>
-                    <shiro:hasAnyRole in="['Author','Administrator']">    
+                    <shiro:hasAnyRole in="['Author','Admin','EventOrganiser']">    
                     <g:link action="edit" id="${teacher.id}">${teacher}</g:link>
                     </shiro:hasAnyRole>
-                    <shiro:lacksAllRoles in="['Author','Administrator']">
+                    <shiro:lacksAllRoles in="['Author','Admin','EventOrganiser']">
                     ${teacher}
                     </shiro:lacksAllRoles>                    
                 </td>
                 <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.lastUpdated}"/></td>
-                <shiro:hasAnyRole in="['Editor','Administrator']">
+                <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
                 <td>${fieldValue(bean:teacher, field:'author')}</td>
                 </shiro:hasAnyRole>
                 <td>
-                <shiro:hasAnyRole in="['Editor','Administrator']">
+                <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
                 <g:link action="changeState" params="[state:'Published']" id="${teacher.id}"><g:message code="teacher.publish.action"/></g:link>  
                 </shiro:hasAnyRole>
-                <shiro:hasAnyRole in="['Author']">
+                <shiro:hasAnyRole in="['Author','EventOrganiser','Admin']">
                 <g:link action="delete" id="${teacher.id}" onclick="${deleteConfirmLabel}"><g:message code="teacher.delete.action"/></g:link>
                 </shiro:hasAnyRole>
                 </td>

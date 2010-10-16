@@ -12,10 +12,11 @@ import java.awt.color.ICC_ColorSpace
 import java.awt.color.ColorSpace
 import java.awt.color.ICC_Profile
 import java.awt.Color
+import org.samye.dzong.london.Setting
 
 class ImageService {
     def imageTool
-    boolean transactional = false
+    boolean transactional = true
 
     def read(file, type) {
         try {
@@ -48,7 +49,8 @@ class ImageService {
             def imageTool = new ImageTool()
             imageTool.load(file)
             imageTool.saveOriginal()
-            return imageTool.getHeight() <= 75 && imageTool.getWidth() <= 75
+            def thumbSize = Integer.parseInt(Setting.findByName('ThumbSize').value)
+            return imageTool.getHeight() <= thumbSize && imageTool.getWidth() <= thumbSize
         } catch (error) {
             log.error(error)
         }		
@@ -59,10 +61,11 @@ class ImageService {
             def imageTool = new ImageTool()
             imageTool.load(file)
             imageTool.saveOriginal()
-            if (imageTool.getHeight() > 75 || imageTool.getWidth() > 75) {
+            def thumbSize = Integer.parseInt(Setting.findByName('ThumbSize').value)
+            if (imageTool.getHeight() > thumbSize || imageTool.getWidth() > thumbSize) {
 				imageTool.square()
 	            imageTool.swapSource()
-	            imageTool.thumbnailSpecial(75, 75, 3, 2)
+	            imageTool.thumbnailSpecial(thumbSize, thumbSize, 3, 2)
                 def imagetype = type.toLowerCase().indexOf("jpg") >= 0 ? "JPEG" : "PNG";
 				imagetype = type.toLowerCase().indexOf("jpeg") >= 0 ? "JPEG" : "PNG";
                 return imageTool.getBytes(imagetype)	
@@ -87,10 +90,11 @@ class ImageService {
             def imageTool = new ImageTool()
             imageTool.load(image)
             imageTool.saveOriginal()
-            if (imageTool.getHeight() > 85 || imageTool.getWidth() > 85) {
+            def thumbSize = Integer.parseInt(Setting.findByName('ThumbSize').value)
+            if (imageTool.getHeight() > thumbSize || imageTool.getWidth() > thumbSize) {
 				imageTool.square()
 	            imageTool.swapSource()
-	            imageTool.thumbnailSpecial(85, 85, 3, 2)
+	            imageTool.thumbnailSpecial(thumbSize, thumbSize, 3, 2)
                 def imagetype = type.toLowerCase().indexOf("jpg") >= 0 ? "JPEG" : "PNG";
 				imagetype = type.toLowerCase().indexOf("jpeg") >= 0 ? "JPEG" : "PNG";
                 return imageTool.getBytes(imagetype)	
