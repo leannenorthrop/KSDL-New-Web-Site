@@ -1,481 +1,893 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
-    <changeSet author="v001-schema-1" id="Leanne Northrop">
-        <createTable tableName="address">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" 
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="leanne" id="1.0.10-SNAPSHOT">
+        <createTable tableName="ADDRESS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ADDRESS_PK"/>
             </column>
-            <column name="post_code" type="VARCHAR(10)"/>
-            <column name="place_name" type="${varchar-1024}"/>
-            <column name="type" type="VARCHAR(5)"/>
-            <column name="country" type="VARCHAR(108)"/>
-            <column name="county" type="VARCHAR(25)"/>
-            <column name="street_number" type="INT"/>
-            <column name="line1" type="${varchar-2048}"/>
-            <column name="post_town" type="VARCHAR(255)"/>
-            <column name="line2" type="${varchar-2048}"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-2" id="Leanne Northrop">
-        <createTable tableName="article">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="summary" type="${text-type}"/>
-            <column name="image_id" type="BIGINT"/>
-            <column name="content" type="${text-type}"/>
-            <column name="title" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-3" id="Leanne Northrop">
-        <createTable tableName="audit_log">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="property_name" type="VARCHAR(255)"/>
-            <column name="last_updated" type="DATETIME">
+            <column name="COUNTRY" type="VARCHAR(108)">
                 <constraints nullable="false"/>
             </column>
-            <column name="old_value" type="VARCHAR(255)"/>
-            <column name="actor" type="VARCHAR(255)"/>
-            <column name="uri" type="VARCHAR(255)"/>
-            <column name="new_value" type="VARCHAR(255)"/>
-            <column name="persisted_object_version" type="BIGINT"/>
-            <column name="date_created" type="DATETIME">
+            <column name="COUNTY" type="VARCHAR(25)">
                 <constraints nullable="false"/>
             </column>
-            <column name="class_name" type="VARCHAR(255)"/>
-            <column name="event_name" type="VARCHAR(255)"/>
-            <column name="persisted_object_id" type="BIGINT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-4" id="Leanne Northrop">
-        <createTable tableName="contact">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="version" type="BIGINT">
+            <column name="LINE1" type="${varchar-2048}">
                 <constraints nullable="false"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="LINE2" type="${varchar-2048}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PLACE_NAME" type="${varchar-1024}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POST_CODE" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="POST_TOWN" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="STREET_NUMBER" type="INT"/>
+            <column name="TYPE" type="VARCHAR(5)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-5" id="Leanne Northrop">
-        <createTable tableName="email">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="ARTICLE">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ARTICLE_PK"/>
             </column>
-            <column name="address" type="VARCHAR(255)"/>
-            <column name="type" type="VARCHAR(5)"/>
+            <column name="CONTENT" type="${text-type}"/>
+            <column name="IMAGE_ID" type="BIGINT"/>
+            <column name="SUMMARY" type="${text-type}"/>
+            <column name="TITLE" type="VARCHAR(255)"/>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-6" id="Leanne Northrop">
-        <createTable tableName="event">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="summary" type="${text-type}"/>
-            <column name="title" type="VARCHAR(254)"/>
-            <column name="leader_id" type="BIGINT"/>
-            <column name="is_repeatable" type="BOOLEAN"/>
-            <column name="organizer_id" type="BIGINT"/>
-            <column name="image_id" type="BIGINT"/>
-            <column name="venue_id" type="BIGINT"/>
-            <column name="content" type="${text-type}"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-7" id="Leanne Northrop">
-        <createTable tableName="image">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="version" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="thumbnail" type="${blob}">
-                <constraints nullable="false"/>
-            </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="image" type="${blob}">
-                <constraints nullable="false"/>
-            </column>
-            <column name="mime_type" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-51" id="Leanne Northrop">
-        <createTable tableName="pending_email_confirmation">
+        <createTable tableName="AUDIT_LOG">
             <column autoIncrement="true" name="ID" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_48"/>
+                <constraints nullable="false" primaryKey="true" primaryKeyName="AUDIT_LOG_PK"/>
             </column>
-            <column name="version" type="BIGINT">
+            <column name="ACTOR" type="VARCHAR(255)"/>
+            <column name="CLASS_NAME" type="VARCHAR(255)"/>
+            <column name="DATE_CREATED" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="timestamp" type="DATETIME">
+            <column name="EVENT_NAME" type="VARCHAR(255)"/>
+            <column name="LAST_UPDATED" type="DATETIME">
                 <constraints nullable="false"/>
             </column>
-            <column name="user_token" type="${varchar-500}"/>
-            <column name="email_address" type="VARCHAR(80)">
+            <column name="NEW_VALUE" type="VARCHAR(255)"/>
+            <column name="OLD_VALUE" type="VARCHAR(255)"/>
+            <column name="PERSISTED_OBJECT_ID" type="BIGINT"/>
+            <column name="PERSISTED_OBJECT_VERSION" type="BIGINT"/>
+            <column name="PROPERTY_NAME" type="VARCHAR(255)"/>
+            <column name="URI" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="CONTACT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="CONTACT_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="confirmation_token" type="VARCHAR(80)">
+            <column name="NAME" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-8" id="Leanne Northrop">
-        <createTable tableName="price">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="DOWNLOAD">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="DOWNLOAD"/>
             </column>
-            <column name="version" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="category" type="VARCHAR(1)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="price" type="DOUBLE">
-                <constraints nullable="false"/>
-            </column>
-            <column name="currency" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="class" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="event_id" type="BIGINT"/>
-            <column name="prices_idx" type="INT"/>
+            <column name="FILE_ID" type="BIGINT"/>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-9" id="Leanne Northrop">
-        <createTable tableName="publishable">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="EMAIL">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="EMAIL_PK"/>
             </column>
-            <column name="version" type="BIGINT">
+            <column name="ADDRESS" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="display_date" type="BOOLEAN"/>
-            <column name="home" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date_published" type="DATETIME"/>
-            <column name="display_author" type="BOOLEAN"/>
-            <column name="last_updated" type="DATETIME"/>
-            <column name="featured" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
-            <column name="deleted" type="BOOLEAN">
-                <constraints nullable="false"/>
-            </column>
-            <column name="author_id" type="BIGINT"/>
-            <column name="category" type="VARCHAR(1)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="publish_state" type="VARCHAR(21)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="date_created" type="DATETIME"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-10" id="Leanne Northrop">
-        <createTable tableName="room">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="image_id" type="BIGINT"/>
-            <column name="description" type="VARCHAR(255)"/>
-            <column name="name" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-52" id="Leanne Northrop">
-       <createTable tableName="schedule_rule">
-           <column autoIncrement="true" name="ID" type="BIGINT">
-               <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_165"/>
-           </column>
-           <column name="version" type="BIGINT">
-               <constraints nullable="false"/>
-           </column>
-           <column name="start_date" type="DATETIME">
-               <constraints nullable="false"/>
-           </column>
-           <column name="interval" type="INT"/>
-           <column name="end_date" type="DATETIME">
-               <constraints nullable="false"/>
-           </column>
-           <column name="end_time" type="TIME">
-               <constraints nullable="false"/>
-           </column>
-           <column name="modifier" type="VARCHAR(255)"/>
-           <column name="start_time" type="TIME">
-               <constraints nullable="false"/>
-           </column>
-           <column name="rule_type" type="VARCHAR(255)"/>
-           <column name="duration" type="VARCHAR(255)"/>
-           <column name="modifier_type" type="VARCHAR(2)"/>
-           <column name="is_rule" type="BOOLEAN">
-               <constraints nullable="false"/>
-           </column>
-           <column name="class" type="VARCHAR(255)">
-               <constraints nullable="false"/>
-           </column>
-           <column name="event_id" type="BIGINT"/>
-           <column name="dates_idx" type="INT"/>
-       </createTable>
-   </changeSet>
-    <changeSet author="v001-schema-11" id="Leanne Northrop">
-        <createTable tableName="shiro_role">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="version" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="TYPE" type="VARCHAR(5)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-12" id="Leanne Northrop">
-        <createTable tableName="shiro_role_permissions">
-            <column name="shiro_role_id" type="BIGINT"/>
-            <column name="permissions_string" type="VARCHAR(255)"/>
+        <createTable tableName="EVENT">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="EVENT_PK"/>
+            </column>
+            <column name="CONTENT" type="${text-type}"/>
+            <column name="IMAGE_ID" type="BIGINT"/>
+            <column name="IS_REPEATABLE" type="BIT"/>
+            <column name="LEADER_ID" type="BIGINT"/>
+            <column name="ORGANIZER_ID" type="BIGINT"/>
+            <column name="SUMMARY" type="${text-type}"/>
+            <column name="TITLE" type="VARCHAR(254)"/>
+            <column name="VENUE_ID" type="BIGINT"/>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-13" id="Leanne Northrop">
-        <createTable tableName="shiro_user">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="IMAGE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="IMAGE_PK"/>
             </column>
-            <column name="version" type="BIGINT">
+            <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="username" type="VARCHAR(255)">
+            <column name="DATE_CREATED" type="DATETIME"/>
+            <column name="IMAGE" type="${blob}">
                 <constraints nullable="false"/>
             </column>
-            <column name="password_hash" type="VARCHAR(255)">
+            <column name="LAST_UPDATED" type="DATETIME"/>
+            <column name="MIME_TYPE" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="password_reset" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-14" id="Leanne Northrop">
-        <createTable tableName="shiro_user_permissions">
-            <column name="shiro_user_id" type="BIGINT"/>
-            <column name="permissions_string" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-15" id="Leanne Northrop">
-        <createTable tableName="shiro_user_roles">
-            <column name="shiro_user_id" type="BIGINT">
+            <column name="NAME" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="shiro_role_id" type="BIGINT">
+            <column name="THUMBNAIL" type="${blob}">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-16" id="Leanne Northrop">
-        <createTable tableName="tag_links">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="LINK">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="LINK_PK"/>
             </column>
-            <column name="version" type="BIGINT">
+            <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="tag_ref" type="BIGINT">
+            <column name="ACTION" type="VARCHAR(255)"/>
+            <column name="CONTROLLER" type="VARCHAR(255)"/>
+            <column name="HREF" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="tag_id" type="BIGINT">
+            <column name="POSITION" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="type" type="VARCHAR(255)">
+            <column name="REFID" type="VARCHAR(255)"/>
+            <column name="SECTION" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-17" id="Leanne Northrop">
-        <createTable tableName="tags">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="version" type="BIGINT">
-                <constraints nullable="false"/>
-            </column>
-            <column name="name" type="VARCHAR(255)">
+            <column name="TYPE" type="VARCHAR(1)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-18" id="Leanne Northrop">
-        <createTable tableName="teacher">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="MENU_CATEGORY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="MENU_CATEGORY_PK"/>
             </column>
-            <column name="summary" type="${text-type}"/>
-            <column name="image_id" type="BIGINT"/>
-            <column name="type" type="VARCHAR(1)"/>
-            <column name="content" type="${text-type}"/>
-            <column name="title" type="VARCHAR(3)"/>
-            <column name="name" type="VARCHAR(255)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-19" id="Leanne Northrop">
-        <createTable tableName="telephone">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="number" type="VARCHAR(255)"/>
-            <column name="type" type="VARCHAR(6)"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-20" id="Leanne Northrop">
-        <createTable tableName="transport">
-            <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
-            </column>
-            <column name="version" type="BIGINT">
+            <column name="VERSION" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="description" type="VARCHAR(255)">
+            <column name="LEVEL" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MENU_CATEGORIES_IDX" type="INT"/>
+        </createTable>
+        <createTable tableName="META">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="META_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRODUCT_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VALUE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="META_IDX" type="INT"/>
+        </createTable>
+        <createTable tableName="NON_DOWNLOADABLE">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="NON_DOWNLOADABLE_PK"/>
+            </column>
+            <column name="DEPTH" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HEIGHT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="WEIGHT" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="WIDTH" type="INT">
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-53" id="Leanne Northrop">
-        <createTable tableName="venue">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="SYS_IDX_200"/>
+        <createTable tableName="PRICE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRICE_PK"/>
             </column>
-            <column name="image_id" type="BIGINT"/>
-            <column name="access" type="VARCHAR(255)"/>
-            <column name="description" type="VARCHAR(32000)"/>
-            <column name="name" type="VARCHAR(512)"/>
-            <column name="facilities" type="VARCHAR(255)"/>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CATEGORY" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CURRENCY" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PRICE" type="float">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CLASS" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EVENT_ID" type="BIGINT"/>
+            <column name="PRODUCT_ID" type="BIGINT"/>
+            <column name="PRICES_IDX" type="INT"/>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-21" id="Leanne Northrop">
-        <createTable tableName="venue_address">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="PRODUCT">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PRODUCT_PK"/>
+            </column>
+            <column name="CONTENT" type="${text-type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ISDISCOUNT" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ISDOWNLOADABLE" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ISNEW" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SUMMARY" type="${text-type}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(254)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-22" id="Leanne Northrop">
-        <createTable tableName="venue_email">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="PRODUCT_IMAGE">
+            <column name="PRODUCT_IMAGES_ID" type="BIGINT"/>
+            <column name="IMAGE_ID" type="BIGINT"/>
+            <column name="IMAGES_IDX" type="INT"/>
+        </createTable>
+        <createTable tableName="PROFILE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PROFILE_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_CREATED" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="IMAGE" type="${blob}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_LOGGED_IN" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MIME_TYPE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NICK_NAME" type="VARCHAR(512)"/>
+            <column name="PUBLIC_NAME" type="VARCHAR(512)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-23" id="Leanne Northrop">
-        <createTable tableName="venue_room">
-            <column name="venue_rooms_id" type="BIGINT"/>
-            <column name="room_id" type="BIGINT"/>
-        </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-24" id="Leanne Northrop">
-        <createTable tableName="venue_telephone">
-            <column name="id" type="BIGINT">
-                <constraints nullable="false" primaryKey="true"/>
+        <createTable tableName="PUBLISHABLE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PUBLISHABLE_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="AUTHOR_ID" type="BIGINT"/>
+            <column name="CATEGORY" type="VARCHAR(1)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_CREATED" type="DATETIME"/>
+            <column name="DATE_PUBLISHED" type="DATETIME"/>
+            <column name="DELETED" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DISPLAY_AUTHOR" type="BIT"/>
+            <column name="DISPLAY_DATE" type="BIT"/>
+            <column name="FEATURED" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="HOME" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_UPDATED" type="DATETIME"/>
+            <column name="PUBLISH_STATE" type="VARCHAR(21)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-    <changeSet author="v001-schema-25" id="Leanne Northrop">
-        <addPrimaryKey columnNames="shiro_user_id, shiro_role_id" tableName="shiro_user_roles"/>
-    </changeSet>
-    <changeSet author="v001-schema-26" id="Leanne Northrop">
-        <createIndex indexName="title" tableName="article" unique="true">
-            <column name="title"/>
+        <createTable tableName="QUANTITY">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="QUANTITY_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHOPPING_CART_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHOPPING_ITEM_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VALUE" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="ROOM">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ROOM_PK"/>
+            </column>
+            <column name="CONTENT" type="${text-type}"/>
+            <column name="FOR_HIRE" type="BIT"/>
+            <column name="IMAGE_ID" type="BIGINT"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="SUMMARY" type="${text-type}"/>
+            <column name="VENUE_ID" type="BIGINT"/>
+        </createTable>
+        <createTable tableName="SCHEDULE_RULE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SCHEDULE_RULE_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DURATION" type="VARCHAR(255)"/>
+            <column name="END_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="END_TIME" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="THE_INTERVAL" type="INT"/>
+            <column name="IS_RULE" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="MODIFIER" type="VARCHAR(255)"/>
+            <column name="MODIFIER_TYPE" type="VARCHAR(2)"/>
+            <column name="RULE_TYPE" type="VARCHAR(255)"/>
+            <column name="START_DATE" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="START_TIME" type="TIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CLASS" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EVENT_ID" type="BIGINT"/>
+            <column name="DATES_IDX" type="INT"/>
+        </createTable>
+        <createTable tableName="SETTING">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SETTING_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="VALUE" type="${text-type}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="SHIRO_ROLE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SHIRO_ROLE_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="SHIRO_ROLE_PERMISSIONS">
+            <column name="SHIRO_ROLE_ID" type="BIGINT"/>
+            <column name="PERMISSIONS_STRING" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="SHIRO_USER">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SHIRO_USER_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD_HASH" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PASSWORD_RESET" type="VARCHAR(255)"/>
+            <column name="PROFILE_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="USERNAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="SHIRO_USER_PERMISSIONS">
+            <column name="SHIRO_USER_ID" type="BIGINT"/>
+            <column name="PERMISSIONS_STRING" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="SHIRO_USER_ROLES">
+            <column name="SHIRO_ROLE_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHIRO_USER_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="SHOPPABLE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SHOPPABLE_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHOPPING_ITEM_ID" type="BIGINT"/>
+            <column name="CLASS" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="SHOPPING_CART">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SHOPPING_CART_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CHECKED_OUT" type="BIT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_CREATED" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LASTURL" type="VARCHAR(255)"/>
+            <column name="LAST_UPDATED" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SESSIONID" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="SHOPPING_CART_INTERFACE_TEST_PRODUCT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SHOPPING_CART_INTERFACE_TEST_PRODUCT_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SHOPPING_ITEM_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="SHOPPING_CART_SHOPPING_ITEM">
+            <column name="SHOPPING_CART_ITEMS_ID" type="BIGINT"/>
+            <column name="SHOPPING_ITEM_ID" type="BIGINT"/>
+        </createTable>
+        <createTable tableName="SHOPPING_ITEM">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="SHOPPING_ITEM_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="TAG_LINKS">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="TAG_LINKS_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TAG_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TAG_REF" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="TAGS">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="TAGS_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="TEACHER">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="TEACHER_PK"/>
+            </column>
+            <column name="CONTENT" type="${text-type}"/>
+            <column name="IMAGE_ID" type="BIGINT"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="SUMMARY" type="${text-type}"/>
+            <column name="TITLE" type="VARCHAR(3)"/>
+            <column name="TYPE" type="VARCHAR(1)"/>
+        </createTable>
+        <createTable tableName="TELEPHONE">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="TELEPHONE_PK"/>
+            </column>
+            <column name="NUMBER" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="TYPE" type="VARCHAR(6)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="TRANSPORT">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="TRANSPORT_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DESCRIPTION" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="UFILE">
+            <column autoIncrement="true" name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="UFILE_PK"/>
+            </column>
+            <column name="VERSION" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DATE_UPLOADED" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOWNLOADS" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="EXTENSION" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="NAME" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="PATH" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SIZE" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <createTable tableName="VENUE">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="VENUE_PK"/>
+            </column>
+            <column name="ACCESS" type="${text-type}"/>
+            <column name="CONTENT" type="${text-type}"/>
+            <column name="FACILITIES" type="${text-type}"/>
+            <column name="IMAGE_ID" type="BIGINT"/>
+            <column name="LATITUDE" type="float"/>
+            <column name="LONGTITUDE" type="float"/>
+            <column name="NAME" type="VARCHAR(128)"/>
+        </createTable>
+        <createTable tableName="VENUE_ADDRESS">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="VENUE_ADDRESS_PK"/>
+            </column>
+        </createTable>
+        <createTable tableName="VENUE_EMAIL">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="VENUE_EMAIL_PK"/>
+            </column>
+        </createTable>
+        <createTable tableName="VENUE_TELEPHONE">
+            <column name="ID" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="VENUE_TELEPHONE_PK"/>
+            </column>
+        </createTable>
+        <createTable tableName="VENUE_VENUE_ADDRESS">
+            <column name="VENUE_ADDRESSES_ID" type="BIGINT"/>
+            <column name="VENUE_ADDRESS_ID" type="BIGINT"/>
+            <column name="ADDRESSES_IDX" type="INT"/>
+        </createTable>
+        <createTable tableName="VENUE_VENUE_EMAIL">
+            <column name="VENUE_EMAILS_ID" type="BIGINT"/>
+            <column name="VENUE_EMAIL_ID" type="BIGINT"/>
+            <column name="EMAILS_IDX" type="INT"/>
+        </createTable>
+        <createTable tableName="VENUE_VENUE_TELEPHONE">
+            <column name="VENUE_TELEPHONE_NUMBERS_ID" type="BIGINT"/>
+            <column name="VENUE_TELEPHONE_ID" type="BIGINT"/>
+            <column name="TELEPHONE_NUMBERS_IDX" type="INT"/>
+        </createTable>
+        <addPrimaryKey columnNames="SHIRO_USER_ID, SHIRO_ROLE_ID" constraintName="SHIRO_USER_ROLES_PK" tableName="SHIRO_USER_ROLES"/>
+        <addForeignKeyConstraint baseColumnNames="IMAGE_ID" baseTableName="ARTICLE" baseTableSchemaName="${schema}" constraintName="ARTICLE_IMAGE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="IMAGE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="FILE_ID" baseTableName="DOWNLOAD" baseTableSchemaName="${schema}" constraintName="DOWNLOAD_UFILE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="UFILE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="IMAGE_ID" baseTableName="EVENT" baseTableSchemaName="${schema}" constraintName="EVENT_IMAGE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="IMAGE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="LEADER_ID" baseTableName="EVENT" baseTableSchemaName="${schema}" constraintName="EVENT_TEACHER" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="TEACHER" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="ORGANIZER_ID" baseTableName="EVENT" baseTableSchemaName="${schema}" constraintName="EVENT_USER" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHIRO_USER" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="VENUE_ID" baseTableName="EVENT" baseTableSchemaName="${schema}" constraintName="EVENT_VENUE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="VENUE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="MENU_CATEGORY" baseTableSchemaName="${schema}" constraintName="PRODUCT_MENU_CATEGORY" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="PRODUCT" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="META" baseTableSchemaName="${schema}" constraintName="PRODUCT_META" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="PRODUCT" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="EVENT_ID" baseTableName="PRICE" baseTableSchemaName="${schema}" constraintName="EVENT_PRICE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="EVENT" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="PRODUCT_ID" baseTableName="PRICE" baseTableSchemaName="${schema}" constraintName="PRODUCT_PRICE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="PRODUCT" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="IMAGE_ID" baseTableName="PRODUCT_IMAGE" baseTableSchemaName="${schema}" constraintName="PRODUCT_IMAGE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="IMAGE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="AUTHOR_ID" baseTableName="PUBLISHABLE" baseTableSchemaName="${schema}" constraintName="PUBLISHABLE_USER" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHIRO_USER" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHOPPING_CART_ID" baseTableName="QUANTITY" baseTableSchemaName="${schema}" constraintName="SHOPPING_CART_QUANTITY" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHOPPING_CART" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHOPPING_ITEM_ID" baseTableName="QUANTITY" baseTableSchemaName="${schema}" constraintName="PRODUCT_QUANTITY" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHOPPING_ITEM" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="IMAGE_ID" baseTableName="ROOM" baseTableSchemaName="${schema}" constraintName="ROOM_IMAGE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="IMAGE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="VENUE_ID" baseTableName="ROOM" baseTableSchemaName="${schema}" constraintName="ROOM_VENUE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="VENUE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="EVENT_ID" baseTableName="SCHEDULE_RULE" baseTableSchemaName="${schema}" constraintName="EVENT_RULE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="EVENT" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHIRO_ROLE_ID" baseTableName="SHIRO_ROLE_PERMISSIONS" baseTableSchemaName="${schema}" constraintName="ROLE_PERMISSIONS" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHIRO_ROLE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="PROFILE_ID" baseTableName="SHIRO_USER" baseTableSchemaName="${schema}" constraintName="USER_PROFILE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="PROFILE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHIRO_USER_ID" baseTableName="SHIRO_USER_PERMISSIONS" baseTableSchemaName="${schema}" constraintName="USER_PERMISSIONS" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHIRO_USER" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHIRO_ROLE_ID" baseTableName="SHIRO_USER_ROLES" baseTableSchemaName="${schema}" constraintName="USER_ROLES" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHIRO_ROLE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHIRO_USER_ID" baseTableName="SHIRO_USER_ROLES" baseTableSchemaName="${schema}" constraintName="ROLES_USER" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHIRO_USER" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHOPPING_ITEM_ID" baseTableName="SHOPPABLE" baseTableSchemaName="${schema}" constraintName="SHOPPABLE_ITEM" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHOPPING_ITEM" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHOPPING_ITEM_ID" baseTableName="SHOPPING_CART_INTERFACE_TEST_PRODUCT" baseTableSchemaName="${schema}" constraintName="TESTCART_ITEM" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHOPPING_ITEM" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHOPPING_CART_ITEMS_ID" baseTableName="SHOPPING_CART_SHOPPING_ITEM" baseTableSchemaName="${schema}" constraintName="CART_CART" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHOPPING_CART" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="SHOPPING_ITEM_ID" baseTableName="SHOPPING_CART_SHOPPING_ITEM" baseTableSchemaName="${schema}" constraintName="CART_ITEM" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="SHOPPING_ITEM" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="TAG_ID" baseTableName="TAG_LINKS" baseTableSchemaName="${schema}" constraintName="TAG_LINKS" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="TAGS" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="IMAGE_ID" baseTableName="TEACHER" baseTableSchemaName="${schema}" constraintName="TEACHER_IMAGE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="IMAGE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="IMAGE_ID" baseTableName="VENUE" baseTableSchemaName="${schema}" constraintName="VENUE_IMAGE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="IMAGE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="VENUE_ADDRESS_ID" baseTableName="VENUE_VENUE_ADDRESS" baseTableSchemaName="${schema}" constraintName="VENUE_ADDRESS" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="VENUE_ADDRESS" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="VENUE_EMAIL_ID" baseTableName="VENUE_VENUE_EMAIL" baseTableSchemaName="${schema}" constraintName="VENUE_EMAIL" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="VENUE_EMAIL" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <addForeignKeyConstraint baseColumnNames="VENUE_TELEPHONE_ID" baseTableName="VENUE_VENUE_TELEPHONE" baseTableSchemaName="${schema}" constraintName="VENUE_TELEPHONE" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="ID" referencedTableName="VENUE_TELEPHONE" referencedTableSchemaName="${schema}" referencesUniqueColumn="false"/>
+        <createIndex associatedWith="primaryKey" indexName="ADDRESS_PK_IDX" tableName="ADDRESS" unique="true">
+            <column name="ID"/>
         </createIndex>
-    </changeSet>
-    <changeSet author="v001-schema-27" id="Leanne Northrop">
-        <createIndex indexName="title" tableName="event" unique="true">
-            <column name="title"/>
+        <createIndex associatedWith="foreignKey" indexName="ARTICLE_IMAGE_IDX" tableName="ARTICLE" unique="false">
+            <column name="IMAGE_ID"/>
         </createIndex>
-    </changeSet>
-    <changeSet author="v001-schema-28" id="Leanne Northrop">
-        <createIndex indexName="name" tableName="image" unique="true">
-            <column name="name"/>
+        <createIndex associatedWith="" indexName="ARTICLE_TITLE_IDX" tableName="ARTICLE" unique="true">
+            <column name="TITLE"/>
         </createIndex>
-    </changeSet>
-    <changeSet author="v001-schema-29" id="Leanne Northrop">
-        <createIndex indexName="name" tableName="shiro_role" unique="true">
-            <column name="name"/>
+        <createIndex associatedWith="primaryKey" indexName="ARTICLE_PK_IDX" tableName="ARTICLE" unique="true">
+            <column name="ID"/>
         </createIndex>
-    </changeSet>
-    <changeSet author="v001-schema-30" id="Leanne Northrop">
-        <createIndex indexName="username" tableName="shiro_user" unique="true">
-            <column name="username"/>
+        <createIndex associatedWith="primaryKey" indexName="AUDIT_LOG_PK_IDX" tableName="AUDIT_LOG" unique="true">
+            <column name="ID"/>
         </createIndex>
-    </changeSet>
-    <changeSet author="v001-schema-31" id="Leanne Northrop">
-        <createIndex indexName="name" tableName="tags" unique="true">
-            <column name="name"/>
+        <createIndex associatedWith="primaryKey" indexName="CONTACT_PK_IDX" tableName="CONTACT" unique="true">
+            <column name="ID"/>
         </createIndex>
-    </changeSet>
-    <changeSet author="v001-schema-32" id="Leanne Northrop">
-        <createIndex indexName="name" tableName="teacher" unique="true">
-            <column name="name"/>
+        <createIndex associatedWith="foreignKey" indexName="DOWNLOAD_FILE_IDX" tableName="DOWNLOAD" unique="false">
+            <column name="FILE_ID"/>
         </createIndex>
-    </changeSet>
-    <changeSet author="v001-schema-33" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="article" constraintName="FKD458CCF6B776D63" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="image"/>
-    </changeSet>
-    <changeSet author="v001-schema-34" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="event" constraintName="FK5C6729AB776D63" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="image"/>
-    </changeSet>
-    <changeSet author="v001-schema-35" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="leader_id" baseTableName="event" constraintName="FK5C6729A8D6FE8C1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="teacher"/>
-    </changeSet>
-    <changeSet author="v001-schema-36" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="organizer_id" baseTableName="event" constraintName="FK5C6729A7FAD865A" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="shiro_user"/>
-    </changeSet>
-    <changeSet author="v001-schema-37" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="venue_id" baseTableName="event" constraintName="FK5C6729A7B3A8B2E" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="venue"/>
-    </changeSet>
-    <changeSet author="v001-schema-38" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="price" constraintName="FK65FB149EF265472" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event"/>
-    </changeSet>
-    <changeSet author="v001-schema-39" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="author_id" baseTableName="publishable" constraintName="FKDB6312E991252A7E" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="shiro_user"/>
-    </changeSet>
-    <changeSet author="v001-schema-40" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="room" constraintName="FK3580DBB776D63" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="image"/>
-    </changeSet>
-    <changeSet author="v001-schema-41" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="event_id" baseTableName="schedule_rule" constraintName="FK6400C3A4EF265472" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="event"/>
-    </changeSet>
-    <changeSet author="v001-schema-42" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="shiro_role_id" baseTableName="shiro_role_permissions" constraintName="FK389B46C981060810" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="shiro_role"/>
-    </changeSet>
-    <changeSet author="v001-schema-43" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="shiro_user_id" baseTableName="shiro_user_permissions" constraintName="FK34555A9E2630CBF0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="shiro_user"/>
-    </changeSet>
-    <changeSet author="v001-schema-44" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="shiro_role_id" baseTableName="shiro_user_roles" constraintName="FKBA22105781060810" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="shiro_role"/>
-    </changeSet>
-    <changeSet author="v001-schema-45" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="shiro_user_id" baseTableName="shiro_user_roles" constraintName="FKBA2210572630CBF0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="shiro_user"/>
-    </changeSet>
-    <changeSet author="v001-schema-46" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="tag_links" constraintName="FK7C35D6D45A3B441D" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="tags"/>
-    </changeSet>
-    <changeSet author="v001-schema-47" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="teacher" constraintName="FKAA31CBE2B776D63" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="image"/>
-    </changeSet>
-    <changeSet author="v001-schema-48" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="image_id" baseTableName="venue" constraintName="FK6AE6A6FB776D63" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="image"/>
-    </changeSet>
-    <changeSet author="v001-schema-49" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="room_id" baseTableName="venue_room" constraintName="FK9A9DFCAB7B485186" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="room"/>
-    </changeSet>
-    <changeSet author="v001-schema-50" id="Leanne Northrop">
-        <addForeignKeyConstraint baseColumnNames="venue_rooms_id" baseTableName="venue_room" constraintName="FK9A9DFCABE524B5D5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="venue"/>
+        <createIndex associatedWith="primaryKey" indexName="DOWNLOAD_PK_IDX" tableName="DOWNLOAD" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="EMAIL_PK_IDX" tableName="EMAIL" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="EVENT_TEACHER_IDX" tableName="EVENT" unique="false">
+            <column name="LEADER_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="EVENT_IMAGE_IDX" tableName="EVENT" unique="false">
+            <column name="IMAGE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="EVENT_VENUE_IDX" tableName="EVENT" unique="false">
+            <column name="VENUE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="EVENT_ORGANIZER_IDX" tableName="EVENT" unique="false">
+            <column name="ORGANIZER_ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="EVENT_TITLE_IDX" tableName="EVENT" unique="true">
+            <column name="TITLE"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="EVENT_PK_IDX" tableName="EVENT" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="IMAGE_NAME_IDX" tableName="IMAGE" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="IMAGE_PK_IDX" tableName="IMAGE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="LINK_PK_IDX" tableName="LINK" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="MENU_CATEGORY_PRODUCT_IDX" tableName="MENU_CATEGORY" unique="false">
+            <column name="PRODUCT_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="MENU_CATEGORY_PK_IDX" tableName="MENU_CATEGORY" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="META_PRODUCT_IDX" tableName="META" unique="false">
+            <column name="PRODUCT_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="META_PK_IDX" tableName="META" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="NON_DOWNLOADABLE_PK_IDX" tableName="NON_DOWNLOADABLE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="PRICE_EVENT_IDX" tableName="PRICE" unique="false">
+            <column name="EVENT_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SYS_IDX_10319" tableName="PRICE" unique="false">
+            <column name="PRODUCT_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="PRICE_PK_IDX" tableName="PRICE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="PRODUCT_IDX" tableName="PRODUCT" unique="true">
+            <column name="TITLE"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="PRODUCT_PK_IDX" tableName="PRODUCT" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="PRODUCT_IMAGE_IDX" tableName="PRODUCT_IMAGE" unique="false">
+            <column name="IMAGE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="PROFILE_PK_IDX" tableName="PROFILE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="PUBLISHABLE_AUTHOR_IDX" tableName="PUBLISHABLE" unique="false">
+            <column name="AUTHOR_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="PUBLISHABLE_PK_IDX" tableName="PUBLISHABLE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="QUANITITY_ITEM_IDX" tableName="QUANTITY" unique="false">
+            <column name="SHOPPING_ITEM_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="QUANITY_CART_IDX" tableName="QUANTITY" unique="false">
+            <column name="SHOPPING_CART_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="QUANTITY_PK_IDX" tableName="QUANTITY" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="ROOM_IMAGE_IDX" tableName="ROOM" unique="false">
+            <column name="IMAGE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="ROOM_VENUE_IDX" tableName="ROOM" unique="false">
+            <column name="VENUE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="ROOM_PK_IDX" tableName="ROOM" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SCHEDULE_RULE_EVENT_IDX" tableName="SCHEDULE_RULE" unique="false">
+            <column name="EVENT_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SCHEDULE_RULE_PK_IDX" tableName="SCHEDULE_RULE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="SETTING_NAME_IDX" tableName="SETTING" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SETTING_PK_IDX" tableName="SETTING" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="SHIRO_ROLE_NAME_IDX" tableName="SHIRO_ROLE" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SHIRO_ROLE_PK_IDX" tableName="SHIRO_ROLE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHIRO_ROLE_PERMISSIONS_ID_IDX" tableName="SHIRO_ROLE_PERMISSIONS" unique="false">
+            <column name="SHIRO_ROLE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SYS_IDX_10198" tableName="SHIRO_USER" unique="false">
+            <column name="PROFILE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="SHIRO_USER_USERNAME_IDX" tableName="SHIRO_USER" unique="true">
+            <column name="USERNAME"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SHIRO_USER_PK_IDX" tableName="SHIRO_USER" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHIRO_USER_PERMISSIONS_ID_IDX" tableName="SHIRO_USER_PERMISSIONS" unique="false">
+            <column name="SHIRO_USER_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHIRO_USER_ROLES_USERID_IDX" tableName="SHIRO_USER_ROLES" unique="false">
+            <column name="SHIRO_USER_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHIRO_USER_ROLES_ROLEID_IDX" tableName="SHIRO_USER_ROLES" unique="false">
+            <column name="SHIRO_ROLE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SHIRO_USER_ROLES_PK_IDX" tableName="SHIRO_USER_ROLES" unique="true">
+            <column name="SHIRO_USER_ID"/>
+            <column name="SHIRO_ROLE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHOPPABLE_ITEM_IDX" tableName="SHOPPABLE" unique="false">
+            <column name="SHOPPING_ITEM_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SHOPPABLE_PK_IDX" tableName="SHOPPABLE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SHOPPING_CART_PK_IDX" tableName="SHOPPING_CART" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHOPPING_CART_INTERFACE_TEST_PRODUCT_ITEM_IDX" tableName="SHOPPING_CART_INTERFACE_TEST_PRODUCT" unique="false">
+            <column name="SHOPPING_ITEM_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SHOPPING_CART_INTERFACE_TEST_PRODUCT_PK_IDX" tableName="SHOPPING_CART_INTERFACE_TEST_PRODUCT" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHOPPING_CART_SHOPPING_ITEM_ITEMS_IDX" tableName="SHOPPING_CART_SHOPPING_ITEM" unique="false">
+            <column name="SHOPPING_CART_ITEMS_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SHOPPING_CART_SHOPPING_ITEM_IDX" tableName="SHOPPING_CART_SHOPPING_ITEM" unique="false">
+            <column name="SHOPPING_ITEM_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="SHOPPING_ITEM_PK_IDX" tableName="SHOPPING_ITEM" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="TAGS_NAME_IDX" tableName="TAGS" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="TAGS_PK_IDX" tableName="TAGS" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="TAG_LINKS_TAG_ID_IDX" tableName="TAG_LINKS" unique="false">
+            <column name="TAG_ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="TAG_LINKS_PK_IDX" tableName="TAG_LINKS" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SYS_IDX_10256" tableName="TEACHER" unique="false">
+            <column name="IMAGE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="TEACHER_NAME_IDX" tableName="TEACHER" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="TEACHER_PK_IDX" tableName="TEACHER" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="TELEPHONE_PK_IDX" tableName="TELEPHONE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="TRANSPORT_PK_IDX" tableName="TRANSPORT" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="UFILE_PK_IDX" tableName="UFILE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="SYS_IDX_10283" tableName="VENUE" unique="false">
+            <column name="IMAGE_ID"/>
+        </createIndex>
+        <createIndex associatedWith="" indexName="VENUE_NAME_PK" tableName="VENUE" unique="true">
+            <column name="NAME"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="VENUE_PK_IDX" tableName="VENUE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="VENUE_ADDRESS_PK_IDX" tableName="VENUE_ADDRESS" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="VENUE_EMAIL_PK_IDX" tableName="VENUE_EMAIL" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="primaryKey" indexName="VENUE_TELEPHONE_PK_IDX" tableName="VENUE_TELEPHONE" unique="true">
+            <column name="ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="VENUE_VENUE_ADDRESS_ID" tableName="VENUE_VENUE_ADDRESS" unique="false">
+            <column name="VENUE_ADDRESS_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="VENUE_VENUE_EMAIL_IDX" tableName="VENUE_VENUE_EMAIL" unique="false">
+            <column name="VENUE_EMAIL_ID"/>
+        </createIndex>
+        <createIndex associatedWith="foreignKey" indexName="VENUE_VENUE_TELEPHONE_IDX" tableName="VENUE_VENUE_TELEPHONE" unique="false">
+            <column name="VENUE_TELEPHONE_ID"/>
+        </createIndex>
     </changeSet>
 </databaseChangeLog>

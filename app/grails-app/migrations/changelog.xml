@@ -2,7 +2,6 @@
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
-   <property name="dbtype" value="mysql"/>
-   <property name="v001-base-dir" value="${user.dir}/grails-app/migrations/v001"/>
-   <include relativeToChangelogFile="true" file="/v001/master.xml" />
+   <property name="dbtype" value="hsqldb"/>
+   <include relativeToChangelogFile="true" file="v001/master.xml" />
 </databaseChangeLog>

@@ -24,8 +24,7 @@ environments {
         dataSource {
             // one of 'create', 'create-drop','update'
             dbCreate = "update"
-            url = "jdbc:hsqldb:hsql://localhost/lsd"
-//            url = "jdbc:hsqldb:hsql://localhost/xdb"
+            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""
@@ -36,7 +35,7 @@ environments {
     test {
         dataSource {
             dbCreate = "update"
-            url = "jdbc:hsqldb:hsql://localhost/lsd"
+            url = "jdbc:hsqldb:file:db/test;shutdown=true"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "sa"
             password = ""
