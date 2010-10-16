@@ -20,6 +20,10 @@ class ShiroUser implements Comparable{
             ilike 'username', "%${username}%"
         }
     }
+    
+    static mapping = {
+        cache usage:'read-write', include:'non-lazy'
+    }    
 
 	int	compareTo(Object o) {
 		this.toString().compareTo(o.toString())

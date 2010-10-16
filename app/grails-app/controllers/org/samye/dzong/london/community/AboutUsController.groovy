@@ -37,7 +37,8 @@ class AboutUsController {
         teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
 		def venues = Venue.notDeleted.list()
 		def allArticles = Article.allAboutUsArticles("title", "asc").list()
-        def model = [topArticles: [community], articles: allArticles, visitingTeachers: visitingTeachers, teachers:teachers,venues:venues];
+		def topArticles = Article.aboutUsTopArticles("title", "asc").list()
+        def model = [topArticles: topArticles, articles: allArticles, visitingTeachers: visitingTeachers, teachers:teachers,venues:venues];
 		articleService.addHeadersAndKeywords(model,request,response)
 		model
     }

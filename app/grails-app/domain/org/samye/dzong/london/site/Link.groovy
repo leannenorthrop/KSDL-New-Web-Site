@@ -31,6 +31,7 @@ class Link {
 
     static mapping = {
         sort position:"asc"
+        cache usage:'read-write', include:'non-lazy'
     }
     
     Link() {

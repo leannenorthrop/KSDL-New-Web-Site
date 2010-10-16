@@ -26,7 +26,7 @@ class ProfileController {
 	def userLookupService
 	def imageService
 
-    def index = { 
+    def manage = { 
 		try {
 			def user 
 			if (params.username) {
@@ -84,6 +84,8 @@ class ProfileController {
 			render(view: 'edit', model:[user:user])
 		} catch(error) {
 			log.warn "Unable to check existance of user profile", error
+			flash.message = "profile.save.error"
+            flash.isError=true
 			render(view:'edit',model:[user:user])
 		}		
 	}
@@ -109,15 +111,17 @@ class ProfileController {
 				}
 			}
 	        if(!user.profile.hasErrors() && user.profile.save()) {
-	            flash.message = "Your profile has been updated"
-	            redirect(action:index,id:user.id)
+	            flash.message = "profile.save.success"
+	            redirect(action:'manage',id:user.id)
 	        }
 	        else {
+	            flash.message = "profile.save.error"
+	            flash.isError=true
 	            render(view:'edit',model:[user:user])
 	        }
 		} catch (error) {
 			log.error "Unable to save profile changes", error
-			flash.message = "Your profile could not be updated at this time."
+			flash.message = "profile.save.error"
 			flash.isError = true
 			render(view:'edit',model:[user:user])
 		}

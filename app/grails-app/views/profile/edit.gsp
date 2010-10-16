@@ -34,38 +34,38 @@
     <body>
         <div class="container_16">
             <div class="grid_3">
-                <g:if test="${user.profile?.image && user.profile?.mimeType?.endsWith('png')}">
-                  <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}" class="pngImg" style="max-width:100%"/>
+                <g:if test="${user.profile?.image}">
+                    <g:if test="${user.profile?.image && user.profile?.mimeType?.endsWith('png')}">
+                      <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}" class="pngImg" style="max-width:100%"/>
+                    </g:if>
+                    <g:else>
+                      <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}" style="max-width:100%"/>
+                    </g:else>                
                 </g:if>
-                <g:else>
-                  <img src="${createLink(controller: 'profile', action: 'src', id: user.id)}" title="${user.profile?.publicName}" alt="${user.profile?.publicName}" style="max-width:100%"/>
-                </g:else>                
             </div>
             <div class="grid_13">
-                <g:uploadForm name="edit" action="save">
-                  <g:render template="/messageBox" model="[flash: flash]"/>
-                      <fieldset>
-                          <legend><g:message code="profile.edit.title"/></legend>
-                          <p>
-                            <label for="name"><g:message code="profile.publicName.label"/></label>
-                            <input type="text" id="publicName" name="publicName" class="required ${hasErrors(bean: user.profile, field: 'publicName', 'errors')}" min-length="5" value="${fieldValue(bean: user.profile, field: 'publicName')}"/>
-                          </p>
-                          <p>
-                            <label for="name"><g:message code="profile.nickName.label"/></label>
-                            <input type="text" id="nickName" name="nickName" class="required ${hasErrors(bean: user.profile, field: 'nickName', 'errors')}" min-length="5" value="${fieldValue(bean: user.profile, field: 'nickName')}"/>
-                          </p>                          
-                          <p>
-                            <label for="file"><g:message code="profile.image.file"/> <strong>Images larger than 75 pixels x 75 pixels will be cropped and scaled.</strong></label>
-                            <input type="file" id="image" name="image"/>
-                          </p>
-                          <p>
-                            <label for="tags"><g:message code="profile.permissions"/></label>
-                            ${user.roles?.join(", ")}
-                          </p>
-                          <p class="last"></p>
-                          <g:set var="submitBtnLabel"><g:message code="profile.submit.btn"/></g:set>
-                          <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
-                      </fieldset>
+              <g:uploadForm name="edit" action="save">
+              <fieldset>
+                  <legend><g:message code="profile.edit.title"/></legend>
+                  <p>
+                    <label for="name"><g:message code="profile.publicName.label"/></label>
+                    <input type="text" id="publicName" name="publicName" class="required ${hasErrors(bean: user.profile, field: 'publicName', 'errors')}" min-length="5" value="${fieldValue(bean: user.profile, field: 'publicName')}"/>
+                  </p>
+                  <p>
+                    <label for="name"><g:message code="profile.nickName.label"/></label>
+                    <input type="text" id="nickName" name="nickName" class="required ${hasErrors(bean: user.profile, field: 'nickName', 'errors')}" min-length="5" value="${fieldValue(bean: user.profile, field: 'nickName')}"/>
+                  </p>                          
+                  <p>
+                    <label for="file"><g:message code="profile.image.file"/> <strong>Images larger than 75 pixels x 75 pixels will be cropped and scaled.</strong></label>
+                    <input type="file" id="image" name="image"/>
+                  </p>
+                  <p>
+                    <label for="tags"><g:message code="profile.permissions"/></label>
+                    ${user.roles?.join(", ")}
+                  </p>
+                  <p class="last"></p>
+                  <g:submitButton name="submitbtn" value="${message(code:'profile.submit.btn')}" id="submitbtn" class="ui-corner-all"/>
+              </fieldset>
                 </g:uploadForm>                
             </div>            
         </div>

@@ -23,14 +23,21 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
-  <head>
-    <meta name="layout" content="content-admin"/>
-    <title><g:message code="manage.articles.title"/></title>
-    <g:set var="tabsId" value="articles-tabs"/>
-    <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
-  </head>
-  <body>
-    <g:render template="/messageBox" model="[flash: flash]"/>
-    <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
-  </body>
+    <head>
+        <meta name="layout" content="content-admin"/>
+        <title><g:message code="manage.articles.title"/></title>
+        <g:set var="tabsId" value="articles-tabs"/>
+        <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
+    </head>
+    <body>
+        <form>
+            <fieldset>
+                <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
+                <shiro:hasAnyRole in="${['Author','Admin']}">
+                    <p class="last">&nbsp;</p>
+                    <g:actionSubmit value="${message(code:'add.article.btn')}" action="create" class="ui-corner-all"/>
+                </shiro:hasAnyRole>
+            </fieldset>
+        </form>
+    </body>
 </html>

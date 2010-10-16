@@ -22,7 +22,7 @@ class CommonLayoutTagLib {
         }  */
 
         def navList = {
-            div (class:"nav group") {
+            div (id:"nav group") {
                 ul {
                     navControllers.each { controllerName ->
                         def aElem = link (controller:controllerName) {
@@ -52,151 +52,116 @@ class CommonLayoutTagLib {
     }
 
      def toolbar = { attrs ->
-        def adminControllers
-
+        def content = new TreeSet()
+        def media = new TreeSet()
+        def settings = new TreeSet()
+        
 		if (SecurityUtils.subject.principal != null) {
-			adminControllers =['home', 'profile','image','slideshow','links']
-		} else {
-			adminControllers =['home']
+			media = ['image','slideshow']
+			settings = ['profile']			
 		}
 		
-        def adminClasses =[home: 'home', theme: 'theme', file:'file',article: 'article', image: 'image', teacher: 'teacher', venue: 'venue', roles:'roles', event:'event', profile: 'profile',slideshow:'slideshow',room:'room',shop:'shop',links:'links']
-
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article','room','teacher'].each () { item ->
-                adminControllers << item
+                content << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("EventOrganiser")) {
             ['event'].each () { item ->
-                adminControllers << item
+                content << item
             }
         }
 
-        if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
-            ['article', 'file','teacher'].each () { item ->
-                adminControllers << item
+        if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("VenueManager")) {
+            ['room'].each () { item ->
+                content << item
             }
+        }
+        
+        if (SecurityUtils.subject.hasRole ("Author") || (SecurityUtils.subject.hasRole ("Editor") && SecurityUtils.subject.hasRole ("Author"))) {
+            ['article', 'teacher'].each () { item ->
+                content << item
+            }
+            media << 'file'
         }
 
         if (SecurityUtils.subject.hasRole ("ShopManager")) {
             ['article','shop'].each () { item ->
-                adminControllers << item
+                content << item
             }
         }
         
         if (SecurityUtils.subject.hasRole ("VenueManager")) {
             ['venue','room'].each () { item ->
-                adminControllers << item
+                content << item
             }
         }
 
         if (SecurityUtils.subject.hasRole ("EventOrganiser")) {
             ['event'].each() { item ->
-                adminControllers << item
+                content << item
             }
         }
 
-        if (SecurityUtils.subject.hasRole ("Administrator")) {
+        if (SecurityUtils.subject.hasRole ("Administrator") || SecurityUtils.subject.hasRole ("Admin")) {
             ['settings', 'theme','roles'].each () { item ->
-                adminControllers << item
+                settings << item
             }
+            media << 'file'
         }
 
         if (SecurityUtils.subject.hasRole ("Admin")) {
-            ['settings', 'theme','article', 'venue', 'event', 'roles'].each () { item ->
-                adminControllers << item
+            ['article', 'venue', 'teacher','room','event', 'shop'].each () { item ->
+                content << item
             }
         }
+        content << 'links'
 
-        adminControllers << 'auth'
+        content = content as Set
+        media = media as Set
+        settings = settings as Set
         def toolbar = {
-            div (class:"menuBar"){
-                adminControllers.each () { controller ->
-                    def max = controller == 'image' ? 50 : 30
-                    span (class:"menuButton") {
+            div (id:"menu"){
+                ul (id:"nav") {
+                    if (SecurityUtils.subject.authenticated) {
+                        [Content: content,Media:media,Settings:settings].each { title,options ->
+                            li {
+                                def elem = link(href:'#') {title}
+                                if (elem != null) {
+                                    mkp.yieldUnescaped(elem)
+                                }    
+                                ul {
+                                    options.each { option ->
+                                        li {
+                                            def elem2 = link (class: option, controller: option, action:"manage") {
+                                                messageSource.getMessage ('toolbar.' + option, null, null)
+                                            }                                        
+                                            if (elem2 != null) {
+                                                mkp.yieldUnescaped(elem2)
+                                            }  
+                                        }
+                                    }
+                                }                        
+                            }                                    
+                        }  
+                    }
+                }
+                ul (id:"btn") {
+                    li {
                         def elem
-                        if (controller.equals ('home')) {
-                            elem = link (class: adminClasses[controller], controller: "manageSite", action:"home",style:"color: #333;") {
-                                messageSource.getMessage ('toolbar.' + controller, null, null)
-                            }
-                        } else if (controller.equals ('roles')) {
-                            elem = link (class: adminClasses[controller], controller: "admin", action:"roles",style:"color: #333;") {
-                                messageSource.getMessage ('toolbar.' + controller, null, null)
-                            }
-                        } else if (controller.equals ('profile')) {
-								if ("index".equals(attrs.action)) {
-	                            elem = link (class: adminClasses[controller] + "Edit", controller: controller, action:"edit",style:"color: #333;") {
-	                                messageSource.getMessage ('toolbar.' + controller + '.edit', null, null)
-	                            }								
-							} else {
-	                            elem = link (class: adminClasses[controller], controller: controller, action:"index",style:"color: #333;") {
-	                                messageSource.getMessage ('toolbar.' + controller, null, null)
-	                            }
-							}
-                        } else if (controller.equals ('slideshow')) {
-                            elem = link (class: adminClasses[controller], controller: controller, action:"manage",style:"color: #333;width:auto;height:auto;display:inline-block;") {
-                                messageSource.getMessage ('toolbar.' + controller, null, null)
-                            }
-                        } else if (controller.equals ('settings')) {
-	                            elem = link (class: 'settings', controller: 'admin', action:"settings",style:"color: #333;") {
-	                                messageSource.getMessage ('toolbar.settings', null, null)
-	                            }																
-	                        } else if (controller.equals ('theme')) {
-							if ("setdefault".equals(attrs.action)) {
-	                            elem = link (class: adminClasses[controller] + "Create", controller: controller, action:"add",style:"color: #333;") {
-	                                messageSource.getMessage ('toolbar.' + controller + '.add', null, null)
-	                            }								
-							} else {
-	                            elem = link (class: adminClasses[controller], controller: controller, action:"setdefault",style:"color: #333;") {
-	                                messageSource.getMessage ('toolbar.' + controller, null, null)
-	                            }
-							}
-                        } else if (controller.equals ('auth')) {
-                            if (SecurityUtils.subject.authenticated) {
-                                elem = link (class: 'logout', controller: controller, action: "signOut",style:"color: #333;") {
-                                    messageSource.getMessage ('toolbar.logout', null, null)
-                                }
-                            } else {
-                                def user = [SecurityUtils.subject.principal].toArray()
-                                if (user[0]) {
-                                    user = user[0] ? user : [""] as String[]
-                                    elem = link (class: 'login', controller: controller, action: "login",style:"color: #333;") {
-                                        messageSource.getMessage("toolbar.login", user, null)
-                                    }
-                                } else {
-                                    elem = link (class: 'login', controller: controller, action: "login",style:"color: #333;") {
-                                        messageSource.getMessage("toolbar.login", null, null)
-                                    }
-                                }
-                            }
-                        } else if (controller.equals (attrs.controller)) {
-                            if ("manage".equals (attrs.action)) {
-								if (controller.equals('venue') || controller.equals('links')) {
-									elem = link (class: "${adminClasses[controller]}", controller: controller, action: "manage", params: [offset: 0, max:max],style:"color: #333;") {
-	                                    messageSource.getMessage ('toolbar.' + controller, null, null)
-	                                }	
-								}
-                                if (!(controller.equals('venue') || controller.equals('links'))  && SecurityUtils.subject.hasRoles(["Admin","Author","VenueManager","EventOrganiser","Administrator","Editor","ShopManager"]).any()) {
-                                    elem = link (class: "${controller}Create", controller: controller, action:"create",style:"color: #333;") {
-                                        messageSource.getMessage ("toolbar.${controller}.create", null, null)
-                                    }
-                                }
-                            } else {
-                                elem = link (class: "${adminClasses[controller]}", controller: controller, action: "manage", params: [offset: 0, max:max],style:"color: #333;") {
-                                    messageSource.getMessage ('toolbar.' + controller, null, null)
-                                }
+                        if (SecurityUtils.subject.authenticated) {
+                            elem = link(class: 'logout', controller: 'auth', action: "signOut") {
+                                messageSource.getMessage ('toolbar.logout', null, null)
                             }
                         } else {
-                            elem = link (class: adminClasses[controller], controller: controller, action: "manage", params: [offset: 0, max:max],style:"color: #333;") {
-                                messageSource.getMessage ('toolbar.' + controller, null, null)
-                            }
+                            elem = link(class: 'login', controller: 'manageSite', action: "home") {
+                                messageSource.getMessage ('toolbar.login', null, null)
+                            }                            
                         }
-
                         if (elem != null) {
-                            mkp.yieldUnescaped (elem)
-                        }
+                            mkp.yieldUnescaped(elem)
+                        }                        
                     }
                 }
             }

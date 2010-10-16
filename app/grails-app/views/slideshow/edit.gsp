@@ -30,7 +30,7 @@
 <html>
   <head>
     <meta name="layout" content="content_admin_mootools"/>          
-    <title><g:message code="image.list.title"/></title>
+    <title><g:message code="slideshow.edit.title"/></title>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>         
   </head>
   <body>
@@ -41,9 +41,7 @@
                   <fieldset>
                     <legend><g:message code="slideshow.select.title" default="Slide Show Settings"/></legend>
 
-                    <g:render template="/messageBox" model="[flash: flash]"/>
-
-                    	<p>You may choose to display this slideshow on one of the section index pages below:<br/><br/>
+                    	<p>You may choose to display this slideshow on one of the section index pages by selecting an below:<br/><br/>
 
                           <g:radioGroup name="location" labels="${['None', 'Home', 'Meditation','Buddhism']}" values="${['SSNone', 'SSHome', 'SSMeditation','SSBuddhism']}" value="${'SSNone'}" >
                           <p>${it.label}: ${it.radio}</p>

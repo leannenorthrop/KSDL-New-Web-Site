@@ -55,7 +55,7 @@
               <g:hiddenField name="name" value="${imageInstance?.name}"/>
 
               <fieldset>
-                  <legend>Labels</legend>
+                  <legend><g:message code="image.tag"/></legend>
                   <g:render template="/messageBox" model="[flash: flash]"/>
                   <p>
                     <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>

@@ -29,40 +29,30 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.media.Image" %>
 <html>
-  <head>
-    <meta name="layout" content="content-admin"/>
-    <title><g:message code="image.list.title"/></title>
-  </head>
-  <body>
-    <g:if test="${flash.message && !flash.isError}">
-      <p class="ui-widget ui-state-highlight ui-corner-all">
-        <strong><span class="ui-icon ui-icon-info" style="display: inline-block"></span><g:message code="info"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
-      </p>
-    </g:if>
-    <g:elseif test="${flash.message && flash.isError}">
-      <g:set var="errorsList"><g:renderErrors bean="${articleInstance}" as="list"></g:renderErrors></g:set>
-      <div class="ui-widget ui-state-error ui-corner-all">
-        <strong>
-          <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>
-        </strong>
-        <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"></g:message>
-        ${errorsList}
-      </div>
-    </g:elseif>
+    <head>
+        <meta name="layout" content="content-admin"/>
+        <title><g:message code="image.list.title"/></title>
+    </head>
+    <body>
+        <form>
+            <fieldset>
+                <ul class="images">
+                    <g:each in="${imageInstanceList}" status="i" var="imageInstance">
+                    <li>
+                        <g:link action="edit" id="${imageInstance.id}" style="width:130px;height:130px;text-align:center;vertical-align:middle;">
+                        <img src="${createLink(controller: 'image', action: 'thumbnail', id: imageInstance.id)}" alt="${fieldValue(bean: imageInstance, field: 'name')}" title="${fieldValue(bean: imageInstance, field: 'name')}" class="ui-widget-content ui-corner-all ui-shadow" style="float:none;"/>
+                        <!--span>${fieldValue(bean: imageInstance, field: 'name')}</span-->
+                        </g:link>
+                    </li>
+                    </g:each>
+                </ul>
 
-    <ul class="images ui-widget ui-widget-content ui-corner-all">
-      <g:each in="${imageInstanceList}" status="i" var="imageInstance">
-        <li>
-          <g:link action="edit" id="${imageInstance.id}" style="width:130px;height:130px;text-align:center;vertical-align:middle;">
-            <img src="${createLink(controller: 'image', action: 'thumbnail', id: imageInstance.id)}" alt="${fieldValue(bean: imageInstance, field: 'name')}" title="${fieldValue(bean: imageInstance, field: 'name')}" class="ui-widget-content ui-corner-all ui-shadow" style="float:none;"/>
-            <span>${fieldValue(bean: imageInstance, field: 'name')}</span>
-          </g:link>
-        </li>
-      </g:each>
-    </ul>
-
-    <div class="manage paginateButtons">
-      <g:paginate total="${imageInstanceTotal}"/>
-    </div>
-  </body>
+                <p class="last manage paginateButtons">
+                    <g:paginate total="${imageInstanceTotal}"/>
+                </p>
+                
+                <g:actionSubmit value="${message(code:'image.add.submit.btn')}" action="create" class="ui-corner-all"/>
+            </fieldset>
+        </form>    
+    </body>
 </html>

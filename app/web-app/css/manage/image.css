@@ -29,15 +29,23 @@ ul.images {
 ul.images li {
     display: inline;
     margin: 0 12px 1.5em 0;
-    list-style: none;
+    list-style: none;    
 }
 
-ul.images li img {
+/*ul.images li img {
     padding: 0.3em;
     background: white;
     box-shadow: 3px 3px 5px #888;
     -moz-box-shadow: 3px 3px 5px #888;
     -webkit-box-shadow: 3px 3px 5px #888;
+}*/
+
+ul.images li img {
+    padding: 0.3em;
+    border: 1px solid #d7d7d7;
+    box-shadow: none !import;
+    -moz-box-shadow: none !import;
+    -webkit-box-shadow: none !import;
 }
 
 li.teacher a .defaultImg {

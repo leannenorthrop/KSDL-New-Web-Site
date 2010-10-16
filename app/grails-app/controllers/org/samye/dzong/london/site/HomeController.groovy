@@ -17,7 +17,7 @@ class HomeController {
 		    def ss = Setting.homeSlideshow().list()
 			album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
 		} catch(error) {
-			
+			log.error error
 		}
         def articles = Article.homeArticles("datePublished", "desc").list()
         def meditationArticles = articles.findAll { it.category == 'M'}

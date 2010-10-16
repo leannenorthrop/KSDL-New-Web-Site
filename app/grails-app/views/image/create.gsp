@@ -41,8 +41,6 @@
   <body>
     <g:uploadForm name="addimage" action="save">
       <g:hiddenField name="thumbnail" value=""/>
-      <g:render template="/messageBox" model="[flash: flash]"/>
-
       <fieldset>
           <legend>Details</legend>
           <p>
