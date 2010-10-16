@@ -18,19 +18,24 @@ class ImageController {
             response.outputStream << ""
         } else {
 			try {
-				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time) {
+				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time ||
+				    request.getHeader("If-None-Match") == "W/\"${imageInstance.version}\"") {
 					response.setStatus(304)
 					response.flushBuffer()
 					return
 				}				
 				response.setContentType(imageInstance.mimeType)
 				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
-				response.setHeader("Cache-Control", "public")			
-				response.setHeader("ETag", "W/\"" + imageInstance.version + "\"")
+				def now = new Date()
+				now = now + 7
+				response.setDateHeader('Expires', now.time)				
+				response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")			
+				response.setHeader("ETag", "W/\"${imageInstance.version}\"")
 	 			byte[] image = imageInstance.image
 				response.setContentLength(image.size())			
 				response.outputStream << image
 			} catch(error) {
+			    log.error error
 				response.outputStream << ""
 			}
         }
@@ -49,19 +54,29 @@ class ImageController {
         }
         else {
 			try {
-				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time) {
+				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time ||
+				    request.getHeader("If-None-Match") == "W/\"${imageInstance.version}\"") {
 					response.setStatus(304)
 					response.flushBuffer()
 					return					
 				}				
-				response.setContentType(imageInstance.mimeType)
+                def mimeType = imageInstance.mimeType.toLowerCase()
+                if (mimeType.contains("svg")) {				
+				    response.setContentType(imageInstance.mimeType)
+			    } else {
+			        response.setContentType('image/jpeg')
+			    }
 				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
-				response.setHeader("Cache-Control", "public")			
-				response.setHeader("ETag", "W/\"" + imageInstance.version + "\"")
-	 			byte[] image = imageInstance.thumbnail
-				response.setContentLength(image.size())			
-				response.outputStream << image
+				def now = new Date()
+				now = now + 7
+				response.setDateHeader('Expires', now.time)				
+				response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")			
+				response.setHeader("ETag", "W/\"${imageInstance.version}\"")
+				def thumbnail = imageInstance.thumbnail
+				response.setContentLength(thumbnail.size())			
+				response.outputStream << thumbnail
 			} catch(error) {
+			    log.error error			    
 				response.outputStream << ""
 			}
         }
@@ -133,7 +148,38 @@ class ImageController {
             return [ imageInstance : imageInstance, id: imageInstance.id ]
         }
     }
-
+    
+    def updateAllThumbnails = {
+        def images = Image.list()
+        images.each { imageInstance ->
+            if(imageInstance && imageInstance.image) {
+                log.info "Image instance image = ${imageInstance.image.length}"
+                try {
+                    def mimeType = imageInstance.mimeType.toLowerCase()
+                    if (mimeType.contains("svg")){
+                        flash.message = "SVG thumbnail ok."    
+                        redirect(action:manage)
+                    } else if (mimeType.endsWith("png") || mimeType.endsWith("gif")) {
+                        def bytes = imageService.pngToJpg(imageInstance.image)
+                        def thumbnail = imageService.thumbnail(bytes,mimeType)
+                        imageInstance.image = imageInstance.image
+                        imageInstance.thumbnail = thumbnail       
+                        imageInstance.save()                         
+                    } else {
+                        def thumbnail = imageService.thumbnail(imageInstance.image,mimeType)
+                        imageInstance.thumbnail = thumbnail       
+                        imageInstance.image = imageInstance.image
+                        imageInstance.save()                         
+                    }
+                } catch(error) {
+			        log.error error                    
+                }            
+            } 
+        } 
+        flash.message = "Thumbnails updated"
+        redirect(action:manage,params:[offset:0,max:50])
+    }
+    
     def update = {
         def imageInstance = Image.get( params.id )
         if(imageInstance) {
@@ -198,14 +244,19 @@ class ImageController {
         def contentType = f?.getContentType()
         def bytes = f?.getBytes()
 
-
         def thumbnail
         try {
-            if (contentType.toLowerCase().endsWith("png")) {
+            def mimeType = contentType.toLowerCase()
+            if (mimeType.contains("svg")) {
+                thumbnail = bytes                
+            }
+            else if (mimeType.endsWith("png") || mimeType.endsWith("gif")) {
                 bytes = imageService.pngToJpg(bytes)
-                thumbnail = imageService.thumbnail(bytes)
+                thumbnail = imageService.thumbnail(bytes,mimeType)
+                imageInstance.image = imageService.read(imageInstance.image, imageInstance.mimeType)                
             } else {
-                thumbnail = imageService.thumbnail(bytes)
+                thumbnail = imageService.thumbnail(bytes,mimeType)
+                imageInstance.image = imageService.read(imageInstance.image, imageInstance.mimeType)                
             }
         } catch(error) {
             thumbnail = []
@@ -215,7 +266,6 @@ class ImageController {
         def imageInstance = new Image(params)
         imageInstance.thumbnail = thumbnail
         imageInstance.mimeType = contentType
-        imageInstance.image = imageService.read(imageInstance.image, imageInstance.mimeType)
         if(!imageInstance.hasErrors() && imageInstance.save()) {
             if (params.tags) {
                 imageInstance.parseTags(params.tags)
@@ -250,9 +300,9 @@ class ImageController {
             try {
                 if (contentType.toLowerCase().endsWith("png")) {
                     bytes = imageService.pngToJpg(bytes)
-                    thumbnail = imageService.thumbnail(bytes)
+                    thumbnail = imageService.thumbnail(bytes,contentType)
                 } else {
-                    thumbnail = imageService.thumbnail(bytes)
+                    thumbnail = imageService.thumbnail(bytes,contentType)
                 }
             } catch(error) {
                 thumbnail = []

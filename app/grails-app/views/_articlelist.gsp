@@ -32,7 +32,7 @@
 <%@ page import="org.samye.dzong.london.events.Event; org.samye.dzong.london.community.Teacher" contentType="text/html;charset=UTF-8" %>
 <g:set var="typeClass" value="${articles[0] instanceof Teacher ? 'teacher' : (articles[0] instanceof Event ? 'event' : '')}"/>
 <div class="box">
-  <h2><g:message code="${heading}" default=""/></h2>
+  <h3><g:message code="${heading}" default=""/></h3>
   <ul class="block articles">
     <g:if test="${articles}">
 
@@ -48,14 +48,14 @@
             <g:set var="articleHeading">${articleInstance}</g:set>
           </g:else>
 
-          <h3>
+          <h4>
             <g:if test="${articleInstance.content}">
               <g:link controller="${controller}" action="${action}" id="${articleInstance.id}">${articleHeading}</g:link>
             </g:if>
             <g:else>
               ${articleHeading}
             </g:else>
-          </h3>
+          </h4>
 
           <g:if test="${articleInstance.displayAuthor || articleInstance.displayDate}">
             <p class="meta">
@@ -70,12 +70,30 @@
               </g:if>
             </p>
           </g:if>
-
-          <g:if test="${articleInstance.image}">
-            <a href="#" class="image">
-              <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-            </a>
+          
+          <g:if test="${articleInstance.content}">
+            <g:link controller="${controller}" action="${action}" id="${articleInstance.id}">
+                <g:if test="${articleInstance.image}">
+                    <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+                </g:if>
+                <g:else>
+                    <img class="defaultImg">&nbsp;</img>
+                </g:else>
+            </g:link>
           </g:if>
+          <g:else>
+              <g:if test="${articleInstance.image}">
+                <a href="#">
+                  <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+                </a>
+              </g:if>
+              <g:else>
+                <a href="#">
+                  <img class="defaultImg">&nbsp;</img>
+                </a>
+              </g:else>
+          </g:else>          
+                    
           <p>
             ${articleInstance?.summary?.encodeAsTextile()}
           </p>

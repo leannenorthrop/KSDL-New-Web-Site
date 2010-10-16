@@ -55,6 +55,7 @@
         <li>
           <g:link action="edit" id="${imageInstance.id}" style="width:130px;height:130px;text-align:center;vertical-align:middle;">
             <img src="${createLink(controller: 'image', action: 'thumbnail', id: imageInstance.id)}" alt="${fieldValue(bean: imageInstance, field: 'name')}" title="${fieldValue(bean: imageInstance, field: 'name')}" class="ui-widget-content ui-corner-all ui-shadow" style="float:none;"/>
+            <span>${fieldValue(bean: imageInstance, field: 'name')}</span>
           </g:link>
         </li>
       </g:each>

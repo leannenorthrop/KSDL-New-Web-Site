@@ -28,7 +28,11 @@
   Author: Leanne Northrop
   Date: 10th July, 2010, 19:15
 --}%
+<div class="box slideshowlink">
+<h5><g:message code="slideshow.title" default="Photos"/></h5>
 <g:if test="${album}">
-<a href="${relUrl}"><img src="${album.image.src}" alt="${album.name}" style="max-height:150px"/>  
+<a href="${relUrl}" class="slideshow"><img src="${album.image.src}" alt="${album.title}" title="${album.title}" style="max-height:150px"/>  
+<h6>${album.title}</h6>
 </a>
 </g:if>
+</div>

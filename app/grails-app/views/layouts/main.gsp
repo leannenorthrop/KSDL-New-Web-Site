@@ -29,6 +29,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.media.Image" %>
 <%@ page import="org.samye.dzong.london.Setting" %>
+<%@ page import="org.samye.dzong.london.venue.Venue" %>
 <g:if test="${params.theme}">
     <g:set var="cssThemesDir" value="${params.theme}"/>
 </g:if>
@@ -55,31 +56,30 @@
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/themes/' + cssThemesDir, file: 'screen.css')}"/>
     <![endif]>
-
-    <!--[if IE 6]><link rel="stylesheet" type="text/css" href="${resource(dir: 'css/site', file: 'ie6.css')}" media="screen" /><![endif]-->
-    <!--[if IE 7]><link rel="stylesheet" type="text/css" href="${resource(dir: 'css/site', file: 'ie.css')}" media="screen" /><![endif]-->
-
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
-
-    <g:layoutHead/>
-    <g:javascript library="mootools"/>
-    <g:javascript library="mootools-more"/>
-    <g:javascript library="mootools-fluid16"/>
-    <g:javascript library="slideshow"/>     
-    <g:javascript library="slideshow.kenburns"/>         
+    <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
+    <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
+    <feed:meta kind="rss" version="2.0" controller="feed" action="community"/>
+    <feed:meta kind="rss" version="2.0" controller="feed" action="wellbeing"/>
+    <g:layoutHead/>       
   </head>
   <g:set var="bodyClass" value="${controllerName == 'teacher' ? 'aboutUs' : controllerName}"/>
-  <body class="${bodyClass}">
+  <body class="${bodyClass}">    
+        <div id="watermark1"></div>
+        <div id="watermark2"></div>
+        <div id="watermark3"></div>
+        <div id="watermark4"></div>      
     <div class="container_16">
-      <div id="watermark1"></div>
-      <div class="grid_16">
-        <h1 id="branding">
-          <g:set var="logoId" value="${Setting.findByName('Logo').value}"/>
-          <g:if test="${logoId}">
-            <img src="${createLink(controller: 'image', action: 'src', id: logoId)}" title="Logo" alt="Logo"/>
-          </g:if>
-          <g:message code="title" default="Kagyu Samye Dzong London"/>
+      <div class="grid_16 banner">
+        <g:if test="${Setting.findByName('Logo').value}">
+          <img src="${createLink(controller: 'image', action: 'src', id: Setting.findByName('Logo').value)}" title="Logo" alt="Logo"/>
+        </g:if>
+        <h1>
+            <g:message code="title" default="Kagyu Samye Dzong London"/>
         </h1>
+        <h2>
+            <g:message code="subtitle" default="Tibetan Buddhist Centre for World Peace and Health"/>
+        </h2>        
       </div>
       <div class="clear"></div>
 
@@ -109,7 +109,42 @@
 
 
       <div class="clear"></div>
-      <div class="grid_16" id="site_info">
+      <div class="grid_16" id="footer">
+        <div class="contact">
+            <g:set var="venueId" value="${Setting.findByName('DefaultVenue')?.value}"/>
+            <g:if test="${venueId}">
+              <g:set var="v" value="${Venue.get(venueId)}"/>
+              <g:if test="${v}">
+                  <g:each var="address" in="${v.addresses}">
+                    <g:if test="${address.type == 'main'}">
+                          <span class="address">
+                        <g:if test="${address.placeName}">
+                          ${address.placeName}<br/>
+                         </g:if>
+                          ${address.streetNumber} ${address.line1}<br/>
+                          <g:if test="${address.line2}">
+                            ${address.line2}<br/>
+                          </g:if>
+                          <g:if test="${address.postTown}">
+                            ${address.postTown}<br/>
+                          </g:if>                  
+                          <g:if test="${address.county}">
+                            ${address.county}<br/>
+                          </g:if>                                   
+                          ${address.country}<br/>
+                          </span>
+                      </g:if>
+                  </g:each>
+                  <g:each var="telephone" in="${v.telephoneNumbers}">
+                      <g:if test="${telephone.type == 'main'}">
+                          <span class="telephone">
+                              ${telephone}
+                          </span>
+                      </g:if>
+                  </g:each>
+              </g:if>  
+            </g:if>            
+        </div>
         <div class="box">
           <g:set var="year"><g:formatDate format="yyyy" date="${new Date()}"/></g:set>
           <g:message code="footer.copyright" args="${[year]}"/> <g:message code="title" default="Kagyu Samye Dzong London"/> |

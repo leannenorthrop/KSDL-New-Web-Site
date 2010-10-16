@@ -11,45 +11,45 @@ class LinksController {
     
     def manage = {
     }   
-    
+        
     def homeMenu = {
-        def controllers = ['home','aboutUs','event','buddhism','meditation','community','wellbeing','news','shop']
-        def actions = [home:['index','slideshow','aboutThisSite','legal','siteMap'],
+        def controllers = ['home','aboutUs','event','buddhism','meditation','community','wellbeing','news']
+        def actions = [home:['index','slideshow','aboutThisSite','legal','siteMap','feed','calendars','donate'],
                        aboutUs:['index','contactUs','visiting','teachers'],
-                       event:[],
-                       buddhism:[],
-                       meditation:[],
-                       community:[],
-                       wellbeing:[],
-                       news:[],
+                       event:['home','current','future','regular','list'],
+                       buddhism:['home','list','events','slideshow'],
+                       meditation:['home','all','events','slideshow'],
+                       community:['home','events'],
+                       wellbeing:['home','events'],
+                       news:['home','current','archived'],
                        shop:[]]
         render(view:'tab',model: [links:Link.findAllBySection("H"),controllers:controllers,actions:actions,saveTo:'updateHomeMenu'])
     } 
     
     def meditationMenu = {
-        def controllers = ['home','aboutUs','event','buddhism','meditation','community','wellbeing','news','shop']
-        def actions = [home:['index','slideshow','aboutThisSite','legal','siteMap'],
+        def controllers = ['home','aboutUs','event','buddhism','meditation','community','wellbeing','news']
+        def actions = [home:['index','slideshow','aboutThisSite','legal','siteMap','feed','calendars','donate'],
                        aboutUs:['index','contactUs','visiting','teachers'],
-                       event:[],
-                       buddhism:[],
-                       meditation:[],
-                       community:[],
-                       wellbeing:[],
-                       news:[],
+                       event:['home','current','future','regular','list'],
+                       buddhism:['home','list','events','slideshow'],
+                       meditation:['home','all','events','slideshow'],
+                       community:['home','events'],
+                       wellbeing:['home','events'],
+                       news:['home','current','archived'],
                        shop:[]]
         render(view:'tab',model:[links:Link.findAllBySection("M"),controllers:controllers,actions:actions,saveTo:'updateMeditationMenu'])
     }
     
     def buddhismMenu = {
-        def controllers = ['home','aboutUs','event','buddhism','meditation','community','wellbeing','news','shop']
-        def actions = [home:['index','slideshow','aboutThisSite','legal','siteMap'],
+        def controllers = ['home','aboutUs','event','buddhism','meditation','community','wellbeing','news']
+        def actions = [home:['index','slideshow','aboutThisSite','legal','siteMap','feed','calendars','donate'],
                        aboutUs:['index','contactUs','visiting','teachers'],
-                       event:[],
-                       buddhism:[],
-                       meditation:[],
-                       community:[],
-                       wellbeing:[],
-                       news:[],
+                       event:['home','current','future','regular','list'],
+                       buddhism:['home','list','events','slideshow'],
+                       meditation:['home','all','events','slideshow'],
+                       community:['home','events'],
+                       wellbeing:['home','events'],
+                       news:['home','current','archived'],
                        shop:[]]
         render(view:'tab',model: [links:Link.findAllBySection("B"),controllers:controllers,actions:actions,saveTo:'updateBuddhismMenu'])
     }        
@@ -94,12 +94,12 @@ class LinksController {
 
         if (!cmd.hasErrors()) {
             flash.isError = false
-            flash.message = "Home menu updated"
+            flash.message = "Menu updated"
             redirect(action: manage)
         }
         else {
             flash.isError = true
-            flash.message = "home.menu.update.error"
+            flash.message = "menu.update.error"
             redirect(action: manage)
         }        
     }

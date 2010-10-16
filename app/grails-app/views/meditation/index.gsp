@@ -26,7 +26,7 @@
   User: Leanne Northrop
   Date: Jan 24, 2010, 2:00:21 PM
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.site.Link" contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
     <title><g:message code="meditation.home.title"/></title>
@@ -37,12 +37,14 @@
     <div class="grid_12">
       <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
-    <div class="grid_4">
+    <div class="grid_4">          
       <g:render template="/slideshowLink" model="[album:album,relUrl:'slideshow']"/>      
       <div class="box">
-        <h2><g:message code="meditation.resources"/></h2>
+        <h3><g:message code="meditation.resources"/></h3>
         <ul class="menu">
-          <li class="menuitem"><g:link action="all"><g:message code="meditation.articles"/></g:link></li>
+            <g:each var="link" in="${links}">
+                <li>${link}</li>
+            </g:each>
         </ul>
       </div>
     </div>

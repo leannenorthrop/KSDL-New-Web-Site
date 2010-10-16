@@ -67,7 +67,8 @@ class AboutUsController {
 	}	
 	
 	def room = {
-		def model = [room:Room.get(params.id)]
+	    def venues = Venue.notDeleted.list()
+		def model = [room:Room.get(params.id),venues:venues]
 		articleService.addHeadersAndKeywords(model,request,response)
 		model
 	}
@@ -129,4 +130,13 @@ class AboutUsController {
 		articleService.addHeadersAndKeywords(model,request,response)
 		model
 	}	
+	
+	def roomHire = {
+	    def allArticles = Article.allAboutUsArticles("title", "asc").list()
+        def article = allArticles.find { article -> article.title == 'Room Hire' }
+        def venues = Venue.notDeleted.list()
+        def model = [article:article,venues:venues];		
+		articleService.addHeadersAndKeywords(model,request,response)
+		model        
+	}
 }

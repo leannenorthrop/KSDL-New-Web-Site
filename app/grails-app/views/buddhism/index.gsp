@@ -20,6 +20,7 @@
   - BT plc, hereby disclaims all copyright interest in the program
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
+<%@ page import="org.samye.dzong.london.site.Link" contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
     <title>
@@ -33,9 +34,11 @@
     <div class="grid_4">
         <g:render template="/slideshowLink" model="[album:album,relUrl:'slideshow']"/>
         <div class="box">
-          <h2><g:message code="meditation.resources"/></h2>
+          <h3><g:message code="meditation.resources"/></h3>
           <ul class="menu">
-            <li class="menuitem"><g:link action="list"><g:message code="meditation.articles"/></g:link></li>
+              <g:each var="link" in="${links}">
+                  <li>${link}</li>
+              </g:each>
           </ul>
         </div>
     </div>

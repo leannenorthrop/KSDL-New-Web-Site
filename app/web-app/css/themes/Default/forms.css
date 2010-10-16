@@ -1,0 +1,83 @@
+/*******************************************************************************
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ ******************************************************************************/
+/* forms
+----------------------------------------------- */
+form {
+    overflow: hidden;
+}
+
+fieldset {
+    padding: 10px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+legend {
+    padding: .4em .8em;
+}
+
+fieldset.login p {
+    margin-bottom: 1em;
+    margin-top: 0pt;
+}
+
+fieldset p label {
+    width: 98%;
+}
+
+fieldset p input {
+    width: 98%;
+}
+
+fieldset p select {
+    width: 99%;
+}
+
+fieldset.login p label {
+    float: left;
+    line-height: 2em;
+    margin-right: 3%;
+    text-align: right;
+    width: 32%;
+}
+
+fieldset.login p input {
+    width: 60%;
+}
+
+fieldset.login input.button {
+    margin-left: 35%;
+}
+
+form p.notice {
+    font-weight: bold;
+}
+
+input.search.text {
+    width: 66%;
+}
+
+input.search.button {
+    width: 28%;
+    margin-left: 2%;
+}

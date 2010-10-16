@@ -29,7 +29,7 @@
 
 <%@ page import="org.samye.dzong.london.shop.Product" contentType="text/html;charset=UTF-8" %>
 <div class="box">
-  <h2><g:message code="${heading}" default=""/></h2>
+  <h3><g:message code="${heading}" default=""/></h3>
   <ul class="block products">
     <g:if test="${products}">
 
@@ -55,11 +55,16 @@
                 </g:link>
               </g:if> 
               <g:else>         
-                <a href="#" class="image">
+                <a href="#">
                   <img src="${createLink(controller: 'image', action: 'thumbnail', id: product.images[0].id)}" title="${productTitle}" alt="${productTitle}"/>
                 </a>
               </g:else>
           </g:if>
+          <g:else>
+              <a href="#">
+                  <img class="defaultImg">&nbsp;</img>
+              </a>
+          </g:else>          
           
           <p>
             ${product?.summary?.encodeAsTextile()}

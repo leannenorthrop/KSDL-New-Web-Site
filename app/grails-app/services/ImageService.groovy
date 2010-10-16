@@ -82,14 +82,21 @@ class ImageService {
         }		
 	}
 	
-    def thumbnail(image) {
+    def thumbnail(image,type) {
         try {
             def imageTool = new ImageTool()
             imageTool.load(image)
-            imageTool.square()
-            imageTool.swapSource()
-            imageTool.thumbnailSpecial(75, 75, 3, 2)
-            return imageTool.getBytes("JPEG")
+            imageTool.saveOriginal()
+            if (imageTool.getHeight() > 85 || imageTool.getWidth() > 85) {
+				imageTool.square()
+	            imageTool.swapSource()
+	            imageTool.thumbnailSpecial(85, 85, 3, 2)
+                def imagetype = type.toLowerCase().indexOf("jpg") >= 0 ? "JPEG" : "PNG";
+				imagetype = type.toLowerCase().indexOf("jpeg") >= 0 ? "JPEG" : "PNG";
+                return imageTool.getBytes(imagetype)	
+            } else {
+                return image
+            }
         } catch (error) {
             log.error(error)
         }

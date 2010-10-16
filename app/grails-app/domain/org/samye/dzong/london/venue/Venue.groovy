@@ -32,15 +32,16 @@ class Venue extends Publishable {
     }
 
 	static mapping = {
-		rooms sort: 'name'
+	    cache true 
 	    columns {
 	        content type:'text'
 	        facilities type:'text'
 	        access type:'text'	
 	    }		
-        addresses cascade: "all-delete-orphan"
-        telephoneNumbers cascade: "all-delete-orphan"	
-        emails cascade: "all-delete-orphan"	
+        addresses cascade: "all-delete-orphan", cache:true, lazy:false
+        telephoneNumbers cascade: "all-delete-orphan", cache:true,lazy:false	
+        emails cascade: "all-delete-orphan", cache:true,lazy:false	
+		rooms sort: 'name', cache:true        
 	}
 	
 	static namedQueries = {

@@ -5,7 +5,7 @@ class Setting {
     String value
 
     static constraints = {
-        name(nullable: false, blank: false, unique:true,inList:['DefaultTheme','SSNone', 'SSHome', 'SSMeditation','SSBuddhism','FlickrFrob','FlickrUserId','Logo','ShopMenu'])
+        name(nullable: false, blank: false, unique:true,inList:['DefaultTheme','SSNone', 'SSHome', 'SSMeditation','SSBuddhism','FlickrFrob','FlickrUserId','Logo','ShopMenu','SiteMessage'])
         value(nullable: false, blank: false)
     }
 
@@ -28,8 +28,17 @@ class Setting {
 		flickrUserId {
 			eq 'name', "FlickrUserId"
 		}
+		siteMessage {
+		    eql 'name', "SiteMessage"
+		}
     }
 
+    static mapping = {
+        columns {
+            value type:'text'
+        }
+    }
+    
     String toString() {
         name
     }

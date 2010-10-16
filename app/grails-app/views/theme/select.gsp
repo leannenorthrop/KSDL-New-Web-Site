@@ -30,7 +30,7 @@
     <div class="grid_16">
         <g:set var="cssThemesDir" value="${new File(application.getRealPath('/css/themes')).listFiles()}" />
         <h1>Change Theme</h1>
-        <p><g:if test="${cookie(name:'cssTheme')}">You are currently viewing <g:cookie name="cssTheme" />.</g:if> You can change the way this website looks by clicking any of the links below:<br/><br/>
+        <p>You can change the way this website looks by clicking any of the links below:<br/><br/>
             <ul>
             <g:each in="${cssThemesDir}">
                 <g:if test="${it.isDirectory()}">

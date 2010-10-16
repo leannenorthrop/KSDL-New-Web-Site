@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.londonsamyedzong</groupId>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.10-SNAPSHOT</version>
     <artifactId>app</artifactId>
     <packaging>grails-app</packaging>
     <name>London Samye Dzong Website</name>
     <organization>
-       <name>Kagyu Samye Dzong London Tibetan Buddhist Centre</name>
-       <url>http://www.londonsamyedzong.org</url>
+        <name>Kagyu Samye Dzong London Tibetan Buddhist Centre</name>
+        <url>http://www.londonsamyedzong.org</url>
     </organization>
     <issueManagement>
-       <system>Google Code</system>
-       <url>http://code.google.com/p/lsd-website/issues</url>
+        <system>Google Code</system>
+        <url>http://code.google.com/p/lsd-website/issues</url>
     </issueManagement>
     <url>http://code.google.com/p/lsd-website/</url>
     <scm>
@@ -24,49 +22,26 @@
         <url>http://lsd-website.googlecode.com/svn/trunk/</url>
     </scm>
     <properties>
+        <grails.version>1.3.4</grails.version>
+        <grails-bootstrap.version>${grails.version}</grails-bootstrap.version>
+        <grails-crud.version>${grails.version}</grails-crud.version>
+        <grails-gorm.version>${grails.version}</grails-gorm.version>
+        <grails-test.version>${grails.version}</grails-test.version>
+        <grails-maven-plugin.version>${grails.version}</grails-maven-plugin.version>
+        <jstl.version>1.2</jstl.version>
+        <hibernate-ehcache.version>3.3.1.GA</hibernate-ehcache.version>
+        <javassist.version>3.11.0.GA</javassist.version>
+        <ehcache-core.version>1.7.1</ehcache-core.version>
+        <hsqldb.version>2.0.0</hsqldb.version>
+        <slf4j-log4j12.version>1.5.8</slf4j-log4j12.version>
+        <aspectjweaver.version>1.6.8</aspectjweaver.version>
+        <aspectjrt.version>1.6.8</aspectjrt.version>
         <property-file>${user.name}</property-file>
         <filter-path>${user.dir}/src/main/filters</filter-path>
-        <filter.properties>${filter-path}/${user.name}.properties</filter.properties>        
+        <filter.properties>${filter-path}/${user.name}.properties</filter.properties>
         <config.grails.testing.reports.destDir>/target</config.grails.testing.reports.destDir>
     </properties>
     <dependencies>
-        <!-- remove for 1.3.x-->
-        <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.11.0.GA</version>
-        </dependency>        
-        <dependency>
-            <groupId>javax.security</groupId>
-            <artifactId>jaas</artifactId>
-            <version>1.0.01</version>            
-        </dependency>
-        <dependency>
-            <groupId>javax.security</groupId>
-            <artifactId>jacc</artifactId>
-            <version>1.0</version>            
-        </dependency>        
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-bootstrap</artifactId>
-            <version>1.2.3</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.0.8</version>
-        </dependency>
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-crud</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.grails</groupId>
-            <artifactId>grails-gorm</artifactId>
-            <version>1.2.3</version>
-        </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -83,64 +58,10 @@
             <version>1.3.0.I20091106-0100-e3x</version>
         </dependency>
         <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjweaver</artifactId>
-            <version>1.6.6</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.aspectj</groupId>
-            <artifactId>aspectjrt</artifactId>
-            <version>1.6.6</version>
-        </dependency>
-
-         <dependency>
-             <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-web</artifactId>
-            <version>2.0.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <version>2.0.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                </exclusion>
-                <!-- We have JCL-over-SLF4J instead. -->
-                <exclusion>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-            
-        <!-- For ease of development and testing, we include the HSQLDB database. -->
-        <dependency>
             <groupId>hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.0.0</version>
+            <version>${hsqldb.version}</version>
             <scope>runtime</scope>
-        </dependency>
-        <!-- Use Log4J for logging. This artifact also pulls in the Log4J JAR. -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.5.8</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.5.8</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>com.icegreen</groupId>
@@ -151,6 +72,95 @@
             <groupId>net.fortuna.ical4j</groupId>
             <artifactId>ical4j</artifactId>
             <version>1.0-rc2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-bootstrap</artifactId>
+            <version>${grails-bootstrap.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-crud</artifactId>
+            <version>${grails-crud.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-gorm</artifactId>
+            <version>${grails-gorm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.grails</groupId>
+            <artifactId>grails-test</artifactId>
+            <version>${grails-test.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>     
+        <!-- Grails defaults to Ehache for the second-level Hibernate cache. -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-ehcache</artifactId>
+            <version>${hibernate-ehcache.version}</version>
+            <!-- See http://www.slf4j.org/faq.html#IllegalAccessError -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Use javassist as the bytecode manipulation provider for Hibernate -->
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>${javassist.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>${ehcache-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jms</artifactId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+                <!-- We have JCL-over-SLF4J instead. -->
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!-- Use Log4J for logging. This artifact also pulls in the Log4J JAR. -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j-log4j12.version}</version>
+            <scope>runtime</scope>
+        </dependency>        
+        <!-- Needed in the case of AOP usage -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectjweaver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectjrt.version}</version>
         </dependency>
     </dependencies>
     <repositories>
@@ -205,9 +215,30 @@
         <pluginManagement/>
         <plugins>
             <plugin>
+                <groupId>com.samaxes.maven</groupId>
+                <artifactId>maven-minify-plugin</artifactId>
+                <version>1.2</version>
+                <configuration>
+                    <webappSourceDir>${basedir}/web-app</webappSourceDir>
+                    <webappTargetDir>${project.build.directory}/${project.build.finalName}</webappTargetDir>
+                    <cssSourceDir>css</cssSourceDir>
+                    <jsSourceDir>js/mootools</jsSourceDir>
+                    <cssSourceExcludes>**</cssSourceExcludes>
+                    <!--jsSourceExcludes>*min*</jsSourceExcludes-->
+                    <jsSourceIncludes>**</jsSourceIncludes>
+                    <jsFinalFile>mootools-all.js</jsFinalFile>
+                    <linebreak>-1</linebreak>
+                    <nomunge>true</nomunge>
+                    <verbose>false</verbose>
+                    <preserveAllSemiColons>true</preserveAllSemiColons>
+                    <disableOptimizations>false</disableOptimizations>
+                    <bufferSize>4096</bufferSize>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.grails</groupId>
                 <artifactId>grails-maven-plugin</artifactId>
-                <version>1.2.2</version>
+                <version>${grails-maven-plugin.version}</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -230,58 +261,63 @@
                     <source>1.6</source>
                     <target>1.6</target>
                 </configuration>
-            </plugin>   
+            </plugin>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.4</version>                 
+                <version>1.4</version>
                 <executions>
-                  <execution>
-                    <phase>package</phase>
-                    <configuration>
-                      <tasks>
-                          <zip destfile="${project.build.directory}/ROOT.war">
-                            <zipfileset src="${project.build.directory}/${project.artifactId}-${project.version}.war">
-                                <patternset>
-                                    <exclude name="**/log4j*"/>
-                                    <exclude name="**/slf4j*"/>
-                                    <exclude name="**/mysql*"/> 
-                                    <exclude name="**/activation.jar"/>                                                                                                                    
-                                    <exclude name="**/ant-1.6.5.jar"/>                                                                                                                                                        
-                                    <exclude name="**/*-jdk14-*.jar"/>  
-                                    <exclude name="**/backport*.jar"/>                                                                                                                                                                                                                                
-                                    <exclude name="**/javassist-3.4.GA.jar"/>       
-                                    <exclude name="**/mail-1.4.jar"/>                                                                                                                                                                                                                                                                                                        
-                                  </patternset>                                    
-                            </zipfileset>
-                          </zip>
-                      </tasks>
-                    </configuration>                        
-                    <goals>
-                      <goal>run</goal>
-                    </goals>
-                  </execution>
+                    <execution>
+                        <phase>package</phase>
+                        <configuration>
+                            <tasks>
+                                <zip destfile="${project.build.directory}/ROOT.war">
+                                    <zipfileset src="${project.build.directory}/${project.artifactId}-${project.version}.war">
+                                        <patternset>
+                                            <exclude name="**/log4j*"/>
+                                            <exclude name="**/slf4j*"/>
+                                            <exclude name="**/mysql*"/>
+                                            <exclude name="**/activation.jar"/>
+                                            <exclude name="**/ant-1.6.5.jar"/>
+                                            <exclude name="**/*-jdk14-*.jar"/>
+                                            <exclude name="**/backport*.jar"/>
+                                            <exclude name="**/javassist-3.4.GA.jar"/>
+                                            <exclude name="**/mail-1.4.jar"/>
+                                            <exclude name="**/commons-beanutils-1.7.0.jar"/>
+                                            <exclude name="**/commons-collections-3.1.jar"/>
+                                            <exclude name="**/*hsqldb*.jar"/>
+                                            <exclude name="**/*junit*.jar"/>
+                                            <exclude name="**/ehcache-1.2.3.jar"/>
+                                        </patternset>
+                                    </zipfileset>
+                                </zip>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                 </executions>
-              </plugin>             
+            </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2-beta-5</version>
                 <configuration>
-                  <descriptors>
-                    <descriptor>${basedir}/assembly.xml</descriptor>
-                  </descriptors>
-                </configuration>  
-                 <executions>
-                      <execution>
-                        <phase>package</phase>                      
+                    <descriptors>
+                        <descriptor>${basedir}/assembly.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
                         <goals>
-                          <goal>single</goal>
+                            <goal>single</goal>
                         </goals>
-                      </execution>
-                    </executions>                              
-              </plugin>             
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-    <profiles> 
+    <profiles>
         <profile>
             <id>tools</id>
             <activation>

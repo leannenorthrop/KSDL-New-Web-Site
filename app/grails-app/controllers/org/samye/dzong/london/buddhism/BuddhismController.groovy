@@ -4,6 +4,7 @@ import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.Setting
 import org.samye.dzong.london.community.Teacher
+import org.samye.dzong.london.site.Link
 
 class BuddhismController {
     def articleService
@@ -30,7 +31,7 @@ class BuddhismController {
 			
 		}
 		
-		def model = [album:album,topArticles: topArticles, articles: articles,total:total,events:events,teachers:lineageTeachers]
+		def model = [links:Link.findAllBySection("B"),album:album,topArticles: topArticles, articles: articles,total:total,events:events,teachers:lineageTeachers]
 		articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }

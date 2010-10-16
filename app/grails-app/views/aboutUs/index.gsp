@@ -40,7 +40,7 @@
 
     <div class="grid_4">
       <div class="box">
-        <h2><g:message code="footer.help"/></h2>
+        <h3><g:message code="footer.help"/></h3>
         <ul class="menu">
           <li class="menuitem"><g:link controller="aboutUs" action="contactUs"><g:message code="footer.contact.us"/></g:link></li>
           <li class="menuitem"><g:link controller="aboutUs" action="visiting"><g:message code="footer.visit.us"/></g:link></li>
