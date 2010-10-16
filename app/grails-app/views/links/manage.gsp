@@ -36,7 +36,6 @@
     </jq:jquery>    
   </head>
   <body>
-      <g:render template="/messageBox" model="[flash: flash]"/>      
       <div id="links">
         <ul>
           <li><a href="homeMenu"><g:message code="links.home" default="Home"/></a></li>

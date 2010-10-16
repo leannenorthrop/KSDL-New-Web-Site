@@ -32,11 +32,15 @@ Navigation
 div.container_16 div.banner + div.clear + div {
 	z-index:3;
 	position:relative;
+/*	margin-left:-5%;
+	margin-right:0;
+	width:109.35%;*/
 	font-weight:bold;	
 	text-align:center;
 	display:block;
 	overflow:hidden;	
     top: -38px;
+/*top:-8px*/
 }
 .nav {
 	width:100%;
@@ -47,11 +51,12 @@ div.container_16 div.banner + div.clear + div {
 .nav ul {
   position:relative;
   width:100%;  
+  list-style: none !important;
 }
 .nav ul li {
 	cursor:pointer;
 	display:inline-block;
-	list-style-type:none;
+	list-style:none;
 	padding: 0.5em 0.6em 0.3em 0.6em;		
 }
 .nav ul li a {

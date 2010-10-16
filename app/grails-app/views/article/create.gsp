@@ -29,12 +29,17 @@
     <g:javascript>
       $(function() {
         $("#createarticle").validate();
+        $("#image\\.id").change(function() {
+            var src = $("option:selected", this).val();
+            var href = '${createLink(controller: 'image', action:'thumbnail', id:'0')}';
+            $("#thumb_image").attr("srcid",src);
+            $("#thumb_image").attr("src",href.replace('0',src));
+        });
       });
     </g:javascript>
   </head>
   <body>
     <g:form id="createarticle" name="createarticle" action="save" method="post">
-      <g:render template="/messageBox" model="[flash: flash]"/>
 
       <g:hiddenField name="publishState" value="Unpublished"/>
       <g:hiddenField name="deleted" value="false"/>
@@ -49,17 +54,23 @@
         <label for="title"><g:message code="article.title.label"/></label>
         <g:textField name="title" value="${fieldValue(bean:articleInstance,field:'title')}" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'title','errors')}" minlength="5"/>
       </p>
+      <span style="float:left;width: 50%;">
+          <p>
+            <label for="image.id"><g:message code="article.image.label"/></label>
+            <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
+            <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
+          </p>
+          <p>
+            <label for="category"><g:message code="event.category.label"/></label>
+            <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
+          </p>
+      </span>
+      <span style="float:right;width: 49%;">
+          <lsdc:thumbnail srcid="${articleInstance?.image?.id}" id="thumb_image"/>
+      </span>
+      <span class="clear"></span>
       <p>
-        <label for="image.id"><g:message code="article.image.label"/></label>
-        <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('article')}" name="image.id" value="${articleInstance?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-      </p>
-      <p>
-        <label for="category"><g:message code="event.category.label"/></label>
-        <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'title','errors')}"/>
-      </p>
-      <p>
-        <label for="summary"><g:message code="article.summary.label"/></label>
+        <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="manageSite" action='textile' target="_blank">Textile</g:link> for details.</em></label>
         <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'summary','errors')}" value="${articleInstance?.summary}" minlength="5"/>
       </p>
       </fieldset>
@@ -67,8 +78,8 @@
           <legend>Content</legend>
           <g:render template="/contentWithPreview" model="[previewController: 'article',publishableInstance:articleInstance]"/>
           <p class="last">&nbsp;</p>
-          <g:set var="createSubmitBtnLabel"><g:message code="article.create.btn"/></g:set>
-          <g:submitButton name="submitbtn" value="${createSubmitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
+          <g:submitButton name="submitbtn" value="${message(code:'article.create.btn')}" id="submitbtn" class="ui-corner-all"/>
+          <input type="button" class="ui-corner-all cancel" value="${message(code:'cancel')}" onclick="window.history.back();"/>
       </fieldset>
     </g:form>
   </body>

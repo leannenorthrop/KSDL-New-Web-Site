@@ -5,6 +5,12 @@ http://code.google.com/p/lsd-website/issues/entry
 ================================================================================
                         To Do
 ================================================================================
+- complete changes to admin pages
+- slideshow
+- data migration 
+
+
+
 - all controllers to handle exceptions
 - layouts to handle nulls
 - gsp to handle nulls
@@ -128,7 +134,6 @@ manage site
     - about us links and teacher pages
     - min height for page content
     - min height for list of summaries
-    - fix width of front page kwick box
     
 ================================================================================
     For Release
@@ -146,7 +151,6 @@ stress test for 400
 ================================================================================
     Niceties
 ================================================================================
-1. Add support for svg?
 2. Printable css
 3. Videos
 You Tube

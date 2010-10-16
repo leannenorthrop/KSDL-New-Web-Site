@@ -37,14 +37,14 @@
 </g:else>
 <div id="${tabsId}">
   <ul>
-    <shiro:hasAnyRole in="['Author','Administrator','Editor','EventOrganiser','ShopManager']">
+    <shiro:hasAnyRole in="['Author','EventOrganiser','ShopManager']">
     <li><a href="ajaxUnpublished${listMaxParam}"><g:message code="article.unpublished"/></a></li>
     </shiro:hasAnyRole>
-    <shiro:hasAnyRole in="['Author','Administrator','Editor','EventOrganiser']">
+    <shiro:hasAnyRole in="['Author','Editor','EventOrganiser','Admin']">
     <li><a href="ajaxReady${listMaxParam}"><g:message code="article.ready"/></a></li>
     </shiro:hasAnyRole>
     <li><a href="ajaxPublished${listMaxParam}"><g:message code="article.published"/></a></li>
-    <shiro:hasAnyRole in="['Author','Administrator','Editor','EventOrganiser']">    
+    <shiro:hasAnyRole in="['Author','Editor','EventOrganiser','Admin']">    
     <li><a href="ajaxArchived${listMaxParam}"><g:message code="article.archived"/></a></li>
     </shiro:hasAnyRole>
     <li><a href="ajaxDeleted${listMaxParam}"><g:message code="article.deleted"/></a></li>

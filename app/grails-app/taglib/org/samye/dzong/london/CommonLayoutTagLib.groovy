@@ -155,7 +155,7 @@ class CommonLayoutTagLib {
                                 messageSource.getMessage ('toolbar.logout', null, null)
                             }
                         } else {
-                            elem = link(class: 'login', controller: 'manageSite', action: "home") {
+                            elem = link(class: 'login', controller: 'manageSite', action: "landing") {
                                 messageSource.getMessage ('toolbar.login', null, null)
                             }                            
                         }
@@ -180,6 +180,26 @@ class CommonLayoutTagLib {
         out << "</div>"
     }
 
+	def thumbnail = { attrs, body ->
+	    def size = Setting.findByName('ThumbSize').value;
+	    def src = 0
+	    if (attrs?.srcid) {
+	        src = attrs.remove('srcid')
+        }
+	    log.debug "Thumbnail id is '${src}' and attrs is ${attrs}"
+		out << "<image width='${size}' height='${size}' src='${createLink(controller: 'image', action:'thumbnail', id:src)}'"
+		
+		attrs.each { k,v->
+			out << " $k=\"$v\""
+		}
+		
+		if (!attrs.containsKey('style')) {
+		    out << " style=\"width:${size}px;height:${size}px;min-width:${size}px;min-height:${size}px;\""
+		}
+		
+		out << "/>"
+	}
+	
     def remoteField = { attrs, body ->
 		def paramName = attrs.paramName ? attrs.remove('paramName') : 'value'
 		def value = attrs.remove('value')

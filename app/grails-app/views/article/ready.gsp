@@ -39,7 +39,7 @@
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-          <shiro:hasAnyRole in="['Editor','Administrator']">
+          <shiro:hasAnyRole in="['Editor','Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="article.action.label"/></th>
@@ -53,7 +53,7 @@
                 <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
               </shiro:hasRole>
               <shiro:lacksRole name="Author">
-                ${fieldValue(bean: articleInstance, field: 'title')}
+                <g:link action="show" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
               </shiro:lacksRole>
             </td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
@@ -64,7 +64,7 @@
               <shiro:hasRole name="Author">
                 <g:link action="changeState" params="[state:'Unpublished']" id="${articleInstance.id}"><g:message code="article.unpublish.action"/></g:link>
               </shiro:hasRole>
-              <shiro:hasAnyRole in="['Editor','Administrator']">
+              <shiro:hasAnyRole in="['Editor','Admin']">
                 <g:link action="pre_publish" id="${articleInstance.id}"><g:message code="article.publish.action"/></g:link>
               </shiro:hasAnyRole>
               <g:link action="delete" id="${articleInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>

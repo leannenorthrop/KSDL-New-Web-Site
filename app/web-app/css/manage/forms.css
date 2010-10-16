@@ -56,7 +56,7 @@ fieldset p input:focus, fieldset p textarea:focus, fieldset p.select:focus {
 }
 
 /* ACTION BUTTONS */
-input[type="submit"],form a.button, form a.submit {
+input[type="submit"],form a.button, form a.submit,input[type="button"] {
     padding: 0.35em 0.75em 0.4em 0.75em;
     color: white;
     background: #dc0000 url(images/buttonHighlight.png) repeat-x 0 50%;
@@ -69,7 +69,7 @@ input[type="submit"],form a.button, form a.submit {
     font-size:1.1em;    
 }
 
-input[type="submit"]:hover,form a:hover.button, form a:hover.submit,input[type="submit"]:focus,input[type="submit"]:active,a:active.button, form a:active.submit  {
+input[type="submit"]:hover,input[type="button"]:hover,form a:hover.button, form a:hover.submit,input[type="submit"]:focus,input[type="submit"]:active,a:active.button, form a:active.submit  {
     text-decoration: none;
     text-shadow: 1px 1px 1px #330000;
     background: #bb0000;    

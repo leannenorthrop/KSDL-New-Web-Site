@@ -32,10 +32,6 @@
       <g:hiddenField type="hidden" name="reset" value="${user?.passwordReset}"/>
       <fieldset>
           <legend><g:message code="passwd.change" default="Change Password"/></legend>
-          <g:if test="${flash.message}">
-            <p class="ui-widget ui-state-error ui-corner-all"><span class="ui-icon ui-icon-alert" style="display: inline-block;"></span>
-              <strong><g:message code="alert"/></strong><g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/></p>
-          </g:if>
           <p>
             <label for="password"><g:message code="passwd.un.new"/></label>
             <g:passwordField name="password" value="" class="required ui-corner-all"/>

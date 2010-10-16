@@ -51,7 +51,7 @@ class ArticleController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         println params
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = articleService.unpublished(params)
         } else {
             model = articleService.userUnpublished(params)
@@ -64,7 +64,7 @@ class ArticleController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = articleService.published(params)
         } else {
             model = articleService.userPublished(params)
@@ -77,7 +77,7 @@ class ArticleController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = articleService.archived(params)
         } else {
             model = articleService.userArchived(params)
@@ -90,7 +90,7 @@ class ArticleController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = articleService.deleted(params)
         } else {
             model = articleService.userDeleted(params)
@@ -103,7 +103,7 @@ class ArticleController {
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
             model = articleService.ready(params)
         } else {
             model = articleService.userReady(params)
@@ -331,6 +331,38 @@ class ArticleController {
             redirect(action: manage)
         }
     }
+    
+    def updateAndPublish = {
+        def articleInstance = Article.get(params.id)
+        if (articleInstance) {
+            if (params.version) {
+                def version = params.version.toLong()
+                if (articleInstance.version > version) {
+                    flash.isError = true
+                    flash.message = "article.update.error"
+                    flash.args = [articleInstance]
+                    articleInstance.errors.rejectValue("version", "article.optimistic.locking.failure", "Another user has updated this Article while you were editing.")
+                    render(view: 'edit', model: [articleInstance: articleInstance, id: params.id])
+                    return
+                }
+            }
+            articleInstance.properties = params
+            if (!articleInstance.hasErrors() && articleInstance.save()) {
+                flash.message = "Article ${articleInstance.title} updated"
+                redirect(action: pre_publish, id:params.id)
+            }
+            else {
+                flash.isError = true
+                flash.message = "article.update.error"
+                flash.args = [articleInstance]
+                render(view: 'edit', model: [articleInstance: articleInstance, id: params.id])
+            }
+        }
+        else {
+            flash.message = "Article not found with id ${params.id}"
+            redirect(action: manage)
+        }
+    }    
 
     def create = {
         def articleInstance = new Article()

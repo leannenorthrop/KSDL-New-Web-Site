@@ -152,7 +152,7 @@ class AuthController {
         SecurityUtils.subject?.logout()
 
         // For now, redirect back to the home page.
-        redirect(controller:'manageSite',action:'home')
+        redirect(controller:'manageSite',action:'landing')
     }
 
     def unauthorized = {
@@ -245,4 +245,54 @@ class AuthController {
             redirect(controller: 'manageSite', action: 'error')
         }
     }
+    
+    def updatePassword = {
+        def user = ShiroUser.findByUsername(params.username)
+        if (!user) {
+            log.warn "Password reset requested from ${params.id} resulted in user not found"
+            flash.message = "passwd.reset.failure"
+            flash.args = ['Unknown']
+            redirect(controller: 'manageSite', action: 'error')
+        } else {
+            render(view: 'updatePassword', model:[user:user])
+        }
+    }    
+    
+    def savePassword = {
+        def user = ShiroUser.findByUsername(params.username)
+        if (user) {
+            if (params.password.equals(params.password2)) {
+                try {
+                    user.passwordHash = new Sha1Hash(params.password).toHex()
+                    if (!user.hasErrors() && user.save()) {
+                        try {
+                            user.passwordReset = null
+                            user.save()
+                        } catch(error) {
+                            log.warn "Unable to nullify password reset field for user ${user.username}", error
+                        }
+                        log.info "User ${user.username}  has successfully changed password."
+                        flash.message = "passwd.change.success"
+                        redirect(controller: 'manageSite', action: 'info')
+                    } else {
+                        flash.message = "login.failed"
+                        redirect(action: "doPasswordReset", id: user.passwordReset)
+                    }
+                } catch (Exception e) {
+                    log.error "Failed to change user's password", e
+                    flash.message = "login.failed"
+                    // Now redirect back to the login page.
+                    redirect(action: "doPasswordReset", id: user.passwordReset)
+                }
+            } else {
+                log.info "${user}'s new passwords do not match."
+                flash.message = "register.passwords.match.failure"
+                // Now redirect back to the login page.
+                redirect(action: "doPasswordReset", id: user.passwordReset)
+            }
+        } else {
+            flash.message = "passwd.change.failure"
+            redirect(controller: 'manageSite', action: 'error')
+        }
+    }    
 }

@@ -32,7 +32,7 @@
         <tr>
           <g:sortableColumn property="title" title="${titleLabel}"/>
           <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-          <shiro:hasAnyRole in="['Administrator']">
+          <shiro:hasAnyRole in="['Admin']">
             <g:sortableColumn property="author" title="${authorLabel}"/>
           </shiro:hasAnyRole>
           <th><g:message code="article.action.label"/></th>
@@ -42,7 +42,7 @@
         <g:each in="${articles}" status="i" var="articleInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
             <td>
-              <shiro:hasAnyRole in="['Author','Administrator']">    
+              <shiro:hasAnyRole in="['Author','Admin']">    
               <g:link action="edit" id="${articleInstance.id}">${fieldValue(bean: articleInstance, field: 'title')}</g:link>
               </shiro:hasAnyRole>
               <shiro:lacksAllRoles in="['Author','Administrator']">
@@ -50,7 +50,7 @@
               </shiro:lacksAllRoles>              
             </td>
             <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
-            <shiro:hasAnyRole in="['Administrator']">
+            <shiro:hasAnyRole in="['Admin']">
               <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
             </shiro:hasAnyRole>
             <td>
