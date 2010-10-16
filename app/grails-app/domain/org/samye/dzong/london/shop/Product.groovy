@@ -41,9 +41,9 @@ class Product extends Publishable {
             content type:'text'
             summary type:'text'
         }
-        prices cascade: "all-delete-orphan"
-        meta cascade: "all-delete-orphan"  
-        menuCategories cascade: "all-delete-orphan"     
+        prices cascade: "all-delete-orphan", cache:true, lazy:false
+        meta cascade: "all-delete-orphan", cache:true, lazy:false  
+        menuCategories cascade: "all-delete-orphan", cache:true, lazy:false     
     }
     	
     static namedQueries = {

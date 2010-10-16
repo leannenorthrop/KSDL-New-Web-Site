@@ -36,7 +36,7 @@
   <body>
     <div class="grid_16">
         <g:each var="venue" in="${venues}">
-            <h2>${venue.name}</h2>
+            <h3>${venue.name}</h3>
             ${venue?.content?.encodeAsTextile()}
              <g:if test="${venue?.image}">
                 <g:if test="${venue?.image?.mimeType.endsWith('png')}">

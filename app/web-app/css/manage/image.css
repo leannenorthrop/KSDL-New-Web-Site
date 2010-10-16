@@ -39,3 +39,18 @@ ul.images li img {
     -moz-box-shadow: 3px 3px 5px #888;
     -webkit-box-shadow: 3px 3px 5px #888;
 }
+
+li.teacher a .defaultImg {
+    width: 75px;
+    height: 75px;
+    display: block;
+    background: white url(image/vajra.gif) no-repeat top left;    
+}
+
+li.M a .defaultImg {
+    width: 75px;
+    height: 75px;
+    display: block;
+    background: white url(image/meditation.gif) no-repeat top left;
+    src: url(image/meditation.gif);    
+}

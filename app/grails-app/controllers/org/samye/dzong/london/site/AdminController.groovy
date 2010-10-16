@@ -141,14 +141,21 @@ class AdminController {
 			flickrUserSetting = new Setting(name: 'Logo', value: 1)
 			flickrUserSetting.save()
 		} 		
-		model: [settings: Setting.findAll()]
+		model: [settings: Setting.list()]
 	}
 	
 	def save = {
+	    log.debug "Saving settings"
 		params.settings.each { key,value ->
-			def setting = Setting.findByName(key)
-			setting.value = value
-			setting.save()
+		    try {
+		        log.debug "Looking for ${key}"
+    			def setting = Setting.findByName(key)
+    			setting.value = value.toString()
+    			log.debug "Attempting to save ${setting}"
+    			setting.save(flush:true)
+		    } catch(error) {
+		        log.error "Unable to save setting ${key}", error
+		    }
 		}
 		redirect(controller: 'manageSite', action: 'home')
 	}

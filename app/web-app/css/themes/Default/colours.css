@@ -20,185 +20,276 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  ******************************************************************************/
-
-hr
-{
-    border-color: #d1c5a4;
-}
-
+/* ----------------------------------------------------------------------------
+    General 
+---------------------------------------------------------------------------- */
+/* Site font colour unless other-wise specified */
 body {
-    border-top: 5px solid #524a41;
-    color: #665d51;
+   color: black;
 }
 
 a {
-    color: #524a41;
+   color: #323232;
+}
+a:visited {
+    color: #111;
 }
 a:hover {
-    color:#333;
+   color:#6d0101; 
 }
 
-h1#branding {
-
+#site_msg {
+    background: white;
+    background: rgba(255,255,255,0.85);  
+    border: 3px #aaa solid;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#000000, strength=15px,direction=45);
+	-webkit-box-shadow: 5px 5px 45px rgba(0, 0, 0, 0.4);	
+	-moz-box-shadow: 5px 5px 45px rgba(0, 0, 0, 0.4);		
+	-o-box-shadow: 5px 5px 45px rgba(0, 0, 0, 0.4);    
+}
+/* ----------------------------------------------------------------------------
+    Background 
+---------------------------------------------------------------------------- */
+hr
+{
+	border-color: rgb(219, 120, 37);
+	border-color: rgba(219, 120, 37,0.7);
 }
 
-h2#page-heading {
-    border-bottom:1px solid #d1c5a4;
+body {
+	border-top: 5px solid #ffcb2d;
+	/*background: rgb(194, 58, 55) url(body_bkgrndcopy.jpg) repeat;*/
+	background: rgb(250, 237, 200) url(images/background-tile.png) repeat-x right top;
+}
+
+.container_16,
+.container_12 {
+    background: rgb(251, 245, 208);
+	background: rgba(251, 245, 208, 0.2);
+	background: -webkit-gradient(linear, left 154, left bottom, color-stop(0.0, rgba(255,255,255,0)),
+	                color-stop(0.15, rgba(251, 245, 208, 0.5)), color-stop(1.0, rgba(251, 245, 208, 0.35)));
 }
 
 .box {
-    background:transparent;
+	background: transparent url(background-trans-tile.png) repeat left top;
+	background: rgba(255, 244, 222, 0.5);
+	background: -moz-linear-gradient(top, rgba(255, 244, 222, 0.5), rgba(255, 244, 222,0.3));
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 244, 222, 0.5)), to(rgba(255, 244, 222,0.3)));	
 }
 
-.box h2 {
-    color:#fff;
-    background:#333;
+/* ----------------------------------------------------------------------------
+    Banner 
+---------------------------------------------------------------------------- */
+body {
+    border-top: 7px solid #ff9933;
+}
+div.banner h1 {
+    color: white;
 }
 
-.box h2 a,
-.box h2 a.visible {
-    color:#fff;
-    background:#333 url("../img/switch_minus.gif") 97% 50% no-repeat;
+div.banner h2 {
+    color: #e5a842;    
 }
 
-.box h2 a:hover {
-    background-color:#111;
+#watermark1 {
+    background: #9c381e;
+}
+#watermark2 {
+    background: #9b2728;
+    background: #9b2728 url(images/bannerbg.png) no-repeat top right;
+    filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=0);
+    -webkit-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);	
+    -moz-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);		
+    -o-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);*/	
 }
 
-blockquote {
-    border-left:4px solid #d1c5a4;
-}
-ul.section li a {
-    background:#bbb;
-}
-ul.section li a:hover {
-    background:#a79e83;
-}
-ul.section li a:active {
-    color:#fff;
-    background:#666;
-}
-ul.section li li a {
-    background:#d1c5a4;
-    border-bottom:1px solid #eee;
-}
-ul.section li li a:hover {
-    background:#d1c5a4;
-}
-ul.section li li a:active {
-    color:#524a41;
-    background:#fff;
-}
-ul.section ul li {
-    text-transform:none;
-}
-ul.section ul.current li a {
-    background:#eee;
-    border-bottom:1px solid #fff;
-}
-ul.section ul.current li a:hover {
-    background:#d1c5a4;
-}
-ul.section ul.current li a:active {
-    background:#fff;
-}
-ul.section li a.current {
-    color:#fff;
-    background:#666;
-}
-ul.section li a.current:hover {
-    background:#555;
-}
-ul.section li a.current:active {
-    background:#444;
-}
-ul.section li a.active {
-    background:#fff;
-}
-ul.section li.current > a.active,
-ul.section li.current > a.active:hover {
-    color:#fff;
-    background:#666;
+/* ----------------------------------------------------------------------------
+    Footer
+---------------------------------------------------------------------------- */
+#footer .contact .address {
+    color: rgb(253, 237, 196);
+    color: rgba(253, 237, 196,0.8);    
 }
 
-table {
-    border:1px solid #bbb;
+#footer .contact .telephone {
+    color: rgb(253, 237, 196);
+    color: rgba(253, 237, 196,0.8);    
 }
-thead th {
-    border-bottom:2px solid #888;
-    background:#bbb;
+
+#footer .box {
+	color:#ccc;
+	font-size:x-small;
+	background: transparent;
+	background-image: none;
 }
-thead th.table-head {
-    color:#fff;
-    background:#555;
-    border:1px solid #555;
+#footer a {
+	color:#fff;
+	font-weight:bold;
+	font-size:12px;
 }
-tbody th,
-tbody td {
-    border-top:1px solid #bbb;
-    border-bottom:1px solid #bbb;
-    background:#eee;
+#footer a:hover {
+	color:rgb(219, 120, 37);
+	color:rgba(255, 184, 45,0.8);	
 }
-tbody tr.odd th,
-tbody tr.odd td {
-    background:#fff;
+
+/* ----------------------------------------------------------------------------
+    Navigation
+---------------------------------------------------------------------------- */
+#watermark3{
+	border-top: 1px solid #ff9933;
+	color: #ffd14f;	
+	background: rgb(154, 36, 11);
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=180);
+	-webkit-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);	
+	-moz-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
+	-o-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
 }
-tfoot th,
-tfoot td {
-    border-top:2px solid #666;
-    background:#eee;
+
+div.container_16 div.banner + div.clear + div {}
+
+.nav ul li {
+	background: rgb(154, 36, 11) url(images/sep.png) repeat-y top right;    
 }
-tfoot tr.total th,
-tfoot tr.total td {
-    border-top:6px double #666;
+
+.nav ul li.last {
+    background-image:none; 
 }
-fieldset {
-    border:1px solid #bbb;
-    background:#e9e9e9;
+
+.nav ul li a {
+    color: #ffd14f;	    
+    -webkit-transition:background-color,color 0.5s ease-in;  
+    -moz-transition:background-color,color 0.5s ease-in;  
+    -o-transition:background-color,color 0.5s ease-in;  
+    transition:background-color,color 0.5s ease-in;
 }
-legend {
-    background:#fff;
-    border:1px solid #bbb;
+
+.nav ul li:hover,
+.nav ul li.current {
+    background: rgb(116, 13, 13); 
+    background: rgba(116, 13, 13,0.8);     
 }
+
+.nav ul li a:hover,
+.nav ul li.current a {
+    background: rgb(116, 13, 13); 
+    background: rgba(116, 13, 13,0.8);         
+	color: white;
+}
+
+/* ----------------------------------------------------------------------------
+    Content
+---------------------------------------------------------------------------- */
+hr {
+	border-color: #d1c5a4;
+}
+h2#page-heading {
+    color: rgb(192, 80, 30);
+    border-bottom:1px solid rgb(235, 155, 30);
+    border-bottom:1px solid rgba(235, 155, 30,0.8); 
+    text-shadow: rgb(255, 184, 45) 0 0 20px;
+    text-shadow: rgba(255, 184, 45,0.7) 0 0 20px;                                    
+}
+
+p.meta {
+	color:#4d6a4b;
+}
+
 /*
 .article {
-    border-top:1px solid #666;
+	border-top:1px solid #6d0000;
 }*/
 .box .article, .box .event {
-    border-top:3px solid #fff;
+	border-top:1px solid #CCCCCC;
 }
 .article h2, .event h2 {
-    color:#333;
-    background:transparent;
+	color:#8b1b00;
+	background:transparent;
 }
 
-.article a.image, .event a.image {
-    border:1px solid #bbb;
-    background:#fff;
-}
-.article a.image:hover, .event a.image:hover {
-    border:1px solid #666;
-}
-.article p.meta, .event p.meta {
-    color:#666;
-    border-top:1px dotted #999;
-    border-bottom:1px dotted #999;
+/* About Us
+-----------------------------------------------------------------------------*/
+
+/* ----------------------------------------------------------------------------
+    Lists
+---------------------------------------------------------------------------- */
+ul.menu {
+    border-top: 1px solid #4a5eb2;
 }
 
-/* site information
------------------------------------------------ */
-#site_info .box {
-    color:#d1c5a4;
-    background:#666;
-}
-#site_info a {
-    font-weight: normal;
-    color:#333;
-}
-#site_info a:hover {
-    color:#524a41;
+ul.menu li a {
+    border-bottom: 1px solid #95bdde;
+    color:#094e7b;    
 }
 
-.container_16 {
-    background: rgb(255, 253, 249) url(images/papertile2.png) top left repeat;
+
+ul.menu li a:hover {
+    background: rgb(195, 221, 242);
+    background: rgba(195, 221, 242,0.8);    
+    color:#094e7b;
+}
+
+ul.menu li a:active {
+    color:#094e7b;    
+    background: #95bdde;
+}
+
+/* ----------------------------------------------------------------------------
+    Tables
+---------------------------------------------------------------------------- */
+tbody th,
+tbody td {
+    background: #eee;
+}
+
+/* Widgets
+-----------------------------------------------------------------------------*/
+
+/* Knockout */
+.knockout {
+   color: #fff;
+   text-shadow: 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* Highlight (orange) */
+.active {
+   color: #D1700E;
+}
+
+/* Knockout anchor */
+.knockout a,
+#nav * {
+   color: #fff;
+   text-shadow: 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* Blue knockout anchor */
+.knockout a {
+   color: #a9c0d3;
+}
+
+a.from-external-source,
+a.from-external-source:visited {
+    color: #888888;
+}
+
+/* Default anchor hover/focus */
+a:hover, a:focus {
+/*    color: #123E60; */
+   text-decoration: underline;
+   outline: none;
+}
+
+/* Knockout anchor hover/focus */
+.knockout a:hover, .knockout a:focus {
+   color: #fff;
+}
+
+/* Default anchor active */
+a:active {
+   color: #D1700E;
+}
+
+/* Knockout anchor active */
+.knockout a:active {
+   color: #fff;
 }

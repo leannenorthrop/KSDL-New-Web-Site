@@ -163,8 +163,9 @@ class ImageTool {
 			params.add(modifier);//y scale factor
 			params.add(0.0F);//x translate
 			params.add(0.0F);//y translate
-			params.add(new InterpolationNearest());//interpolation method
-			result = JAI.create("scale", params);
+			params.add(new InterpolationBilinear());//interpolation method
+			RenderingHints qualityHints = new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+			result = JAI.create("SubsampleAverage", params, qualityHints);
 		}
 	}
 

@@ -12,7 +12,7 @@ mvn grails:run-app
 ===============================================================================
 3.1 Hypersonic Database
 
-java -classpath ./lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:./db/mydb --dbname.0 xdb &
+java -classpath ./lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:./db/mydb --dbname.0 lsd &
 
 3.2 MYSQL Database 
 -------------------------------------------------------------------------------

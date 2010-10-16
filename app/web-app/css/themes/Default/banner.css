@@ -1,0 +1,83 @@
+.banner {
+    position: relative;    
+    height: 160px;
+}
+
+.banner img {
+    z-index:3;
+    position: relative;
+    top: -0.3em;
+    left: -10px;    
+    margin: 0;
+    padding: 0;    
+	border:0;
+    max-width: 150px;
+    max-height: 150px;	
+	background:transparent ! important;  
+	box-shadow: 0 ! important; 
+    filter: none;
+	-webkit-box-shadow: none ! important;	
+	-moz-box-shadow: none ! important;		
+	-o-box-shadow: none ! important;	 
+}
+
+.banner h1 {
+	z-index:2;
+    text-transform: uppercase;
+    font-family: 'Palatino nova','Palatino Linotype', Constantia, 'Book Antiqua', Palatino, serif;    
+    font-weight: normal;
+    font-size: 28px;    
+    font-variant:small-caps;    
+    position: relative;
+    top: -130px;
+    left: 160px;
+    width:80%;
+}
+
+.banner h2 {
+	z-index:2;
+    text-transform: uppercase;
+    font-family: Palatino;    
+    font-weight: normal;
+    font-size: 17px; 
+    position: relative;   
+    top: -150px;    
+    left: 160px;    
+    width:80%;   
+}
+
+#watermark1 {
+	z-index:2;
+	top:-2px;
+	width:100%;    
+	height: 80px;
+	position:relative;
+	overflow:hidden;		
+}
+
+#watermark2 {
+	z-index:2;
+    top:-10px;
+	width:100%;    
+	height: 80px;
+	position:relative;
+	overflow:hidden;
+}
+
+#watermark3 {
+    top:-9px;
+    height: 2em; 
+	z-index:2;
+	width:100%;  
+	position:relative;
+	overflow:hidden;	
+}
+
+#watermark4 {
+    display:hidden;
+}
+
+#watermark4 + div.container_16 {
+    position: relative;
+    top: -161px;
+}

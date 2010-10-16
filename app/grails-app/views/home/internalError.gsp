@@ -38,7 +38,7 @@
 <body>
     <div class="grid_16 pagecontent">
         <h1>Grails Runtime Exception</h1>
-        <h2>Error Details</h2>
+        <h3>Error Details</h3>
 
         <div class="message">
             <strong>Error ${request.'javax.servlet.error.status_code'}:</strong> ${request.'javax.servlet.error.message'.encodeAsHTML()}<br/>
@@ -58,7 +58,7 @@
             </g:if>
         </div>
         <g:if test="${exception}">
-            <h2>Stack Trace</h2>
+            <h3>Stack Trace</h3>
             <div class="stack">
               <pre><g:each in="${exception.stackTraceLines}">${it.encodeAsHTML()}<br/></g:each></pre>
             </div>

@@ -28,51 +28,70 @@ Navigation
 
 /* navigation (horizontal subnavigation)
 ----------------------------------------------- */
-.nav ul,
-.nav ul * {
-    margin: 0;
-    padding: 0;
-    text-transform: uppercase;
-}
 
+div.container_16 div.banner + div.clear + div {
+	z-index:3;
+	position:relative;
+	font-weight:bold;	
+	text-align:center;
+	display:block;
+	overflow:hidden;	
+    top: -38px;
+}
+.nav {
+	width:100%;
+}
+.nav ul,.nav ul * { 
+	margin:0;
+}
 .nav ul {
-    position: relative;
-    max-width: 100%;
-    height: 2.5em;
-    overflow-x: hidden;
-    background: transparent;
+  position:relative;
+  width:100%;  
 }
-
 .nav ul li {
-    cursor: pointer;
-    float: left;
-    text-align: center;
-    list-style-type: none;
-    font-weight: normal;
-    background: transparent url(images/diamond.png) 50% left no-repeat;
-    padding: 0 1px 0 2px;
-    text-shadow: 1px 1px 3px rgba(175,175,175,0.8);
+	cursor:pointer;
+	display:inline-block;
+	list-style-type:none;
+	padding: 0.5em 0.6em 0.3em 0.6em;		
 }
-
-.nav ul li.first {
-    background-image: none;
-    padding: 0 3px 0 7px;
-}
-
 .nav ul li a {
-    text-decoration: none;
-    display: block;
-    float: left;
-    padding: 0 1em;
-    height: 2.4em;
-    line-height: 2.5em;
-    color: #777;
+	position: relative;
+	text-decoration:none;
+	text-align:left;
+	margin:0;
+	padding:0;	
 }
-.nav ul li.current a {
-    cursor: default;
-    font-weight: bold;
+
+.nav ul li a strong {
+    display: block;
 }
 
 .nav ul li a em {
     display: none;
+}
+
+/* Shop Navigation Menu
+-----------------------------------------------------------------------------*/
+.box h2 a,
+.box h2 a.visible {
+    display: block;
+    padding: 6px 12px;
+    margin: -6px -12px;
+    border: none;
+}
+
+.box h2 a.hidden,
+.box h2 a.hidden:hover {
+    background-image: url("../img/switch_plus.gif");
+}
+.grid_4 .box h2 a {
+    background-position: 97% 50%;
+}
+
+.grid_5 .box h2 a {
+    background-position: 98% 50%;
+}
+
+.grid_12 .box h2 a {
+    background-position: 99% 50%;
 }

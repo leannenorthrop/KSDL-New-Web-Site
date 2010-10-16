@@ -1,14 +1,31 @@
+<%@ page import="org.samye.dzong.london.site.Link;org.samye.dzong.london.Setting" contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
     <title><g:message code="welcome" default="Welcome"/></title>
     <meta name="layout" content="main">
-    <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
-    <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
-    <feed:meta kind="rss" version="2.0" controller="feed" action="community"/>
-    <feed:meta kind="rss" version="2.0" controller="feed" action="wellbeing"/>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/> 
+    <g:javascript src="jquery/jquery-1.4.2.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
+    <g:javascript src="jquery/jquery.validate.min.js"/> 
+    <g:javascript src="jquery/cookie.js"/>      
+    <jq:jquery>
+        var a = $.cookie("site_msg");
+        if (a) {
+            $("#site_msg").hide();
+        }
+        $("#site_msg").click(function() {
+            $.cookie("site_msg", "true", { expires: 1 });
+            $(this).hide("slow");
+        });
+    </jq:jquery>      
   </head>
   <body>
+      <g:if test="${Setting.findByName('SiteMessage').value}">
+        <div id="site_msg">
+            <span class="close">&nbsp;</span>
+            ${Setting.findByName('SiteMessage').value.encodeAsTextile()}
+        </div>
+      </g:if>      
     <div class="grid_12">
         <g:render template="/toparticles" model="[articles:topArticles]"/>
     </div>
@@ -23,12 +40,11 @@
       <g:render template="/shortnewslist" model="[articles: newsArticles, heading: 'home.news']"/>
       <div class="clear"></div>
       <div class="box services">
-        <h2><g:message code="service.header"/></h2>
+        <h3><g:message code="service.header"/></h3>
         <ul class="menu">
-          <li class="email menuitem"><a href="http://visitor.constantcontact.com/manage/optin?v=001Qllubg_SeqJPuzfEQO27-PsaMuFhxMTC"><g:message code="service.email"/></a></li>
-          <li class="rss menuitem"><g:link controller="home" action="feed"><g:message code="service.rss"/></g:link></li>
-          <li class="calendar menuitem"><g:link controller="home" action="calendars"><g:message code="service.calendar"/></g:link></li>
-          <li class="donate menuitem"><g:link controller="home" action="donate"><g:message code="home.donate"/></g:link></li>
+            <g:each var="link" in="${links}">
+                <li>${link}</li>
+            </g:each>
         </ul>
       </div>
     </div>

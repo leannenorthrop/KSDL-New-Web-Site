@@ -3,6 +3,7 @@ package org.samye.dzong.london.meditation
 import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.Setting
+import org.samye.dzong.london.site.Link
 
 class MeditationController {
     def articleService
@@ -34,7 +35,7 @@ class MeditationController {
 
         def total = Article.allMeditationArticlesNotOrdered.count();
         def events = Event.meditation('featured','desc').list()
-		def model = [album: album, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total]
+		def model = [links:Link.findAllBySection("M"),album: album, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total]
 		articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)
     }

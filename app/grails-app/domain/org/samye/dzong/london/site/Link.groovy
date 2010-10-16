@@ -1,7 +1,9 @@
 package org.samye.dzong.london.site
 
+import org.codehaus.groovy.grails.commons.*
+
 class Link {
-    def messageSource
+    def config = ConfigurationHolder.config
     
     String type                                
     String name
@@ -40,7 +42,23 @@ class Link {
 
     String toString() {
         def locale = Locale.UK
-        def linkTypeName = (type == 'E' ? 'external' : 'internal');
-        return messageSource ? messageSource.getMessage('link.' + linkTypeName + '.str',[href, linkTypeName,name].toArray(),locale) : "${name} ${type} ${position} ${section}"
+        def linkTypeName = ''
+        def classes = ''
+        def thehref = ''
+        def link = ''
+        if (type == 'E') {
+            linkTypeName = 'external';
+            classes = ['menuItem',linkTypeName].join(" ");
+            thehref = this.href;
+            link="<a href='${thehref}' target='_blank' class='${classes}'>${name}</a>"
+        } else {
+            linkTypeName = 'internal';
+            thehref = controller + "/" + action
+            def c = controller[0].toUpperCase()
+            classes = ['menuItem',linkTypeName,action,c].join(" ")        
+            link = "<a href='${thehref}' class='${classes}'>${name}</a>"
+        }
+
+        return link
     }
 }

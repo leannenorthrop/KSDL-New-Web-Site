@@ -32,7 +32,7 @@
       <ol>
         <g:each in="${articleInstanceList}" status="i" var="articleInstance">
           <li class="article">
-            <h2><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h2>
+            <h3><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></h3>
             <h3>by <a>${articleInstance.author.username}</a></h3>
             <g:if test="${articleInstance?.datePublished && article.isDisplayDate}">
               <g:set var="publishDate"><span class="pretty-date">${articleInstance?.datePublished.prettyDate()}</span></g:set>

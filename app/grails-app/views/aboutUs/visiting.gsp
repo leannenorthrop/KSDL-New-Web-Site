@@ -39,7 +39,7 @@
         <g:each var="venue" in="${venues}">
             <div class="container_16">
                 <div class="grid_16">
-                    <h2>${venue.name}</h2>
+                    <h3>${venue.name}</h3>
                     ${venue?.content?.encodeAsTextile()} 
                 </div>
                 <div class="grid_8 image">
@@ -53,12 +53,12 @@
                     </g:if>                    
                 </div>                
                 <div class="grid_8 facilities">
-                    <h2><g:message code="venue.facilities.label"/></h2>
+                    <h3><g:message code="venue.facilities.label"/></h3>
                     ${venue?.facilities?.encodeAsTextile()}</div>           
                 <div class="clear"></div> 
 
                 <div class="grid_8 access">
-                    <h2><g:message code="venue.access.label"/></h2>
+                    <h3><g:message code="venue.access.label"/></h3>
                     ${venue?.access?.encodeAsTextile()}
                 </div>
 

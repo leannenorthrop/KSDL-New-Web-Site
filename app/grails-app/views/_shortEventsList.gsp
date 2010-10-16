@@ -38,9 +38,28 @@
         <g:set var="eventViewController"><g:message code="publish.category.controller.${event?.category}"/></g:set>
 
         <li class="event ${placementClass} ${event?.category}">
-            <g:if test="${event.image}">
-                <g:link controller="${eventViewController}" action="event" id="${event.id}"><img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/></g:link>
+            <g:if test="${event.content}">
+                <g:link controller="${eventViewController}" action="event" id="${event.id}">
+                    <g:if test="${event.image}">
+                        <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
+                    </g:if>
+                    <g:else>
+                        <img class="defaultImg">&nbsp;</img>
+                    </g:else>
+                </g:link>
             </g:if>
+            <g:else>
+                <g:if test="${event.image}">
+                    <a href="#">
+                        <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
+                    </a>
+                </g:if>
+                <g:else>
+                    <a href="#">
+                        <img class="defaultImg">&nbsp;</img>
+                    </a>
+                </g:else>            
+            </g:else>
         <div>
         <g:set var="eventHeading" value="${event.title}"/>
         <h4>

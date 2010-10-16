@@ -68,7 +68,7 @@
 
 <div class="grid_4">
   <div class="box">
-    <h2><g:message code="events.label"/></h2>
+    <h3><g:message code="events.label"/></h3>
     <ul>
       <g:each in="${events}" status="i" var="event">
         <li class="event"><g:link controller="event" action="view" id="${event.id}">${event.title}</g:link></li>
@@ -76,7 +76,7 @@
     </ul>
   </div>
   <div class="box">
-    <h2><g:message code="similar"/></h2>
+    <h3><g:message code="similar"/></h3>
     <ul>
       <g:each in="${articles}" status="i" var="article">
         <li class="article"><g:link controller="aboutUs" action="view" id="${article.id}">${article.title}</g:link></li>

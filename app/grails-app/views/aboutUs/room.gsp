@@ -30,8 +30,12 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-      <div class="grid_16">
+      <div class="grid_12">
           <g:render template="/room" model="[room: room]"/>
       </div>
+        <div class="grid_4">
+            <g:render template="/venueMenu" model="[venues:venues]"/>
+        </div>
+        <div class="clear"></div>      
   </body>
 </html>

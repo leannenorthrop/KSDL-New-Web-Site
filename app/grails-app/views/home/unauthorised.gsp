@@ -34,7 +34,7 @@
 </head>
 <body>
     <div class="grid_16 pagecontent">
-      <h2 style="text-align:center"><g:message code="alert"/></h2>
+      <h3 style="text-align:center"><g:message code="alert"/></h3>
       <p style="text-align:center"><g:message code="error.unauthorized"/></p>
     </div>
     <div class="clear"></div>

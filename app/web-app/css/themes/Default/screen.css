@@ -1,14 +1,25 @@
-/* import stylesheets and hide from ie/mac \*/
-@import url("layout.css");
-@import url("main.css");
-@import url("nav.css");
-@import url("colours.css");
-@import url("home.css");
-@import url("aboutus.css");
-@import url("events.css");
-@import url("meditation.css");
-@import url("community.css");
-@import url("wellbeing.css");
-@import url("buddhism.css");
-@import url("news.css");
-/* end import/hide */
+/* ----------------------------------------------------------------------------
+    Colours & Images
+---------------------------------------------------------------------------- */
+@import url(colours.css);
+@import url(images.css);
+
+/* ----------------------------------------------------------------------------
+    Fonts
+---------------------------------------------------------------------------- */
+@import url(fonts.css);
+
+/* ----------------------------------------------------------------------------
+    Positions & Layout
+---------------------------------------------------------------------------- */
+/*@import url("./site/screen.css");*/
+@import url(banner.css);
+@import url(nav.css);
+@import url(footer.css);
+@import url(forms.css);
+@import url(boxes.css);
+@import url(lists.css);
+@import url(style.css);
+
+
+

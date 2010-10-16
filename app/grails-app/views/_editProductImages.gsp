@@ -47,6 +47,7 @@
     </g:if>
    </g:each>
 </div>
+<g:set var="postURL" value="${createLink(controller:'image', action:'createProductImage')}"/>
 <g:javascript>
     $("#images a.existingImg").click(function() {
         var parent = $(this).parent();
@@ -56,7 +57,7 @@
        $(this).remove(); 
     });
 
-    $("form").parent().append('<form id="productImage" action="/app/image/createProductImage" method="post" style="display:none;visibility:hidden;"/>');
+    $("form").parent().append('<form id="productImage" action="${postURL}" method="post" style="display:none;visibility:hidden;"/>');
 
     var options = { 
         dataType:      'xml',

@@ -94,8 +94,8 @@ class Event extends Publishable {
             content type: 'text'
             summary type: 'text'
         }
-        prices cascade: "all-delete-orphan"
-        dates cascade: "all-delete-orphan"
+        prices cascade: "all-delete-orphan", cache:true, lazy:false
+        dates cascade: "all-delete-orphan", cache:true, lazy:false
     }
 
     static namedQueries = {

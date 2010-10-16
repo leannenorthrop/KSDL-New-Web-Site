@@ -9,6 +9,7 @@
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+grails.project.groupId = org.londonsamyedzong
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = true
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
@@ -21,6 +22,7 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       csv: 'text/csv',
                       ical: 'text/calendar',
                       ics: 'text/calendar',
+                      svg: ['image/svg+xml','image/svg-xml'],
                       all: '*/*',
                       json: ['application/json','text/json'],
                       form: 'application/x-www-form-urlencoded',
@@ -31,8 +33,9 @@ grails.views.default.codec="none" // none, html, base64
 grails.views.gsp.encoding="UTF-8"
 grails.converters.encoding="UTF-8"
 // enable Sitemesh preprocessing of GSP pages
-grails.views.gsp.sitemesh.preprocess=false
+grails.views.gsp.sitemesh.preprocess=true
 grails.gsp.enable.reload = true
+//grails.gsp.view.dir = "/var/www/grails/my-app/"
 // scaffolding templates configuration
 grails.scaffolding.templates.domainSuffix = ''
 
@@ -47,11 +50,11 @@ grails.spring.bean.packages = []
 grails.views.javascript.library="jquery"
 
 // set per-environment serverURL stem for creating absolute links
-def logfileName = ${user.dir} + '/lsd.log'
+def logfileName = ${java.user.dir} + '/lsd.log'
 environments {
     production {
         println "Environment is set to Production"
-        logfileName = '/home/londonsamyedzong/logs/lsd.log'
+//        logfileName = '/home/londonsamyedzong/logs/lsd.log'
         grails {
            mail {
              //grails.mail.jndiName = "myMailSession"

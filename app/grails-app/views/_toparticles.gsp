@@ -28,35 +28,34 @@
 --%>
 
 <%@ page import="org.samye.dzong.london.community.Teacher; org.samye.dzong.london.community.Article" contentType="text/html;charset=UTF-8" %>
-  <g:each in="${articles}" status="i" var="articleInstance">
-    <div class="box article">
-        <g:if test="${!(articleInstance instanceof Teacher)}">
-          <g:if test="${articleInstance?.title != 'Home Page'}">
-            <h2>${articleInstance?.title}</h2>
-          </g:if>
-        </g:if>
-        <g:else>
-          <h2><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance?.name}</h2>
-        </g:else>
-        
-      <g:if test="${articleInstance?.image}">
-        <g:if test="${articleInstance?.image?.mimeType.endsWith('png')}">
-          <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
-        </g:if>
-        <g:else>
-          <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
-        </g:else>
-      </g:if>
-      <p>
-        ${articleInstance?.summary?.encodeAsTextile()}
-      </p>
-      <p>
-        <g:if test="${articleInstance?.content && !(articleInstance instanceof Teacher)}">
-          <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
-        </g:if>
-        <g:elseif test="${articleInstance?.content && (articleInstance instanceof Teacher)}">
-          <g:link controller="teacher" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
-        </g:elseif>
-      </p>
-    </div>
-  </g:each>
+<g:each in="${articles}" status="i" var="articleInstance">
+<div class="box article top">
+    <g:if test="${!(articleInstance instanceof Teacher)}">
+    <h3>${articleInstance?.title}</h3>
+    </g:if>
+    <g:else>
+      <h3><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance?.name}</h3>
+    </g:else>
+    
+  <g:if test="${articleInstance?.image}">
+    <g:if test="${articleInstance?.image?.mimeType.endsWith('png')}">
+      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
+    </g:if>
+    <g:else>
+      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+    </g:else>
+  </g:if>
+  <p>
+    ${articleInstance?.summary?.encodeAsTextile()}
+  </p>
+  <p>
+    <g:if test="${articleInstance?.content && !(articleInstance instanceof Teacher)}">
+      <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+    </g:if>
+    <g:elseif test="${articleInstance?.content && (articleInstance instanceof Teacher)}">
+      <g:link controller="teacher" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+    </g:elseif>
+  </p>
+</div>
+<div class="clear"></div>
+</g:each>

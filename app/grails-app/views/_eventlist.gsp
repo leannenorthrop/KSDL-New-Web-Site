@@ -29,7 +29,7 @@
 <%@ page import="org.samye.dzong.london.community.Teacher; org.samye.dzong.london.events.Event" contentType="text/html;charset=UTF-8" %>
 
 <div class="box border2">
-  <h2><g:message code="${heading}" default=""/></h2>
+  <h3><g:message code="${heading}" default=""/></h3>
   <ul class="block events">
     <g:if test="${events}">
 
@@ -41,14 +41,14 @@
         <li class="event ${placementClass} ${event?.category}">
 
           <g:set var="eventHeading" value="${event.title}"/>
-          <h3>
+          <h4>
             <g:if test="${event.content}">
               <g:link controller="${eventViewController}" action="event" id="${event.id}">${eventHeading}</g:link>
             </g:if>
             <g:else>
               ${eventHeading}
             </g:else>
-          </h3>
+          </h4>
 
           <g:set var="startdate"><g:formatDate date="${rule?.startDate}" format="d MMMM yyyy"/></g:set>
           <g:set var="enddate"><g:formatDate date="${rule?.endDate}" format="d MMMM yyyy"/></g:set>
@@ -56,38 +56,38 @@
 
           <g:if test="${!rule?.isRule}">
             <g:if test="${rule?.isSeveral()}">
-            <h4>
+            <h5>
                 <g:each var="d" in="${event.dates}">
                     <g:formatDate date="${d?.startDate}" format="d MMMM yyyy"/>,
                 </g:each>
-            </h4>
+            </h5>
             </g:if>
             <g:else>
-            <h4>${startdate}</h4>            
+            <h6>${startdate}</h6>            
             </g:else>
           </g:if>
           <g:else>
             <g:if test="${rule?.isDaily()}">
-              <h4><g:message code="day.interval.${rule?.interval}"/></h4>
+              <h5><g:message code="day.interval.${rule?.interval}"/></h5>
             </g:if>
             <g:elseif test="${rule?.isWeekly()}">
-              <h4>
+              <h5>
                 <g:each var="day" in="${days}" status="index">
                   <g:message code="${day}"/><g:if test="${index < rule?.getDays().size()-1}">,&nbsp;</g:if>
                 </g:each>
-                <g:message code="week.interval.${rule?.interval}"/></h4>
+                <g:message code="week.interval.${rule?.interval}"/></h5>
             </g:elseif>
             <g:elseif test="${rule?.isMonthly()}">
-              <h4>
+              <h5>
                 <g:each var="modifiers" in="${rule?.getModifiers()}" status="index">
                   <g:message code="month.${modifiers[0]}"/>&nbsp;<g:message code="${modifiers[1]}"/>
                 </g:each>
                 <g:message code="month.interval.${rule?.interval}"/>
-              </h4>
+              </h5>
             </g:elseif>
 
             <g:if test="${rule?.isBounded()}">
-              <h4><g:message code="from.until" args="${[startdate,enddate]}"/></h4>
+              <h5><g:message code="from.until" args="${[startdate,enddate]}"/></h5>
             </g:if>
           </g:else>
 
@@ -101,11 +101,28 @@
             </p>
           </g:if>
 
-          <g:if test="${event.image}">
-            <a href="#" class="image">
-              <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
-            </a>
+          <g:if test="${event.content}">
+              <g:link controller="${eventViewController}" action="event" id="${event.id}">
+                  <g:if test="${event.image}">
+                      <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
+                  </g:if>
+                  <g:else>
+                      <img class="defaultImg">&nbsp;</img>
+                  </g:else>
+              </g:link>
           </g:if>
+          <g:else>
+              <g:if test="${event.image}">
+                  <a href="#">
+                      <img src="${createLink(controller: 'image', action: 'thumbnail', id: event.image.id)}" title="${event.image.name}" alt="${event.image.name}"/>
+                  </a>
+              </g:if>
+              <g:else>
+                  <a href="#">
+                      <img class="defaultImg">&nbsp;</img>
+                  </a>
+              </g:else>            
+          </g:else>          
           <p>
             ${event?.summary?.encodeAsTextile()}
           </p>

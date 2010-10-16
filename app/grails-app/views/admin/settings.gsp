@@ -21,7 +21,7 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.media.Image" %>
+<%@ page import="org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue" %>
 <html>
   <head>
     <title><g:message code='settings.title' default="Manage Settings"/></title>
@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-            <g:findAll in="${settings}" expr="(it.name == 'Logo' || it.name == 'FlickrUserId')">
+            <g:findAll in="${settings}" expr="(!it.name.startsWith('SS') && !it.name.startsWith('DefaultTheme') && !it.name.startsWith('ShopMenu') )">
             <tr style="min-height:15em;">
               <td><g:message code='settings.${it.name}'/></td>
               <g:if test="${it.name == 'Logo'}">
@@ -49,6 +49,17 @@
                             optionKey="id" />              
               </td>
               </g:if>
+              <g:elseif test="${it.name == 'DefaultVenue'}">
+                <td>
+                    <g:select name="settings.${it.name}"
+                              from="${Venue.list()}"
+                              value="${it.value}"
+                              optionKey="id" />              
+                </td>
+              </g:elseif>              
+              <g:elseif test="${it.name == 'SiteMessage'}">
+              <td><g:textArea name="settings.${it.name}" value="${it.value}" rows="8" cols="40"/></td>
+              </g:elseif>
               <g:else>
               <td><g:textField name="settings.${it.name}" value="${it.value}" /></td>
               </g:else>

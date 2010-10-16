@@ -29,15 +29,15 @@
 <%@ page import="org.samye.dzong.london.site.Link" contentType="text/html;charset=UTF-8" %>
 <g:form name="${type}LinkListForm" action="${type}">
 <fieldset>
-    <p class="linkOptions">
+    <p class="${type}LinkOptions">
         <label for="linkname"><g:message code="linkname.label" default="Public Name"/></label>
         <g:textField name="linkname" class="ui-corner-all name" style="display: inline;width:10em" minlength="4" value=""/>    
         <g:select name="linktype" from="${['I', 'E']}" valueMessagePrefix="link.type" class="type"/>
-        <span id="E"  style="display:none;">      
+        <span class="E" style="display:none;">      
             <label for="linkhref"><g:message code="linkname.href" default="Full URL"/></label>
             <g:textField name="linkhref" class="ui-corner-all href" style="display: inline;width:45em" minlength="4" value=""/>                           
         </span>
-        <span id="I" style="display:inline;">
+        <span class="I" style="display:inline;">
             <g:select name="controller" from="${controllers}" valueMessagePrefix="link.controller" class="controller"/>
             <g:select name="action" from="${[]}" class="action"/>        
         </span>
@@ -46,14 +46,14 @@
     <ol class="linkMenuList" style="list-style-type:decimal">
     <g:each var="link" in="${links}" status="i">
         <li>
-            <g:render template="/linkOptions" model="[link:link,index:i]"/>
+            <g:render template="/LinkOptions" model="[link:link,index:i]"/>
         </li>
     </g:each>
     </ol>
     <g:submitButton name="create" class="ui-corner-all" value="${message(code: 'event.save.btn', default: 'Save Changes')}"/>
 </fieldset>
 </g:form>
-<li id="newLinkTemplate" style="display:none;visibility:hidden;">
+<li class="${type}NewLinkTemplate" style="display:none;visibility:hidden;">
     <span class="new">
         <input type="hidden" name="_deleted" value="false">     
         <input type="hidden" name="type">                                
@@ -69,9 +69,9 @@
     </span>
 </li>
 <g:set var="actionoptions">
-    var controllerActions = new Object();
+    var ${type}ControllerActions = new Object();
 <g:each var="action" in="${actions}">
-    controllerActions['${action.key}'] = [<g:each var="a" in="${action.value}">{'name':'<g:message code="link.${action.key}.${a}"/>','value':'${a}'},</g:each>''];
+    ${type}ControllerActions['${action.key}'] = [<g:each var="a" in="${action.value}">{'name':'<g:message code="link.${action.key}.${a}"/>','value':'${a}'},</g:each>''];
 </g:each>
 </g:set>
 <g:javascript> 
@@ -84,28 +84,28 @@
         });
     };
     
-    $("#linktype").change(function() {
-        $("#linktype option").each(function () {
+    $("select.type").change(function() {
+        $("select.type option").each(function () {
             var id = $(this).val();
-            $("#"+id).toggle();      
-            $(".linkOptions span:visible").css("display","inline");      
+            $("."+id).toggle();      
+            $("p.${type}LinkOptions span:visible").css("display","inline");      
         });
     });  
-    $("#controller").change(function() {
-        $("#action option").remove();
+    $("p.${type}LinkOptions select.controller").change(function() {
+        $("p.${type}LinkOptions select.action option").remove();
         var id = $(this).val();
-        var options = controllerActions[id];
+        var options = ${type}ControllerActions[id];
         for (var i in options)
         {
           if (options[i] != '') {
               var theoptions = options[i];
-              $("#action").append("<option value='" + theoptions['value'] + "'>" + theoptions['name'] + "</option>");
+              $("p.${type}LinkOptions select.action").append("<option value='" + theoptions['value'] + "'>" + theoptions['name'] + "</option>");
           }
         }
     });
-    $("#controller").change();
+    $("select.controller").change();
            
-    $("#newLinkTemplate button.remove").click(function() {
+    $(".${type}NewLinkTemplate button.remove").click(function() {
         $(this).parent().parent().remove();  
         updatePositions();        
     }); 
@@ -117,15 +117,15 @@
         var deleteMe = $(this).parent().parent().remove();
         updatePositions();
     });    
-    $(".linkOptions button.add").click(function() {
-        var clone = $("#newLinkTemplate").clone(true)    
+    $(".${type}LinkOptions button.add").click(function() {
+        var clone = $(".${type}NewLinkTemplate").clone(true)    
         clone.find(':hidden').each(function(index) {
             var currName = $(this).attr('name');
             if (currName != "button") {
                 if (currName == 'position') {
                     $(this).val(nextId);
                 } else {
-                    var value = $('.linkOptions .'+currName).val()
+                    var value = $('.${type}LinkOptions .'+currName).val()
                     $(this).val(value);
                 }
             }
@@ -134,13 +134,13 @@
         clone.removeAttr('id');
         clone.removeAttr('style');
         
-        var linkName = $("#linkname").val();
-        if ($("#linktype").val() == 'E') {
+        var linkName = $("p.${type}LinkOptions .name").val();
+        if ($("p.${type}LinkOptions .type").val() == 'E') {
             clone.prepend("<a href='" + $("#linkhref").val() + "' target='_blank' style='display:inline-block;width:10em;'>" + linkName + "</a>");
         } else {
             clone.prepend("<a href='" + baseURL + $("#controller").val() + "/" + $("#action").val() + "' target='_blank' style='display:inline-block;width:10em;'>" + linkName + "</a>");
         }
-        $(".linkMenuList").append(clone);  
+        $("#${type}LinkListForm ol").append(clone);  
         nextId++;
     });   
     
@@ -178,9 +178,9 @@
         }
     };    
     $("ol.linkMenuList button.up").click(up);
-    $("#newLinkTemplate button.up").click(up);
+    $(".${type}NewLinkTemplate button.up").click(up);
     $("ol.linkMenuList button.down").click(down);
-    $("#newLinkTemplate button.down").click(down);    
+    $(".${type}NewLinkTemplate button.down").click(down);    
     $("ol.linkMenuList a").each(function() {
         $(this).css("display","inline-block");
         $(this).css("width","10em");        

@@ -1,0 +1,198 @@
+/*******************************************************************************
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ ******************************************************************************/
+img {
+    margin: 3px 10px 3px 0;
+    padding: 4px;    
+	border:1px solid #bbb;
+	border-radius:3px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;		
+	-o-border-radius:3px;
+	background:#fff; 
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#7B7B7B, strength=3px,direction=180);
+	-webkit-box-shadow: 0px 3px 3px rgba(123, 123, 123, 0.4);	
+	-moz-box-shadow: 0px 3px 3px rgba(123, 123, 123, 0.4);		
+	-o-box-shadow: 0px 3px 3px rgba(123, 123, 123, 0.4);	   
+}
+img.pngImg {
+    border: 0;
+    background:transparent ! important;  
+    box-shadow: 0 ! important; 
+    filter: none;
+    -webkit-box-shadow: none ! important;	
+    -moz-box-shadow: none ! important;		
+    -o-box-shadow: none ! important;
+}
+
+/* ----------------------------------------------------------------------------
+    Footer
+---------------------------------------------------------------------------- */
+#footer {
+    background: #9c381e url(images/motif.png) no-repeat bottom right;
+}
+
+/* ----------------------------------------------------------------------------
+    Banner
+---------------------------------------------------------------------------- */
+body.home #watermark2 {
+    background-image: url(images/Header-Banner-1.png);
+}
+body.aboutUs #watermark2 {
+    background-image: url(images/Header-Banner-2.png);
+}
+body.event #watermark2 {
+    background-image: url(images/Header-Banner-3.png);
+}
+body.buddhism #watermark2 {
+    background-image: url(images/Header-Banner-4.png);
+}
+body.meditation #watermark2 {
+    background-image: url(images/Header-Banner-5.png);
+}
+body.community #watermark2 {
+    background-image: url(images/Header-Banner-1.png);
+}
+body.wellbeing #watermark2 {
+    background-image: url(images/Header-Banner-2.png);
+}
+body.news #watermark2 {
+    background-image: url(images/Header-Banner-3.png);
+}
+body.shop #watermark2 {
+    background-image: url(images/Header-Banner-4.png;
+}
+
+/* ----------------------------------------------------------------------------
+    List Images
+---------------------------------------------------------------------------- */
+ul.events li a img{
+	float: left;	
+}
+
+li a img {
+    margin-top: 1.25em;
+}
+
+li a .defaultImg {
+    width: 75px;
+    height: 75px;
+    display: block;    
+}
+li.T a .defaultImg {
+    background: white url(images/vajra.gif) no-repeat 4px 4px;    
+}
+
+li.M a .defaultImg {
+    background: white url(images/meditation.gif) no-repeat 4px 4px;
+}
+li.W a .defaultImg {
+    background: white url(images/yoga.gif) no-repeat 4px 4px;
+}
+
+/* ----------------------------------------------------------------------------
+    Slideshow
+---------------------------------------------------------------------------- */
+div.slideshowlink {
+    background:rgb(109, 1, 1);    
+    position: relative;
+    color: #fff;
+    width: 100%;
+	border-radius:6px;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;		
+	-o-border-radius:6px;    
+    
+}
+div.slideshowlink h5,
+div.slideshowlink h6,
+div.slideshowlink {
+    font-family: 'Gill Sans MT', 'Gill Sans','Century Gothic','Trebuchet MS',sans-serif;    
+    font-weight:normal;
+    color: #fff;
+    max-width: 85%;        
+}
+div.slideshowlink h5 {
+    font-size:x-large;
+}
+div.slideshowlink h6 {
+    font-style:italic;
+    font-size:small;
+    text-align:center;
+    width:100%;    
+    max-width:100%;        
+    display: block;    
+}
+div.slideshowlink a {
+    display: block;
+    width:100%;
+    text-align:center;
+}
+div.slideshowlink a img {
+    overflow-x:hidden;
+    float:none;    
+    max-width:95%;
+    max-height: 5em;
+}
+
+
+
+/* ----------------------------------------------------------------------------
+    Article
+---------------------------------------------------------------------------- */
+.top img {
+    max-width: 130px;
+    max-height: 130px;    
+}
+
+body.meditation .grid_12 img,
+body.community .grid_12 img,
+body.buddhism .grid_12 img,
+body.wellbeing .grid_12 img,
+body.aboutUs .grid_12 img {
+	max-width: 200px;
+}
+
+.article a.image, 
+.event a.image,
+.box.article img,
+.article .body img, 
+.event .body img {
+    margin: 3px 10px 3px 0;
+    padding: 4px;    
+}
+
+.article .body img, .event .body img {
+    float: right;
+
+}
+.shortnews a img,
+.article a img,
+.event div a img, 
+.box img {
+    float: left;
+    max-width: 220px;
+}
+
+a img:hover{
+	border:1px solid #6d0000;
+}

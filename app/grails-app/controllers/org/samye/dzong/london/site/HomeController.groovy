@@ -5,6 +5,7 @@ import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.ShiroRole
 import org.samye.dzong.london.Setting
 import groovy.xml.StreamingMarkupBuilder
+import org.samye.dzong.london.site.Link
 
 class HomeController {
     def articleService
@@ -27,7 +28,7 @@ class HomeController {
 		def topArticles = articles.findAll { it.category == 'H'}
         def events = Event.homePage('lastUpdated', 'asc').list()
 		
-        def model = [topArticles:topArticles, album: album, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
+        def model = [links:Link.findAllBySection("H"),topArticles:topArticles, album: album, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
 		articleService.addHeadersAndKeywords(model,request,response)
 		model
     }

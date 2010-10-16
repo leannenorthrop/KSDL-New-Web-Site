@@ -1,0 +1,30 @@
+/*
+Title:      Screen styles and ie/win patches
+*/
+
+/* import stylesheets and hide from ie/mac \*/
+@import url("reset.css");
+@import url("text.css");
+@import url("grid.css");
+
+.toggle_visible,
+.toggle_hidden,
+.toggle_hidden:hover,
+.toggle_visible:hover {
+    background: #fff url("switch_minus.gif") left bottom no-repeat;
+    width: 11px;
+    height: 11px;  
+    display: block;  
+    position: absolute;
+    top: 5px;
+}
+
+.toggle_hidden,
+.toggle_hidden:hover {
+    background-image: url("switch_plus.gif");     
+}
+.toggle_visible:hover,
+.toggle_hidden:hover {
+    background-color:#111;
+}
+/* end import/hide */
