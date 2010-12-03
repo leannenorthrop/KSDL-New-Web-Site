@@ -36,6 +36,9 @@ import net.fortuna.ical4j.model.property.Version
 import net.fortuna.ical4j.model.property.CalScale
 import net.fortuna.ical4j.data.CalendarOutputter
 import net.fortuna.ical4j.model.property.Attach
+import java.text.SimpleDateFormat;
+import grails.converters.JSON
+
 
 /**
  * Web request handler for event information.
@@ -67,9 +70,7 @@ class EventController {
         DateTime endOfWeek = dt.dayOfWeek().withMaximumValue();
         int weekdays = Days.daysBetween(dt, endOfWeek).getDays();
         def thisWeeksEvents = publishedEvents.findAll { event ->
-            def rule = event.dates[0]
-            def isRegular = rule.isUnbounded()
-            return !isRegular && event.isOnDay(now, weekdays)
+            return event.isOnDay(now, weekdays)
         };
 
         DateTime endOfMonth = dt.dayOfMonth().withMaximumValue();
@@ -136,11 +137,36 @@ class EventController {
             def rule = event.dates[0]
             rule.isRule && rule.isUnbounded()
         };		
-		render(view: 'list', model:[events:regularEvents])
+		render(view: 'list', model:[events:regularEvents, title:'hi'])
 	}
 			
     def list = {
-        def model = []
+        def model = [:]
+
+        def allEvents = Event.published().list();
+        def now = new java.util.Date() 
+        now = now + 1
+        def dt = new DateTime(now.getTime())
+        def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
+        def followingMonths = []
+		(1..12).each { month ->
+			def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
+			boolean foundAnEvent = false;
+			for (event in allEvents) {
+				if (!event.dates[0].isUnbounded()) {
+					foundAnEvent = event.isOnDay(followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().getDayOfMonth())
+					if (foundAnEvent) {
+						break;
+					}
+				}
+			}
+            if (foundAnEvent) {
+	            followingMonths << [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
+			}
+        }
+        model = [followingMonths:followingMonths]
+        log.debug "Following months is ${model.followingMonths}"
+
         if (params) {
             try {
                 def dateParser = new SimpleDateFormat("yyyy-MM-dd")
@@ -162,16 +188,15 @@ class EventController {
                 };
 
                 def datePat = message(code: 'event.date.format')
-                def args = [start.format(datePat)]
-                model = [events: events, title: message(code: 'event.between', args: args)]
+                model << [events: events, title: start.format(datePat)]
             } catch(error) {
                 log.warn "Unable to generate list of events", error
                 def events = Event.unorderedPublished().list(params);
-                model = [events: events, title: 'events.all.title']
+                model << [events: events, title: 'events.all.title']
             }
         } else {
             def events = Event.unorderedPublished().list(params);
-            model = [events: events, title: 'events.all.title']
+            model << [events: events, title: 'events.all.title']
         }
         articleService.addHeadersAndKeywords(model,request,response)
         model
@@ -421,6 +446,80 @@ class EventController {
     }
 
     def calendar = {
+        []
+    }
+
+    def events = {
+        def start = new Date(params.start.toLong()*1000);
+        def end = new Date(params.end.toLong()*1000);
+
+        def s = new DateTime(start.getTime())
+        def e = new DateTime(end.getTime()) 
+        int days = Days.daysBetween(s, e).getDays();
+
+        def publishedEvents = Event.published().list();
+      
+        def moonData = grailsApplication.config.moonData
+        response.contentType = "text/plain"
+        response.outputStream << "["
+        def first = true
+        (0..days).each { delta ->
+            def day = start + delta
+
+            publishedEvents.eachWithIndex { event,index ->
+                if (event.isOnDay(day)) {
+                    def controller = message(code:"publish.category.controller.${event?.category}")
+                    def href = createLink(controller:controller,action:'event',id:event.id)
+                    def date = new DateTime(day.getTime())
+                    def startDate = event.dates[0].startTime.toDateTime(date)
+                    def endDate = event.dates[0].endTime.toDateTime(date) 
+                    def ss = new Date(startDate.millis).format('yyyy-MM-dd hh:mm:ss')
+                    def es = new Date(endDate.millis).format('yyyy-MM-dd hh:mm:ss')
+                    if (!first){ 
+                        response.outputStream << ','
+                    } else {
+                        first = false
+                    }
+                    response.outputStream << "{"
+                    response.outputStream << '"id":' + event.id + ','
+                    response.outputStream << '"title":"' + event.title + '",'
+                    response.outputStream << '"start":"' + ss + '",'
+                    response.outputStream << '"end":"' + es + '",'
+                    response.outputStream << '"className":"' + event.category + '",'
+                    response.outputStream << '"url":"' + href + '",'
+                    response.outputStream << '"allDay":false' 
+                    response.outputStream << "}"
+                }
+            }
+            def ss = day.format('yyyy-MM-dd')
+            def name = null
+            if (moonData.fullMoon.get(ss)) {
+                name = "Full Moon"
+            } else if (moonData.newMoon.get(ss)) {
+                name = "New Moon"
+            } else if (moonData.lastQuarter.get(ss)) {
+                name = "Last Qtr Moon"
+            } else if (moonData.firstQuarter.get(ss)) {
+                name = "First Qtr Moon"
+            }
+
+            if (name) {
+                if (!first){ 
+                    response.outputStream << ','
+                } else {
+                    first = false
+                }
+                response.outputStream << "{"
+                response.outputStream << '"title":"' + name + '",'
+                response.outputStream << '"start":"' + ss + '",'
+                response.outputStream << '"allDay":true' 
+                response.outputStream << "}"
+            }
+        }
+        response.outputStream << "]"
+    }
+
+    def subscribe = {
         try {
             def publishedEvents = null
             if (params.type) {

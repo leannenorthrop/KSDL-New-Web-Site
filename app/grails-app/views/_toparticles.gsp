@@ -31,10 +31,17 @@
 <g:each in="${articles}" status="i" var="articleInstance">
 <div class="box article top">
     <g:if test="${!(articleInstance instanceof Teacher)}">
-    <h3>${articleInstance?.title}</h3>
+    <h3>
+    <g:if test="${controller}">
+    <g:link controller="${controller}" action="index">${articleInstance?.title}</g:link>
     </g:if>
     <g:else>
-      <h3><g:message code="${'teacher.title.' + articleInstance?.title}"/> ${articleInstance?.name}</h3>
+    ${articleInstance?.title}
+    </g:else>
+    </h3>
+    </g:if>
+    <g:else>
+      <h3>${articleInstance}</h3>
     </g:else>
     
   <g:if test="${articleInstance?.image}">
@@ -50,7 +57,12 @@
   </p>
   <p>
     <g:if test="${articleInstance?.content && !(articleInstance instanceof Teacher)}">
-      <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+        <g:if test="${controller}">
+        <g:link controller="${controller}" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+        </g:if>
+        <g:else>
+        <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+        </g:else>
     </g:if>
     <g:elseif test="${articleInstance?.content && (articleInstance instanceof Teacher)}">
       <g:link controller="teacher" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>

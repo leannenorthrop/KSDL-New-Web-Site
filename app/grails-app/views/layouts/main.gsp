@@ -51,12 +51,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="ROBOTS" content="ALL" />
     <meta name="keywords" content="${keywords?.join(',')}" />
-    <meta name="google-site-verification" content="bTJswZnvIBsrjhqIxlpIXIfvXa_wn7McR9PbSgwo_4Q" />
     <![if gte IE 7]>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/themes/' + cssThemesDir, file: 'screen.css')}"/>
     <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'silk-icons.css')}"/>    
     <feed:meta kind="rss" version="2.0" controller="feed" action="news"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="community"/>
@@ -99,6 +99,15 @@
                 ${title}
             </g:else>
         </h2>
+        <g:if test="${controllerName == 'event'}">
+            <g:if test="${actionName == 'home'}">
+                <g:link action="calendar"><span class="silk-icon silk-icon-calendar-view-month">&nbsp;</span>Calendar</g:link>
+            </g:if>
+            <g:if test="${actionName == 'calendar'}">
+                <g:link action="home"><span class="silk-icon silk-icon-application-view-list">&nbsp;</span>List</g:link>
+                <g:link action="subscribe"><span class="silk-icon silk-icon-calendar-link">&nbsp;</span>Subscribe</g:link>
+            </g:if>
+        </g:if>
       </div>
       <div class="clear"></div>
 

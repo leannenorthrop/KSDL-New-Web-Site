@@ -155,7 +155,7 @@ h2#page-heading {
 }
 
 p.meta {
-	color:#4d6a4b;
+	/*color:#4d6a4b;*/
 }
 
 /*
@@ -204,6 +204,12 @@ tbody th,
 tbody td {
     background: #eee;
 }
+
+table.fc-header tbody th,
+table.fc-header tbody td, {
+    background: transparent;
+}
+
 
 /* Widgets
 -----------------------------------------------------------------------------*/
@@ -256,4 +262,141 @@ a:active {
 /* Knockout anchor active */
 .knockout a:active {
    color: #fff;
+}
+
+/* ----------------------------------------------------------------------------
+    Calendar 
+---------------------------------------------------------------------------- */
+
+/* Header
+------------------------------------------------------------------------*/
+	
+.fc-header *
+{
+	background: transparent !important;
+}
+
+/* Buttons
+------------------------------------------------------------------------*/
+
+.fc-header .fc-state-default,
+.fc-header .fc-state-default a {
+	border-color: transparent; /* outer border */
+	color: #333;
+	}
+
+.fc-header .fc-state-default span {
+    border: 0 solid transparent;
+}
+	
+/* PRESSED button COLORS (down and active) */
+	
+.fc-header .fc-state-active a {
+	color: #fff;
+}
+	
+.fc-header .fc-state-down span,
+.fc-header .fc-state-active span {
+	border-color: transparent; /* inner border */
+}
+	
+/* DISABLED button COLORS */
+	
+.fc-header .fc-state-disabled a {
+	color: transparent;
+}
+	
+.fc-header .fc-state-disabled,
+.fc-header .fc-state-disabled a {
+	border-color: transparent; /* outer border */
+}
+	
+.fc-header .fc-state-disabled span {
+	border-color: transparent; /* inner border */
+}
+	
+	
+.fc-header .fc-state-active * {
+    color: #8B1B00;
+}
+	
+/* Content Area & Global Cell Styles
+------------------------------------------------------------------------*/
+	
+.fc-widget-content {
+	border: 1px solid #ccc; /* outer border color */
+	}
+	
+.fc-content {
+    background: white;
+}
+	
+.fc-content .fc-state-default {
+	border-style: solid;
+	border-color: #ccc; /* inner border color */
+	}
+	
+.fc-content .fc-state-highlight { /* today */
+	background: #FFD14F;
+}
+	
+.fc-content .fc-not-today { /* override jq-ui highlight (TODO: ui-widget-content) */
+	background: none;
+}
+	
+
+/* Global Event Styles
+------------------------------------------------------------------------*/
+
+.fc-event,
+.fc-agenda .fc-event-time,
+.fc-event a {
+	border-style: none; 
+	background-color: transparent;
+	color: black;            
+}
+	
+.fc-view .W,
+.fc-agenda .W .fc-event-time,
+.fc-view .W a {
+	border-style: none; 
+	background-color: #94ce57;
+	color: black;
+}
+	 
+.fc-view .M,
+.fc-agenda .M .fc-event-time,
+.fc-view .M a {
+	border-style: none; 
+	background-color: #934e6c;
+	color: black;
+}
+
+.fc-view .B,
+.fc-agenda .B .fc-event-time,
+.fc-view .B a {
+	border-style: none; 
+	background-color: #4a96ca;
+	color: black;
+}
+
+.fc-view .C,
+.fc-agenda .C .fc-event-time,
+.fc-view .C a {
+	border-style: none; 
+	background-color: #ca4a4c;
+	color: black;
+}
+
+.fc-event {
+	text-align: left;
+    font-size: small;
+    font-weight: normal;
+}
+	
+.fc-event a {
+	overflow: hidden;
+	font-size: .85em;
+	text-decoration: none;
+	cursor: pointer;
 }

@@ -210,25 +210,28 @@ class ScheduleRule {
         startDate.clearTime()
         Recur r = toRecur()
         if (r) {
-            if (isDaily() && interval == 1 && isUnbounded() && startDate == date) {
+            if (isDaily() && interval == 1 && startDate == date) {
                 onDay = true;
             } else {
 				if (startDate.equals(date)) {
 					onDay = true;
 				} else {
 	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate),
-                                                                       new net.fortuna.ical4j.model.Date(startDate))
+                                                                       new net.fortuna.ical4j.model.Date(date-1))
 	                if (next) {
 	                    def nextDate = new java.util.Date(next.getTime())
                         nextDate.clearTime()
+                        log.debug "${this} does not occur on ${date.format('dd MM yyyy')} because next is ${nextDate.format('dd MM yyyy')}"
 	                    onDay = date == nextDate
 	                } else {
+                        log.debug "${this} does not occur on ${date.format('dd MM yyyy')} because next is null"
 	                    onDay = false
 	                }
 				}
             }
         } else {
-            onDay = startDate.equals(date)
+            onDay = startDate == date
+            log.debug "${this} == ${date.format('dd MM yyyy')}? == ${onDay}"
         }
 
         return onDay
@@ -241,7 +244,7 @@ class ScheduleRule {
         if (r) {
             startingDate.clearTime()
             startDate.clearTime()
-            net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startingDate))
+            net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startingDate-1))
             if (next) {
                 def nextDate = new java.util.Date(next.getTime())
                 nextDate.clearTime()

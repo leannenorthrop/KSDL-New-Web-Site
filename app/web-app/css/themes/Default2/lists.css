@@ -124,11 +124,11 @@ body.buddhism ul.events li.event,
 body.wellbeing ul.events li.event,
 body.meditation ul.events li.event, 
 body.community ul.events li.event {
-	min-height: 15.5em;
+	min-height: 16.5em;
 }
 
 body.event .grid_4 ul.events li.event {
-	min-height: 7.5em;
+	min-height: 9.5em;
 }
 
 body.home ul.events li.event {

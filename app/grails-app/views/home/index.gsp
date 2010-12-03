@@ -50,17 +50,17 @@
     </div>
     <div class="clear"></div>
      <div class="grid_8">
-      <g:render template="/toparticles" model="[articles:meditationArticles]"/>
+      <g:render template="/toparticles" model="[articles:meditationArticles,controller:'meditation']"/>
     </div>
     <div class="grid_8">
-      <g:render template="/toparticles" model="[articles:communityArticles]"/>
+      <g:render template="/toparticles" model="[articles:communityArticles,controller:'community']"/>
     </div>
     <div class="clear"></div>
     <div class="grid_8">
-      <g:render template="/toparticles" model="[articles:buddhismArticles]"/>
+      <g:render template="/toparticles" model="[articles:buddhismArticles,controller:'buddhism']"/>
     </div>
     <div class="grid_8">
-      <g:render template="/toparticles" model="[articles:wellbeingArticles]"/>
+      <g:render template="/toparticles" model="[articles:wellbeingArticles,controller:'wellbeing']"/>
     </div>    
     <div class="clear"></div>    
   </body>

@@ -31,33 +31,56 @@
 <g:set var="rule" value="${event?.dates[0]}"/>
 <div class="grid_12">
   <div class="grid event">
-    <div class="grid_4 ${event?.category}" style="overflow-x: hidden;">
+    <div class="grid_4 ${event?.category}" >
       <g:set var="startdate"><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></g:set>
       <g:set var="enddate"><g:formatDate format="dd-MM-yyyy" date="${rule?.endDate}"/></g:set>
       <g:set var="days" value="${rule?.getDays().sort()}"/>
 
+      <g:if test="${event?.leader}">
+        <h3>
+            <g:if test="${event.leader.title != 'U'}">
+            with
+            </g:if>
+            <g:link controller="aboutUs" action="teacher" id="${event.leader.id}">${event.leader}</g:link>
+        </h3>
+      </g:if>
+
       <g:if test="${!rule?.isRule}">
-        <h3>${startdate}</h3>
+            <g:if test="${rule?.isSeveral()}">
+            <h4>
+                <g:each var="date" status="index" in="${event.dates}">
+                    <g:if test="${index > 0}">
+                        <g:if test="${event.dates.size() == 2}">&amp;
+                        </g:if>
+                        <g:else>,</g:else>
+                    </g:if>
+                    ${date.startDate.format('d MMMM yyyy')}
+                </g:each>
+            </h4>
+            </g:if>
+            <g:else>
+            <h4>${startdate}</h4>            
+            </g:else>
       </g:if>
       <g:else>
         <g:if test="${rule?.isDaily()}">
-          <h3><g:message code="day.interval.${rule?.interval}"/></h3>
+          <h4><g:message code="day.interval.${rule?.interval}"/></h4>
         </g:if>
         <g:elseif test="${rule?.isWeekly()}">
-          <h3>
+          <h4>
             <g:each var="day" in="${days}" status="index">
               <g:message code="${day}"/><g:if test="${index < rule?.getDays().size()-1}">,&nbsp;</g:if>
             </g:each>
-          </h3>
-          <h4><g:message code="week.interval.${rule?.interval}"/></h4>
+          </h4>
+          <h5><g:message code="week.interval.${rule?.interval}"/></h5>
         </g:elseif>
         <g:elseif test="${rule?.isMonthly()}">
-          <h3>
+          <h4>
             <g:each var="modifiers" in="${rule?.getModifiers()}" status="index">
                 <g:message code="month.${modifiers[0]}"/>&nbsp;<g:message code="${modifiers[1]}"/>
             </g:each>
-          </h3>
-          <h4><g:message code="month.interval.${rule?.interval}"/></h4>
+          </h4>
+          <h5><g:message code="month.interval.${rule?.interval}"/></h5>
         </g:elseif>
 
         <g:if test="${rule?.isBounded()}">
@@ -65,32 +88,25 @@
         </g:if>
       </g:else>
 
-      <h6><joda:format pattern="h:mm" value="${rule?.startTime?.toDateTimeToday()}"/> - <joda:format pattern="h:mm a" value="${rule?.endTime?.toDateTimeToday()}"/>  (${fieldValue(bean: rule, field: "duration")})</h6>
-
-      <g:if test="${event?.leader}">
-        <h5>${event?.leader}</h5>
+      <h5>
+      <joda:format pattern="h:mm" value="${rule?.startTime?.toDateTimeToday()}"/> - <joda:format pattern="h:mm a" value="${rule?.endTime?.toDateTimeToday()}"/> 
+      <g:if test="${rule.duration}">
+      (${fieldValue(bean: rule, field: "duration")})
       </g:if>
+      </h5>
 
       <g:if test="${event?.prices}">
         <ul>
-          <g:set var="pricelabels" value="${[F: 'full',S: 'subsidize', M: 'mature',O:'other']}"/>
-          <g:set var="currencySymbol" value="${event?.prices[0].currency.getSymbol() == 'GBP' ? '£' : event?.prices[0].currency.getSymbol()}"/>
-          <g:set var="emptyPrice" value="${(currencySymbol + '0.00')}"/>
           <g:each var="price" in="${event.prices}" status="i">
-            <g:set var="pvalue"><g:formatNumber number="${price.price}" format="${currencySymbol}#,##0.00;(#,##0.00)" minIntegerDigits="1" maxFractionDigits="2" roundingMode="HALF_DOWN"/></g:set>
-            <g:if test="${pvalue != emptyPrice}">
-              <li><g:message code="event.price.${pricelabels[price.category]}"/> ${pvalue}</li>
+            <g:if test="${price != 0.0d}">
+              <li>${price}</li>
             </g:if>
           </g:each>
         </ul>
       </g:if>
 
       <g:if test="event?.organizer">
-        <ul>
-          <li class="email">
-            <g:link controller="event" action="query" id="${event.id}"><g:message code="event.query"/></g:link>
-          </li>
-        </ul>
+        <h6><g:link controller="event" action="query" id="${event.id}"><g:message code="event.query"/></g:link></h6>
       </g:if>
     </div>
 

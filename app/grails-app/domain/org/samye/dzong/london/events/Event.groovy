@@ -77,7 +77,7 @@ class Event extends Publishable {
     static transients = ['onDay']
 
     static constraints = {
-        title(blank: false, unique: true, size: 0..254)
+        title(blank: false, size: 0..254)
         summary(size: 5..Integer.MAX_VALUE)
         content(size: 5..Integer.MAX_VALUE)
         isRepeatable(nullable: false)
@@ -237,14 +237,18 @@ class Event extends Publishable {
             if (delIndexes.contains(index)) {
                 removeFromDates(item);
             } else {
-                def sh = params."dateList[${index}].startTimeHour".toInteger()
-                def sm = params."dateList[${index}].startTimeMin".toInteger()
-                def eh = params."dateList[${index}].endTimeHour".toInteger()
-                def em = params."dateList[${index}].endTimeMin".toInteger()
-                item.startTime = new TimeOfDay(sh, sm)
-                item.endTime = new TimeOfDay(eh, em)
-                item.duration = new MutablePeriod(item.startTime.toDateTimeToday(), item.endTime.toDateTimeToday()).toPeriod()
-                item.save() 
+                try {
+                    def sh = params."dateList[${index}].startTimeHour".toInteger()
+                    def sm = params."dateList[${index}].startTimeMin".toInteger()
+                    def eh = params."dateList[${index}].endTimeHour".toInteger()
+                    def em = params."dateList[${index}].endTimeMin".toInteger()
+                    item.startTime = new TimeOfDay(sh, sm)
+                    item.endTime = new TimeOfDay(eh, em)
+                    item.duration = new MutablePeriod(item.startTime.toDateTimeToday(), item.endTime.toDateTimeToday()).toPeriod()
+                    item.save() 
+                } catch (error) {
+                    log.warn "Unable to save date", error
+                }
             }    			
         }
     }
@@ -256,6 +260,7 @@ class Event extends Publishable {
 
     boolean isOnDay(final date) {
         if (dates) {
+            log.debug "*********${this}:"
             return dates.any{ eventdate -> eventdate.isOnDay(date) }
         } else {
             return false;
