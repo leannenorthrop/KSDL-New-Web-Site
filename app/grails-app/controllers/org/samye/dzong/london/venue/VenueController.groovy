@@ -122,7 +122,7 @@ class VenueController {
         if (!action) {
             render(view:'edit',model:[venue:venue])
         } else {
-            handleError(msg, venue, edit)
+            handleError(msg, venue, action)
         }
     }
 
