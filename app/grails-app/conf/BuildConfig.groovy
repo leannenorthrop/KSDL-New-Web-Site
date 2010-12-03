@@ -1,10 +1,12 @@
 grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
+grails.project.test.source.dir = "test"
 grails.project.war.file = "target/ROOT.war"
 
 grails.project.dependency.resolution = {
-    //pom true
+    pom false
+
     // inherit Grails' default dependencies
     inherits( "global" ) {
         // uncomment to disable ehcache
@@ -27,8 +29,21 @@ grails.project.dependency.resolution = {
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
+        build   'commons-collections:commons-collections:3.2.1'
+        
+        compile 'org.eclipse.mylyn.wikitext:core:1.3.0.I20091106-0100-e3x', 
+                'org.eclipse.mylyn.wikitext:textile:1.3.0.I20091106-0100-e3x',
+                'net.fortuna.ical4j:ical4j:1.0-rc2',
+                'commons-collections:commons-collections:3.2.1'
 
-        // runtime 'mysql:mysql-connector-java:5.1.5'
+        runtime 'org.hsqldb:hsqldb:2.0.0', 
+                'org.eclipse.mylyn.wikitext:core:1.3.0.I20091106-0100-e3x', 
+                'org.eclipse.mylyn.wikitext:textile:1.3.0.I20091106-0100-e3x',
+                'net.fortuna.ical4j:ical4j:1.0-rc2',
+                'commons-collections:commons-collections:3.2.1'
+        
+        test 'javax.persistence:persistence-api:1.0',
+             'com.icegreen:greenmail:1.3.1b'
+        
     }
-
 }

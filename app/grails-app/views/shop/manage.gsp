@@ -30,6 +30,14 @@
     <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>
   </head>
   <body>
+    <form>
+        <fieldset>
     <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
+      <shiro:hasAnyRole in="${['ShopManager','Admin']}">
+        <p class="last">&nbsp;</p>
+        <g:actionSubmit value="${message(code:'toolbar.shop.create')}" action="create" class="ui-corner-all"/>
+      </shiro:hasAnyRole>
+        </fieldset>
+    <form>
   </body>
 </html>

@@ -34,9 +34,10 @@
     <li><a href="${createLink(controller: 'manageSite', action: 'textile')}" title="Hints Tab"><g:message code="hints.tab.title" default="Hints"/></a></li>
   </ul>
   <div id="edit-tab">
-    <lsdc:remoteField name="content" controller="manageSite" action="preview" update="preview-tab" paramName="previewcontenttxt" class="ui-corner-all ${hasErrors(bean:publishableInstance,field:'content','errors')}" value="${publishableInstance?.content}"/>
+    <lsdc:remoteField id="content" name="content" controller="manageSite" action="preview" update="preview-tab" paramName="previewcontenttxt" class="ui-corner-all ${hasErrors(bean:publishableInstance,field:'content','errors')}" value="${publishableInstance?.content}"/>
   </div>
   <div id="preview-tab">
+    <div class="clear"></div>
   </div>
   <div id="Hints_Tab">
   </div>
@@ -46,5 +47,6 @@
   $("#content-tabs").tabs({
     fx: { opacity: 'toggle' }
   });
+  $("#edit-tab textarea").markItUp(myTextileSettings);
   $("#edit-tab textarea").blur();
 </g:javascript>
