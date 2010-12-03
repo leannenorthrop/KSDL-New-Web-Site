@@ -52,7 +52,7 @@ class VenueController {
             }
         }
         else {
-            flash.message = "Venue not found with id ${params.id}"
+            flash.message = "Venue not found"
             flash.isError = true
             redirect(action:manage)
         }
