@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.site
 
 import org.samye.dzong.london.cms.Publishable
@@ -29,62 +30,62 @@ import org.apache.commons.io.*
 
 class ThemeController {
 
-	def index = {
+    def index = {
         redirect(action: "setdefault")
     }
 
-	def manage = {
+    def manage = {
         return render(view:'setDefault')
     }
-    
+
     def setdefault = {
         return render(view:'setDefault')
     }
 
-	def save = {
-		def defaultCSSThemeSetting = Setting.findByName('DefaultTheme')
-		if (!defaultCSSThemeSetting) {
-			defaultCSSThemeSetting = new Setting(name: 'DefaultTheme', value: params.theme)
-		} else {
-			defaultCSSThemeSetting.value = params.theme
-		}
-		if (!defaultCSSThemeSetting.hasErrors() && defaultCSSThemeSetting.save()) {
-		    Publishable.allPublished.list().each { publishable ->
-		        try {
-		            publishable.lastUpdated = new Date()
-		            publishable.save()
-		        } catch (error) {
-		            log.warn("Saving new modified time failed.",error)
-		        }
-		    }
+    def save = {
+        def defaultCSSThemeSetting = Setting.findByName('DefaultTheme')
+        if (!defaultCSSThemeSetting) {
+            defaultCSSThemeSetting = new Setting(name: 'DefaultTheme', value: params.theme)
+        } else {
+            defaultCSSThemeSetting.value = params.theme
+        }
+        if (!defaultCSSThemeSetting.hasErrors() && defaultCSSThemeSetting.save()) {
+            Publishable.allPublished.list(sort:"datePublished", order:"desc").each { publishable ->
+                try {
+                    publishable.lastUpdated = new Date()
+                    publishable.save()
+                } catch (error) {
+                    log.warn("Saving new modified time failed.",error)
+                }
+            }
             flash.message = "Web-Site Theme is now ${defaultCSSThemeSetting.value}"
             redirect(controller: 'manageSite', action: 'info')
         }
         else {
             redirect(action: "setdefault")
-        }		
-	}
-	
+        }
+    }
+
     def add = {
         if (!flash.message) {
             flash.message = "You may use this page to upload new Themes as a zip file which contains <emph>at least</emph> one CSS file at the top-level called screen.css. The name of the zip file will be used as the name of the Theme and should not contain any numbers or punctuation. You may include other files within the zip file which are included via screen.css such as images, fonts, or other CSS files. Maximum zip file size is 4Mb"
         }
         render(view: 'newTheme')
     }
-	
+
     def install = {
         def uploadedFile = UFile.findById(params.ufileId)
         if (uploadedFile) {
             def zipToUnzip = new File(uploadedFile.path)
-			def cssDir = new File(servletContext.getRealPath('/css/themes'), FilenameUtils.getBaseName(zipToUnzip.name))
+            def cssDir = new File(servletContext.getRealPath('/css/themes'), FilenameUtils.getBaseName(zipToUnzip.name))
             zipToUnzip.unzip(cssDir.absolutePath)
 
-			def path = FilenameUtils.getFullPathNoEndSeparator(zipToUnzip.absolutePath) 
-			try {
-				FileUtils.deleteDirectory(new File(path))
-			} catch (error) {
-				log.warn "Unable to delete directory " + path, error
-			}
+            def path = FilenameUtils.getFullPathNoEndSeparator(zipToUnzip.absolutePath)
+            try {
+                FileUtils.deleteDirectory(new File(path))
+            } catch (error) {
+                log.warn "Unable to delete directory " + path, error
+            }
             flash.message = "theme.installed"
             flash.args = [cssDir.name]
             redirect(action: 'manage')
@@ -97,5 +98,5 @@ class ThemeController {
         flash.isError = true
         flash.message = "theme.upload.error"
         redirect(controller: 'manageSite', action: 'error')
-    }	
+    }
 }

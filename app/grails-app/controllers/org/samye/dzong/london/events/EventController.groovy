@@ -212,26 +212,11 @@ class EventController extends CMSController {
     }
 
     def view = {
-        def event = Event.get(params.id)
-        if (!event) {
-            notFound(home)
-        }
-        else {
-            def similar = eventService.findSimilar(event)
-            return [event: event, id: params.id, similar:similar]
-        }
+        viewEvent(params.id)
     }
 
     def query = {
-        def event = Event.get(params.id)
-        if (!event) {
-            notFound(home)
-        }
-        else {
-            def id = params.id;
-            def similar = eventService.findSimilar(event)
-            return [event: event, id: id, similar:similar]
-        }
+        viewEvent(params.id)
     }
 
     // todo return to original page before request
@@ -244,14 +229,7 @@ class EventController extends CMSController {
     }
 
     def show = {
-        def event = Event.get(params.id)
-
-        if (!event) {
-            notFound(home)
-        }
-        else {
-            return [event: event, id: params.id]
-        }
+        viewEvent(params.id)
     }
 
     // todo ensure delete request sends version

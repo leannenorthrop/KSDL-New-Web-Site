@@ -39,18 +39,24 @@ import org.apache.shiro.SecurityUtils
 import org.spock.lang.*
 import org.springframework.transaction.TransactionStatus
 import org.samye.dzong.london.cms.CMSUtil
+import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
 
 /*
  *  Unit test for Events controller
+ *
+ *  @author Leanne Northrop
+ *  @since  November 2010
  */
 class EventControllerSpec extends ControllerSpec {
     def messageSource = new StaticMessageSource()
     def roles = []
     def mockTransactionStatus
+    def events = []
 
     def setup() {
         mockTransactionStatus = Mock(TransactionStatus)
         Event.metaClass.static.withTransaction = { c -> c(mockTransactionStatus) }
+        CMSUtil.GRAILS_APPLICATION = [domainClasses: [Event].collect{new DefaultGrailsDomainClass(it)}]
         CMSUtil.addCMSMethods(EventController) 
         mockLogging(EventController, true)
         mockLogging(Event, true)
@@ -75,6 +81,11 @@ class EventControllerSpec extends ControllerSpec {
         }
         def user = new ShiroUser(username:'leanne.northrop@abc.com')
         mockDomain(ShiroUser,[user])
+        EventController.metaClass.currentUser = { user}
+        Event.metaClass.static.authorPublishState = { String username, String s -> [list:{args-> events}] }
+        Event.metaClass.static.publishState = { String s -> [list:{args-> events}] }
+        Event.metaClass.static.authorDeleted = { String username -> [list:{args-> events}] }
+        Event.metaClass.static.deleted = { String s -> [list:{args-> events}] }
     }   
 
     def 'Index redirects to home'() {
@@ -242,21 +253,19 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Returns user unpublished events when not an editor or administrator'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(userUnpublished:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         controller.ajaxUnpublished()
 
         then:
         controller.modelAndView.viewName == 'unpublished'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
     }
 
     def 'Returns all unpublished events when an editor, administrator or both'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(unpublished:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         this.roles = sroles
@@ -264,7 +273,7 @@ class EventControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'unpublished'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
 
         where:
         sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
@@ -272,21 +281,19 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Returns user archived events when not an editor or administrator'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(userArchived:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         controller.ajaxArchived()
 
         then:
         controller.modelAndView.viewName == 'archived'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
     }
 
     def 'Returns all archived events when an editor,administrator or both'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(archived:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         this.roles = sroles
@@ -294,7 +301,7 @@ class EventControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'archived'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
 
         where:
         sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
@@ -302,21 +309,19 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Returns user published events when not an editor or administrator'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(userPublished:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         controller.ajaxPublished()
 
         then:
         controller.modelAndView.viewName == 'published'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
     }
 
     def 'Returns all published events when an editor,administrator or both'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(published:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         this.roles = sroles
@@ -324,7 +329,7 @@ class EventControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'published'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
 
         where:
         sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
@@ -332,21 +337,19 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Returns user ready events when not an editor or administrator'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(userReady:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         controller.ajaxReady()
 
         then:
         controller.modelAndView.viewName == 'ready'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
     }
 
     def 'Returns all ready events when an editor,administrator or both'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(ready:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         this.roles = sroles
@@ -354,7 +357,7 @@ class EventControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'ready'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
 
         where:
         sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
@@ -362,21 +365,19 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Returns user deleted events when not an editor or administrator'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(userDeleted:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         controller.ajaxDeleted()
 
         then:
         controller.modelAndView.viewName == 'deleted'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
     }
 
     def 'Returns all deleted events when an editor,administrator or both'() {
         setup:
-        def uevents = thisMonthEvents()
-        controller.eventService = new Expando(deleted:  { args-> [events:uevents] })
+        events = thisMonthEvents()
 
         when:
         this.roles = sroles
@@ -384,7 +385,7 @@ class EventControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'deleted'
-        controller.modelAndView.model.linkedHashMap.events == uevents
+        controller.modelAndView.model.linkedHashMap.total == events.size()
 
         where:
         sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
@@ -392,9 +393,8 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'getEventsForView uses offset parameter when supplied'() {
         setup:
-        def uevents = thisMonthEvents()
-        def params
-        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+        events = thisMonthEvents()
+        def params = getMockParams()
 
         and: "offset param set"
         getMockParams() << [offset: 5] 
@@ -408,9 +408,8 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'getEventsForView uses max parameter when supplied'() {
         setup:
-        def uevents = thisMonthEvents()
-        def params
-        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+        events = thisMonthEvents()
+        def params = getMockParams()
 
         and: "max param set"
         getMockParams() << [max: 9] 
@@ -422,11 +421,10 @@ class EventControllerSpec extends ControllerSpec {
         params.max == 9
     }
 
-    def 'Uses MIN when max parameter when supplied'() {
+    def 'Uses MIN when max parameter not supplied'() {
         setup:
-        def uevents = thisMonthEvents()
-        def params
-        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+        events = thisMonthEvents()
+        def params = getMockParams()
 
         when:
         controller.ajaxDeleted()
@@ -437,9 +435,8 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Uses MAX when max parameter is too large'() {
         setup:
-        def uevents = thisMonthEvents()
-        def params
-        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+        events = thisMonthEvents()
+        def params = getMockParams()
 
         and: "max param set"
         getMockParams() << [max: 1000] 
@@ -468,7 +465,8 @@ class EventControllerSpec extends ControllerSpec {
         controller.view()
 
         then:
-        redirectArgs == [action: controller.home]
+        redirectArgs.action == 'notFound'
+        redirectArgs.controller == 'home'
         mockFlash.isError == true
         mockFlash.message == "Event not found"
     }
@@ -478,7 +476,6 @@ class EventControllerSpec extends ControllerSpec {
         def event = validEvent(new Date())
         event.id = 1
         getMockParams() << [id: event.id] 
-        controller.eventService = new Expando(findSimilar:  { args-> [] })
         Event.metaClass.static.get = {id -> event}
 
         when:
@@ -499,7 +496,8 @@ class EventControllerSpec extends ControllerSpec {
         controller.query()
 
         then:
-        redirectArgs == [action: controller.home]
+        redirectArgs.action == 'notFound'
+        redirectArgs.controller == 'home'
         mockFlash.isError == true
         mockFlash.message == "Event not found"
     }
@@ -509,7 +507,6 @@ class EventControllerSpec extends ControllerSpec {
         def event = validEvent(new Date())
         event.id = 1
         getMockParams() << [id: event.id] 
-        controller.eventService = new Expando(findSimilar:  { args-> [] })
         Event.metaClass.static.get = {id -> event}
 
         when:
@@ -546,7 +543,8 @@ class EventControllerSpec extends ControllerSpec {
         controller.show()
 
         then:
-        redirectArgs == [action: controller.home]
+        redirectArgs.action == 'notFound'
+        redirectArgs.controller == 'home'
         mockFlash.isError == true
         mockFlash.message == "Event not found"
     }
@@ -556,7 +554,6 @@ class EventControllerSpec extends ControllerSpec {
         def event = validEvent(new Date())
         event.id = 1
         getMockParams() << [id: event.id] 
-        controller.eventService = new Expando(findSimilar:  { args-> [] })
         Event.metaClass.static.get = {id -> event}
 
         when:
@@ -739,7 +736,6 @@ class EventControllerSpec extends ControllerSpec {
         def event = validEvent(new Date())
         event.id = 1
         getMockParams() << [id: event.id] 
-        controller.eventService = new Expando(findSimilar:  { args-> [] })
         Event.metaClass.static.get = {id -> event}
 
         when:
@@ -948,7 +944,7 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Create generates new event with organizer set'() {
         setup:
-        def user = new ShiroUser(username:'leanne.northrop@abc.com').save()
+        def user = new ShiroUser(username:'leanne.northrop@abc.com')
         mockDomain(Event)
 
         when:
@@ -962,7 +958,7 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Create generates new event'() {
         setup:
-        def user = new ShiroUser(username:'leanne.northrop@abc.com').save()
+        def user = new ShiroUser(username:'leanne.northrop@abc.com')
         mockFlash.message = 'already set'
         mockDomain(Event)
 

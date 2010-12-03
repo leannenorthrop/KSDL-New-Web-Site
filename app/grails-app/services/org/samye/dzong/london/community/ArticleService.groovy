@@ -6,75 +6,77 @@ class ArticleService {
     boolean transactional = true
     def userLookupService
 
-	def handleIfNotModifiedSince(request,response) {	
-	    try {		    
-    		if (Publishable.allPublishedNonOrdered().count() > 0) {
-    			def newestPublishedItem= Publishable.allPublished().list()[0]		    
-        		def now = new Date()
-        		now = now + 7
-        		response.setDateHeader('Expires', now.time)			
-        		response.setDateHeader('Last-Modified', newestPublishedItem.lastUpdated.time)		
-        		response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
-				    
-    			if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.lastUpdated.time) {
-    				response.setStatus(304)
-    				response.flushBuffer()
-    				return				
-    			}
-    		} 
-		} catch (error) {
-    		def now = new Date()
-    		now = now + 7
-    		response.setDateHeader('Expires', now.time)			
-    		response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")		    
-		}	
-	}
-	
-	def addHeadersAndKeywords(model, request, response) {
-		if (model) {
-		    def allTags = [] as Set
-			try {
-				def result = model.groupBy {
-					try {
-						return it.value.datePublished || it.value[0].datePublished
-					} catch (error) {
-						return false
-					}
-				}
-				def articles = result[true].collect {
-				    it.value
-				}
-				articles = articles.flatten()
-				def dates = articles.collect { 
-					it.lastUpdated
-				}
-				def newest = dates.max()
-				if (newest) {
-					response.setDateHeader('Last-Modified', newest.time)
-				}
-				def etag = 0
-				articles.each {
-					if (it.version) {
-						etag += etag + (31 * it.version)
-					}
-				}
-				response.setHeader("ETag", "W\"${etag}\"")
-						
-				articles.each {
-					if (it.tags) {
-						allTags.addAll it.tags
-					} else {
+    def handleIfNotModifiedSince(request,response) {
+        def now = new Date()
+        now = now + 7
+        now.clearTime()        
+        try {
+            if (Publishable.allPublished().count() > 0) {
+                def newestPublishedItem= Publishable.allPublished().list(sort:"lastUpdated", order:"desc")[0]
+                response.setDateHeader('Expires', now.time)
+                response.setDateHeader('Last-Modified', newestPublishedItem.lastUpdated.time)
+                response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
+
+                if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.lastUpdated.time) {
+                    response.setStatus(304)
+                    response.flushBuffer()
+                    return
+                }
+            }
+        } catch (error) {
+            log.warn error
+            if (response) {
+                response.setDateHeader('Expires', now.time)
+                response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
+            }
+        }
+    }
+
+    def addHeadersAndKeywords(model, request, response) {
+        if (model) {
+            def allTags = [] as Set
+            try {
+                def result = model.groupBy {
+                    try {
+                        return it.value.datePublished || it.value[0].datePublished
+                    } catch (error) {
+                        return false
+                    }
+                }
+                def articles = result[true].collect {
+                    it.value
+                }
+                articles = articles.flatten()
+                def dates = articles.collect {
+                    it.lastUpdated
+                }
+                def newest = dates.max()
+                if (newest) {
+                    response.setDateHeader('Last-Modified', newest.time)
+                }
+                def etag = 0
+                articles.each {
+                    if (it.version) {
+                        etag += etag + (31 * it.version)
+                    }
+                }
+                response.setHeader("ETag", "W\"${etag}\"")
+
+                articles.each {
+                    if (it.tags) {
+                        allTags.addAll it.tags
+                    } else {
 						""
-					}
-				}
-			} catch(error) {
-				log.warn "Unable to fetch keywords/last published date", error
-			} finally {
-				model.put('keywords',allTags)
-			}
-		}		
-	}
-	
+                    }
+                }
+            } catch(error) {
+                log.warn "Unable to fetch keywords/last published date", error
+            } finally {
+                model.put('keywords',allTags)
+            }
+        }
+    }
+
     def findSimilar(article, params = []) {
         def tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
         for (tag in article.tags) {

@@ -21,10 +21,7 @@
  * “Samye Content Management System” written by Leanne Northrop.
  */
 
- package org.samye.dzong.london.cms
-
-import org.samye.dzong.london.users.ShiroUser
-import org.apache.shiro.SecurityUtils
+package org.samye.dzong.london.cms
 
 /**
  * CMS helper base class for controllers which manage CMS domain objects.
@@ -51,13 +48,6 @@ abstract class CMSController {
 
     def ajaxDeleted = {
         render(view: 'deleted',model:getModelForView('deleted',params))
-    }
-
-    def currentUser = {
-        def subject = SecurityUtils?.subject
-        if (subject) {
-            ShiroUser.findByUsername(subject.principal)
-        }
     }
 }
 

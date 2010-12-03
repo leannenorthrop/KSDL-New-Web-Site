@@ -33,7 +33,8 @@ environments {
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""
-            dialect = org.hibernate.dialect.HSQLDialect            
+            dialect = org.hibernate.dialect.HSQLDialect     
+            loggingSql = true       
         }
     }
 
@@ -45,6 +46,7 @@ environments {
             username = "SA"
             password = ""
             dialect = org.hibernate.dialect.HSQLDialect            
+            loggingSql = false 
         }
     }
 
