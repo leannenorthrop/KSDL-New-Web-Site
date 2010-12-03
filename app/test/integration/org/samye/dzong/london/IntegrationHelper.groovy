@@ -37,6 +37,12 @@ import org.samye.dzong.london.cms.*
  * @since 16th November, 2010, 17:01
  */
 abstract class IntegrationHelper extends IntegrationSpec {
+    def clean() {
+        [Article].each {
+            it.findAll().each {article -> article.delete(flush:true)}
+        }
+    } 
+    
     def newUser(username='leanne.northrop@abc.def') {
         def auser = ShiroUser.findByUsername(username)
         if (auser) {
