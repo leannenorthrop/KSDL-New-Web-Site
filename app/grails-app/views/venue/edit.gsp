@@ -26,75 +26,6 @@
   <head>
     <meta name="layout" content="content-admin"/>
     <title><g:message code="venue.edit.title" args="${[venue?.name]}"/></title>
-    <g:javascript>            
-      var nextTelephoneId = ${venue.telephoneNumbersList.size()};
-      var nextEmailId = ${venue.emails.size()};
-      var nextAddressId = ${venue.addresses.size()};            
-      $(function() {
-        var removeNewHandler = function() {
-            $(this).parent().remove();  
-        };
-        $("button.newnumber").click(removeNewHandler); 
-        $("button.newemail").click(removeNewHandler);
-        $("button.newaddress").click(removeNewHandler);
-        
-        var removeExistingHandler = function() {
-            var deleteMe = $(this).parent().find(':hidden')
-            deleteMe.val('true')
-            $('#edit').append(deleteMe)
-            $(this).parent().remove();  
-        };
-        $("button.existingnumber").click(removeExistingHandler);
-        $("button.existingemail").click(removeExistingHandler);                     
-        $("button.existingaddress").click(removeExistingHandler);  
-        
-        $("#edit").validate();
-        
-        var addNew = function(templateSelector,namePrefix,selector,nextId) {                                                                   
-          var clone = $(templateSelector).clone(true)
-          clone.find(':hidden').each(function(index) {
-              var currName = $(this).attr('name');
-              if (currName != "button" && currName != "type") {
-                  var value = $(selector + ' input.'+currName).val()
-                  $(this).val(value)
-              } else if (currName == "type") {
-                  var type= $(selector + ' select').val()
-                  $(this).val(type)
-              } 
-              else {
-                  var name = $(selector + ' input.name').val()
-                  $(this).before("<input type='hidden' name='" + namePrefix + "[" + nextId + "].name' value='" + name + "'/>");
-              }
-              $(this).attr('name', namePrefix + '[' + nextId + '].' + currName);
-          });
-          clone.removeAttr('id')
-          clone.removeAttr('style')
-          $(templateSelector).parent().append(clone);  
-          nextId++;
-          return clone;
-        };
-        $("#addNewNumber").click(function() {
-           var name = $('.telephoneDetails input.name').val() + " (" + $('.telephoneDetails select').val() + "): " + $('.telephoneDetails input.number').val();            
-           var newHtml = addNew('#telephoneNumberTemplate', 'telephoneNumbersList','.telephoneDetails',nextTelephoneId); 
-           newHtml.find('button').before(name)
-        });
-        $("#addNewEmail").click(function() {
-           var name = $('.emailDetails input.name').val() + " (" + $('.emailDetails select').val() + "): " + $('.emailDetails input.address').val();             
-           var newHtml = addNew('#emailTemplate','emailsList','.emailDetails',nextEmailId); 
-           newHtml.find('button').before(name)           
-        });
-        $("#addNewAddress").click(function() {
-           var name = $('.addressDetails input.name').val() + " (" + $('.addressDetails select').val() + "): ";
-           $('.addressDetails input').each(function(index) { 
-               if (index != 0) {
-                   name += $(this).val() + ' '
-               }
-           })
-           var newHtml = addNew('#addressTemplate','addressesList','.addressDetails',nextAddressId); 
-           newHtml.find('button').before(name)           
-        });                
-      });
-    </g:javascript>
   </head>
   <body>
     <g:form name="edit" method="post" action="update">
@@ -112,11 +43,9 @@
         <label for="name"><g:message code="venue.name.label"/></label>
         <g:textField name="name" value="${fieldValue(bean:venue,field:'name')}" class="required ui-corner-all ${hasErrors(bean:venue,field:'name','errors')}" minlength="5"/>
       </p>
-      <p>
-        <label for="image.id"><g:message code="venue.image.label"/></label>
-        <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-        <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('venue')}" name="image.id" value="${venue?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name"/>
-      </p>
+
+      <lsdc:selectImg obj="${venue}" tag="${'venue'}"/>
+
       <p>
         <label for="facilities"><g:message code="venue.facilities.label"/></label>
         <g:textArea rows="5" cols="40" name="facilities" class="required ui-corner-all ${hasErrors(bean:venue,field:'facilities','errors')}" value="${venue.facilities}" minlength="5"/>
@@ -130,7 +59,6 @@
         <legend><g:message code="contact.telephone.numbers"/></legend>
         <p class="telephoneDetails">
             <label for="telephoneNumber"><g:message code="contact.telephone.new"/></label>
-            <g:select from="${['main','work','home','fax','mobile','other']}" valueMessagePrefix="contact"></g:select> 
             <g:textField name="contactName" class="ui-corner-all name" style="display: inline;width:10em" minlength="4" value="Contact Name"/>           
             <g:textField name="telephoneNumber" class="ui-corner-all number" style="display: inline;width:20em" minlength="8" number="true" value="111111111111"/>           
             <button id="addNewNumber" class="add" type="button">+</button>
@@ -153,7 +81,6 @@
         <legend><g:message code="contact.emails"/></legend>
         <p class="emailDetails">
             <label for="email"><g:message code="contact.email.new"/></label>
-            <g:select from="${['main','work','home','other']}" valueMessagePrefix="contact"></g:select> 
             <g:textField name="contactName" class="ui-corner-all name" style="display: inline;width:10em" minlength="4" value="Contact Name"/>           
             <g:textField name="email" class="ui-corner-all address" style="display: inline;width:20em" minlength="8" email="true" value="somewhere@overtherainbow.com"/>           
             <button id="addNewEmail" class="add" type="button">+</button>
@@ -177,7 +104,6 @@
         <div class="addressDetails">
             <p style="margin-bottom:0;">
                 <label for="email"><g:message code="contact.address.new"/></label>
-                <g:select from="${['main','work','home','other']}" valueMessagePrefix="contact"></g:select> 
                 <g:textField name="contactName" class="ui-corner-all name" style="width:10em" minlength="4" value="Contact Name"/>       
             </p>
             <p style="margin-bottom:0;">
@@ -244,5 +170,11 @@
         <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
       </fieldset>                    
     </g:form>
+      <g:javascript>
+var nextTelephoneId = ${venue.telephoneNumbersList.size()};
+var nextEmailId = ${venue.emails.size()};
+var nextAddressId = ${venue.addresses.size()};            
+      </g:javascript>
+      <g:javascript src="site/venue.js" />
   </body>
 </html>
