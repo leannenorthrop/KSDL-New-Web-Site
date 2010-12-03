@@ -127,6 +127,10 @@ class HomeController {
 		model:[]
 	}
 	
+	def t = {
+	    [:]
+	}
+	
 	def siteMap = {
 		withFormat {
 			html {[]}

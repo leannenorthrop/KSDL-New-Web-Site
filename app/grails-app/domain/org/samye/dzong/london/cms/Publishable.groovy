@@ -114,6 +114,9 @@ class Publishable implements Taggable, Commentable  {
     }
     
     def static similar(content,options=null) {
+        if (!content.metaClass.hasProperty(content, 'tags')) {
+            return []
+        }
         String tagQuery = "publishable.id in (select tl.tagRef from TagLink tl where "
         for (tag in content.tags) {
             tagQuery += "tl.tag.name = '${tag}' or "
@@ -128,7 +131,6 @@ class Publishable implements Taggable, Commentable  {
            AND publishable.deleted = convert('false',BOOLEAN)
            AND $tagQuery
         """
-        List tags = content.tags
         def results = []
         if (options) {
             results = Publishable.executeQuery(findByTagHQL, [id:content.id],options)        

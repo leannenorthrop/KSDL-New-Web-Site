@@ -27,7 +27,6 @@ import org.samye.dzong.london.cms.*
 /**
  * Provides management actions for Samye venues/buildings/sites.
  * TODO: Internaliationise messages
- * TODO: Add back in save for child associations 
  *
  * @author Leanne Northrop
  * @since  January 2010

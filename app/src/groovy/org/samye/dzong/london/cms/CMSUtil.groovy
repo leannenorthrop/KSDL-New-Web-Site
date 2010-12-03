@@ -59,9 +59,15 @@ class CMSUtil {
         }
 
         artefactClass.metaClass.notFound = { action ->
-            flash.message = "${(delegate.controllerName - 'Controller').capitalize()} not found"
+            def name = (delegate.controllerName - 'Controller').capitalize()
+            flash.message = "${name} not found"
             flash.isError = true
-            redirect(action:action)
+            if (action) {
+                redirect(action:action)
+            } else {
+                redirect(controller: 'home', action: 'notFound')
+                //render(status: 404, text: 'Failed to find ${name}')
+            }
         }
 
         artefactClass.metaClass.handleError = { msg, obj, Object[] args ->
@@ -124,17 +130,19 @@ class CMSUtil {
         CMSUtil.GRAILS_APPLICATION?.domainClasses.each { domainClass ->
              if (Publishable.isAssignableFrom(domainClass.clazz)) { 
                  artefactClass.metaClass."view${domainClass.name}" = { id ->             
-                    def map = [:]
-
-                    def obj = domainClass.clazz.get(id)
-                    if(!obj) {
-                        flash.message = "${domainClass.name} not found"
-                        flash.isError = true
+                    if (id) {
+                        def obj = domainClass.clazz.get(id)
+                        if(!obj) {
+                            delegate.notFound(null)
+                            return [:]
+                        }
+                        else {
+                            def similar = Publishable.similar(obj,params)
+                            return [(domainClass.propertyName): obj, id: obj.id, similar:similar]
+                        }
+                    } else {
+                        delegate.notFound(null)
                     }
-                    else {
-                        map = [(domainClass.name): obj]
-                    }
-                    map
                 }
                 
                 ["Unpublished","Published","Archived","Ready"].each { state -> 

@@ -50,28 +50,27 @@ class TeacherService {
     }
 
     def userUnpublished(params) {
-        def order = params.sort?: "title"
-        def dir = params.order?: "asc"
+        if (!params?.sort) {
+            params.sort = 'title'
+        }
+        if (!params?.order) {
+            params.order = "asc"
+        }
         def username = userLookupService.username();
-        def teachers = Teacher.orderedAuthorPublishState(username,"Unpublished", order, dir).list(params);
+        def teachers = Teacher.authorPublishState(username,"Unpublished").list(params);
         def total = Teacher.authorPublishState(username,"Unpublished").count();
         return [teachers: teachers, total: total]
     }
 
     def userPublished(params) {
-        def order = params.sort?: "title"
-        def dir = params.order?: "asc"
+        if (!params?.sort) {
+            params.sort = 'title'
+        }
+        if (!params?.order) {
+            params.order = "asc"
+        }
         def username = userLookupService.username();
-        def teachers = Teacher.orderedAuthorPublishState(username,"Published", order, dir).list(params);
-        def total = Teacher.authorPublishState(username,"Published").count();
-        return [teachers: teachers, total: total]
-    }
-
-    def userArchived(params) {
-        def order = params.sort?: "title"
-        def dir = params.order?: "asc"
-        def username = userLookupService.username();
-        def teachers = Teacher.orderedAuthorPublishState(username,"Archived", order, dir).list(params);
+        def teachers = Teacher.authorPublishState(username,"Archived").list(params);
         def total = Teacher.authorPublishState(username,"Archived").count();
         return [teachers: teachers, total: total]
     }
@@ -84,25 +83,37 @@ class TeacherService {
     }
 
     def unpublished(params) {
-        def order = params.sort?: "title"
-        def dir = params.order?: "asc"
-        def teachers = Teacher.orderedPublishState("Unpublished", order, dir).list(params);
+        if (!params?.sort) {
+            params.sort = 'title'
+        }
+        if (!params?.order) {
+            params.order = "asc"
+        }
+        def teachers = Teacher.publishState("Unpublished").list(params);
         def total = Teacher.publishState("Unpublished").count();
         return [teachers: teachers, total: total]
     }
 
     def published(params) {
-        def order = params.sort?: "title"
-        def dir = params.order?: "asc"
-        def teachers = Teacher.orderedPublishState("Published", order, dir).list(params);
+        if (!params?.sort) {
+            params.sort = 'title'
+        }
+        if (!params?.order) {
+            params.order = "asc"
+        }
+        def teachers = Teacher.publishState("Published").list(params);
         def total = Teacher.publishState("Published").count();
         return [teachers: teachers, total: total]
     }
 
     def archived(params) {
-        def order = params.sort?: "title"
-        def dir = params.order?: "asc"
-        def teachers = Teacher.orderedPublishState("Archived", order, dir).list(params);
+        if (!params?.sort) {
+            params.sort = 'title'
+        }
+        if (!params?.order) {
+            params.order = "asc"
+        }
+        def teachers = Teacher.publishState("Archived").list(params);
         def total = Teacher.publishState("Archived").count();
         return [teachers: teachers, total: total]
     }

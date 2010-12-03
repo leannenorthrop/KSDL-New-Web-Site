@@ -202,7 +202,7 @@ log4j = {
     warn    'org.hibernate',
             'org.mortbay.log',
             'org.samye',
-            'grails.app'
+            'grails.app'      
 }
 
 auditLog {
@@ -225,3 +225,4 @@ quartz {
     jdbcStore = false
 }
 
+grails.tomcat.jvmArgs = ["-Xmx1024m", "-XX:MaxPermSize=256m"]

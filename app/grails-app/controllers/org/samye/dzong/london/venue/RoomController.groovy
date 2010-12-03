@@ -25,89 +25,31 @@ package org.samye.dzong.london.venue
 import org.apache.shiro.SecurityUtils
 import org.samye.dzong.london.cms.*
 
+/**
+ * Handler for managing and displaying room venues.
+ *
+ * @author Leanne Northrop
+ * @since  2010
+ */
 class RoomController extends CMSController {
-	def roomService
-	
-    def index = { }
+    def index = { 
+        redirect(action:manage)
+    }
 
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [save:'POST', update:'POST', changeState: 'GET']
-
-	def ajaxUnpublishedRooms = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = roomService.unpublished(params)
-        } else {
-            model = roomService.userUnpublished(params)
-        }
-        render(view: 'unpublished', model: model)
-    }
-
-    def ajaxPublishedRooms = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = roomService.published(params)
-        } else {
-            model = roomService.userPublished(params)
-        }
-        render(view: 'published', model: model)
-    }
-
-    def ajaxArchivedRooms = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = roomService.archived(params)
-        } else {
-            model = roomService.userArchived(params)
-        }
-        render(view: 'archived', model: model)
-    }
-
-    def ajaxDeletedRooms = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = roomService.deleted(params)
-        } else {
-            model = roomService.userDeleted(params)
-        }
-        render(view: 'deleted', model: model)
-    }
+    def static final ADMIN_ROLES = ['Editor', 'Administrator'] 
 
     def manage = {
         render(view: 'manage')
     }
 
     def show = {
-        def roomInstance = Room.get( params.id )
-
-        if(!roomInstance) {
-            flash.message = "Room not found with id ${params.id}"
-            flash.isError = true
-            redirect(action:manage)
-        }
-        else { return [ room : roomInstance ] }
+        viewRoom( params.id )
     }
 
     def view = {
-        def roomInstance = Room.get( params.id )
-
-        if(!roomInstance) {
-            flash.message = "Room not found with id ${params.id}"
-            flash.isError = true            
-            redirect(action:manage)
-        }
-        else { return [ room : roomInstance ] }
+        viewRoom( params.id )
     }
 
     def edit = {
