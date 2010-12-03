@@ -27,7 +27,7 @@ import org.samye.dzong.london.Publishable
 import org.samye.dzong.london.media.Image
 
 /**
- * Domain class for storing teacher information.
+ * Domain class for storing both teacher and therapist information.
  * Note named queries unfortunately do not handle
  * order by properly in grails 1.2.0.
  * TODO: Test

@@ -11,7 +11,10 @@ class ImageController {
         try {
             imageInstance = Image.get( params.id )
         } catch (error) {
-            imageInstance = Image.findByName( params.id )
+            log.warn "Can't find image by id '${params.id}' so searching by name instead."
+            def coder = new org.apache.commons.codec.net.URLCodec()
+            def id2 = coder.decode(params.id)            
+            imageInstance = Image.findByName(id2)
         }
         if(!imageInstance) {
             log.warn "no image ${params.id}"

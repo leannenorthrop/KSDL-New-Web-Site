@@ -81,7 +81,7 @@ class Publishable implements Taggable, Commentable  {
     }
 
     String toString() {
-        return "${publishState} by ${author.username} on ${lastUpdated} (${deleted ? "Deleted" : "Not Deleted"})"
+        return "${publishState} by ${author?.username} on ${lastUpdated} (${deleted ? "Deleted" : "Not Deleted"})"
     }
 
     static namedQueries = {

@@ -90,7 +90,7 @@ class EventService {
             tagQuery += "tl.tag.name = '${tag}' or "
         }
         tagQuery = tagQuery[0..-4] + "))"
-        def events = Event.executeQuery("from Event a where a.id != ${event.id} and ${tagQuery} and a.publishState = 'Published' and a.deleted = false order by a.lastUpdated desc", params)
+        def events = Event.executeQuery("from Event a where a.id != ${event.id} and ${tagQuery} and a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc", params)
         return events ? (events.size() > 5 ? events[0..4] : events) : []
     }
 
@@ -103,13 +103,13 @@ class EventService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Published' and a.deleted = false")
+            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN)")
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'event' and tl.tag.name = '${tag}') and "
             }
 
-            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Published' and a.deleted = false")
+            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN)")
         }
 
         return events ? events.size(): 0
@@ -124,13 +124,13 @@ class EventService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Published' and a.deleted = false order by a.lastUpdated desc", params)
+            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc", params)
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'event' and tl.tag.name = '${tag}') and "
             }
 
-            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Published' and a.deleted = false order by a.lastUpdated desc",params)
+            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc",params)
         }
 
         return events ?: []
@@ -145,13 +145,13 @@ class EventService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = false")
+            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'event' and tl.tag.name = '${tag}') and "
             }
 
-            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Archived' and a.deleted = false")
+            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         }
 
         return events ? events.size(): 0
@@ -166,13 +166,13 @@ class EventService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = false")
+            events = Event.executeQuery("from Event a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'event' and tl.tag.name = '${tag}') and "
             }
 
-            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Archived' and a.deleted = false")
+            events = Event.executeQuery("from Event a where ${tagQuery} a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         }
 
         return events ?: []

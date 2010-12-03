@@ -30,19 +30,6 @@
 
 <%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
 
-<div id="jserrors" class="ui-widget ui-state-error ui-corner-all" style="display:none;">
-    <strong>
-      <span class="ui-icon ui-icon-alert" style="display: inline-block"></span><g:message code="alert"></g:message>
-    </strong>
-    <ol>
-      <li><label for="title" class="error">Please enter a title of at least 5 characters.</label></li>
-      <li><label for="summary" class="error">Please add a summary of at least 5 characters.</label></li>
-      <li><label for="category" class="error">Please select a category.</label></li>
-      <li><label for="leader.id" class="error">Please select a leader.</label></li>
-      <li><label for="organizer.id" class="error">Please select an Organizer.</label></li>
-    </ol>
-</div>
-
 <g:set var="firstDate" value="${event.dateList[0] ?: event.dateList.get(0)}"/>
 <g:render template="/editEventDetails" model="[event: event, firstDate:firstDate]"/>
 
@@ -55,12 +42,12 @@
   <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:event]"/>
 </fieldset>
 
-<fieldset>
-    <g:if test="${showPublication}">
+<g:if test="${showPublication}">
+    <fieldset>
     <legend>Publication Details</legend>
     <g:render template="/publishDetails" model="[articleInstance:event]"/>
-    </g:if>
-</fieldset>
+    </fieldset>
+</g:if>
 
 <jq:jquery>
     var bindDateParams = function() {
@@ -255,12 +242,8 @@
         $("#priceTemplate").remove(); 
         $("[name^=rule]").remove();
     };
-    var container = $("#jserrors");
     $("form").validate({
         onfocusout: false,
-    	errorContainer: container,
-    	errorLabelContainer: $("ol", container),
-    	wrapper: 'li',
         submitHandler: function(form) {
             if (bindDateParams()) {
                 removeFields();

@@ -59,6 +59,24 @@
             </strong><br/>
             <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
         </div>                    
+        <div class="ui-widget ui-state-error ui-corner-all" style="display: none" id="jserrors">
+            <strong>
+                <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>
+                <g:message code="alert"/>
+            </strong><br/>
+            <ul>
+            </ul>
+        </div>
     </g:else>
 </g:if>                              
+<g:else>
+    <div class="ui-widget ui-state-error ui-corner-all" style="display: none" id="jserrors">
+        <strong>
+            <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>
+            <g:message code="alert"/>
+        </strong><br/>
+        <ul>
+        </ul>
+    </div>
+</g:else>
 

@@ -28,9 +28,16 @@ import org.samye.dzong.london.media.Image
 import org.grails.comments.*
 
 /**
- * Domain class for storing article information.
+ * Domain class for storing most site content.
+ * This is the bed-rock domain class for this 
+ * application.
  * Note named queries unfortunately do not handle
- * order by properly in grails 1.2.0.
+ * order by properly in grails 1.2.0 and will not
+ * be fixed until grails 1.3.6
+ *
+ * @author Leanne Northrop
+ * @since October 2009
+ * @see ShiroUser
  */
 class Article extends Publishable {
     String title;
@@ -294,6 +301,9 @@ class Article extends Publishable {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     String toString() {
         return "${title} (${super.toString()})"
     }

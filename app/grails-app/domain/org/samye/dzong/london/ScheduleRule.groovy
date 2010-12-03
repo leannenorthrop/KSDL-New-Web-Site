@@ -83,6 +83,7 @@ class ScheduleRule {
         this.ruleType = "once"
         this.interval = 1
         this.modifierType = "D"
+        this.duration = new MutablePeriod(startTime.toDateTimeToday(), endTime.toDateTimeToday()).toPeriod()
     }
 
     ScheduleRule(ScheduleRule toBeCopied) {
@@ -102,14 +103,6 @@ class ScheduleRule {
         return "from ${startDate} until ${endDate}: ${startTime} - ${endTime} (duration ${duration})\nis rule? ${isRule} type ${ruleType} interval ${interval} modifier ${modifier} mtype = ${modifierType}"
     }
 
-    def calculateDerivedValues() {
-        try {
-            rule.duration = new MutablePeriod(startTime.toDateTimeToday(), endTime.toDateTimeToday()).toPeriod()
-        } catch (error) {
-            log.warn("Event duration could not be set.", error)
-        }
-    }
-    
     boolean isUnbounded() {
         return 'always' == ruleType
     }
@@ -221,13 +214,13 @@ class ScheduleRule {
 				if (startDate.equals(date)) {
 					onDay = true;
 				} else {
-	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(date))
+                    date.clearTime()
+                    startDate.clearTime()
+	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startDate))
 	                if (next) {
 	                    def nextDate = new java.util.Date(next.getTime())
-						nextDate.setHours(0)
-						nextDate.setMinutes(0)
-						nextDate.setSeconds(0)										
-	                    onDay = date.equals(nextDate)
+                        nextDate.clearTime()
+	                    onDay = date == nextDate
 	                } else {
 	                    onDay = false
 	                }
@@ -245,11 +238,14 @@ class ScheduleRule {
 
         Recur r = toRecur()
         if (r) {
+            startingDate.clearTime()
+            startDate.clearTime()
             net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startingDate))
             if (next) {
                 def nextDate = new java.util.Date(next.getTime())
+                nextDate.clearTime()
                 for (int i = 0; i < noOfDays; i++) {
-                    onDay = (startingDate + i).equals(nextDate)
+                    onDay = (startingDate + i) == nextDate
                     if (onDay) break;
                 }
             } else {
@@ -257,7 +253,7 @@ class ScheduleRule {
             }
         } else {
             for (int i = 0; i < noOfDays; i++) {
-                onDay = (startingDate + i).equals(startDate)
+                onDay = (startingDate + i) == startDate
                 if (onDay) break;
             }
         }
@@ -307,5 +303,9 @@ class ScheduleRule {
         }
 
         return recur
+    }
+
+    def onLoad() {
+        this.duration = new MutablePeriod(startTime.toDateTimeToday(), endTime.toDateTimeToday()).toPeriod()
     }
 }

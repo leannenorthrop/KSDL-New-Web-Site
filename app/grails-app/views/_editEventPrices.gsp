@@ -26,17 +26,14 @@
 
   User: Leanne Northrop
   Date: Jun 30, 2010, 23:04
-  
-  <g:hiddenField name="priceList[${i}].category" value='${price.category}'/>
-      <g:textField name="priceList[${i}].price" value="${pvalue}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/>  
-  <g:set var="pvalue"><g:formatNumber number="${price.price}" format="#,##0.00;(#,##0.00)" minIntegerDigits="1" maxFractionDigits="2" roundingMode="HALF_DOWN"/></g:set>        
-  <g:set var="priceType"><g:textField name="priceList[${i}].price" value="${pvalue}" class="required ui-corner-all ${hasErrors(bean:event,field:'price.${pricelabels[i]}','errors')}" minlength="4" decimal="true"/> </g:set>  
 --%>
 
 <%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
+
+<g:set var="eventprices" value="${event?.getPriceList()?:[]}"/>
 <fieldset>
   <legend>Prices</legend>  
-  <g:render template="/clone" model="[propval: 'price',labelCode:'event.price',listName:'priceList',nextId:event.priceList.size(),list:event.priceList]"/>
+  <g:render template="/clone" model="[propval: 'price',labelCode:'event.price',listName:'priceList',nextId:eventprices.size(),list:eventprices]"/>
   
   <div id="additionalPriceHiddenFields" style="display:none;visibility:hidden;">
       <input type="hidden" name="category"> 

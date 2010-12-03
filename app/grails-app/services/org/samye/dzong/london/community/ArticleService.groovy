@@ -81,7 +81,7 @@ class ArticleService {
             tagQuery += "tl.tag.name = '${tag}' or "
         }
         tagQuery = tagQuery[0..-4] + "))"
-        def articles = Article.executeQuery("from Article a where a.category = '${article.category}' and a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+        def articles = Article.executeQuery("from Article a where a.category = '${article.category}' and a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc", params)
         return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
     }
 
@@ -93,8 +93,8 @@ class ArticleService {
         tagQuery = tagQuery[0..-4] + "))"
         def articles = []
         try {
-            log.debug "**params = ${params} ********** from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc"
-            articles = Article.executeQuery("from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+            log.debug "**params = ${params} ********** from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc"
+            articles = Article.executeQuery("from Article a where a.id != ${article.id} and ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc", params)
         } catch (error) {
             log.error error
         }
@@ -105,7 +105,7 @@ class ArticleService {
         def tagQuery = "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and ("
         tagQuery += "tl.tag.name = '${tagname}' or "
         tagQuery = tagQuery[0..-4] + "))"
-        def articles = Article.executeQuery("from Article a where ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = false order by a.lastUpdated desc", params)
+        def articles = Article.executeQuery("from Article a where ${tagQuery} and (a.publishState = 'Published' or a.publishState = 'Archived') and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc", params)
         return articles ? (articles.size() > 16 ? articles[0..14] : articles) : []
     }
 
@@ -118,13 +118,13 @@ class ArticleService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Published' and a.deleted = false")
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN)")
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
             }
 
-            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Published' and a.deleted = false")
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN)")
         }
 
         return articles ? articles.size(): 0
@@ -139,13 +139,13 @@ class ArticleService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Published' and a.deleted = false order by a.lastUpdated desc", params)
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc", params)
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
             }
 
-            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Published' and a.deleted = false order by a.lastUpdated desc",params)
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Published' and a.deleted = convert('false',BOOLEAN) order by a.lastUpdated desc",params)
         }
 
         return articles ?: []
@@ -160,13 +160,13 @@ class ArticleService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = false")
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
             }
 
-            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Archived' and a.deleted = false")
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         }
 
         return articles ? articles.size(): 0
@@ -181,13 +181,13 @@ class ArticleService {
                 tagQuery += "tl.tag.name = '${tag}' or "
             }
             tagQuery = tagQuery[0..-4] + "))"
-            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = false")
+            articles = Article.executeQuery("from Article a where ${tagQuery} and a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         } else {
             for (tag in tags) {
                 tagQuery += "a.id in (select tl.tagRef from TagLink tl where tl.type = 'article' and tl.tag.name = '${tag}') and "
             }
 
-            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Archived' and a.deleted = false")
+            articles = Article.executeQuery("from Article a where ${tagQuery} a.publishState = 'Archived' and a.deleted = convert('false',BOOLEAN)")
         }
 
         return articles ?: []

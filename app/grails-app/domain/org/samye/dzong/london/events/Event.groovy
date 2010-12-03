@@ -57,8 +57,8 @@ import net.fortuna.ical4j.model.component.VTimeZone
  * TODO: add validation for date,time,duration
  * TODO: publishedByTags
  *
- * Author: Leanne Northrop
- * Date: 29th January, 2010, 16:48
+ * @author Leanne Northrop
+ * @since 29th January, 2010, 16:48
  */
 class Event extends Publishable {
     String title;
@@ -222,21 +222,17 @@ class Event extends Publishable {
         return "${title}"
     }
 
-    def calculateDerivedValues() {
-        dates.each { it.calculateDerivedValues() }
-    }
-    
     boolean isOnDay(final date) {
-        if (dates && dates[0]) {
-            return dates[0].isOnDay(date)
+        if (dates) {
+            return dates.any{ eventdate -> eventdate.isOnDay(date) }
         } else {
             return false;
         }
     }
 
     boolean isOnDay(final startDate, final noOfDays) {
-        if (dates && dates[0]) {
-            return dates[0].isOnDay(startDate, noOfDays)
+        if (dates) {
+            return dates.any{ eventdate -> eventdate.isOnDay(startDate,noOfDays) }
         } else {
             return false;
         }
@@ -277,17 +273,13 @@ class Event extends Publishable {
         properties.add(new Description(summary));
         properties.add(new Location(venue.name));
 
-        /*if (organizer) {
+        if (organizer) {
             URI mailToURI = new URI("MAILTO", organizer.username, null);
             properties.add(new Organizer(mailToURI));
-        }*/
+        }
 
         Uid id = ug.generateUid();
-        // net.fortuna.ical4j.model.Property.UID
         properties.add(id)
-
-        //Summary summary = new Summary(summary);
-        //iCalEvent.getProperties().add(summary);
 
         return iCalEvent
     }
