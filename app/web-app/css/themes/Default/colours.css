@@ -1,25 +1,3 @@
-/*******************************************************************************
- * Copyright © 2010 Leanne Northrop
- *
- * This file is part of Samye Content Management System.
- *
- * Samye Content Management System is free software: you can redistribute it
- * and/or modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the License,
- * or (at your option) any later version.
- *
- * Samye Content Management System is distributed in the hope that it will be
- * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with Samye Content Management System.
- * If not, see <http://www.gnu.org/licenses/>.
- *
- * BT plc, hereby disclaims all copyright interest in the program
- * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
 /* ----------------------------------------------------------------------------
     General 
 ---------------------------------------------------------------------------- */
@@ -70,13 +48,6 @@ body {
 	                color-stop(0.15, rgba(251, 245, 208, 0.5)), color-stop(1.0, rgba(251, 245, 208, 0.35)));
 }
 
-.box {
-	background: transparent url(background-trans-tile.png) repeat left top;
-	background: rgba(255, 244, 222, 0.5);
-	background: -moz-linear-gradient(top, rgba(255, 244, 222, 0.5), rgba(255, 244, 222,0.3));
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(255, 244, 222, 0.5)), to(rgba(255, 244, 222,0.3)));	
-}
-
 /* ----------------------------------------------------------------------------
     Banner 
 ---------------------------------------------------------------------------- */
@@ -106,9 +77,10 @@ div.banner h2 {
 /* ----------------------------------------------------------------------------
     Footer
 ---------------------------------------------------------------------------- */
-/*#footer {
+#footer {
     background: #9c381e url(images/motif.png) no-repeat bottom right;
-}*/
+}
+
 #footer .contact .address {
     color: rgb(253, 237, 196);
     color: rgba(253, 237, 196,0.8);    
@@ -122,8 +94,6 @@ div.banner h2 {
 #footer .box {
 	color:#ccc;
 	font-size:x-small;
-	background: transparent;
-	background-image: none;
 }
 #footer a {
 	color:#fff;
@@ -138,19 +108,6 @@ div.banner h2 {
 /* ----------------------------------------------------------------------------
     Navigation
 ---------------------------------------------------------------------------- */
-#watermark3{
-	border-top: 1px solid #ff9933;
-	color: #ffd14f;	
-	background: rgb(154, 36, 11);
-	filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=180);
-	-webkit-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);	
-	-moz-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
-	-o-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
-}
-
-div.container_16 div.banner + div.clear + div {}
-
-/*
 div.container_16 div.banner + div.clear + div {
 	border-top: 1px solid #ff9933;
 	color: #ffd14f;
@@ -160,15 +117,6 @@ div.container_16 div.banner + div.clear + div {
 	-webkit-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);	
 	-moz-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
 	-o-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
-}
-*/
-
-.nav ul li {
-	background: rgb(154, 36, 11) url(images/sep.png) repeat-y top right;    
-}
-
-.nav ul li.last {
-    background-image:none; 
 }
 
 .nav ul li a {
@@ -207,7 +155,7 @@ h2#page-heading {
 }
 
 p.meta {
-	color:#4d6a4b;
+	/*color:#4d6a4b;*/
 }
 
 /*
@@ -256,6 +204,12 @@ tbody th,
 tbody td {
     background: #eee;
 }
+
+table.fc-header tbody th,
+table.fc-header tbody td, {
+    background: transparent;
+}
+
 
 /* Widgets
 -----------------------------------------------------------------------------*/
@@ -308,4 +262,141 @@ a:active {
 /* Knockout anchor active */
 .knockout a:active {
    color: #fff;
+}
+
+/* ----------------------------------------------------------------------------
+    Calendar 
+---------------------------------------------------------------------------- */
+
+/* Header
+------------------------------------------------------------------------*/
+	
+.fc-header *
+{
+	background: transparent !important;
+}
+
+/* Buttons
+------------------------------------------------------------------------*/
+
+.fc-header .fc-state-default,
+.fc-header .fc-state-default a {
+	border-color: transparent; /* outer border */
+	color: #333;
+	}
+
+.fc-header .fc-state-default span {
+    border: 0 solid transparent;
+}
+	
+/* PRESSED button COLORS (down and active) */
+	
+.fc-header .fc-state-active a {
+	color: #fff;
+}
+	
+.fc-header .fc-state-down span,
+.fc-header .fc-state-active span {
+	border-color: transparent; /* inner border */
+}
+	
+/* DISABLED button COLORS */
+	
+.fc-header .fc-state-disabled a {
+	color: transparent;
+}
+	
+.fc-header .fc-state-disabled,
+.fc-header .fc-state-disabled a {
+	border-color: transparent; /* outer border */
+}
+	
+.fc-header .fc-state-disabled span {
+	border-color: transparent; /* inner border */
+}
+	
+	
+.fc-header .fc-state-active * {
+    color: #8B1B00;
+}
+	
+/* Content Area & Global Cell Styles
+------------------------------------------------------------------------*/
+	
+.fc-widget-content {
+	border: 1px solid #ccc; /* outer border color */
+	}
+	
+.fc-content {
+    background: white;
+}
+	
+.fc-content .fc-state-default {
+	border-style: solid;
+	border-color: #ccc; /* inner border color */
+	}
+	
+.fc-content .fc-state-highlight { /* today */
+	background: #FFD14F;
+}
+	
+.fc-content .fc-not-today { /* override jq-ui highlight (TODO: ui-widget-content) */
+	background: none;
+}
+	
+
+/* Global Event Styles
+------------------------------------------------------------------------*/
+
+.fc-event,
+.fc-agenda .fc-event-time,
+.fc-event a {
+	border-style: none; 
+	background-color: transparent;
+	color: black;            
+}
+	
+.fc-view .W,
+.fc-agenda .W .fc-event-time,
+.fc-view .W a {
+	border-style: none; 
+	background-color: #94ce57;
+	color: black;
+}
+	 
+.fc-view .M,
+.fc-agenda .M .fc-event-time,
+.fc-view .M a {
+	border-style: none; 
+	background-color: #934e6c;
+	color: black;
+}
+
+.fc-view .B,
+.fc-agenda .B .fc-event-time,
+.fc-view .B a {
+	border-style: none; 
+	background-color: #4a96ca;
+	color: black;
+}
+
+.fc-view .C,
+.fc-agenda .C .fc-event-time,
+.fc-view .C a {
+	border-style: none; 
+	background-color: #ca4a4c;
+	color: black;
+}
+
+.fc-event {
+	text-align: left;
+    font-size: small;
+    font-weight: normal;
+}
+	
+.fc-event a {
+	overflow: hidden;
+	font-size: .85em;
+	text-decoration: none;
+	cursor: pointer;
 }

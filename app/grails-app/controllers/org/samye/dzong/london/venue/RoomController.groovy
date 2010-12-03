@@ -29,7 +29,7 @@ import org.samye.dzong.london.cms.*
  * Handler for managing and displaying room venues.
  *
  * @author Leanne Northrop
- * @since  2010
+ * @since  January, 2010
  */
 class RoomController extends CMSController {
     def index = { 
@@ -73,14 +73,14 @@ class RoomController extends CMSController {
 
     def save = {
         def roomInstance = new Room(params)
-		roomInstance.author = currentUser() 
+        roomInstance.author = currentUser()
         if(!roomInstance.hasErrors() && roomInstance.save()) {
             flash.message = "Room ${roomInstance.name} created"
             redirect(action:manage)
         }
         else {
-			flash.isError = true
-			flash.message = "Could not create room due to the following errors:"
+            flash.isError = true
+            flash.message = "Could not create room due to the following errors:"
             flash.args = [roomInstance]			
             flash.bean = roomInstance
             render(view:'create',model:[room:roomInstance])

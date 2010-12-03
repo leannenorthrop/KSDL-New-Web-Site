@@ -20,17 +20,21 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.venue
 
 import org.samye.dzong.london.contact.*
 
 /*
  * Contains single postal address for a venue.
+ *
+ * @author Leanne Northrop
+ * @since January 2010
  */
 class VenueAddress extends Address {
     /* Non-persistent flag used to mark detached instances that should be removed
      * from persistent store on the next save.*/
- 	boolean _deleted
+    boolean _deleted
 
     static transients = ['_deleted']
 	

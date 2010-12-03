@@ -20,13 +20,21 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.community
 
 import org.apache.shiro.SecurityUtils
 import org.samye.dzong.london.cms.*
 
 /*
- *
+ * Principal CMS content management url handler. Displays only content management
+ * pages under the Content menu.
+ * TODO: Refactor to increase DRY
+ * TODO: Tidy this up in light of Grails lessons learned.
+ * TODO: Complete internationalization.
+ * 
+ * @author Leanne Northrop
+ * @since  October 2009
  */
 class ArticleController extends CMSController {
     def articleService
@@ -388,8 +396,8 @@ class ArticleController extends CMSController {
 
     def save = {
         def articleInstance = new Article(params)
-//        def user = ShiroUser.read(1)
-//        def users = ShiroUser.findAllByUsername(SecurityUtils.subject.principal.toString())
+        //        def user = ShiroUser.read(1)
+        //        def users = ShiroUser.findAllByUsername(SecurityUtils.subject.principal.toString())
         articleInstance.author = currentUser() 
         if (!articleInstance.hasErrors() && articleInstance.save()) {
             flash.message = "Article ${articleInstance.title} created"
@@ -434,7 +442,7 @@ class ArticleController extends CMSController {
         }
         else {
             flash.message = "Article not found with id ${params.id}"
-                flash.isError = true            
+            flash.isError = true
             redirect(action: manage)
         }
     }

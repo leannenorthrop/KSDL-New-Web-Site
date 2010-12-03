@@ -20,14 +20,23 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.community
 
 import org.samye.dzong.london.events.Event
 
+
+/*
+ * Volunteer content url handler which was orginally named community on navigation.
+ * Displays only public facing pages.
+ *
+ * @author Leanne Northrop
+ * @since  January 2010
+ */
 class CommunityController {
     def articleService
     def eventService
-	def emailService
+    def emailService
 
     def index = {
         redirect(action:home)
@@ -46,21 +55,21 @@ class CommunityController {
         def totalCommunity = Article.allCommunityArticlesNotOrdered().count()
         def totalVolunteer = volunteer.size()
         def events = Event.community('featured','desc').list()
-		def model = [events:events,topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [events:events,topArticles: topArticles, community: community,volunteerOpportunities:volunteer,totalCommunity:totalCommunity,totalVolunteer:totalVolunteer]
+        articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }
 
     def list = {
         def articles = Article.allCommunityArticles('datePublished', 'desc').list()
-		def model = [ articles: articles, title: 'community.all.articles.title']
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [ articles: articles, title: 'community.all.articles.title']
+        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
-		articleService.addHeadersAndKeywords(model,request,response)
+        articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -78,15 +87,15 @@ class CommunityController {
             def id = params.id;
             def similar = eventService.findSimilar(event)
             def model = [event: event, id: id, similar:similar]
-			articleService.addHeadersAndKeywords(model,request,response)
-			model
+            articleService.addHeadersAndKeywords(model,request,response)
+            model
         }
     }
 
     def events = {
         def model = eventService.list('C',params)
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
     }
 
     def send = {

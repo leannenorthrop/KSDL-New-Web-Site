@@ -26,6 +26,9 @@ package org.samye.dzong.london.contact
  * Base class for all contact information details.
  * Each sub-class will be stored within it's own database table and changes will
  * be logged in the audit table.
+ *
+ * @author Leanne Northrop
+ * @since  January 2009
  */
 class Contact {
     /* User defined label for this contact */

@@ -36,7 +36,7 @@ import org.grails.comments.*
  * be fixed until grails 1.3.6
  *
  * @author Leanne Northrop
- * @since October 2009
+ * @since  October 2009
  * @see ShiroUser
  */
 class Article extends Publishable {
@@ -217,7 +217,7 @@ class Article extends Publishable {
             order("${orderCol}", "${orderDir}")
         }
         
-         allShopArticlesNotOrdered {
+        allShopArticlesNotOrdered {
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
             eq 'category', 'S'

@@ -27,7 +27,7 @@ package org.samye.dzong.london.cms
  * CMS helper base class for controllers which manage CMS domain objects.
  *
  * @author Leanne Northrop
- * @since 12th November 2010, 18:09
+ * @since  12th November 2010, 18:09
  */
 abstract class CMSController {
     def ajaxUnpublished = {

@@ -28,6 +28,14 @@ import org.samye.dzong.london.site.Setting
 import com.lucastex.grails.fileuploader.UFile
 import org.apache.commons.io.*
 
+/*
+ * CMS area settings url uploading and using CSS themes.
+ *
+ * @TODO Internalize.
+ *
+ * @author Leanne Northrop
+ * @since  July 2010
+ */
 class ThemeController {
 
     def index = {
@@ -43,6 +51,7 @@ class ThemeController {
     }
 
     def save = {
+        session.removeAttribute('theme')
         def defaultCSSThemeSetting = Setting.findByName('DefaultTheme')
         if (!defaultCSSThemeSetting) {
             defaultCSSThemeSetting = new Setting(name: 'DefaultTheme', value: params.theme)

@@ -30,6 +30,14 @@ import org.samye.dzong.london.users.*
 import org.samye.dzong.london.cms.Publishable
 import net.sf.ehcache.*
 
+/*
+ * CMS area settings url handler for handling site settings.
+ *
+ * @TODO Internalize.
+ *
+ * @author Leanne Northrop
+ * @since  July 2010
+ */
 class SettingsController {
     def manage = {
         def flickrUserSetting = Setting.findByName('Logo')

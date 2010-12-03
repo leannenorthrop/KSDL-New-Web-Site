@@ -18,8 +18,10 @@
  * If not, see <http://www.gnu.org/licenses/>.
  *
  * BT plc, hereby disclaims all copyright interest in the program
- * “Samye Content Management System” written by Leanne Northrop.
+ * “
+ * Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.venue
 
 import org.samye.dzong.london.cms.Publishable
@@ -59,23 +61,23 @@ class Venue extends Publishable {
     	facilities(blank:true,maxSize:Integer.MAX_VALUE)
     	access(blank:true,maxSize:Integer.MAX_VALUE)
     	rooms(nullable:true)
-		addresses(nullable:true)
-		emails(nullable:true)		
-		telephoneNumbers(nullable:true)
+        addresses(nullable:true)
+        emails(nullable:true)
+        telephoneNumbers(nullable:true)
     }
 
-	static mapping = {
-	    cache usage:'nonstrict-read-write', include:'non-lazy'
-	    columns {
-	        content type:'text'
-	        facilities type:'text'
-	        access type:'text'	
-	    }		
+    static mapping = {
+        cache usage:'nonstrict-read-write', include:'non-lazy'
+        columns {
+            content type:'text'
+            facilities type:'text'
+            access type:'text'
+        }
         addresses cascade: "all-delete-orphan", cache:true, lazy:false
         telephoneNumbers cascade: "all-delete-orphan", cache:true,lazy:false	
         emails cascade: "all-delete-orphan", cache:true,lazy:false	
-		rooms sort: 'name', cache:true        
-	}
+        rooms sort: 'name', cache:true
+    }
 	
     Venue() {
         name = new Date().format('dd/MM/yyyy hh:mm:ss')
@@ -143,6 +145,6 @@ class Venue extends Publishable {
      * {@inheritDoc}
      */
     String toString() {
-	    name
+        name
     }
 }

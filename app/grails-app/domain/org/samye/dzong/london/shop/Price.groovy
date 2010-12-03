@@ -23,6 +23,12 @@
 
 package org.samye.dzong.london.shop
 
+/*
+ * Domain class for Prices for both Event and Shop items.
+ *
+ * @author Leanne Northrop
+ * @since  April 2010
+ */
 class Price {
     Currency currency;
     Double price;

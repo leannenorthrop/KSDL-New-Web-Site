@@ -25,12 +25,17 @@ package org.samye.dzong.london.community
 
 import org.samye.dzong.london.cms.*
 
+
 /*
- * Handler for web requests regarding teachers.
- * Author: Leanne Northrop
- * Date: 26th January 2010, 19:00
- * TODO: test
- * TODO: internationalize
+ * CMS content management url handler for both teacher and therapist information.
+ * Displays only content management pages under the Teachers & Therapist navigation
+ * menu.
+ * TODO: Refactor to increase DRY
+ * TODO: Tidy this up in light of Grails lessons learned.
+ * TODO: Complete internationalization.
+ *
+ * @author Leanne Northrop
+ * @since  26th January 2010, 19:00
  */
 class TeacherController extends CMSController {
     def teacherService
@@ -112,10 +117,10 @@ class TeacherController extends CMSController {
             def aboutUsArticles = articleService.publishedByTags(['about us']);
             aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
             if (model['articles']) {
-                def articles = model['articles']
-                articles << aboutUsArticles
+            def articles = model['articles']
+            articles << aboutUsArticles
             } else {
-                model['articles'] = aboutUsArticles
+            model['articles'] = aboutUsArticles
             }*/
             def events = teacherService.events(params.id);
             def articles = []

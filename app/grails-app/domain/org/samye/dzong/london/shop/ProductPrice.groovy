@@ -25,6 +25,13 @@ package org.samye.dzong.london.shop
 
 import java.text.NumberFormat
 
+/**
+ * Shop item prices extended from price to tie a price instance to a shop item
+ * and support cascading management.
+ *
+ * @author Leanne Northrop
+ * @since  April 2010
+ */
 class ProductPrice extends Price {
     def messageSource
 

@@ -26,23 +26,34 @@ package org.samye.dzong.london.media
 import com.lucastex.grails.fileuploader.UFile
 import org.apache.commons.io.IOUtils
 
+/*
+ * CMS content management url handler for managing additional site files to be
+ * embedded into textile marked-up content e.g. PDFs, non-YouTube video, etc.
+ * Displays only content management pages under the Files navigation
+ * menu within the CMS area.
+ *
+ * TODO: Complete internationalization.
+ *
+ * @author Leanne Northrop
+ * @since  June, 2010
+ */
 class FileController {
 
     static allowedMethods = [delete:'GET']
 
     def manage = {
-		def files = UFile.list()
+        def files = UFile.list()
         render(view:'manage',model:[files: files])
     }
 
-	def create = {
-	    if (!flash.message) {
-	        flash.message = "You may use this page to upload new files. Maximum file size is 12Mb"
+    def create = {
+        if (!flash.message) {
+            flash.message = "You may use this page to upload new files. Maximum file size is 12Mb"
         }
-		[]
-	}
+        []
+    }
 	
-	def delete = {
+    def delete = {
         def uploadedFile = UFile.findById(params.id)
         if (uploadedFile) {
             try{
@@ -58,7 +69,7 @@ class FileController {
             flash.isError = true            
         }
         redirect(controller: 'file', action: 'manage')        
-	}	
+    }
 
     def install = {
         def uploadedFile = UFile.findById(params.ufileId)
@@ -80,34 +91,33 @@ class FileController {
         redirect(controller: 'file', action: 'create')
     }
 
-	def src = {
+    def src = {
         def coder = new org.apache.commons.codec.net.URLCodec()
         def id2 = coder.decode(params.id) 	    
-		def fileInstance = UFile.findByName(id2)
+        def fileInstance = UFile.findByName(id2)
         if(!fileInstance) {
             log.warn "no file found for ${params.id}"
             response.outputStream << ""
         } else {
-	 		def os = response.outputStream
-			try {
-				if (request.getDateHeader("If-Modified-Since") > fileInstance.dateUploaded.time) {
-					response.setStatus(304)
-				}				
-				//response.setContentType(imageInstance.mimeType)
-				response.setDateHeader('Last-Modified', fileInstance.dateUploaded.time)
-				response.setHeader("Cache-Control", "public")			
-				response.setHeader("ETag", "W/\"" + fileInstance.id + "\"")
-				response.setContentLength((int)fileInstance.size)			
-				def f = new File(fileInstance.path)
-				def is = f.newInputStream()
-				IOUtils.copy(is,os)
+            def os = response.outputStream
+            try {
+                if (request.getDateHeader("If-Modified-Since") > fileInstance.dateUploaded.time) {
+                    response.setStatus(304)
+                }
+                //response.setContentType(imageInstance.mimeType)
+                response.setDateHeader('Last-Modified', fileInstance.dateUploaded.time)
+                response.setHeader("Cache-Control", "public")
+                response.setHeader("ETag", "W/\"" + fileInstance.id + "\"")
+                response.setContentLength((int)fileInstance.size)
+                def f = new File(fileInstance.path)
+                def is = f.newInputStream()
+                IOUtils.copy(is,os)
 
                 fileInstance.downloads++;
                 fileInstance.save();
-			} catch(error) {
-				log.error error
-			}
+            } catch(error) {
+                log.error error
+            }
         }		
-	}
-
+    }
 }

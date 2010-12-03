@@ -43,15 +43,15 @@ class UpdateFlickrCacheJob {
     def group = "LSD"
 
     def execute() {
-		def userId = ""
-		def flickrUserSetting = Setting.findByName('FlickrUserId')
-		if (!flickrUserSetting) {
-			userId = '66103625@N00'
-			flickrUserSetting = new Setting(name: 'FlickrUserId', value: userId)
-			flickrUserSetting.save()
-		} else {
-			userId = flickrUserSetting.value
-		}
-		flickrService.refresh(userId)
+        def userId = ""
+        def flickrUserSetting = Setting.findByName('FlickrUserId')
+        if (!flickrUserSetting) {
+            userId = '66103625@N00'
+            flickrUserSetting = new Setting(name: 'FlickrUserId', value: userId)
+            flickrUserSetting.save()
+        } else {
+            userId = flickrUserSetting.value
+        }
+        flickrService.refresh(userId)
     }
 }

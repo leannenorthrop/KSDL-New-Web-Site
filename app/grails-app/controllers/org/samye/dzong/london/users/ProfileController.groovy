@@ -25,107 +25,115 @@ package org.samye.dzong.london.users
 
 import org.samye.dzong.london.cms.*
 
+/*
+ * CMS area User profile url handler.
+ *
+ * @TODO Internalize.
+ *
+ * @author Leanne Northrop
+ * @since  April 2010
+ */
 class ProfileController extends CMSController {
-	def imageService
+    def imageService
 
     def manage = { 
-		try {
-			def user 
-			if (params.username) {
-				user = ShiroUser.findByUsername(params.username)
-			} else if (params.id) {
-				user = ShiroUser.get(params.id)
-			} else {
-				user = currentUser() 
-			}
-			render(view: 'index', model:[user:user])
-		} catch(error) {
-			log.warn "Unable to check existance of user profile", error
-		}	
-	}
-
-    def src = {
-		try {
-			def user 
-			if (params.username) {
-				user = ShiroUser.findByUsername(params.username)
-			} else if (params.id) {
-				user = ShiroUser.get(params.id)
-			} else {
-				user = currentUser() 
-			}
-	        if (user && user.profile) {
-				byte[] image = user.profile.image
-				if (request.getDateHeader("If-Modified-Since") > user.profile.lastUpdated.time) {
-					response.setStatus(304)
-				}				
-				response.setContentType(user.profile.mimeType)
-				response.setDateHeader('Last-Modified', user.profile.lastUpdated.time)
-				response.setHeader("Cache-Control", "public")			
-				response.setHeader("ETag", "W/\"" + user.profile.version + "\"")
-				response.setContentLength(image.size())			
-				response.outputStream << image	            
-	        }
-		} catch(error) {
-			println error
-			log.warn "Unable to check existance of user profile", error
-			response.outputStream << ""
-		}
+        try {
+            def user
+            if (params.username) {
+                user = ShiroUser.findByUsername(params.username)
+            } else if (params.id) {
+                user = ShiroUser.get(params.id)
+            } else {
+                user = currentUser()
+            }
+            render(view: 'index', model:[user:user])
+        } catch(error) {
+            log.warn "Unable to check existance of user profile", error
+        }
     }
 
-	def edit = {
-		try {
-			def user 
-			if (params.username) {
-				user = ShiroUser.findByUsername(params.username)
-			} else if (params.id) {
-				user = ShiroUser.get(params.id)
-			} else {
-				user = currentUser() 
-			}
-			render(view: 'edit', model:[user:user])
-		} catch(error) {
-			log.warn "Unable to check existance of user profile", error
-			flash.message = "profile.save.error"
-            flash.isError=true
-			render(view:'edit',model:[user:user])
-		}		
-	}
-	
-	def save = {
-		def user = currentUser() 
-		
-		try {
-	        def f = request.getFile('image')
-	        def contentType = f?.getContentType()
-	        def bytes = f?.getBytes()
+    def src = {
+        try {
+            def user
+            if (params.username) {
+                user = ShiroUser.findByUsername(params.username)
+            } else if (params.id) {
+                user = ShiroUser.get(params.id)
+            } else {
+                user = currentUser()
+            }
+            if (user && user.profile) {
+                byte[] image = user.profile.image
+                if (request.getDateHeader("If-Modified-Since") > user.profile.lastUpdated.time) {
+                    response.setStatus(304)
+                }
+                response.setContentType(user.profile.mimeType)
+                response.setDateHeader('Last-Modified', user.profile.lastUpdated.time)
+                response.setHeader("Cache-Control", "public")
+                response.setHeader("ETag", "W/\"" + user.profile.version + "\"")
+                response.setContentLength(image.size())
+                response.outputStream << image
+            }
+        } catch(error) {
+            println error
+            log.warn "Unable to check existance of user profile", error
+            response.outputStream << ""
+        }
+    }
 
-			user.profile.publicName = params.publicName
-			user.profile.nickName = params.nickName		
+    def edit = {
+        try {
+            def user
+            if (params.username) {
+                user = ShiroUser.findByUsername(params.username)
+            } else if (params.id) {
+                user = ShiroUser.get(params.id)
+            } else {
+                user = currentUser()
+            }
+            render(view: 'edit', model:[user:user])
+        } catch(error) {
+            log.warn "Unable to check existance of user profile", error
+            flash.message = "profile.save.error"
+            flash.isError=true
+            render(view:'edit',model:[user:user])
+        }
+    }
+	
+    def save = {
+        def user = currentUser()
+		
+        try {
+            def f = request.getFile('image')
+            def contentType = f?.getContentType()
+            def bytes = f?.getBytes()
+
+            user.profile.publicName = params.publicName
+            user.profile.nickName = params.nickName
 			
-			if (bytes != null && bytes.length > 0) {
-				if (imageService.isThumbnail(bytes)) {
-		        	user.profile.mimeType = contentType
-		        	user.profile.image = bytes
-				} else {
-		        	user.profile.mimeType = "image/jpeg"
-		        	user.profile.image = imageService.profileThumbnail(bytes,contentType)				
-				}
-			}
-	        if(!user.profile.hasErrors() && user.profile.save()) {
-	            flash.message = "profile.save.success"
-	            redirect(action:'manage',id:user.id)
-	        }
-	        else {
-	            flash.message = "profile.save.error"
-	            flash.isError=true
-	            render(view:'edit',model:[user:user])
-	        }
-		} catch (error) {
-			log.error "Unable to save profile changes", error
-			flash.message = "profile.save.error"
-			flash.isError = true
-			render(view:'edit',model:[user:user])
-		}
+            if (bytes != null && bytes.length > 0) {
+                if (imageService.isThumbnail(bytes)) {
+                    user.profile.mimeType = contentType
+                    user.profile.image = bytes
+                } else {
+                    user.profile.mimeType = "image/jpeg"
+                    user.profile.image = imageService.profileThumbnail(bytes,contentType)
+                }
+            }
+            if(!user.profile.hasErrors() && user.profile.save()) {
+                flash.message = "profile.save.success"
+                redirect(action:'manage',id:user.id)
+            }
+            else {
+                flash.message = "profile.save.error"
+                flash.isError=true
+                render(view:'edit',model:[user:user])
+            }
+        } catch (error) {
+            log.error "Unable to save profile changes", error
+            flash.message = "profile.save.error"
+            flash.isError = true
+            render(view:'edit',model:[user:user])
+        }
     }	
 }

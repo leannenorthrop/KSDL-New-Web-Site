@@ -20,11 +20,18 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.community
 
 import org.samye.dzong.london.venue.Venue
 import org.samye.dzong.london.venue.Room
 
+/*
+ * About Us content url handler. Displays only public facing pages.
+ *
+ * @author Leanne Northrop
+ * @since  Feburary, 2010
+ */
 class AboutUsController {
     def articleService
     def teacherService
@@ -34,17 +41,17 @@ class AboutUsController {
         def visitingTeachers = Teacher.findAllByPublishStateAndType('Published', 'V',[sort: "name", order: "asc"])
         def teachers = Teacher.findAllByPublishStateAndType('Published', 'C',[sort: "name", order: "asc"])
         teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
-		def venues = Venue.notDeleted.list()
-		def allArticles = Article.allAboutUsArticles("title", "asc").list()
-		def topArticles = Article.aboutUsTopArticles("title", "asc").list()
+        def venues = Venue.notDeleted.list()
+        def allArticles = Article.allAboutUsArticles("title", "asc").list()
+        def topArticles = Article.aboutUsTopArticles("title", "asc").list()
         def model = [topArticles: topArticles, articles: allArticles, visitingTeachers: visitingTeachers, teachers:teachers,venues:venues];
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
     }
 
     def view = {
         def model = articleService.view(params.id)
-		articleService.addHeadersAndKeywords(model,request,response)
+        articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -52,36 +59,36 @@ class AboutUsController {
         }
     }
 
-	def contactUs = {
-		def venues = Venue.notDeleted.list()
-		def model = [venues:venues]
-		articleService.addHeadersAndKeywords(model,request,response)
-		render(view: 'contact', model:model)
-	}
+    def contactUs = {
+        def venues = Venue.notDeleted.list()
+        def model = [venues:venues]
+        articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'contact', model:model)
+    }
 	
-	def visiting = {
-		def venues = Venue.notDeleted.list()
-		def model = [venues:venues]
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
-	}	
+    def visiting = {
+        def venues = Venue.notDeleted.list()
+        def model = [venues:venues]
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
+    }
 	
-	def room = {
-	    def venues = Venue.notDeleted.list()
-		def model = [room:Room.get(params.id),venues:venues]
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
-	}
+    def room = {
+        def venues = Venue.notDeleted.list()
+        def model = [room:Room.get(params.id),venues:venues]
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
+    }
 	
-	def venue = {
-		def venues = []
-		venues << Venue.get(params.id)
-		def model = [venues:venues]
-		articleService.addHeadersAndKeywords(model,request,response)
-		render(view:'visiting',model:model)
-	}	
+    def venue = {
+        def venues = []
+        venues << Venue.get(params.id)
+        def model = [venues:venues]
+        articleService.addHeadersAndKeywords(model,request,response)
+        render(view:'visiting',model:model)
+    }
 	
-	def teacher = {
+    def teacher = {
         def teacher = Teacher.get(params.id)
         if (!teacher) {
             // TODO: render 404
@@ -92,10 +99,10 @@ class AboutUsController {
             def aboutUsArticles = articleService.publishedByTags(['about us']);
             aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
             if (model['articles']) {
-                def articles = model['articles']
-                articles << aboutUsArticles
+            def articles = model['articles']
+            articles << aboutUsArticles
             } else {
-                model['articles'] = aboutUsArticles
+            model['articles'] = aboutUsArticles
             }*/
             def events = teacherService.events(params.id);
             def articles = []
@@ -103,40 +110,40 @@ class AboutUsController {
                 articles = articleService.publishedByTags(['about us']);
             }
             def model = [teacher: teacher, id: params.id, events:events, articles:articles]
-			articleService.addHeadersAndKeywords(model,request,response)
-			model
+            articleService.addHeadersAndKeywords(model,request,response)
+            model
         }		
-	}
+    }
 	
-	def lineage = {
-		def lineageArticles = []
-		def lineageTeachers = []
+    def lineage = {
+        def lineageArticles = []
+        def lineageTeachers = []
         try {
             lineageArticles = articleService.findByTag('lineage',[])
-			lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
+            lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
         } catch (error) {
             log.error("AboutUs controller encountered an error.",error)
         }
 		
         def model = [teachers:lineageTeachers,articles:lineageArticles];		
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
-	}
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
+    }
 	
-	def teachers = {
-		def teachers = Teacher.findAllByPublishState('Published', [sort: "name", order: "asc"])
+    def teachers = {
+        def teachers = Teacher.findAllByPublishState('Published', [sort: "name", order: "asc"])
         teachers = teachers.findAll{teacher -> teacher.name != 'Community' && teacher.type != 'L'}
         def model = [teachers:teachers];		
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
-	}	
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
+    }
 	
-	def roomHire = {
-	    def allArticles = Article.allAboutUsArticles("title", "asc").list()
+    def roomHire = {
+        def allArticles = Article.allAboutUsArticles("title", "asc").list()
         def article = allArticles.find { article -> article.title == 'Room Hire' }
         def venues = Venue.notDeleted.list()
         def model = [article:article,venues:venues];		
-		articleService.addHeadersAndKeywords(model,request,response)
-		model        
-	}
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
+    }
 }

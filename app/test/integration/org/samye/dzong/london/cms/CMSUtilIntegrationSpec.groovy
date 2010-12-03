@@ -30,10 +30,10 @@ import org.samye.dzong.london.community.*
 import org.apache.shiro.SecurityUtils
 
 /**
- * Integration test for Publishable
+ * Integration test for CMSUtil (situated under src/groovy). 
  *
  * @author Leanne Northrop
- * @since 16th November, 2010, 16:55
+ * @since  16th November, 2010, 16:55
  */
 class CMSUtilSpec extends IntegrationHelper {
     def user
@@ -55,6 +55,7 @@ class CMSUtilSpec extends IntegrationHelper {
 
     def 'viewDomains'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing view",true)
     
@@ -70,6 +71,7 @@ class CMSUtilSpec extends IntegrationHelper {
   
     def 'userUnpublished'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} userUnpublished",false)
         obj.author = user
@@ -88,6 +90,7 @@ class CMSUtilSpec extends IntegrationHelper {
   
     def 'userPublished'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} userPublished",true)
         obj.author = user
@@ -105,6 +108,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'userArchived'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} userArchived",true)
         obj.author = user
@@ -123,6 +127,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'userDeletedArticles'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} Deleted",true)
         obj.author = user
@@ -141,6 +146,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'unpublished'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} Unpublished",false)
         obj.save(flush:true)
@@ -158,6 +164,7 @@ class CMSUtilSpec extends IntegrationHelper {
   
     def 'published'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} Published",true)
         obj.save(flush:true)
@@ -174,6 +181,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'archived'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} Archived",true)
         obj.publishState = 'Archived'
@@ -191,6 +199,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'deleted'() {
         given:
+        println "Testing ${domain}..."
         prepare()
         def obj = this."new${domain}"("Testing ${domain} Deleted",true)
         obj.deleted = true

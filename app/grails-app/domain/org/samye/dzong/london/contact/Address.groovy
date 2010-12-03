@@ -24,6 +24,9 @@ package org.samye.dzong.london.contact
 
 /*
  * Contains single postal address details.
+ *
+ * @author Leanne Northrop
+ * @since  December 2009
  */
 class Address extends Contact {
     String placeName;

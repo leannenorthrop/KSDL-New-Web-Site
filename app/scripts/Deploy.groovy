@@ -1,3 +1,7 @@
+/*
+ * Script to generate distribution zip for remote deployment on to production
+ * box.
+ */
 includeTargets << grailsScript("Init")
 
 target(main: "Generate dist zip file and deploy to remote server") {
@@ -28,6 +32,7 @@ target(copy: "Copies zip to remote host") {
         password: props.'grails.host.pw')
 }
 
+/* Not in use yet but would be nice to have automated remote install. */
 target(install: "Run install script") {
     def props = ant.project.properties
     def host = "londonsamyedzong.org"

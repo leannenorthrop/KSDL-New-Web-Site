@@ -20,18 +20,20 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.news
 
 import org.samye.dzong.london.community.Article
 
+
 /*
- * Simple handler for displaying news content.
- * TODO: Add support for similar articles?
+ * News content url handler. Displays only public facing pages.
+ * TODO: Add support for similar articles
  * TODO: Add support for article not found
  * TODO: Add support for params to lists 
  *
  * @author Leanne Northrop
- * @since  Nov 2009
+ * @since  November 2009
  */
 class NewsController {
     def articleService
@@ -45,8 +47,8 @@ class NewsController {
         def archivedArticles = Article.archivedNewsArticles('datePublished', 'desc').list(max:8)
         def totalPublishedNewsArticles = articles.size()
         def totalArchived = Article.publishState('Archived').count()
-		def model = [ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles]
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles]
+        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)
     }
 
@@ -60,7 +62,7 @@ class NewsController {
 
     def view = {
         def model = articleService.view(params.id)
-		articleService.addHeadersAndKeywords(model,request,response)
+        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'view', model: model)
     }
 
@@ -72,11 +74,11 @@ class NewsController {
             title = 'news.archived.title'
         } else {
             articles = Article.newsArticles('datePublished', 'desc').list()
-		    title = 'news.current.title'
+            title = 'news.current.title'
         }
 
-		def model = [ news: articles, title: title]
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [ news: articles, title: title]
+        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 

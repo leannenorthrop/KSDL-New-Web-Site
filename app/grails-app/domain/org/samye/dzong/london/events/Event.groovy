@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.events
 
 import org.samye.dzong.london.media.Image
@@ -291,8 +292,8 @@ class Event extends Publishable implements Comparable {
         properties.add(new Location(venue.name));
 
         /*if (organizer) {
-            URI mailToURI = new URI("MAILTO", organizer.username, null);
-            properties.add(new Organizer(mailToURI));
+        URI mailToURI = new URI("MAILTO", organizer.username, null);
+        properties.add(new Organizer(mailToURI));
         }*/
 
         Uid id = ug.generateUid();

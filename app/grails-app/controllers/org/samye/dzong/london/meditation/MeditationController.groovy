@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.meditation
 
 import org.samye.dzong.london.events.Event
@@ -27,10 +28,17 @@ import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.site.Setting
 import org.samye.dzong.london.site.Link
 
+
+/*
+ * Meditation content url handler. Displays only public facing pages.
+ *
+ * @author Leanne Northrop
+ * @since  November 2009
+ */
 class MeditationController {
     def articleService
     def eventService
-	def flickrService
+    def flickrService
 
     def index = {
         redirect(action:home)
@@ -47,31 +55,31 @@ class MeditationController {
             log.error("Meditation controller encountered an error.",error)
         }
 
-		def album
-		try {
-		    def ss = Setting.meditationSlideshow().list()
-			album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
-		} catch(error) {
+        def album
+        try {
+            def ss = Setting.meditationSlideshow().list()
+            album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
+        } catch(error) {
 			
-		}
+        }
 
         def total = Article.allMeditationArticlesNotOrdered.count();
         def events = Event.meditation('featured','desc').list()
-		def model = [links:Link.findAllBySection("M"),album: album, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total]
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [links:Link.findAllBySection("M"),album: album, meditationArticles: meditationArticles, topArticles: topArticles,events:events,total:total]
+        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)
     }
 
     def all = {
         def articles = Article.allMeditationArticles('datePublished', 'desc').list()
-		def model = [ articles: articles, title: 'meditation.all.articles.title']
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [ articles: articles, title: 'meditation.all.articles.title']
+        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
-		articleService.addHeadersAndKeywords(model,request,response)
+        articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -88,21 +96,21 @@ class MeditationController {
         else {
             def id = params.id;
             def similar = eventService.findSimilar(event)
-			def model =  [event: event, id: id, similar:similar]
-			articleService.addHeadersAndKeywords(model,request,response)
+            def model =  [event: event, id: id, similar:similar]
+            articleService.addHeadersAndKeywords(model,request,response)
             model
         }
     }
 
     def events = {
         def model = eventService.list('M',params)
-		articleService.addHeadersAndKeywords(model,request,response)
+        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
     def slideshow = {
-	    def ss = Setting.meditationSlideshow().list()	
-		def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
+        def ss = Setting.meditationSlideshow().list()
+        def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         model: [album:album]
     }
 }

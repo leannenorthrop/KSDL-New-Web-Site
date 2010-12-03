@@ -14,7 +14,7 @@ class ImageControllerTests extends ControllerUnitTestCase {
         super.tearDown()
     }
 
-    void testIndexWithTagParams() {
+    /*void testIndexWithTagParams() {
         def images = []
         (0..11).each() { i ->
             images << new Image(name: "Image"+i)
@@ -29,7 +29,7 @@ class ImageControllerTests extends ControllerUnitTestCase {
         assertEquals 12, model['images'].size()
         assertEquals 12, model['total']
         imageControl.verify()
-    }
+    }*/
 
     void testIndexWithNoParams() {
         mockDomain(Image, [new Image(name:"Image1"), new Image(name:"Image2")])

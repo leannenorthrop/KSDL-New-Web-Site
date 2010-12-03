@@ -25,6 +25,9 @@ package org.samye.dzong.london.contact
 /*
  * Holds email contact information for a single email address.
  * Extends contact to allow for polymorphic handling.
+ *
+ * @author Leanne Northrop
+ * @since  January 2009
  */
 class Email extends Contact {
     String address;

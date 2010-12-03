@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.wellbeing
 
 import org.samye.dzong.london.community.Article
@@ -28,7 +29,7 @@ import org.samye.dzong.london.community.Teacher
 
 /*
  * Simple controller to display well-being content.
- * TODO: Add support for similar articles?
+ * TODO: Add support for similar articles
  * TODO: Add support for article not found
  * TODO: Add support for params to lists 
  *
@@ -50,21 +51,21 @@ class WellbeingController {
         def totalWellbeing = Article.allWellbeingArticlesNotOrdered().count()
         def events = Event.wellbeing('featured','desc').list()
         def therapists = Teacher.findAllByPublishStateAndType('Published', 'T',[sort: "name", order: "asc"])        
-		def model = [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events,therapists:therapists]
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events,therapists:therapists]
+        articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }
 
     def list = {
         def articles = Article.allWellbeingArticles('datePublished', 'desc').list()
-		def model = [ articles: articles, title: 'wellbeing.all.articles.title']
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [ articles: articles, title: 'wellbeing.all.articles.title']
+        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'list', model:model)
     }
 
     def view = {
         def model = articleService.view(params.id)
-		articleService.addHeadersAndKeywords(model,request,response)
+        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
@@ -79,7 +80,7 @@ class WellbeingController {
 
     def events = {
         def model = eventService.list('W',params)
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
     }
 }

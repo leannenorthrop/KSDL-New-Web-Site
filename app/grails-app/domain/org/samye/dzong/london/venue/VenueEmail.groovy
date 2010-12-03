@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.venue
 
 import org.samye.dzong.london.contact.*
@@ -27,11 +28,14 @@ import org.samye.dzong.london.contact.*
 /*
  * Venue email information for a single email address.
  * Extends Email to allow association details to separate concerns.
+ *
+ * @author Leanne Northrop
+ * @since January 2010
  */
 class VenueEmail extends Email {
     /* Non-persistent flag used to mark detached instances that should be deleted
      * on the next save. */
- 	boolean _deleted
+    boolean _deleted
 
     static transients = ['_deleted']	
     static belongsTo = Venue
