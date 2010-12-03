@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.events
 
 import org.joda.time.*
@@ -29,6 +30,9 @@ import org.joda.time.format.*
  * Event date iCalendar rule. Subclassed from ScheduleRule to support one to many 
  * association with Event (this class being on the many side). Transient _deleted 
  * property is only used to mark instances of this class that require deletion.
+ *
+ * @author Leanne Northrop
+ * @since  January 2009
  */
 class EventDate extends ScheduleRule {
 

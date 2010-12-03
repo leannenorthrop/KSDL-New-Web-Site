@@ -1,3 +1,8 @@
+/*
+ * Script to hook into Grails events. Although this should be handled by the
+ * dependencies section we remove additional jars from the war here prior to
+ * creating the archive file.
+ */
 eventCreateWarStart = { final warName, final dir ->
     println "Removing unrequired libraries and plugins"
     // mail-1.4 may be required if not already present in tomcat as

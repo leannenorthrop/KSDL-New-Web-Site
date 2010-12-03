@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.buddhism
 
 import org.samye.dzong.london.events.Event
@@ -29,10 +30,10 @@ import org.samye.dzong.london.community.Teacher
 import org.samye.dzong.london.site.Link
 
 /*
- * Buddhist content controller.
+ * Buddhist content url handler. Displays only public facing pages.
  *
  * @author Leanne Northrop
- * @since November 2009
+ * @since  November 2009
  */
 class BuddhismController {
     def articleService
@@ -51,29 +52,29 @@ class BuddhismController {
         def events = Event.buddhism('featured','desc').list()
         def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
 
-		def album = []
-		try {
-		    def ss = Setting.buddhistSlideshow().list()
-			album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
-		} catch(error) {
+        def album = []
+        try {
+            def ss = Setting.buddhistSlideshow().list()
+            album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
+        } catch(error) {
             log.error("Unable to fetch flickr album for slideshow link", error)		
-		}
+        }
 		
-		def model = [links:Link.findAllBySection("B"),album:album,topArticles: topArticles, articles: articles,total:total,events:events,teachers:lineageTeachers]
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [links:Link.findAllBySection("B"),album:album,topArticles: topArticles, articles: articles,total:total,events:events,teachers:lineageTeachers]
+        articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }
 
     def list = {
         def articles = Article.allBuddhismArticles('datePublished', 'desc').list()
-		def model = [ articles: articles, title: 'buddhism.all.articles.title']
-		articleService.addHeadersAndKeywords(model,request,response)
+        def model = [ articles: articles, title: 'buddhism.all.articles.title']
+        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
     def view = {
         def model = articleService.view(params.id)
-		articleService.addHeadersAndKeywords(model,request,response)
+        articleService.addHeadersAndKeywords(model,request,response)
         if (!model) {
             redirect(action:home)
         } else {
@@ -91,24 +92,24 @@ class BuddhismController {
             def id = params.id;
             def similar = eventService.findSimilar(event)
             def model = [event: event, id: id, similar:similar]
-			articleService.addHeadersAndKeywords(model,request,response)
-			model
+            articleService.addHeadersAndKeywords(model,request,response)
+            model
         }
     }
 
     def events = {
         def model = eventService.list('B',params)
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
     }
 
     def slideshow = {
-	    def ss = Setting.buddhistSlideshow().list()
-		def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
+        def ss = Setting.buddhistSlideshow().list()
+        def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
         [album:album]
     }
     
-	def teacher = {
+    def teacher = {
         def teacher = Teacher.get(params.id)
         if (!teacher) {
             // TODO: render 404
@@ -119,10 +120,10 @@ class BuddhismController {
             def aboutUsArticles = articleService.publishedByTags(['about us']);
             aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
             if (model['articles']) {
-                def articles = model['articles']
-                articles << aboutUsArticles
+            def articles = model['articles']
+            articles << aboutUsArticles
             } else {
-                model['articles'] = aboutUsArticles
+            model['articles'] = aboutUsArticles
             }*/
             def events = teacherService.events(params.id);
             def articles = []
@@ -130,8 +131,8 @@ class BuddhismController {
                 articles = articleService.publishedByTags(['about us']);
             }
             def model = [teacher: teacher, id: params.id, events:events, articles:articles]
-			articleService.addHeadersAndKeywords(model,request,response)
-			model
+            articleService.addHeadersAndKeywords(model,request,response)
+            model
         }		
-	}    
+    }
 }

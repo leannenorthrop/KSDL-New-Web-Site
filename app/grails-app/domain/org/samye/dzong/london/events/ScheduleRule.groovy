@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.events
 
 import org.joda.time.Period
@@ -37,6 +38,9 @@ import org.joda.time.*
 
 /*
  * Base class for specifying a rule for recurring dates.
+ *
+ * @author Leanne Northrop
+ * @since  January 2009
  */
 class ScheduleRule {
     java.util.Date startDate
@@ -238,21 +242,21 @@ class ScheduleRule {
                 onDay = true;
                 log.debug "${this} == ${date.format('dd MM yyyy')}? == ${onDay} because it's daily"
             } else {
-				if (startDate.equals(date)) {
-					onDay = true;
-				} else {
-	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate),
-                                                                       new net.fortuna.ical4j.model.Date(date))
-	                if (next) {
-	                    def nextDate = new java.util.Date(next.getTime())
+                if (startDate.equals(date)) {
+                    onDay = true;
+                } else {
+                    net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate),
+                        new net.fortuna.ical4j.model.Date(date))
+                    if (next) {
+                        def nextDate = new java.util.Date(next.getTime())
                         nextDate.clearTime()
-	                    onDay = date == nextDate
+                        onDay = date == nextDate
                         log.debug "${date.format('dd MM yyyy')} == ${nextDate.format('dd MM yyyy')} ? ${onDay}"
-	                } else {
+                    } else {
                         log.debug "${this} does not occur on ${date.format('dd MM yyyy')} because next is null"
-	                    onDay = false
-	                }
-				}
+                        onDay = false
+                    }
+                }
             }
         } else {
             onDay = startDate == date

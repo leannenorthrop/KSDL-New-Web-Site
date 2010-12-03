@@ -20,12 +20,23 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.site
 
 import  org.samye.dzong.london.community.Article
 import com.sun.syndication.feed.synd.SyndImageImpl
 import org.samye.dzong.london.media.Image
 
+/*
+ * RSS feed generator.
+ *
+ * @TODO Add Events to feeds
+ * @TODO Embed content Image
+ * @TODO DRY it up
+ *
+ * @author Leanne Northrop
+ * @since  December 2010
+ */
 class FeedController {
     def articleService
 
@@ -42,8 +53,8 @@ class FeedController {
                     link = createLink(controller:'news',action:'view',absolute:true,id:article.id)
                     author = article.author
                     publishedDate = article.datePublished
-					content(type:'text/html') {	
-						article.summary.encodeAsTextile()
+                    content(type:'text/html') {
+                        article.summary.encodeAsTextile()
                     }
                 }
             }

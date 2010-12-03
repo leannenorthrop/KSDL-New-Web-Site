@@ -32,6 +32,9 @@ import org.samye.dzong.london.media.Image
  * order by properly in grails 1.2.0.
  * TODO: Test
  * TODO: Change tostring to lookup title.
+ *
+ * @author Leanne Northrop
+ * @since  January 2009
  */
 class Teacher extends Publishable {
     String name;

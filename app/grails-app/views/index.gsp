@@ -6,7 +6,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <p>
+      <h1>Not used. See views/layouts/main + views/home/index for site's Index page.</h1>
+        <p>         
             Playing around with Grails framework to see how much can be done. Will look very basic as this is concentrating on functionality and facilities to support content creation over design. Features to look at real soon:
             <ol>
                 <li>textile markup</li>

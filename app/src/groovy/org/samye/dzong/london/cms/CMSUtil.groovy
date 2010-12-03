@@ -26,6 +26,14 @@ package org.samye.dzong.london.cms
 import org.apache.shiro.SecurityUtils
 import org.samye.dzong.london.users.ShiroUser
 
+/**
+ * Helper class to inject CMS management methods into a given controller 
+ * class. Most methods rely on the given controller class to be extended
+ * from CMSController.
+ * 
+ * @author Leanne Northrop
+ * @since  16th November 2010
+ */
 class CMSUtil {
     private static int MIN = 30
     private static int MAX = 200

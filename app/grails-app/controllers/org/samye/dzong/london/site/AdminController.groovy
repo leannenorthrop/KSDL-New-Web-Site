@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.site
 
 import org.samye.dzong.london.users.*
@@ -27,6 +28,13 @@ import org.samye.dzong.london.contact.EmailService
 import org.apache.shiro.SecurityUtils
 import org.samye.dzong.london.site.Setting
 
+/*
+ * CMS area admin url handler.
+ * @TODO merge into either ManageSite or Auth controller.
+ *
+ * @author Leanne Northrop
+ * @since  December 2010
+ */
 class AdminController {
     def emailService
     def messageSource

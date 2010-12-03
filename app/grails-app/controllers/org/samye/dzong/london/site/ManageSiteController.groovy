@@ -20,10 +20,19 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.site
 
 import org.samye.dzong.london.users.*
 
+/*
+ * CMS area landing url handler. Would like to make it user specific to display
+ * number of new articles, etc as well as tailoring welcome help text according
+ * to user's roles.
+ *
+ * @author Leanne Northrop
+ * @since  October 2010
+ */
 class ManageSiteController {
 
     def index = {

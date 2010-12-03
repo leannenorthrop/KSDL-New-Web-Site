@@ -23,7 +23,18 @@
 
 package org.samye.dzong.london.media
 
-
+/*
+ * CMS content management url handler for managing all site images.
+ * Displays both content management pages under the Image navigation
+ * menu within the CMS area, and provides url endpoints for src and
+ * thumbnail display.
+ *
+ * TODO: Complete internationalization.
+ * TODO: DRY it up.
+ *
+ * @author Leanne Northrop
+ * @since  October, 2009
+ */
 class ImageController {
     def imageService
 
@@ -41,27 +52,27 @@ class ImageController {
             log.warn "no image ${params.id}"
             response.outputStream << ""
         } else {
-			try {
-				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time ||
-				    request.getHeader("If-None-Match") == "W/\"${imageInstance.version}\"") {
-					response.setStatus(304)
-					response.flushBuffer()
-					return
-				}				
-				response.setContentType(imageInstance.mimeType)
-				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
-				def now = new Date()
-				now = now + 7
-				response.setDateHeader('Expires', now.time)				
-				response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")			
-				response.setHeader("ETag", "W/\"${imageInstance.version}\"")
-	 			byte[] image = imageInstance.image
-				response.setContentLength(image.size())			
-				response.outputStream << image
-			} catch(error) {
-			    log.error error
-				response.outputStream << ""
-			}
+            try {
+                if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time ||
+                    request.getHeader("If-None-Match") == "W/\"${imageInstance.version}\"") {
+                    response.setStatus(304)
+                    response.flushBuffer()
+                    return
+                }
+                response.setContentType(imageInstance.mimeType)
+                response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
+                def now = new Date()
+                now = now + 7
+                response.setDateHeader('Expires', now.time)
+                response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
+                response.setHeader("ETag", "W/\"${imageInstance.version}\"")
+                byte[] image = imageInstance.image
+                response.setContentLength(image.size())
+                response.outputStream << image
+            } catch(error) {
+                log.error error
+                response.outputStream << ""
+            }
         }
     }
 
@@ -77,32 +88,32 @@ class ImageController {
             response.outputStream << ""
         }
         else {
-			try {
-				if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time ||
-				    request.getHeader("If-None-Match") == "W/\"${imageInstance.version}\"") {
-					response.setStatus(304)
-					response.flushBuffer()
-					return					
-				}				
+            try {
+                if (request.getDateHeader("If-Modified-Since") >= imageInstance.lastUpdated.time ||
+                    request.getHeader("If-None-Match") == "W/\"${imageInstance.version}\"") {
+                    response.setStatus(304)
+                    response.flushBuffer()
+                    return
+                }
                 def mimeType = imageInstance.mimeType.toLowerCase()
                 if (mimeType.contains("svg")) {				
-				    response.setContentType(imageInstance.mimeType)
-			    } else {
-			        response.setContentType('image/jpeg')
-			    }
-				response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
-				def now = new Date()
-				now = now + 7
-				response.setDateHeader('Expires', now.time)				
-				response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")			
-				response.setHeader("ETag", "W/\"${imageInstance.version}\"")
-				def thumbnail = imageInstance.thumbnail
-				response.setContentLength(thumbnail.size())			
-				response.outputStream << thumbnail
-			} catch(error) {
-			    log.error error			    
-				response.outputStream << ""
-			}
+                    response.setContentType(imageInstance.mimeType)
+                } else {
+                    response.setContentType('image/jpeg')
+                }
+                response.setDateHeader('Last-Modified', imageInstance.lastUpdated.time)
+                def now = new Date()
+                now = now + 7
+                response.setDateHeader('Expires', now.time)
+                response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
+                response.setHeader("ETag", "W/\"${imageInstance.version}\"")
+                def thumbnail = imageInstance.thumbnail
+                response.setContentLength(thumbnail.size())
+                response.outputStream << thumbnail
+            } catch(error) {
+                log.error error
+                response.outputStream << ""
+            }
         }
     }
 
@@ -200,7 +211,7 @@ class ImageController {
                         imageInstance.save()                         
                     }
                 } catch(error) {
-			        log.error error                    
+                    log.error error
                 }            
             } 
         } 
@@ -259,7 +270,7 @@ class ImageController {
         else {
             flash.message = "Image not found with id ${params.id}"
             flash.args = [params.name]
-			flash.isError = true
+            flash.isError = true
             redirect(action:manage)
         }
     }
@@ -306,13 +317,13 @@ class ImageController {
                 imageInstance.parseTags(params.tags)
             }
             flash.message = "Image ${imageInstance.name} created"
-			flash.args = [imageInstance]
+            flash.args = [imageInstance]
             redirect(action:manage, params:[offset:0,max:50])
         }
         else {
             flash.message = "Image can not be saved"
             flash.args = [imageInstance]
-			flash.isError = true	
+            flash.isError = true
             render(view:'create',model:[imageInstance:imageInstance])
         }
     }

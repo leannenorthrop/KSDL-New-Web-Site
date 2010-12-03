@@ -7,13 +7,16 @@ body {
 }
 
 a {
-   color: #323232;
+   color: #7a6a53;
+   text-decoration: underline;
+   outline: none;   
 }
+
 a:visited {
-    color: #111;
+    color: #7a6a53;
 }
-a:hover {
-   color:#6d0101; 
+a:hover,a:active {
+   color:#948c75; 
 }
 
 #site_msg {
@@ -35,24 +38,14 @@ hr
 }
 
 body {
-	border-top: 5px solid #ffcb2d;
-	/*background: rgb(194, 58, 55) url(body_bkgrndcopy.jpg) repeat;*/
-	background: rgb(250, 237, 200) url(images/background-tile.png) repeat-x right top;
-}
-
-.container_16,
-.container_12 {
-    background: rgb(251, 245, 208);
-	background: rgba(251, 245, 208, 0.2);
-	background: -webkit-gradient(linear, left 154, left bottom, color-stop(0.0, rgba(255,255,255,0)),
-	                color-stop(0.15, rgba(251, 245, 208, 0.5)), color-stop(1.0, rgba(251, 245, 208, 0.35)));
+	background: white;
 }
 
 /* ----------------------------------------------------------------------------
     Banner 
 ---------------------------------------------------------------------------- */
 body {
-    border-top: 7px solid #ff9933;
+    border-top: 7px solid #991212;
 }
 div.banner h1 {
     color: white;
@@ -63,11 +56,11 @@ div.banner h2 {
 }
 
 #watermark1 {
-    background: #9c381e;
+    background: #991212;
 }
 #watermark2 {
-    background: #9b2728;
-    background: #9b2728 url(images/bannerbg.png) no-repeat top right;
+    background: #991212;
+    background: #991212 url(images/bannerbg.png) no-repeat top right;
     filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=0);
     -webkit-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);	
     -moz-box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.4);		
@@ -78,7 +71,7 @@ div.banner h2 {
     Footer
 ---------------------------------------------------------------------------- */
 #footer {
-    background: #9c381e url(images/motif.png) no-repeat bottom right;
+    background: #991212 url(images/motif.png) no-repeat bottom right;
 }
 
 #footer .contact .address {
@@ -109,10 +102,8 @@ div.banner h2 {
     Navigation
 ---------------------------------------------------------------------------- */
 div.container_16 div.banner + div.clear + div {
-	border-top: 1px solid #ff9933;
-	color: #ffd14f;
-	background: #9c381e;	
-	background: rgb(154, 36, 11);
+	color: #ab8e67;
+	background: #8a1a02;	
 	filter: progid:DXImageTransform.Microsoft.Shadow(color=#6d0101, strength=5px,direction=180);
 	-webkit-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);	
 	-moz-box-shadow: 0px 3px 5px rgba(109, 1, 1, 0.4);		
@@ -120,7 +111,7 @@ div.container_16 div.banner + div.clear + div {
 }
 
 .nav ul li a {
-    color: #ffd14f;	    
+    color: #e8ddcb;	    
     -webkit-transition:background-color,color 0.5s ease-in;  
     -moz-transition:background-color,color 0.5s ease-in;  
     -o-transition:background-color,color 0.5s ease-in;  
@@ -144,14 +135,14 @@ div.container_16 div.banner + div.clear + div {
     Content
 ---------------------------------------------------------------------------- */
 hr {
-	border-color: #d1c5a4;
+	border-color: rgb(148, 140, 117);
 }
 h2#page-heading {
-    color: rgb(192, 80, 30);
-    border-bottom:1px solid rgb(235, 155, 30);
-    border-bottom:1px solid rgba(235, 155, 30,0.8); 
-    text-shadow: rgb(255, 184, 45) 0 0 20px;
-    text-shadow: rgba(255, 184, 45,0.7) 0 0 20px;                                    
+    color: #7a6a53;
+    border-bottom:1px solid rgb(148, 140, 117);
+    border-bottom:1px solid rgba(148, 140, 117,0.8); 
+    text-shadow: rgb(148, 140, 117) 0 0 20px;
+    text-shadow: rgba(148, 140, 117,0.7) 0 0 20px;                                    
 }
 
 p.meta {
@@ -166,34 +157,46 @@ p.meta {
 	border-top:1px solid #CCCCCC;
 }
 .article h2, .event h2 {
-	color:#8b1b00;
+	color:#7a6a53;
 	background:transparent;
 }
 
-/* About Us
------------------------------------------------------------------------------*/
+.slideshowlink, 
+.slideshowlink h5,
+.slideshowlink h6  {
+    background: transparent !important;
+    color: #7a6a53 !important;
+}
+
+h1, h2, h3 {
+    color: #7a6a53;
+} 
+h4, h5, h6, h7,.meta {
+
+    color: #948c75;    
+}
 
 /* ----------------------------------------------------------------------------
     Lists
 ---------------------------------------------------------------------------- */
 ul.menu {
-    border-top: 1px solid #4a5eb2;
+    border-top: 1px solid #99b2b7;
 }
 
 ul.menu li a {
-    border-bottom: 1px solid #95bdde;
-    color:#094e7b;    
+    border-bottom: 1px solid #d5ded9;
+    color:#7a6a53;    
 }
 
 
 ul.menu li a:hover {
-    background: rgb(195, 221, 242);
-    background: rgba(195, 221, 242,0.8);    
-    color:#094e7b;
+    background: rgb(217, 206, 178);
+    background: rgba(217, 206, 178,0.8);    
+    color:#7a6a53;
 }
 
 ul.menu li a:active {
-    color:#094e7b;    
+    color:#7a6a53;    
     background: #95bdde;
 }
 
@@ -240,13 +243,6 @@ table.fc-header tbody td, {
 a.from-external-source,
 a.from-external-source:visited {
     color: #888888;
-}
-
-/* Default anchor hover/focus */
-a:hover, a:focus {
-/*    color: #123E60; */
-   text-decoration: underline;
-   outline: none;
 }
 
 /* Knockout anchor hover/focus */

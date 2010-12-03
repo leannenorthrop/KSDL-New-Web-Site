@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.codec.textile
 
 import org.samye.dzong.london.codec.textile.HtmlDocumentBuilder
@@ -51,12 +52,12 @@ class TextileCodec {
                 def defaultUrlCreator = new DefaultUrlCreator(key, "src")
                 urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")
             } else if (key.equals("room")||key.equals("venue")||key.equals("contactUs")||key.equals("visiting")||key.equals("teacher")||key.equals("about")) {
-				def defaultUrlCreator = new DefaultUrlCreator("aboutUs", key == "about" ? "information" : key)
+                def defaultUrlCreator = new DefaultUrlCreator("aboutUs", key == "about" ? "information" : key)
                 urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")	
-			} else if (key.equals("video")||key.equals("file")) {
+            } else if (key.equals("video")||key.equals("file")) {
                 def defaultUrlCreator = new DefaultUrlCreator("file", "src")
                 urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")	
-			} else {
+            } else {
                 def defaultUrlCreator = new DefaultUrlCreator(key, "view")
                 urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")
             }

@@ -26,6 +26,9 @@ package org.samye.dzong.london.contact
  * Base class for holding a single telephone number.
  * It is expected to be subclassed to allow associations to be set
  * and cascaded.
+ *
+ * @author Leanne Northrop
+ * @since  January 2009
  */
 class Telephone extends Contact {
     String number;

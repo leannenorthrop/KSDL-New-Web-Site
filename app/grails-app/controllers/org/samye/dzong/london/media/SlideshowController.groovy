@@ -27,73 +27,80 @@ import  org.samye.dzong.london.media.UpdateFlickrCacheJob
 import  org.samye.dzong.london.media.FlickrService
 import org.samye.dzong.london.site.Setting
 
+/*
+ * CMS content management url handler for managing Flickr slideshows.
+ * Simply manages album data generated within FlickrService class.
+ *
+ * @author Leanne Northrop
+ * @since  June, 2010
+ */
 class SlideshowController {
-	def flickrService
+    def flickrService
 	
     def manage = { 
-		def userId = ""
-		def flickrUserSetting = Setting.findByName('FlickrUserId')
-		if (!flickrUserSetting) {
-			userId = '66103625@N00'
-			flickrUserSetting = new Setting(name: 'FlickrUserId', value: userId)
-			flickrUserSetting.save()
-		} else {
-			userId = flickrUserSetting.value
-		}
+        def userId = ""
+        def flickrUserSetting = Setting.findByName('FlickrUserId')
+        if (!flickrUserSetting) {
+            userId = '66103625@N00'
+            flickrUserSetting = new Setting(name: 'FlickrUserId', value: userId)
+            flickrUserSetting.save()
+        } else {
+            userId = flickrUserSetting.value
+        }
 			
-		if (!flash.message) {
-		    flash.message = 'manage.slideshow.help'
-	    }
-		def albums = flickrService.getPhotosets(userId)
-		render(view: 'manage', model:[albums:albums])
-	}
+        if (!flash.message) {
+            flash.message = 'manage.slideshow.help'
+        }
+        def albums = flickrService.getPhotosets(userId)
+        render(view: 'manage', model:[albums:albums])
+    }
 
     def updateCache = {
-		if (!flash.message) {
-		    flash.message = 'manage.slideshow.update'
-	    }
+        if (!flash.message) {
+            flash.message = 'manage.slideshow.update'
+        }
         UpdateFlickrCacheJob.triggerNow([:])
         redirect(action: manage)
     }
 
-	def frob = {
-		log.error "flicker called me with " + params.frob
-		def flickrFrobSetting = Setting.findByName('FlickrFrob')
-		if (!flickrFrobSetting) {
-			flickrFrobSetting = new Setting(name: 'FlickrFrob', value: params.frob)	
-		} 	
-		flickrFrobSetting.value = params.frob	
-		flickrFrobSetting.save()
-	}
+    def frob = {
+        log.error "flicker called me with " + params.frob
+        def flickrFrobSetting = Setting.findByName('FlickrFrob')
+        if (!flickrFrobSetting) {
+            flickrFrobSetting = new Setting(name: 'FlickrFrob', value: params.frob)
+        }
+        flickrFrobSetting.value = params.frob
+        flickrFrobSetting.save()
+    }
 	
-	def edit = {
-		try {
-			def photoset = flickrService.getPhotoset(params.id)
-			[album:photoset,id:params.id]
-		} catch (error) {
-			log.error "Unable to edit slide show settings", error
-		}
-	}	
+    def edit = {
+        try {
+            def photoset = flickrService.getPhotoset(params.id)
+            [album:photoset,id:params.id]
+        } catch (error) {
+            log.error "Unable to edit slide show settings", error
+        }
+    }
 	
-	def save = {
-		try {
-			def setting = Setting.findByName(params.location)
-			if (!setting) {
-				setting = new Setting(name: params.location, value: params.id)
-			} else {
-				setting.value = params.id
-			}
-			log.warn "params.location= " + params.location + " " + setting
+    def save = {
+        try {
+            def setting = Setting.findByName(params.location)
+            if (!setting) {
+                setting = new Setting(name: params.location, value: params.id)
+            } else {
+                setting.value = params.id
+            }
+            log.warn "params.location= " + params.location + " " + setting
 			
-			if (!setting.hasErrors() && setting.save()) {
-	            flash.message = "Slide show settings saved."
-	            redirect(controller: 'slideshow', action: 'manage')
-	        }
-	        else {
-	            redirect(action: "edit", id: params.id)
-	        }
-		} catch (error) {
-			log.error "Unable to save slide show settings", error
-		}
-	}	
+            if (!setting.hasErrors() && setting.save()) {
+                flash.message = "Slide show settings saved."
+                redirect(controller: 'slideshow', action: 'manage')
+            }
+            else {
+                redirect(action: "edit", id: params.id)
+            }
+        } catch (error) {
+            log.error "Unable to save slide show settings", error
+        }
+    }
 }

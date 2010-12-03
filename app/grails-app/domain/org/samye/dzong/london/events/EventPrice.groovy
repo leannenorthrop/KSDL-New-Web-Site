@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.events
 
 import org.samye.dzong.london.shop.Price
@@ -30,6 +31,9 @@ import java.text.NumberFormat
  * Event (this class being on the many side). Requires access to message source
  * to display prices correctly. Transient _deleted property is only used to 
  * mark instances of this class that require deletion.
+ *
+ * @author Leanne Northrop
+ * @since  January 2009
  */
 class EventPrice extends Price {
     def messageSource

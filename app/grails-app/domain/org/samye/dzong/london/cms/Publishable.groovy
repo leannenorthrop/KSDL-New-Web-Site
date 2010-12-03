@@ -44,6 +44,9 @@ import org.samye.dzong.london.users.ShiroUser
  * <li>B - Buddhism</li>
  * <li>T - Teachers</li>
  * </ol>
+ *
+ * @author Leanne Northrop
+ * @since  December 2009
  */
 class Publishable implements Taggable, Commentable  {
     String publishState

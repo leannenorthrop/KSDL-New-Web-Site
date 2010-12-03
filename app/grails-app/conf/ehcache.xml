@@ -3,6 +3,9 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="ehcache.xsd" >
 
+    <!-- Change this path if more than one web application is
+         deployed with ehcaching enabled as they will trod on
+         one another. -->
     <diskStore path="java.io.tmpdir"/>
 
     <defaultCache
@@ -14,6 +17,7 @@
             timeToIdleSeconds="300"            
             />
 
+    <!-- Flickr Slideshow album data cache -->
     <cache name="Slideshow"
            maxElementsInMemory="10000"
            timeToIdleSeconds="10800"
@@ -24,6 +28,7 @@
            timeToIdleSeconds="900"
             />
 
+    <!-- SQL statement/queries cache -->
     <cache name="org.hibernate.cache.StandardQueryCache"
            maxElementsInMemory="10000"
            timeToIdleSeconds="900"

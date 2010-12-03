@@ -1,0 +1,757 @@
+/*******************************************************************************
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ ******************************************************************************/
+
+hr
+{
+	border-color: #d1c5a4;
+}
+
+body {
+	border-top: 5px solid #524a41;
+	color: #665d51;
+}
+
+a {
+	color: #524a41;
+}
+a:hover {
+	color:#333;
+}
+
+h1#branding {
+	background:#f5f3e6;
+}
+
+h2#page-heading {
+	border-bottom:1px solid #d1c5a4;
+}
+
+.box {
+	background:#eee8d7;
+}
+
+.box h2 {
+	color:#fff;
+	background:#333;
+}
+
+.box h2 a,
+.box h2 a.visible {
+	color:#fff;
+	background:#333 url("../img/switch_minus.gif") 97% 50% no-repeat;
+}
+
+.box h2 a:hover {
+	background-color:#111;
+}
+
+blockquote {
+	border-left:4px solid #d1c5a4;
+}
+ul.section li a {
+	background:#bbb;
+}
+ul.section li a:hover {
+	background:#a79e83;
+}
+ul.section li a:active {
+	color:#fff;
+	background:#666;
+}
+ul.section li li a {
+	background:#d1c5a4;
+	border-bottom:1px solid #eee;
+}
+ul.section li li a:hover {
+	background:#d1c5a4;
+}
+ul.section li li a:active {
+	color:#524a41;
+	background:#fff;
+}
+ul.section ul li {
+	text-transform:none;
+}
+ul.section ul.current li a {
+	background:#eee;
+	border-bottom:1px solid #fff;
+}
+ul.section ul.current li a:hover {
+	background:#d1c5a4;
+}
+ul.section ul.current li a:active {
+	background:#fff;
+}
+ul.section li a.current {
+	color:#fff;
+	background:#666;
+}
+ul.section li a.current:hover {
+	background:#555;
+}
+ul.section li a.current:active {
+	background:#444;
+}
+ul.section li a.active {
+	background:#fff;
+}
+ul.section li.current > a.active,
+ul.section li.current > a.active:hover {
+	color:#fff;
+	background:#666;
+}
+
+table {
+	border:1px solid #bbb;
+}
+thead th {
+	border-bottom:2px solid #888;
+	background:#bbb;
+}
+thead th.table-head {
+	color:#fff;
+	background:#555;
+	border:1px solid #555;
+}
+tbody th,
+tbody td {
+	border-top:1px solid #bbb;
+	border-bottom:1px solid #bbb;
+	background:#eee;
+}
+tbody tr.odd th,
+tbody tr.odd td {
+	background:#fff;
+}
+tfoot th,
+tfoot td {
+	border-top:2px solid #666;
+	background:#eee;
+}
+tfoot tr.total th,
+tfoot tr.total td {
+	border-top:6px double #666;
+}
+fieldset {
+	border:1px solid #bbb;
+	background:#e9e9e9;
+}
+legend {
+	background:#fff;
+	border:1px solid #bbb;
+}
+/*
+.article {
+	border-top:1px solid #666;
+}*/
+.box .article, .box .event {
+	border-top:3px solid #fff;
+}
+.article h2, .event h2 {
+	color:#333;
+	background:transparent;
+}
+
+.article a.image, .event a.image {
+	border:1px solid #bbb;
+	background:#fff;
+}
+.article a.image:hover, .event a.image:hover {
+	border:1px solid #666;
+}
+.article p.meta, .event p.meta {
+	color:#666;
+	border-top:1px dotted #999;
+	border-bottom:1px dotted #999;
+}
+
+/* site information
+----------------------------------------------- */
+#site_info .box {
+	color:#d1c5a4;
+	background:#666;
+}
+#site_info a {
+	color:#fff;
+}
+#site_info a:hover {
+	color:#524a41;
+}
+
+/* Navigation
+----------------------------------------------- */
+body.home .nav ul,body.home #site_info .box {
+    background: #850007;
+}
+
+body.home .nav ul li, .nav ul li a{
+    color: #fff;
+    background: #850007;
+}
+
+body.home .nav ul li:hover a,
+body.home .nav ul li a:hover,
+body.home .nav ul li a:focus {
+    color: #fff;
+    background: #b64447;
+}
+
+body.home .nav ul li a:active,
+body.home .nav ul li.current a {
+    color: #fff;
+    background: #b64447;
+}
+
+body.aboutUs .nav ul,body.aboutUs #site_info .box {
+    background: #ffb16b;
+}
+
+body.aboutUs .nav ul li, body.aboutUs .nav ul li a{
+    color: #fff;
+    background: #ffb16b;
+}
+
+body.aboutUs .nav ul li:hover a,
+body.aboutUs .nav ul li a:hover,
+body.aboutUs .nav ul li a:focus {
+    color: #fff;
+    background: #ff9b40;
+}
+
+body.aboutUs .nav ul li a:active,
+body.aboutUs .nav ul li.current a {
+    color: #850007;
+    background: #ff9b40;
+}
+
+body.news .nav ul,body.news #site_info .box {
+    background: #5b878f;
+}
+
+body.news .nav ul li, body.news .nav ul li a{
+    color: #fff;
+    background: #5b878f;
+}
+
+body.news .nav ul li:hover a,
+body.news .nav ul li a:hover,
+body.news .nav ul li a:focus {
+    color: #fff;
+    background: #9bbac3;
+}
+
+body.news .nav ul li a:active,
+body.news .nav ul li.current a {
+    color: #375156;
+    background: #9bbac3;
+}
+
+body.event .nav ul,body.event #site_info .box {
+    background: #9b3a78;
+}
+
+body.event .nav ul li, body.event .nav ul li a{
+    color: #fff;
+    background: #9b3a78;
+}
+
+body.event .nav ul li:hover a,
+body.event .nav ul li a:hover,
+body.event .nav ul li a:focus {
+    color: #fff;
+    background: #b4679c;
+}
+
+body.event .nav ul li a:active,
+body.event .nav ul li.current a {
+    color: #3b4520;
+    background: #b4679c;
+}
+
+body.meditation .nav ul,body.meditation #site_info .box {
+    background: #967d9a;
+}
+
+body.meditation .nav ul li, body.meditation .nav ul li a{
+    color: #fff;
+    background: #967d9a;
+}
+
+body.meditation .nav ul li:hover a,
+body.meditation .nav ul li a:hover,
+body.meditation .nav ul li a:focus {
+    color: #fff;
+    background: #b0a8bf;
+}
+
+body.meditation .nav ul li a:active,
+body.meditation .nav ul li.current a {
+    color: #6a4c71;
+    background: #b0a8bf;
+}
+body.buddhism .nav ul,body.buddhism #site_info .box {
+    background: #eab14d;
+}
+
+body.buddhism .nav ul li, body.buddhism .nav ul li a{
+    color: #fff;
+    background: #eab14d;
+}
+
+body.buddhism .nav ul li:hover a,
+body.buddhism .nav ul li a:hover,
+body.buddhism .nav ul li a:focus {
+    color: #665d51;
+    background: #f3c345;
+}
+
+body.buddhism .nav ul li a:active,
+body.buddhism .nav ul li.current a {
+    color: #665d51;
+    background: #f3c345;
+}
+
+body.wellbeing .nav ul, body.wellbeing #site_info .box {
+    background: #637235;
+}
+
+body.wellbeing .nav ul li, body.wellbeing .nav ul li a{
+    color: #fff;
+    background: #637235;
+}
+
+body.wellbeing .nav ul li:hover a,
+body.wellbeing .nav ul li a:hover,
+body.wellbeing .nav ul li a:focus {
+    color: #fff;
+    background: #8e9c6d;
+}
+
+body.wellbeing .nav ul li a:active,
+body.wellbeing .nav ul li.current a {
+    color: #3b4520;
+    background: #8e9c6d;
+}
+body.community .nav ul,body.community #site_info .box {
+    background: #3d598f;
+}
+
+body.community .nav ul li, body.community .nav ul li a{
+    color: #fff;
+    background: #3d598f;
+}
+
+body.community .nav ul li:hover a,
+body.community .nav ul li a:hover,
+body.community .nav ul li a:focus {
+    color: #fff;
+    background: #8497c3;
+}
+
+body.community .nav ul li a:active,
+body.community .nav ul li.current a {
+    color: #3b4520;
+    background: #8497c3;
+}
+
+/* Well Being Pages
+----------------------------------------------- */
+body.wellbeing #page-heading {
+    color: #637235;
+    border-bottom:1px solid #8e9c6d;
+}
+
+body.wellbeing .box h2 {
+    background:#3b4520;
+    color:#e7e6a4;
+}
+
+body.wellbeing .box.article h2 {
+	color:#8e9c6d;
+    background: transparent;
+}
+
+body.wellbeing .box .article, body.wellbeing .box .event {
+	border-top:1px solid #3b4520;
+}
+
+body.wellbeing .article h2, body.wellbeing .event h2 {
+	color:#3b4520;
+}
+
+body.wellbeing .article p.meta, body.wellbeing .event p.meta, .event.W p.meta {
+	color:#3b4520;
+	border-top:1px dotted #8e9c6d;
+	border-bottom:1px dotted #8e9c6d;
+}
+
+.events li.W h3, .events li.W h3 a, .articles li.W h3, .articles li.W h3 a {
+	color:#3b4520;
+}
+.events li.W h3 a:hover,.articles li.W h3 a:hover {
+	color:#8e9c6d;
+}
+
+.event .W h4,
+.article .W h4,
+.event .W h3,
+.article .W h3,
+.event .W h5,
+.article .W h5,
+.event .W h6,
+.article .W h6,
+.events li.W h4,
+.articles li.W h4,
+.events li.W h5,
+.articles li.W h5,
+.events li.W h6,
+.articles li.W h6 {
+	color:#8e9c6d;
+}
+body.wellbeing .box .first, body.wellbeing .block .first, body.wellbeing .block li.first {
+    border-top: none;
+}
+
+/* Buddhism Pages
+----------------------------------------------- */
+body.buddhism #page-heading {
+    color: #eab14d;
+    border-bottom:1px solid #f9dc87;
+}
+
+body.buddhism .box h2 {
+    background:#eab14d;
+    color:#6a0005;
+}
+
+body.buddhism .box.article h2 {
+	color:#eab14d;
+    background: transparent;
+}
+
+body.buddhism .box .article, body.buddhism .box .event {
+	border-top:1px solid #3b4520;
+}
+
+body.buddhism .article h2, body.buddhism .event h2 {
+	color:#3b4520;
+}
+
+body.buddhism .article p.meta, body.buddhism .event p.meta, .event.B p.meta {
+	color:#cc7943;
+	border-top:1px dotted #cc8a43;
+	border-bottom:1px dotted #cc8a43;
+}
+
+.events li.B h3, .events li.B h3 a, .articles li.B h3, .articles li.B h3 a {
+	color:#cc8a43;
+}
+.events li.B h3 a:hover,.articles li.B h3 a:hover {
+	color:#eab14d;
+}
+
+.event .B h4,
+.article .B h4,
+.event .B h3,
+.article .B h3,
+.event .B h5,
+.article .B h5,
+.event .B h6,
+.article .B h6,
+.events li.B h4,
+.articles li.B h4,
+.events li.B h5,
+.articles li.B h5,
+.events li.B h6,
+.articles li.B h6 {
+	color:#eab14d;
+}
+body.buddhism .box .first, body.buddhism .block .first, body.buddhism .block li.first {
+    border-top: none;
+}
+
+/* Community Pages
+----------------------------------------------- */
+body.community #page-heading {
+    color: #3d598f;
+    border-bottom:1px solid #8497c3;
+}
+
+body.community .box h2 {
+    background:#3d598f;
+    color:#eee8d7;
+}
+
+body.community .box.article h2 {
+	color:#3d598f;
+    background: transparent;
+}
+
+body.community .box .article, body.community .box .event {
+	border-top:1px solid #3d598f;
+}
+
+body.community .article h2, body.community .event h2 {
+	color:#3d598f;
+}
+
+body.community .article p.meta, body.community .event p.meta, .event.C p.meta {
+	color:#3d598f;
+	border-top:1px dotted #8497c3;
+	border-bottom:1px dotted #8497c3;
+}
+
+.events li.C h3, .events li.C h3 a, .articles li.C h3, .articles li.C h3 a {
+	color:#8497c3;
+}
+.events li.C h3 a:hover,.articles li.C h3 a:hover {
+	color:#99bdd3;
+}
+
+.event .C h4,
+.article .C h4,
+.event .C h3,
+.article .C h3,
+.event .C h5,
+.article .C h5,
+.event .C h6,
+.article .C h6,
+.events li.C h4,
+.articles li.C h4,
+.events li.C h5,
+.articles li.C h5,
+.events li.C h6,
+.articles li.C h6 {
+	color:#99bdd3;
+}
+body.community .box .first, body.community .block .first, body.community .block li.first {
+    border-top: none;
+}
+/* Meditation Pages
+----------------------------------------------- */
+body.meditation #page-heading {
+    color: #967d9a;
+    border-bottom:1px solid #b0a8bf;
+}
+
+body.meditation .box h2 {
+    background:#6a4c71;
+    color:#eee8d7;
+}
+
+body.meditation .box.article h2 {
+	color:#6a4c71;
+    background: transparent;
+}
+
+body.meditation .box .article, body.meditation .box .event {
+	border-top:1px solid #6a4c71;
+}
+
+body.meditation .article h2, body.meditation .event h2 {
+	color:#967d9a;
+}
+
+body.meditation .article p.meta, body.meditation .event p.meta, .event.M p.meta {
+	color:#967d9a;
+	border-top:1px dotted #6a4c71;
+	border-bottom:1px dotted #6a4c71;
+}
+
+.events li.M h3, .events li.M h3 a, .articles li.M h3, .articles li.M h3 a {
+	color:#6a4c71;
+}
+.events li.M h3 a:hover,.articles li.M h3 a:hover {
+	color:#b0a8bf;
+}
+
+.event .M h4,
+.article .M h4,
+.event .M h3,
+.article .M h3,
+.event .M h5,
+.article .M h5,
+.event .M h6,
+.article .M h6,
+.events li.M h4,
+.articles li.M h4,
+.events li.M h5,
+.articles li.M h5,
+.events li.M h6,
+.articles li.M h6 {
+	color:#b0a8bf;
+}
+body.meditation .box .first, body.meditation .block .first, body.meditation .block li.first {
+    border-top: none;
+}
+/* About Us Pages
+----------------------------------------------- */
+body.aboutUs #page-heading {
+    color: #ff9b40;
+    border-bottom:1px solid #ffb16b;
+}
+
+body.aboutUs .box h2 {
+    background:#ffb16b;
+    color:#850007;
+}
+
+body.aboutUs .box.article h2 {
+	color:#ff9b40;
+    background: transparent;
+}
+
+body.aboutUs .box .article, body.aboutUs .box .event {
+	border-top:1px solid #6a4c71;
+}
+
+body.aboutUs .article h2, body.aboutUs .event h2 {
+	color:#ffb16b;
+}
+
+body.aboutUs .article p.meta, body.aboutUs .event p.meta, .event.T p.meta {
+	color:#ffb16b;
+	border-top:1px dotted #6a4c71;
+	border-bottom:1px dotted #6a4c71;
+}
+
+body.aboutUs .box .first, body.aboutUs .block .first, body.aboutUs .block li.first {
+    border-top: none;
+}
+.article p.meta, .event.T p.meta {
+	color:#ffb16b;
+	border-top:1px dotted #ff9b40;
+	border-bottom:1px dotted #ff9b40;
+}
+
+.events li.T h3, .events li.T h3 a, .articles li.T h3, .articles li.T h3 a {
+	color:#ff9b40;
+}
+.events li.T h3 a:hover,.articles li.T h3 a:hover {
+	color:#ffb16b;
+}
+
+.event .T h4,
+.article .T h4,
+.event .T h3,
+.article .T h3,
+.event .T h5,
+.article .T h5,
+.event .T h6,
+.article .T h6,
+.events li.T h4,
+.articles li.T h4,
+.events li.T h5,
+.articles li.T h5,
+.events li.T h6,
+.articles li.T h6 {
+	color:#ffb16b;
+}
+/* About Us Pages
+----------------------------------------------- */
+body.news #page-heading {
+    color: #5b878f;
+    border-bottom:1px solid #9bbac3;
+}
+
+body.news .box h2 {
+    background:#5b878f;
+    color:#fff;
+}
+
+body.news .box.article h2 {
+	color:#5b878f;
+    background: transparent;
+}
+
+body.news .box .article, body.news .box .event {
+	border-top:1px solid #6a4c71;
+}
+
+body.news .article h2, body.news .event h2 {
+	color:#375156;
+}
+
+body.news .article p.meta, body.news .event p.meta, .event.W p.meta {
+	color:#9bbac3;
+	border-top:1px dotted #5b878f;
+	border-bottom:1px dotted #5b878f;
+}
+
+body.news .box .first, body.news .block .first, body.news .block li.first {
+    border-top: none;
+}
+.article p.meta, .event.T p.meta {
+	color:#9bbac3;
+	border-top:1px dotted #5b878f;
+	border-bottom:1px dotted #5b878f;
+}
+
+.events li.N h3, .events li.N h3 a, .articles li.N h3, .articles li.N h3 a {
+	color:#375156;
+}
+.events li.N h3 a:hover,.articles li.N h3 a:hover {
+	color:#375156;
+}
+
+.event .N h4,
+.article .N h4,
+.event .N h3,
+.article .N h3,
+.event .N h5,
+.article .N h5,
+.event .N h6,
+.article .N h6,
+.events li.N h4,
+.articles li.N h4,
+.events li.N h5,
+.articles li.N h5,
+.events li.N h6,
+.articles li.N h6 {
+	color:#375156;
+}
+
+/* Home Pages
+----------------------------------------------- */
+body.home #page-heading {
+    color: #850007;
+    border-bottom:1px solid #b64447;
+}
+
+body.home .box h2 {
+    background:#850007;
+    color:#d1c5a4;
+}
+
+body.home .box.article h2 {
+	color:#850007;
+    background: transparent;
+}
+
+body.home .box .article, body.home .box .event {
+	border-top:1px solid #6a4c71;
+}
+
+body.home .article h2, body.home .event h2 {
+	color:#850007;
+}

@@ -39,24 +39,24 @@ class CommonLayoutTagLib {
     static namespace = 'lsdc'
     def messageSource
 
-     def nav = { attrs ->
+    def nav = { attrs ->
         def navControllers = []
         ['home', 'aboutUs', 'event', 'buddhism', 'meditation','community','wellbeing','news','shop'].each { it ->
-          def isShow = true
-          try {
-              isShow = Setting.findByName("Show" + it.capitalize()).value
-          } catch (error) {log.warn "Unable to get setting ${'Show' + it.capitalize()}"}
-          if (isShow == 'true' || isShow == 'Yes') {
-              navControllers << it
-          }
+            def isShow = true
+            try {
+                isShow = Setting.findByName("Show" + it.capitalize()).value
+            } catch (error) {log.warn "Unable to get setting ${'Show' + it.capitalize()}"}
+            if (isShow == 'true' || isShow == 'Yes') {
+                navControllers << it
+            }
         }
 
-         /*
+        /*
         try {
-            if (SecurityUtils.subject && SecurityUtils.subject.hasRole ("Administrator")) {
-            navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
+        if (SecurityUtils.subject && SecurityUtils.subject.hasRole ("Administrator")) {
+        navControllers = ['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
         } else if (SecurityUtils.subject && SecurityUtils.subject.principal != null) {
-            navControllers =['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
+        navControllers =['home', 'aboutUs', 'news', 'event', 'meditation','community','wellbeing','buddhism', 'manageSite']
         }
         } catch(error) {
 
@@ -92,15 +92,15 @@ class CommonLayoutTagLib {
         out << builder.bind (navList)
     }
 
-     def toolbar = { attrs ->
+    def toolbar = { attrs ->
         def content = new TreeSet()
         def media = new TreeSet()
         def settings = new TreeSet()
         
-		if (SecurityUtils.subject.principal != null) {
-			media = ['image','slideshow']
-			settings = ['profile']			
-		}
+        if (SecurityUtils.subject.principal != null) {
+            media = ['image','slideshow']
+            settings = ['profile']
+        }
 		
         if (SecurityUtils.subject.hasRole ("Editor") && !SecurityUtils.subject.hasRole ("Author")) {
             ['article','room','teacher','links'].each () { item ->
@@ -215,7 +215,7 @@ class CommonLayoutTagLib {
         out << builder.bind (toolbar)
     }
 
-     def grid = { attrs ->
+    def grid = { attrs ->
         out << """<div id="grid">"""
         0.times {
             out << """<span class="gcol"><span class="gleft">&nbsp;</span><span class="ggap">&nbsp;</span><span class="gright">&nbsp;</span></span>"""
@@ -223,24 +223,24 @@ class CommonLayoutTagLib {
         out << "</div>"
     }
 
-	def thumbnail = { attrs, body ->
-	    def size = Setting.findByName('ThumbSize').value;
-	    def src = -1
-	    if (attrs?.srcid) {
-	        src = attrs.remove('srcid')
+    def thumbnail = { attrs, body ->
+        def size = Setting.findByName('ThumbSize').value;
+        def src = -1
+        if (attrs?.srcid) {
+            src = attrs.remove('srcid')
         }
-	    log.debug "Thumbnail id is '${src}' and attrs is ${attrs}"
-		out << "<image width='${size}' height='${size}' src='${createLink(controller: 'image', action:'thumbnail', id:src)}'"
+        log.debug "Thumbnail id is '${src}' and attrs is ${attrs}"
+        out << "<image width='${size}' height='${size}' src='${createLink(controller: 'image', action:'thumbnail', id:src)}'"
 		
-		attrs.each { k,v->
-			out << " $k=\"$v\""
-		}
+        attrs.each { k,v->
+            out << " $k=\"$v\""
+        }
 		
-		if (!attrs.containsKey('style')) {
-		    out << " style=\"width:${size}px;height:${size}px;min-width:${size}px;min-height:${size}px;\""
-		}
+        if (!attrs.containsKey('style')) {
+            out << " style=\"width:${size}px;height:${size}px;min-width:${size}px;min-height:${size}px;\""
+        }
 		
-		out << "/>"
+        out << "/>"
 
         def hrf = createLink(controller: 'image', action:'thumbnail', id:'0')
         out << """<script type="text/javascript">\$("#image\\\\.id").change(function() {
@@ -249,67 +249,67 @@ class CommonLayoutTagLib {
             \$("#thumb_image").attr("srcid",src);
             \$("#thumb_image").attr("src",href.replace('0',src));
         });</script>"""
-	}
+    }
 
     def selectImg = { attrs, body ->
-      def pxSize = Setting.findByName('ThumbSize').value
-      def msg = message(code:"venue.image.label")
-      def notSelectedMessage = message(code: 'no.img')
-      def obj = attrs?.obj
-      def tag = attrs?.tag
-      println "Obj is ${obj} tag is ${tag}"
+        def pxSize = Setting.findByName('ThumbSize').value
+        def msg = message(code:"venue.image.label")
+        def notSelectedMessage = message(code: 'no.img')
+        def obj = attrs?.obj
+        def tag = attrs?.tag
+        println "Obj is ${obj} tag is ${tag}"
 
-      out << """<span style="float:left;width:20em;min-height:${pxSize}px"><p><label for="image.id" style="display:inline-block;width:10em;">${msg}</label>"""
+        out << """<span style="float:left;width:20em;min-height:${pxSize}px"><p><label for="image.id" style="display:inline-block;width:10em;">${msg}</label>"""
 
-      out << g.select(from: Image.findAllByTag(tag), 
-             name:"image.id",
-             value:obj?.image?.id,
-             noSelection:['null':notSelectedMessage],
-             optionKey:"id",
-             optionValue:"name",
-             class:"ui-corner-all") 
+        out << g.select(from: Image.findAllByTag(tag),
+            name:"image.id",
+            value:obj?.image?.id,
+            noSelection:['null':notSelectedMessage],
+            optionKey:"id",
+            optionValue:"name",
+            class:"ui-corner-all")
 
-      out << """</p></span><span style="float:left;margin-left:1.2em;min-width:${pxSize}px;min-height:${pxSize}px">"""
-      out << lsdc.thumbnail(srcid:obj?.image?.id, id:"thumb_image")
-      out << """</span><span class="clear"></span>"""
+        out << """</p></span><span style="float:left;margin-left:1.2em;min-width:${pxSize}px;min-height:${pxSize}px">"""
+        out << lsdc.thumbnail(srcid:obj?.image?.id, id:"thumb_image")
+        out << """</span><span class="clear"></span>"""
     }
 
     def remoteField = { attrs, body ->
-		def paramName = attrs.paramName ? attrs.remove('paramName') : 'value'
-		def value = attrs.remove('value')
-		if(!value) value = ''
-		out << "<textArea rows=\"35\" cols=\"40\" name=\"${attrs.remove('name')}\" onblur=\""
+        def paramName = attrs.paramName ? attrs.remove('paramName') : 'value'
+        def value = attrs.remove('value')
+        if(!value) value = ''
+        out << "<textArea rows=\"35\" cols=\"40\" name=\"${attrs.remove('name')}\" onblur=\""
 
         if(attrs.params) {
-			if(attrs.params instanceof Map) {
-				attrs.params.put(paramName, new JavascriptValue('escape(this.value)'))
-			}
-			else {
-				attrs.params += "+'${paramName}='+escape(this.value)"
-			}
-		}
-		else {
-    		attrs.params = "'${paramName}='+escape(this.value)"
-		}
-		out << remoteFunction(attrs)
-		attrs.remove('params')
-		out << "\""
-		attrs.remove('url')
-		attrs.each { k,v->
-			out << " $k=\"$v\""
-		}
-		out <<" >${value}</textarea>"
-	}
+            if(attrs.params instanceof Map) {
+                attrs.params.put(paramName, new JavascriptValue('escape(this.value)'))
+            }
+            else {
+                attrs.params += "+'${paramName}='+escape(this.value)"
+            }
+        }
+        else {
+            attrs.params = "'${paramName}='+escape(this.value)"
+        }
+        out << remoteFunction(attrs)
+        attrs.remove('params')
+        out << "\""
+        attrs.remove('url')
+        attrs.each { k,v->
+            out << " $k=\"$v\""
+        }
+        out <<" >${value}</textarea>"
+    }
 	
-	def comments =  { attrs, body ->
-		def bean = attrs.bean
-		def noEscape = attrs.containsKey('noEscape') ? attrs.noEscape : false
+    def comments =  { attrs, body ->
+        def bean = attrs.bean
+        def noEscape = attrs.containsKey('noEscape') ? attrs.noEscape : false
 		
-		plugin.isAvailable(name:"grails-ui") {
-			noEscape = true
-		}
-		if(bean?.metaClass?.hasProperty(bean, "comments")) {
-			out << g.render(template:"/comments/comments", model:[commentable:bean, noEscape:noEscape])
-		}		
-	}	
+        plugin.isAvailable(name:"grails-ui") {
+            noEscape = true
+        }
+        if(bean?.metaClass?.hasProperty(bean, "comments")) {
+            out << g.render(template:"/comments/comments", model:[commentable:bean, noEscape:noEscape])
+        }
+    }
 }

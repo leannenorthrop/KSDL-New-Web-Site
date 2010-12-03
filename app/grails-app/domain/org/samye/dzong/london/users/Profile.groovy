@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.users
 
 /*
@@ -27,7 +28,7 @@ package org.samye.dzong.london.users
  * This class is associated to ShiroUser with cascaded persistence.
  *
  * @author Leanne Northrop
- * @since July 2010
+ * @since  July 2010
  */
 class Profile {
     String publicName
@@ -41,11 +42,11 @@ class Profile {
     static constraints = {
         publicName(maxSize:512,blank:false)
         nickName(nullable:true,maxSize:512)
-		mimeType(blank: false)
-	    image(nullable: false)
-		dateCreated()
-		lastUpdated()
-		lastLoggedIn()
+        mimeType(blank: false)
+        image(nullable: false)
+        dateCreated()
+        lastUpdated()
+        lastLoggedIn()
     }
 
     String toString() {

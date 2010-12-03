@@ -29,6 +29,15 @@ import com.icegreen.greenmail.util.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import java.util.zip.*;
 
+/**
+ * Application initialization code.
+ * Most importantly injects dynamic methods into Controllers extended from
+ * CMSController. Reads in Moon phase information for calendaring. Sets up
+ * false email service within test and development environments.
+ *
+ * @author Leanne Northrop
+ * @since  October 2009
+ */
 class BootStrap {
      def imageService
      def greenMail

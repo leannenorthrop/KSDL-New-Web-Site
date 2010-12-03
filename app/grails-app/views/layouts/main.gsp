@@ -1,5 +1,7 @@
 <%--
-  Template for content administration pages.
+  Template that provides boilplate code for public facing pages. Individual
+  page content is inserted into pagecontent div.
+
   User: Leanne
   Date: Jan 24, 2010, 2:00:21 PM
 --%>
@@ -30,8 +32,8 @@
 <%@ page import="org.samye.dzong.london.media.Image" %>
 <%@ page import="org.samye.dzong.london.site.Setting" %>
 <%@ page import="org.samye.dzong.london.venue.Venue" %>
-<g:if test="${params.theme}">
-    <g:set var="cssThemesDir" value="${params.theme}"/>
+<g:if test="${session.getAttribute('theme')}">
+    <g:set var="cssThemesDir" value="${session.getAttribute('theme')}"/>
 </g:if>
 <g:else>
     <g:set var="cssThemesDir" value="${Setting.findByName('DefaultTheme').value}"/>

@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.venue
 
 
@@ -29,13 +30,16 @@ import org.samye.dzong.london.contact.*
  * A single telephone number associated with a venue.
  * Subclasses from telephone to support exclusive 
  * association with a venue.
+ *
+ * @author Leanne Northrop
+ * @since January 2010
  */
 class VenueTelephone extends Telephone {
     /* Non-persisent flag set on detached instances
      * to show that the instance should be deleted
      * from the database.
      */
- 	boolean _deleted
+    boolean _deleted
 
     static transients = ['_deleted']	
     static belongsTo = Venue

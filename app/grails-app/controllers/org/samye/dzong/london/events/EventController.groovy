@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.events
 
 import org.joda.time.*
@@ -40,16 +41,22 @@ import org.samye.dzong.london.cms.*
 
 
 /*
- * Web request handler for event information.
+ * CMS content management url handler for Event/Programme information.
+ * Displays both content management pages under the Events navigation
+ * menu within the CMS area and public pages under the Events navigation menu.
+ * 
+ * TODO: Complete refactor to increase DRY
+ * TODO: Tidy this up in light of Grails lessons learned.
+ * TODO: Complete internationalization.
  *
  * @author Leanne Northrop
- * @since 29th January, 2010, 17:04
+ * @since  29th January, 2010, 17:04
  */
 class EventController extends CMSController {
     //flash.message = "${message(code: 'default.updated.message', args: [message(code: 'event.label', default: 'Event'), event.id])}"
     def eventService
     def emailService
-	def articleService
+    def articleService
     def static final ADMIN_ROLES = ['Editor', 'Administrator'] 
 
     def index = {
@@ -89,57 +96,57 @@ class EventController extends CMSController {
 
         def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
         def followingMonths = []
-		(1..12).each { month ->
-			def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
-			boolean foundAnEvent = false;
-			for (event in publishedEvents) {
-				if (!event.dates[0].isUnbounded()) {
-					foundAnEvent = event.isOnDay(followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().getDayOfMonth())
-					if (foundAnEvent) {
-						break;
-					}
-				}
-			}
+        (1..12).each { month ->
+            def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
+            boolean foundAnEvent = false;
+            for (event in publishedEvents) {
+                if (!event.dates[0].isUnbounded()) {
+                    foundAnEvent = event.isOnDay(followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().getDayOfMonth())
+                    if (foundAnEvent) {
+                        break;
+                    }
+                }
+            }
             if (foundAnEvent) {
-	            followingMonths << [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
-			}
+                followingMonths << [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
+            }
         }
         def model = [events: publishedEvents, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
-		articleService.addHeadersAndKeywords(model,request,response)
-		model
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
     }
 
-	def current = {
+    def current = {
         DateTime dt = new DateTime();
         dt = dt.withTime(0,0,0,0)
         def now = dt.toDate()
-		def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
-		def endOfThisMonth = dt.dayOfMonth().withMaximumValue();
-		def format = DateTimeFormat.forPattern("yyyy-MM-dd");
+        def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
+        def endOfThisMonth = dt.dayOfMonth().withMaximumValue();
+        def format = DateTimeFormat.forPattern("yyyy-MM-dd");
 		
-		redirect(action: list, params: ["start": format.print(startOfThisMonth),"end":format.print(endOfThisMonth)])
-	}
+        redirect(action: list, params: ["start": format.print(startOfThisMonth),"end":format.print(endOfThisMonth)])
+    }
 	
-	def future = {
+    def future = {
         DateTime dt = new DateTime();
         dt = dt.withTime(0,0,0,0)
         def now = dt.toDate()
-		def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
-		def endOfThisMonth = dt.dayOfMonth().withMaximumValue();
-		def nextYear = endOfThisMonth.plusYears(1)
-		def format = DateTimeFormat.forPattern("yyyy-MM-dd");
+        def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
+        def endOfThisMonth = dt.dayOfMonth().withMaximumValue();
+        def nextYear = endOfThisMonth.plusYears(1)
+        def format = DateTimeFormat.forPattern("yyyy-MM-dd");
 		
-		redirect(action: list, params: ["start": format.print(startOfThisMonth),"end":format.print(nextYear)])
-	}
+        redirect(action: list, params: ["start": format.print(startOfThisMonth),"end":format.print(nextYear)])
+    }
 	
-	def regular = {
-		def publishedEvents = Event.published().list();
-		def regularEvents = publishedEvents.findAll { event ->
+    def regular = {
+        def publishedEvents = Event.published().list();
+        def regularEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
             rule.isRule && rule.isUnbounded()
         };		
-		render(view: 'list', model:[events:regularEvents, title:'hi'])
-	}
+        render(view: 'list', model:[events:regularEvents, title:'hi'])
+    }
 			
     def list = {
         def model = [:]
@@ -150,20 +157,20 @@ class EventController extends CMSController {
         def dt = new DateTime(now.getTime())
         def startOfThisMonth = dt.dayOfMonth().withMinimumValue();
         def followingMonths = []
-		(1..12).each { month ->
-			def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
-			boolean foundAnEvent = false;
-			for (event in allEvents) {
-				if (!event.dates[0].isUnbounded()) {
-					foundAnEvent = event.isOnDay(followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().getDayOfMonth())
-					if (foundAnEvent) {
-						break;
-					}
-				}
-			}
+        (1..12).each { month ->
+            def followingMonth = startOfThisMonth.monthOfYear().addToCopy(month)
+            boolean foundAnEvent = false;
+            for (event in allEvents) {
+                if (!event.dates[0].isUnbounded()) {
+                    foundAnEvent = event.isOnDay(followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().getDayOfMonth())
+                    if (foundAnEvent) {
+                        break;
+                    }
+                }
+            }
             if (foundAnEvent) {
-	            followingMonths << [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
-			}
+                followingMonths << [followingMonth.toDate(), followingMonth.dayOfMonth().withMaximumValue().toDate()]
+            }
         }
         model = [followingMonths:followingMonths]
         log.debug "Following months is ${model.followingMonths}"
