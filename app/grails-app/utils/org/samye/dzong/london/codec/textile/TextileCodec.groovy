@@ -26,8 +26,10 @@ import org.samye.dzong.london.codec.textile.HtmlDocumentBuilder
 import org.eclipse.mylyn.wikitext.core.parser.MarkupParser
 import org.eclipse.mylyn.wikitext.textile.core.TextileLanguage
 import org.codehaus.groovy.grails.web.mapping.DefaultUrlCreator
+import java.util.concurrent.ConcurrentHashMap
+import org.codehaus.groovy.grails.web.pages.FastStringWriter
 
-/*
+/**
  * Grails Textile codec. Uses a slightly modified textile dialect created
  * for this site. @see TextileLanguage for further information.
  *
@@ -35,32 +37,46 @@ import org.codehaus.groovy.grails.web.mapping.DefaultUrlCreator
  * @since  1.0.0-SNAPSHOT, December 2009
  */
 class TextileCodec {
+    def static wikiTextileLanguage 
+
+    def static init() {
+        wikiTextileLanguage = new WikiTextileLanguage(getUrlMap())
+        wikiTextileLanguage
+    }
+
+    def static getUrlMap() {
+        def urls = [image: '', teacher:'', news: '',video:'',file:'',room:'',contactUs:'',teacher:'',about:'']
+        urls.each { key, value ->
+            if (key.equals("image")) {
+                def defaultUrlCreator = new DefaultUrlCreator(key, "src")
+                urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")
+            } else if (key.equals("room")||key.equals("venue")||key.equals("contactUs")||key.equals("visiting")||key.equals("teacher")||key.equals("about")) {
+				def defaultUrlCreator = new DefaultUrlCreator("aboutUs", key == "about" ? "information" : key)
+                urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")	
+			} else if (key.equals("video")||key.equals("file")) {
+                def defaultUrlCreator = new DefaultUrlCreator("file", "src")
+                urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")	
+			} else {
+                def defaultUrlCreator = new DefaultUrlCreator(key, "view")
+                urls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")
+            }
+        }
+        new ConcurrentHashMap(urls)
+    }
 
     static encode = { str ->
-        StringWriter sw = new StringWriter();
+        def sw = new FastStringWriter()
 
-        HtmlDocumentBuilder builder = new HtmlDocumentBuilder(sw);
+        def builder = new HtmlDocumentBuilder(sw);
         builder.emitAsDocument = false
         builder.useInlineStyles = false
         builder.suppressBuiltInStyles = true
-
-        def baseUrls = [image: '', teacher:'', news: '',video:'',file:'',room:'',contactUs:'',teacher:'',about:'']
-        baseUrls.each { key, value ->
-            if (key.equals("image")) {
-                def defaultUrlCreator = new DefaultUrlCreator(key, "src")
-                baseUrls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")
-            } else if (key.equals("room")||key.equals("venue")||key.equals("contactUs")||key.equals("visiting")||key.equals("teacher")||key.equals("about")) {
-				def defaultUrlCreator = new DefaultUrlCreator("aboutUs", key == "about" ? "information" : key)
-                baseUrls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")	
-			} else if (key.equals("video")||key.equals("file")) {
-                def defaultUrlCreator = new DefaultUrlCreator("file", "src")
-                baseUrls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")	
-			} else {
-                def defaultUrlCreator = new DefaultUrlCreator(key, "view")
-                baseUrls[key] = defaultUrlCreator.createURL(new HashMap(), "UTF-8")
-            }
+    
+        if (!wikiTextileLanguage) {
+            init()
         }
-        MarkupParser parser = new MarkupParser(new WikiTextileLanguage(new HashMap(baseUrls)))
+
+        def parser = new MarkupParser(wikiTextileLanguage)
         parser.setBuilder(builder)
 
         parser.parse(str)

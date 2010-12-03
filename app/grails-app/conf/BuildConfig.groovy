@@ -47,7 +47,8 @@ grails.project.dependency.resolution = {
                  'mysql:mysql-connector-java:5.0.8'
         
         test 'javax.persistence:persistence-api:1.0',
-             'com.icegreen:greenmail:1.3.1b'
+             'com.icegreen:greenmail:1.3.1b',
+             'org.objenesis:objenesis:1.2'
     }
 }
 coverage {

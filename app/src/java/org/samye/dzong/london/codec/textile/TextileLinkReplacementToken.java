@@ -57,7 +57,7 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
         return new LinkReplacementTokenProcessor();
     }
 
-    private static class LinkReplacementTokenProcessor extends PatternBasedElementProcessor {
+    protected static class LinkReplacementTokenProcessor extends PatternBasedElementProcessor {
 
         @Override
         public void emit() {
@@ -95,7 +95,8 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
 				String vid = attributes[0];
                 ((org.samye.dzong.london.codec.textile.HtmlDocumentBuilder)builder).youTubePlayer(attr, vid);	
             } else {
-                String href = (String)urlBases.get(type);
+                String[] attributes = name.split(",");
+                String href = (String)urlBases.get(type) + "/" + attributes[0];
                 builder.link(href, name);
             }
         }
