@@ -26,6 +26,10 @@ package org.samye.dzong.london.venue
  * Provides management actions for Samye venues/buildings/sites.
  * TODO: Internaliationise messages
  * TODO: Create base controller class and move helper methods there
+ * TODO: Add back in save for child associations 
+ *
+ * @author Leanne Northrop
+ * @since  January 2010
  */
 class VenueController {
     static allowedMethods = [delete:'GET', update:'POST']
