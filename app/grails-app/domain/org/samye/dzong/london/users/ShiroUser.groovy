@@ -1,6 +1,6 @@
 package org.samye.dzong.london.users
 
-class ShiroUser implements Comparable{
+class ShiroUser implements Comparable {
     String username
     String passwordHash
     String passwordReset
