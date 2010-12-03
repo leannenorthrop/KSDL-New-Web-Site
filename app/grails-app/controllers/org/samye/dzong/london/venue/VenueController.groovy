@@ -73,12 +73,11 @@ class VenueController {
             notFound()
         }
         else {
-            return [ venue : venueInstance ]
+            [ venue : venueInstance ]
         }
     }
 
     def update = {
-		println params['telephoneNumbersList[0]']
         def venueInstance = Venue.get( params.id )
         if(venueInstance) {
             if(params.version) {
