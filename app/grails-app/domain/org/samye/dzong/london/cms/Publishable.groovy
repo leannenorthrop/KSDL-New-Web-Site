@@ -20,6 +20,7 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.cms
 
 import org.grails.taggable.*
@@ -43,8 +44,6 @@ import org.samye.dzong.london.users.ShiroUser
  * <li>B - Buddhism</li>
  * <li>T - Teachers</li>
  * </ol>
- * TODO: Test
- * TODO: Change dates to joda dates
  */
 class Publishable implements Taggable, Commentable  {
     String publishState
@@ -72,7 +71,7 @@ class Publishable implements Taggable, Commentable  {
         deleted()
         home()
         featured()
-        category(blank:false,inList:['M','N','C','W','B','T','V','R','A','H','S','P'])    
+        category(blank:false,inList:['M','N','C','W','B','T','V','R','A','H','S','P'])
     }
 
     static mapping = {
@@ -87,12 +86,36 @@ class Publishable implements Taggable, Commentable  {
         allPublished {  ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', "Published"
-            order("datePublished", "desc")
         }
-        allPublishedNonOrdered {  ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "Published"
-        }        
-	}
-
+    }
+    
+    def static similar(content,options=null) {
+        String tagQuery = "publishable.id in (select tl.tagRef from TagLink tl where "
+        for (tag in content.tags) {
+            tagQuery += "tl.tag.name = '${tag}' or "
+        }
+        tagQuery = tagQuery[0..-4] + ")"
+            
+        String findByTagHQL = """
+           SELECT publishable
+           FROM Publishable publishable
+           WHERE publishable.id != :id
+           AND (publishable.publishState = 'Published' or publishable.publishState = 'Archived')
+           AND publishable.deleted = convert('false',BOOLEAN)
+           AND $tagQuery
+        """
+        List tags = content.tags
+        def results = []
+        if (options) {
+            results = Publishable.executeQuery(findByTagHQL, [id:content.id],options)        
+        } else {
+            results = Publishable.executeQuery(findByTagHQL, [id:content.id])                    
+        }
+        results.unique()
+    }
+    
+    def static publishedTagCounts() {
+        def results = Publishable.executeQuery("select T.name,count(*) from Tag T, TagLink TL, Publishable P where (T.id = TL.tag.id) and (TL.tagRef = P.id) and (P.publishState = 'Published' or P.publishState = 'Archived') group by T.id, T.name order by T.name")
+        return results.unique()
+    }
 }
