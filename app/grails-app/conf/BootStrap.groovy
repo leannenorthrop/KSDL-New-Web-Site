@@ -121,28 +121,12 @@ class BootStrap {
     def destroy = {
         environments {
             development {
-                def gm = servletContext.getAttribute("greenmail")
-                if (gm) {
-                    try {
-                        gm.stop();
-                        servletContext.setAttribute("greenmail", null)
-                    }catch(ignore){}
-                } else {
-                    greenMail.stop();
-                }
-
+                greenMail.stop();
                 greenMail = null
             }
             test {
-                def gm = servletContext.getAttribute("greenmail")
-                if (gm) {
-                    try {
-                        gm.stop();
-                        servletContext.setAttribute("greenmail", null)
-                    }catch(ignore){}
-                } else {
-                    greenMail.stop();
-                }
+                greenMail.stop();
+                greenMail = null
                 def config = ConfigurationHolder.getConfig()
                 config.greenmail = null 
                 greenMail = null

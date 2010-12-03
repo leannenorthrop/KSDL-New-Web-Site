@@ -107,16 +107,18 @@
     background-image:url(images/picture.png);
 }
 .textile .markItUpButton17 a {
-    background-image:url(images/link.png);
+    background-image:url(images/film.png);
 }
-
 .textile .markItUpButton18 a {
     background-image:url(images/link.png);
 }
-.textile .markItUpButton19 a    {
-    background-image:url(images/quotes.png);
+.textile .markItUpButton19 a {
+    background-image:url(images/link.png);
 }
 .textile .markItUpButton20 a    {
+    background-image:url(images/quotes.png);
+}
+.textile .markItUpButton21 a    {
     background-image:url(images/code.png);
 }
 

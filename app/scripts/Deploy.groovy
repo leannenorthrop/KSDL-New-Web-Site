@@ -8,7 +8,7 @@ target(main: "Generate dist zip file and deploy to remote server") {
     input(message: "Host user name: ", addproperty: "grails.host.un")
     input(message: "Host password: ", addproperty: "grails.host.pw")
 
-    //copy()
+    copy()
     //install()
 }
 

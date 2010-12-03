@@ -63,6 +63,7 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
         public void emit() {
             String name = group(1).substring(1, group(1).length()-1);
             String type = group(2);
+            System.out.println("Type is " + type);
             if (type.equals("image")) {
                 String[] attributes = name.split(",");
                 Attributes a = new Attributes();
@@ -88,7 +89,12 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
 				Attributes attr = new Attributes();				
 				String href = (String)urlBases.get(type) + "/" + attributes[0];
                 builder.link(href, name);
-			} else {
+			} else if (type.equals("youtube")) {
+                String[] attributes = name.split(",");
+				Attributes attr = new Attributes();				
+				String vid = attributes[0];
+                ((org.samye.dzong.london.codec.textile.HtmlDocumentBuilder)builder).youTubePlayer(attr, vid);	
+            } else {
                 String href = (String)urlBases.get(type);
                 builder.link(href, name);
             }

@@ -36,6 +36,7 @@ myTextileSettings = {
         {separator:'---------------' },
         {name:'Internal Picture', replaceWith:'[[![Image Name:!:Logo]!],[![Position:!:left or right]!],60px,60px](image)'},
         {name:'External Picture', replaceWith:'![![Source:!:http://]!]([![Alternative text]!])!'},
+        {name:'Insert Link to You Tube Video', replaceWith:'[[![You Tube Video ID (including underscore):!:]!]](youtube)' },
         {name:'Insert Link to Downloadable File', replaceWith:'[[![File name listed under Media, Files:!:a.pdf]!]](file)' },
         {name:'Link', openWith:'"', closeWith:'([![Title]!])":[![Link:!:http://]!]', placeHolder:'Your text to link here...' },
         {separator:'---------------' },

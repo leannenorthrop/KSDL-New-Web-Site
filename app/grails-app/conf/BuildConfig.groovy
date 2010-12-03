@@ -36,11 +36,15 @@ grails.project.dependency.resolution = {
                 'net.fortuna.ical4j:ical4j:1.0-rc2',
                 'commons-collections:commons-collections:3.2.1'
 
+
         runtime 'org.hsqldb:hsqldb:2.0.0', 
                 'org.eclipse.mylyn.wikitext:core:1.3.0.I20091106-0100-e3x', 
                 'org.eclipse.mylyn.wikitext:textile:1.3.0.I20091106-0100-e3x',
                 'net.fortuna.ical4j:ical4j:1.0-rc2',
-                'commons-collections:commons-collections:3.2.1'
+                'commons-collections:commons-collections:3.2.1',
+//                'javax.persistence:persistence-api:1.0',
+//                 'com.icegreen:greenmail:1.3.1b',
+                 'mysql:mysql-connector-java:5.0.8'
         
         test 'javax.persistence:persistence-api:1.0',
              'com.icegreen:greenmail:1.3.1b'
