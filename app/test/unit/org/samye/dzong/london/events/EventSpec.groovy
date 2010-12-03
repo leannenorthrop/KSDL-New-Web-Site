@@ -229,14 +229,20 @@ class EventSpec extends UnitSpec {
             def now = new Date()
             addValidDate(event,now)
             def iCalEvent = event.toiCalVEvent()
+            def start = new Date()
+            start.clearTime()
+            start.hours = 9
+            def end = new Date()
+            end.clearTime()
+            end.hours = 10
 
 
         when:
             iCalEvent.validate(true)
 
         then:
-            iCalEvent.startDate.date.time == now.time
-            iCalEvent.endDate.date.time == now.time
+            iCalEvent.startDate.date.time == start.time
+            iCalEvent.endDate.date.time == end.time
             iCalEvent.location.value == "Spa Road"
             notThrown(ValidationException)
     }
@@ -247,14 +253,20 @@ class EventSpec extends UnitSpec {
             def now = new Date()
             addValidDates(event,now)
             def iCalEvent = event.toiCalVEvent()
+            def start = new Date()
+            start.clearTime()
+            start.hours = 9
+            def end = new Date()
+            end.clearTime()
+            end.hours = 10
 
 
         when:
             iCalEvent.validate(true)
 
         then:
-            iCalEvent.startDate.date.time == now.time
-            iCalEvent.endDate.date.time == now.time
+            iCalEvent.startDate.date.time == start.time
+            iCalEvent.endDate.date.time == end.time
             iCalEvent.location.value == "Spa Road"
             notThrown(ValidationException)
     }
@@ -421,7 +433,7 @@ class EventSpec extends UnitSpec {
             def result = event.toJSON(today)
 
         then:
-            result == '{"id":15,"title":"Meditation","start":"2010-11-02 09:00:00","end":"2010-11-02 10:00:00","className":"M","url":"meditation/event/15","allDay":false}'
+            result == '{"id":' + event.id + ',"title":"Meditation","start":"' + today.format("yyyy-MM-dd") + ' 09:00:00","end":"' + today.format("yyyy-MM-dd") + ' 10:00:00","className":"M","url":"../meditation/event/' + event.id + '","allDay":false}'
     }
 
     def 'toDate returns start date when not a rule or multiple'() {

@@ -305,9 +305,12 @@ class Event extends Publishable implements Comparable {
         // Generate a UID for the event..
         UidGenerator ug = new UidGenerator(id.toString());
 
+        // Combine date and time 
         DateTime sd = date.startTime.toDateTime(new DateTime(date.startDate.getTime()))
         DateTime ed = date.endTime.toDateTime(new DateTime(date.endDate.getTime()))
+        DateTime esd = date.endTime.toDateTime(new DateTime(date.startDate.getTime()))
 
+        // Convert to iCal
         net.fortuna.ical4j.model.DateTime start = new net.fortuna.ical4j.model.DateTime(sd.toDate())
         net.fortuna.ical4j.model.DateTime end  = new net.fortuna.ical4j.model.DateTime(ed.toDate())
 
@@ -315,7 +318,7 @@ class Event extends Publishable implements Comparable {
             Recur recur = date.toRecur();
             RRule rrule = new RRule(recur);
 
-            end  = new net.fortuna.ical4j.model.DateTime(sd.toDate())
+            end = new net.fortuna.ical4j.model.DateTime(esd.toDate())
 
             iCalEvent = new VEvent(start, end, title);
             properties = iCalEvent.getProperties()
