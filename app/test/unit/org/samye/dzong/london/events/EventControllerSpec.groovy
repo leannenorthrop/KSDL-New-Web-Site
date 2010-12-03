@@ -71,8 +71,10 @@ class EventControllerSpec extends ControllerSpec {
             messageSource.getMessage(code, margs, '', locale)
         }
         SecurityUtils.metaClass.static.getSubject = {
-            return new Expando(hasRoles: { r -> roles.intersect(r)}, username: {'Rebecca'});
+            return new Expando(hasRoles: { r -> roles.intersect(r)}, username: {'leanne.northrop@abc.com'});
         }
+        def user = new ShiroUser(username:'leanne.northrop@abc.com')
+        mockDomain(ShiroUser,[user])
     }   
 
     def 'Index redirects to home'() {
@@ -946,8 +948,7 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Create generates new event with organizer set'() {
         setup:
-        def user = new ShiroUser(username:'leanne.northrop@abc.com')
-        controller.userLookupService = new Expando(lookup:{user})
+        def user = new ShiroUser(username:'leanne.northrop@abc.com').save()
         mockDomain(Event)
 
         when:
@@ -961,8 +962,7 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'Create generates new event'() {
         setup:
-        def user = new ShiroUser(username:'leanne.northrop@abc.com')
-        controller.userLookupService = new Expando(lookup:{user})
+        def user = new ShiroUser(username:'leanne.northrop@abc.com').save()
         mockFlash.message = 'already set'
         mockDomain(Event)
 
@@ -1035,7 +1035,6 @@ class EventControllerSpec extends ControllerSpec {
         setup:
         getMockParams() << [organizer: 0, summary: 'summary'] 
         mockDomain(Event)
-        controller.userLookupService = new Expando(lookup:{user})
 
         when:
         controller.save()
@@ -1049,7 +1048,6 @@ class EventControllerSpec extends ControllerSpec {
         setup:
         getMockParams() << validEvent().properties 
         mockDomain(Event)
-        controller.userLookupService = new Expando(lookup:{user})
 
         when:
         controller.save()
@@ -1064,7 +1062,6 @@ class EventControllerSpec extends ControllerSpec {
         mockDomain(Event)
         Event.metaClass.hasErrors { -> false }
         Event.metaClass.save { -> throw new RuntimeException() }
-        controller.userLookupService = new Expando(lookup:{user})
 
         when:
         controller.save()
@@ -1083,7 +1080,6 @@ class EventControllerSpec extends ControllerSpec {
         mockDomain(Event)
         Event.metaClass.hasErrors { -> hasError}
         Event.metaClass.save { -> false }
-        controller.userLookupService = new Expando(lookup:{user})
 
         when:
         controller.save()
