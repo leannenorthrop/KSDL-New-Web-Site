@@ -55,7 +55,7 @@ class VenueController {
                 catch(e) {
                     status.setRollbackOnly()
                     log.warn "Unable to delete venue ${venue.name}", e
-                    def msg = "Venue ${venue.ame} could not be deleted"
+                    def msg = "Venue ${venue.name} could not be deleted"
                     handleError(msg, venueInstance)
                 }
             }
