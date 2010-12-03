@@ -63,7 +63,11 @@ class EventController {
         def now = new java.util.Date() 
 
         def publishedEvents = Event.published().list();
-        def todaysEvents = publishedEvents.findAll { it.isOnDay(now) }
+        publishedEvents.sort();
+        def todaysEvents = publishedEvents.findAll { 
+            def r = it.isOnDay(now) 
+            r
+        }
 		
         now = now + 1
         def dt = new DateTime(now.getTime())
@@ -182,9 +186,10 @@ class EventController {
                 start = start.toDate()
 
                 def publishedEvents = Event.unorderedPublished().list(params);
+                publishedEvents.sort()
                 def events = publishedEvents.findAll { event ->
                     def rule = event.dates[0]
-                    return event.isOnDay(start, daysUntilEndOfMonth)
+                    return !rule.isRule && event.isOnDay(start, daysUntilEndOfMonth)
                 };
 
                 def datePat = message(code: 'event.date.format')
@@ -468,27 +473,12 @@ class EventController {
 
             publishedEvents.eachWithIndex { event,index ->
                 if (event.isOnDay(day)) {
-                    def controller = message(code:"publish.category.controller.${event?.category}")
-                    def href = createLink(controller:controller,action:'event',id:event.id)
-                    def date = new DateTime(day.getTime())
-                    def startDate = event.dates[0].startTime.toDateTime(date)
-                    def endDate = event.dates[0].endTime.toDateTime(date) 
-                    def ss = new Date(startDate.millis).format('yyyy-MM-dd hh:mm:ss')
-                    def es = new Date(endDate.millis).format('yyyy-MM-dd hh:mm:ss')
                     if (!first){ 
                         response.outputStream << ','
                     } else {
                         first = false
                     }
-                    response.outputStream << "{"
-                    response.outputStream << '"id":' + event.id + ','
-                    response.outputStream << '"title":"' + event.title + '",'
-                    response.outputStream << '"start":"' + ss + '",'
-                    response.outputStream << '"end":"' + es + '",'
-                    response.outputStream << '"className":"' + event.category + '",'
-                    response.outputStream << '"url":"' + href + '",'
-                    response.outputStream << '"allDay":false' 
-                    response.outputStream << "}"
+                    event.toJSON(day)
                 }
             }
             def ss = day.format('yyyy-MM-dd')

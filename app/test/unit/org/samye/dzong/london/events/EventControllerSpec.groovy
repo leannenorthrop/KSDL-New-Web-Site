@@ -46,6 +46,9 @@ class EventControllerSpec extends ControllerSpec {
 
     def setup() {
         mockLogging(EventController, true)
+        mockLogging(Event, true)
+        mockLogging(EventDate, true)
+        mockLogging(EventPrice, true)
         registerMetaClass(Event)
         registerMetaClass(EventController)
         registerMetaClass(EventService)
@@ -98,6 +101,7 @@ class EventControllerSpec extends ControllerSpec {
         def regularEventsOnToday = regularEvents.findAll{it.dates[0].startDate == today}.size() 
         def expectedTodayEvents = todayEvents.size() + weekEventsOnToday + monthEventsOnToday + regularEventsOnToday 
         model.todaysEvents.size() == expectedTodayEvents
+
 
         def weekEventsAfterToday = weekEvents.findAll { it.dates[0].startDate.after(today) }.size()
         def monthEventsAfterToday = monthEvents.findAll {it.dates[0].startDate.after(today)}.size()
@@ -158,6 +162,10 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'List generates list of all events when not supplied parameters'() {
         setup:
+        def weekEvents = thisWeekEvents()
+        Event.metaClass.static.published = { 
+            return new Expando(list: { ->weekEvents })  
+        }
         def monthEvents = thisMonthEvents()
         Event.metaClass.static.unorderedPublished = { 
             return new Expando(list: { args->monthEvents })  
@@ -176,6 +184,10 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'List generates list of all events when an error occurs'() {
         setup:
+        def weekEvents = thisWeekEvents()
+        Event.metaClass.static.published = { 
+            return new Expando(list: { ->weekEvents })  
+        }
         def monthEvents = thisMonthEvents()
         Event.metaClass.static.unorderedPublished = { 
             return new Expando(list: { args->monthEvents })  
@@ -194,6 +206,9 @@ class EventControllerSpec extends ControllerSpec {
 
     def 'List returns events for given month not before today'() {
         setup:
+        Event.metaClass.static.published = { 
+            return new Expando(list: { -> []})  
+        }
         def today = new Date()
         today.clearTime()
         def monthEvents = thisMonthEvents()
@@ -211,7 +226,7 @@ class EventControllerSpec extends ControllerSpec {
         def model = controller.list()
 
         then:
-        model.title == "Events For ${today.format('MMMM yyyy')}"
+        model.title == "${today.format('MMMM yyyy')}"
         model.events == monthEvents.collect{it.dates[0].startDate}.findAll{ it.after(today) || it == today }
     }
 
@@ -886,14 +901,14 @@ class EventControllerSpec extends ControllerSpec {
         redirectArgs.action == controller.manage
     }
 
-    def 'Calendar generate iCal for all events'() {
+    def 'Subscribe generate iCal for all events'() {
         setup:
         def events = thisMonthEvents()
         Event.metaClass.static.published = {new Expando(list:{events})}
         controller.metaClass.createLink = {'http://www.bbc.co.uk'}
 
         when:
-        controller.calendar()
+        controller.subscribe()
 
         then:
         mockResponse.getContentType() == 'text/calendar; charset=utf-8'

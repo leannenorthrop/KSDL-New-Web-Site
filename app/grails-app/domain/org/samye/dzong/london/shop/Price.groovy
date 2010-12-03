@@ -29,8 +29,8 @@ class Price {
     String category;
 
     static constraints = {
-        currency(blank:false)
-        price(blank:false)
-        category(blank:false,inList:['F','O','S','M','D'])
+        currency(nullable:false)
+        price(nullable:false)
+        category(nullable:false,inList:['F','O','S','M','D'])
     }
 }

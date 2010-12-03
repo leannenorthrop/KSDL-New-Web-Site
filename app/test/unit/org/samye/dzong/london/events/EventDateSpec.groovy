@@ -140,4 +140,32 @@ class EventDateSpec extends UnitSpec {
         then:
             expected == result
     }
+
+    def "toDate returns start date if not a rule"() {
+        setup:
+            def eventDate = new EventDate()
+
+        when:
+            def date = eventDate.toDate()
+
+        then:
+            eventDate.startDate == date
+    }
+
+    def "toDate returns next date if a rule"() {
+        setup:
+            def today = new Date()
+            def startTime = new TimeOfDay(10,30)
+            def endTime = new TimeOfDay(11,30)
+            def eventDate = new EventDate(startTime:startTime,
+                                     endTime:endTime,
+                                     isRule:true,
+                                     ruleType:"unbounded")
+
+        when:
+            def date = eventDate.toDate()
+
+        then:
+            today.format("dd MM yyyy") == date.format("dd MM yyyy")
+    }
 }
