@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,20 +19,20 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ */
 
 package org.samye.dzong.london.community
 
 import grails.plugin.spock.*
 import spock.lang.*
 
-/** 
+/* 
  * Spock unit test for Article domain class. One of the bed-rock classes of this
  * web application.
  *
  * @author Leanne Northrop
  * @since 25th October 2010, 17:24
- **/
+ */
 class ArticleSpec extends UnitSpec {
 
     def "String shows title and publication status"() {

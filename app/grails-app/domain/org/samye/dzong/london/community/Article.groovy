@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,15 +19,15 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
-
+ */
 package org.samye.dzong.london.community
-import org.samye.dzong.london.Publishable
-import org.samye.dzong.london.ShiroUser
+
+import org.samye.dzong.london.cms.Publishable
+import org.samye.dzong.london.users.ShiroUser
 import org.samye.dzong.london.media.Image
 import org.grails.comments.*
 
-/**
+/*
  * Domain class for storing most site content.
  * This is the bed-rock domain class for this 
  * application.
@@ -301,7 +301,7 @@ class Article extends Publishable {
         }
     }
 
-    /**
+    /*
      * {@inheritDoc}
      */
     String toString() {

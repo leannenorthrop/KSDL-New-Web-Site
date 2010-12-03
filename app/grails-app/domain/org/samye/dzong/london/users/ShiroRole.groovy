@@ -1,4 +1,4 @@
-package org.samye.dzong.london
+package org.samye.dzong.london.users
 
 class ShiroRole {
     String name

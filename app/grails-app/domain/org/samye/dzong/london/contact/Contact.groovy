@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,16 +19,16 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
+ */
 package org.samye.dzong.london.contact
 
-/**
+/*
  * Base class for all contact information details.
  * Each sub-class will be stored within it's own database table and changes will
  * be logged in the audit table.
  */
 class Contact {
-    /** User defined label for this contact */
+    /* User defined label for this contact */
     String name
 
     static auditable = true
@@ -41,7 +41,7 @@ class Contact {
         tablePerHierarchy false
     }
 
-    /**
+    /*
      * {@inheritDoc}
      */
     String toString() {

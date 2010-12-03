@@ -1,11 +1,11 @@
 package org.samye.dzong.london.shop
 
-import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.cms.Publishable
 import org.samye.dzong.london.media.Image
 import org.apache.commons.collections.FactoryUtils
 import org.apache.commons.collections.list.LazyList
 
-/**
+/*
  * Domain class for storing product information.
  */
 class Product extends Publishable {

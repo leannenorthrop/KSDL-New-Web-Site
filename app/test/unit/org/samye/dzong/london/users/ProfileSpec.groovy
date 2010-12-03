@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,19 +19,19 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ */
 
-package org.samye.dzong.london.community
+package org.samye.dzong.london.users
 
 import grails.plugin.spock.*
 import spock.lang.*
 
-/** 
+/* 
  * Spock unit test for Profile domain class.
  *
  * @author Leanne Northrop
  * @since 25th October 2010, 17:28
- **/
+ */
 class ProfileSpec extends UnitSpec {
 
     def "String returns only public name"() {

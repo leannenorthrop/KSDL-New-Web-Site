@@ -4,7 +4,7 @@ import java.awt.image.renderable.*;
 import javax.media.jai.*;
 import com.sun.media.jai.codec.*;
 
-/**
+/*
  * Helper class for handling images. Keeps a currently loaded image, as well 
  * as the result of applying operations to that image.  Operations will not 
  * affect the original image but will store the resulting image on the "result"
@@ -26,13 +26,13 @@ class ImageTool {
 	/* Removes the accelaration lib exception */
 	static { System.setProperty("com.sun.media.jai.disableMediaLib", "true"); }
 
-	/**
+	/*
 	 * Should a thumbnail be created only if it will be smaller in size than
 	 * the current image? 
 	 */
 	boolean decreaseOnly = true;
 
-	/**
+	/*
 	 * Returns the height for the currently loaded image
 	 *
 	 * @return height of the currently loaded image
@@ -42,7 +42,7 @@ class ImageTool {
 	}
 
 
-	/**
+	/*
 	 * Returns the width for the currently loaded image
 	 *
 	 * @return width of the currently loaded image
@@ -51,7 +51,7 @@ class ImageTool {
 		return image.getWidth()
 	}
 
-	/**
+	/*
 	 * Saves a snapshot of the currently loaded image
 	 *
 	 */
@@ -59,7 +59,7 @@ class ImageTool {
 		original = image.createSnapshot()
 	}
 
-	/**
+	/*
 	 * Restores a snapshot onto the original image.
 	 *
 	 */
@@ -67,7 +67,7 @@ class ImageTool {
 		image = original.createSnapshot()
 	}
 
-	/**
+	/*
 	 * Loads an image from a file.
 	 *
 	 * @param file path to the file from which the image should be loaded
@@ -77,7 +77,7 @@ class ImageTool {
 		image = JAI.create("stream", fss);
 	}
 
-	/**
+	/*
 	 * Loads a mask from a file and saves it on the cache, indexed by the file name
 	 */
 	public void loadMask(String file) {
@@ -89,7 +89,7 @@ class ImageTool {
 		}
 	}
 
-	/**
+	/*
 	 * Loads an alpha mask from a file and saves it on the cache
 	 */
 	public void loadAlpha(String file) {
@@ -101,7 +101,7 @@ class ImageTool {
 		}
 	}
 
-	/**
+	/*
 	 * Overwrites the current image with the latest result image obtained.
 	 */
 	public void swapSource() {
@@ -109,7 +109,7 @@ class ImageTool {
 		result = null;
 	}
 
-	/**
+	/*
 	 * Loads an image from a byte array.
 	 *
 	 * @param bytes array to be used for image initialization
@@ -119,7 +119,7 @@ class ImageTool {
 		image = JAI.create("stream", byteStream);
 	}
 
-	/**
+	/*
 	 * Writes the resulting image to a file.
 	 *
 	 * @param file full path where the image should be saved
@@ -132,7 +132,7 @@ class ImageTool {
 		os.close()
 	}
 	
-	/**
+	/*
      * Returns the resulting image as a byte array.
      *
      * @param type file type for the image
@@ -145,7 +145,7 @@ class ImageTool {
     }
 
 
-	/**
+	/*
 	 * Creates a thumbnail of a maximum length and stores it in the result image
 	 *
 	 * @param edgeLength Maximum length
@@ -169,7 +169,7 @@ class ImageTool {
 		}
 	}
 
-	/**
+	/*
 	 * This method creates a thumbnail of the maxWidth and maxHeight it takes as a parameter
 	 *
 	 * Example : Calling the method thumnailSpecial(640, 480, 1, 1)
@@ -241,7 +241,7 @@ class ImageTool {
 		image = null;
 	}
 
-	/**
+	/*
 	 * Crops the image and stores the result
 	 *
 	 * @param edgeX Horizontal crop. The image will be cropped edgeX/2 on both sides.
@@ -257,7 +257,7 @@ class ImageTool {
 		result = JAI.create("crop", params);
 	}
 
-	/**
+	/*
 	 * Crops the image to a square, centered, and stores it in the result image
 	 *
 	 */
@@ -275,7 +275,7 @@ class ImageTool {
 		crop(cropX, cropY)
 	}
 
-	/**
+	/*
 	 * Applies the currently loaded mask and alpha to the image
 	 */
 	public void applyMask() {

@@ -47,20 +47,20 @@ grails.project.dependency.resolution = {
     }
 }
 coverage {
-    exclusions = ['**/test/**',
-                  '**/conf/**',
-                  '**/plugins/**',
-                  '**/*Spec.groovy',
-                  '**/*Tests.groovy',
-                  "**/*BootStrap*",
+    exclusions = ['*/test/*',
+                  '*/conf/*',
+                  '*/plugins/*',
+                  '*/*Spec.groovy',
+                  '*/*Tests.groovy',
+                  "*/*BootStrap*",
                   "Config*",
-                  "**/*DataSource*",
-                  "**/*resources*",
-                  "**/*UrlMappings*",
-                  "**/*Tests*",
-                  "**/grails/test/**",
-                  "**/org/codehaus/groovy/grails/**",
-                  "**/PreInit*",
+                  "*/*DataSource*",
+                  "*/*resources*",
+                  "*/*UrlMappings*",
+                  "*/*Tests*",
+                  "*/grails/test/*",
+                  "*/org/codehaus/groovy/grails/*",
+                  "*/PreInit*",
                   "*GrailsPlugin*"]
 
     enabledByDefault = false

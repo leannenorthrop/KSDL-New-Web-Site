@@ -1,6 +1,6 @@
 package org.samye.dzong.london.community
 
-import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.cms.Publishable
 
 class ArticleService {
     boolean transactional = true

@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,14 +19,13 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
-
+ */
 package org.samye.dzong.london.events
 
 import org.samye.dzong.london.shop.Price
 import java.text.NumberFormat
 
-/**
+/*
  * Event price. Subclassed from Price to support one to many association with
  * Event (this class being on the many side). Requires access to message source
  * to display prices correctly. Transient _deleted property is only used to 

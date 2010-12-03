@@ -12,7 +12,7 @@ import java.awt.color.ICC_ColorSpace
 import java.awt.color.ColorSpace
 import java.awt.color.ICC_Profile
 import java.awt.Color
-import org.samye.dzong.london.Setting
+import org.samye.dzong.london.site.Setting
 
 class ImageService {
     def imageTool
