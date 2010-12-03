@@ -79,6 +79,7 @@ class VenueController {
 
     def update = {
         def venueInstance = Venue.get(params.id)
+
         if (venueInstance) {
             if (params.version) {
                 def version = params.version.toLong()
@@ -97,12 +98,14 @@ class VenueController {
                         redirect(action:manage)
                     }
                     else {
+                        println "failed to save"
                         status.setRollbackOnly()
                         def msg = "Changes could not be saved because of the following:"	
                         render(view:'edit',model:[venue:venueInstance])
                         handleError(msg, venueInstance, edit)
                     }
                 } catch (RuntimeException e) {
+                    println e
                     status.setRollbackOnly()
                     def msg = "Changes could not be saved because of the following:"	
                     render(view:'edit',model:[venue:venueInstance])
