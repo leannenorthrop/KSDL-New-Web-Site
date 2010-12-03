@@ -51,12 +51,12 @@ class BuddhismController {
         def events = Event.buddhism('featured','desc').list()
         def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
 
-		def album
+		def album = []
 		try {
 		    def ss = Setting.buddhistSlideshow().list()
 			album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')			
 		} catch(error) {
-			
+            log.error("Unable to fetch flickr album for slideshow link", error)		
 		}
 		
 		def model = [links:Link.findAllBySection("B"),album:album,topArticles: topArticles, articles: articles,total:total,events:events,teachers:lineageTeachers]
@@ -68,7 +68,7 @@ class BuddhismController {
         def articles = Article.allBuddhismArticles('datePublished', 'desc').list()
 		def model = [ articles: articles, title: 'buddhism.all.articles.title']
 		articleService.addHeadersAndKeywords(model,request,response)
-        render(view: 'list', model:model)
+        model
     }
 
     def view = {
@@ -77,7 +77,7 @@ class BuddhismController {
         if (!model) {
             redirect(action:home)
         } else {
-            render(view: 'view', model: model)
+            return model
         }
     }
 
@@ -105,7 +105,7 @@ class BuddhismController {
     def slideshow = {
 	    def ss = Setting.buddhistSlideshow().list()
 		def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
-        model: [album:album]
+        [album:album]
     }
     
 	def teacher = {
@@ -126,7 +126,7 @@ class BuddhismController {
             }*/
             def events = teacherService.events(params.id);
             def articles = []
-            if (teacher.name == 'Community'){
+            if (teacher.name == 'Community' || teacher.name == 'All Welcome'){
                 articles = articleService.publishedByTags(['about us']);
             }
             def model = [teacher: teacher, id: params.id, events:events, articles:articles]
