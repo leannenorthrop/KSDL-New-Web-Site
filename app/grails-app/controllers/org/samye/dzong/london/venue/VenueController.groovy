@@ -22,9 +22,13 @@
  */
 package org.samye.dzong.london.venue
 
+/**
+ * Provides management actions for Samye venues/buildings/sites.
+ * TODO: Internaliationise messages
+ * TODO: Create base controller class and move helper methods there
+ */
 class VenueController {
-    // the delete, save and update actions only accept POST requests
-    static allowedMethods = [delete:'GET', save:'POST', update:'POST']
+    static allowedMethods = [delete:'GET', update:'POST']
 
     def index = {
         redirect(action: manage)
@@ -120,6 +124,8 @@ class VenueController {
         }
         status.setRollbackOnly()
         if (!action) {
+            flash.message = msg 
+            flash.isError = true
             render(view:'edit',model:[venue:venue])
         } else {
             handleError(msg, venue, action)
