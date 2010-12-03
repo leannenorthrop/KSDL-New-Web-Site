@@ -61,7 +61,7 @@ class Publishable implements Taggable, Commentable  {
     static auditable = true
 
     static constraints = {
-        publishState(blank:false,inList:["Unpublished", "Ready For Publication", "Published", "Archived"])
+        publishState(blank:false,inList:["Unpublished", "Ready", "Published", "Archived"])
         author(nullable:true)
         displayAuthor(nullable:true)
         displayDate(nullable:true)
@@ -86,6 +86,30 @@ class Publishable implements Taggable, Commentable  {
         allPublished {  ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', "Published"
+        }
+
+        authorPublishState { username, final publishState ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "${publishState}"
+            author {
+                eq 'username', username
+            }
+        }
+
+        publishState { final publishState ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "${publishState}"
+        }
+
+        authorDeleted { username ->
+            eq('deleted', Boolean.TRUE)
+            author {
+                eq('username', username)
+            }
+        }
+
+        deleted {
+            eq('deleted', Boolean.TRUE)
         }
     }
     

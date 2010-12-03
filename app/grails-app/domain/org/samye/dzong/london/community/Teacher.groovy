@@ -20,12 +20,13 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.community
 
 import org.samye.dzong.london.cms.Publishable
 import org.samye.dzong.london.media.Image
 
-/*
+/**
  * Domain class for storing both teacher and therapist information.
  * Note named queries unfortunately do not handle
  * order by properly in grails 1.2.0.
@@ -48,47 +49,6 @@ class Teacher extends Publishable {
         summary(size:5..Integer.MAX_VALUE,blank:false)
         content(maxSize:Integer.MAX_VALUE,blank:true)
         image(nullable:true)
-    }
-
-    static namedQueries = {
-        orderedAuthorPublishState { username, publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            author {
-                eq 'username', username
-            }
-            order("${orderCol}", "${orderDir}")
-        }
-
-        authorPublishState { username, publishState ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            author {
-                eq 'username', username
-            }
-        }
-
-        orderedPublishState { publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            order("${orderCol}", "${orderDir}")
-        }
-
-        publishState { publishState ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-        }
-
-        deletedAuthor { username ->
-            eq('deleted', Boolean.TRUE)
-            author {
-                eq('username', username)
-            }
-        }
-
-        deleted {
-            eq('deleted', Boolean.TRUE)
-        }
     }
 
     static mapping = {

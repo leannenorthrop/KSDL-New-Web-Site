@@ -40,11 +40,8 @@ class CMSUtilSpec extends IntegrationHelper {
     def roles = []
     def grailsApplication
 
-    def setupSpec() {
+    def prepare() {
         CMSUtil.addCMSMethods(String)
-    }
-
-    def setup() {
         clean()
         user = newUser()
         SecurityUtils.metaClass.static.getSubject = {
@@ -58,6 +55,7 @@ class CMSUtilSpec extends IntegrationHelper {
 
     def 'viewDomains'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing view",true)
     
         when:
@@ -72,6 +70,7 @@ class CMSUtilSpec extends IntegrationHelper {
   
     def 'userUnpublished'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} userUnpublished",false)
         obj.author = user
         obj.save(flush:true)
@@ -89,6 +88,7 @@ class CMSUtilSpec extends IntegrationHelper {
   
     def 'userPublished'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} userPublished",true)
         obj.author = user
         obj.save(flush:true)
@@ -105,6 +105,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'userArchived'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} userArchived",true)
         obj.author = user
         obj.publishState = 'Archived'
@@ -122,6 +123,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'userDeletedArticles'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} Deleted",true)
         obj.author = user
         obj.deleted = true
@@ -139,7 +141,9 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'unpublished'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} Unpublished",false)
+        obj.save(flush:true)
     
         when:
         def results = 'a string'."unpublished${domain}s"([sort:'author',order:'asc'])
@@ -154,7 +158,9 @@ class CMSUtilSpec extends IntegrationHelper {
   
     def 'published'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} Published",true)
+        obj.save(flush:true)
     
         when:
         def results = 'a string'."published${domain}s"([sort:'author',order:'asc'])
@@ -168,9 +174,10 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'archived'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} Archived",true)
         obj.publishState = 'Archived'
-        obj.save()
+        obj.save(flush:true)
     
         when:
         def results = 'a string'."archived${domain}s"([sort:'author',order:'asc'])
@@ -184,6 +191,7 @@ class CMSUtilSpec extends IntegrationHelper {
     
     def 'deleted'() {
         given:
+        prepare()
         def obj = this."new${domain}"("Testing ${domain} Deleted",true)
         obj.deleted = true
         obj.save()
