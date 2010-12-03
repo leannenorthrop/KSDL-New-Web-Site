@@ -90,17 +90,20 @@ class FileController {
         } else {
 	 		def os = response.outputStream
 			try {
-				if (request.getDateHeader("If-Modified-Since") > imageInstance.dateUploaded.time) {
+				if (request.getDateHeader("If-Modified-Since") > fileInstance.dateUploaded.time) {
 					response.setStatus(304)
 				}				
 				//response.setContentType(imageInstance.mimeType)
-				response.setDateHeader('Last-Modified', imageInstance.dateUploaded.time)
+				response.setDateHeader('Last-Modified', fileInstance.dateUploaded.time)
 				response.setHeader("Cache-Control", "public")			
-				response.setHeader("ETag", "W/\"" + imageInstance.id + "\"")
-				response.setContentLength((int)imageInstance.size)			
+				response.setHeader("ETag", "W/\"" + fileInstance.id + "\"")
+				response.setContentLength((int)fileInstance.size)			
 				def f = new File(fileInstance.path)
 				def is = f.newInputStream()
 				IOUtils.copy(is,os)
+
+                fileInstance.downloads++;
+                fileInstance.save();
 			} catch(error) {
 				log.error error
 			}

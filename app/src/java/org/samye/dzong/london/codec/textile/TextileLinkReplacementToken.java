@@ -44,7 +44,7 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
 
     @Override
     protected String getPattern(int groupOffset) {
-        return "(?:(?:(?<=\\W)|^)(\\[[a-zA-Z0-9 ,.]{3,}\\])\\(([^\\)]+)\\))";
+        return "(?:(?:(?<=\\W)|^)(\\[[a-zA-Z0-9 ,._-]{3,}\\])\\(([^\\)]+)\\))";
     }
 
     @Override

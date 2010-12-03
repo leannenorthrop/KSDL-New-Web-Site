@@ -30,17 +30,23 @@
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="image.list.title"/></title>
+    <title><g:message code="slideshow.list.title"/></title>
   </head>
   <body>
-    <ul class="images ui-widget ui-widget-content ui-corner-all">
-      <g:each in="${albums}" status="i" var="album">
-        <li>
-          <g:link action="edit" id="${album.albumId}" style="width:130px;height:130px;text-align:center;vertical-align:middle;">
-            <img src="${album?.src}" alt="${album?.name}" title="${album?.name}" class="ui-widget-content ui-corner-all ui-shadow" style="float:none;"/>
-          </g:link>
-        </li>
-      </g:each>
-    </ul>
+    <form>
+        <fieldset>
+                <ul class="images ui-widget ui-widget-content ui-corner-all">
+                  <g:each in="${albums}" status="i" var="album">
+                    <li>
+                      <g:link action="edit" id="${album.albumId}" style="width:130px;height:130px;text-align:center;vertical-align:middle;">
+                        <img src="${album?.src}" alt="${album?.name}" title="${album?.name}" class="ui-widget-content ui-corner-all ui-shadow" style="float:none;"/>
+                      </g:link>
+                    </li>
+                  </g:each>
+                </ul>
+                <p class="last">&nbsp;</p>
+                <g:actionSubmit value="${message(code:'update.slideshow.btn')}" action="updateCache" class="ui-corner-all"/>
+        </fieldset>
+    </form>
   </body>
 </html>

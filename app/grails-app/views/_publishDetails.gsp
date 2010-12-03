@@ -51,13 +51,6 @@
   </span>
 </p>
 <p>
-  <span id="is_article_section" style='display:none'>
-      <label for="home" title="Show on Home Page"><span><g:message code="article.display.section"/></span>
-          <g:checkBox name="home" checked="${articleInstance?.home}"/>       
-      </label>
-  </span>
-</p>
-<p>
   <span id="is_featured">
       <label for="featured"><span><g:message code="article.display.section"/></span>
           <g:checkBox name="featured" checked="${articleInstance?.featured}"/>       

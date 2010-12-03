@@ -99,10 +99,10 @@ class Flickr {
     			album.images = photos.collect { photo ->
     			    def image = new Expando()
     			    image.name = photo.@title
-    			    image.thumbnail = photo.@url_sq
-    			    image.src = photo.@url_o
-    			    image.width = photo.@width_o
-    			    image.height = photo.@height_o
+    			    image.thumbnail = photo.@url_t
+    			    image.src = photo.@url_m
+    			    image.width = photo.@width_m
+    			    image.height = photo.@height_m
     			    image.isAlbumCover = photo.@isprimary == 1
     			    if (image.isAlbumCover) {
     			        album.src = photo.@url_sq
