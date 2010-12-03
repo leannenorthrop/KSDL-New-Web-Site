@@ -78,22 +78,22 @@ class VenueController {
     }
 
     def update = {
-        def venueInstance = Venue.get(params.id)
+        def venue = Venue.get(params.id)
 
-        if (venueInstance) {
+        if (venue) {
             if (params.version) {
                 def version = params.version.toLong()
-                if (venueInstance.version > version) {
-                    venueInstance.errors.rejectValue("version", "venue.optimistic.locking.failure", "Another user has updated ${venue.name} whilst you were editing.")
-                    render(view:'edit',model:[venueInstance:venueInstance])
+                if (venue.version > version) {
+                    venue.errors.rejectValue("version", "venue.optimistic.locking.failure", "Another user has updated ${venue.name} whilst you were editing.")
+                    render(view:'edit',model:[venue:venue])
                     return
                 }
             }           
             
             Venue.withTransaction { status ->
-                venueInstance.properties = params
+                venue.properties = params
                 try {
-                    if (!venueInstance.hasErrors() && venueInstance.save()) {
+                    if (!venue.hasErrors() && venue.save()) {
                         flash.message = "Venue ${venue.name} updated"
                         redirect(action:manage)
                     }
@@ -101,15 +101,15 @@ class VenueController {
                         println "failed to save"
                         status.setRollbackOnly()
                         def msg = "Changes could not be saved because of the following:"	
-                        render(view:'edit',model:[venue:venueInstance])
-                        handleError(msg, venueInstance, edit)
+                        render(view:'edit',model:[venue:venue])
+                        handleError(msg, venue, edit)
                     }
                 } catch (RuntimeException e) {
                     println e
                     status.setRollbackOnly()
                     def msg = "Changes could not be saved because of the following:"	
-                    render(view:'edit',model:[venue:venueInstance])
-                    handleError(msg, venueInstance, edit)
+                    render(view:'edit',model:[venue:venue])
+                    handleError(msg, venue, edit)
                 }
             }
         }
