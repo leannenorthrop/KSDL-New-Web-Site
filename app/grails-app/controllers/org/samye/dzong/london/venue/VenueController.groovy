@@ -47,12 +47,12 @@ class VenueController {
                         redirect(action:manage)
                     } else {
                         def msg = "Venue ${venue.name} could not be deleted"
-                        rollback(msg,venue,manage)
+                        rollback(status,msg,venue,manage)
                     }
                 }
                 catch(e) {
                     def msg = "Venue ${venue.name} could not be deleted"
-                    rollback(msg,venue,manage)
+                    rollback(status,msg,venue,manage,e)
                 }
             }
         }
@@ -99,11 +99,11 @@ class VenueController {
                     }
                     else {
                         def msg = "Changes could not be saved because of the following:"	
-                        rollback(msg,venue)
+                        rollback(status,msg,venue)
                     }
                 } catch (RuntimeException e) {
                     def msg = "Changes could not be saved because of the following:"	
-                    rollback(msg,venue)
+                    rollback(status,msg,venue,null,e)
                 }
             }
         }
@@ -112,7 +112,7 @@ class VenueController {
         }
     }
 
-    def rollback(msg,venue,action=null,e=null) {
+    def rollback(status,msg,venue,action=null,e=null) {
         if (e) {
             log.warn msg, e
         } else {
