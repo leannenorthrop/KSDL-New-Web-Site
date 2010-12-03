@@ -67,10 +67,12 @@ class TeacherSpec extends UnitSpec {
 
     
     def "Title must be in list"() {
-        expect:
+        setup:
             def teacher = validTeacher()
             teacher.title = title 
             mockForConstraintsTests(Teacher, [ teacher ])
+
+        expect:
             assert teacher.validate()
 
         where:
@@ -78,10 +80,12 @@ class TeacherSpec extends UnitSpec {
     }
 
     def "Title not in list fails"() {
-        expect:
+        setup:
             def teacher = validTeacher()
             teacher.title = title 
             mockForConstraintsTests(Teacher, [ teacher ])
+
+        expect:
             assert !teacher.validate()
 
         where:
@@ -131,10 +135,12 @@ class TeacherSpec extends UnitSpec {
     }
 
     def "Type must be in list"() {
-        expect:
+        setup:
             def teacher = validTeacher()
             teacher.type = type 
             mockForConstraintsTests(Teacher, [ teacher ])
+
+        expect:
             assert teacher.validate()
 
         where:
@@ -142,10 +148,12 @@ class TeacherSpec extends UnitSpec {
     }
 
     def "Type not in list fails"() {
-        expect:
+        setup:
             def teacher = validTeacher()
             teacher.type = type 
             mockForConstraintsTests(Teacher, [ teacher ])
+        
+        expect:
             assert !teacher.validate()
 
         where:

@@ -142,9 +142,9 @@ class EventPriceSpec extends UnitSpec {
             eventprice.messageSource = messageSource
             eventprice.event = new Event()
             mockForConstraintsTests(EventPrice, [ eventprice ])
+            eventprice.category = category 
 
         expect:
-            eventprice.category = category 
             assert eventprice.validate()
 
         where:
@@ -157,9 +157,9 @@ class EventPriceSpec extends UnitSpec {
             eventprice.messageSource = messageSource
             eventprice.event = new Event()
             mockForConstraintsTests(EventPrice, [ eventprice ])
+            eventprice.category = category 
 
         expect:
-            eventprice.category = category 
             assert !eventprice.validate()
 
         where:

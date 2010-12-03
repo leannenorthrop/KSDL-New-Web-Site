@@ -228,15 +228,15 @@ class EventSpec extends UnitSpec {
             def event = validEvent()
             def now = new Date()
             addValidDate(event,now)
+            def iCalEvent = event.toiCalVEvent()
 
 
         when:
-            def iCalEvent = event.toiCalVEvent()
             iCalEvent.validate(true)
 
         then:
-            iCalEvent.startDate.date.time = now.time
-            iCalEvent.endDate.date.time = now.time
+            iCalEvent.startDate.date.time == now.time
+            iCalEvent.endDate.date.time == now.time
             iCalEvent.location.value == "Spa Road"
             notThrown(ValidationException)
     }
@@ -246,15 +246,15 @@ class EventSpec extends UnitSpec {
             def event = validEvent()
             def now = new Date()
             addValidDates(event,now)
+            def iCalEvent = event.toiCalVEvent()
 
 
         when:
-            def iCalEvent = event.toiCalVEvent()
             iCalEvent.validate(true)
 
         then:
-            iCalEvent.startDate.date.time = now.time
-            iCalEvent.endDate.date.time = now.time
+            iCalEvent.startDate.date.time == now.time
+            iCalEvent.endDate.date.time == now.time
             iCalEvent.location.value == "Spa Road"
             notThrown(ValidationException)
     }
@@ -421,7 +421,7 @@ class EventSpec extends UnitSpec {
             def result = event.toJSON(today)
 
         then:
-            result = '{"id":15,"title":"Meditation","start":"2010-11-02 09:00:00","end":"2010-11-02 10:00:00","className":"M","url":"meditation/event/15","allDay":false}'
+            result == '{"id":15,"title":"Meditation","start":"2010-11-02 09:00:00","end":"2010-11-02 10:00:00","className":"M","url":"meditation/event/15","allDay":false}'
     }
 
     def 'toDate returns start date when not a rule or multiple'() {
