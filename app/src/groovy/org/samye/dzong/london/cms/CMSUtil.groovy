@@ -22,7 +22,12 @@
  */
 package org.samye.dzong.london.cms  
 
+import org.apache.shiro.SecurityUtils
+
 class CMSUtil {
+    private static int MIN = 30
+    private static int MAX = 200
+
     def static addCMSMethods(artefactClass, log=null) {
         if (log) {
             log.info "Adding CMS methods to: ${artefactClass}..."
@@ -89,6 +94,20 @@ class CMSUtil {
                 }
             }
             ok
+        }
+
+        artefactClass.metaClass.getModelForView = { viewName, params ->
+            def domainName = (delegate.controllerName - 'Controller')
+            params.offset = params?.offset ? params.offset.toInteger() : 0
+            params.max = Math.min(params?.max ? params.max.toInteger() : MIN, MAX)
+
+            def model = []
+            if (SecurityUtils.subject.hasRoles(delegate.adminRoles).any()) {
+                model = delegate."${domainName}Service"."${viewName}"(params)
+            } else {
+                model = delegate."${domainName}Service"."user${viewName.capitalize()}"(params)
+            }
+            model
         }
     }
 }

@@ -430,7 +430,7 @@ class EventControllerSpec extends ControllerSpec {
         controller.ajaxDeleted()
 
         then:
-        params.max == EventController.MIN 
+        params.max == 30 
     }
 
     def 'getEventsForView uses MAX when max parameter is too large'() {
@@ -446,7 +446,7 @@ class EventControllerSpec extends ControllerSpec {
         controller.ajaxDeleted()
 
         then:
-        params.max == EventController.MAX 
+        params.max == 200 
     }
     
     def 'Manager renders management page'() {
