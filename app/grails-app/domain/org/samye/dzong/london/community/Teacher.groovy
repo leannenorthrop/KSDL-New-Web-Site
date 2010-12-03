@@ -99,7 +99,7 @@ class Teacher extends Publishable {
     }
 
     String toString() {
-        if (title == 'U') {
+        if (!title || title == 'U') {
             return name
         } else {
             def locale = Locale.UK

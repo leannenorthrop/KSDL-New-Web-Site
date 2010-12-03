@@ -26,6 +26,7 @@ import org.apache.shiro.SecurityUtils
 import groovy.xml.StreamingMarkupBuilder
 import org.codehaus.groovy.grails.plugins.web.taglib.JavascriptValue
 import org.samye.dzong.london.site.Setting
+import org.samye.dzong.london.media.Image
 
 /*
  * Tag library for site specific content such as navigation, toolbars, comments
@@ -224,7 +225,7 @@ class CommonLayoutTagLib {
 
 	def thumbnail = { attrs, body ->
 	    def size = Setting.findByName('ThumbSize').value;
-	    def src = 0
+	    def src = -1
 	    if (attrs?.srcid) {
 	        src = attrs.remove('srcid')
         }
@@ -240,8 +241,39 @@ class CommonLayoutTagLib {
 		}
 		
 		out << "/>"
+
+        def hrf = createLink(controller: 'image', action:'thumbnail', id:'0')
+        out << """<script type="text/javascript">\$("#image\\\\.id").change(function() {
+            var src = \$("option:selected", this).val();
+            var href = '${hrf}';
+            \$("#thumb_image").attr("srcid",src);
+            \$("#thumb_image").attr("src",href.replace('0',src));
+        });</script>"""
 	}
-	
+
+    def selectImg = { attrs, body ->
+      def pxSize = Setting.findByName('ThumbSize').value
+      def msg = message(code:"venue.image.label")
+      def notSelectedMessage = message(code: 'no.img')
+      def obj = attrs?.obj
+      def tag = attrs?.tag
+      println "Obj is ${obj} tag is ${tag}"
+
+      out << """<span style="float:left;width:20em;min-height:${pxSize}px"><p><label for="image.id" style="display:inline-block;width:10em;">${msg}</label>"""
+
+      out << g.select(from: Image.findAllByTag(tag), 
+             name:"image.id",
+             value:obj?.image?.id,
+             noSelection:['null':notSelectedMessage],
+             optionKey:"id",
+             optionValue:"name",
+             class:"ui-corner-all") 
+
+      out << """</p></span><span style="float:left;margin-left:1.2em;min-width:${pxSize}px;min-height:${pxSize}px">"""
+      out << lsdc.thumbnail(srcid:obj?.image?.id, id:"thumb_image")
+      out << """</span><span class="clear"></span>"""
+    }
+
     def remoteField = { attrs, body ->
 		def paramName = attrs.paramName ? attrs.remove('paramName') : 'value'
 		def value = attrs.remove('value')

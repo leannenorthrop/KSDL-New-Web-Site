@@ -17,7 +17,7 @@ class Image implements Taggable {
     static constraints = {
         name(blank: false, unique: true,matches:/[a-zA-Z0-9 ]*/)
         mimeType(blank: false)
-        image(blank: false)
+        image(nullable: false)
         thumbnail()
         dateCreated(nullable:true)
         lastUpdated(nullable:true)

@@ -22,37 +22,52 @@
   ----------------------------------------------------------------------------}%
 
 <%--
-  Created by IntelliJ IDEA.
-  User: northrl
-  Date: Feb 18, 2010
-  Time: 4:54:10 PM
-  To change this template use File | Settings | File Templates.
+    @author Leanne Northrop
+    @since Feb 18, 2010,  4:54:10 PM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" import="org.samye.dzong.london.events.Event" %>
 <p class="group">
   <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
   <textarea cols="5" rows="5" id="tags" name="tags" class="${hasErrors(bean: articleInstance, field: 'tags', 'errors')} required" minlength="3">${articleInstance.tags.join(",")}</textarea>
-  <p class="tags_help">
+  <span class="tags_help">
     <g:message code="article.tag.help"/>
-  </p>
+  </span>
 </p>
 <p>
   <label for="displayAuthor" title="Display author's public name"><g:message code="article.display.author"/>
       <g:checkBox name="displayAuthor" checked="${articleInstance?.displayAuthor}"/> 
   </label>
-  <label for="displayDate"><g:message code="article.display.date"/>
-  <g:if test="${'N' == articleInstance?.category}">
-    <g:checkBox name="displayDate" checked="${true}"/>
-  </g:if>
-  <g:else>
-   <g:checkBox name="displayDate" checked="${articleInstance?.displayDate}"/>
-  </g:else>
-    <label for="home" title="Show on Home Page for News Artcles or at top Top of Section Page."><g:message code="article.display.home"/>
-        <g:checkBox name="home" checked="${articleInstance?.home}"/>       
-    </label>
-    <label for="featured" title="Show as first article of the Section Page according to the Category selected above."/><g:message code="article.display.featured"/>
-        <g:checkBox name="featured" checked="${articleInstance?.featured}"/>   
-    </label>
-  </label>
 </p>
+<p>
+  <label for="displayDate"><g:message code="article.display.date"/></label>
+  <g:checkBox name="displayDate" checked="${articleInstance?.displayDate}"/>
+</p>
+<p>
+  <span id="is_home">
+      <label for="home" title="Show on Home Page"><span><g:message code="article.display.home"/></span>
+          <g:checkBox name="home" checked="${articleInstance?.home}"/>       
+      </label>
+  </span>
+</p>
+<p>
+  <span id="is_article_section" style='display:none'>
+      <label for="home" title="Show on Home Page"><span><g:message code="article.display.section"/></span>
+          <g:checkBox name="home" checked="${articleInstance?.home}"/>       
+      </label>
+  </span>
+</p>
+<p>
+  <span id="is_featured">
+      <label for="featured"><span><g:message code="article.display.section"/></span>
+          <g:checkBox name="featured" checked="${articleInstance?.featured}"/>       
+      </label>
+  </span>
+</p>
+<g:javascript>
+    var isEvent = ${articleInstance instanceof Event};
+    var featuredLabel = "${message(code:'article.display.section')}";
+    var homeLabel = "${message(code:'article.display.home')}";
+</g:javascript>
+<g:javascript src='site/publish.js'/>
+

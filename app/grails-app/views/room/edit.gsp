@@ -35,12 +35,6 @@
     <g:javascript>
       $(function() {
         $("#editroom").validate();
-        $("#image\\.id").change(function() {
-            var src = $("option:selected", this).val();
-            var href = '${createLink(controller: 'image', action:'thumbnail', id:'0')}';
-            $("#thumb_image").attr("srcid",src);
-            $("#thumb_image").attr("src",href.replace('0',src));
-        });        
       });
     </g:javascript>
   </head>
@@ -63,18 +57,8 @@
                 <g:textField name="name" value="${fieldValue(bean:room,field:'name')}" class="required ui-corner-all ${hasErrors(bean:room,field:'name','errors')}" minlength="5"/>
             </p>
             
-            <span style="float:left;width: 14em;min-height:${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px">
-                <p>
-                  <label for="image.id" style="display:inline-block;width:6em;"><g:message code="room.image.label"/></label>
-                  <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
-                  <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('room')}" name="image.id" value="${room?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="ui-corner-all"/>
-                </p>
-            </span>
-            <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px; min-height:${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px">
-                <lsdc:thumbnail srcid="${room?.image?.id}" id="thumb_image"/>
-            </span>
-            <span class="clear"></span>  
-            
+            <lsdc:selectImg obj="${room}" tag="${'room'}"/>
+
             <p>
                 <label for="venue.id"><g:message code="room.venue.label"/></label>
                 <g:select from="${org.samye.dzong.london.venue.Venue.findAll()}" name="venue.id" value="${room?.venue?.id}" optionKey="id" optionValue="name"/>
