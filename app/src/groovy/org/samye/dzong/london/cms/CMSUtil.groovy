@@ -40,7 +40,7 @@ class CMSUtil {
             status?.setRollbackOnly()
             flash.message = msg 
             flash.isError = true
-            if (args && noOfArgs >= 1 && noOfArgs < 3) {
+            if (args && noOfArgs < 3) {
                 flash.bean = args[0]
                 flash.args = [args[0]]
             } else if (args && noOfArgs >= 3) {
@@ -58,7 +58,7 @@ class CMSUtil {
         artefactClass.metaClass.handleError = { msg, obj, Object[] args ->
             flash.message = msg
             flash.isError = true
-            flash.args = args[2] ? args[2] : obj ? [obj] : null
+            flash.args = args.size() >= 3 ? args[2] : obj ? [obj] : null
             if (obj) {
                 flash.bean = obj 
             }
@@ -69,11 +69,12 @@ class CMSUtil {
                     } else {
                         redirect(action:args[0])
                     }
-                } else if (args.size() == 2) {
+                } else if (args.size() >= 2) {
                     render(view: args[0], model:args[1])
                 } 
             }
         }
+
         artefactClass.metaClass.versionCheck = { params, obj ->
             def ok = true
             if (params.version) {
