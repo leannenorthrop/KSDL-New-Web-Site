@@ -32,7 +32,7 @@ import org.samye.dzong.london.cms.*
  * @author Leanne Northrop
  * @since  January 2010
  */
-class VenueController implements CMSController {
+class VenueController extends CMSController {
     static allowedMethods = [delete:'GET', update:'POST']
 
     def index = {
@@ -96,6 +96,7 @@ class VenueController implements CMSController {
             Venue.withTransaction { status ->
                 venue.properties = params
                 try {
+                    ['Addresses', 'Emails', 'TelephoneNumbers'].each { venue."bind${it}"(params) }
                     if (!venue.hasErrors() && venue.save()) {
                         flash.message = "Venue ${venue.name} updated"
                         redirect(action:manage)

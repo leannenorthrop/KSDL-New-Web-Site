@@ -113,6 +113,42 @@ class Venue extends Publishable {
         return LazyList.decorate(telephoneNumbers,FactoryUtils.instantiateFactory(VenueTelephone.class))
     }
 
+    def bindAddresses(params) {
+        def _toBeDeleted = params.findAll{it.key.contains('addressesList') && it.key.contains('_deleted') && it.value.toBoolean() }.keySet()
+        def delIndexes = _toBeDeleted.collect{ it.minus('addressesList[').minus(']._deleted').toInteger() }
+        addresses.toArray().eachWithIndex{item,index ->
+            if (delIndexes.contains(index)) {
+                removeFromAddresses(item);
+            } else {
+                item.save() 
+            }    			
+        }
+    }
+
+    def bindEmails(params) {
+        def _toBeDeleted = params.findAll{it.key.contains('emailsList') && it.key.contains('_deleted') && it.value.toBoolean() }.keySet()
+        def delIndexes = _toBeDeleted.collect{ it.minus('emailsList[').minus(']._deleted').toInteger() }
+        emails.toArray().eachWithIndex{item,index ->
+            if (delIndexes.contains(index)) {
+                removeFromEmails(item);
+            } else {
+                item.save() 
+            }    			
+        }
+    }
+
+    def bindTelephoneNumbers(params) {
+        def _toBeDeleted = params.findAll{it.key.contains('telephoneNumbersList') && it.key.contains('_deleted') && it.value.toBoolean() }.keySet()
+        def delIndexes = _toBeDeleted.collect{ it.minus('telephoneNumbersList[').minus(']._deleted').toInteger() }
+        telephoneNumbers.toArray().eachWithIndex{item,index ->
+            if (delIndexes.contains(index)) {
+                removeFromTelephoneNumbers(item);
+            } else {
+                item.save() 
+            }    			
+        }
+    }
+
     /*
      * {@inheritDoc}
      */
