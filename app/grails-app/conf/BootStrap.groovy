@@ -20,25 +20,24 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
-package org.samye.dzong.london.venue
 
-import org.samyedzong.london.cms.*
 import org.apache.shiro.crypto.hash.Sha1Hash
+import org.samye.dzong.london.cms.*
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.media.Image
 import com.icegreen.greenmail.util.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import java.util.zip.*;
 
-/**
- *
- */
 class BootStrap {
      def imageService
      def greenMail
+     def grailsApplication
 
      def init = { servletContext ->
-         application.controllerClasses.each() {
+        log.info "Bootstrapping..."
+
+         grailsApplication.controllerClasses.each() {
              if (CMSController.class.isAssignableFrom(it)) {
                  CMSUtil.addCMSMethods(it, log)
              }
