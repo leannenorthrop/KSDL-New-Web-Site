@@ -26,6 +26,12 @@ package org.samye.dzong.london.events
 import org.samye.dzong.london.shop.Price
 import java.text.NumberFormat
 
+/**
+ * Event price. Subclassed from Price to support one to many association with
+ * Event (this class being on the many side). Requires access to message source
+ * to display prices correctly. Transient _deleted property is only used to 
+ * mark instances of this class that require deletion.
+ */
 class EventPrice extends Price {
     def messageSource
 
@@ -35,12 +41,9 @@ class EventPrice extends Price {
 
     static belongsTo = [ event : Event ]
 
-    static constraints = {
-    }
-
     EventPrice() {
         currency = Currency.getInstance("GBP")
-        category = 'f'
+        category = 'F'
         price = 0.0d
     }
 
@@ -51,10 +54,17 @@ class EventPrice extends Price {
     }
 
     String toString() {
-        def locale = Locale.UK
-        def thecategory = messageSource.getMessage('event.price.'+category,null,locale)
-        def currencyFormatter = NumberFormat.getCurrencyInstance(locale);
-        def currencyOut = currencyFormatter.format(price);
-        return messageSource.getMessage('event.display.price',[thecategory, currencyOut].toArray(),locale)
+        try {
+            def locale = Locale.UK
+            def thecategory = messageSource.getMessage('event.price.'+category,null,locale)
+            def currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+            def currencyOut = currencyFormatter.format(price);
+            return messageSource.getMessage('event.display.price',[thecategory, currencyOut].toArray(),locale)
+        } catch(error) {
+            def locale = Locale.UK
+            def currencyFormatter = NumberFormat.getCurrencyInstance(locale);
+            def currencyOut = currencyFormatter.format(price);
+            return "${currencyOut}"
+        }
     }
 }

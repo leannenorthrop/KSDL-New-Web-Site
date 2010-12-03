@@ -381,7 +381,8 @@ class EventController {
             if (params.version) {
                 def version = params.version.toLong()
                 if (event.version > version) {
-                    flash.message = "Event ${event.title} was being edited - please try again."
+                    flash.message = "Event ${event.title} was being edited by another user - please try again."
+                    flash.isError = true
                     redirect(action: manage)
                     return
                 }
@@ -389,15 +390,10 @@ class EventController {
             
             event.properties = params
     		if (event.prices) {
-    			def _toBeDeleted = event.prices.findAll {it?._deleted}
-    			def _toBeSaved = event.prices.findAll {!it?._deleted}    			
-    			if (_toBeSaved) {
-    			    _toBeSaved.each{
-    			        it.save()}
-    			}    			
-    			if (_toBeDeleted) {
-    				event.prices.removeAll(_toBeDeleted)
-    			}
+    			def _toBeDeleted = params.findAll{it.key.contains('priceList') && it.key.contains('_deleted') && it.value.toBoolean() }.values()
+                log.debug "Deleting ${_toBeDeleted}"
+    			event.prices.removeAll(_toBeDeleted)
+    			event.prices.each{ it.save() }    			
     		}
 
     		if (event.dates) {
@@ -418,31 +414,25 @@ class EventController {
             }
 
             event.publishState = "Published"
-            def tags = event.tags
-            def newtags = params.tags.split(',')
-            tags.each {tag ->
-                def found = newtags.find {newtag -> newtag == tag}
-                if (!found) {
-                    event.removeTag(tag)
-                }
-            }
-            event.addTags(newtags)
 
+            log.debug "Event id is ${event.id}"
             if (!event.hasErrors() && event.save()) {
-                if (isFirstPublish) {
-                }
                 flash.message = "Event ${event.title} has been Published"
                 redirect(action: manage)
+                def newtags = params.tags.split(',') as List
+                event.setTags(newtags)
             }
             else {
-                flash.message = "Event ${event.title} could not be ${params.state} due to an internal error. Please try again."
+                flash.message = "Event ${event.title} could not be ${params.state} due to errors. Please correct the errors and try again."
 				flash.args = [event]
 				flash.isError=true
+                flash.bean = event
                 redirect(action: pre_publish, id: params.id)
             }
         }
         else {
             flash.message = "Event not found with id ${params.id}"
+            flash.isError=true
             redirect(action: manage)
         }
     }
@@ -463,15 +453,15 @@ class EventController {
 
             event.properties = params
     		if (event.prices) {
-    			def _toBeDeleted = event.prices.findAll {it?._deleted}
-    			def _toBeSaved = event.prices.findAll {!it?._deleted}    			
-    			if (_toBeSaved) {
-    			    _toBeSaved.each{
-    			        it.save()}
-    			}    			
-    			if (_toBeDeleted) {
-    				event.prices.removeAll(_toBeDeleted)
-    			}
+    			def _toBeDeleted = params.findAll{it.key.contains('priceList') && it.key.contains('_deleted') && it.value.toBoolean() }.keySet()
+                def delIndexes = _toBeDeleted.collect{ it.minus('priceList[').minus(']._deleted').toInteger() }
+    			event.prices.toArray().eachWithIndex{item,index ->
+                    if (delIndexes.contains(index)) {
+                        event.removeFromPrices(item);
+                    } else {
+                        item.save() 
+                    }    			
+                }
     		}
 
     		if (event.dates) {
@@ -479,7 +469,8 @@ class EventController {
     			def _toBeSaved = event.dates.findAll {!it?._deleted}    			
     			if (_toBeSaved) {
     			    _toBeSaved.each{
-    			        it.save()}
+    			        it.save()
+                    }
     			}
     			if (_toBeDeleted) {
     				event.dates.removeAll(_toBeDeleted)
@@ -495,6 +486,7 @@ class EventController {
                 flash.isError = true
                 flash.message = "event.update.error"
                 flash.args = [event]
+                flash.bean = event 
                 render(view: 'edit', model: [event: event, id: params.id])
             }
         }
@@ -527,7 +519,8 @@ class EventController {
         else {
             flash.isError = true
             flash.message = "event.update.error"
-            flash.args = [event]
+            flash.args = [event] 
+            flash.bean = event 
             render(view: 'create', model: [event: event, id: params.id])
         }
     }
@@ -559,6 +552,7 @@ class EventController {
                 flash.message = "Event ${event.title} could not be ${params.state} due to an internal error. Please try again."
                 flash.isError = true
                 flash.args = [event]
+                log.errors "State change failed due to errors: ${event.errors}"
                 redirect(action: manage)
             }
         }

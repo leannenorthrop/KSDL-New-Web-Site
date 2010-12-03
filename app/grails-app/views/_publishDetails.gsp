@@ -39,40 +39,20 @@
 </p>
 <p>
   <label for="displayAuthor" title="Display author's public name"><g:message code="article.display.author"/>
-  <g:if test="${articleInstance?.displayAuthor}">
-      <input type="checkbox" name="displayAuthor" id="displayAuthor" checked="true" title="Display author's public name"></input>    
-  </g:if>
-  <g:else>
-      <input type="checkbox" name="displayAuthor" id="displayAuthor" title="Display author's public name"></input>
-  </g:else>  
+      <g:checkBox name="displayAuthor" checked="${articleInstance?.displayAuthor}"/> 
   </label>
   <label for="displayDate"><g:message code="article.display.date"/>
   <g:if test="${'N' == articleInstance?.category}">
-    <input type="checkbox" name="displayDate" id="displayDate" checked="true"></input>
+    <g:checkBox name="displayDate" checked="${true}"/>
   </g:if>
   <g:else>
-    <g:if test="${articleInstance?.displayDate}">
-        <input type="checkbox" name="displayDate" id="displayDate" checked="true"></input>    
-    </g:if>
-    <g:else>
-        <input type="checkbox" name="displayDate" id="displayDate"></input>
-    </g:else>
+   <g:checkBox name="displayDate" checked="${articleInstance?.displayDate}"/>
   </g:else>
-    <label for="home" title="Show on Home Page if not a Shop article, otherwise show as first article on Shop page."><g:message code="article.display.home"/>
-        <g:if test="${articleInstance?.home}">
-            <input type="checkbox" name="home" id="home" checked="true" title="Show on Home Page if not a Shop article, otherwise show as first article on Shop page."></input>    
-        </g:if>
-        <g:else>
-            <input type="checkbox" name="home" id="home" title="Show on Home Page if not a Shop article, otherwise show as first article on Shop page."></input>
-        </g:else>        
+    <label for="home" title="Show on Home Page for News Artcles or at top Top of Section Page."><g:message code="article.display.home"/>
+        <g:checkBox name="home" checked="${articleInstance?.home}"/>       
     </label>
     <label for="featured" title="Show as first article of the Section Page according to the Category selected above."/><g:message code="article.display.featured"/>
-    <g:if test="${articleInstance?.featured}">
-        <input type="checkbox" name="featured" id="featured" checked="true" title="Show as first article of the Section Page according to the Category selected above."></input>    
-    </g:if>
-    <g:else>
-        <input type="checkbox" name="featured" id="featured" title="Show as first article of the Section Page according to the Category selected above."></input>
-    </g:else>    
+        <g:checkBox name="featured" checked="${articleInstance?.featured}"/>   
     </label>
   </label>
 </p>

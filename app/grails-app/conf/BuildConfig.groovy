@@ -47,3 +47,6 @@ grails.project.dependency.resolution = {
         
     }
 }
+clover {
+    excludes = ['**/test/**','**/conf/**','**/plugins/**','**/*Spec.groovy','**/*Tests.groovy']
+}

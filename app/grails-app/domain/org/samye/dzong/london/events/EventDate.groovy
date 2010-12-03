@@ -25,8 +25,14 @@ package org.samye.dzong.london.events
 
 import org.samye.dzong.london.ScheduleRule
 import org.joda.time.*
-import java.text.SimpleDateFormat
+import org.joda.time.format.*
 
+
+/**
+ * Event date iCalendar rule. Subclassed from ScheduleRule to support one to many 
+ * association with Event (this class being on the many side). Transient _deleted 
+ * property is only used to mark instances of this class that require deletion.
+ */
 class EventDate extends ScheduleRule {
 
     boolean _deleted
@@ -35,33 +41,34 @@ class EventDate extends ScheduleRule {
 
     static belongsTo = [ event : Event ]
 
-    static constraints = {
-    }
-
     static mapping = {
         sort startDate:"desc"
     }
 
     EventDate() {
         super()
-        println "Default constructor" + this.ruleType
     }
 
     EventDate(EventDate toBeCopied) {
         super(toBeCopied)
-        println "Copy constructor" + this.ruleType        
     }   
     
     String toString() {
-        def f = new SimpleDateFormat("dd-MM-yyyy");
+        def startDate = new DateTime(startDate.getTime())
+        def endDate = new DateTime(endDate.getTime())
+        def startTime = startTime.toDateTimeToday()
+        def endTime = endTime.toDateTimeToday()
+        def fmt = DateTimeFormat.forPattern("dd-MM-yyyy");
+        def tfmt = DateTimeFormat.forPattern("hh:mma");
+        def pfmt = PeriodFormat.getDefault()
         if (isRule) {
             if (isBounded()) {
-                return "${f.format(startDate)} ${f.format(endDate)} ${startTime} - ${endTime} (duration ${duration})"; 
+                return "${fmt.print(startDate)} ${fmt.print(endDate)} ${tfmt.print(startTime)} - ${tfmt.print(endTime)} (duration ${pfmt.print(duration)})"; 
             } else {
-                return f.format(startDate) + " ${startTime} - ${endTime} (duration ${duration})";            
+                return fmt.print(startDate) + " ${tfmt.print(startTime)} - ${tfmt.print(endTime)} (duration ${pfmt.print(duration)})";            
             }
         } else {
-            return f.format(startDate);
+            return fmt.print(startDate);
         }
     }
      

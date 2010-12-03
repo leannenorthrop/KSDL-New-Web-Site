@@ -58,7 +58,9 @@ class FileController {
     }
 
 	def src = {
-		def fileInstance = UFile.findByName(params.id)
+        def coder = new org.apache.commons.codec.net.URLCodec()
+        def id2 = coder.decode(params.id) 	    
+		def fileInstance = UFile.findByName(id2)
         if(!fileInstance) {
             log.warn "no file found for ${params.id}"
             response.outputStream << ""

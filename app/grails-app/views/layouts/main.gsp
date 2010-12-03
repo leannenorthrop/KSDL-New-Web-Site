@@ -51,6 +51,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="ROBOTS" content="ALL" />
     <meta name="keywords" content="${keywords?.join(',')}" />
+    <meta name="google-site-verification" content="bTJswZnvIBsrjhqIxlpIXIfvXa_wn7McR9PbSgwo_4Q" />
     <![if gte IE 7]>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/themes/' + cssThemesDir, file: 'screen.css')}"/>

@@ -24,24 +24,139 @@
 package org.samye.dzong.london.community
 
 import grails.plugin.spock.*
+import spock.lang.*
 
 /** 
  * Spock unit test for Article domain class. One of the bed-rock classes of this
  * web application.
+ *
+ * @author Leanne Northrop
+ * @since 25th October 2010, 17:24
  **/
 class ArticleSpec extends UnitSpec {
+
     def "String shows title and publication status"() {
+        expect:
+            "title (Unpublished by null on null (Not Deleted))" == validArticle().toString()
+    }
+
+    def "Title can not be blank"() {
         setup:
-            mockDomain(Article)
-            def title = "Hello World"
-            def article = new Article(title: title, summary: "summary", content: "content").save()
+            def title = ""
+            def article = new Article(title: title, summary: "summary", content: "content")
+            mockForConstraintsTests(Article, [ article ])
             def result
 
         when:
-            result = article.toString()
+            result = article.validate()
 
         then:
-            result != null
-            result == "$title ()"
+            "blank" == article.errors["title"] 
+    }
+
+    def "Title can not be null"() {
+        setup:
+            def title = null 
+            def article = new Article(title: title, summary: "summary", content: "content")
+            mockForConstraintsTests(Article, [ article ])
+            def result
+
+        when:
+            result = article.validate()
+
+        then:
+            "nullable" == article.errors["title"] 
+    }
+
+    def "Title must be unique"() {
+        setup:
+            def title = "title" 
+            def article1 = new Article(title: title, summary: "summary", content: "content")
+            def article2 = new Article(title: title, summary: "summary", content: "content")
+            mockForConstraintsTests(Article, [ article1, article2 ])
+            def result
+
+        when:
+            result = article2.validate()
+
+        then:
+            "unique" == article2.errors["title"] 
+    }
+
+    def "Summary can not be blank"() {
+        setup:
+            def article = new Article(title: "Hello", summary: "", content: "content")
+            mockForConstraintsTests(Article, [ article ])
+            def result
+
+        when:
+            result = article.validate()
+
+        then:
+            "blank" == article.errors["summary"] 
+    }
+
+    def "Summary can not be null"() {
+        setup:
+            def article = new Article(title: "Hello", summary: null, content: "content")
+            mockForConstraintsTests(Article, [ article ])
+            def result
+
+        when:
+            result = article.validate()
+
+        then:
+            "nullable" == article.errors["summary"] 
+    }
+
+    def "Summary can not be less than 5 characters long"() {
+        setup:
+            def article = new Article(title: "Hello", summary: "hi", content: "content")
+            mockForConstraintsTests(Article, [ article ])
+            def result
+
+        when:
+            result = article.validate()
+
+        then:
+            "size" == article.errors["summary"] 
+    }
+
+    def "Content can be blank"() {
+        setup:
+            def article = new Article(title: "Hello", summary: "summary", content: "")
+            mockForConstraintsTests(Article, [ article ])
+            def result
+
+        when:
+            result = article.validate()
+
+        then:
+            "blank" != article.errors["summary"] 
+    }
+
+    def "Valid article"() {
+        setup:
+            def article = validArticle()
+            mockForConstraintsTests(Article, [ article ])
+            def result
+
+        when:
+            result = article.validate()
+
+        then:
+            assert result
+    }
+
+    def validArticle() {
+        def article = new Article(title: "title", 
+                                  summary: "summary", 
+                                  content: "content",
+                                  publishState: 'Unpublished',
+                                  category: 'N',
+                                  deleted:false,
+                                  featured:false,
+                                  home:false)
+        article
     }
 }

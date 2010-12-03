@@ -54,10 +54,12 @@
     };
     
     var ${propval}RemoveExistingHandler = function() {
-        var deleteMe = $(this).parent().find(':hidden')
-        deleteMe.val('true')
-        $(this).parents("form").append(deleteMe)
-        $(this).parent().remove();  
+        $(this).parent().find(":hidden[name$='_deleted']").each(function(index){
+            var clone = $(this).clone(false);
+            clone.val('true');
+            $(this).parents("form").append(clone);
+            $(this).parent().remove();  
+        });
     };
     
     var ${propval}AddNew = function(templateSelector,namePrefix,selector) {                                                             
