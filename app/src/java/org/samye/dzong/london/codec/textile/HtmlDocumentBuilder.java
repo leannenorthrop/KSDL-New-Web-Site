@@ -47,4 +47,38 @@ public class HtmlDocumentBuilder extends org.eclipse.mylyn.wikitext.core.parser.
 		writer.writeAttribute("width", "480");
 		writer.writeEndElement(); // video
 	}
+
+	public void youTubePlayer(Attributes attributes, String vid) {
+        String url = "http://www.youtube.com/v/" + vid + "?rel=0&autoplay=0&loop=0&egm=0&border=0&fs=1&hd=1&showsearch=0&showinfo=0";
+
+		writer.writeStartElement("http://www.w3.org/1999/xhtml", "div");
+		writer.writeAttribute("style", "text-align:center");
+		writer.writeAttribute("class", "youtubevideo");
+
+		writer.writeStartElement("http://www.w3.org/1999/xhtml", "object");
+		writer.writeAttribute("width", "425");
+		writer.writeAttribute("height", "344");
+
+		writer.writeStartElement("http://www.w3.org/1999/xhtml", "param");
+		writer.writeAttribute("name", "movie");
+		writer.writeAttribute("value", url);
+		writer.writeEndElement(); // movie param
+        
+		writer.writeStartElement("http://www.w3.org/1999/xhtml", "param");
+		writer.writeAttribute("name", "allowFullScreen");
+		writer.writeAttribute("value", "true");
+		writer.writeEndElement(); // fullscreen param
+
+		writer.writeStartElement("http://www.w3.org/1999/xhtml", "embed");
+		writer.writeAttribute("src", url);
+		writer.writeAttribute("type", "application/x-shockwave-flash");
+		writer.writeAttribute("allowfullscreen", "true");
+		writer.writeAttribute("width", "425");
+		writer.writeAttribute("height", "344");
+		writer.writeEndElement(); // embed 
+
+		writer.writeEndElement(); // video
+
+		writer.writeEndElement(); // div  
+	}
 }

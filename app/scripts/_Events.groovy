@@ -9,7 +9,6 @@ eventCreateWarStart = { final warName, final dir ->
            include(name:"log4j*.jar")
            include(name:"slf4j*.jar")
            include(name:"mysql*.jar")
-           include(name:"hsqldb*.jar")
            include(name:"activation.jar")
            include(name:"ant*.jar")
            include(name:"*-jdk14-*.jar")
