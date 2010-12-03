@@ -29,6 +29,8 @@ import org.apache.shiro.crypto.hash.Sha1Hash
 import org.samye.dzong.london.community.*
 import org.samye.dzong.london.users.*
 import org.samye.dzong.london.cms.*
+import org.samye.dzong.london.venue.*
+import org.samye.dzong.london.events.*
 
 /**
  * Integration test for ShiroUser
@@ -38,7 +40,7 @@ import org.samye.dzong.london.cms.*
  */
 abstract class IntegrationHelper extends IntegrationSpec {
     def clean() {
-        [Article].each {
+        [Room,Event,Venue,Article,Teacher].each {
             it.findAll().each {article -> article.delete(flush:true)}
         }
     } 
@@ -62,8 +64,58 @@ abstract class IntegrationHelper extends IntegrationSpec {
     
     def newArticle(title,published=false,type='M') {
         def article = new Article(title:title,summary:"summary",publishState:(published ? "Published" : "Unpublished"),category:type,content:'',deleted:false,home:false,featured:false)
+        article.validate()
+        println article.errors
         article.save(flush:true)
         article
+    }
+
+    def newTeacher(title,published=false) {
+        def teacher = new Teacher(name:title,publishState:(published ? "Published" : "Unpublished"),title:'U',type:'L',category:'T',summary:'summary',content:'',deleted:false,home:false,featured:false)
+        teacher.validate()
+        println teacher.errors
+        teacher.save(flush:true)
+        teacher
+    }
+
+    def newVenue(title,published=false) {
+        def venue = new Venue(placeName:title,publishState:(published ? "Published" : "Unpublished"))
+        println venue.errors
+        venue.save(flush:true)
+        venue 
+    }
+
+    def newEvent(title,published=false) {
+        def user = newUser("leanne.northrop@abc.com")
+        def teacher = newTeacher("AKA")
+        def venue = newVenue("Spa Road")
+        def event = new Event(title: "Meditation", 
+                              summary: "summary", 
+                              content: "content",
+                              publishState: (published ? "Published" : "Unpublished"),
+                              category: 'M',
+                              isRepeatable: false,
+                              organizer: user,
+                              leader: teacher,
+                              venue: venue, 
+                              deleted:false,
+                              featured:false,
+                              home:false)
+        event.validate()
+        println event.errors
+        event.save(flush:true)
+        event 
+    }
+
+    def newRoom(title,published=false) {
+        def venue = newVenue('' + title + ' Venue',published)
+        def room = new Room(name:title,publishState:(published ? "Published" : "Unpublished"), summary:'summary',content:'',category:'R',deleted:false,home:false,featured:false,forHire:false)
+        venue.addToRooms(room)
+        room.venue = venue
+        room.validate()
+        println room.errors
+        room.save(flush:true)
+        room
     }
 }
 

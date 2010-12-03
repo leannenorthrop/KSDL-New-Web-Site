@@ -52,7 +52,7 @@ class PublishableSpec extends IntegrationHelper {
         def a = Article.findByTitle("Meditation Article 2")
         
         expect:
-        6 == Publishable.similar(a).size()         
+        9 == Publishable.similar(a).size()         
     }    
 }
 
