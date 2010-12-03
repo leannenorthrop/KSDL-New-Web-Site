@@ -34,12 +34,37 @@ import org.samye.dzong.london.community.Teacher
 import org.samye.dzong.london.venue.*
 import org.joda.time.*
 import groovy.time.*
-
+import org.springframework.context.support.StaticMessageSource
+import org.apache.shiro.SecurityUtils
 
 /**
  *  Unit test for Events controller
  */
 class EventControllerSpec extends ControllerSpec {
+    def messageSource = new StaticMessageSource()
+    def roles = []
+
+    def setup() {
+        mockLogging(EventController, true)
+        registerMetaClass(Event)
+        registerMetaClass(EventController)
+        registerMetaClass(EventService)
+        def locale = Locale.UK
+        messageSource.addMessage("event.between",locale,"Events For {0}")
+        messageSource.addMessage("event.date.format",locale,"MMMM yyyy")
+        messageSource.addMessage("event.help",locale,"Please ensure that a Teacher entry has been created and published under the Teachers/Therapists menu before creating a new Event. Also please ensure the selected Organizer has configured their public details by going to the Settings -> About Me menu.")
+        EventController.metaClass.message = { args->
+            def code = args.code;
+            def margs = args.values()
+            margs.remove(code)
+            margs = margs ? margs.flatten().toArray() : null
+            messageSource.getMessage(code, margs, '', locale)
+        }
+        SecurityUtils.metaClass.static.getSubject = {
+            return new Expando(hasRoles: { r -> roles.intersect(r)});
+        }
+    }   
+
     def 'Index redirects to home'() {
         when:
         controller.index()
@@ -131,6 +156,276 @@ class EventControllerSpec extends ControllerSpec {
         controller.modelAndView.model.linkedHashMap.events == regularEvents
     }
 
+    def 'List generates list of all events when not supplied parameters'() {
+        setup:
+        def monthEvents = thisMonthEvents()
+        Event.metaClass.static.unorderedPublished = { 
+            return new Expando(list: { args->monthEvents })  
+        }
+
+        and: "article service is present"
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
+
+        when:
+        def model = controller.list()
+
+        then:
+        model.events == monthEvents
+        model.title == 'events.all.title'
+    }
+
+    def 'List generates list of all events when an error occurs'() {
+        setup:
+        def monthEvents = thisMonthEvents()
+        Event.metaClass.static.unorderedPublished = { 
+            return new Expando(list: { args->monthEvents })  
+        }
+
+        and: "article service is present"
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
+
+        when:
+        def model = controller.list([unexpectedparam:'abc'])
+
+        then:
+        model.events == monthEvents
+        model.title == 'events.all.title'
+    }
+
+    def 'List returns events for given month not before today'() {
+        setup:
+        def today = new Date()
+        today.clearTime()
+        def monthEvents = thisMonthEvents()
+        Event.metaClass.static.unorderedPublished = { 
+            return new Expando(list: { args->monthEvents })  
+        }
+
+        and: "article service is present"
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
+
+        and: "params set start date to today"
+        getMockParams() << [start: today.format('yyyy-MM-dd')] 
+
+        when:
+        def model = controller.list()
+
+        then:
+        model.title == "Events For ${today.format('MMMM yyyy')}"
+        model.events == monthEvents.collect{it.dates[0].startDate}.findAll{ it.after(today) || it == today }
+    }
+
+    def 'Returns user unpublished events when not an editor or administrator'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(userUnpublished:  { args-> [events:uevents] })
+
+        when:
+        controller.ajaxUnpublished()
+
+        then:
+        controller.modelAndView.viewName == 'unpublished'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+    }
+
+    def 'Returns all unpublished events when an editor, administrator or both'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(unpublished:  { args-> [events:uevents] })
+
+        when:
+        this.roles = sroles
+        controller.ajaxUnpublished() != null
+
+        then:
+        controller.modelAndView.viewName == 'unpublished'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+
+        where:
+        sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
+    }
+
+    def 'Returns user archived events when not an editor or administrator'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(userArchived:  { args-> [events:uevents] })
+
+        when:
+        controller.ajaxArchived()
+
+        then:
+        controller.modelAndView.viewName == 'archived'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+    }
+
+    def 'Returns all archived events when an editor,administrator or both'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(archived:  { args-> [events:uevents] })
+
+        when:
+        this.roles = sroles
+        controller.ajaxArchived() != null
+
+        then:
+        controller.modelAndView.viewName == 'archived'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+
+        where:
+        sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
+    }
+
+    def 'Returns user published events when not an editor or administrator'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(userPublished:  { args-> [events:uevents] })
+
+        when:
+        controller.ajaxPublished()
+
+        then:
+        controller.modelAndView.viewName == 'published'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+    }
+
+    def 'Returns all published events when an editor,administrator or both'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(published:  { args-> [events:uevents] })
+
+        when:
+        this.roles = sroles
+        controller.ajaxPublished() != null
+
+        then:
+        controller.modelAndView.viewName == 'published'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+
+        where:
+        sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
+    }
+
+    def 'Returns user ready events when not an editor or administrator'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(userReady:  { args-> [events:uevents] })
+
+        when:
+        controller.ajaxReady()
+
+        then:
+        controller.modelAndView.viewName == 'ready'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+    }
+
+    def 'Returns all ready events when an editor,administrator or both'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(ready:  { args-> [events:uevents] })
+
+        when:
+        this.roles = sroles
+        controller.ajaxReady() != null
+
+        then:
+        controller.modelAndView.viewName == 'ready'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+
+        where:
+        sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
+    }
+
+    def 'Returns user deleted events when not an editor or administrator'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(userDeleted:  { args-> [events:uevents] })
+
+        when:
+        controller.ajaxDeleted()
+
+        then:
+        controller.modelAndView.viewName == 'deleted'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+    }
+
+    def 'Returns all deleted events when an editor,administrator or both'() {
+        setup:
+        def uevents = thisMonthEvents()
+        controller.eventService = new Expando(deleted:  { args-> [events:uevents] })
+
+        when:
+        this.roles = sroles
+        controller.ajaxDeleted() != null
+
+        then:
+        controller.modelAndView.viewName == 'deleted'
+        controller.modelAndView.model.linkedHashMap.events == uevents
+
+        where:
+        sroles << [['Editor'],['Administrator'],['Administrator','Editor']]
+    }
+
+    def 'getEventsForView uses offset parameter when supplied'() {
+        setup:
+        def uevents = thisMonthEvents()
+        def params
+        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+
+        and: "offset param set"
+        getMockParams() << [offset: 5] 
+
+        when:
+        controller.ajaxDeleted()
+
+        then:
+        params.offset == 5
+    }
+
+    def 'getEventsForView uses max parameter when supplied'() {
+        setup:
+        def uevents = thisMonthEvents()
+        def params
+        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+
+        and: "max param set"
+        getMockParams() << [max: 9] 
+
+        when:
+        controller.ajaxDeleted()
+
+        then:
+        params.max == 9
+    }
+
+    def 'getEventsForView uses MIN when max parameter when supplied'() {
+        setup:
+        def uevents = thisMonthEvents()
+        def params
+        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+
+        when:
+        controller.ajaxDeleted()
+
+        then:
+        params.max == EventController.MIN 
+    }
+
+    def 'getEventsForView uses MAX when max parameter is too large'() {
+        setup:
+        def uevents = thisMonthEvents()
+        def params
+        controller.eventService = new Expando(userDeleted:  { args-> params = args; [events:uevents] })
+
+        and: "max param set"
+        getMockParams() << [max: 1000] 
+
+        when:
+        controller.ajaxDeleted()
+
+        then:
+        params.max == EventController.MAX 
+    }
+    
     def 'Manager renders management page'() {
         when:
         controller.manage()
@@ -138,16 +433,481 @@ class EventControllerSpec extends ControllerSpec {
         then:
         controller.modelAndView.viewName == 'manage'
     }
+   
+    def 'View redirects to home if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.view()
+
+        then:
+        redirectArgs == [action: controller.home]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'View returns model for requested id'() {
+        setup:
+        def event = validEvent(new Date())
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        controller.eventService = new Expando(findSimilar:  { args-> [] })
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        def model = controller.view()
+
+        then:
+        model.event == event
+        model.id == mockParams.id
+        model.similar == []
+    }
+
+    def 'Query redirects to home if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.query()
+
+        then:
+        redirectArgs == [action: controller.home]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Query returns model for requested id'() {
+        setup:
+        def event = validEvent(new Date())
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        controller.eventService = new Expando(findSimilar:  { args-> [] })
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        def model = controller.query()
+
+        then:
+        model.event == event
+        model.id == mockParams.id
+        model.similar == []
+    }
+
+    def 'Send issues email if params are valid'() {
+        setup:
+        def event = validEvent(new Date())
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        controller.emailService = new Expando(sendEventQuery:  { a,b,c,d-> })
+        Event.metaClass.static.get = {id -> event}
+        getMockParams() << [email: 'abc@bbc.co.uk', body: 'body', subject:'subject'] 
+
+        when:
+        controller.send()
+
+        then:
+        redirectArgs == [action: controller.home]
+    }
+
+    def 'Show redirects to home if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.show()
+
+        then:
+        redirectArgs == [action: controller.home]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Show returns model for requested id'() {
+        setup:
+        def event = validEvent(new Date())
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        controller.eventService = new Expando(findSimilar:  { args-> [] })
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        def model = controller.show()
+
+        then:
+        model.event == event
+        model.id == mockParams.id
+    }
+
+    def 'Delete redirects to manage if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.delete()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Delete redirects to manage if versions do not match'() {
+        setup:
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        event.id = 1
+        event.version = 2
+        getMockParams() << [id: event.id, version: 1] 
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        controller.delete()
+
+        then:
+        //redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Can not perform the requested action at this time."
+    }
+
+    def 'Delete deletes event'(){
+        setup:
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        getMockParams() << [id: event.id, version: 1] 
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        controller.delete()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.message == "Event ${title} (Deleted) has been deleted"
+        event.title == "${title} (Deleted)" 
+        assert event.deleted
+    }
+
+    def 'Edit redirects to manage if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.edit()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Edit returns event with flash message if not already set'() {
+        setup:
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        def model = controller.edit()
+
+        then:
+        model.event == event
+        model.id == mockParams.id
+        mockFlash.message == 'event.help' 
+    }
+
+    def 'Edit returns event with flash message unalter if set'() {
+        setup:
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        def msg = 'hello'
+        mockFlash.message = msg
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        def model = controller.edit()
+
+        then:
+        model.event == event
+        model.id == mockParams.id
+        mockFlash.message == msg 
+    }
+
+    def 'Pre-publish redirects to manage if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.pre_publish()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Pre-publish returns model for requested id'() {
+        setup:
+        def event = validEvent(new Date())
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        controller.eventService = new Expando(findSimilar:  { args-> [] })
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        controller.pre_publish()
+
+        then:
+        controller.modelAndView.viewName == 'publish'
+        controller.modelAndView.model.linkedHashMap.event == event
+    }
+
+    def 'Publish redirects to manage if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.publish()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Publish publishes event for requested id'() {
+        setup:
+        def event = validEvent()
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        mockDomain(Event, [event])
+        mockDomain(EventDate)
+        mockDomain(EventPrice)
+
+        when:
+        controller.publish()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.message == "Event ${event.title} has been Published"
+    }
+
+    def 'Publish redirects to manage if versions do not match'() {
+        setup:
+        mockDomain(Event)
+        def event = validEvent()
+        event.id = 1
+        event.version = 2
+        getMockParams() << [id: event.id, version: 1] 
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        controller.publish()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Can not perform the requested action at this time."
+    }
     
+    def 'Update redirects to manage if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.update()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Update publishes event for requested id'() {
+        setup:
+        def event = validEvent()
+        event.id = 1
+        getMockParams() << [id: event.id] 
+        mockDomain(Event, [event])
+        mockDomain(EventDate)
+        mockDomain(EventPrice)
+
+        when:
+        controller.update()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.message == "Event ${event.title} has been saved"
+    }
+
+    def 'Update redirects to manage if versions do not match'() {
+        setup:
+        mockDomain(Event)
+        def event = validEvent()
+        event.id = 1
+        event.version = 2
+        getMockParams() << [id: event.id, version: 1] 
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        controller.update()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Can not perform the requested action at this time."
+    }
+
+    def 'Create generates new event with organizer set'() {
+        setup:
+        def user = new ShiroUser(username:'leanne.northrop@abc.com')
+        controller.userLookupService = new Expando(lookup:{user})
+        mockDomain(Event)
+
+        when:
+        def model = controller.create()
+
+        then:
+        assert model.event
+        model.event.organizer == user
+        mockFlash.message == "Please ensure that a Teacher entry has been created and published under the Teachers/Therapists menu before creating a new Event. Also please ensure the selected Organizer has configured their public details by going to the Settings -> About Me menu."
+    }
+
+    def 'Create generates new event'() {
+        setup:
+        def user = new ShiroUser(username:'leanne.northrop@abc.com')
+        controller.userLookupService = new Expando(lookup:{user})
+        mockFlash.message = 'already set'
+        mockDomain(Event)
+
+        when:
+        def model = controller.create()
+
+        then:
+        assert model.event
+        model.event.organizer == user
+        mockFlash.message == "already set"
+    }
+
+    def 'Change state redirects to manage if event not found'() {
+        setup:
+        getMockParams() << [id: -1] 
+        mockDomain(Event)
+
+        when:
+        controller.changeState()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Event not found with id -1"
+    }
+
+    def 'Change state archives event for requested id'() {
+        setup:
+        def event = validEvent()
+        event.id = 1
+        getMockParams() << [id: event.id,state:'Archived'] 
+        mockDomain(Event, [event])
+        mockDomain(EventDate)
+        mockDomain(EventPrice)
+
+        when:
+        controller.changeState()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.message == "Event ${event.title} has been moved to Archived"
+        event.publishState == "Archived"
+        event.deleted == false
+        def today = new Date()
+        today.clearTime()
+        def publishDate = event.datePublished
+        publishDate.clearTime()
+        publishDate == today
+    }
+
+    def 'Change state redirects to manage if versions do not match'() {
+        setup:
+        mockDomain(Event)
+        def event = validEvent()
+        event.id = 1
+        event.version = 2
+        getMockParams() << [id: event.id, version: 1] 
+        Event.metaClass.static.get = {id -> event}
+
+        when:
+        controller.changeState()
+
+        then:
+        redirectArgs == [action: controller.manage]
+        mockFlash.isError == true
+        mockFlash.message == "Can not perform the requested action at this time."
+    }
+
+    def 'Save redirects to back to create if params have errors'() {
+        setup:
+        getMockParams() << [organizer: 0, summary: 'summary'] 
+        mockDomain(Event)
+        controller.userLookupService = new Expando(lookup:{user})
+
+        when:
+        controller.save()
+
+        then:
+        redirectArgs.action == controller.create
+        mockFlash.isError == true
+    }
+
+    def 'Save redirects to manage if params have no errors'() {
+        setup:
+        getMockParams() << validEvent().properties 
+        mockDomain(Event)
+        controller.userLookupService = new Expando(lookup:{user})
+
+        when:
+        controller.save()
+
+        then:
+        redirectArgs.action == controller.manage
+    }
+
+    def 'Calendar generate iCal for all events'() {
+        setup:
+        def events = thisMonthEvents()
+        Event.metaClass.static.published = {new Expando(list:{events})}
+        controller.metaClass.createLink = {'http://www.bbc.co.uk'}
+
+        when:
+        controller.calendar()
+
+        then:
+        mockResponse.getContentType() == 'text/calendar; charset=utf-8'
+    }
+
     def validEvent() {
         def event = new Event(title: "Meditation", 
                               summary: "summary", 
                               content: "content",
                               publishState: 'Published',
-                              category: 'E',
+                              category: 'M',
                               isRepeatable: false,
                               organizer: new ShiroUser(username:"leanne.northrop@abc.com"),
-                              leader: new Teacher(name:"AKA"),
+                              leader: new Teacher(name:"AKA",title:'U'),
                               venue: new Venue(name:"Spa Road"),
                               deleted:false,
                               featured:false,
@@ -167,6 +927,12 @@ class EventControllerSpec extends ControllerSpec {
         event.title=date.format("dd MM yyyy")
         addValidRegularDate(event,date)
         return event
+    }
+
+    def addValidPrice(event,price) {
+        def eventPrice = new EventPrice(price:price)
+        eventPrice.event = event
+        event.prices = [eventPrice]
     }
 
     def addValidDate(event,date) {

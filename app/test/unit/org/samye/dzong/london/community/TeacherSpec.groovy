@@ -26,6 +26,7 @@ package org.samye.dzong.london.community
 
 import grails.plugin.spock.*
 import spock.lang.*
+import org.springframework.context.support.StaticMessageSource
 
 /** 
  * Spock unit test for teacher domain class.
@@ -35,7 +36,7 @@ import spock.lang.*
  * @since 25th October 2010, 18:09
  **/
 class TeacherSpec extends UnitSpec {
-    def messageSource
+    def messageSource = new StaticMessageSource()
 
     def "Valid teacher"() {
         setup:
@@ -230,7 +231,8 @@ class TeacherSpec extends UnitSpec {
             teacher.title = 'V' 
             teacher.name = name
             teacher.messageSource = messageSource
-            println "********* ${messageSource}"
+            def locale = Locale.UK
+            messageSource.addMessage("teacher.title.V.msg",locale,"Venerable {0}")
             mockForConstraintsTests(Teacher, [ teacher ])
             def result
 

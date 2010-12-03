@@ -31,6 +31,7 @@ import org.samye.dzong.london.venue.*
 import grails.plugin.spock.*
 import spock.lang.*
 import net.fortuna.ical4j.model.ValidationException
+import org.joda.time.*
 
 /**
  * Unit test for Event domain class.
@@ -325,6 +326,75 @@ class EventSpec extends UnitSpec {
 
         expect:
             false == event.isOnDay(now+2,10)
+    }
+
+    def 'bindPrices deletes specified prices'() {
+        setup:
+            mockDomain(Event)
+            mockDomain(EventPrice)
+            def event = validEvent()
+            (0..3).collect{ def p = new EventPrice(price: it); event.addToPrices(p); p.save() }
+            event.save()
+
+        and:
+            def params = ['priceList[2]._deleted':'true','priceList[1]._deleted':'true']
+
+        when:
+            event.bindPrices(params)
+
+        then:
+            event.prices.size() == 2
+            event.prices[0].price == 0d
+            event.prices[1].price == 3d
+    }
+
+    def 'bindDates deletes specified prices'() {
+        setup:
+            mockDomain(Event)
+            mockDomain(EventDate)
+            def event = validEvent()
+            def today = new Date()
+            today.clearTime()
+            (0..3).collect{ def d = new EventDate(startDate:today+it); event.addToDates(d); d.save() }
+            event.save()
+
+        and:
+            def params = ['dateList[2]._deleted':'true','dateList[1]._deleted':'true',
+                          'dateList[0].startTimeHour':'10', 'dateList[0].startTimeMin':'0', 'dateList[0].endTimeHour':'11', 'dateList[0].endTimeMin':'0',
+                          'dateList[3].startTimeHour':'10', 'dateList[3].startTimeMin':'0', 'dateList[3].endTimeHour':'11', 'dateList[3].endTimeMin':'0' ]
+
+        when:
+            event.bindDates(params)
+
+        then:
+            event.dates.size() == 2
+            event.dates[0].startDate == today 
+            event.dates[1].startDate == today + 3
+    }
+
+    def 'bindDates saves times'() {
+        setup:
+            mockDomain(Event)
+            mockDomain(EventDate)
+            def event = validEvent()
+            def today = new Date()
+            today.clearTime()
+            (0..1).collect{ def d = new EventDate(startDate:today+it); event.addToDates(d); d.save() }
+            event.save()
+
+        and:
+            def params = ['dateList[0].startTimeHour':'10', 'dateList[0].startTimeMin':'0', 'dateList[0].endTimeHour':'11', 'dateList[0].endTimeMin':'0',
+                          'dateList[1].startTimeHour':'8', 'dateList[1].startTimeMin':'0', 'dateList[1].endTimeHour':'9', 'dateList[1].endTimeMin':'0' ]
+
+        when:
+            event.bindDates(params)
+
+        then:
+            event.dates.size() == 2
+            event.dates[0].startTime == new TimeOfDay(10,0) 
+            event.dates[0].endTime == new TimeOfDay(11,0) 
+            event.dates[1].startTime == new TimeOfDay(8,0) 
+            event.dates[1].endTime == new TimeOfDay(9,0) 
     }
 
     def validEvent() {

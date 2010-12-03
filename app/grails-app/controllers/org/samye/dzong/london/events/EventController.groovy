@@ -40,8 +40,6 @@ import net.fortuna.ical4j.model.property.Attach
 /**
  * Web request handler for event information.
  *
- * TODO: test
- *
  * @author Leanne Northrop
  * @since 29th January, 2010, 17:04
  */
@@ -51,6 +49,8 @@ class EventController {
     def eventService
     def emailService
 	def articleService
+    private static int MIN = 30
+    private static int MAX = 200
 
     def index = {
         redirect(action: home)
@@ -140,154 +140,113 @@ class EventController {
 	}
 			
     def list = {
+        def model = []
         if (params) {
             try {
                 def dateParser = new SimpleDateFormat("yyyy-MM-dd")
-                def start;
-                def end;
+                def start = new DateTime();
 
-                if (params.start) {
+                if (params?.start) {
                     start = new DateTime(dateParser.parse(params.start).getTime())
-                    start = start.withTime(0, 0, 0, 0);
-                } else {
-                    start = new DateTime();
-                    start = start.withTime(0, 0, 0, 0);
-                }
+                } 
+                start = start.withTime(0, 0, 0, 0);
 
-                if (params.end) {
-                    end = new DateTime(dateParser.parse(params.end).getTime())
-                    end = end.withTime(0, 0, 0, 0);
-                } else {
-                    end = new DateTime();
-                    end = end.withTime(0, 0, 0, 0);
-                }
-
-                if (!end.isAfter(start)) {
-                    def tmp = end
-                    end = start
-                    start = tmp
-                }
-
-                end = end.dayOfMonth().withMaximumValue()
-                int monthdays = Days.daysBetween(start, end).getDays();
-
+                def lastDayOfMonth = start.dayOfMonth().withMaximumValue()
+                int daysUntilEndOfMonth = Days.daysBetween(start, lastDayOfMonth).getDays();
                 start = start.toDate()
-                end = end.toDate()
+
                 def publishedEvents = Event.unorderedPublished().list(params);
                 def events = publishedEvents.findAll { event ->
                     def rule = event.dates[0]
-                    return !rule.isUnbounded() && event.isOnDay(start, monthdays)
+                    return event.isOnDay(start, daysUntilEndOfMonth)
                 };
 
-                def formatter = new SimpleDateFormat(message(code: 'event.date.format'))
-                def args = [formatter.format(start),formatter.format(end)]
-                def model = [events: events, title: message(code: 'event.between', args: args)]
-				articleService.addHeadersAndKeywords(model,request,response)
-				model
+                def datePat = message(code: 'event.date.format')
+                def args = [start.format(datePat)]
+                model = [events: events, title: message(code: 'event.between', args: args)]
             } catch(error) {
-                error.printStackTrace();
+                log.warn "Unable to generate list of events", error
                 def events = Event.unorderedPublished().list(params);
-                def model = [events: events, title: 'events.all.title']
-				articleService.addHeadersAndKeywords(model,request,response)
-				model
+                model = [events: events, title: 'events.all.title']
             }
         } else {
             def events = Event.unorderedPublished().list(params);
-            def model = [events: events, title: 'events.all.title']
-			articleService.addHeadersAndKeywords(model,request,response)
-			model
+            model = [events: events, title: 'events.all.title']
         }
+        articleService.addHeadersAndKeywords(model,request,response)
+        model
     }
 
     // the save and update actions only accept POST requests
     static allowedMethods = [save: 'POST', update: 'POST', changeState: 'GET']
 
     def ajaxUnpublished = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
-            model = eventService.unpublished(params)
-        } else {
-            model = eventService.userUnpublished(params)
-        }
-        render(view: 'unpublished', model: model)
+        render(view: 'unpublished',model:getEventsForView('unpublished',params))
     }
 
     def ajaxPublished = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = eventService.published(params)
-        } else {
-            model = eventService.userPublished(params)
-        }
-        render(view: 'published', model: model)
+        render(view: 'published',model:getEventsForView('published',params))
     }
 
     def ajaxArchived = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = eventService.archived(params)
-        } else {
-            model = eventService.userArchived(params)
-        }
-        render(view: 'archived', model: model)
+        render(view: 'archived',model:getEventsForView('archived',params))
     }
 
     def ajaxReady = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = eventService.ready(params)
-        } else {
-            model = eventService.userReady(params)
-        }
-        render(view: 'ready', model: model)
+        render(view: 'ready',model:getEventsForView('ready',params))
     }
 
     def ajaxDeleted = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
+        render(view: 'deleted',model:getEventsForView('deleted',params))
+    }
+
+    def getEventsForView(viewName,params) {
+        params.offset = params?.offset ? params.offset.toInteger() : 0
+        params.max = Math.min(params?.max ? params.max.toInteger() : MIN, MAX)
 
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
-            model = eventService.deleted(params)
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
+            model = eventService."${viewName}"(params)
         } else {
-            model = eventService.userDeleted(params)
+            model = eventService."user${viewName.capitalize()}"(params)
         }
-        render(view: 'deleted', model: model)
+        model
     }
 
     def manage = {
         render(view: 'manage')
     }
 
+
+    def handleError(message, action) {
+        flash.message = message 
+        flash.isError = true
+        redirect(action: action)
+    }
+
+    def handleError(message, action, event) {
+        flash.message = message 
+        flash.isError = true
+        flash.bean = event
+        flash.args = [event] 
+        redirect(action: action, id: event.id)
+    }
+
     def view = {
         def event = Event.get(params.id)
         if (!event) {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: home)
+            handleError("Event not found with id ${params.id}",home)
         }
         else {
-            def id = params.id;
             def similar = eventService.findSimilar(event)
-            return [event: event, id: id, similar:similar]
+            return [event: event, id: params.id, similar:similar]
         }
     }
 
     def query = {
         def event = Event.get(params.id)
         if (!event) {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: home)
+            handleError("Event not found with id ${params.id}",home)
         }
         else {
             def id = params.id;
@@ -296,6 +255,7 @@ class EventController {
         }
     }
 
+    // todo return to original page before request
     def send = {
         def event = Event.get(params.id)
         if (event && event.organizer && params.email && params.body && params.subject) {
@@ -308,39 +268,45 @@ class EventController {
         def event = Event.get(params.id)
 
         if (!event) {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: list)
+            handleError("Event not found with id ${params.id}",home)
         }
         else {
             return [event: event, id: params.id]
         }
     }
 
+    def versionCheck(params,event) {
+        def ok = true
+        if (params.version) {
+            def version = params.version.toLong()
+            ok = event.version <= version
+            if (!ok) {
+                event.errors.rejectValue("version", "event.optimistic.locking.failure", "Another user has updated this Event while you were editing.")
+                handleError("Can not perform the requested action at this time.",manage)
+            }
+        }
+        ok
+    }
+
+    // todo ensure delete request sends version
     def delete = {
         def event = Event.get(params.id)
         if (event) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (event.version > version) {
-                    event.errors.rejectValue("version", "event.optimistic.locking.failure", "Another user has updated this Event while you were editing.")
+            if (versionCheck(params,event)){
+                event.publishState = "Unpublished"
+                event.deleted = true
+                event.title += ' (Deleted)'
+                if (!event.hasErrors() && event.save()) {
+                    flash.message = "Event ${event.title} has been deleted"
                     redirect(action: manage)
-                    return
                 }
-            }
-            event.publishState = "Unpublished"
-            event.deleted = true
-            event.title += ' (Deleted)'
-            if (!event.hasErrors() && event.save()) {
-                flash.message = "Event ${event.title} deleted"
-                redirect(action: manage)
-            }
-            else {
-                redirect(action: manage)
+                else {
+                    handleError("Can not delete '${event}' at this time",manage,event)
+                }
             }
         }
         else {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: manage)
+            handleError("Event not found with id ${params.id}",manage)
         }
     }
 
@@ -348,14 +314,13 @@ class EventController {
         def event = Event.get(params.id)
 
         if (!event) {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: manage)
+            handleError("Event not found with id ${params.id}",manage)
         }
         else {
             if (!flash.message) {
-                flash.message = "Please ensure that a Teacher entry has been created and published under the Teachers/Therapists menu before creating a new Event. Also please ensure the selected Organizer has configured their public details by going to the Settings -> About Me menu."
-            }            
-            return [event: event, id: params.id]
+                flash.message = 'event.help' 
+            }
+            [event: event, id: params.id]
         }
     }
 
@@ -363,132 +328,56 @@ class EventController {
         def event = Event.get(params.id)
 
         if (!event) {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: manage)
+            handleError("Event not found with id ${params.id}",manage)
         }
         else {
-            return render(view: 'publish', model: [event: event], id: params.id)
+            render(view: 'publish', model: [event: event], id: params.id)
+        }
+    }
+
+    def saveEvent(event,params,onSave,saveMsg,onError,errMsg) {
+        if (versionCheck(params,event)) {
+            event.properties = params
+            event.bindPrices(params)
+            event.bindDates(params)
+
+            if (!event.hasErrors() && event.save()) {
+                if (params.tags) {
+                    def newtags = params.tags.split(',') as List
+                    event.setTags(newtags)
+                }
+                flash.message = saveMsg
+                redirect(action: onSave)
+            }
+            else {
+                handleError(errMsg,onError,event)
+            }
         }
     }
 
     def publish = {
         def event = Event.get(params.id)
         if (event) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (event.version > version) {
-                    flash.message = "Event ${event.title} was being edited by another user - please try again."
-                    flash.isError = true
-                    redirect(action: manage)
-                    return
-                }
-            }
-            
-            event.properties = params
-    		if (event.prices) {
-    			def _toBeDeleted = params.findAll{it.key.contains('priceList') && it.key.contains('_deleted') && it.value.toBoolean() }.values()
-                log.debug "Deleting ${_toBeDeleted}"
-    			event.prices.removeAll(_toBeDeleted)
-    			event.prices.each{ it.save() }    			
-    		}
-
-    		if (event.dates) {
-    			def _toBeDeleted = event.dates.findAll {it._deleted}
-    			def _toBeSaved = event.dates.findAll {!it._deleted}    			
-    			if (_toBeSaved) {
-    			    _toBeSaved.each{
-    			        it.save()}
-    			}
-    			if (_toBeDeleted) {
-    				event.dates.removeAll(_toBeDeleted)
-    			}    			
-    		}
-    		            
-            def isFirstPublish = event.publishState != 'Published'
-            if (isFirstPublish) {
-                event.datePublished = new Date()
-            }
-
-            event.publishState = "Published"
-
-            log.debug "Event id is ${event.id}"
-            if (!event.hasErrors() && event.save()) {
-                flash.message = "Event ${event.title} has been Published"
-                redirect(action: manage)
-                def newtags = params.tags.split(',') as List
-                event.setTags(newtags)
-            }
-            else {
-                flash.message = "Event ${event.title} could not be ${params.state} due to errors. Please correct the errors and try again."
-				flash.args = [event]
-				flash.isError=true
-                flash.bean = event
-                redirect(action: pre_publish, id: params.id)
-            }
+            params.publishState = 'Published'
+            params.datePublished = new Date()
+            def okMsg = "Event ${event.title} has been Published"
+            def errMsg = "Event ${event.title} could not be ${params.state} due to errors. Please correct the errors and try again."
+            saveEvent(event,params,manage,okMsg,pre_publish,errMsg)
         }
         else {
-            flash.message = "Event not found with id ${params.id}"
-            flash.isError=true
-            redirect(action: manage)
+            handleError("Event not found with id ${params.id}",manage)
         }
     }
 
     def update = {
         def event = Event.get(params.id)
         if (event) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (event.version > version) {
-                    flash.isError = true
-                    flash.message = "event.update.error"
-                    event.errors.rejectValue("version", "event.optimistic.locking.failure", "Another user has updated this Event while you were editing.")
-                    render(view: 'edit', model: [event: event, id: params.id])
-                    return
-                }
-            }
-
-            event.properties = params
-    		if (event.prices) {
-    			def _toBeDeleted = params.findAll{it.key.contains('priceList') && it.key.contains('_deleted') && it.value.toBoolean() }.keySet()
-                def delIndexes = _toBeDeleted.collect{ it.minus('priceList[').minus(']._deleted').toInteger() }
-    			event.prices.toArray().eachWithIndex{item,index ->
-                    if (delIndexes.contains(index)) {
-                        event.removeFromPrices(item);
-                    } else {
-                        item.save() 
-                    }    			
-                }
-    		}
-
-    		if (event.dates) {
-    			def _toBeDeleted = event.dates.findAll {it?._deleted}
-    			def _toBeSaved = event.dates.findAll {!it?._deleted}    			
-    			if (_toBeSaved) {
-    			    _toBeSaved.each{
-    			        it.save()
-                    }
-    			}
-    			if (_toBeDeleted) {
-    				event.dates.removeAll(_toBeDeleted)
-    			}    			
-    		}		
-
-            if (!event.hasErrors() && event.save()) {
-                flash.isError = false
-                flash.message = "Event ${event.title} created"
-                redirect(action: manage)
-            }
-            else {
-                flash.isError = true
-                flash.message = "event.update.error"
-                flash.args = [event]
-                flash.bean = event 
-                render(view: 'edit', model: [event: event, id: params.id])
-            }
+            def okMsg = "Event ${event.title} has been saved"
+            def errMsg = "event.update.error"
+            saveEvent(event,params,manage,okMsg,pre_publish,errMsg)
         }
         else {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: manage)
+            handleError("Event not found with id ${params.id}",manage)
         }
     }
 
@@ -508,54 +397,26 @@ class EventController {
 
         event.properties = params
         if (!event.hasErrors() && event.save()) {
-            flash.isError = false
-            flash.message = "Event ${event.title} created"
+            flash.message = "Event ${event.title} has been created"
             redirect(action: manage)
         }
         else {
-            flash.isError = true
-            flash.message = "event.update.error"
-            flash.args = [event] 
-            flash.bean = event 
-            render(view: 'create', model: [event: event, id: params.id])
+            handleError("event.update.error",create,event)
         }
     }
 
     def changeState = {
         def event = Event.get(params.id)
         if (event) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (event.version > version) {
-                    flash.message = "Event ${event.title} was being edited - please try again."
-                    redirect(action: manage)
-                    return
-                }
-            }
-            def isFirstPublish = event.publishState != 'Published' && params.state == 'Published'
-            if (isFirstPublish) {
-                event.datePublished = new Date()
-            }
-            event.publishState = params.state
-            event.deleted = false
-            if (!event.hasErrors() && event.save()) {
-                if (isFirstPublish) {
-                }
-                flash.message = "Event ${event.title} has been moved to ${event.publishState}"
-                redirect(action: manage)
-            }
-            else {
-                flash.message = "Event ${event.title} could not be ${params.state} due to an internal error. Please try again."
-                flash.isError = true
-                flash.args = [event]
-                log.errors "State change failed due to errors: ${event.errors}"
-                redirect(action: manage)
-            }
+            params.datePublished = new Date()
+            params.publishState = params.state
+            params.deleted = false
+            def okMsg = "Event ${event.title} has been moved to ${params.publishState}"
+            def errMsg = "Event ${event.title} could not be ${params.state} due to errors. Please correct the errors and try again."
+            saveEvent(event,params,manage,okMsg,manage,errMsg)
         }
         else {
-            flash.message = "Event not found with id ${params.id}"
-            flash.isError = true
-            redirect(action: manage)
+            handleError("Event not found with id ${params.id}",manage)
         }
     }
 
@@ -563,9 +424,7 @@ class EventController {
         try {
             def publishedEvents = null
             if (params.type) {
-                if ("all" == params.type) {
-                    publishedEvents = Event.published().list();
-                } else if ("meditation" == params.type) {
+                if ("meditation" == params.type) {
                     publishedEvents = Event.meditation("title", "desc").list();
                 } else if ("buddhism" == params.type) {
                     publishedEvents = Event.buddhism("title", "desc").list();
@@ -573,6 +432,8 @@ class EventController {
                     publishedEvents = Event.community("title", "desc").list();
                 } else if ("wellbeing" == params.type) {
                     publishedEvents = Event.wellbeing("title", "desc").list();
+                } else {
+                    publishedEvents = Event.published().list();
                 }
             } else {
                 publishedEvents = Event.published().list();
