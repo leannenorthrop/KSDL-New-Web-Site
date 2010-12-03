@@ -59,7 +59,7 @@
             </p>
       </span>
       <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px; min-height:${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px">
-            <lsdc:thumbnail srcid="${teacher?.image?.id}" id="thumb_image"/>
+            <lsdc:thumbnail srcid="${event?.image?.id}" id="thumb_image"/>
       </span>
       <span class="clear"></span>  
                   
