@@ -22,16 +22,17 @@
  */
 package org.samye.dzong.london.venue
 
+import org.samye.dzong.london.cms.*
+
 /**
  * Provides management actions for Samye venues/buildings/sites.
  * TODO: Internaliationise messages
- * TODO: Create base controller class and move helper methods there
  * TODO: Add back in save for child associations 
  *
  * @author Leanne Northrop
  * @since  January 2010
  */
-class VenueController {
+class VenueController implements CMSController {
     static allowedMethods = [delete:'GET', update:'POST']
 
     def index = {
@@ -55,17 +56,19 @@ class VenueController {
                         redirect(action:manage)
                     } else {
                         def msg = "Venue ${venue.name} could not be deleted"
-                        rollback(status,msg,venue,manage)
+                        rollback(status,msg,venue)
+                        redirect(action: manage,id:params.id)
                     }
                 }
                 catch(e) {
                     def msg = "Venue ${venue.name} could not be deleted"
-                    rollback(status,msg,venue,manage,e)
+                    rollback(status,msg,venue,e)
+                    redirect(action: manage,id:params.id)
                 }
             }
         }
         else {
-            notFound()
+            notFound(manage)
         }
     }
 
@@ -74,7 +77,7 @@ class VenueController {
         def venueInstance = Venue.get( params.id )
 
         if(!venueInstance) {
-            notFound()
+            notFound(manage)
         }
         else {
             [ venue : venueInstance ]
@@ -85,17 +88,9 @@ class VenueController {
         def venue = Venue.get(params.id)
 
         if (venue) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (venue.version > version) {
-                    venue.errors.rejectValue("version", "venue.optimistic.locking.failure", "Another user has updated ${venue.name} whilst you were editing.")
-                    flash.message = "Changes could not be saved because of the following:"	
-                    flash.isError = true
-                    flash.bean = venue
-                    flash.args = [venue]
-                    render(view:'edit',model:[venue:venue])
-                    return
-                }
+            if (!versionCheck(params,venue)) {
+                render(view:'edit',model:[venue:venue])
+                return
             }           
             
             Venue.withTransaction { status ->
@@ -108,53 +103,17 @@ class VenueController {
                     else {
                         def msg = "Changes could not be saved because of the following:"	
                         rollback(status,msg,venue)
+                        render(view:'edit',model:[venue:venue])
                     }
                 } catch (RuntimeException e) {
                     def msg = "Changes could not be saved because of the following:"	
-                    rollback(status,msg,venue,null,e)
+                    rollback(status,msg,venue,e)
+                    render(view:'edit',model:[venue:venue])
                 }
             }
         }
         else {
-            notFound()
-        }
-    }
-
-    def rollback(status,msg,venue,action=null,e=null) {
-        if (e) {
-            log.warn msg, e
-        } else {
-            log.warn msg
-        }
-        status.setRollbackOnly()
-        if (!action) {
-            flash.message = msg 
-            flash.isError = true
-            render(view:'edit',model:[venue:venue])
-        } else {
-            handleError(msg, venue, action)
-        }
-    }
-
-    def notFound() {
-        flash.message = "Venue not found"
-        flash.isError = true
-        redirect(action:manage)
-    }
-
-    def handleError(msg, venue, act=manage, id=null, a=[]) {
-        flash.message = msg
-        flash.isError = true
-        flash.args = a ? a : [venue]
-        flash.bean = venue
-        if (id){
-            redirect(action:act,id:id)
-        } else {
-            if (venue?.id) {
-                redirect(action:act,id:venue.id)
-            } else {
-                redirect(action:act)
-            }
+            notFound(manage)
         }
     }
 }

@@ -26,6 +26,7 @@ import grails.test.*
 import grails.plugin.spock.*
 import spock.lang.*
 import org.springframework.transaction.TransactionStatus
+import org.samye.dzong.london.cms.CMSUtil
 
 /*
  * Unit test for Venue controller class.
@@ -39,6 +40,7 @@ class VenueControllerSpec extends ControllerSpec {
     def setup() {
         mockTransactionStatus = Mock(TransactionStatus)
         Venue.metaClass.static.withTransaction = { c -> c(mockTransactionStatus) }
+        CMSUtil.addCMSMethods(VenueController) 
     }
 
     def 'Index redirects to home'() {

@@ -1,3 +1,28 @@
+/*
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ */
+package org.samye.dzong.london.venue
+
+import org.samyedzong.london.cms.*
 import org.apache.shiro.crypto.hash.Sha1Hash
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.media.Image
@@ -5,11 +30,20 @@ import com.icegreen.greenmail.util.*
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import java.util.zip.*;
 
+/**
+ *
+ */
 class BootStrap {
      def imageService
      def greenMail
 
      def init = { servletContext ->
+         application.controllerClasses.each() {
+             if (it.clazz.interfaces.contains(CMSController.class)) {
+                 CMSUtil.addCMSMethods(it, log)
+             }
+         } 
+
 		def configObject = ConfigurationHolder.getConfig()	
 		def filedir = servletContext.getRealPath('/')
 		configObject.fileuploader.attachments.path = filedir + "files"
@@ -116,5 +150,4 @@ class BootStrap {
             }
         }
     }
-
 }
