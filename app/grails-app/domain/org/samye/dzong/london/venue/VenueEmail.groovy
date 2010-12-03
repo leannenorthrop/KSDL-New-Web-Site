@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,17 +19,17 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
+ */
 package org.samye.dzong.london.venue
 
 import org.samye.dzong.london.contact.*
 
-/**
+/*
  * Venue email information for a single email address.
  * Extends Email to allow association details to separate concerns.
  */
 class VenueEmail extends Email {
-    /** Non-persistent flag used to mark detached instances that should be deleted
+    /* Non-persistent flag used to mark detached instances that should be deleted
      * on the next save. */
  	boolean _deleted
 

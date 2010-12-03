@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,10 +19,10 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
+ */
 package org.samye.dzong.london.contact
 
-/**
+/*
  * Contains single postal address details.
  */
 class Address extends Contact {
@@ -48,7 +48,7 @@ class Address extends Contact {
         type(inList:['main','shop','other'])
     }
 
-    /**
+    /*
      * {@inheritDoc}
      */
     String toString() {

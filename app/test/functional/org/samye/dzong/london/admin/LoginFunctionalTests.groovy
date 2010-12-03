@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,7 +19,7 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ */
 
 package org.samye.dzong.london.admin
 
@@ -29,7 +29,7 @@ import org.samye.dzong.london.ShiroUser
 import org.samye.dzong.london.AbstractWebTest
 import com.icegreen.greenmail.util.*
 
-/**
+/*
  * Functional tests for Web Content Users Log In
  *
  * User: Leanne Northrop

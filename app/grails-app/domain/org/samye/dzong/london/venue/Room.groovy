@@ -1,6 +1,6 @@
 package org.samye.dzong.london.venue
 
-import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.cms.Publishable
 import org.samye.dzong.london.media.Image
 
 class Room extends Publishable {

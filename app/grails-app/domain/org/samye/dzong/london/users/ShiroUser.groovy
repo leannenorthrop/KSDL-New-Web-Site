@@ -1,6 +1,4 @@
-package org.samye.dzong.london
-
-import org.samye.dzong.london.community.Profile
+package org.samye.dzong.london.users
 
 class ShiroUser implements Comparable{
     String username

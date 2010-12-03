@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,7 +19,7 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
+ */
 
 package org.samye.dzong.london.news
 
@@ -27,7 +27,7 @@ import grails.test.*
 import grails.plugin.spock.*
 import org.samye.dzong.london.community.Article
 
-/**
+/*
  * Unit test for NewsController.
  *
  * @author Leanne Northrop

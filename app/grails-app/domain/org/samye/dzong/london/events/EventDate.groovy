@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,16 +19,13 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
-
+ */
 package org.samye.dzong.london.events
 
-import org.samye.dzong.london.ScheduleRule
 import org.joda.time.*
 import org.joda.time.format.*
 
-
-/**
+/*
  * Event date iCalendar rule. Subclassed from ScheduleRule to support one to many 
  * association with Event (this class being on the many side). Transient _deleted 
  * property is only used to mark instances of this class that require deletion.

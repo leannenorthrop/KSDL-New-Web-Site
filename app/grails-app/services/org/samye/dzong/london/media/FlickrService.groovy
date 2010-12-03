@@ -4,7 +4,6 @@ import net.sf.ehcache.*
 import net.sf.ehcache.util.*
 import net.sf.ehcache.loader.*
 import net.sf.ehcache.config.*
-import org.samye.dzong.london.*
 import static groovyx.net.http.ContentType.*
 import net.sf.ehcache.store.*
 

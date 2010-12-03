@@ -196,7 +196,7 @@ auditLog {
 }
 
 grails.commentable.poster.evaluator = { 
-    org.samye.dzong.london.ShiroUser.findByUsername(org.apache.shiro.SecurityUtils.getSubject().getPrincipal())
+    org.samye.dzong.london.users.ShiroUser.findByUsername(org.apache.shiro.SecurityUtils.getSubject().getPrincipal())
 }
 
 coverage {

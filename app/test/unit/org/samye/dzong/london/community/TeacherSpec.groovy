@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,7 +19,7 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ */
 
 package org.samye.dzong.london.community
 
@@ -28,13 +28,13 @@ import grails.plugin.spock.*
 import spock.lang.*
 import org.springframework.context.support.StaticMessageSource
 
-/** 
+/* 
  * Spock unit test for teacher domain class.
  * Store information both about teachers and center therapists.
  *
  * @author Leanne Northrop
  * @since 25th October 2010, 18:09
- **/
+ */
 class TeacherSpec extends UnitSpec {
     def messageSource = new StaticMessageSource()
 

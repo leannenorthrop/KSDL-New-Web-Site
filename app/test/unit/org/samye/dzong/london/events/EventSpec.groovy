@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,13 +19,13 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
+ */
 
 package org.samye.dzong.london.events
 
 import grails.test.*
 import org.samye.dzong.london.media.Image
-import org.samye.dzong.london.ShiroUser
+import org.samye.dzong.london.users.ShiroUser
 import org.samye.dzong.london.community.Teacher
 import org.samye.dzong.london.venue.*
 import grails.plugin.spock.*
@@ -34,7 +34,7 @@ import net.fortuna.ical4j.model.ValidationException
 import org.joda.time.*
 import org.springframework.context.support.StaticMessageSource
 
-/**
+/*
  * Unit test for Event domain class.
  */
 class EventSpec extends UnitSpec {

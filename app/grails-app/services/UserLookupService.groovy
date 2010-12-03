@@ -1,6 +1,6 @@
 import org.apache.shiro.SecurityUtils
-import org.samye.dzong.london.ShiroUser
-import org.samye.dzong.london.ShiroRole
+import org.samye.dzong.london.users.ShiroUser
+import org.samye.dzong.london.users.ShiroRole
 class UserLookupService {
 
     boolean transactional = false

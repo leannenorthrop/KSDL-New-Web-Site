@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,19 +19,19 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
+ */
 package org.samye.dzong.london.venue
 
 
 import org.samye.dzong.london.contact.*
 
-/**
+/*
  * A single telephone number associated with a venue.
  * Subclasses from telephone to support exclusive 
  * association with a venue.
  */
 class VenueTelephone extends Telephone {
-    /** Non-persisent flag set on detached instances
+    /* Non-persisent flag set on detached instances
      * to show that the instance should be deleted
      * from the database.
      */
@@ -46,7 +46,7 @@ class VenueTelephone extends Telephone {
         number = '020'
     }
 
-    /**
+    /*
      * {@inheritDoc}
      */
     String toString() {

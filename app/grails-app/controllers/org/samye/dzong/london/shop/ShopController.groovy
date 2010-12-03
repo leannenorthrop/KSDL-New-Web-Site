@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,12 +19,11 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
-
+ */
 package org.samye.dzong.london.shop
 
 import org.samye.dzong.london.community.Article
-import org.samye.dzong.london.Setting
+import org.samye.dzong.london.site.Setting
 
 class ShopController {
     def articleService

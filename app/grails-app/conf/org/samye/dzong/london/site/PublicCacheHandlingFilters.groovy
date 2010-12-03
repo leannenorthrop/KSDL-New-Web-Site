@@ -1,4 +1,4 @@
-package org.samye.dzong.london
+package org.samye.dzong.london.site
 
 import  org.samye.dzong.london.community.ArticleService
 

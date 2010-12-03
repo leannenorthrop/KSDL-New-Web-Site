@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,12 +19,12 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ */
 package org.samye.dzong.london.venue
 
 import org.samye.dzong.london.venue.Room
 
-/**
+/*
  * Service helper class for Teacher domain objects.
  *
  * TODO: internationalize

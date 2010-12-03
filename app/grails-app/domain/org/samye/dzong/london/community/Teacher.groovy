@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,14 +19,13 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
-
+ */
 package org.samye.dzong.london.community
 
-import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.cms.Publishable
 import org.samye.dzong.london.media.Image
 
-/**
+/*
  * Domain class for storing both teacher and therapist information.
  * Note named queries unfortunately do not handle
  * order by properly in grails 1.2.0.

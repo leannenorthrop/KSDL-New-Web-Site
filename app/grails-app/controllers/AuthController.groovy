@@ -1,4 +1,4 @@
-import org.samye.dzong.london.*
+import org.samye.dzong.london.users.*
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.UsernamePasswordToken
@@ -7,7 +7,6 @@ import org.apache.shiro.web.util.WebUtils
 import org.apache.shiro.crypto.hash.Sha1Hash
 import org.samye.dzong.london.contact.EmailService
 import com.icegreen.greenmail.util.*
-import org.samye.dzong.london.community.Profile
 
 class AuthController {
     def shiroSecurityManager

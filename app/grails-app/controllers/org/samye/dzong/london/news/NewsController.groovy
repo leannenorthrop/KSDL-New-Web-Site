@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,13 +19,12 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
-
+ */
 package org.samye.dzong.london.news
 
 import org.samye.dzong.london.community.Article
 
-/**
+/*
  * Simple handler for displaying news content.
  * TODO: Add support for similar articles?
  * TODO: Add support for article not found

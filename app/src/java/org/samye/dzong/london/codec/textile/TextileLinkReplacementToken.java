@@ -1,4 +1,26 @@
-package org.samye.dzong.london;
+/** *****************************************************************************
+ * Copyright © 2010 Leanne Northrop
+ *
+ * This file is part of Samye Content Management System.
+ *
+ * Samye Content Management System is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License,
+ * or (at your option) any later version.
+ *
+ * Samye Content Management System is distributed in the hope that it will be
+ * useful,but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Samye Content Management System.
+ * If not, see <http://www.gnu.org/licenses/>.
+ *
+ * BT plc, hereby disclaims all copyright interest in the program
+ * “Samye Content Management System” written by Leanne Northrop.
+ ***************************************************************************** */
+package org.samye.dzong.london.codec.textile;
 
 import org.eclipse.mylyn.wikitext.core.parser.markup.PatternBasedElement;
 import org.eclipse.mylyn.wikitext.core.parser.markup.PatternBasedElementProcessor;
@@ -6,9 +28,12 @@ import org.eclipse.mylyn.wikitext.core.parser.Attributes;
 import java.util.*;
 
 /**
- * User: Leanne Northrop
- * Date: Dec 6, 2009
- * Time: 6:29:51 PM
+ * Link markup to html generator. This class provides additional markup
+ * types for links to refer to 'internal' site pages such as teacher,
+ * event, file video and more.
+ *
+ * @author Leanne Northrop
+ * @since 1.0.0-SNAPSHOT, Dec 6, 2009 18:29:51
  */
 public class TextileLinkReplacementToken extends PatternBasedElement {
     private static Map urlBases = new HashMap();
@@ -56,9 +81,8 @@ public class TextileLinkReplacementToken extends PatternBasedElement {
             } else if (type.equals("video")) {
                 String[] attributes = name.split(",");
 				Attributes attr = new Attributes();
-				System.out.println("**** Type " + type + " url base is " + (String)urlBases.get(type));
 				String href = (String)urlBases.get(type) + "/" + attributes[0];
-                ((org.samye.dzong.london.HtmlDocumentBuilder)builder).video(attr, href);	
+                ((org.samye.dzong.london.codec.textile.HtmlDocumentBuilder)builder).video(attr, href);	
 			} else if (type.equals("file")) {
                 String[] attributes = name.split(",");
 				Attributes attr = new Attributes();				

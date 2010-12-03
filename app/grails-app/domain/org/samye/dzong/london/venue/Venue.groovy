@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,15 +19,15 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
+ */
 package org.samye.dzong.london.venue
 
-import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.cms.Publishable
 import org.samye.dzong.london.media.Image
 import org.apache.commons.collections.list.LazyList;
 import org.apache.commons.collections.FactoryUtils;
 
-/**
+/*
  * A Samye Dzong building or site at which events are held. Each building has 
  * zero or more postal addresses, email addresses and/or telphone numbers which 
  * belong to this object. It is a content managed class and goes through the
@@ -37,7 +37,7 @@ import org.apache.commons.collections.FactoryUtils;
  *
  * @author Leanne Northrop
  * @since January 2010
- **/
+ */
 class Venue extends Publishable {
     String name;
     Image image;
@@ -113,7 +113,7 @@ class Venue extends Publishable {
         return LazyList.decorate(telephoneNumbers,FactoryUtils.instantiateFactory(VenueTelephone.class))
     }
 
-    /**
+    /*
      * {@inheritDoc}
      */
     String toString() {

@@ -1,4 +1,4 @@
-package org.samye.dzong.london
+package org.samye.dzong.london.cms
 
 class TagService {
     def sessionFactory

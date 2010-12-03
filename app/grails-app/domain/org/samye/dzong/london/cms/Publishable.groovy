@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,13 +19,14 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ******************************************************************************/
+ */
+package org.samye.dzong.london.cms
 
-package org.samye.dzong.london
 import org.grails.taggable.*
 import org.grails.comments.*
+import org.samye.dzong.london.users.ShiroUser
 
-/**
+/*
  * All content that contains long text content should be inherited from this
  * domain class. Used to control the publish state of the object. Usually I
  * prefer delegation to inheritance but it may be useful to perform a lose

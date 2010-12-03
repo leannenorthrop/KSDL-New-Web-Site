@@ -1,4 +1,4 @@
-/** *****************************************************************************
+/*
  * Copyright © 2010 Leanne Northrop
  *
  * This file is part of Samye Content Management System.
@@ -19,16 +19,14 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- ***************************************************************************** */
-
+ */
 package org.samye.dzong.london.site
 
-import org.samye.dzong.london.*
 import org.samye.dzong.london.contact.EmailService
 import org.apache.shiro.SecurityUtils
-import org.samye.dzong.london.Setting
-import org.samye.dzong.london.community.Profile
-import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.site.Setting
+import org.samye.dzong.london.users.*
+import org.samye.dzong.london.cms.Publishable
 import net.sf.ehcache.*
 
 class SettingsController {

@@ -1,7 +1,7 @@
 package org.samye.dzong.london.meditation
 
 import grails.test.*
-import org.samye.dzong.london.Publishable
+import org.samye.dzong.london.cms.Publishable
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.community.ArticleService
 
