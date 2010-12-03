@@ -37,8 +37,8 @@ class BootStrap {
      def init = { servletContext ->
         log.info "Bootstrapping..."
 
-         grailsApplication.controllerClasses.each() {
-             if (CMSController.class.isAssignableFrom(it)) {
+         grailsApplication.controllerClasses.each {
+             if (CMSController.isAssignableFrom(it.clazz)) {
                  CMSUtil.addCMSMethods(it, log)
              }
          } 
