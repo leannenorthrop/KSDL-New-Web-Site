@@ -25,12 +25,10 @@ package org.samye.dzong.london.site
 
 import org.samye.dzong.london.users.*
 import org.samye.dzong.london.contact.EmailService
-import org.apache.shiro.SecurityUtils
 import org.samye.dzong.london.site.Setting
 
 class RolesController {
     def emailService
-    def userLookupService
     def messageSource
 
     def index = {
@@ -39,8 +37,8 @@ class RolesController {
 
     def manage = {
         log.trace "Looking up Users and Roles"
-        def users = userLookupService.allUsers();
-        def roles = userLookupService.allRoles();
+        def users = ShiroUser.list()
+        def roles = ShiroRole.list() 
         log.trace "Removing Admin role"
         roles = roles.findAll { item ->
             item.name != 'Admin'
@@ -61,8 +59,8 @@ class RolesController {
     // TODO: need optimisitic locking checks
     def assignRoles = {
         log.trace "Assigning roles to users (no locking checks)"
-        def users = userLookupService.allUsers();
-        def roles = userLookupService.allRoles();
+        def users = ShiroUser.list()
+        def roles = ShiroRole.list() 
         try {
           roles.each() { role ->
               def rolename = role.name

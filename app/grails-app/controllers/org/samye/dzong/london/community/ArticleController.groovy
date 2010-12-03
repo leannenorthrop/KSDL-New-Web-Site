@@ -23,12 +23,12 @@
 package org.samye.dzong.london.community
 
 import org.apache.shiro.SecurityUtils
+import org.samye.dzong.london.cms.*
 
 /*
  *
  */
-class ArticleController {
-    def userLookupService
+class ArticleController extends CMSController {
     def articleService
 
     def index = {
@@ -390,7 +390,7 @@ class ArticleController {
         def articleInstance = new Article(params)
 //        def user = ShiroUser.read(1)
 //        def users = ShiroUser.findAllByUsername(SecurityUtils.subject.principal.toString())
-        articleInstance.author = userLookupService.lookup()
+        articleInstance.author = currentUser() 
         if (!articleInstance.hasErrors() && articleInstance.save()) {
             flash.message = "Article ${articleInstance.title} created"
             redirect(action: manage)

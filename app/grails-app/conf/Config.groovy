@@ -216,6 +216,8 @@ grails.commentable.poster.evaluator = {
 coverage {
         enabledByDefault = false
         exclusions = ["**/BuildConfig*", "**/*Tests*", '**/*Spec', '**/SecurityFilters*','**/ShiroDbRealm*' ]
+        sourceExclusions = ['BuildConfig']
+        xml = true
 }
 
 quartz {

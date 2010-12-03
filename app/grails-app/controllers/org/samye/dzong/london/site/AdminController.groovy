@@ -29,7 +29,6 @@ import org.samye.dzong.london.site.Setting
 
 class AdminController {
     def emailService
-    def userLookupService
     def messageSource
 
     def index = {
@@ -45,7 +44,7 @@ class AdminController {
             flash.args=['Unknown']
             redirect(controller: 'manageSite', action: 'error')
         } else {
-            def roles = userLookupService.allRoles();
+            def roles = ShiroRole.list() 
             roles = roles.findAll{ item ->
                 item.name != 'Admin'
             }

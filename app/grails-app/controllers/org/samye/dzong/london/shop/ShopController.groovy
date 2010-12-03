@@ -24,11 +24,11 @@ package org.samye.dzong.london.shop
 
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.site.Setting
+import org.samye.dzong.london.cms.*
 
-class ShopController {
+class ShopController extends CMSController {
     def articleService
 	def emailService
-    def userLookupService
     
     def index = {
         redirect(action:home)
@@ -102,7 +102,7 @@ class ShopController {
 
     def save = {
         def product = new NonDownloadable()
-        product.author = userLookupService.lookup()
+        product.author = currentUser() 
 
         product.properties = params
         if (!product.hasErrors() && product.save()) {
