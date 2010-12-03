@@ -54,7 +54,6 @@ grails.gorm.autoFlush=true
 def logfileName = 'target/lsd.log'
 environments {
     production {
-        println "Environment is set to Production"
         logfileName = '/home/londonsamyedzong/logs/lsd.log'
         grails {
            mail {
@@ -85,10 +84,9 @@ environments {
         }
     }
     development {
-        println "Environment is set to Development"
         grails {
            mail {
-             host = "0.0.0.0"
+             host = "127.0.0.1"
              username = "site@londonsamyedzong.org"
              password = "change!t"
              props = ["mail.smtp.auth":"true",
@@ -111,7 +109,6 @@ environments {
         }
     }
     test {
-        println "Environment is set to Test"
         grails {
            mail {
              host = "0.0.0.0"
