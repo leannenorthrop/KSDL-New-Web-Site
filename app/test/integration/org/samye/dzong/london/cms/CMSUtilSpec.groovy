@@ -38,132 +38,164 @@ import org.apache.shiro.SecurityUtils
 class CMSUtilSpec extends IntegrationHelper {
     def user
     def roles = []
-    
+    def grailsApplication
+
+    def setupSpec() {
+        CMSUtil.addCMSMethods(String)
+    }
+
     def setup() {
         clean()
         user = newUser()
-        CMSUtil.addCMSMethods(String)
         SecurityUtils.metaClass.static.getSubject = {
             return [hasRoles: { r -> roles.intersect(r)}, principal: user.username]
         }
     }
-    
-    def 'viewArticle'() {
+
+    def domainClassesToTest() {
+        CMSUtil.GRAILS_APPLICATION.domainClasses.findAll { Publishable.isAssignableFrom(it.clazz) && it.name != 'Product' && it.name != 'NonDownloadable' && it.name != 'Download' && it.name != 'Publishable'}.collect{it.name}
+    }
+
+    def 'viewDomains'() {
         given:
-        def article = newArticle("Testing view",true)
+        def obj = this."new${domain}"("Testing view",true)
     
         when:
-        def results = 'a string'.viewArticle(article.id)
+        def results = 'a string'."view${domain}"(obj.id)
         
         then:
-        results.Article == article
+        results."${domain}" == obj 
+
+        where:
+        domain << domainClassesToTest()
     }
   
-    def 'userUnpublishedArticles'() {
+    def 'userUnpublished'() {
         given:
-        def article = newArticle("Testing User Unpublished")
-        article.author = user
-        article.save()
+        def obj = this."new${domain}"("Testing ${domain} userUnpublished",false)
+        obj.author = user
+        obj.save(flush:true)
     
         when:
-        def results = 'a string'.userUnpublishedArticles([sort:'title',order:'asc'])
+        def results = 'a string'."userUnpublished${domain}s"([sort:'author',order:'asc'])
+       
+        then:
+        results.total == 1
+
+        where:
+        domain << domainClassesToTest()
+    }
+    
+  
+    def 'userPublished'() {
+        given:
+        def obj = this."new${domain}"("Testing ${domain} userPublished",true)
+        obj.author = user
+        obj.save(flush:true)
+    
+        when:
+        def results = 'a string'."userPublished${domain}s"([sort:'author',order:'asc'])
         
         then:
         results.total == 1
-    }
-    
-  
-    def 'userPublishedArticles'() {
-        given:
-        def article = newArticle("Testing User Published",true)
-        article.author = user
-        article.save()
-    
-        when:
-        def results = 'a string'.userPublishedArticles([sort:'title',order:'asc'])
-        
-        then:
-        results.total == 1
+
+        where:
+        domain << domainClassesToTest()
     } 
     
-    def 'userArchivedArticles'() {
+    def 'userArchived'() {
         given:
-        def article = newArticle("Testing User Archived",true)
-        article.author = user
-        article.publishState = 'Archived'
-        article.save()
+        def obj = this."new${domain}"("Testing ${domain} userArchived",true)
+        obj.author = user
+        obj.publishState = 'Archived'
+        obj.save()
     
         when:
-        def results = 'a string'.userArchivedArticles([sort:'title',order:'asc'])
+        def results = 'a string'."userArchived${domain}s"([sort:'author',order:'asc'])
         
         then:
         results.total == 1
+
+        where:
+        domain << domainClassesToTest()
     } 
     
     def 'userDeletedArticles'() {
         given:
-        def article = newArticle("Testing User Deleted")
-        article.author = user
-        article.deleted = true
-        article.save()
+        def obj = this."new${domain}"("Testing ${domain} Deleted",true)
+        obj.author = user
+        obj.deleted = true
+        obj.save()
     
         when:
-        def results = 'a string'.userDeletedArticles([sort:'title',order:'asc'])
+        def results = 'a string'."userDeleted${domain}s"([sort:'author',order:'asc'])
         
         then:
         results.total == 1
+
+        where:
+        domain << domainClassesToTest()
     }   
     
-    def 'unpublishedArticles'() {
+    def 'unpublished'() {
         given:
-        def article = newArticle("Testing Unpublished")
-        article.save()
+        def obj = this."new${domain}"("Testing ${domain} Unpublished",false)
     
         when:
-        def results = 'a string'.unpublishedArticles([sort:'title',order:'asc'])
+        def results = 'a string'."unpublished${domain}s"([sort:'author',order:'asc'])
         
         then:
         results.total == 1
+
+        where:
+        domain << domainClassesToTest()
     }
     
   
-    def 'publishedArticles'() {
+    def 'published'() {
         given:
-        def article = newArticle("Testing Published",true)
-        article.save()
+        def obj = this."new${domain}"("Testing ${domain} Published",true)
     
         when:
-        def results = 'a string'.publishedArticles([sort:'title',order:'asc'])
+        def results = 'a string'."published${domain}s"([sort:'author',order:'asc'])
         
         then:
         results.total == 1
+
+        where:
+        domain << domainClassesToTest()
     } 
     
-    def 'archivedArticles'() {
+    def 'archived'() {
         given:
-        def article = newArticle("Testing Archived",true)
-        article.publishState = 'Archived'
-        article.save()
+        def obj = this."new${domain}"("Testing ${domain} Archived",true)
+        obj.publishState = 'Archived'
+        obj.save()
     
         when:
-        def results = 'a string'.archivedArticles([sort:'title',order:'asc'])
+        def results = 'a string'."archived${domain}s"([sort:'author',order:'asc'])
         
         then:
         results.total == 1
+
+        where:
+        domain << domainClassesToTest()
     }
     
-    def 'deletedArticles'() {
+    def 'deleted'() {
         given:
-        def article = newArticle("Testing Deleted")
-        article.author = user
-        article.deleted = true
-        article.save()
+        def obj = this."new${domain}"("Testing ${domain} Deleted",true)
+        obj.deleted = true
+        obj.save()
     
         when:
-        def results = 'a string'.deletedArticles([sort:'title',order:'asc'])
+        def results = 'a string'."deleted${domain}s"([sort:'author',order:'asc'])
         
         then:
         results.total == 1
+
+        where:
+        domain << domainClassesToTest()
     }                     
 }
 
