@@ -260,15 +260,25 @@ class EventController extends CMSController {
         def event = Event.get(params.id)
         if (event) {
             if (versionCheck(params,event)){
-                event.publishState = "Unpublished"
-                event.deleted = true
-                event.title += ' (Deleted)'
-                if (!event.hasErrors() && event.save()) {
-                    flash.message = "Event ${event.title} has been deleted"
-                    redirect(action: manage)
-                }
-                else {
-                    handleError("Can not delete '${event}' at this time",event,manage)
+                Event.withTransaction { status ->
+                    try {
+                        event.publishState = "Unpublished"
+                        event.deleted = true
+                        event.title += ' (Deleted)'
+                        if (!event.hasErrors() && event.save()) {
+                            flash.message = "Event ${event.title} has been deleted"
+                            redirect(action: manage)
+                        }
+                        else {
+                            def msg = "Can not delete ${event.title} at this time"
+                            rollback(status,msg,event)
+                            handleError(msg,event,manage)
+                        }
+                    } catch (error) {
+                        def msg = "Can not delete ${event.title} at this time"
+                        rollback(status,msg,event,error)
+                        redirect(action: manage,id:params.id)
+                    }
                 }
             } else {
                 redirect(action: manage)

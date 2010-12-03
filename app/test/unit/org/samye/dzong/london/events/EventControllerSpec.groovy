@@ -420,7 +420,7 @@ class EventControllerSpec extends ControllerSpec {
         params.max == 9
     }
 
-    def 'getEventsForView uses MIN when max parameter when supplied'() {
+    def 'Uses MIN when max parameter when supplied'() {
         setup:
         def uevents = thisMonthEvents()
         def params
@@ -433,7 +433,7 @@ class EventControllerSpec extends ControllerSpec {
         params.max == 30 
     }
 
-    def 'getEventsForView uses MAX when max parameter is too large'() {
+    def 'Uses MAX when max parameter is too large'() {
         setup:
         def uevents = thisMonthEvents()
         def params
@@ -615,6 +615,57 @@ class EventControllerSpec extends ControllerSpec {
         mockFlash.message == "Event ${title} (Deleted) has been deleted"
         event.title == "${title} (Deleted)" 
         assert event.deleted
+    }
+
+    def 'Delete failure rollsback and redirects to manage'() {
+        setup:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> false }
+        event.metaClass.save { -> throw new RuntimeException() }
+
+        when:
+        controller.delete()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not delete ${event.title} at this time"
+        assert event.title.contains(' (Deleted)')
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
+    }
+
+    def 'Delete with errors rollsback and redirects to manage'() {
+        given:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> hasError}
+        event.metaClass.save { -> false }
+
+        when:
+        controller.delete()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not delete ${event.title} at this time"
+        assert event.title.contains(' (Deleted)')
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
+
+        where:
+        hasError << [true,false]
     }
 
     def 'Edit redirects to manage if event not found'() {
