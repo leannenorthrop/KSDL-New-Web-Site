@@ -316,20 +316,30 @@ class EventController extends CMSController {
 
     def saveEvent(event,params,onSave,saveMsg,onError,errMsg) {
         if (versionCheck(params,event)) {
-            event.properties = params
-            event.bindPrices(params)
-            event.bindDates(params)
+            Event.withTransaction { status ->
+                try {
+                    event.properties = params
+                    event.bindPrices(params)
+                    event.bindDates(params)
 
-            if (!event.hasErrors() && event.save()) {
-                if (params.tags) {
-                    def newtags = params.tags.split(',') as List
-                    event.setTags(newtags)
+                    if (!event.hasErrors() && event.save()) {
+                        if (params.tags) {
+                            def newtags = params.tags.split(',') as List
+                            event.setTags(newtags)
+                        }
+                        flash.message = saveMsg
+                        redirect(action: onSave)
+                    }
+                    else {
+                        def msg = "Can not save ${event.title} at this time"
+                        rollback(status,msg,event,error)
+                        handleError(errMsg,event,onError)
+                    }
+                } catch(error) {
+                    def msg = "Can not save ${event.title} at this time"
+                    rollback(status,msg,event,error)
+                    redirect(action: manage,id:params.id)
                 }
-                flash.message = saveMsg
-                redirect(action: onSave)
-            }
-            else {
-                handleError(errMsg,event,onError)
             }
         } else {
             redirect(action: manage)
@@ -376,13 +386,23 @@ class EventController extends CMSController {
         def event = new Event()
         event.author = userLookupService.lookup()
 
-        event.properties = params
-        if (!event.hasErrors() && event.save()) {
-            flash.message = "Event ${event.title} has been created"
-            redirect(action: manage)
-        }
-        else {
-            handleError("event.update.error",event,create)
+        Event.withTransaction { status ->
+            try { 
+                event.properties = params
+                if (!event.hasErrors() && event.save()) {
+                    flash.message = "Event ${event.title} has been created"
+                    redirect(action: manage)
+                }
+                else {
+                    def msg = "Can not save at this time"
+                    rollback(status,msg,event)
+                    handleError("event.update.error",event,create)
+                }
+            } catch (error) {
+                def msg = "Can not save at this time"
+                rollback(status,msg,event,error)
+                redirect(action: create,id:params.id)
+            }
         }
     }
 
