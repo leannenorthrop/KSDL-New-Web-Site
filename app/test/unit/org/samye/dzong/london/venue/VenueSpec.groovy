@@ -88,6 +88,4 @@ class VenueSpec extends UnitSpec {
         then:
         list.get(2).toString() == new VenueTelephone().toString()
     }
-
-
 }

@@ -35,28 +35,28 @@ class VenueController {
     }
 
     def delete = {
-        def venueInstance = Venue.get( params.id )
-        if(venueInstance) {
+        def venue = Venue.get( params.id )
+        if(venue) {
             Venue.withTransaction{ status ->
                 try {
-                    venueInstance.publishState = "Unpublished"
-                    venueInstance.deleted = true
-                    venueInstance.name += " (Deleted)" 	            
-                    if (!venueInstance.hasErrors() && venueInstance.save()) {
-                        flash.message = "Venue ${venueInstance.name} deleted"
+                    venue.publishState = "Unpublished"
+                    venue.deleted = true
+                    venue.name += " (Deleted)" 	            
+                    if (!venue.hasErrors() && venue.save()) {
+                        flash.message = "Venue ${venue.name} deleted"
                         redirect(action:manage)
                     } else {
                         status.setRollbackOnly()
-                        log.warn "Unable to delete venue ${venue.name}", e
+                        log.warn "Unable to delete venue ${venue.name}"
                         def msg = "Venue ${venue.name} could not be deleted"
-                        handleError(msg, venueInstance)
+                        handleError(msg, venue)
                     }
                 }
                 catch(e) {
                     status.setRollbackOnly()
                     log.warn "Unable to delete venue ${venue.name}", e
                     def msg = "Venue ${venue.name} could not be deleted"
-                    handleError(msg, venueInstance)
+                    handleError(msg, venue)
                 }
             }
         }
