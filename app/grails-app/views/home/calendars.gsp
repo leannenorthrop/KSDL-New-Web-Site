@@ -35,7 +35,7 @@
         <g:each in="${['all','meditation','wellbeing','community','buddhism']}" var="feed">
           <li class="calendar">
             <g:set var="a">
-              <g:link controller="event" action="calendar" params="${[type:feed]}"><g:message code="${feed}"/></g:link>
+              <g:link controller="event" action="subscribe" params="${[type:feed]}"><g:message code="${feed}"/></g:link>
             </g:set>
             <g:message code="${'calendars.'+feed}" args="${[a]}"/>
           </li>

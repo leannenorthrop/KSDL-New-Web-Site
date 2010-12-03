@@ -8,7 +8,7 @@ dataSource {
         minEvictableIdleTimeMillis = 60000
         timeBetweenEvictionRunsMillis = 60000
         maxWait = 10000
-        validationQuery = "select count(*) from shiro_role"
+//        validationQuery = "select count(*) from shiro_role"
     }    
 }
 
@@ -35,11 +35,12 @@ environments {
 
     test {
         dataSource {
-            dbCreate = "update"
-            url = "jdbc:hsqldb:file:db/test;shutdown=true"
+            dbCreate = "create"
+            url = "jdbc:hsqldb:file:/Users/leanne/Development/LSD/Development/lsd/app/db/test;shutdown=true"
             driverClassName = "org.hsqldb.jdbcDriver"
-            username = "sa"
+            username = "SA"
             password = ""
+            dialect = org.hibernate.dialect.HSQLDialect            
         }
     }
 

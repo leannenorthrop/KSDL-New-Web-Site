@@ -473,12 +473,15 @@ class EventController {
 
             publishedEvents.eachWithIndex { event,index ->
                 if (event.isOnDay(day)) {
-                    if (!first){ 
-                        response.outputStream << ','
-                    } else {
-                        first = false
+                    def str = event.toJSON(day)
+                    if (str) {
+                        if (!first){ 
+                            response.outputStream << ','
+                        } else {
+                            first = false
+                        }
+                        response.outputStream << str 
                     }
-                    event.toJSON(day)
                 }
             }
             def ss = day.format('yyyy-MM-dd')

@@ -256,7 +256,7 @@ class Event extends Publishable implements Comparable {
 
     String toJSON(day) {
         def controller = messageSource.getMessage("publish.category.controller.${category}",null,Locale.UK)
-        def href = "${controller}/event/${id}" 
+        def href = "../${controller}/event/${id}" 
 
         def firstDate = dates[0]
         def date = new DateTime(day.getTime())
