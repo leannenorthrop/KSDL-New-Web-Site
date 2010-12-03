@@ -26,7 +26,7 @@
   Date: Jan 29, 2010,5:01:51 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.Setting" %>
+<%@ page import="org.samye.dzong.london.site.Setting" %>
 <html>
   <head>
     <title>calendar</title>

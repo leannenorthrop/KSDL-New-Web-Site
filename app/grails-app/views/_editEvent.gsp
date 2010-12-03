@@ -28,7 +28,7 @@
   Date: Feb 20, 2010, 3:49:35 PM
 --%>
 
-<%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.users.ShiroUser" contentType="text/html;charset=UTF-8" %>
 
 <g:set var="firstDate" value="${event.dateList[0] ?: event.dateList.get(0)}"/>
 <g:render template="/editEventDetails" model="[event: event, firstDate:firstDate]"/>

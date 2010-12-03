@@ -81,7 +81,7 @@ class AuthController {
 
         // If a controller redirected to this page, redirect back
         // to it. Otherwise redirect to the root URI.
-        def targetUri = params.targetUri ?: "/manageSite/home"
+        def targetUri = params.targetUri ?: "/manageSite/landing"
 
         // Handle requests saved by Shiro filters.
         def savedRequest = WebUtils.getSavedRequest(request)
@@ -89,7 +89,7 @@ class AuthController {
             targetUri = savedRequest.requestURI - request.contextPath
             if (savedRequest.queryString) targetUri = targetUri + '?' + savedRequest.queryString
         } else if (!targetUri) {
-            targetUri = "/manageSite/home";
+            targetUri = "/manageSite/landing";
         }
 
         try{

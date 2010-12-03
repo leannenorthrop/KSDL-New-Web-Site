@@ -28,7 +28,7 @@
   Date: Jun 30, 2010, 23:01
 --%>
 
-<%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.users.ShiroUser" contentType="text/html;charset=UTF-8" %>
 <fieldset>
     <legend>Details</legend> 
       <p>
@@ -51,14 +51,14 @@
                     value="${fieldValue(bean:event,field:'summary')}" 
                     minlength="5"/>
       </p>
-      <span style="float:left;width: 20em;min-height:${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px">
+      <span style="float:left;width: 20em;min-height:${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px">
             <p>
               <label for="image.id" style="display:inline-block;width:10em;"><g:message code="event.image.label"/></label>
               <g:set var="noImgLabel"><g:message code="no.img"/></g:set>
               <g:select from="${org.samye.dzong.london.media.Image.findAllByTag('event')}" name="image.id" value="${event?.image?.id}" noSelection="${['null':noImgLabel]}" optionKey="id" optionValue="name" class="ui-corner-all"/>
             </p>
       </span>
-      <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px; min-height:${org.samye.dzong.london.Setting.findByName('ThumbSize').value}px">
+      <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px; min-height:${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}px">
             <lsdc:thumbnail srcid="${teacher?.image?.id}" id="thumb_image"/>
       </span>
       <span class="clear"></span>  

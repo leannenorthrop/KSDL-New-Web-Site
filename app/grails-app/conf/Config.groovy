@@ -9,6 +9,10 @@
 // if(System.properties["${appName}.config.location"]) {
 //    grails.config.locations << "file:" + System.properties["${appName}.config.location"]
 // }
+tomcat.deploy.url="http://10.0.1.6:8080/manager"
+tomcat.deploy.username="tomcat"
+tomcat.deploy.password="tomcat"
+
 grails.project.groupId = org.londonsamyedzong
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = true
@@ -51,10 +55,17 @@ grails.views.javascript.library="jquery"
 grails.gorm.autoFlush=true
 
 // set per-environment serverURL stem for creating absolute links
-def logfileName = 'target/lsd.log'
+def logfileName = '/var/log/tomcat6/lsd.log'
+def catalinaBase = System.properties.getProperty('catalina.base')
+if (catalinaBase) {
+    logfileName = "${catalinaBase}/logs/lsd.log"
+}
+
 environments {
     production {
-        logfileName = '/home/londonsamyedzong/logs/lsd.log'
+        if (!catalinaBase){
+            logfileName = '/home/londonsamyedzong/logs/lsd.log'
+        }
         grails {
            mail {
              //grails.mail.jndiName = "myMailSession"
@@ -95,6 +106,7 @@ environments {
         }
         grails.mail.port = com.icegreen.greenmail.util.ServerSetupTest.SMTP.port
         grails.serverURL = "http://localhost:8080/${appName}"
+        grails.full.stacktrace=false
         fileuploader {
             themes {
                 maxSize = 1000 * 1024 * 4 //4 mbytes
@@ -141,6 +153,7 @@ log4j = {
     appenders {
        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
        rollingFile name: "file", file: logfileName, maxFileSize:'512MB', maxBackupIndex:10,layout:pattern(conversionPattern: '%d{ISO8601} [%t] %p %c %x - %m%n')
+       rollingFile name: "stacktrace", file: logfileName + '_stacktrace.log', maxFileSize:'512MB', maxBackupIndex:10,layout:pattern(conversionPattern: '%d{ISO8601} [%t] %p %c %x - %m%n')
     }
     production{
         root { 
@@ -153,6 +166,7 @@ log4j = {
             debug 'stdout','file'
             additivity = true            
         }
+        log4j.appender.'errors.File'="/var/log/tomcat6/stacktrace.log"
     }
 
     fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',

@@ -1,4 +1,4 @@
-<%@ page import="org.samye.dzong.london.site.Link;org.samye.dzong.london.Setting" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.samye.dzong.london.site.Link;org.samye.dzong.london.site.Setting" contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
     <title><g:message code="welcome" default="Welcome"/></title>

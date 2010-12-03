@@ -25,7 +25,7 @@ environments {
             // one of 'create', 'create-drop','update'
             dbCreate = "update"
 //            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
-            url = "jdbc:hsqldb:hsql://localhost/lsd"
+            url = "jdbc:hsqldb:hsql://10.0.1.6/lsd"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""
