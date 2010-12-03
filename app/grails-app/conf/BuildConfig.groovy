@@ -44,7 +44,6 @@ grails.project.dependency.resolution = {
         
         test 'javax.persistence:persistence-api:1.0',
              'com.icegreen:greenmail:1.3.1b'
-        
     }
 }
 clover {
