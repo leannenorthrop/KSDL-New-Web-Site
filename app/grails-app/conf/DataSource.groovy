@@ -24,18 +24,16 @@ environments {
         dataSource {
             // one of 'create', 'create-drop','update'
             //dbCreate = "update"
-//            url = "jdbc:hsqldb:file:db/dev;shutdown=true"
-            //url = "jdbc:hsqldb:hsql://10.0.1.6/lsd"
-            url = "jdbc:mysql://localhost/londonsamyedzong"
+            /*url = "jdbc:mysql://localhost/londonsamyedzong"
             driverClassName = "com.mysql.jdbc.Driver"
             username = "londonsamyedzong"
             password = "change!t"
-            dialect = org.hibernate.dialect.MySQLDialect 
-            //url = "jdbc:hsqldb:hsql://localhost/lsd"
-            //driverClassName = "org.hsqldb.jdbcDriver"
-            //username = "SA"
-            //password = ""
-            //dialect = org.hibernate.dialect.HSQLDialect            
+            dialect = org.hibernate.dialect.MySQLDialect */
+            url = "jdbc:hsqldb:hsql://localhost/lsd"
+            driverClassName = "org.hsqldb.jdbcDriver"
+            username = "SA"
+            password = ""
+            dialect = org.hibernate.dialect.HSQLDialect            
         }
     }
 

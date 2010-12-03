@@ -19,30 +19,38 @@
  *
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
- */ 
+ */
 
 package org.samye.dzong.london.codec.textile;
 
-import org.eclipse.mylyn.wikitext.textile.core.TextileLanguage;
-import java.util.*;
+import grails.test.*
+import grails.test.*
+import grails.plugin.spock.*
 
-/**
- * Site specific textile markup language. Supports marking up internal
- * links, video embedding and more.
+import org.eclipse.mylyn.wikitext.core.parser.markup.MarkupLanguage
+
+/*
+ * Unit test for Buddhist content controller.
  *
  * @author Leanne Northrop
- * @since 1.0.0-SNAPSHOT, December 2009
+ * @since 3rd November 2010, 20:16
  */
-public class WikiTextileLanguage extends TextileLanguage {
-    private Map urlBases = new HashMap();
-
-    public WikiTextileLanguage(final Map urls) {
-        urlBases = new HashMap(urls);
+class WikiTextileLanguageSpec extends UnitSpec {
+    def 'Constructor creates textile language mark up generator'() {
+        expect:
+        null != new WikiTextileLanguage([:])
     }
 
-    @Override
-    protected void addStandardTokens(PatternBasedSyntax tokenSyntax) {
-        tokenSyntax.add(new TextileLinkReplacementToken(urlBases));
-        super.addStandardTokens(tokenSyntax);
+    def 'Site specific textile markup is added'() {
+        given:
+        def lang = new WikiTextileLanguage([:])
+        def syntax = new MarkupLanguage.PatternBasedSyntax()
+
+        when:
+        lang.addStandardTokens(syntax)
+
+        then:
+        syntax.elements.find{it instanceof TextileLinkReplacementToken}
     }
+
 }
