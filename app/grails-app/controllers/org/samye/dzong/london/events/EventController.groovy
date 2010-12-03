@@ -37,6 +37,7 @@ import net.fortuna.ical4j.data.CalendarOutputter
 import net.fortuna.ical4j.model.property.Attach
 import java.text.SimpleDateFormat;
 import grails.converters.JSON
+import org.samye.dzong.london.cms.*
 
 
 /*
@@ -45,7 +46,7 @@ import grails.converters.JSON
  * @author Leanne Northrop
  * @since 29th January, 2010, 17:04
  */
-class EventController {
+class EventController implements CMSController {
     //flash.message = "${message(code: 'default.updated.message', args: [message(code: 'event.label', default: 'Event'), event.id])}"
     def userLookupService
     def eventService
@@ -246,25 +247,10 @@ class EventController {
         render(view: 'manage')
     }
 
-
-    def handleError(message, action) {
-        flash.message = message 
-        flash.isError = true
-        redirect(action: action)
-    }
-
-    def handleError(message, action, event) {
-        flash.message = message 
-        flash.isError = true
-        flash.bean = event
-        flash.args = [event] 
-        redirect(action: action, id: event.id)
-    }
-
     def view = {
         def event = Event.get(params.id)
         if (!event) {
-            handleError("Event not found with id ${params.id}",home)
+            notFound(home)
         }
         else {
             def similar = eventService.findSimilar(event)
@@ -275,7 +261,7 @@ class EventController {
     def query = {
         def event = Event.get(params.id)
         if (!event) {
-            handleError("Event not found with id ${params.id}",home)
+            notFound(home)
         }
         else {
             def id = params.id;
@@ -297,24 +283,11 @@ class EventController {
         def event = Event.get(params.id)
 
         if (!event) {
-            handleError("Event not found with id ${params.id}",home)
+            notFound(home)
         }
         else {
             return [event: event, id: params.id]
         }
-    }
-
-    def versionCheck(params,event) {
-        def ok = true
-        if (params.version) {
-            def version = params.version.toLong()
-            ok = event.version <= version
-            if (!ok) {
-                event.errors.rejectValue("version", "event.optimistic.locking.failure", "Another user has updated this Event while you were editing.")
-                handleError("Can not perform the requested action at this time.",manage)
-            }
-        }
-        ok
     }
 
     // todo ensure delete request sends version
@@ -330,12 +303,14 @@ class EventController {
                     redirect(action: manage)
                 }
                 else {
-                    handleError("Can not delete '${event}' at this time",manage,event)
+                    handleError("Can not delete '${event}' at this time",event,manage)
                 }
+            } else {
+                redirect(action: manage)
             }
         }
         else {
-            handleError("Event not found with id ${params.id}",manage)
+            notFound(manage)
         }
     }
 
@@ -343,7 +318,7 @@ class EventController {
         def event = Event.get(params.id)
 
         if (!event) {
-            handleError("Event not found with id ${params.id}",manage)
+            notFound(manage)
         }
         else {
             if (!flash.message) {
@@ -357,7 +332,7 @@ class EventController {
         def event = Event.get(params.id)
 
         if (!event) {
-            handleError("Event not found with id ${params.id}",manage)
+            notFound(manage)
         }
         else {
             render(view: 'publish', model: [event: event], id: params.id)
@@ -379,8 +354,10 @@ class EventController {
                 redirect(action: onSave)
             }
             else {
-                handleError(errMsg,onError,event)
+                handleError(errMsg,event,onError)
             }
+        } else {
+            redirect(action: manage)
         }
     }
 
@@ -394,7 +371,7 @@ class EventController {
             saveEvent(event,params,manage,okMsg,pre_publish,errMsg)
         }
         else {
-            handleError("Event not found with id ${params.id}",manage)
+            notFound(manage)
         }
     }
 
@@ -406,7 +383,7 @@ class EventController {
             saveEvent(event,params,manage,okMsg,pre_publish,errMsg)
         }
         else {
-            handleError("Event not found with id ${params.id}",manage)
+            notFound(manage)
         }
     }
 
@@ -430,7 +407,7 @@ class EventController {
             redirect(action: manage)
         }
         else {
-            handleError("event.update.error",create,event)
+            handleError("event.update.error",event,create)
         }
     }
 
@@ -445,7 +422,7 @@ class EventController {
             saveEvent(event,params,manage,okMsg,manage,errMsg)
         }
         else {
-            handleError("Event not found with id ${params.id}",manage)
+            notFound(manage)
         }
     }
 

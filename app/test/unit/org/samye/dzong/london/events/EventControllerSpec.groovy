@@ -37,6 +37,8 @@ import groovy.time.*
 import org.springframework.context.support.StaticMessageSource
 import org.apache.shiro.SecurityUtils
 import org.spock.lang.*
+import org.springframework.transaction.TransactionStatus
+import org.samye.dzong.london.cms.CMSUtil
 
 /*
  *  Unit test for Events controller
@@ -44,8 +46,12 @@ import org.spock.lang.*
 class EventControllerSpec extends ControllerSpec {
     def messageSource = new StaticMessageSource()
     def roles = []
+    def mockTransactionStatus
 
     def setup() {
+        mockTransactionStatus = Mock(TransactionStatus)
+        Event.metaClass.static.withTransaction = { c -> c(mockTransactionStatus) }
+        CMSUtil.addCMSMethods(EventController) 
         mockLogging(EventController, true)
         mockLogging(Event, true)
         mockLogging(EventDate, true)
@@ -462,7 +468,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.home]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'View returns model for requested id'() {
@@ -493,7 +499,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.home]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Query returns model for requested id'() {
@@ -540,7 +546,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.home]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Show returns model for requested id'() {
@@ -568,9 +574,9 @@ class EventControllerSpec extends ControllerSpec {
         controller.delete()
 
         then:
-        redirectArgs == [action: controller.manage]
+        //redirectArgs.action == controller.manage
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Delete redirects to manage if versions do not match'() {
@@ -586,9 +592,9 @@ class EventControllerSpec extends ControllerSpec {
         controller.delete()
 
         then:
-        //redirectArgs == [action: controller.manage]
+        redirectArgs.action == controller.manage
         mockFlash.isError == true
-        mockFlash.message == "Can not perform the requested action at this time."
+        mockFlash.message == "Changes could not be saved because of the following:"
     }
 
     def 'Delete deletes event'(){
@@ -622,7 +628,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Edit returns event with flash message if not already set'() {
@@ -672,7 +678,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Pre-publish returns model for requested id'() {
@@ -702,7 +708,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Publish publishes event for requested id'() {
@@ -737,7 +743,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Can not perform the requested action at this time."
+        mockFlash.message == "Changes could not be saved because of the following:"
     }
     
     def 'Update redirects to manage if event not found'() {
@@ -751,7 +757,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Update publishes event for requested id'() {
@@ -786,7 +792,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Can not perform the requested action at this time."
+        mockFlash.message == "Changes could not be saved because of the following:"
     }
 
     def 'Create generates new event with organizer set'() {
@@ -831,7 +837,7 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Event not found with id -1"
+        mockFlash.message == "Event not found"
     }
 
     def 'Change state archives event for requested id'() {
@@ -873,10 +879,10 @@ class EventControllerSpec extends ControllerSpec {
         then:
         redirectArgs == [action: controller.manage]
         mockFlash.isError == true
-        mockFlash.message == "Can not perform the requested action at this time."
+        mockFlash.message == "Changes could not be saved because of the following:"
     }
 
-    def 'Save redirects to back to create if params have errors'() {
+    def 'Save redirects back to create if params have errors'() {
         setup:
         getMockParams() << [organizer: 0, summary: 'summary'] 
         mockDomain(Event)
