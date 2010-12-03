@@ -28,7 +28,7 @@
 ------------------------------------------------------------------------------->
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.media.Image" %>
-<%@ page import="org.samye.dzong.london.Setting" %>
+<%@ page import="org.samye.dzong.london.site.Setting" %>
 <%@ page import="org.samye.dzong.london.venue.Venue" %>
 <g:if test="${params.theme}">
     <g:set var="cssThemesDir" value="${params.theme}"/>

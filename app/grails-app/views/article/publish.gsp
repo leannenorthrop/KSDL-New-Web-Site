@@ -63,7 +63,7 @@
               <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:articleInstance,field:'category','errors')}"/>
             </p>
         </span>
-        <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.Setting.findByName('ThumbSize').value}">
+        <span style="float:left;margin-left:1.2em;min-width: ${org.samye.dzong.london.site.Setting.findByName('ThumbSize').value}">
             <lsdc:thumbnail srcid="${articleInstance?.image?.id}" id="thumb_image"/>
         </span>
         <span class="clear"></span>        

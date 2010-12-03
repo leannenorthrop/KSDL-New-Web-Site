@@ -28,7 +28,7 @@
   Date: Jun 30, 2010, 23:04
 --%>
 
-<%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.ShiroUser" contentType="text/html;charset=UTF-8" %>
+<%@ page import="org.joda.time.TimeOfDay;org.samye.dzong.london.media.Image;org.samye.dzong.london.venue.Venue;org.samye.dzong.london.community.Teacher;org.samye.dzong.london.users.ShiroUser" contentType="text/html;charset=UTF-8" %>
 
 <g:set var="eventprices" value="${event?.getPriceList()?:[]}"/>
 <fieldset>

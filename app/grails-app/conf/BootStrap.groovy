@@ -65,9 +65,13 @@ class BootStrap {
 
          environments {
              development {
-                 greenMail = new GreenMail(ServerSetupTest.ALL)
-                 greenMail.start();
-                 servletContext.setAttribute("greenmail", greenMail)
+                 try {
+                     greenMail = new GreenMail(ServerSetupTest.ALL)
+                     greenMail.start();
+                     servletContext.setAttribute("greenmail", greenMail)
+                 } catch(errors) {
+                     log.warn "Could not start greenmail", errors
+                 }
              }
              test {
                  greenMail = new GreenMail(ServerSetupTest.ALL)
@@ -84,11 +88,31 @@ class BootStrap {
     def destroy = {
         environments {
             development {
-                greenMail.stop();
+                def gm = servletContext.getAttribute("greenmail")
+                if (gm) {
+                    try {
+                        gm.stop();
+                        servletContext.setAttribute("greenmail", null)
+                    }catch(ignore){}
+                } else {
+                    greenMail.stop();
+                }
+
+                greenMail = null
             }
             test {
-                greenMail = new GreenMail();
-                greenMail.stop();
+                def gm = servletContext.getAttribute("greenmail")
+                if (gm) {
+                    try {
+                        gm.stop();
+                        servletContext.setAttribute("greenmail", null)
+                    }catch(ignore){}
+                } else {
+                    greenMail.stop();
+                }
+                def config = ConfigurationHolder.getConfig()
+                config.greenmail = null 
+                greenMail = null
             }
         }
     }

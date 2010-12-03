@@ -21,7 +21,7 @@
   - “Samye Content Management System” written by Leanne Northrop.
   ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.samye.dzong.london.Setting" %>
+<%@ page import="org.samye.dzong.london.site.Setting" %>
 <html>
 <head>
     <meta name="layout" content="content-admin-wide" />
