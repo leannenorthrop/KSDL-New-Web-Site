@@ -46,17 +46,13 @@ class VenueController {
                         flash.message = "Venue ${venue.name} deleted"
                         redirect(action:manage)
                     } else {
-                        status.setRollbackOnly()
-                        log.warn "Unable to delete venue ${venue.name}"
                         def msg = "Venue ${venue.name} could not be deleted"
-                        handleError(msg, venue)
+                        rollback(msg,venue,manage)
                     }
                 }
                 catch(e) {
-                    status.setRollbackOnly()
-                    log.warn "Unable to delete venue ${venue.name}", e
                     def msg = "Venue ${venue.name} could not be deleted"
-                    handleError(msg, venue)
+                    rollback(msg,venue,manage)
                 }
             }
         }
@@ -102,21 +98,31 @@ class VenueController {
                         redirect(action:manage)
                     }
                     else {
-                        status.setRollbackOnly()
                         def msg = "Changes could not be saved because of the following:"	
-                        render(view:'edit',model:[venue:venue])
-                        handleError(msg, venue, edit)
+                        rollback(msg,venue)
                     }
                 } catch (RuntimeException e) {
-                    status.setRollbackOnly()
                     def msg = "Changes could not be saved because of the following:"	
-                    render(view:'edit',model:[venue:venue])
-                    handleError(msg, venue, edit)
+                    rollback(msg,venue)
                 }
             }
         }
         else {
             notFound()
+        }
+    }
+
+    def rollback(msg,venue,action=null,e=null) {
+        if (e) {
+            log.warn msg, e
+        } else {
+            log.warn msg
+        }
+        status.setRollbackOnly()
+        if (!action) {
+            render(view:'edit',model:[venue:venue])
+        } else {
+            handleError(msg, venue, edit)
         }
     }
 
