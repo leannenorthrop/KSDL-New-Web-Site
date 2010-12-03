@@ -26,8 +26,12 @@ class VenueController {
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [delete:'GET', save:'POST', update:'POST']
 
+    def index = {
+        redirect(action: manage)
+    }
+
     def manage = {
-        params.max = Math.min((params.max ? params.max.toInteger() : 10),  100)
+        params.max = Math.min((params.max ? params.max.toInteger() : 100),  100)
         render(view:'manage',model:[ venues: Venue.notDeleted().list(), total: Venue.notDeletedCount().count() ])
     }
 
