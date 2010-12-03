@@ -42,8 +42,8 @@ import net.fortuna.ical4j.model.property.Attach
  *
  * TODO: test
  *
- * Author: Leanne Northrop
- * Date: 29th January, 2010, 17:04
+ * @author Leanne Northrop
+ * @since 29th January, 2010, 17:04
  */
 class EventController {
     //flash.message = "${message(code: 'default.updated.message', args: [message(code: 'event.label', default: 'Event'), event.id])}"
@@ -57,17 +57,13 @@ class EventController {
     }
 
     def home = {
-        DateTime dt = new DateTime();
-        dt = dt.withTime(0,0,0,0)
-        def now = dt.toDate()
+        def now = new java.util.Date() 
 
         def publishedEvents = Event.published().list();
-        def todaysEvents = publishedEvents.findAll { event ->
-           	event.isOnDay(now)
-        }
+        def todaysEvents = publishedEvents.findAll { it.isOnDay(now) }
 		
         now = now + 1
-        dt = new DateTime(now.getTime())
+        def dt = new DateTime(now.getTime())
         DateTime endOfWeek = dt.dayOfWeek().withMaximumValue();
         int weekdays = Days.daysBetween(dt, endOfWeek).getDays();
         def thisWeeksEvents = publishedEvents.findAll { event ->
@@ -210,7 +206,7 @@ class EventController {
         params.offset = params.offset ? params.offset.toInteger() : 0
         params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
         def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin']).any()) {
+        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
             model = eventService.unpublished(params)
         } else {
             model = eventService.userUnpublished(params)

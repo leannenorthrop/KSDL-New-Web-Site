@@ -206,17 +206,18 @@ class ScheduleRule {
     boolean isOnDay(final date) {
         boolean onDay = false;
 
+        date.clearTime()
+        startDate.clearTime()
         Recur r = toRecur()
         if (r) {
-            if (isDaily() && interval == 1 && isUnbounded()) {
+            if (isDaily() && interval == 1 && isUnbounded() && startDate == date) {
                 onDay = true;
             } else {
 				if (startDate.equals(date)) {
 					onDay = true;
 				} else {
-                    date.clearTime()
-                    startDate.clearTime()
-	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startDate))
+	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate),
+                                                                       new net.fortuna.ical4j.model.Date(startDate))
 	                if (next) {
 	                    def nextDate = new java.util.Date(next.getTime())
                         nextDate.clearTime()
