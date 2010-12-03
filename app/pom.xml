@@ -231,27 +231,6 @@
         <pluginManagement/>
         <plugins>         
             <plugin>
-                <groupId>com.samaxes.maven</groupId>
-                <artifactId>maven-minify-plugin</artifactId>
-                <version>1.2</version>
-                <configuration>
-                    <webappSourceDir>${basedir}/web-app</webappSourceDir>
-                    <webappTargetDir>${project.build.directory}/${project.build.finalName}</webappTargetDir>
-                    <cssSourceDir>css</cssSourceDir>
-                    <jsSourceDir>js/mootools</jsSourceDir>
-                    <cssSourceExcludes>**</cssSourceExcludes>
-                    <!--jsSourceExcludes>*min*</jsSourceExcludes-->
-                    <jsSourceIncludes>**</jsSourceIncludes>
-                    <jsFinalFile>mootools-all.js</jsFinalFile>
-                    <linebreak>-1</linebreak>
-                    <nomunge>true</nomunge>
-                    <verbose>false</verbose>
-                    <preserveAllSemiColons>true</preserveAllSemiColons>
-                    <disableOptimizations>false</disableOptimizations>
-                    <bufferSize>4096</bufferSize>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.grails</groupId>
                 <artifactId>grails-maven-plugin</artifactId>
                 <version>${grails-maven-plugin.version}</version>

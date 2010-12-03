@@ -40,16 +40,6 @@ import org.samye.dzong.london.venue.*
  * @since 3rd November 2010, 20:16
  */
 class BuddhismControllerSpec extends ControllerSpec {
-    protected void setUp() {
-        super.setUp()
-    }
-
-    protected void tearDown() {
-        super.tearDown()
-    }
-
-    void testIndex() {
-        def model = controller.index()
-        assertNull model
+    def 'a'() {
     }
 }

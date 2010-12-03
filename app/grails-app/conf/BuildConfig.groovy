@@ -43,7 +43,9 @@ grails.project.dependency.resolution = {
                 'commons-collections:commons-collections:3.2.1'
         
         test 'javax.persistence:persistence-api:1.0',
-             'com.icegreen:greenmail:1.3.1b'
+             'com.icegreen:greenmail:1.3.1b',
+             'org.spockframework:spock-core:0.5-groovy-1.7-SNAPSHOT'
+
     }
 }
 coverage {
