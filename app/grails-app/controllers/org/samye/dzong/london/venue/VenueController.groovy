@@ -40,21 +40,23 @@ class VenueController {
             try {
 				venueInstance.publishState = "Unpublished"
 	            venueInstance.deleted = true
-                venueInstance.title += "(Deleted)" 	            
+                venueInstance.title += " (Deleted)" 	            
 	            if (!venueInstance.hasErrors() && venueInstance.save()) {
-	                flash.message = "Venue ${venueInstance.name} deleted"
+	                flash.message = "Venue ${venueInstance.placeName} deleted"
 	            }
                 redirect(action:manage)
             }
-            catch(org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "Venue ${params.id} could not be deleted"
+            catch(e) {
+                log.warn "Unable to delete venue ${venue.placeName}", e
+                flash.message = "Venue ${venue.placeName} could not be deleted"
+                flash.isError = true
+                flash.args = [venue]
+                flash.bean = venue
                 redirect(action:manage,id:params.id)
             }
         }
         else {
-            flash.message = "Venue not found"
-            flash.isError = true
-            redirect(action:manage)
+            notFound()
         }
     }
 
@@ -63,8 +65,7 @@ class VenueController {
         def venueInstance = Venue.get( params.id )
 
         if(!venueInstance) {
-            flash.message = "Venue not found with id ${params.id}"
-            redirect(action:manage)
+            notFound()
         }
         else {
             return [ venue : venueInstance ]
@@ -130,8 +131,13 @@ class VenueController {
             }
         }
         else {
-            flash.message = "Venue not found with id ${params.id}"
-            redirect(action:manage)
+            notFound()
         }
+    }
+
+    def notFound() {
+        flash.message = "Venue not found"
+        flash.isError = true
+        redirect(action:manage)
     }
 }
