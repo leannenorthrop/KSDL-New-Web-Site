@@ -35,11 +35,4 @@ class Telephone extends Contact {
         number(matches:"\\d+",blank:false)
         type(inList:['main','work','home','fax','mobile','other'])
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    String toString() {
-        "${name} (${type}): ${number}"
-    }
 }
