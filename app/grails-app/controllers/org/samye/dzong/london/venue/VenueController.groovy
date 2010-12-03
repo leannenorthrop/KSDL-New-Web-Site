@@ -85,6 +85,10 @@ class VenueController {
                 def version = params.version.toLong()
                 if (venue.version > version) {
                     venue.errors.rejectValue("version", "venue.optimistic.locking.failure", "Another user has updated ${venue.name} whilst you were editing.")
+                    flash.message = "Changes could not be saved because of the following:"	
+                    flash.isError = true
+                    flash.bean = venue
+                    flash.args = [venue]
                     render(view:'edit',model:[venue:venue])
                     return
                 }
@@ -98,14 +102,12 @@ class VenueController {
                         redirect(action:manage)
                     }
                     else {
-                        println "failed to save"
                         status.setRollbackOnly()
                         def msg = "Changes could not be saved because of the following:"	
                         render(view:'edit',model:[venue:venue])
                         handleError(msg, venue, edit)
                     }
                 } catch (RuntimeException e) {
-                    println e
                     status.setRollbackOnly()
                     def msg = "Changes could not be saved because of the following:"	
                     render(view:'edit',model:[venue:venue])
