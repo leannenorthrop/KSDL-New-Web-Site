@@ -31,26 +31,7 @@ class VenueController {
     }
 
     def manage = {
-        params.max = Math.min((params.max ? params.max.toInteger() : 100),  100)
         render(view:'manage',model:[ venues: Venue.notDeleted().list(), total: Venue.notDeletedCount().count() ])
-    }
-
-    def create = {
-        def venueInstance = new Venue()
-        venueInstance.properties = params
-        return ['venueInstance':venueInstance]
-    }
-
-    def save = {
-        def venueInstance = new Venue(params)
-        if(!venueInstance.hasErrors() && venueInstance.save()) {
-            flash.message = "Venue ${venueInstance.id} created"
-            redirect(action:manage,id:venueInstance.id)
-        }
-        else {
-            flash.isError = true
-            render(view:'create',model:[venueInstance:venueInstance])
-        }
     }
 
     def delete = {
