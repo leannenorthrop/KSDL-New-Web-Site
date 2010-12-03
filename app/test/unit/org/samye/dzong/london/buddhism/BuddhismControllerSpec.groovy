@@ -40,8 +40,6 @@ import org.samye.dzong.london.site.Link
 import org.samye.dzong.london.media.*
 
 /*
-
-/*
  * Unit test for Buddhist content controller.
  *
  * @author Leanne Northrop

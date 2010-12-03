@@ -20,21 +20,25 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+ 
 package org.samye.dzong.london.cms  
 
 import org.apache.shiro.SecurityUtils
+import org.samye.dzong.london.users.ShiroUser
 
 class CMSUtil {
     private static int MIN = 30
     private static int MAX = 200
+    protected static GRAILS_APPLICATION
 
+    
     def static addCMSMethods(artefactClass, log=null) {
         if (log) {
             log.info "Adding CMS methods to: ${artefactClass}..."
         } else {
             println "Adding CMS methods to: ${artefactClass}..."
         }
-
+        
         artefactClass.metaClass.rollback = { status, msg, Object[] args ->
             def noOfArgs = args.size()
             if (args && noOfArgs >= 2) {
@@ -103,12 +107,95 @@ class CMSUtil {
 
             def model = []
             if (SecurityUtils.subject.hasRoles(delegate.ADMIN_ROLES).any()) {
-                model = delegate."${domainName}Service"."${viewName}"(params)
+                model = delegate."${viewName}"(params)
             } else {
-                model = delegate."${domainName}Service"."user${viewName.capitalize()}"(params)
+                model = delegate."user${viewName.capitalize()}"(params)
             }
             model
         }
+        
+        artefactClass.metaClass.currentUser = {
+            def subject = SecurityUtils?.subject
+            if (subject && subject?.principal) {
+                ShiroUser.findByUsername(subject.principal)
+            }
+        } 
+                        
+        CMSUtil.GRAILS_APPLICATION.domainClasses.each { domainClass ->
+             if (Publishable.isAssignableFrom(domainClass.clazz)) { 
+                 artefactClass.metaClass."view${domainClass.name}" = { id ->             
+                    def map = [:]
+
+                    def obj = domainClass.clazz.get(id)
+                    if(!obj) {
+                        flash.message = "${domainClass.name} not found"
+                        flash.isError = true
+                    }
+                    else {
+                        map = [(domainClass.name): obj]
+                    }
+                    map
+                }
+                
+                ["Unpublished","Published","Archived"].each { state -> 
+                    artefactClass.metaClass."user${state}${domainClass.name}s" = { params ->
+                        if (!params?.sort){
+                            if (delegate."default${domainClass.name}Sort") {
+                                params.sort = delegate."default${domainClass.name}Sort"
+                            }
+                        }
+                        if (!params?.order){
+                            if (delegate."default${domainClass.name}Order") {
+                                params.order = delegate."default${domainClass.name}Order"
+                            }
+                        }
+                        def username = delegate.currentUser().username;
+                        def objs = domainClass.clazz.authorPublishState(username,state).list(params);
+                        def total = domainClass.clazz.authorPublishState(username,state).count();
+                        return ["${domainClass.propertyName}s": objs, total: total]
+                    }
+                }
+
+                artefactClass.metaClass."userDeleted${domainClass.name}s" = { params -> 
+                    if (!params?.sort){
+                        params.sort = delegate."default${domainClass.name}Sort"
+                    }
+                    if (!params?.order){
+                        params.order = delegate."default${domainClass.name}Order"
+                    }
+                    def username = delegate.currentUser().username;
+                    def objs = domainClass.clazz.authorDeleted(username).list(params);
+                    def total = domainClass.clazz.authorDeleted(username).count();
+                    return ["${domainClass.propertyName}s": objs, total: total]
+                }
+
+                ["Unpublished","Published","Archived"].each { state -> 
+                    artefactClass.metaClass."${state.toLowerCase()}${domainClass.name}s" = { params -> 
+                        if (!params?.sort){
+                            params.sort = delegate."default${domainClass.name}Sort"
+                        }
+                        if (!params?.order){
+                            params.order = delegate."default${domainClass.name}Order"
+                        }
+                        def objs = domainClass.clazz.publishState(state).list(params);
+                        def total = domainClass.clazz.publishState(state).count();
+                        return ["${domainClass.propertyName}s": objs, total: total]
+                    }
+                }
+
+                artefactClass.metaClass."deleted${domainClass.name}s" = { params -> 
+                    if (!params?.sort){
+                        params.sort = delegate."default${domainClass.name}Sort"
+                    }
+                    if (!params?.order){
+                        params.order = delegate."default${domainClass.name}Order"
+                    }
+                    def rooms = domainClass.clazz.deleted().list(params);
+                    def total = domainClass.clazz.deleted().count();
+                    return ["${domainClass.propertyName}s": rooms, total: total]
+                }                        
+             }
+         }                 
     }
 }
 
