@@ -59,8 +59,6 @@ class Publishable implements Taggable, Commentable  {
     Boolean deleted
     String category
 
-    def auditLogService
-
     static auditable = true
 
     static constraints = {
