@@ -53,52 +53,6 @@ class Article extends Publishable {
     }
 
     static namedQueries = {
-        orderedAuthorPublishState { username, final publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "${publishState}"
-            author {
-                eq 'username', username
-            }
-            order("${orderCol}", "${orderDir}")
-        }
-
-        authorPublishState { username, final publishState ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "${publishState}"
-            author {
-                eq 'username', username
-            }
-        }
-
-        orderedPublishState { final publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "${publishState}"
-            order("${orderCol}", "${orderDir}")
-        }
-
-        publishState { final publishState ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "${publishState}"
-        }
-
-        authorDeleted { username ->
-            eq('deleted', Boolean.TRUE)
-            author {
-                eq('username', username)
-            }
-        }
-        
-        deletedAuthor { username ->
-            eq('deleted', Boolean.TRUE)
-            author {
-                eq('username', username)
-            }
-        }
-
-        deleted {
-            eq('deleted', Boolean.TRUE)
-        }
-
         categoryArticles { final category ->
             eq 'category', "${category}"
         }

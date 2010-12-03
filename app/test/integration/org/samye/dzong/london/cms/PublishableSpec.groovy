@@ -37,6 +37,7 @@ import org.samye.dzong.london.community.*
 class PublishableSpec extends IntegrationHelper {
     def 'allPublished'() {
         given:
+        clean()
         Article.findAll().each {article -> article.delete(flush:true)}
         (0..<10).each{i -> newArticle("Meditation Article $i", i%2 == 0) }
         
@@ -46,13 +47,14 @@ class PublishableSpec extends IntegrationHelper {
     
     def 'similar'() {
         given:
+        clean()
         Article.findAll().each {article -> article.delete(flush:true)}
         (0..<10).eachWithIndex{ it, i -> newArticle("Meditation Article $i",true) }
         Publishable.findAll().eachWithIndex{ article,i  -> article.addTags( (i%2 == 0 ? ['a', 'b'] : (i%3==0?['b','c']:['c', 'd', 'e'])) ) } 
         def a = Article.findByTitle("Meditation Article 2")
         
         expect:
-        9 == Publishable.similar(a).size()         
+        6 == Publishable.similar(a).size()         
     }    
 }
 

@@ -41,7 +41,10 @@ import org.samye.dzong.london.events.*
 abstract class IntegrationHelper extends IntegrationSpec {
     def clean() {
         [Room,Event,Venue,Article,Teacher].each {
-            it.findAll().each {article -> article.delete(flush:true)}
+            it.findAll().each {d -> d.delete(flush:true)}
+        }
+        [Room,Event,Venue,Article,Teacher].each {
+            println "$it ${it.findAll().size()}"
         }
     } 
     

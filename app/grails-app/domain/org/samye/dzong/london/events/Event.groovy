@@ -100,50 +100,6 @@ class Event extends Publishable implements Comparable {
     }
 
     static namedQueries = {
-        orderedAuthorPublishState {username, publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            author {
-                eq 'username', username
-            }
-            order("${orderCol}", "${orderDir}")
-        }
-
-        authorPublishState {username, publishState ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            author {
-                eq 'username', username
-            }
-        }
-
-        orderedPublishState {publishState, orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-            order("${orderCol}", "${orderDir}")
-        }
-
-        publishState {publishState ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', publishState
-        }
-
-        deletedAuthor {username ->
-            eq('deleted', Boolean.TRUE)
-            author {
-                eq('username', username)
-            }
-        }
-
-        deleted {
-            eq('deleted', Boolean.TRUE)
-        }
-
-        unorderedPublished {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "Published"
-        }
-
         unorderedCategoryPublished { final category ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', "Published"

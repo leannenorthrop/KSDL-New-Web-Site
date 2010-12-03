@@ -77,16 +77,6 @@ class Venue extends Publishable {
 		rooms sort: 'name', cache:true        
 	}
 	
-	static namedQueries = {
-        notDeleted { 
-            eq 'deleted', Boolean.FALSE
-            order("name", "desc")
-        }
-        notDeletedCount { 
-            eq 'deleted', Boolean.FALSE
-        }        
-	}
-
     Venue() {
         name = new Date().format('dd/MM/yyyy hh:mm:ss')
         publishState = 'Unpublished'

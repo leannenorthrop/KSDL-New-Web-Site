@@ -100,16 +100,16 @@ class CMSUtil {
             ok
         }
 
-        artefactClass.metaClass.getModelForView = { viewName, params ->
-            def domainName = (delegate.controllerName - 'Controller')
+        artefactClass.metaClass.getModelForView = { publicationState, params ->
+            def domainName = (delegate.controllerName - 'Controller').capitalize()
             params.offset = params?.offset ? params.offset.toInteger() : 0
             params.max = Math.min(params?.max ? params.max.toInteger() : MIN, MAX)
 
             def model = []
             if (SecurityUtils.subject.hasRoles(delegate.ADMIN_ROLES).any()) {
-                model = delegate."${viewName}"(params)
+                model = delegate."${publicationState}${domainName}s"(params)
             } else {
-                model = delegate."user${viewName.capitalize()}"(params)
+                model = delegate."user${publicationState.capitalize()}${domainName}s"(params)
             }
             model
         }
@@ -121,7 +121,7 @@ class CMSUtil {
             }
         } 
                         
-        CMSUtil.GRAILS_APPLICATION.domainClasses.each { domainClass ->
+        CMSUtil.GRAILS_APPLICATION?.domainClasses.each { domainClass ->
              if (Publishable.isAssignableFrom(domainClass.clazz)) { 
                  artefactClass.metaClass."view${domainClass.name}" = { id ->             
                     def map = [:]
@@ -137,63 +137,61 @@ class CMSUtil {
                     map
                 }
                 
-                ["Unpublished","Published","Archived"].each { state -> 
+                ["Unpublished","Published","Archived","Ready"].each { state -> 
                     artefactClass.metaClass."user${state}${domainClass.name}s" = { params ->
-                        if (!params?.sort){
-                            if (delegate."default${domainClass.name}Sort") {
-                                params.sort = delegate."default${domainClass.name}Sort"
-                            }
-                        }
-                        if (!params?.order){
-                            if (delegate."default${domainClass.name}Order") {
-                                params.order = delegate."default${domainClass.name}Order"
-                            }
-                        }
+                        delegate.checkParams(params)
                         def username = delegate.currentUser().username;
-                        def objs = domainClass.clazz.authorPublishState(username,state).list(params);
-                        def total = domainClass.clazz.authorPublishState(username,state).count();
+                        def domain = domainClass.clazz
+                        def objs = delegate.filter(domain.authorPublishState(username,state).list(params),domain)
+                        def total = delegate.filter(domain.authorPublishState(username,state).list(),domain).size()
                         return ["${domainClass.propertyName}s": objs, total: total]
                     }
                 }
 
                 artefactClass.metaClass."userDeleted${domainClass.name}s" = { params -> 
-                    if (!params?.sort){
-                        params.sort = delegate."default${domainClass.name}Sort"
-                    }
-                    if (!params?.order){
-                        params.order = delegate."default${domainClass.name}Order"
-                    }
-                    def username = delegate.currentUser().username;
-                    def objs = domainClass.clazz.authorDeleted(username).list(params);
-                    def total = domainClass.clazz.authorDeleted(username).count();
+                    delegate.checkParams(params)
+                    def username = delegate.currentUser().username
+                    def domain = domainClass.clazz
+                    def objs = delegate.filter(domain.authorDeleted(username).list(params),domain)
+                    def total = delegate.filter(domain.authorDeleted(username).list(),domain).size()
                     return ["${domainClass.propertyName}s": objs, total: total]
                 }
 
-                ["Unpublished","Published","Archived"].each { state -> 
+                ["Unpublished","Published","Archived","Ready"].each { state -> 
                     artefactClass.metaClass."${state.toLowerCase()}${domainClass.name}s" = { params -> 
-                        if (!params?.sort){
-                            params.sort = delegate."default${domainClass.name}Sort"
-                        }
-                        if (!params?.order){
-                            params.order = delegate."default${domainClass.name}Order"
-                        }
-                        def objs = domainClass.clazz.publishState(state).list(params);
-                        def total = domainClass.clazz.publishState(state).count();
+                        delegate.checkParams(params)
+                        def domain = domainClass.clazz
+                        def objs = delegate.filter(domain.publishState(state).list(params), domain)
+                        def total = delegate.filter(domain.publishState(state).list(),domain).size()
                         return ["${domainClass.propertyName}s": objs, total: total]
                     }
                 }
 
                 artefactClass.metaClass."deleted${domainClass.name}s" = { params -> 
-                    if (!params?.sort){
-                        params.sort = delegate."default${domainClass.name}Sort"
-                    }
-                    if (!params?.order){
-                        params.order = delegate."default${domainClass.name}Order"
-                    }
-                    def rooms = domainClass.clazz.deleted().list(params);
-                    def total = domainClass.clazz.deleted().count();
+                    delegate.checkParams(params)
+                    def domain = domainClass.clazz
+                    def rooms = delegate.filter(domain.deleted().list(params),domain)
+                    def total = delegate.filter(domain.deleted().list(),domain).size()
                     return ["${domainClass.propertyName}s": rooms, total: total]
                 }                        
+
+                artefactClass.metaClass.filter = { list, domain ->
+                    list.findAll{ domain.isAssignableFrom(it.class) }
+                }
+
+                artefactClass.metaClass.checkParams = { params ->
+                    def metaClazz = delegate.metaClass
+                    if (!params?.sort){
+                        if (metaClazz.hasProperty(delegate,"default${domainClass.name}Sort")) {
+                            params.sort = delegate."default${domainClass.name}Sort"
+                        }
+                    }
+                    if (params?.order){
+                        if (metaClazz.hasProperty(delegate,"default${domainClass.name}Order")) {
+                            params.order = delegate."default${domainClass.name}Order"
+                        }
+                    }
+                }
              }
          }                 
     }
