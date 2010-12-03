@@ -37,11 +37,15 @@
         <![if gte IE 7]>
         <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site', file: 'screen.css')}"/>
         <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/manage', file: 'screen.css')}"/>
+        <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site/markitup/skins/markitup', file: 'style.css')}" />
+        <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site/markitup/sets/textile', file: 'style.css')}" />
         <![endif]>
         <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
         <g:javascript src="jquery/jquery-1.4.2.min.js"/>
         <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
         <g:javascript src="jquery/jquery.validate.min.js"/>
+        <g:javascript src="jquery/jquery.markitup.js"/>
+        <g:javascript src="jquery/markitup/textile.js"/>
         <g:layoutHead/>
     </head>
     <body class="contentAdmin" style="min-width:70em"> 

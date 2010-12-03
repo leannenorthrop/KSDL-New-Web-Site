@@ -31,7 +31,6 @@ import org.grails.comments.*
  * Domain class for storing article information.
  * Note named queries unfortunately do not handle
  * order by properly in grails 1.2.0.
- * TODO: Test
  */
 class Article extends Publishable {
     String title;

@@ -14,6 +14,7 @@ just _lazy_ writing -- and theft of 'intellectual property' besides?</g:set>
             </div><br/>
             <p>Then you would type:
             <pre style="border:1px solid black">${theExample}</pre>
+            Please note the blank lines are important.
             </p>
             <h1>Supported Formatting Options</h1>
             <p>
