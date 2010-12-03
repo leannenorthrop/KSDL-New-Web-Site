@@ -44,17 +44,19 @@ class VenueController {
                     venueInstance.title += " (Deleted)" 	            
                     if (!venueInstance.hasErrors() && venueInstance.save()) {
                         flash.message = "Venue ${venueInstance.placeName} deleted"
+                    } else {
+                        status.setRollbackOnly()
+                        log.warn "Unable to delete venue ${venue.placeName}", e
+                        def msg = "Venue ${venue.placeName} could not be deleted"
+                        handleError(msg, venueInstance)
                     }
                     redirect(action:manage)
                 }
                 catch(e) {
-                    log.warn "Unable to delete venue ${venue.placeName}", e
-                    flash.message = "Venue ${venue.placeName} could not be deleted"
-                    flash.isError = true
-                    flash.args = [venue]
-                    flash.bean = venue
-                    redirect(action:manage,id:params.id)
                     status.setRollbackOnly()
+                    log.warn "Unable to delete venue ${venue.placeName}", e
+                    def msg = "Venue ${venue.placeName} could not be deleted"
+                    handleError(msg, venueInstance)
                 }
             }
         }
@@ -127,10 +129,9 @@ class VenueController {
                 redirect(action:manage)
             }
             else {
-                flash.message = "Changes could not be saved because of the following:"	
-				flash.isError = true
-				flash.args = [venueInstance]
+                def msg = "Changes could not be saved because of the following:"	
                 render(view:'edit',model:[venue:venueInstance])
+                handleError(msg, venueInstance, edit)
             }
         }
         else {
@@ -142,5 +143,21 @@ class VenueController {
         flash.message = "Venue not found"
         flash.isError = true
         redirect(action:manage)
+    }
+
+    def handleError(msg, venue, act=manage, id=null, a=[]) {
+        flash.message = msg
+        flash.isError = true
+        flash.args = a ? a : [venue]
+        flash.bean = venue
+        if (id){
+            redirect(action:act,id:id)
+        } else {
+            if (venue?.id) {
+                redirect(action:act,id:venue.id)
+            } else {
+                redirect(action:act)
+            }
+        }
     }
 }
