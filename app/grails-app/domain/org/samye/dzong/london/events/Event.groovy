@@ -218,6 +218,38 @@ class Event extends Publishable {
         return LazyList.decorate(dates,FactoryUtils.instantiateFactory(EventDate.class))
     }    
 
+    def bindPrices(params) {
+        def _toBeDeleted = params.findAll{it.key.contains('priceList') && it.key.contains('_deleted') && it.value.toBoolean() }.keySet()
+        def delIndexes = _toBeDeleted.collect{ it.minus('priceList[').minus(']._deleted').toInteger() }
+        prices.toArray().eachWithIndex{item,index ->
+            if (delIndexes.contains(index)) {
+                removeFromPrices(item);
+            } else {
+                item.save() 
+            }    			
+        }
+    }
+
+    def bindDates(params) {
+        def _toBeDeleted = params.findAll{it.key.contains('dateList') && it.key.contains('_deleted') && it.value.toBoolean() }.keySet()
+        def delIndexes = _toBeDeleted.collect{ it.minus('dateList[').minus(']._deleted').toInteger() }
+        dates.toArray().eachWithIndex{item,index ->
+            if (delIndexes.contains(index)) {
+                removeFromDates(item);
+            } else {
+                def sh = params."dateList[${index}].startTimeHour".toInteger()
+                def sm = params."dateList[${index}].startTimeMin".toInteger()
+                def eh = params."dateList[${index}].endTimeHour".toInteger()
+                def em = params."dateList[${index}].endTimeMin".toInteger()
+                item.startTime = new TimeOfDay(sh, sm)
+                item.endTime = new TimeOfDay(eh, em)
+                item.duration = new MutablePeriod(item.startTime.toDateTimeToday(), item.endTime.toDateTimeToday()).toPeriod()
+                item.save() 
+            }    			
+        }
+    }
+
+
     String toString() {
         return "${title}"
     }
