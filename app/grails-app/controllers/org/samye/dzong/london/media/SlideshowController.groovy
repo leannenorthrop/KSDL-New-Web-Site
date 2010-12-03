@@ -23,6 +23,7 @@
 
 package org.samye.dzong.london.media
 
+import  org.samye.dzong.london.media.UpdateFlickrCacheJob
 import  org.samye.dzong.london.media.FlickrService
 import org.samye.dzong.london.site.Setting
 
@@ -46,7 +47,15 @@ class SlideshowController {
 		def albums = flickrService.getPhotosets(userId)
 		render(view: 'manage', model:[albums:albums])
 	}
-	
+
+    def updateCache = {
+		if (!flash.message) {
+		    flash.message = 'manage.slideshow.update'
+	    }
+        UpdateFlickrCacheJob.triggerNow([:])
+        redirect(action: manage)
+    }
+
 	def frob = {
 		log.error "flicker called me with " + params.frob
 		def flickrFrobSetting = Setting.findByName('FlickrFrob')

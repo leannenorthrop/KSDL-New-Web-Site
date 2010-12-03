@@ -217,3 +217,8 @@ coverage {
         enabledByDefault = false
 }
 
+quartz {
+    autoStartup = true
+    jdbcStore = false
+}
+

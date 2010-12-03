@@ -33,9 +33,8 @@
     <meta name="layout" content="main">      
 </head>
 <body>
-    <div class="grid_14" style="min-height:600px">
+    <div class="grid_16" style="min-height:600px;text-align:center">
         <g:render template="/slideshow" model="[album:album]"/>
     </div>
-    <div class="clear"></div>
 </body>
 </html>

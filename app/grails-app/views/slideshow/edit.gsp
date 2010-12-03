@@ -29,9 +29,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <meta name="layout" content="content_admin_mootools"/>          
+    <meta name="layout" content="content-admin-wide"/>          
     <title><g:message code="slideshow.edit.title"/></title>
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>         
+    <g:javascript src="jquery/visuallightbox/visuallightbox.js"/>
+    <g:javascript src="jquery/visuallightbox/vlbdata.js"/>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'vlightbox1.css')}"/>    
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'visuallightbox.css')}"/>    
   </head>
   <body>
       <div class="container_16">
@@ -53,7 +56,7 @@
                 </fieldset>
               </g:form>
           </div>
-          <div class="grid_12" style="min-height:600px">
+          <div class="grid_12" style="min-height:600px;text-align:center">
               <g:render template="/slideshow" model="[album:album]"/>
           </div>
           <div class="clear"></div>       

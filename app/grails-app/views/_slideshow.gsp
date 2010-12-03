@@ -30,27 +30,19 @@
 --}%
 <html>
 <head>
-    <g:javascript library="mootools/mootools"/>
-    <g:javascript library="mootools/mootools-more"/>
-    <g:javascript library="mootools/mootools-fluid16"/>
-    <g:javascript library="mootools/slideshow"/>     
-    <g:javascript library="mootools/slideshow.kenburns"/>  
-    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/>    
+    <g:javascript src="jquery/jquery-1.4.2.min.js"/>
+    <g:javascript src="jquery/visuallightbox/visuallightbox.js"/>
+    <g:javascript src="jquery/visuallightbox/vlbdata.js"/>
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'vlightbox1.css')}"/>    
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'visuallightbox.css')}"/>    
 </head>
 <body>
-<g:if test="${album?.images && album?.images.size() > 0}">
-    <div id="show" class="slideshow" style="width:600px;height:500px"> 
-    <img src="${album?.images[0].src}" alt="${album?.images[0].name}" style="width:600px;height:500px;overflow:hidden" /> 
-</div>    
-<g:javascript>
-  var data = {
-      <g:each var="i" in="${ album?.images }">
-         '${i.src}': { caption: '${i.name}',thumbnail: '${i.thumbnail}'},
-      </g:each>	      
-      '${album?.images[0].src}': { caption: '${album?.images[0].name}',thumbnail: '${album?.images[0].thumbnail}' }
-  };
-  var myShow = new Slideshow.KenBurns('show', data, {controller: true, captions: true, titles: true, height: 500, thumbnails: true, width: 600, overlap: false, delay:6000});
-</g:javascript>
-</g:if>
+    <g:if test="${album?.images && album?.images.size() > 0}">
+        <div id="vlightbox1">
+            <g:each var='img' in="${album?.images}">
+            <a class="vlightbox1" href="${img?.src}" title="${img?.name}"><img src="${img?.thumbnail}" alt="${img?.name}"/></a>
+            </g:each>
+        </div>
+    </g:if>
 </body>
 </html>
