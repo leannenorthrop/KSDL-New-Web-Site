@@ -811,6 +811,104 @@ class EventControllerSpec extends ControllerSpec {
         mockFlash.message == "Event not found"
     }
 
+    def 'Publish failure rollsback and redirects to manage'() {
+        setup:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> false }
+        event.metaClass.save { -> throw new RuntimeException() }
+
+        when:
+        controller.publish()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not save ${event.title} at this time"
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
+    }
+
+    def 'Publish with errors rollsback and redirects to manage'() {
+        given:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> hasError}
+        event.metaClass.save { -> false }
+
+        when:
+        controller.publish()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not save ${event.title} at this time"
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
+
+        where:
+        hasError << [true,false]
+    }
+
+    def 'Update failure rollsback and redirects to manage'() {
+        setup:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> false }
+        event.metaClass.save { -> throw new RuntimeException() }
+
+        when:
+        controller.update()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not save ${event.title} at this time"
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
+    }
+
+    def 'Update with errors rollsback and redirects to manage'() {
+        given:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> hasError}
+        event.metaClass.save { -> false }
+
+        when:
+        controller.update()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not save ${event.title} at this time"
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
+
+        where:
+        hasError << [true,false]
+    }
+
     def 'Update publishes event for requested id'() {
         setup:
         def event = validEvent()
@@ -958,6 +1056,93 @@ class EventControllerSpec extends ControllerSpec {
 
         then:
         redirectArgs.action == controller.manage
+    }
+
+    def 'Save failure rollsback and redirects to manage'() {
+        setup:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        Event.metaClass.hasErrors { -> false }
+        Event.metaClass.save { -> throw new RuntimeException() }
+        controller.userLookupService = new Expando(lookup:{user})
+
+        when:
+        controller.save()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not save at this time"
+        redirectArgs.action == controller.create
+        redirectArgs.id == 1
+    }
+
+    def 'Save with errors rollsback and redirects to manage'() {
+        given:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        Event.metaClass.hasErrors { -> hasError}
+        Event.metaClass.save { -> false }
+        controller.userLookupService = new Expando(lookup:{user})
+
+        when:
+        controller.save()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "event.update.error"
+        redirectArgs.action == controller.create
+        redirectArgs.id == 1
+
+        where:
+        hasError << [true,false]
+    }
+
+    def 'Change state failure rollsback and redirects to manage'() {
+        setup:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> false }
+        event.metaClass.save { -> throw new RuntimeException() }
+
+        when:
+        controller.changeState()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not save ${event.title} at this time"
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
+    }
+
+    def 'Change state with errors rollsback and redirects to manage'() {
+        given:
+        getMockParams() << [id: 1] 
+        mockDomain(Event)
+        def event = validEvent(new Date())
+        def title = event.title
+        event.id = 1
+        event.version = 1
+        Event.metaClass.static.get = {id -> event}
+        event.metaClass.hasErrors { -> hasError}
+        event.metaClass.save { -> false }
+
+        when:
+        controller.changeState()
+
+        then:
+        1 * mockTransactionStatus.setRollbackOnly()
+        mockFlash.isError == true 
+        mockFlash.message == "Can not save ${event.title} at this time"
+        redirectArgs.action == controller.manage
+        redirectArgs.id == 1
     }
 
     def 'Subscribe generate iCal for all events'() {
