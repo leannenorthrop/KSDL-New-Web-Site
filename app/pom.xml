@@ -178,13 +178,6 @@
             <artifactId>aspectjrt</artifactId>
             <version>${aspectjrt.version}</version>
         </dependency>
-        <!-- Spock -->
-        <!--dependency>
-          <groupId>org.spockframework</groupId>
-          <artifactId>spock-core</artifactId>
-          <version>0.4-groovy-1.7</version>
-          <scope>test</scope>
-        </dependency-->
     </dependencies>
     <repositories>
         <!-- Required to get hold of JTA -->
@@ -236,31 +229,7 @@
             </resource>
         </resources>
         <pluginManagement/>
-        <plugins>
-            <plugin>
-                <groupId>com.atlassian.maven.plugins</groupId>
-                <artifactId>maven-clover2-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <generateXml>true</generateXml>
-                    <generateHtml>true</generateHtml>
-                    <licenseLocation>${basedir}/clover.license</licenseLocation>
-                      <includes>
-                        <include>**/*.java</include>
-                        <include>**/*.groovy</include>
-                      </includes>
-                      <includesTestSourceRoots>false</includesTestSourceRoots>                    
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>clover-cleanup</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>clean</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>          
+        <plugins>         
             <plugin>
                 <groupId>com.samaxes.maven</groupId>
                 <artifactId>maven-minify-plugin</artifactId>

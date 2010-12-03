@@ -33,6 +33,7 @@
 <html>
 <head>
     <title>Oops! There was a problem with the server.</title>
+    <meta name="layout" content="main">
 </head>
 <body>
     <div class="grid_16 pagecontent">

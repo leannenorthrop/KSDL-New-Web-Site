@@ -36,6 +36,7 @@ class EventService {
     def messageSource
 
     def list(category, params=[]) {
+        def model = []
         try {
             def dateParser = new SimpleDateFormat("yyyy-MM-dd")
             def start = new DateTime();
@@ -49,19 +50,22 @@ class EventService {
             int daysUntilEndOfMonth = Days.daysBetween(start, lastDayOfMonth).getDays();
             start = start.toDate()
 
-            def publishedEvents = Event.unorderedPublished().list(params);
+            def publishedEvents = Event.unorderedCategoryPublished(category).list(params);
             def events = publishedEvents.findAll { event ->
                 def rule = event.dates[0]
                 return event.isOnDay(start, daysUntilEndOfMonth)
             };
+            events = events.sort()
 
-            def datePat = message(code: 'event.date.format')
-            model = [events: events, title: 'hi']
+            def datePat = messageSource.getMessage('event.date.format',null,Locale.UK)
+            def title = messageSource.getMessage('event.list.'+category,[start.format(datePat)].toArray(),Locale.UK)
+            model = [events: events, title: title]
         } catch(error) {
             log.warn "Unable to generate list of events", error
             def events = Event.unorderedPublished().list(params);
-            model = [events: events, title: 'events.all.title']
+            model = [events: events, title: messageSource.getMessage('events.all.title',null,Locale.UK)]
         }
+        model
     }
 
     def findSimilar(event, params = []) {

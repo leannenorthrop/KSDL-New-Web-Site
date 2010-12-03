@@ -8,6 +8,17 @@
 			<ul class="menu"> 
 				<li>
 				    <g:link controller="home" action="index" class="menuitem"><g:message code="home"/></g:link> 
+					<ul class="submenu"> 
+						<li> 
+							<g:link controller="home" action="slideshow" class="menuitem"><g:message code="link.home.slideshow"/></g:link> 
+						</li>												
+						<li> 
+							<g:link controller="home" action="feed"><g:message code="link.home.feed"/></g:link> 
+						</li>												
+						<li> 
+							<g:link controller="home" action="calendars" class="menuitem"><g:message code="link.home.calendars"/></g:link> 
+						</li>												
+					</ul> 
 				</li>			    
 				<li> 
 					<g:link controller="aboutUs" action="index" class="menuitem"><g:message code="aboutUs"/></g:link> 
@@ -18,9 +29,6 @@
 						<li> 
 							<g:link controller="aboutUs" action="contactUs" class="menuitem"><g:message code="footer.contact.us"/></g:link> 
 						</li> 
-						<li> 
-							<g:link controller="aboutUs" action="lineage" class="menuitem"><g:message code="teacher.category.L"/></g:link> 
-						</li>						
 						<li> 
 							<g:link controller="aboutUs" action="teachers" class="menuitem"><g:message code="teacher.heading.title"/></g:link> 
 						</li> 
@@ -49,6 +57,9 @@
 						<li> 
 							<g:link controller="event" action="regular" class="menuitem"><g:message code="event.regular"/></g:link> 
 						</li>										
+						<li> 
+							<g:link controller="event" action="calendar" class="menuitem"><g:message code="event.regular"/></g:link> 
+						</li>										
 					</ul> 
 				</li>
 				<li> 
@@ -59,6 +70,9 @@
 						</li> 
 						<li> 
 							<g:link controller="meditation" action="events" class="menuitem"><g:message code="event.meditation"/></g:link> 
+						</li>												
+						<li> 
+							<g:link controller="meditation" action="slideshow" class="menuitem"><g:message code="link.meditation.slideshow"/></g:link> 
 						</li>												
 					</ul> 
 				</li>	
@@ -93,6 +107,12 @@
 						<li> 
 							<g:link controller="buddhism" action="events" class="menuitem"><g:message code="event.buddhism"/></g:link> 
 						</li>
+						<li> 
+							<g:link controller="buddhism" action="slideshow" class="menuitem"><g:message code="link.buddhism.slideshow"/></g:link> 
+						</li>												
+						<li> 
+							<g:link controller="buddhism" action="teachers" class="menuitem"><g:message code="teacher.heading.title"/></g:link> 
+						</li> 
 					</ul> 
 				</li>														
 			</ul> 

@@ -46,7 +46,7 @@ class BootStrap {
           }
          }
 		
-        def dataDir = filedir + "data"
+        def dataDir = (filedir.endsWith('/') ? filedir : filedir + '/' )+ "data"
         configObject.moonData = new Expando()
         ['full_moon.txt':'fullMoon','new_moon.txt':'newMoon','last_quarter_moon.txt':'lastQuarter','first_quarter_moon.txt':'firstQuarter'].each { filename,name ->
             def list = [:]
