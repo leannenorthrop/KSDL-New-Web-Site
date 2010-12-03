@@ -25,7 +25,6 @@ package org.samye.dzong.london.site
 import org.samye.dzong.london.users.*
 
 class ManageSiteController {
-	def userLookupService
 
     def index = {
         redirect(action: "welcome")
@@ -36,22 +35,6 @@ class ManageSiteController {
     }
         
     def landing = {
-		try {
-			def user = userLookupService.lookup()
-	        if (user && user.profile == null) {
-				def imageBytes = new File(servletContext.getRealPath('/images/user.png')).readBytes()
-	            def profile = new Profile(publicName: 'Not Known', mimeType: 'image/png', image: imageBytes, lastLoggedIn: new Date())
-	 			if (!profile.hasErrors() && profile.save()) {
-					user.profile = profile
-					user.save()
-				} else {
-					println profile.errors
-				}
-	        }
-		} catch(error) {
-			println error
-			log.warn "Unable to check existance of user profile", error
-		}	
         return render(view:'home')
     }
 

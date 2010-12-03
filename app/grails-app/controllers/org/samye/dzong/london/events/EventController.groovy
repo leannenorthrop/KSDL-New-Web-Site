@@ -47,7 +47,6 @@ import org.samye.dzong.london.cms.*
  */
 class EventController extends CMSController {
     //flash.message = "${message(code: 'default.updated.message', args: [message(code: 'event.label', default: 'Event'), event.id])}"
-    def userLookupService
     def eventService
     def emailService
 	def articleService
@@ -375,7 +374,7 @@ class EventController extends CMSController {
     def create = {
         def event = new Event()
         event.properties = params
-        event.organizer = userLookupService.lookup()
+        event.organizer = currentUser() 
         if (!flash.message) {
             flash.message = "Please ensure that a Teacher entry has been created and published under the Teachers/Therapists menu before creating a new Event. Also please ensure the selected Organizer has configured their public details by going to the Settings -> About Me menu."
         }
@@ -384,7 +383,7 @@ class EventController extends CMSController {
 
     def save = {
         def event = new Event()
-        event.author = userLookupService.lookup()
+        event.author = currentUser() 
 
         Event.withTransaction { status ->
             try { 

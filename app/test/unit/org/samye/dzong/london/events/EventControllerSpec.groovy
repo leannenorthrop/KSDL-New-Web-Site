@@ -71,7 +71,7 @@ class EventControllerSpec extends ControllerSpec {
             messageSource.getMessage(code, margs, '', locale)
         }
         SecurityUtils.metaClass.static.getSubject = {
-            return new Expando(hasRoles: { r -> roles.intersect(r)});
+            return new Expando(hasRoles: { r -> roles.intersect(r)}, username: {'Rebecca'});
         }
     }   
 

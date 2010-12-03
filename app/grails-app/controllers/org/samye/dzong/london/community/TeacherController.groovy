@@ -23,7 +23,7 @@
 
 package org.samye.dzong.london.community
 
-import org.apache.shiro.SecurityUtils
+import org.samye.dzong.london.cms.*
 
 /*
  * Handler for web requests regarding teachers.
@@ -32,8 +32,7 @@ import org.apache.shiro.SecurityUtils
  * TODO: test
  * TODO: internationalize
  */
-class TeacherController {
-    def userLookupService
+class TeacherController extends CMSController {
     def teacherService
     def articleService
 
@@ -235,7 +234,7 @@ class TeacherController {
 
     def save = {
         def teacher = new Teacher(params)
-        teacher.author = userLookupService.lookup()
+        teacher.author = currentUser() 
         if (!teacher.hasErrors() && teacher.save()) {
             flash.message = "${teacher.name} created"
             redirect(action: manage)

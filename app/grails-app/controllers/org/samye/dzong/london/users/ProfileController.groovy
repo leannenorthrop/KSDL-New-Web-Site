@@ -20,21 +20,23 @@
  * BT plc, hereby disclaims all copyright interest in the program
  * “Samye Content Management System” written by Leanne Northrop.
  */
+
 package org.samye.dzong.london.users
 
-class ProfileController {
-	def userLookupService
+import org.samye.dzong.london.cms.*
+
+class ProfileController extends CMSController {
 	def imageService
 
     def manage = { 
 		try {
 			def user 
 			if (params.username) {
-				user = userLookupService.find(params.username)
+				user = ShiroUser.findByUsername(params.username)
 			} else if (params.id) {
-				user = userLookupService.get(params.id)
+				user = ShiroUser.get(params.id)
 			} else {
-				user = userLookupService.lookup()
+				user = currentUser() 
 			}
 			render(view: 'index', model:[user:user])
 		} catch(error) {
@@ -46,11 +48,11 @@ class ProfileController {
 		try {
 			def user 
 			if (params.username) {
-				user = userLookupService.find(params.username)
+				user = ShiroUser.findByUsername(params.username)
 			} else if (params.id) {
-				user = userLookupService.get(params.id)
+				user = ShiroUser.get(params.id)
 			} else {
-				user = userLookupService.lookup()
+				user = currentUser() 
 			}
 	        if (user && user.profile) {
 				byte[] image = user.profile.image
@@ -75,11 +77,11 @@ class ProfileController {
 		try {
 			def user 
 			if (params.username) {
-				user = userLookupService.find(params.username)
+				user = ShiroUser.findByUsername(params.username)
 			} else if (params.id) {
-				user = userLookupService.get(params.id)
+				user = ShiroUser.get(params.id)
 			} else {
-				user = userLookupService.lookup()
+				user = currentUser() 
 			}
 			render(view: 'edit', model:[user:user])
 		} catch(error) {
@@ -91,7 +93,7 @@ class ProfileController {
 	}
 	
 	def save = {
-		def user = userLookupService.lookup()
+		def user = currentUser() 
 		
 		try {
 	        def f = request.getFile('image')

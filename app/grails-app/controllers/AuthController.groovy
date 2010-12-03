@@ -7,13 +7,13 @@ import org.apache.shiro.web.util.WebUtils
 import org.apache.shiro.crypto.hash.Sha1Hash
 import org.samye.dzong.london.contact.EmailService
 import com.icegreen.greenmail.util.*
+import org.samye.dzong.london.cms.*
 
-class AuthController {
+class AuthController extends CMSController{
     def shiroSecurityManager
     def emailService
     def messageSource
     def greenMail
-	def userLookupService
 
     def index = { redirect(action: "login", params: params) }
 
@@ -99,7 +99,7 @@ class AuthController {
             SecurityUtils.subject.login(authToken)
 
 			try {
-				def user = userLookupService.lookup()
+				def user = currentUser() 
 		        if (user && user.profile) {
 		            def profile = user.profile
 					      profile.lastLoggedIn = new Date()

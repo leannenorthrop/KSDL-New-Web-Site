@@ -23,9 +23,9 @@
 package org.samye.dzong.london.venue
 
 import org.apache.shiro.SecurityUtils
+import org.samye.dzong.london.cms.*
 
-class RoomController {
-    def userLookupService
+class RoomController extends CMSController {
 	def roomService
 	
     def index = { }
@@ -131,7 +131,7 @@ class RoomController {
 
     def save = {
         def roomInstance = new Room(params)
-		roomInstance.author = userLookupService.lookup()
+		roomInstance.author = currentUser() 
         if(!roomInstance.hasErrors() && roomInstance.save()) {
             flash.message = "Room ${roomInstance.name} created"
             redirect(action:manage)
