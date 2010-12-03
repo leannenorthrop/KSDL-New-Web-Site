@@ -35,7 +35,7 @@ import org.apache.shiro.SecurityUtils
  * @author Leanne Northrop
  * @since  16th November, 2010, 16:55
  */
-class CMSUtilSpec extends IntegrationHelper {
+class CMSUtilIntegrationSpec extends IntegrationHelper {
     def user
     def roles = []
     def grailsApplication
