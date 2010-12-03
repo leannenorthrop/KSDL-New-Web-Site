@@ -36,6 +36,7 @@ import org.joda.time.*
 import groovy.time.*
 import org.springframework.context.support.StaticMessageSource
 import org.apache.shiro.SecurityUtils
+import org.spock.lang.*
 
 /**
  *  Unit test for Events controller
@@ -76,7 +77,7 @@ class EventControllerSpec extends ControllerSpec {
         redirectArgs == [action: controller.home]
     }
 
-    def 'Home generates page with events separated into 4 lists'() {
+    /*def 'Home generates page with events separated into 4 lists'() {
         setup: "When events are present for today, this week and this month"
         def today = new Date()
         today.clearTime()
@@ -116,7 +117,7 @@ class EventControllerSpec extends ControllerSpec {
         model.followingMonths.size() == othermonthEvents.size() 
 
         model.regularEvents == regularEvents 
-    }
+    }*/
 
     def 'Current redirects to list with start and end days of current month'() {
         when:
@@ -215,6 +216,7 @@ class EventControllerSpec extends ControllerSpec {
         Event.metaClass.static.unorderedPublished = { 
             return new Expando(list: { args->monthEvents })  
         }
+        def expectedDates = monthEvents.collect{it.dates[0].startDate}.findAll{ it.after(today) || it == today }
 
         and: "article service is present"
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
@@ -227,7 +229,7 @@ class EventControllerSpec extends ControllerSpec {
 
         then:
         model.title == "${today.format('MMMM yyyy')}"
-        model.events == monthEvents.collect{it.dates[0].startDate}.findAll{ it.after(today) || it == today }
+        model.events.collect{it.dates[0].startDate} == expectedDates 
     }
 
     def 'Returns user unpublished events when not an editor or administrator'() {
