@@ -78,59 +78,36 @@ class VenueController {
     }
 
     def update = {
-        def venueInstance = Venue.get( params.id )
-        if(venueInstance) {
-            if(params.version) {
+        def venueInstance = Venue.get(params.id)
+        if (venueInstance) {
+            if (params.version) {
                 def version = params.version.toLong()
-                if(venueInstance.version > version) {
-
-                    venueInstance.errors.rejectValue("version", "venue.optimistic.locking.failure", "Another user has updated this Venue while you were editing.")
+                if (venueInstance.version > version) {
+                    venueInstance.errors.rejectValue("version", "venue.optimistic.locking.failure", "Another user has updated ${venue.name} whilst you were editing.")
                     render(view:'edit',model:[venueInstance:venueInstance])
                     return
                 }
             }           
-            venueInstance.properties = params
-			if (venueInstance.addresses) {
-				def _toBeDeleted = venueInstance.addresses.findAll {it._deleted}
-    			def _toBeSaved = venueInstance.addresses.findAll {!it._deleted}    			
-    			if (_toBeSaved) {
-    			    _toBeSaved.each{
-    			        it.save()}
-    			}				
-				if (_toBeDeleted) {
-					venueInstance.addresses.removeAll(_toBeDeleted)
-				}
-			}
-			if (venueInstance.emails) {
-				def _toBeDeleted = venueInstance.emails.findAll {it._deleted}
-    			def _toBeSaved = venueInstance.emails.findAll {!it._deleted}    			
-    			if (_toBeSaved) {
-    			    _toBeSaved.each{
-    			        it.save()}
-    			}				
-				if (_toBeDeleted) {
-					venueInstance.emails.removeAll(_toBeDeleted)
-				}
-			}
-			if (venueInstance.telephoneNumbers) {
-				def _toBeDeleted = venueInstance.telephoneNumbersList.findAll {it._deleted}
-    			def _toBeSaved = venueInstance.telephoneNumbersList.findAll {!it._deleted}    			
-    			if (_toBeSaved) {
-    			    _toBeSaved.each{
-    			        it.save()}
-    			}				
-				if (_toBeDeleted) {
-					venueInstance.telephoneNumbers.removeAll(_toBeDeleted)
-				}	
-			}					
-            if(!venueInstance.hasErrors() && venueInstance.save()) {
-                flash.message = "Venue ${params.id} updated"
-                redirect(action:manage)
-            }
-            else {
-                def msg = "Changes could not be saved because of the following:"	
-                render(view:'edit',model:[venue:venueInstance])
-                handleError(msg, venueInstance, edit)
+            
+            Venue.withTransaction { status ->
+                venueInstance.properties = params
+                try {
+                    if (!venueInstance.hasErrors() && venueInstance.save()) {
+                        flash.message = "Venue ${venue.name} updated"
+                        redirect(action:manage)
+                    }
+                    else {
+                        status.setRollbackOnly()
+                        def msg = "Changes could not be saved because of the following:"	
+                        render(view:'edit',model:[venue:venueInstance])
+                        handleError(msg, venueInstance, edit)
+                    }
+                } catch (RuntimeException e) {
+                    status.setRollbackOnly()
+                    def msg = "Changes could not be saved because of the following:"	
+                    render(view:'edit',model:[venue:venueInstance])
+                    handleError(msg, venueInstance, edit)
+                }
             }
         }
         else {
