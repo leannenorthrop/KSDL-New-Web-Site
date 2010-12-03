@@ -59,7 +59,7 @@
   </head>
   <body>
     <div class="grid_16">
-        <div id='calendar' style="width: 1000px; margin: 0 auto;min-height:1000px"></div>
+        <div id='calendar' style="width: 900px; margin: 0 auto;min-height:900px"></div>
     </div>
   </body>
 </html>
