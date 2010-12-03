@@ -32,11 +32,21 @@ import grails.plugin.spock.*
 import spock.lang.*
 import net.fortuna.ical4j.model.ValidationException
 import org.joda.time.*
+import org.springframework.context.support.StaticMessageSource
 
 /**
  * Unit test for Event domain class.
  */
 class EventSpec extends UnitSpec {
+    def messageSource
+    def grailsApplication
+
+    def setup() {
+        mockLogging(Event,true)
+        mockLogging(EventDate,true)
+        mockLogging(EventPrice,true)
+    }
+
     def "Validation fails when title is blank"() {
         setup:
             def event = validEvent()
@@ -50,7 +60,7 @@ class EventSpec extends UnitSpec {
             "blank" == event.errors["title"]
     }
 
-    def "Validation fails when title is not unique"() {
+    def "Validation does not fail when title is not unique"() {
         setup:
             def event1 = validEvent()
             def event2 = validEvent()
@@ -59,10 +69,10 @@ class EventSpec extends UnitSpec {
         when:
             event1.title = "a" 
             event2.title = "a" 
+            event2.validate()
 
         then:
-            false == event2.validate()
-            "unique" == event2.errors["title"]
+            assert event2.errors.isEmpty()
     }
 
     def "Validation fails when title is longer than 256"() {
@@ -228,7 +238,6 @@ class EventSpec extends UnitSpec {
             iCalEvent.startDate.date.time = now.time
             iCalEvent.endDate.date.time = now.time
             iCalEvent.location.value == "Spa Road"
-            iCalEvent.organizer.value == "MAILTO:leanne.northrop@abc.com"
             notThrown(ValidationException)
     }
 
@@ -247,7 +256,6 @@ class EventSpec extends UnitSpec {
             iCalEvent.startDate.date.time = now.time
             iCalEvent.endDate.date.time = now.time
             iCalEvent.location.value == "Spa Road"
-            iCalEvent.organizer.value == "MAILTO:leanne.northrop@abc.com"
             notThrown(ValidationException)
     }
 
@@ -397,12 +405,136 @@ class EventSpec extends UnitSpec {
             event.dates[1].endTime == new TimeOfDay(9,0) 
     }
 
+    def 'toJSON generates json markup for given day'() {
+        setup:
+            def today = new Date()
+            today.clearTime()
+            def event = validEvent()
+            addValidDate(event,today)
+            messageSource = new StaticMessageSource()
+            def locale = Locale.UK
+            messageSource.addMessage("publish.category.controller.M",locale,"meditation")
+            event.messageSource = messageSource
+            mockDomain(Event,[event])
+
+        when:
+            def result = event.toJSON(today)
+
+        then:
+            result = '{"id":15,"title":"Meditation","start":"2010-11-02 09:00:00","end":"2010-11-02 10:00:00","className":"M","url":"meditation/event/15","allDay":false}'
+    }
+
+    def 'toDate returns start date when not a rule or multiple'() {
+        setup:
+            def event = singleEvent() 
+            def today = new Date()
+
+        when:
+            def result = event.toDate()
+
+        then:
+            result.format('dd MM yyyy') == today.format('dd MM yyyy')
+    }
+
+    def 'toDate returns next date when multiple'() {
+        setup:
+            def event = multipleEvent()
+            def today = new Date()
+
+        when:
+            def result = event.toDate()
+
+        then:
+            result.format('dd MM yyyy') == today.format('dd MM yyyy')
+    }
+
+    def 'toDate returns next date when rule'() {
+        setup:
+            def event = ruleEvent()
+            def today = new Date()
+
+        when:
+            def result = event.toDate()
+
+        then:
+            result.format('dd MM yyyy') == (today).format('dd MM yyyy')
+    }
+
+    def 'compareTo is 0 when objects are same date and time'() {
+        expect:
+        0 == event1.compareTo(event2)
+
+        where:
+        event1 << [singleEvent(),ruleEvent(),multipleEvent(),singleEvent(),singleEvent(),ruleEvent()]
+        event2 << [singleEvent(),ruleEvent(),multipleEvent(),ruleEvent(),multipleEvent(),multipleEvent()]
+    }
+
+    def 'compareTo is -1'() {
+        expect:
+        -1 == event1.compareTo(event2)
+
+        where:
+        event1 << [singleEvent(10),ruleEvent(10),multipleEvent(10),singleEvent(10),singleEvent(10),ruleEvent(10)]
+        event2 << [singleEvent(),ruleEvent(),multipleEvent(),ruleEvent(),multipleEvent(),multipleEvent()]
+    }
+
+    def 'compareTo is 1'() {
+        expect:
+        1 == event1.compareTo(event2)
+
+        where:
+        event2 << [singleEvent(10),ruleEvent(10),multipleEvent(10),singleEvent(10),singleEvent(10),ruleEvent(10)]
+        event1 << [singleEvent(),ruleEvent(),multipleEvent(),ruleEvent(),multipleEvent(),multipleEvent()]
+    }
+
+    def ruleEvent() {
+        def today = new Date()
+        def event = validEvent()
+        addValidDates(event,today-2)
+        event
+    }
+
+    def multipleEvent() {
+        def today = new Date()
+        def event = validEvent()
+        addValidDates(event,today-1,3)
+        event
+    }
+
+    def singleEvent() {
+        def today = new Date()
+        today.clearTime()
+        def event = validEvent()
+        addValidDate(event,today)
+        event
+    }
+
+    def ruleEvent(time) {
+        def event = ruleEvent()
+        event.dates[0].startTime = new org.joda.time.TimeOfDay(time)
+        event
+    }
+
+    def multipleEvent(time) {
+        def event = multipleEvent()
+        for (d in event.dates) {
+            d.startTime = new org.joda.time.TimeOfDay(time)
+        }
+        event
+    }
+
+    def singleEvent(time) {
+        def event = singleEvent()
+        event.dates[0].startTime = new org.joda.time.TimeOfDay(time)
+        event
+    }
+
     def validEvent() {
         def event = new Event(title: "Meditation", 
                               summary: "summary", 
                               content: "content",
                               publishState: 'Unpublished',
-                              category: 'E',
+                              category: 'M',
                               isRepeatable: false,
                               organizer: new ShiroUser(username:"leanne.northrop@abc.com"),
                               leader: new Teacher(name:"AKA"),

@@ -53,14 +53,13 @@ import net.fortuna.ical4j.model.component.VTimeZone
 
 /**
  * Domain class for event information.
- * TODO: test
  * TODO: add validation for date,time,duration
  * TODO: publishedByTags
  *
  * @author Leanne Northrop
  * @since 29th January, 2010, 16:48
  */
-class Event extends Publishable {
+class Event extends Publishable implements Comparable {
     String title;
     String summary;
     String content;
@@ -71,6 +70,8 @@ class Event extends Publishable {
     Venue venue;
     List prices = new ArrayList();
     List dates = new ArrayList();
+    def messageSource
+    def applicationTagLib
 
     static hasMany = [prices: EventPrice, dates: EventDate]
 
@@ -253,6 +254,28 @@ class Event extends Publishable {
         }
     }
 
+    String toJSON(day) {
+        def controller = messageSource.getMessage("publish.category.controller.${category}",null,Locale.UK)
+        def href = "${controller}/event/${id}" 
+
+        def firstDate = dates[0]
+        def date = new DateTime(day.getTime())
+        def startDate = firstDate.startTime.toDateTime(date)
+        def endDate = firstDate.endTime.toDateTime(date) 
+        def ss = new Date(startDate.millis).format('yyyy-MM-dd hh:mm:ss')
+        def es = new Date(endDate.millis).format('yyyy-MM-dd hh:mm:ss')
+        def sbw = new StringWriter()
+        sbw << "{"
+        sbw << '"id":' + id + ','
+        sbw << '"title":"' + title + '",'
+        sbw << '"start":"' + ss + '",'
+        sbw << '"end":"' + es + '",'
+        sbw << '"className":"' + category + '",'
+        sbw << '"url":"' + href + '",'
+        sbw << '"allDay":false' 
+        sbw << "}"
+        sbw.toString()
+    }
 
     String toString() {
         return "${title}"
@@ -260,7 +283,6 @@ class Event extends Publishable {
 
     boolean isOnDay(final date) {
         if (dates) {
-            log.debug "*********${this}:"
             return dates.any{ eventdate -> eventdate.isOnDay(date) }
         } else {
             return false;
@@ -310,14 +332,43 @@ class Event extends Publishable {
         properties.add(new Description(summary));
         properties.add(new Location(venue.name));
 
-        if (organizer) {
+        /*if (organizer) {
             URI mailToURI = new URI("MAILTO", organizer.username, null);
             properties.add(new Organizer(mailToURI));
-        }
+        }*/
 
         Uid id = ug.generateUid();
         properties.add(id)
 
         return iCalEvent
     }
+
+    Date toDate() {
+        if (dates.size() > 1) {
+            def now = new Date()
+            now.clearTime()
+            return dates.find{
+                def d = it.startDate
+                d.clearTime()
+                d.after(now) || d == now
+            }.toDate()
+        } else {
+            return dates[0].toDate()
+        }
+    }
+
+    int compareTo(other) { 
+        def thisDate = toDate()
+        def otherDate = other.toDate()
+        if (thisDate.format('dd MM yyyy') == otherDate.format('dd MM yyyy')) {
+            def thisTime = dates[0].startTime
+            def otherTime = other.dates[0].startTime
+            return thisTime.compareTo(otherTime)
+        } else if (thisDate.before(otherDate)) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+
 }

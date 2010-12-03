@@ -46,6 +46,23 @@ grails.project.dependency.resolution = {
              'com.icegreen:greenmail:1.3.1b'
     }
 }
-clover {
-    excludes = ['**/test/**','**/conf/**','**/plugins/**','**/*Spec.groovy','**/*Tests.groovy']
+coverage {
+    exclusions = ['**/test/**',
+                  '**/conf/**',
+                  '**/plugins/**',
+                  '**/*Spec.groovy',
+                  '**/*Tests.groovy',
+                  "**/*BootStrap*",
+                  "Config*",
+                  "**/*DataSource*",
+                  "**/*resources*",
+                  "**/*UrlMappings*",
+                  "**/*Tests*",
+                  "**/grails/test/**",
+                  "**/org/codehaus/groovy/grails/**",
+                  "**/PreInit*",
+                  "*GrailsPlugin*"]
+
+    enabledByDefault = false
 }
+

@@ -53,10 +53,10 @@ class ScheduleRule {
         endTime(nullable: false)
         startTime(nullable: false)
         endTime(nullable: false)
-        duration(blank: true,nullable: true)
-        isRule(blank: false)
+        duration(nullable: true)
+        isRule(nullable: false)
         ruleType(blank: true,nullable: true)
-        interval(blank: true,nullable: true)
+        interval(nullable: true)
         modifier(blank: true,nullable: true)
         modifierType(blank: true,inList:["D", "W", "MP", "MD", "YM", "YD"],nullable: true)
     }
@@ -101,6 +101,28 @@ class ScheduleRule {
     
     String toString() {
         return "from ${startDate} until ${endDate}: ${startTime} - ${endTime} (duration ${duration})\nis rule? ${isRule} type ${ruleType} interval ${interval} modifier ${modifier} mtype = ${modifierType}"
+    }
+
+    java.util.Date toDate() {
+        def start = startDate
+        start.clearTime()
+        def today = new Date()
+        today.clearTime()
+        Recur r = toRecur()
+        if (r) {
+            net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(today))
+            def result = new Date(next.getTime())
+            return result
+
+        } else {
+            return start
+        }
+    }
+
+    java.util.Date toDateTime() {
+        def date = toDate()
+        def startDate = startTime.toDateTime(date)
+        new Date(startDate.millis)
     }
 
     boolean isUnbounded() {
@@ -210,19 +232,20 @@ class ScheduleRule {
         startDate.clearTime()
         Recur r = toRecur()
         if (r) {
-            if (isDaily() && interval == 1 && startDate == date) {
+            if (isDaily() && interval == 1 && (startDate.before(date) || startDate == date)) {
                 onDay = true;
+                log.debug "${this} == ${date.format('dd MM yyyy')}? == ${onDay} because it's daily"
             } else {
 				if (startDate.equals(date)) {
 					onDay = true;
 				} else {
 	                net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate),
-                                                                       new net.fortuna.ical4j.model.Date(date-1))
+                                                                       new net.fortuna.ical4j.model.Date(date))
 	                if (next) {
 	                    def nextDate = new java.util.Date(next.getTime())
                         nextDate.clearTime()
-                        log.debug "${this} does not occur on ${date.format('dd MM yyyy')} because next is ${nextDate.format('dd MM yyyy')}"
 	                    onDay = date == nextDate
+                        log.debug "${date.format('dd MM yyyy')} == ${nextDate.format('dd MM yyyy')} ? ${onDay}"
 	                } else {
                         log.debug "${this} does not occur on ${date.format('dd MM yyyy')} because next is null"
 	                    onDay = false
@@ -244,7 +267,7 @@ class ScheduleRule {
         if (r) {
             startingDate.clearTime()
             startDate.clearTime()
-            net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startingDate-1))
+            net.fortuna.ical4j.model.Date next = r.getNextDate(new net.fortuna.ical4j.model.Date(startDate), new net.fortuna.ical4j.model.Date(startingDate))
             if (next) {
                 def nextDate = new java.util.Date(next.getTime())
                 nextDate.clearTime()

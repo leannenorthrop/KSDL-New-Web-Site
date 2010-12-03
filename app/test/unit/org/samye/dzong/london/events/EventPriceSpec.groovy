@@ -136,20 +136,6 @@ class EventPriceSpec extends UnitSpec {
             "nullable" == eventprice.errors["category"]
     }
 
-    def "validation fails when category blank"() {
-        setup:
-            def eventprice = new EventPrice()
-            eventprice.category = "" 
-            mockForConstraintsTests(EventPrice, [ eventprice ])
-            def result
-
-        when:
-            result = eventprice.validate()
-
-        then:
-            "blank" == eventprice.errors["category"]
-    }
-
     def "validation passes when category in list"() {
         setup:
             def eventprice = new EventPrice()
