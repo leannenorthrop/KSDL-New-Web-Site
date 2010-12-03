@@ -57,13 +57,18 @@
           <g:if test="${!rule?.isRule}">
             <g:if test="${rule?.isSeveral()}">
             <h5>
-                <g:each var="d" in="${event.dates}">
-                    <g:formatDate date="${d?.startDate}" format="d MMMM yyyy"/>,
+                <g:each var="date" status="index" in="${event.dates}">
+                    <g:if test="${index > 0}">
+                        <g:if test="${event.dates.size() == 2}">&amp;
+                        </g:if>
+                        <g:else>,</g:else>
+                    </g:if>
+                    ${date.startDate.format('d MMMM yyyy')}
                 </g:each>
             </h5>
             </g:if>
             <g:else>
-            <h6>${startdate}</h6>            
+            <h5>${startdate}</h5>            
             </g:else>
           </g:if>
           <g:else>
@@ -73,7 +78,7 @@
             <g:elseif test="${rule?.isWeekly()}">
               <h5>
                 <g:each var="day" in="${days}" status="index">
-                  <g:message code="${day}"/><g:if test="${index < rule?.getDays().size()-1}">,&nbsp;</g:if>
+              <g:message code="${day}"/><g:if test="${index < rule?.getDays().size()-1}">,&nbsp;</g:if>
                 </g:each>
                 <g:message code="week.interval.${rule?.interval}"/></h5>
             </g:elseif>
@@ -91,15 +96,33 @@
             </g:if>
           </g:else>
 
+            
           <g:if test="${event.displayAuthor || event.displayDate}">
             <p class="meta">
               <joda:format pattern="h:mm" value="${rule?.startTime?.toDateTimeToday()}"/> - <joda:format pattern="h:mm a" value="${rule?.endTime?.toDateTimeToday()}"/>  (${fieldValue(bean: rule, field: "duration")})
 
               <g:if test="${event?.leader}">
-                with ${event?.leader}
+                <g:if test="${event.leader.title != 'U'}">
+                with
+                </g:if>
+                <g:link controller="aboutUs" action="teacher" id="${event.leader.id}">${event.leader}</g:link>
               </g:if>
             </p>
           </g:if>
+          <g:else>
+            <p class="meta">
+                <span class="venue">${event.venue},</span> 
+                <span class="teacher">
+                <g:if test="${event.leader.title != 'U'}">
+                with
+                </g:if>
+                <g:link controller="aboutUs" action="teacher" id="${event.leader.id}">${event.leader}</g:link>
+                </span>
+                <g:if test="${event?.prices}">
+                   <span class="prices">(${event.prices.join(', ')})</span>
+                </g:if>
+            </p>
+          </g:else>
 
           <g:if test="${event.content}">
               <g:link controller="${eventViewController}" action="event" id="${event.id}">

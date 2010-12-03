@@ -36,52 +36,32 @@ class EventService {
     def messageSource
 
     def list(category, params=[]) {
-            try {
-                def dateParser = new SimpleDateFormat("yyyy-MM-dd")
-                def start;
-                def end;
+        try {
+            def dateParser = new SimpleDateFormat("yyyy-MM-dd")
+            def start = new DateTime();
 
-                if (params.start) {
-                    start = new DateTime(dateParser.parse(params.start).getTime())
-                    start = start.withTime(0, 0, 0, 0);
-                } else {
-                    start = new DateTime();
-                    start = start.withTime(0, 0, 0, 0);
-                }
+            if (params?.start) {
+                start = new DateTime(dateParser.parse(params.start).getTime())
+            } 
+            start = start.withTime(0, 0, 0, 0);
 
-                if (params.end) {
-                    end = new DateTime(dateParser.parse(params.end).getTime())
-                    end = end.withTime(0, 0, 0, 0);
-                } else {
-                    end = new DateTime();
-                    end = end.withTime(0, 0, 0, 0);
-                }
+            def lastDayOfMonth = start.dayOfMonth().withMaximumValue()
+            int daysUntilEndOfMonth = Days.daysBetween(start, lastDayOfMonth).getDays();
+            start = start.toDate()
 
-                if (!end.isAfter(start)) {
-                    def tmp = end
-                    end = start
-                    start = tmp
-                }
+            def publishedEvents = Event.unorderedPublished().list(params);
+            def events = publishedEvents.findAll { event ->
+                def rule = event.dates[0]
+                return event.isOnDay(start, daysUntilEndOfMonth)
+            };
 
-                end = end.dayOfMonth().withMaximumValue()
-                int monthdays = Days.daysBetween(start, end).getDays();
-
-                start = start.toDate()
-                end = end.toDate()
-                def publishedEvents = Event.unorderedCategoryPublished(category).list(params);
-                def events = publishedEvents.findAll { event ->
-                    def rule = event.dates[0]
-                    return event.isOnDay(start, monthdays)
-                };
-
-                def formatter = new SimpleDateFormat(messageSource.getMessage('event.date.format',null,null))
-                def args = [formatter.format(start),formatter.format(end)]
-                return [events: events, title: messageSource.getMessage('event.between',args.toArray(),null)]
-            } catch(error) {
-                error.printStackTrace();
-                def events = Event.unorderedCategoryPublished(category).list(params);
-                return [events: events, title: messageSource.getMessage('events.all.title',null,null)]
-            }
+            def datePat = message(code: 'event.date.format')
+            model = [events: events, title: 'hi']
+        } catch(error) {
+            log.warn "Unable to generate list of events", error
+            def events = Event.unorderedPublished().list(params);
+            model = [events: events, title: 'events.all.title']
+        }
     }
 
     def findSimilar(event, params = []) {

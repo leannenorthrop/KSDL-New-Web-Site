@@ -184,13 +184,13 @@ log4j = {
            'org.apache.catalina',
            'org.apache.coyote,',
            'org.apache.commons.digester',
+           'net.fortuna.ical4j',
            stdout:"StackTrace"
 
 
     warn    'org.hibernate',
-            'org.mortbay.log'
-
-    trace   'org.samye',
+            'org.mortbay.log',
+            'org.samye',
             'grails.app'
 }
 

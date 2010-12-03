@@ -71,8 +71,8 @@
           </g:else>
         </h4>
 
-        <g:set var="startdate"><g:formatDate date="${rule?.startDate}" type="date" format="d MMM yyyy"/></g:set>
-        <g:set var="enddate"><g:formatDate date="${rule?.endDate}" type="date" format="d MMM yyyy"/></g:set>
+        <g:set var="startdate">${rule.startDate.format('d MMMM yyyy')}</g:set>
+        <g:set var="enddate">${rule.endDate.format('d MMMM yyyy')}</g:set>
         <g:set var="days" value="${rule?.getDays().sort()}"/>
     <p class="meta">
         <g:if test="${!rule?.isRule}">
@@ -102,12 +102,15 @@
 
         <g:if test="${event.displayAuthor || event.displayDate}">
           <joda:format pattern="h:mm" value="${rule?.startTime?.toDateTimeToday()}"/> - <joda:format pattern="h:mm a" value="${rule?.endTime?.toDateTimeToday()}"/>
-
-          <g:if test="${event?.leader}">
-            with ${event?.leader}
-          </g:if>
         </g:if>
+          <g:if test="${event?.leader}">
+            <g:if test="${event.leader.title != 'U'}">
+            with
+            </g:if>
+            <g:link controller="aboutUs" action="teacher" id="${event.leader.id}">${event.leader}</g:link>
+          </g:if>
     </p>
+    ${event.summary?.encodeAsTextile()}
     </div>
         </li>
       </g:each>

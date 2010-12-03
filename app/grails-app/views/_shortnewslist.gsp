@@ -35,7 +35,7 @@
       <g:if test="${articleInstance}">
           <li class=" ${(i == 0 ? 'first' : '')?:(i == articles?.size() ? 'last' : '')}">
             <g:link controller="news" action="view" id="${articleInstance.id}">
-              <h3>${articleInstance.title}</h3>          
+              <h4>${articleInstance.title}</h4>          
               <g:if test="${articleInstance?.image}">
                   <a href="#">
                     <img src="${createLink(controller: 'image', action: 'thumbnail', id: articleInstance?.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
@@ -48,6 +48,9 @@
                 </g:else>          
             </g:link>
             <p><em><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></em><br/>${articleInstance.summary.encodeAsTextile()}</p>        
+            <g:if test="${articleInstance?.content}">
+              <g:link controller="news" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+            </g:if>
           </li>
       </g:if>
     </g:each>

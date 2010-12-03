@@ -15,7 +15,6 @@ class BootStrap {
 		def configObject = ConfigurationHolder.getConfig()	
 		def filedir = servletContext.getRealPath('/')
 		configObject.fileuploader.attachments.path = filedir + "files"
-		println "****" + configObject.fileuploader.attachments.path
 						
          File.metaClass.unzip = { String dest ->
           //in metaclass added methods, 'delegate' is the object on which
@@ -46,6 +45,24 @@ class BootStrap {
             }
           }
          }
+		
+        def dataDir = filedir + "data"
+        configObject.moonData = new Expando()
+        ['full_moon.txt':'fullMoon','new_moon.txt':'newMoon','last_quarter_moon.txt':'lastQuarter','first_quarter_moon.txt':'firstQuarter'].each { filename,name ->
+            def list = [:]
+            new File(dataDir, filename).eachLine { date ->
+                try { 
+                    def month = date[0..3].trim()
+                    def day = date[4..6].trim()
+                    def year = date[12..-1].trim()
+                    def thedate = new Date().parse("dd/MMM/yyyy","${day}/${month}/${year}")
+                    list.put(thedate.format('yyyy-MM-dd'), thedate)
+                } catch(error) {
+                    log.warn "Could not parse ${date} from ${filename}",error
+                }
+            }
+            configObject.moonData[name] = list
+        }
 
 
          environments {
