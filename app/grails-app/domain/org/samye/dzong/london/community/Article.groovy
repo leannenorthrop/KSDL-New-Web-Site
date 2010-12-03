@@ -81,6 +81,13 @@ class Article extends Publishable {
             eq 'publishState', "${publishState}"
         }
 
+        authorDeleted { username ->
+            eq('deleted', Boolean.TRUE)
+            author {
+                eq('username', username)
+            }
+        }
+        
         deletedAuthor { username ->
             eq('deleted', Boolean.TRUE)
             author {
