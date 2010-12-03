@@ -43,19 +43,19 @@ class VenueController {
                     venueInstance.deleted = true
                     venueInstance.title += " (Deleted)" 	            
                     if (!venueInstance.hasErrors() && venueInstance.save()) {
-                        flash.message = "Venue ${venueInstance.placeName} deleted"
+                        flash.message = "Venue ${venueInstance.name} deleted"
+                        redirect(action:manage)
                     } else {
                         status.setRollbackOnly()
-                        log.warn "Unable to delete venue ${venue.placeName}", e
-                        def msg = "Venue ${venue.placeName} could not be deleted"
+                        log.warn "Unable to delete venue ${venue.name}", e
+                        def msg = "Venue ${venue.name} could not be deleted"
                         handleError(msg, venueInstance)
                     }
-                    redirect(action:manage)
                 }
                 catch(e) {
                     status.setRollbackOnly()
-                    log.warn "Unable to delete venue ${venue.placeName}", e
-                    def msg = "Venue ${venue.placeName} could not be deleted"
+                    log.warn "Unable to delete venue ${venue.name}", e
+                    def msg = "Venue ${venue.name} could not be deleted"
                     handleError(msg, venueInstance)
                 }
             }
