@@ -45,13 +45,13 @@ import org.samye.dzong.london.cms.*
  * @author Leanne Northrop
  * @since 29th January, 2010, 17:04
  */
-class EventController implements CMSController {
+class EventController extends CMSController {
     //flash.message = "${message(code: 'default.updated.message', args: [message(code: 'event.label', default: 'Event'), event.id])}"
     def userLookupService
     def eventService
     def emailService
 	def articleService
-    def static adminRoles = ['Editor', 'Administrator'] 
+    def static final ADMIN_ROLES = ['Editor', 'Administrator'] 
 
     def index = {
         redirect(action: home)
@@ -207,26 +207,6 @@ class EventController implements CMSController {
 
     // the save and update actions only accept POST requests
     static allowedMethods = [save: 'POST', update: 'POST', changeState: 'GET']
-
-    def ajaxUnpublished = {
-        render(view: 'unpublished',model:getModelForView('unpublished',params))
-    }
-
-    def ajaxPublished = {
-        render(view: 'published',model:getModelForView('published',params))
-    }
-
-    def ajaxArchived = {
-        render(view: 'archived',model:getModelForView('archived',params))
-    }
-
-    def ajaxReady = {
-        render(view: 'ready',model:getModelForView('ready',params))
-    }
-
-    def ajaxDeleted = {
-        render(view: 'deleted',model:getModelForView('deleted',params))
-    }
 
     def manage = {
         render(view: 'manage')

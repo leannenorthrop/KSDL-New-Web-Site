@@ -39,7 +39,7 @@ class BootStrap {
 
      def init = { servletContext ->
          application.controllerClasses.each() {
-             if (it.clazz.interfaces.contains(CMSController.class)) {
+             if (CMSController.class.isAssignableFrom(it)) {
                  CMSUtil.addCMSMethods(it, log)
              }
          } 

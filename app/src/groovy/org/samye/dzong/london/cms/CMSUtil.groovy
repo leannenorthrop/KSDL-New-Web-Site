@@ -102,7 +102,7 @@ class CMSUtil {
             params.max = Math.min(params?.max ? params.max.toInteger() : MIN, MAX)
 
             def model = []
-            if (SecurityUtils.subject.hasRoles(delegate.adminRoles).any()) {
+            if (SecurityUtils.subject.hasRoles(delegate.ADMIN_ROLES).any()) {
                 model = delegate."${domainName}Service"."${viewName}"(params)
             } else {
                 model = delegate."${domainName}Service"."user${viewName.capitalize()}"(params)
