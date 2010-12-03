@@ -22,7 +22,6 @@
  */
 package org.samye.dzong.london.events
 
-import org.apache.shiro.SecurityUtils
 import org.joda.time.*
 import java.text.SimpleDateFormat
 import org.joda.time.format.*
@@ -52,8 +51,7 @@ class EventController implements CMSController {
     def eventService
     def emailService
 	def articleService
-    private static int MIN = 30
-    private static int MAX = 200
+    def static adminRoles = ['Editor', 'Administrator'] 
 
     def index = {
         redirect(action: home)
@@ -211,36 +209,23 @@ class EventController implements CMSController {
     static allowedMethods = [save: 'POST', update: 'POST', changeState: 'GET']
 
     def ajaxUnpublished = {
-        render(view: 'unpublished',model:getEventsForView('unpublished',params))
+        render(view: 'unpublished',model:getModelForView('unpublished',params))
     }
 
     def ajaxPublished = {
-        render(view: 'published',model:getEventsForView('published',params))
+        render(view: 'published',model:getModelForView('published',params))
     }
 
     def ajaxArchived = {
-        render(view: 'archived',model:getEventsForView('archived',params))
+        render(view: 'archived',model:getModelForView('archived',params))
     }
 
     def ajaxReady = {
-        render(view: 'ready',model:getEventsForView('ready',params))
+        render(view: 'ready',model:getModelForView('ready',params))
     }
 
     def ajaxDeleted = {
-        render(view: 'deleted',model:getEventsForView('deleted',params))
-    }
-
-    def getEventsForView(viewName,params) {
-        params.offset = params?.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params?.max ? params.max.toInteger() : MIN, MAX)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Administrator']).any()) {
-            model = eventService."${viewName}"(params)
-        } else {
-            model = eventService."user${viewName.capitalize()}"(params)
-        }
-        model
+        render(view: 'deleted',model:getModelForView('deleted',params))
     }
 
     def manage = {
