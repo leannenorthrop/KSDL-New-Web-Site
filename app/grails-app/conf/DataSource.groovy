@@ -48,9 +48,11 @@ hibernate {
 }
 
 // environment specific settings
+def homeDir = grails.home[0]
 environments {
     development {
         dataSource {
+            //jndiName = "java:comp/jdbc/KsdlDB"
             // one of 'create', 'create-drop','update'
             //dbCreate = "update"
             /*url = "jdbc:mysql://localhost/londonsamyedzong"
@@ -58,7 +60,8 @@ environments {
             username = "londonsamyedzong"
             password = "change!t"
             dialect = org.hibernate.dialect.MySQLDialect */
-            url = "jdbc:hsqldb:hsql://localhost/lsd"
+            //url = "jdbc:hsqldb:hsql://localhost/lsd"
+            url = "jdbc:hsqldb:file:db/lsd;shutdown=true"            
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""
@@ -70,7 +73,7 @@ environments {
     test {
         dataSource {
             dbCreate = "create"
-            url = "jdbc:hsqldb:file:/Users/leanne/Development/LSD/Development/lsd/app/db/test;shutdown=true"
+            url = "jdbc:hsqldb:file:db/test;shutdown=true"
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""
@@ -85,7 +88,8 @@ environments {
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""
-            dialect = org.hibernate.dialect.HSQLDialect  
+            dialect = org.hibernate.dialect.HSQLDialect
+            //jndiName = "java:comp/env/jdbc/KsdlDS"
         }        
     }
 }

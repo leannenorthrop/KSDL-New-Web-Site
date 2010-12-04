@@ -1,20 +1,83 @@
+
+1. Introduction
+===============================================================================
+The lsd-website is a Grails 1.3+ project which aims to provide simple user content 
+management system, event booking, room booking and small on-line shop for 
+Kagyu Samye Dzong London, however with a small amount of changes can be deployed 
+for other Kagyu/Buddhist centres.
+
+1.1 Structure¶
+-------------------------------------------------------------------------------
+The project strongly abides by Grails conventions as follows:
+
+grails-app - top level directory for Groovy sources
+  conf - Configuration sources.
+  controllers - Web controllers - The C in MVC.
+  domain - The application domain persistance objects
+  i18n - Support for internationalization (Currently only using messages.properties)
+  services - The service layer - helper classes shared among Controllers
+  taglib - Tag libraries
+  views - Groovy Server Pages.
+scripts - Gant scripts.
+src - Supporting sources
+  groovy - Other Groovy sources for injecting common CMS methods into controllers and utilities used by Service classes
+  java - Other Java sources for textile encoding, and managing Flickr content
+test - Unit and integration tests.
+
+
 1. Build Instructions
 ===============================================================================
-export MAVEN_OPTS="-Xmx512m -XX:MaxPermSize=192m"
-mvn clean assembly:assembly -Dmaven.test.skip=true
 
-2. Running Instructions
+1.1 Source Code Management
+-------------------------------------------------------------------------------
+This project is hosted on Google Code at http://code.google.com/p/lsd-website/
+and uses Subversion to manage its source code. Instructions on Subversion use 
+can be found at http://svnbook.red-bean.com/. Alternatively Git with SVN may
+be used with frequent dcommits to Subversion for non-git users. Instructions
+on Git installation and user can be found at http://git-scm.com/.
+
+1.2 Subversion
+-------------------------------------------------------------------------------
+The project code is available for on-line browsing at 
+
+https://lsd-website.googlecode.com/svn/trunk/
+
+Anonymous access is available using Subversion command line tool:
+
+svn checkout http://lsd-website.googlecode.com/svn/trunk/ lsd-website-read-only
+
+However if you plan to make changes, use this command along with your Google
+Code password to check out the code as yourself using HTTPS:
+
+svn checkout https://lsd-website.googlecode.com/svn/trunk/ lsd-website --username <Your Google Code username>
+
+
+1.3 Software Pre-Requisites
+-------------------------------------------------------------------------------
+You will need the following to be available on the execution path:
+
+Java JDK 1.6+
+Grails 1.3.5
+
+1.4 Building 
+See http://code.google.com/p/lsd-website/wiki/Developers
+
+1.5 Running Instructions
 ===============================================================================
-mvn grails:run-app
+Local development site on http://localhost:8080/app is achieved by running
+
+grails run-app 
 
 
-3. Databases
+4. Databases
 ===============================================================================
-3.1 Hypersonic Database
+Hypersonic 2.0 is the embedded database for development and test purposes. 
 
-java -classpath ./lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:./db/mydb --dbname.0 lsd &
+4.1 Hypersonic Database
 
-3.2 MYSQL Database 
+java -classpath ./lib/hsqldb.jar org.hsqldb.server.Server --database.0 file:[path to database file] --dbname.0 lsd &
+
+4.2 MYSQL Database 
 -------------------------------------------------------------------------------
 install mysql
 start mysql (e.g. mysqld --user=...)
@@ -28,16 +91,25 @@ mysql -h localhost -u londonsamyedzong -p londonsamyedonzg < migrate.sql
 cd ./db/dist
 mysql -h localhost -u londonsamyedzong -p londonsamyedzong < backup.sql
 
-3.2 Backups
+4.3 Backups
 mysqldump --no-data -u londonsamyedzong -p londonsamyedzong > structurebackup.sql
 mysqldump  --max_allowed_packet=800M -u londonsamyedzong -p londonsamyedzong image | gzip > image.sql.gz
 
-    Tomcat 5.5
-================================================================================
-Remove javamail, mail, jaxpparser and xml-commons, out of commons particularly if not using sun java.
+
+5. Deployment
+===============================================================================
+Currently on Tomcat 5.5 (If reinstalling remember to remove javamail, mail, 
+jaxpparser and xml-commons, out of commons particularly if not using sun java.)
 
 Upgrade
 scp ./target/ROOT-1.0.6-SNAPSHOT.zip root@84.234.17.49:/home/londonsamyedzong/Versions/ROOT-1.0.6-SNAPSHOT.zip
 ssh root@84.234.17.49
 cd /home/londonsamyedzong/
 ./upgrade.sh
+
+6. Useful API Documentation 
+===============================================================================
+ * Java [http://download.oracle.com/javase/6/docs/api/]
+ * Groovy JDK [http://groovy.codehaus.org/groovy-jdk/]
+ * Groovy [http://groovy.codehaus.org/gapi/index.html]
+ * Spock [http://code.google.com/p/spock/wiki/SpockBasics]

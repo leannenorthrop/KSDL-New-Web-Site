@@ -145,8 +145,12 @@ class CMSUtil {
                             return [:]
                         }
                         else {
-                            def similar = Publishable.similar(obj,params)
-                            return [(domainClass.propertyName): obj, id: obj.id, similar:similar]
+                            try {
+                                def similar = Publishable.similar(obj,params)
+                                return [(domainClass.propertyName): obj, id: obj.id, similar:similar]
+                            } catch (error) {
+                                return [(domainClass.propertyName): obj, id: obj.id, similar:[]]
+                            }
                         }
                     } else {
                         delegate.notFound(null)
@@ -155,40 +159,56 @@ class CMSUtil {
                 
                 ["Unpublished","Published","Archived","Ready"].each { state -> 
                     artefactClass.metaClass."user${state}${domainClass.name}s" = { params ->
-                        delegate.checkParams(params)
-                        def username = delegate.currentUser().username;
-                        def domain = domainClass.clazz
-                        def objs = delegate.filter(domain.authorPublishState(username,state).list(params),domain)
-                        def total = delegate.filter(domain.authorPublishState(username,state).list(),domain).size()
-                        return ["${domainClass.propertyName}s": objs, total: total]
+                        try {
+                            delegate.checkParams(params)
+                            def username = delegate.currentUser().username;
+                            def domain = domainClass.clazz
+                            def objs = delegate.filter(domain.authorPublishState(username,state).list(params),domain)
+                            def total = delegate.filter(domain.authorPublishState(username,state).list(),domain).size()
+                            return [(domainClass.propertyName + 's'): objs, total: total]
+                        } catch (error) {
+                            return [(domainClass.propertyName + 's'): [], total: []]
+                        }
                     }
                 }
 
                 artefactClass.metaClass."userDeleted${domainClass.name}s" = { params -> 
-                    delegate.checkParams(params)
-                    def username = delegate.currentUser().username
-                    def domain = domainClass.clazz
-                    def objs = delegate.filter(domain.authorDeleted(username).list(params),domain)
-                    def total = delegate.filter(domain.authorDeleted(username).list(),domain).size()
-                    return ["${domainClass.propertyName}s": objs, total: total]
+                    try {
+                        delegate.checkParams(params)
+                        def username = delegate.currentUser().username
+                        def domain = domainClass.clazz
+                        def objs = delegate.filter(domain.authorDeleted(username).list(params),domain)
+                        def total = delegate.filter(domain.authorDeleted(username).list(),domain).size()
+                        return [(domainClass.propertyName + 's'): objs, total: total]
+                    } catch (error) {
+                        return [(domainClass.propertyName + 's'): [], total: []]                        
+                    }
                 }
 
                 ["Unpublished","Published","Archived","Ready"].each { state -> 
                     artefactClass.metaClass."${state.toLowerCase()}${domainClass.name}s" = { params -> 
-                        delegate.checkParams(params)
-                        def domain = domainClass.clazz
-                        def objs = delegate.filter(domain.publishState(state).list(params), domain)
-                        def total = delegate.filter(domain.publishState(state).list(),domain).size()
-                        return ["${domainClass.propertyName}s": objs, total: total]
+                        try {
+                            delegate.checkParams(params)
+                            def domain = domainClass.clazz
+                            def objs = delegate.filter(domain.publishState(state).list(params), domain)
+                            def total = delegate.filter(domain.publishState(state).list(),domain).size()
+                            return [(domainClass.propertyName + 's'): objs, total: total]
+                        } catch (error) {
+                            return [(domainClass.propertyName + 's'): [], total: []]
+                        }
                     }
                 }
 
                 artefactClass.metaClass."deleted${domainClass.name}s" = { params -> 
-                    delegate.checkParams(params)
-                    def domain = domainClass.clazz
-                    def rooms = delegate.filter(domain.deleted().list(params),domain)
-                    def total = delegate.filter(domain.deleted().list(),domain).size()
-                    return ["${domainClass.propertyName}s": rooms, total: total]
+                    try {
+                        delegate.checkParams(params)
+                        def domain = domainClass.clazz
+                        def rooms = delegate.filter(domain.deleted().list(params),domain)
+                        def total = delegate.filter(domain.deleted().list(),domain).size()
+                        return [(domainClass.propertyName + 's'): rooms, total: total]
+                    } catch (error) {
+                        return [(domainClass.propertyName + 's'): [], total: []]                        
+                    }
                 }                        
 
                 artefactClass.metaClass.filter = { list, domain ->
