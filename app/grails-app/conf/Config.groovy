@@ -198,7 +198,7 @@ log4j = {
             debug 'stdout','file'
             additivity = true            
         }
-        log4j.appender.'errors.File'="/var/log/tomcat6/stacktrace.log"
+        //log4j.appender.'errors.File'="/var/log/tomcat6/stacktrace.log"
     }
 
     fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',
@@ -234,7 +234,9 @@ log4j = {
     warn    'org.hibernate',
             'org.mortbay.log',
             'org.samye',
-            'grails.app'      
+            'grails.app'  
+            
+    debug    'org.samye.dzong.london'
 }
 
 auditLog {
@@ -258,3 +260,16 @@ quartz {
 }
 
 grails.tomcat.jvmArgs = ["-Xmx1024m", "-XX:MaxPermSize=256m"]
+
+/* For running development/test builds with a JNDI source
+grails.naming.entries = [
+    "jdbc/KsdlDB": [
+        type: "javax.sql.DataSource", //required
+        driverClassName: "org.hsql.jdbcDriver",
+        url: "jdbc:HypersonicSQL:database",
+        username: "SA",
+        password: "",
+        maxActive: "8",
+        maxIdle: "4"
+    ]
+]*/

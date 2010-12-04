@@ -23,6 +23,7 @@
 
 package org.samye.dzong.london.community
 
+import org.samye.dzong.london.cms.*
 import org.samye.dzong.london.venue.Venue
 import org.samye.dzong.london.venue.Room
 
@@ -35,13 +36,17 @@ import org.samye.dzong.london.venue.Room
 class AboutUsController {
     def articleService
     def teacherService
-
+    
+    AboutUsController() {
+        CMSUtil.addCMSMethods(this)
+    }
+    
     def index = {
         def community = Teacher.findByName('Community');
         def visitingTeachers = Teacher.findAllByPublishStateAndType('Published', 'V',[sort: "name", order: "asc"])
         def teachers = Teacher.findAllByPublishStateAndType('Published', 'C',[sort: "name", order: "asc"])
         teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
-        def venues = Venue.notDeleted.list()
+        def venues = publishedVenues().'venues'
         def allArticles = Article.allAboutUsArticles("title", "asc").list()
         def topArticles = Article.aboutUsTopArticles("title", "asc").list()
         def model = [topArticles: topArticles, articles: allArticles, visitingTeachers: visitingTeachers, teachers:teachers,venues:venues];
@@ -60,30 +65,26 @@ class AboutUsController {
     }
 
     def contactUs = {
-        def venues = Venue.notDeleted.list()
-        def model = [venues:venues]
+        def model = publishedVenues()
         articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'contact', model:model)
     }
 	
     def visiting = {
-        def venues = Venue.notDeleted.list()
-        def model = [venues:venues]
+        def model = publishedVenues()
         articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 	
     def room = {
-        def venues = Venue.notDeleted.list()
+        def venues = publishedVenues().'venues'
         def model = [room:Room.get(params.id),venues:venues]
         articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 	
     def venue = {
-        def venues = []
-        venues << Venue.get(params.id)
-        def model = [venues:venues]
+        def model = publishedVenues()
         articleService.addHeadersAndKeywords(model,request,response)
         render(view:'visiting',model:model)
     }
@@ -141,7 +142,7 @@ class AboutUsController {
     def roomHire = {
         def allArticles = Article.allAboutUsArticles("title", "asc").list()
         def article = allArticles.find { article -> article.title == 'Room Hire' }
-        def venues = Venue.notDeleted.list()
+        def venues = this.publishedVenues()['venues']
         def model = [article:article,venues:venues];		
         articleService.addHeadersAndKeywords(model,request,response)
         model

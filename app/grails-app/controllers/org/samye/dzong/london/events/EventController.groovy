@@ -59,6 +59,12 @@ class EventController extends CMSController {
     def articleService
     def static final ADMIN_ROLES = ['Editor', 'Administrator'] 
 
+    EventController() {
+        // Not strictly necessary as methods are injected via Bootstrap
+        // however added here to support changes at runtime
+        CMSUtil.addCMSMethods(this)        
+    }
+    
     def index = {
         redirect(action: home)
     }
@@ -189,9 +195,12 @@ class EventController extends CMSController {
                 int daysUntilEndOfMonth = Days.daysBetween(start, lastDayOfMonth).getDays();
                 start = start.toDate()
 
-                def publishedEvents = Event.unorderedPublished().list(params);
-                publishedEvents.sort()
-                def events = publishedEvents.findAll { event ->
+                def allPublishedEventsModel = this.publishedEvents(params);
+                println allPublishedEventsModel
+                println allPublishedEventsModel.events
+                def allPublishedEvents = allPublishedEventsModel.events
+                allPublishedEvents.sort()
+                def events = allPublishedEvents.findAll { event ->
                     def rule = event.dates[0]
                     return !rule.isRule && event.isOnDay(start, daysUntilEndOfMonth)
                 };
@@ -200,7 +209,7 @@ class EventController extends CMSController {
                 model << [events: events, title: start.format(datePat)]
             } catch(error) {
                 log.warn "Unable to generate list of events", error
-                def events = Event.unorderedPublished().list(params);
+                def events = publishedEvents(params)['events'];
                 model << [events: events, title: 'events.all.title']
             }
         } else {
