@@ -24,13 +24,10 @@
 package org.samye.dzong.london.news
 
 import org.samye.dzong.london.community.Article
-
+import org.samye.dzong.london.cms.*
 
 /*
  * News content url handler. Displays only public facing pages.
- * TODO: Add support for similar articles
- * TODO: Add support for article not found
- * TODO: Add support for params to lists 
  *
  * @author Leanne Northrop
  * @since  November 2009
@@ -38,16 +35,28 @@ import org.samye.dzong.london.community.Article
 class NewsController {
     def articleService
 
+    NewsController() {
+        CMSUtil.addFinderMethods(this)        
+    }
+    
     def index = {
         redirect(action:home)
     }
 
     def home = {
-        def articles = Article.featuredNewsArticles('datePublished', 'desc').list()
-        def archivedArticles = Article.archivedNewsArticles('datePublished', 'desc').list(max:8)
-        def totalPublishedNewsArticles = articles.size()
-        def totalArchived = Article.publishState('Archived').count()
-        def model = [ total: totalPublishedNewsArticles, totalArchived: totalArchived, articles: articles, archivedArticles: archivedArticles]
+        def model = [:]
+        def articles = findPublishedNewsFeaturedArticles([sort:'datePublished',order:'desc'])
+        model.putAll(articles)
+        
+        def archivedArticles = findArchivedNewsAllArticles([sort:'datePublished',order:'desc',max:8])
+        model.putAll(archivedArticles)
+        
+        def totalPublishedNewsArticles = findPublishedNewsAllArticles().totalAllArticles
+        model.put('total', totalPublishedNewsArticles)
+        
+        def totalArchived = findArchivedNewsAllArticles().totalAllArticles
+        model.put('totalArchived', totalArchived)
+        
         articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)
     }
@@ -61,23 +70,23 @@ class NewsController {
     }
 
     def view = {
-        def model = articleService.view(params.id)
+        def model = viewArticle(params.id)
         articleService.addHeadersAndKeywords(model,request,response)
-        render(view: 'view', model: model)
+        return model
     }
 
     def list(archived,request,response) {
-        def articles = []
+        def model = [:] 
+        
         def title
         if (archived) {
-            articles = Article.archivedNewsArticles('datePublished', 'desc').list()
-            title = 'news.archived.title'
+            model = findArchivedNewsAllArticles(params)            
+            model.put('title','news.archived.title')
         } else {
-            articles = Article.newsArticles('datePublished', 'desc').list()
-            title = 'news.current.title'
+            model = findPublishedNewsAllArticles(params)
+            model.put('title','news.current.title')
         }
 
-        def model = [ news: articles, title: title]
         articleService.addHeadersAndKeywords(model,request,response)
         model
     }

@@ -142,7 +142,7 @@ class WellbeingControllerSpec extends ControllerSpec {
     def stubFinderMethods(list) {
         list.each {
             controller.metaClass."findPublished${it}" = {params-> 
-                def name = it - "Buddhist"
+                def name = it - "WellBeing"
                 name = name.substring(0,1).toLowerCase() + name.substring(1)
                 [(name):[]]
             }            

@@ -44,11 +44,8 @@ class NewsControllerSpec extends ControllerSpec {
 
     def 'Home generates list of current and archived news items'() {
         setup:
-        def news = []
-        def archived = []
-        Article.metaClass.static.featuredNewsArticles = {a,b-> return new Expando(list: { news })} 
-        Article.metaClass.static.archivedNewsArticles = {a,b-> return new Expando(list: { m -> archived })} 
-        Article.metaClass.static.publishState = {a-> return new Expando(count: { 0 })} 
+        stubFinderMethods("Published",["NewsFeaturedArticles","NewsAllArticles"])
+        stubFinderMethods("Archived",["NewsAllArticles"])        
 
         and: "article service is present"
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
@@ -58,58 +55,69 @@ class NewsControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'index'
-        controller.modelAndView.model.linkedHashMap.articles == news 
-        controller.modelAndView.model.linkedHashMap.archivedArticles == archived 
-        controller.modelAndView.model.linkedHashMap.total == news.size()
-        controller.modelAndView.model.linkedHashMap.totalArchived == 0 
+        controller.modelAndView.model.linkedHashMap.featuredArticles == [] 
+        controller.modelAndView.model.linkedHashMap.allArticles == [] 
     }
 
     def 'current generates list of current news articles'() {
         setup:
-        def news = []
-        Article.metaClass.static.newsArticles = {a,b-> return new Expando(list: { news })} 
+        stubFinderMethods("Published",["NewsAllArticles"])
 
         and: "article service is present"
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
 
         when:
-        controller.current()
+        def model = controller.current()
 
         then:
-        controller.modelAndView.viewName == 'list'
-        controller.modelAndView.model.linkedHashMap.news == news 
-        controller.modelAndView.model.linkedHashMap.title == 'news.current.title' 
+        model.allArticles == []
+        model.title == 'news.current.title' 
     }
 
     def 'archived generates list of older news articles'() {
         setup:
-        def news = []
-        Article.metaClass.static.archivedNewsArticles = {a,b-> return new Expando(list: { news })} 
+        stubFinderMethods("Archived",["NewsAllArticles"])
 
         and: "article service is present"
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
 
         when:
-        controller.archived()
+        def model = controller.archived()
 
         then:
-        controller.modelAndView.viewName == 'list'
-        controller.modelAndView.model.linkedHashMap.news == news 
-        controller.modelAndView.model.linkedHashMap.title == 'news.archived.title' 
+        model.allArticles == []
+        model.title == 'news.archived.title' 
     }
 
     def 'view displays requested news article'() {
         setup:
-        def m = [:]
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{id->m})
+        stubViewMethods(["Article"])
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
         when:
-        controller.view()
+        def model = controller.view()
 
         then:
-        controller.modelAndView.viewName == 'view'
-        controller.modelAndView.model.linkedHashMap == m 
+        model.id == 1
     }
 
+    
+    def stubFinderMethods(state, list) {
+        list.each {
+            controller.metaClass."find${state}${it}" = {params-> 
+                def name = it - "News"
+                name = name.substring(0,1).toLowerCase() + name.substring(1)
+                [(name):[]]
+            }            
+        }        
+    }
+    
+    def stubViewMethods(list) {
+        list.each {
+            controller.metaClass."view${it}" = {id-> 
+                [(it.toLowerCase()): null, id: id, similar:[]]
+            }            
+        }        
+    } 
 }

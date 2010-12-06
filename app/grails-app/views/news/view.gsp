@@ -22,18 +22,19 @@
     ----------------------------------------------------------------------------}%
 
 <%--
-Display news article.
+    Display news article.
     User: Leanne
-Date: Jan 24, 2010, 2:00:21 PM
+    Date: Jan 24, 2010, 2:00:21 PM
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
   <head>
-    <title>${articleInstance.title}</title>
+    <title>${article?.title}</title>
     <meta name="layout" content="main"/>
   </head>
   <body>
-  <g:render template="/article" model="[articleInstance:articleInstance,articles:articles]"/>
+  <g:render template="/article" model="[articleInstance:article,articles:similar]"/>
 </body>
 </html>

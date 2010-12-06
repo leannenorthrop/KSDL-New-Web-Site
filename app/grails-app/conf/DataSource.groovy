@@ -52,7 +52,7 @@ def homeDir = grails.home[0]
 environments {
     development {
         dataSource {
-            //jndiName = "java:comp/jdbc/KsdlDB"
+//            jndiName = "java:comp/jdbc/KsdlDB"
             // one of 'create', 'create-drop','update'
             //dbCreate = "update"
             /*url = "jdbc:mysql://localhost/londonsamyedzong"
@@ -65,7 +65,7 @@ environments {
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""
-            dialect = org.hibernate.dialect.HSQLDialect     
+            dialect = org.hibernate.dialect.HSQLDialect 
             //loggingSql = true       
         }
     }
@@ -85,6 +85,7 @@ environments {
     production {
         dataSource {
             url = "jdbc:hsqldb:hsql://localhost/lsd"
+
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""

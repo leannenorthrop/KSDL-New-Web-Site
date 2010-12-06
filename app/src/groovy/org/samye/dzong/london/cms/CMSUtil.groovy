@@ -43,7 +43,7 @@ class CMSUtil {
     def static addFinderMethods(artefactClass, log=null) {
         CMSUtil.GRAILS_APPLICATION?.domainClasses.each { domainClass ->
             if (Publishable.isAssignableFrom(domainClass.clazz)) { 
-                ['Buddhist':'B','AboutUs':'A','Community':'C','Meditation':'M','WellBeing':'W'].each { section,category ->
+                ['Buddhist':'B','AboutUs':'A','Community':'C','Meditation':'M','WellBeing':'W','News':'N'].each { section,category ->
                     ["Unpublished","Published","Archived","Ready"].each { publicationState -> 
                         ['home','featured','deleted','all'].each { limit ->
                             artefactClass.metaClass."find${publicationState}${section}${limit.capitalize()}${domainClass.name}s" = { params ->
