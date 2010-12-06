@@ -35,13 +35,14 @@ import org.apache.shiro.SecurityUtils
  * @author Leanne Northrop
  * @since  16th November, 2010, 16:55
  */
-class CMSUtilIntegrationSpec extends IntegrationHelper {
+class CMSUtilSpec extends IntegrationHelper {
     def user
     def roles = []
     def grailsApplication
 
     def prepare() {
         CMSUtil.addCMSMethods(String)
+        CMSUtil.addFinderMethods(String)        
         clean()
         user = newUser()
         SecurityUtils.metaClass.static.getSubject = {
@@ -63,7 +64,7 @@ class CMSUtilIntegrationSpec extends IntegrationHelper {
         def results = 'a string'."view${domain}"(obj.id)
         
         then:
-        results."${domain}" == obj 
+        results."${domain.toLowerCase()}" == obj 
 
         where:
         domain << domainClassesToTest()
@@ -213,6 +214,27 @@ class CMSUtilIntegrationSpec extends IntegrationHelper {
 
         where:
         domain << domainClassesToTest()
-    }                     
+    }   
+    
+    def 'findPublishedBuddhistHome'() {
+        given:
+        println "Testing ${domain}..."
+        prepare()
+        def obj = this."new${domain}"("Testing ${domain} findPublishedMeditationHome",true)
+        obj.author = user
+        obj.home = true
+        obj.save(flush:true)
+            
+        when:
+        def results = 'a string'."findPublishedMeditationHome${domain}s"([sort:'author',order:'asc'])
+        
+        then:
+        results."${names.value}" == 1
+        results."${names.key}" != null
+
+        where:
+        domain << ['Article','Event']
+        names << ['articles':'totalHomeArticles', 'events':'totalHomeEvents']
+    }                  
 }
 
