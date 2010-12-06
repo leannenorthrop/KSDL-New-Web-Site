@@ -1,8 +1,8 @@
-package org.samye.dzong.london.community
+package app
 
 import grails.test.*
 
-class AboutUsControllerTests extends ControllerUnitTestCase {
+class UpdateFlickrCacheJobTests extends GrailsUnitTestCase {
     protected void setUp() {
         super.setUp()
     }

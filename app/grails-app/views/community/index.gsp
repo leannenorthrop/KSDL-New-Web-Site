@@ -34,10 +34,10 @@ Date: Feb 12, 2010, 21:59:21 PM
   </head>
   <body>
     <div class="grid_10">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
+      <g:render template="/toparticles" model="[articles:homeArticles]"/>
     </div>
     <div class="grid_6">
-      <g:render template="/eventlist" model="[events: events,heading:'event.community']"/>
+      <g:render template="/eventlist" model="[events: featuredEvents,heading:'event.community']"/>
     </div>
     <div class="clear"></div>
 

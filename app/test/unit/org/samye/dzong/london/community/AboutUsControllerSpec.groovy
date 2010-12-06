@@ -21,7 +21,7 @@
  * “Samye Content Management System” written by Leanne Northrop.
  */
 
-package org.samye.dzong.london.wellbeing
+package org.samye.dzong.london.community
 
 import grails.test.*
 import grails.plugin.spock.*
@@ -31,45 +31,43 @@ import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.community.Teacher
 import org.samye.dzong.london.users.ShiroUser
 import org.samye.dzong.london.venue.*
+import org.samye.dzong.london.events.Event
+import org.samye.dzong.london.community.Article
+import org.samye.dzong.london.site.Setting
+import org.samye.dzong.london.community.Teacher
+import org.samye.dzong.london.site.Link
+import org.samye.dzong.london.media.*
 
 /*
- * Unit test for Wellbeing controller
+ * Unit test for About Us content controller.
  *
  * @author Leanne Northrop
- * @since  3rd Nov 2010 20:00
+ * @since  6th December 2010, 18:09
  */
-class WellbeingControllerSpec extends ControllerSpec {
-    def articleService
-    def teacherService    
+class AboutUsControllerSpec extends ControllerSpec {
 
-    def 'Index redirects to home'() {
-        when:
-        controller.index()
 
-        then:
-        redirectArgs == [action: controller.home]
-    }
-
-    def 'home'() {
+    def 'section page featches home and featured articles, teachers, events and slideshow album'() {
         setup:
-        stubFinderMethods(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})        
+        stubFinderMethods(["AboutUsHomeArticles", "AboutUsFeaturedArticles"])
+        stubCMSMethods(["Teachers","Venues"])
         mockDomain(Teacher)
+        mockDomain(Link)
 
         when:
-        controller.home()
+        def model = controller.index()
 
         then:
-        controller.modelAndView.viewName == 'index'
-        controller.modelAndView.model.linkedHashMap.homeArticles == []
-        controller.modelAndView.model.linkedHashMap.featuredArticles == []
-        controller.modelAndView.model.linkedHashMap.therapists == [] 
+        model.homeArticles == [] 
+        model.featuredArticles == [] 
+        model.teachers == [] 
     }
 
-    def 'list displays list of all wellbeing articles'() {
+    def 'list should fetch all AboutUs content'() {
         setup:
-        stubFinderMethods(["WellBeingAllArticles"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
+        stubFinderMethods(["AboutUsAllArticles"])
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.list()
@@ -78,7 +76,7 @@ class WellbeingControllerSpec extends ControllerSpec {
         model.allArticles == [] 
     }
 
-    def 'view displays wellbeing a single article and returns requested article id'() {
+    def 'view should return id of requested article'() {
         setup:
         stubViewMethods(["Article"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
@@ -91,55 +89,24 @@ class WellbeingControllerSpec extends ControllerSpec {
         model.id == 1
     }
 
-    def 'event displays wellbeing event and similar items'() {
-        setup: "when url id param set to 1"
-        def id = 1
-        mockParams << [id:id]
-
-        and: "event is found"
-        stubViewMethods(["Event"])
-
-        and: "services are present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-
-        when:
-        def model = controller.event()
-
-        then:
-        model.id == id
-    }
-   
-    def 'events displays list of wellbeing events'() {
-        setup:
-        stubFinderMethods(["WellBeingAllEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-
-        when:
-        def model = controller.events()
-
-        then:
-        model.allEvents == []
-    }
-    
-
-    def 'therapist'() {
+    def 'teacher'() {
         stubViewMethods(["Teacher"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
         when:
-        def model = controller.therapist()
+        def model = controller.teacher()
 
         then:
         model.id == 1  
-    }    
+    }
 
     def validEvent() {
         def event = new Event(title: "Meditation", 
                               summary: "summary", 
                               content: "content",
                               publishState: 'Published',
-                              category: 'M',
+                              category: 'B',
                               isRepeatable: false,
                               organizer: new ShiroUser(username:"leanne.northrop@abc.com"),
                               leader: new Teacher(name:"AKA",title:'U'),
@@ -150,22 +117,30 @@ class WellbeingControllerSpec extends ControllerSpec {
         return event
     }
     
-    
     def stubFinderMethods(list) {
         list.each {
             controller.metaClass."findPublished${it}" = {params-> 
-                def name = it - "WellBeing"
+                def name = it - "AboutUs"
                 name = name.substring(0,1).toLowerCase() + name.substring(1)
                 [(name):[]]
             }            
         }        
     }
+     
     
+    def stubCMSMethods(list) {
+        list.each {
+            controller.metaClass."published${it}" = {params-> 
+                [(it.toLowerCase()):[]]
+            }            
+        }        
+    }
+            
     def stubViewMethods(list) {
         list.each {
             controller.metaClass."view${it}" = {id-> 
                 [(it.toLowerCase()): null, id: id, similar:[]]
             }            
         }        
-    }      
+    }    
 }
