@@ -40,7 +40,6 @@ import org.samye.dzong.london.venue.*
  */
 class WellbeingControllerSpec extends ControllerSpec {
     def articleService
-    def eventService
     def teacherService    
 
     def 'Index redirects to home'() {
@@ -53,13 +52,8 @@ class WellbeingControllerSpec extends ControllerSpec {
 
     def 'home'() {
         setup:
-        def homeArticles = []
-        def topArticles = []
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-        Article.metaClass.static.homeWellbeingArticles = {a,b-> return new Expando(list: { homeArticles })} 
-        Article.metaClass.static.featuredWellbeingArticles = {a,b-> return new Expando(list: { topArticles })} 
-        Event.metaClass.static.wellbeing = {a,b-> return new Expando(list: { homeArticles })} 
-        Article.metaClass.static.allWellbeingArticlesNotOrdered = {return new Expando(count: { 0})} 
+        stubFinderMethods(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents"])
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockDomain(Teacher)
 
         when:
@@ -67,30 +61,27 @@ class WellbeingControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'index'
-        controller.modelAndView.model.linkedHashMap.topArticles == topArticles  
-        controller.modelAndView.model.linkedHashMap.articles == homeArticles  
-        controller.modelAndView.model.linkedHashMap.total == 0 
+        controller.modelAndView.model.linkedHashMap.wellBeingHomeArticles == []
+        controller.modelAndView.model.linkedHashMap.wellBeingFeaturedArticles == []
         controller.modelAndView.model.linkedHashMap.therapists == [] 
     }
 
-    def 'list displays list of wellbeing articles'() {
+    def 'list displays list of all wellbeing articles'() {
         setup:
-        def articles = []
+        stubFinderMethods(["WellBeingAllArticles"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-        Article.metaClass.static.allWellbeingArticles = {a,b-> return new Expando(list: { articles })} 
 
         when:
-        controller.list()
+        def model = controller.list()
 
         then:
-        controller.modelAndView.viewName == 'list'
-        controller.modelAndView.model.linkedHashMap.articles == articles  
-        controller.modelAndView.model.linkedHashMap.title == 'wellbeing.all.articles.title'  
+        model.wellBeingAllArticles == []  
+        model.title == 'wellbeing.all.articles.title'  
     }
 
-    def 'view displays wellbeing article'() {
+    def 'view displays wellbeing a single article and returns requested article id'() {
         setup:
-        def m = [:]
+        stubViewMethods(["Article"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
@@ -98,7 +89,7 @@ class WellbeingControllerSpec extends ControllerSpec {
         def model = controller.view()
 
         then:
-        model == m
+        model.id == 1
     }
 
     def 'event displays wellbeing event and similar items'() {
@@ -107,35 +98,28 @@ class WellbeingControllerSpec extends ControllerSpec {
         mockParams << [id:id]
 
         and: "event is found"
-        def event = validEvent()
-        event.id = id
-        mockDomain(Event,[event])
-        event.save()
+        stubViewMethods(["Event"])
 
         and: "services are present"
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-        controller.eventService = new Expando(findSimilar:{e->[]})
 
         when:
         def model = controller.event()
 
         then:
-        model.event == event
         model.id == id
-        model.similar == [] 
     }
    
     def 'events displays list of wellbeing events'() {
         setup:
-        def m = [:]
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-        controller.eventService = new Expando(list:{a,b->m})
+        stubFinderMethods(["WellBeingAllEvents"])
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.events()
 
         then:
-        model == m
+        model.wellBeingAllEvents == []
     }
 
     def validEvent() {
@@ -153,4 +137,23 @@ class WellbeingControllerSpec extends ControllerSpec {
                               home:false)
         return event
     }
+    
+    
+    def stubFinderMethods(list) {
+        list.each {
+            controller.metaClass."findPublished${it}" = {params-> 
+                def name = it - "Buddhist"
+                name = name.substring(0,1).toLowerCase() + name.substring(1)
+                [(name):[]]
+            }            
+        }        
+    }
+    
+    def stubViewMethods(list) {
+        list.each {
+            controller.metaClass."view${it}" = {id-> 
+                [(it.toLowerCase()): null, id: id, similar:[]]
+            }            
+        }        
+    }      
 }
