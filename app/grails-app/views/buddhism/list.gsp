@@ -35,7 +35,7 @@ Date: Feb 18, 2010,8:44:47 PM
   </head>
   <body>
     <div class="grid_16">
-      <g:render template="/articlelist" model="[articles:articles,heading:'buddhism.all.articles.title',controller:'community',action:'view',moreAction:'all']"/>
+      <g:render template="/articlelist" model="[articles:allArticles,heading:'buddhism.all.articles.title',controller:'community',action:'view',moreAction:'all']"/>
     </div>
   </body>
 </html>

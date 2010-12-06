@@ -29,7 +29,7 @@
   </head>
   <body>
     <div class="grid_12">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
+      <g:render template="/toparticles" model="[articles:homeArticles]"/>
     </div>
     <div class="grid_4">
       <g:render template="/slideshowLink" model="[album:album,relUrl:'slideshow']"/>
@@ -46,10 +46,10 @@
 
     <div class="grid_4">
       <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.category.L', controller: 'buddhism', action:'teacher']"/>        
-      <g:render template="/articlelist" model="[articles:articles,controller:'buddhism',action:'view',total:total,moreAction:'list',heading:'buddhism.articles.title']"/>
+      <g:render template="/articlelist" model="[articles:featuredArticles,controller:'buddhism',action:'view',total:totalAllArticles,moreAction:'list',heading:'buddhism.articles.title']"/>
     </div>
     <div class="grid_12">
-      <g:render template="/eventlist" model="[events: events,heading:'event.buddhism']"/>
+      <g:render template="/eventlist" model="[events: featuredEvents,heading:'event.buddhism']"/>
     </div>
   </body>
 </html>
