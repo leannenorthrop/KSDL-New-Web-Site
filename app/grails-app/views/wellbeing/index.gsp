@@ -28,12 +28,12 @@
   </head>
   <body>
     <div class="grid_12">
-      <g:render template="/toparticles" model="[articles:topArticles]"/>
-      <g:render template="/eventlist" model="[events: events,heading:'event.wellbeing']"/>
+      <g:render template="/toparticles" model="[articles:homeArticles]"/>
+      <g:render template="/eventlist" model="[events: featuredEvents,heading:'event.wellbeing']"/>
     </div>
     <div class="grid_4">  
-      <g:render template="/articlelist" model="[articles:articles,controller:'wellbeing',action:'view',total:total,moreAction:'list',heading:'wellbeing.articles.heading']"/>
-      <g:render template="/articlelist" model="[articles:therapists, heading: 'teacher.category.T', controller: 'aboutUs', action:'teacher']"/>
+      <g:render template="/articlelist" model="[articles:featuredArticles,controller:'wellbeing',action:'view',total:totalAllArticles,moreAction:'list',heading:'wellbeing.articles.heading']"/>
+      <g:render template="/articlelist" model="[articles:therapists, heading: 'teacher.category.T', controller: 'wellbeing', action:'therapist']"/>
     </div>
   </body>
 </html>

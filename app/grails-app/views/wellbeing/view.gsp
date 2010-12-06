@@ -34,6 +34,6 @@ Date: Feb 18, 2010,8:14:03 PM
     <meta name="layout" content="main" />
   </head>
   <body>
-  <g:render template="/article" model="[articleInstance:articleInstance,articles:articles]"/>
+  <g:render template="/article" model="[articleInstance:article,articles:similar]"/>
 </body>
 </html>

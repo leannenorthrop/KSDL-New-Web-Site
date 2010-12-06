@@ -26,6 +26,7 @@ package org.samye.dzong.london.wellbeing
 import org.samye.dzong.london.community.Article
 import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.community.Teacher
+import org.samye.dzong.london.cms.*
 
 /*
  * Simple controller to display well-being content.
@@ -37,50 +38,63 @@ import org.samye.dzong.london.community.Teacher
  * @since  Nov 2009
  */
 class WellbeingController {
-    def articleService
-    def eventService
     def teacherService    
+    def articleService
 
+    WellbeingController() {
+        CMSUtil.addFinderMethods(this) 
+    }
+    
     def index = {
         redirect(action:home)
     }
 
     def home = {
-        def topArticles = Article.homeWellbeingArticles('datePublished','desc').list()
-        def articles = Article.featuredWellbeingArticles('datePublished','desc').list()
-        def totalWellbeing = Article.allWellbeingArticlesNotOrdered().count()
-        def events = Event.wellbeing('featured','desc').list()
+        def model = [:] 
+        
+        addPublishedContent(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents"],model)        
         def therapists = Teacher.findAllByPublishStateAndType('Published', 'T',[sort: "name", order: "asc"])        
-        def model = [topArticles: topArticles, articles: articles,total:totalWellbeing,events:events,therapists:therapists]
+        model.put('therapists',therapists)
         articleService.addHeadersAndKeywords(model,request,response)
+        
         return render(view: 'index',model: model);
     }
 
     def list = {
-        def articles = Article.allWellbeingArticles('datePublished', 'desc').list()
-        def model = [ articles: articles, title: 'wellbeing.all.articles.title']
+        def model = [title: 'wellbeing.all.articles.title'] 
+        addPublishedContent(["WellBeingAllArticles"],model)
         articleService.addHeadersAndKeywords(model,request,response)
-        render(view: 'list', model:model)
+        model        
     }
 
     def view = {
-        def model = articleService.view(params.id)
+        def model = viewArticle(params.id)
         articleService.addHeadersAndKeywords(model,request,response)
-        model
+        return model        
     }
 
     def event = {
-        def event = Event.get(params.id)
-        def id = params.id;
-        def similar = eventService.findSimilar(event)
-        def model = [event: event, id: id, similar:similar]
+        def model = viewEvent(params.id)
         articleService.addHeadersAndKeywords(model,request,response)
-        model
+        return model
     }
 
     def events = {
-        def model = eventService.list('W',params)
+        def model = [:]
+        addPublishedContent(["WellBeingAllEvents"],model,params)
         articleService.addHeadersAndKeywords(model,request,response)
         model
     }
+    
+    def therapist = {
+        def model = viewTeacher(params.id)
+        articleService.addHeadersAndKeywords(model,request,response)
+        model		
+    }
+        
+    def addPublishedContent(contentList,model,params=[sort:'datePublished',order:'desc']) {
+        contentList.each {
+            model.putAll(this."findPublished${it}"(params))
+        }        
+    }    
 }
