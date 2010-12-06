@@ -114,6 +114,13 @@ class Publishable implements Taggable, Commentable  {
         deleted {
             eq('deleted', Boolean.TRUE)
         }
+        
+        publishStateByCategory { final publishState,
+                                 final category ->
+            eq 'deleted', Boolean.FALSE
+            eq 'category', "${category}"
+            eq 'publishState', "${publishState}"
+        }        
     }
     
     def static similar(content,options=null) {
