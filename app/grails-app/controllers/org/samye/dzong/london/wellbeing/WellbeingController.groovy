@@ -37,7 +37,7 @@ import org.samye.dzong.london.cms.*
  * @author Leanne Northrop
  * @since  Nov 2009
  */
-class WellbeingController {
+class WellbeingController extends PublicSectionPageController {
     def teacherService    
     def articleService
 
@@ -59,42 +59,14 @@ class WellbeingController {
         
         return render(view: 'index',model: model);
     }
-
-    def list = {
-        def model = [title: 'wellbeing.all.articles.title'] 
-        addPublishedContent(["WellBeingAllArticles"],model)
-        articleService.addHeadersAndKeywords(model,request,response)
-        model        
-    }
-
-    def view = {
-        def model = viewArticle(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
-        return model        
-    }
-
-    def event = {
-        def model = viewEvent(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
-        return model
-    }
-
-    def events = {
-        def model = [:]
-        addPublishedContent(["WellBeingAllEvents"],model,params)
-        articleService.addHeadersAndKeywords(model,request,response)
-        model
+    
+    def getSectionName() {
+        "WellBeing"
     }
     
     def therapist = {
         def model = viewTeacher(params.id)
         articleService.addHeadersAndKeywords(model,request,response)
         model		
-    }
-        
-    def addPublishedContent(contentList,model,params=[sort:'datePublished',order:'desc']) {
-        contentList.each {
-            model.putAll(this."findPublished${it}"(params))
-        }        
-    }    
+    }  
 }

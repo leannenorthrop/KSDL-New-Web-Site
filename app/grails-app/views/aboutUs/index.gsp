@@ -34,10 +34,6 @@ Date: Feb 12, 2010, 5:43:08 PM
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="grid_12">
-      <g:render template="/toparticles" model="[articles:topArticles,displayTitle:false]"/>
-    </div>
-
     <div class="grid_4">
       <div class="box">
         <h3><g:message code="footer.help"/></h3>
@@ -45,7 +41,7 @@ Date: Feb 12, 2010, 5:43:08 PM
           <li class="menuitem"><g:link controller="aboutUs" action="contactUs"><g:message code="footer.contact.us"/></g:link></li>
           <li class="menuitem"><g:link controller="aboutUs" action="visiting"><g:message code="footer.visit.us"/></g:link></li>
           <li class="menuitem"><g:link controller="aboutUs" action="roomHire"><g:message code="footer.room.hire"/></g:link></li>           
-          <li class="menuitem"><g:message code="teacher.heading.title"/>
+          <li class="menuitem">Teachers/Course Leaders
           <ul>
             <li class="menuitem"><g:link controller="aboutUs" action="lineage"><g:message code="teacher.lineage.heading.title"/></g:link></li>
             <li class="menuitem"><g:link controller="aboutUs" action="teachers"><g:message code="teacher.center.heading.title"/></g:link></li>
@@ -71,7 +67,7 @@ Date: Feb 12, 2010, 5:43:08 PM
           <li class="menuitem">Information
             <ul>
               <g:if test="${articles}">
-                <g:each var="article" in="${articles}">
+                <g:each var="article" in="${featuredArticles}">
                   <li class="menuitem"><g:link controller="aboutUs" action="view" id="${article.id}" class="menuitem">${article?.title}</g:link></li>
                 </g:each>
               </g:if>
@@ -80,16 +76,21 @@ Date: Feb 12, 2010, 5:43:08 PM
         </ul>
       </div>
     </div>
+          
+    <div class="grid_12">
+      <g:render template="/toparticles" model="[articles:homeArticles,displayTitle:false]"/>
+      <div class="container_16">
+            <div class="grid_8">
+              <g:render template="/articlelist" model="[articles:visitingTeachers, heading: 'Visiting Teachers &amp; Course Leaders', controller: 'aboutUs', action:'teacher']"/>
+            </div>
+
+            <div class="grid_8">
+              <g:render template="/articlelist" model="[articles:teachers, heading: 'Center Teachers &amp; Course Leaders', controller: 'aboutUs', action:'teacher']"/>
+            </div>          
+      </div>      
+    </div>
 
     <div class="clear"></div>
-
-    <div class="grid_8">
-      <g:render template="/articlelist" model="[articles:visitingTeachers, heading: 'teacher.category.V', controller: 'aboutUs', action:'teacher']"/>
-    </div>
-
-    <div class="grid_8">
-      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.heading.title', controller: 'aboutUs', action:'teacher']"/>
-    </div>
 
   </body>
 </html>

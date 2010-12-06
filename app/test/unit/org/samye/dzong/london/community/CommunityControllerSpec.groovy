@@ -21,7 +21,7 @@
  * “Samye Content Management System” written by Leanne Northrop.
  */
 
-package org.samye.dzong.london.wellbeing
+package org.samye.dzong.london.community
 
 import grails.test.*
 import grails.plugin.spock.*
@@ -31,16 +31,20 @@ import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.community.Teacher
 import org.samye.dzong.london.users.ShiroUser
 import org.samye.dzong.london.venue.*
+import org.samye.dzong.london.events.Event
+import org.samye.dzong.london.community.Article
+import org.samye.dzong.london.site.Setting
+import org.samye.dzong.london.community.Teacher
+import org.samye.dzong.london.site.Link
+import org.samye.dzong.london.media.*
 
 /*
- * Unit test for Wellbeing controller
+ * Unit test for Community content controller.
  *
  * @author Leanne Northrop
- * @since  3rd Nov 2010 20:00
+ * @since  6th December 2010, 18:09
  */
-class WellbeingControllerSpec extends ControllerSpec {
-    def articleService
-    def teacherService    
+class CommunityControllerSpec extends ControllerSpec {
 
     def 'Index redirects to home'() {
         when:
@@ -50,9 +54,9 @@ class WellbeingControllerSpec extends ControllerSpec {
         redirectArgs == [action: controller.home]
     }
 
-    def 'home'() {
+    def 'section page featches home and featured articles, teachers, and events'() {
         setup:
-        stubFinderMethods(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents"])
+        stubFinderMethods(["CommunityHomeArticles", "CommunityFeaturedArticles","CommunityAllArticles","CommunityFeaturedEvents"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockDomain(Teacher)
 
@@ -61,15 +65,17 @@ class WellbeingControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'index'
-        controller.modelAndView.model.linkedHashMap.homeArticles == []
-        controller.modelAndView.model.linkedHashMap.featuredArticles == []
-        controller.modelAndView.model.linkedHashMap.therapists == [] 
+        controller.modelAndView.model.linkedHashMap.homeArticles == [] 
+        controller.modelAndView.model.linkedHashMap.featuredArticles == [] 
+        controller.modelAndView.model.linkedHashMap.featuredEvents == [] 
+        controller.modelAndView.model.linkedHashMap.volunteerOpportunities == [] 
+        controller.modelAndView.model.linkedHashMap.community == []         
     }
 
-    def 'list displays list of all wellbeing articles'() {
+    def 'list should fetch all Community content'() {
         setup:
-        stubFinderMethods(["WellBeingAllArticles"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
+        stubFinderMethods(["CommunityAllArticles"])
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.list()
@@ -78,7 +84,7 @@ class WellbeingControllerSpec extends ControllerSpec {
         model.allArticles == [] 
     }
 
-    def 'view displays wellbeing a single article and returns requested article id'() {
+    def 'view should return id of requested article'() {
         setup:
         stubViewMethods(["Article"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
@@ -90,28 +96,23 @@ class WellbeingControllerSpec extends ControllerSpec {
         then:
         model.id == 1
     }
-
-    def 'event displays wellbeing event and similar items'() {
-        setup: "when url id param set to 1"
-        def id = 1
-        mockParams << [id:id]
-
-        and: "event is found"
+    
+    def 'event'() {
+        setup:
         stubViewMethods(["Event"])
-
-        and: "services are present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-
+        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
+        mockParams << [id:1]
+        
         when:
         def model = controller.event()
 
         then:
-        model.id == id
+        model.id == 1
     }
-   
-    def 'events displays list of wellbeing events'() {
+
+    def 'events'() {
         setup:
-        stubFinderMethods(["WellBeingAllEvents"])
+        stubFinderMethods(["CommunityAllEvents"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
@@ -120,26 +121,13 @@ class WellbeingControllerSpec extends ControllerSpec {
         then:
         model.allEvents == []
     }
-    
-
-    def 'therapist'() {
-        stubViewMethods(["Teacher"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-        mockParams << [id:1]
-
-        when:
-        def model = controller.therapist()
-
-        then:
-        model.id == 1  
-    }    
 
     def validEvent() {
         def event = new Event(title: "Meditation", 
                               summary: "summary", 
                               content: "content",
                               publishState: 'Published',
-                              category: 'M',
+                              category: 'B',
                               isRepeatable: false,
                               organizer: new ShiroUser(username:"leanne.northrop@abc.com"),
                               leader: new Teacher(name:"AKA",title:'U'),
@@ -150,22 +138,21 @@ class WellbeingControllerSpec extends ControllerSpec {
         return event
     }
     
-    
     def stubFinderMethods(list) {
         list.each {
             controller.metaClass."findPublished${it}" = {params-> 
-                def name = it - "WellBeing"
+                def name = it - "Community"
                 name = name.substring(0,1).toLowerCase() + name.substring(1)
                 [(name):[]]
             }            
         }        
     }
-    
+        
     def stubViewMethods(list) {
         list.each {
             controller.metaClass."view${it}" = {id-> 
                 [(it.toLowerCase()): null, id: id, similar:[]]
             }            
         }        
-    }      
+    }    
 }

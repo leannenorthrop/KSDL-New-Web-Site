@@ -36,9 +36,8 @@ import org.samye.dzong.london.cms.*
  * @author Leanne Northrop
  * @since  November 2009
  */
-class BuddhismController {
+class BuddhismController extends PublicSectionPageController {
     def articleService
-    def flickrService
     
     BuddhismController() {
         CMSUtil.addFinderMethods(this)        
@@ -56,13 +55,7 @@ class BuddhismController {
         def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
         model.put('teachers',lineageTeachers)
 
-        def album = []
-        try {
-            def ss = Setting.buddhistSlideshow().list()
-            album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
-        } catch(error) {
-            log.error("Unable to fetch flickr album for slideshow link", error)		
-        }
+        def album = getAlbum()
         model.put('album',album)
         model.put('links',Link.findAllBySection("B"))
 
@@ -71,47 +64,7 @@ class BuddhismController {
         return render(view: 'index',model: model);
     }
 
-    def list = {
-        def model = [title: 'buddhism.all.articles.title'] 
-        addPublishedContent(["BuddhistAllArticles"],model)
-        articleService.addHeadersAndKeywords(model,request,response)
-        model
-    }
-
-    def view = {
-        def model = viewArticle(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
-        return model
-    }
-
-    def event = {
-        def model = viewEvent(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
-        return model
-    }
-
-    def events = {
-        def model = [:]
-        addPublishedContent(["BuddhistAllEvents"],model,params)
-        articleService.addHeadersAndKeywords(model,request,response)
-        model
-    }
-
-    def slideshow = {
-        def ss = Setting.buddhistSlideshow().list()
-        def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
-        [album:album]
-    }
-    
-    def teacher = {
-        def model = viewTeacher(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
-        model		
-    }
-    
-    def addPublishedContent(contentList,model,params=[sort:'datePublished',order:'desc']) {
-        contentList.each {
-            model.putAll(this."findPublished${it}"(params))
-        }        
+    def getSectionName() {
+        "Buddhist"
     }
 }

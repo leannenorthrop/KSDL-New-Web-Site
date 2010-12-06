@@ -34,7 +34,7 @@ Date: Jan 24, 2010, 2:00:21 PM
   </head>
   <body>
     <div class="grid_16">
-      <g:render template="/articlelist" model="[articles:articles,heading:'meditation.articles.title',controller:'meditation',action:'view',moreAction:'all']"/>
+      <g:render template="/articlelist" model="[articles:allArticles,heading:'meditation.articles.title',controller:'meditation',action:'view',moreAction:'all']"/>
     </div>
   </body>
 </html>

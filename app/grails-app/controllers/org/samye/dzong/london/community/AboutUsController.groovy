@@ -33,35 +33,31 @@ import org.samye.dzong.london.venue.Room
  * @author Leanne Northrop
  * @since  Feburary, 2010
  */
-class AboutUsController {
+class AboutUsController extends PublicSectionPageController  {
     def articleService
     def teacherService
     
     AboutUsController() {
         CMSUtil.addCMSMethods(this)
+        CMSUtil.addFinderMethods(this)        
     }
     
+    def getSectionName() {
+        "AboutUs"
+    }
+        
     def index = {
-        def community = Teacher.findByName('Community');
-        def visitingTeachers = Teacher.findAllByPublishStateAndType('Published', 'V',[sort: "name", order: "asc"])
-        def teachers = Teacher.findAllByPublishStateAndType('Published', 'C',[sort: "name", order: "asc"])
-        teachers = teachers.findAll{teacher -> teacher.name != 'Community'}
+        def model = [:]         
+        addPublishedContent(["AboutUsHomeArticles", "AboutUsFeaturedArticles"],model)
+        def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
+        def visitingTeachers = publishedTeachers.findAll {it.type == 'V'}
+        model.put('visitingTeachers',visitingTeachers)                
+        def teachers = publishedTeachers.findAll {it.type == 'C'}
+        model.put('teachers',teachers)        
         def venues = publishedVenues().'venues'
-        def allArticles = Article.allAboutUsArticles("title", "asc").list()
-        def topArticles = Article.aboutUsTopArticles("title", "asc").list()
-        def model = [topArticles: topArticles, articles: allArticles, visitingTeachers: visitingTeachers, teachers:teachers,venues:venues];
+        model.put('venues',venues)
         articleService.addHeadersAndKeywords(model,request,response)
         model
-    }
-
-    def view = {
-        def model = articleService.view(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
-        if (!model) {
-            redirect(action:home)
-        } else {
-            render(view: 'view', model: model)
-        }
     }
 
     def contactUs = {
@@ -89,39 +85,13 @@ class AboutUsController {
         render(view:'visiting',model:model)
     }
 	
-    def teacher = {
-        def teacher = Teacher.get(params.id)
-        if (!teacher) {
-            // TODO: render 404
-            redirect(uri: '/')
-        }
-        else {
-            /* TODO link in articles that mention the teacher
-            def aboutUsArticles = articleService.publishedByTags(['about us']);
-            aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
-            if (model['articles']) {
-            def articles = model['articles']
-            articles << aboutUsArticles
-            } else {
-            model['articles'] = aboutUsArticles
-            }*/
-            def events = teacherService.events(params.id);
-            def articles = []
-            if (teacher.name == 'Community'){
-                articles = articleService.publishedByTags(['about us']);
-            }
-            def model = [teacher: teacher, id: params.id, events:events, articles:articles]
-            articleService.addHeadersAndKeywords(model,request,response)
-            model
-        }		
-    }
-	
     def lineage = {
         def lineageArticles = []
         def lineageTeachers = []
         try {
             lineageArticles = articleService.findByTag('lineage',[])
-            lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
+            def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
+            lineageTeachers = publishedTeachers.findAll {it.type == 'L'}
         } catch (error) {
             log.error("AboutUs controller encountered an error.",error)
         }
@@ -132,8 +102,8 @@ class AboutUsController {
     }
 	
     def teachers = {
-        def teachers = Teacher.findAllByPublishState('Published', [sort: "name", order: "asc"])
-        teachers = teachers.findAll{teacher -> teacher.name != 'Community' && teacher.type != 'L'}
+        def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
+        def teachers = publishedTeachers.findAll {it.type == 'C'}
         def model = [teachers:teachers];		
         articleService.addHeadersAndKeywords(model,request,response)
         model

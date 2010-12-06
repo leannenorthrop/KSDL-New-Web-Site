@@ -24,7 +24,6 @@
 package org.samye.dzong.london.buddhism
 
 import grails.test.*
-import grails.test.*
 import grails.plugin.spock.*
 
 import org.samye.dzong.london.community.Article
@@ -61,6 +60,7 @@ class BuddhismControllerSpec extends ControllerSpec {
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         Setting.metaClass.static.buddhistSlideshow = { new Expando(list: {[]}) }
         FlickrService.metaClass.getPhotosetCover = { [] }
+        FlickrService.metaClass.getPhotoset = {i-> [] }        
         controller.flickrService = new FlickrService()
         mockDomain(Teacher)
         mockDomain(Link)
@@ -78,17 +78,19 @@ class BuddhismControllerSpec extends ControllerSpec {
         controller.modelAndView.model.linkedHashMap.teachers == [] 
     }
 
-    def 'list should fetch all budhist content'() {
+    def 'list should fetch all Buddhist content'() {
         setup:
         stubFinderMethods(["BuddhistAllArticles"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-
+        Setting.metaClass.static.buddhistSlideshow = { new Expando(list: {[]}) }
+        FlickrService.metaClass.getPhotoset = {i-> album }
+        controller.flickrService = new FlickrService()
+        
         when:
         def model = controller.list()
 
         then:
         model.allArticles == [] 
-        model.title == 'buddhism.all.articles.title'
     }
 
     def 'view should return id of requested article'() {
@@ -133,7 +135,7 @@ class BuddhismControllerSpec extends ControllerSpec {
         setup:
         def album = []
         Setting.metaClass.static.buddhistSlideshow = { new Expando(list: {[]}) }
-        FlickrService.metaClass.getPhotoset = { album }
+        FlickrService.metaClass.getPhotoset = {i-> album }
         controller.flickrService = new FlickrService()
 
         when:

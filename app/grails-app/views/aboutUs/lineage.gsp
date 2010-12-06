@@ -30,16 +30,14 @@ Date: Jun 11, 2010, 7:21:08 PM
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title><g:message code="teacher.category.L"/></title>
+    <title>Lineage Teachers</title>
     <meta name="layout" content="main">
   </head>
   <body>
     <div class="grid_16">
-      <g:render template="/articlelist" model="[articles:articles,heading: 'teacher.category.L', controller: 'aboutUs', action:'view']"/>
-      <g:render template="/articlelist" model="[articles:teachers, heading: 'teacher.category.L', controller: 'teacher', action:'view']"/>      
+      <g:render template="/articlelist" model="[articles:teachers, heading: 'Lineage Teachers', controller: 'teacher', action:'view']"/>      
+      <g:render template="/articlelist" model="[articles:articles,heading: 'Content', controller: 'aboutUs', action:'view']"/>      
     </div>
-
     <div class="clear"></div>
-
   </body>
 </html>
