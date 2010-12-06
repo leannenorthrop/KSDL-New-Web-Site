@@ -79,28 +79,9 @@ ${Setting.findByName('SiteMessage').value.encodeAsTextile()}
                 </div>
     	    </g:each>
     	</div>
-    </div>    
-</div>
-<div class="grid_4">
-  <g:render template="/slideshowLink" model="[album:album,relUrl:'home/slideshow']"/>
-</div>      
-<div class="clear"></div>        
-<div class="grid_12">    
-  <g:render template="/shortEventsList" model="[events: events, heading: 'home.events']"/>
-</div>
-<div class="grid_4">
-  <g:render template="/shortnewslist" model="[articles: newsArticles, heading: 'home.news']"/>
-  <div class="clear"></div>
-  <div class="box services">
-    <h3><g:message code="service.header"/></h3>
-    <ul class="menu">
-      <g:each var="link" in="${links}">
-        <li>${link}</li>
-      </g:each>
-    </ul>
-  </div>
-</div>
-<div class="clear"></div>
+    </div>  
+      <g:render template="/shortEventsList" model="[events: events, heading: 'home.events']"/>
+    <div class="container_16"> 
 <div class="grid_8">
   <g:render template="/toparticles" model="[articles:meditationArticles,controller:'meditation']"/>
 </div>
@@ -114,6 +95,21 @@ ${Setting.findByName('SiteMessage').value.encodeAsTextile()}
 <div class="grid_8">
   <g:render template="/toparticles" model="[articles:wellbeingArticles,controller:'wellbeing']"/>
 </div>    
-<div class="clear"></div>    
+<div class="clear"></div>         
+    </div>
+</div>
+<div class="grid_4">
+  <g:render template="/slideshowLink" model="[album:album,relUrl:'home/slideshow']"/>
+  <div class="box services">
+    <h3><g:message code="service.header"/></h3>
+    <ul class="menu">
+      <g:each var="link" in="${links}">
+        <li>${link}</li>
+      </g:each>
+    </ul>
+  </div>  
+  <g:render template="/shortnewslist" model="[articles: newsArticles, heading: 'home.news']"/>  
+</div>      
+<div class="clear"></div>        
 </body>
 </html>
