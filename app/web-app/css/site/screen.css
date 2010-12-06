@@ -27,4 +27,44 @@ Title:      Screen styles and ie/win patches
 .toggle_hidden:hover {
     background-color:#111;
 }
+
+#rotating-container { position: relative; width: 100%; overflow:hidden;}
+#rotating-elements { height: 25em;border: #678; z-index: 5; padding: 15px; }
+.element-rotated { width: 100%;height: 25em; background: #999; color: #fff; }
+.sideswap_nav { position: absolute; background: #f80; padding: 3px; }
+.sideswap_next { top: 0px; right: 0px; z-index: 1000; }
+.sideswap_previous { top: 0px; left: 0px; z-index: 1000; }
+.element-rotated img,
+.element-rotated img.pngImg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0 !important;
+    padding: 0 !important;    
+	border:0 !important;
+	border-radius:none !important;
+	-moz-border-radius:none !important;
+	-webkit-border-radius:none !important;		
+	-o-border-radius:none !important;
+    background:transparent ! important;  
+    box-shadow: 0 ! important; 
+    filter: none !important;
+    -webkit-box-shadow: none ! important;	
+    -moz-box-shadow: none ! important;		
+    -o-box-shadow: none ! important;   
+}
+.element-rotated p,
+.element-rotated h1,
+.element-rotated h2,
+.element-rotated h3,
+.element-rotated h4,
+.element-rotated h5,
+.element-rotated h6,
+.element-rotated h7,
+.element-rotated a {
+    width: 50%;  
+    position: relative;
+    left: 49%;      
+}
+
 /* end import/hide */
