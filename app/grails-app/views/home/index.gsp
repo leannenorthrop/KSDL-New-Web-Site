@@ -30,6 +30,7 @@
   <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
   <g:javascript src="jquery/jquery.validate.min.js"/>
   <g:javascript src="jquery/cookie.js"/>
+  <g:javascript src="jquery/jquery.sideswap.js"/>  
   <jq:jquery>
     var a = $.cookie("site_msg");
     if (a) {
@@ -39,6 +40,7 @@
       $.cookie("site_msg", "true", { expires: 1 });
       $(this).hide("slow");
     });
+	$('#rotating-elements').sideswap();
   </jq:jquery>
 </head>
 <body>
@@ -49,7 +51,35 @@ ${Setting.findByName('SiteMessage').value.encodeAsTextile()}
   </div>
 </g:if>      
 <div class="grid_12">
-  <g:render template="/toparticles" model="[articles:topArticles]"/>
+    <div id="rotating-container">
+    	<div id="rotating-elements">
+    	    <g:each in="${topArticles}" status="i" var="articleInstance">
+    	        <div class="element-rotated">
+                  <g:if test="${articleInstance?.image}">
+                    <g:if test="${articleInstance?.image?.mimeType.endsWith('png')}">
+                      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
+                    </g:if>
+                    <g:else>
+                      <img id="articleImage" src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+                    </g:else>
+                  </g:if>
+                  <p>
+                    ${articleInstance?.summary?.encodeAsTextile()}
+                  </p>
+                  <p>
+                    <g:if test="${articleInstance?.content}">
+                        <g:if test="${controller}">
+                            <g:link controller="${controller}" action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+                        </g:if>
+                        <g:else>
+                            <g:link action="view" id="${articleInstance.id}"><g:message code='content.more'/></g:link>
+                        </g:else>
+                    </g:if>
+                  </p>    	    
+                </div>
+    	    </g:each>
+    	</div>
+    </div>    
 </div>
 <div class="grid_4">
   <g:render template="/slideshowLink" model="[album:album,relUrl:'home/slideshow']"/>
