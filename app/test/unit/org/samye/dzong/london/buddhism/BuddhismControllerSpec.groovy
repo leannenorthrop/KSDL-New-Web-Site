@@ -55,12 +55,9 @@ class BuddhismControllerSpec extends ControllerSpec {
         redirectArgs == [action: controller.home]
     }
 
-    def 'home'() {
+    def 'section page featches home and featured articles, teachers, events and slideshow album'() {
         setup:
-        Article.metaClass.static.homeBuddhismArticles = {col,ord -> new Expando(list: {[]}) }
-        Article.metaClass.static.featuredBuddhismArticles = {col,ord -> new Expando(list: {[]}) }
-        Article.metaClass.static.allBuddhismArticlesNotOrdered = { new Expando(count: {0}) }
-        Event.metaClass.static.buddhism = {col,ord-> new Expando(list: {[]}) }
+        stubFinderMethods(["BuddhistHomeArticles", "BuddhistFeaturedArticles","BuddhistAllArticles","BuddhistFeaturedEvents"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         Setting.metaClass.static.buddhistSlideshow = { new Expando(list: {[]}) }
         FlickrService.metaClass.getPhotosetCover = { [] }
@@ -75,30 +72,28 @@ class BuddhismControllerSpec extends ControllerSpec {
         controller.modelAndView.viewName == 'index'
         controller.modelAndView.model.linkedHashMap.links == [] 
         controller.modelAndView.model.linkedHashMap.album == [] 
-        controller.modelAndView.model.linkedHashMap.topArticles == [] 
-        controller.modelAndView.model.linkedHashMap.articles == [] 
-        controller.modelAndView.model.linkedHashMap.total == 0 
-        controller.modelAndView.model.linkedHashMap.events == [] 
+        controller.modelAndView.model.linkedHashMap.homeArticles == [] 
+        controller.modelAndView.model.linkedHashMap.featuredArticles == [] 
+        controller.modelAndView.model.linkedHashMap.featuredEvents == [] 
         controller.modelAndView.model.linkedHashMap.teachers == [] 
     }
 
-    def 'list'() {
+    def 'list should fetch all budhist content'() {
         setup:
-        def m = [:]
-        Article.metaClass.static.allBuddhismArticles = {col,ord -> new Expando(list: {[]}) }
+        stubFinderMethods(["BuddhistAllArticles"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.list()
 
         then:
-        model.articles == [] 
+        model.allArticles == [] 
         model.title == 'buddhism.all.articles.title'
     }
 
-    def 'view with bad param'() {
+    def 'view should return id of requested article'() {
         setup:
-        def m = [:]
+        stubViewMethods(["Article"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
@@ -106,40 +101,32 @@ class BuddhismControllerSpec extends ControllerSpec {
         def model = controller.view()
 
         then:
-        redirectArgs == [action: controller.home]
+        model.id == 1
     }
     
     def 'event'() {
         setup:
-        def event = validEvent()
-        event.id = 1
-        mockParams << [id:1]
-        mockDomain(Event,[event])
-        controller.eventService = new Expando(findSimilar:{a->[]}) 
+        stubViewMethods(["Event"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-
+        mockParams << [id:1]
+        
         when:
         def model = controller.event()
 
         then:
-        model.event == event
         model.id == 1
-        model.similar == []
     }
 
     def 'events'() {
         setup:
-        mockDomain(Event)
-        def event = validEvent()
-        event.save()
-        controller.eventService = new Expando(list:{a,b->[events:[event]]}) 
+        stubFinderMethods(["BuddhistAllEvents"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.events()
 
         then:
-        model.events == [event]
+        model.allEvents == []
     }
 
     def 'slideshow'() {
@@ -157,13 +144,7 @@ class BuddhismControllerSpec extends ControllerSpec {
     }
 
     def 'teacher'() {
-        def teacher = new Teacher()
-        teacher.id = 1
-        mockDomain(Teacher,[teacher])
-        mockDomain(Event)
-        def event = validEvent()
-        event.save()
-        controller.teacherService = new Expando(events:{id->[event]}) 
+        stubViewMethods(["Teacher"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
@@ -171,7 +152,6 @@ class BuddhismControllerSpec extends ControllerSpec {
         def model = controller.teacher()
 
         then:
-        model.events == [event]
         model.id == 1  
     }
 
@@ -190,4 +170,22 @@ class BuddhismControllerSpec extends ControllerSpec {
                               home:false)
         return event
     }
+    
+    def stubFinderMethods(list) {
+        list.each {
+            controller.metaClass."findPublished${it}" = {params-> 
+                def name = it - "Buddhist"
+                name = name.substring(0,1).toLowerCase() + name.substring(1)
+                [(name):[]]
+            }            
+        }        
+    }
+    
+    def stubViewMethods(list) {
+        list.each {
+            controller.metaClass."view${it}" = {id-> 
+                [(it.toLowerCase()): null, id: id, similar:[]]
+            }            
+        }        
+    }    
 }
