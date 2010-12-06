@@ -34,7 +34,7 @@ import org.samye.dzong.london.community.*
  * @author Leanne Northrop
  * @since 16th November, 2010, 16:55
  */
-class PublishableIntegrationSpec extends IntegrationHelper {
+class PublishableSpec extends IntegrationHelper {
     def 'allPublished'() {
         given:
         clean()

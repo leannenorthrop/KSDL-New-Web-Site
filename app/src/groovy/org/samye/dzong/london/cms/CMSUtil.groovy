@@ -40,6 +40,67 @@ class CMSUtil {
     protected static GRAILS_APPLICATION
 
     
+    def static addFinderMethods(artefactClass, log=null) {
+        CMSUtil.GRAILS_APPLICATION?.domainClasses.each { domainClass ->
+            if (Publishable.isAssignableFrom(domainClass.clazz)) { 
+                ['Buddhist':'B','AboutUs':'A','Community':'C','Meditation':'M','WellBeing':'W'].each { section,category ->
+                    ["Unpublished","Published","Archived","Ready"].each { publicationState -> 
+                        ['home','featured','deleted','all'].each { limit ->
+                            artefactClass.metaClass."find${publicationState}${section}${limit.capitalize()}${domainClass.name}s" = { params ->
+                                println "find${publicationState}${section}${limit.capitalize()}${domainClass.name}s"
+                                try {
+                                    def domain = domainClass.clazz        
+                                    def list = Publishable.publishStateByCategory(publicationState,category).list(params)
+                                    def found = list.findAll { 
+                                        (limit == 'all' || it."$limit") && domain.isAssignableFrom(it.class)
+                                    }
+                                    def all = Publishable.publishStateByCategory(publicationState,category).list(params)
+                                    all = all.findAll { 
+                                        (limit == 'all' || it."$limit") && domain.isAssignableFrom(it.class)
+                                    }
+                                    def total = all.size()
+                                    return [(limit + domainClass.propertyName.capitalize() + 's'): found, ('total' + limit.capitalize() + domainClass.propertyName.capitalize() + 's'): total]
+                                } catch (error) {
+                                    error.printStackTrace()
+                                    return [(limit + domainClass.propertyName.capitalize() + 's'): [], ('total' + limit.capitalize() + domainClass.propertyName.capitalize() + 's'): 0]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            artefactClass.metaClass."view${domainClass.name}" = { id ->             
+                if (id) {
+                    def obj = domainClass.clazz.get(id)
+                    if(!obj) {
+                        delegate.notFound(null)
+                        return [:]
+                    }
+                    else {
+                        try {
+                            def similar = Publishable.similar(obj,params)
+                            return [(domainClass.propertyName): obj, id: obj.id, similar:similar]
+                        } catch (error) {
+                            return [(domainClass.propertyName): obj, id: obj.id, similar:[]]
+                        }
+                    }
+                } else {
+                    delegate.notFound(null)
+                }
+            }    
+            artefactClass.metaClass.notFound = { action ->
+                def name = (delegate.controllerName - 'Controller').capitalize()
+                flash.message = "${domainClass.name} not found"
+                flash.isError = true
+                if (action) {
+                    redirect(action:action)
+                } else {
+                    redirect(controller: 'home', action: 'notFound')
+                }
+            }                    
+        }        
+    }
+    
     def static addCMSMethods(artefactClass, log=null) {
         if (log) {
             log.info "Adding CMS methods to: ${artefactClass}..."
