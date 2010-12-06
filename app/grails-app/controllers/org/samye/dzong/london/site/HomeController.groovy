@@ -183,6 +183,5 @@ class HomeController {
     def notFound = {
         flash.message = "not.found"
         flash.default = "Oops! Did we lose a page?"
-        render(notFound)
     }
 }
