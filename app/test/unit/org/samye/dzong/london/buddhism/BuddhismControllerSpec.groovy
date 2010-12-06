@@ -180,7 +180,7 @@ class BuddhismControllerSpec extends ControllerSpec {
             }            
         }        
     }
-    
+        
     def stubViewMethods(list) {
         list.each {
             controller.metaClass."view${it}" = {id-> 

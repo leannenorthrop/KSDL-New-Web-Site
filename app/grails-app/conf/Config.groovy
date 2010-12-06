@@ -187,7 +187,13 @@ log4j = {
        rollingFile name: "file", file: logfileName, maxFileSize:'512MB', maxBackupIndex:10,layout:pattern(conversionPattern: '%d{ISO8601} [%t] %p %c %x - %m%n')
        rollingFile name: "stacktrace", file: logfileName + '_stacktrace.log', maxFileSize:'512MB', maxBackupIndex:10,layout:pattern(conversionPattern: '%d{ISO8601} [%t] %p %c %x - %m%n')
     }
-    production{
+    
+    root { 
+        info 'stdout', 'file'
+        additivity = true
+    }
+            
+ /*   production{
         root { 
             info 'stdout', 'file'
             additivity = true
@@ -199,7 +205,7 @@ log4j = {
             additivity = true            
         }
         //log4j.appender.'errors.File'="/var/log/tomcat6/stacktrace.log"
-    }
+    }*/
 
     fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',
           'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
@@ -236,7 +242,7 @@ log4j = {
             'org.samye',
             'grails.app'  
             
-    debug    'org.samye.dzong.london'
+    info    'org'
 }
 
 auditLog {

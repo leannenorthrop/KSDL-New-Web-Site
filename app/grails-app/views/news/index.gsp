@@ -35,10 +35,10 @@ Date: Jan 24, 2010, 2:00:21 PM
 </head>
 <body>
   <div class="grid_12">
-    <g:render template="/articlelist" model="[articles:articles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current', heading: 'news.current.title']"/>
+    <g:render template="/articlelist" model="[articles:featuredArticles,controller:'news', action: 'view', total: totalPublishedNewsArticles,moreAction:'current', heading: 'news.current.title']"/>
   </div>
   <div class="grid_4">
-    <g:render template="/shortnewslist" model="[articles: archivedArticles, heading: 'archive.news.heading']"/>
+    <g:render template="/shortnewslist" model="[articles: allArticles, heading: 'archive.news.heading']"/>
   </div>
 </body>
 </html>

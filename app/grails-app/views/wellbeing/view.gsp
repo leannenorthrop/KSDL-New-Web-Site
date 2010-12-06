@@ -22,15 +22,16 @@
     ----------------------------------------------------------------------------}%
 
 <%--
-View wellbeing article.
+    View wellbeing article.
     User: Leanne Northrop
-Date: Feb 18, 2010,8:14:03 PM
+    Date: Feb 18, 2010,8:14:03 PM
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
   <head>
-    <title>${articleInstance?.title}</title>
+    <title>${article?.title}</title>
     <meta name="layout" content="main" />
   </head>
   <body>

@@ -34,6 +34,7 @@ Date: Jan 24, 2010, 2:00:21 PM
   </head>
   <body>
     <div class="grid_16">
+      <g:set var="news" value="${allArticles ? allArticles : []}"/>
       <g:render template="/articlelist" model="[articles:news,heading:'news.heading',controller:'news',action:'view',moreAction:'all']"/>
     </div>
   </body>
