@@ -28,6 +28,6 @@
     <title>${title}</title>
   </head>
   <body>
-  <g:render template="/articlelist" model="[articles:articles,heading:'community.all.articles.title',controller:'home',action:'view',moreAction:'all']"/>
+  <g:render template="/articlelist" model="[articles:allArticles,heading:'community.all.articles.title',controller:'home',action:'view',moreAction:'all']"/>
 </body>
 </html>

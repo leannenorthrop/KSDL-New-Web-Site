@@ -69,6 +69,25 @@ class CMSUtil {
                     }
                 }
             }
+
+            artefactClass.metaClass.findPublishedHomeAllArticles = { params ->
+                try {
+                    def domain = domainClass.clazz        
+                    def list = Publishable.publishStateByCategory(publicationState,category).list(params)
+                    def found = list.findAll { 
+                        domain.isAssignableFrom(it.class)
+                    }
+                    def all = Publishable.publishStateByCategory(publicationState,category).list(params)
+                    all = all.findAll { 
+                        domain.isAssignableFrom(it.class)
+                    }
+                    def total = all.size()
+                    return [allArticles: found, totalAllArticles: total]
+                } catch (error) {
+                    return [allArticles: [], totalAllArticles: 0]
+                }
+            }            
+            
             artefactClass.metaClass."view${domainClass.name}" = { id ->             
                 if (id) {
                     def obj = domainClass.clazz.get(id)

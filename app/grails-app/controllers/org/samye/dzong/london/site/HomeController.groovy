@@ -30,6 +30,7 @@ import org.samye.dzong.london.users.ShiroRole
 import org.samye.dzong.london.site.Setting
 import groovy.xml.StreamingMarkupBuilder
 import org.samye.dzong.london.site.Link
+import org.samye.dzong.london.cms.*
 
 /*
  * Site home page.
@@ -41,18 +42,15 @@ import org.samye.dzong.london.site.Link
  * @author Leanne Northrop
  * @since  October 2010
  */
-class HomeController {
+class HomeController extends PublicSectionPageController {
     def articleService
-    def flickrService
 
+    def getSectionName() {
+        "Home"
+    }
+    
     def index = {
-        def album
-        try {
-            def ss = Setting.homeSlideshow().list()
-            album = flickrService.getPhotosetCover(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
-        } catch(error) {
-            log.error error
-        }
+        def album = getAlbum()
         def articles = Article.homeArticles("datePublished", "desc").list()
         def meditationArticles = articles.findAll { it.category == 'M'}
         def communityArticles = articles.findAll { it.category == 'C'}
@@ -63,42 +61,6 @@ class HomeController {
         def events = Event.homePage('lastUpdated', 'asc').list()
 		
         def model = [links:Link.findAllBySection("H"),topArticles:topArticles, album: album, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
-        articleService.addHeadersAndKeywords(model,request,response)
-        model
-    }
-
-    def list = {
-        def model = []
-        if (params.tags) {
-            def tags = params.tags.toLowerCase().split(",").toList()
-            def articles = articleService.publishedByTags(tags)
-            model =[articleInstanceList: articles, title: 'Articles With Tags ' + params.tags]
-        } else {
-            def publishedArticles = Article.findAllByPublishState("Published")
-            model =[articleInstanceList: publishedArticles, title: "All Articles"]
-        }
-        articleService.addHeadersAndKeywords(model,request,response)
-        model
-    }
-
-    def view = {
-        def articleInstance = Article.get(params.id)
-        if (!articleInstance) {
-            flash.message = "Article not found with id ${params.id}"
-            redirect(action: list)
-        }
-        else {
-            def id = params.id;
-            def model = [articleInstance: articleInstance, id: id]
-            articleService.addHeadersAndKeywords(model,request,response)
-            model
-        }
-    }
-
-    def slideshow = {
-        def ss = Setting.homeSlideshow().list()
-        def album = flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')
-        def model = [album:album]
         articleService.addHeadersAndKeywords(model,request,response)
         model
     }
