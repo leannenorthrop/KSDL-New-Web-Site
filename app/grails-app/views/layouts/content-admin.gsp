@@ -39,6 +39,7 @@ Date: Jan 24, 2010, 2:00:21 PM
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/manage', file: 'screen.css')}"/>
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site/markitup/skins/markitup', file: 'style.css')}" />
     <link rel="stylesheet" media="screen, projection" href="${resource(dir: 'css/site/markitup/sets/textile', file: 'style.css')}" />
+    <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site', file: 'silk-icons.css')}"/>      
     <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
   <g:javascript src="jquery/jquery-1.4.2.min.js"/>

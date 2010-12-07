@@ -66,6 +66,10 @@
     <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="community"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="wellbeing"/>
+    <g:javascript src="jquery/jquery-1.4.2.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
+    <g:javascript src="jquery/jquery.validate.min.js"/>
+    <g:javascript src="jquery/jquery.sideswap.js"/>      
     <g:layoutHead/>       
   </head>
   <g:set var="bodyClass" value="${controllerName == 'teacher' ? 'aboutUs' : controllerName}"/>

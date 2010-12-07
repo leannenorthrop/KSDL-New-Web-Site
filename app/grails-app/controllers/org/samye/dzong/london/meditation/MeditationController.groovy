@@ -49,12 +49,17 @@ class MeditationController extends PublicSectionPageController {
     def home = {
         def model = [:] 
         
-        addPublishedContent(["MeditationHomeArticles", "MeditationFeaturedArticles","MeditationAllArticles","MeditationFeaturedEvents"],model)
-
+        addPublishedContent(["MeditationHomeArticles","MeditationAllEvents"],model)
+        addPublishedContent(["MeditationFeaturedEvents"],model,[max:5])                     
+        addPublishedContent(["MeditationAllArticles"],model,[sort:'datePublished',order:'desc',max:5])
+        // TODO LN: Remove from the all articles list the featured article at top?
+        
         def album = getAlbum()
         model.put('album',album)
         
         model.put('links',Link.findAllBySection("M"))
+        
+        log.info model 
         
         articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)

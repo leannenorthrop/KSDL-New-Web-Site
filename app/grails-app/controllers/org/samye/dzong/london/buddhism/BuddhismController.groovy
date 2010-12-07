@@ -50,7 +50,7 @@ class BuddhismController extends PublicSectionPageController {
     def home = {
         def model = [:] 
         
-        addPublishedContent(["BuddhistHomeArticles", "BuddhistFeaturedArticles","BuddhistAllArticles","BuddhistFeaturedEvents"],model)
+        addPublishedContent(["BuddhistHomeArticles", "BuddhistFeaturedArticles","BuddhistAllArticles","BuddhistFeaturedEvents","BuddhistAllArticles"],model)
 		
         def lineageTeachers = Teacher.findAllByPublishStateAndType('Published', 'L',[sort: "name", order: "asc"])
         model.put('teachers',lineageTeachers)

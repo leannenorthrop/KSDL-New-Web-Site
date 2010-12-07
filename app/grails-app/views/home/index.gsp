@@ -26,11 +26,7 @@
     <title><g:message code="welcome" default="Welcome"/></title>
     <meta name="layout" content="main">
     <link rel="stylesheet" type="text/css" media="screen, projection" href="${resource(dir: 'css/site/slideshow', file: 'slideshow.css')}"/> 
-  <g:javascript src="jquery/jquery-1.4.2.min.js"/>
-  <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
-  <g:javascript src="jquery/jquery.validate.min.js"/>
-  <g:javascript src="jquery/cookie.js"/>
-  <g:javascript src="jquery/jquery.sideswap.js"/>  
+    <g:javascript src="jquery/cookie.js"/>
   <jq:jquery>
     var a = $.cookie("site_msg");
     if (a) {
@@ -81,23 +77,23 @@ ${Setting.findByName('SiteMessage').value.encodeAsTextile()}
     	</div>
     </div>  
       <g:render template="/shortEventsList" model="[events: events, heading: 'home.events']"/>
-    <div class="container_16"> 
-<div class="grid_8">
-  <g:render template="/toparticles" model="[articles:meditationArticles,controller:'meditation']"/>
-</div>
-<div class="grid_8">
-  <g:render template="/toparticles" model="[articles:communityArticles,controller:'community']"/>
+<div class="grid_8 box article top">
+  <g:render template="/homeBox" model="[articles:meditationArticles,controller:'meditation']"/>
 </div>
 <div class="clear"></div>
-<div class="grid_8">
-  <g:render template="/toparticles" model="[articles:buddhismArticles,controller:'buddhism']"/>
+<div class="grid_8 box article top">
+  <g:render template="/homeBox" model="[articles:communityArticles,controller:'community']"/>
 </div>
-<div class="grid_8">
-  <g:render template="/toparticles" model="[articles:wellbeingArticles,controller:'wellbeing']"/>
+<div class="clear"></div>
+<div class="grid_8 box article top">
+  <g:render template="/homeBox" model="[articles:buddhismArticles,controller:'buddhism']"/>
+</div>
+<div class="clear"></div>
+<div class="grid_8 box article top">
+  <g:render template="/homeBox" model="[articles:wellbeingArticles,controller:'wellbeing']"/>
 </div>    
 <div class="clear"></div>         
     </div>
-</div>
 <div class="grid_4">
   <g:render template="/slideshowLink" model="[album:album,relUrl:'home/slideshow']"/>
   <div class="box services">

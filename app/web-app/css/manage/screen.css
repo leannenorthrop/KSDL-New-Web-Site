@@ -161,3 +161,14 @@ div.list + div.manage {
 .comment h4 {
     font-size: smaller;
 }
+.contentAdmin .actions {
+    position: relative;
+    overflow: hidden;
+}
+.contentAdmin .actions a {
+    text-decoration: none !important;
+}
+.contentAdmin .actions span {
+    float:left;
+    margin-right: 1em;
+}

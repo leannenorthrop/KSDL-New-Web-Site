@@ -45,14 +45,14 @@ class NewsController {
 
     def home = {
         def model = [:]
-        def articles = findPublishedNewsFeaturedArticles([sort:'datePublished',order:'desc'])
+        def articles = findPublishedNewsHomeArticles([sort:'datePublished',order:'desc'])
         model.putAll(articles)
         
         def archivedArticles = findArchivedNewsAllArticles([sort:'datePublished',order:'desc',max:8])
         model.putAll(archivedArticles)
         
-        def totalPublishedNewsArticles = findPublishedNewsAllArticles().totalAllArticles
-        model.put('total', totalPublishedNewsArticles)
+        articles = findPublishedNewsAllArticles([sort:'datePublished',order:'desc'])
+        model.put('total', findPublishedNewsAllArticles().totalAllArticles)
         
         def totalArchived = findArchivedNewsAllArticles().totalAllArticles
         model.put('totalArchived', totalArchived)

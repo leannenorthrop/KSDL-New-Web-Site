@@ -23,7 +23,7 @@ class MeditationControllerSpec extends ControllerSpec {
 
     def 'section page featches home and featured articles, teachers, events and slideshow album'() {
         setup:
-        stubFinderMethods(["MeditationHomeArticles", "MeditationFeaturedArticles","MeditationAllArticles","MeditationFeaturedEvents"])
+        stubFinderMethods(["MeditationHomeArticles","MeditationAllArticles","MeditationFeaturedEvents"])
         controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         Setting.metaClass.static.meditationSlideshow = { new Expando(list: {[]}) }
         FlickrService.metaClass.getPhotosetCover = { [] }
@@ -39,7 +39,7 @@ class MeditationControllerSpec extends ControllerSpec {
         controller.modelAndView.model.linkedHashMap.links == [] 
         controller.modelAndView.model.linkedHashMap.album == [] 
         controller.modelAndView.model.linkedHashMap.homeArticles == [] 
-        controller.modelAndView.model.linkedHashMap.featuredArticles == [] 
+        controller.modelAndView.model.linkedHashMap.allArticles == [] 
         controller.modelAndView.model.linkedHashMap.featuredEvents == [] 
     }
 

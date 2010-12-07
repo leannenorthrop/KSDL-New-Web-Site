@@ -29,13 +29,33 @@ Title:      Screen styles and ie/win patches
 }
 
 #rotating-container { position: relative; width: 100%; overflow:hidden;}
-#rotating-elements { height: 28em;border: #678; z-index: 5; padding: 15px; }
-.element-rotated { width: 100%;height: 28em; background: #cecece; color: black; }
+#rotating-elements { border: #678; z-index: 5; padding: 15px; }
+.element-rotated { width: 100%; }
+
+#rotating-elements { height: 15em; }
+.element-rotated { height: 15em; }
+
+body.home #rotating-elements { height: 28em; }
+body.home .element-rotated { height: 28em; background: #cecece; color: black;}
+body.home .element-rotated p,
+body.home .element-rotated h1,
+body.home .element-rotated h2,
+body.home .element-rotated h3,
+body.home .element-rotated h4,
+body.home .element-rotated h5,
+body.home .element-rotated h6,
+body.home .element-rotated h7,
+body.home .element-rotated a {
+    width: 50%;  
+    position: relative;
+    left: 49%;      
+}
+
 .sideswap_nav { position: absolute; background: #f80; padding: 3px; }
 .sideswap_next { top: 0px; right: 0px; z-index: 1000; }
 .sideswap_previous { top: 0px; left: 0px; z-index: 1000; }
-.element-rotated img,
-.element-rotated img.pngImg {
+body.home .element-rotated img,
+body.home .element-rotated img.pngImg {
     position: absolute;
     top: 0;
     left: 0;
@@ -52,19 +72,6 @@ Title:      Screen styles and ie/win patches
     -webkit-box-shadow: none ! important;	
     -moz-box-shadow: none ! important;		
     -o-box-shadow: none ! important;   
-}
-.element-rotated p,
-.element-rotated h1,
-.element-rotated h2,
-.element-rotated h3,
-.element-rotated h4,
-.element-rotated h5,
-.element-rotated h6,
-.element-rotated h7,
-.element-rotated a {
-    width: 50%;  
-    position: relative;
-    left: 49%;      
 }
 
 /* end import/hide */

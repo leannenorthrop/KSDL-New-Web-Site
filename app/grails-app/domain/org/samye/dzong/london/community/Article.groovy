@@ -53,147 +53,36 @@ class Article extends Publishable {
     }
 
     static namedQueries = {
-        categoryArticles { final category ->
+        authorPublishState { username, final publishState ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "${publishState}"
+            author {
+                eq 'username', username
+            }
+        }
+
+        publishState { final publishState ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "${publishState}"
+        }
+
+        authorDeleted { username ->
+            eq('deleted', Boolean.TRUE)
+            author {
+                eq('username', username)
+            }
+        }
+
+        deleted {
+            eq('deleted', Boolean.TRUE)
+        }
+        
+        publishStateByCategory { final publishState,
+                                 final category ->
+            eq 'deleted', Boolean.FALSE
             eq 'category', "${category}"
-        }
-
-        allBuddhismArticlesNotOrdered {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'B'
-        }
-
-        allBuddhismArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'B'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        featuredBuddhismArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'B'
-            eq 'featured', Boolean.TRUE
-            order("${orderCol}", "${orderDir}")
-        }
-
-        homeBuddhismArticles { final orderCol, final orderDir ->
-            eq 'home', Boolean.TRUE                          
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'B'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        allWellbeingArticlesNotOrdered {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'W'
-        }
-
-        allWellbeingArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'W'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        featuredWellbeingArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'W'
-            eq 'featured', Boolean.TRUE
-            order("${orderCol}", "${orderDir}")
-        }
-
-        homeWellbeingArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'W'
-            eq 'home', Boolean.TRUE           
-            order("${orderCol}", "${orderDir}")
-        }
-
-        allCommunityArticlesNotOrdered {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'C'
-        }
-
-        allCommunityArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'C'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        featuredCommunityArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'C'
-            eq 'featured', Boolean.TRUE
-            order("${orderCol}", "${orderDir}")
-        }
-
-        homeCommunityArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'C'
-            eq 'home', Boolean.TRUE        
-            order("${orderCol}", "${orderDir}")
-        }
-
-        allMeditationArticlesNotOrdered {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'M'
-        }
-
-        allMeditationArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'M'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        featuredmeditationArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'M'
-            eq 'featured', Boolean.TRUE
-            order("${orderCol}", "${orderDir}")
-        }
-
-        homeMeditationArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'M'
-            eq 'home', Boolean.TRUE           
-            order("${orderCol}", "${orderDir}")
-        }
-
-        featuredNewsArticles { final orderCol, final orderDir ->
-            eq 'home', Boolean.TRUE 
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'N'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        newsArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'N'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        archivedNewsArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Archived'
-            eq 'category', 'N'
-            order("${orderCol}", "${orderDir}")            
-        }
+            eq 'publishState', "${publishState}"
+        }  
 
         homeArticles { final orderCol, final orderDir ->
             eq 'home', Boolean.TRUE
@@ -202,57 +91,6 @@ class Article extends Publishable {
             order("${orderCol}", "${orderDir}")
         }
 
-        allAboutUsArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'A'
-            order("${orderCol}", "${orderDir}")
-        }
-
-        aboutUsTopArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'featured', Boolean.TRUE
-            eq 'publishState', 'Published'
-            eq 'category', 'A'
-            order("${orderCol}", "${orderDir}")
-        }
-        
-        allShopArticlesNotOrdered {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'S'
-        }
-
-        allShopArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'S'
-            order("${orderCol}", "${orderDir}")
-        }
-        
-        allNonFeaturedShopArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'S'
-            eq 'featured', Boolean.FALSE            
-            order("${orderCol}", "${orderDir}")
-        }        
-
-        featuredShopArticles { final orderCol, final orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'S'
-            eq 'featured', Boolean.TRUE
-            order("${orderCol}", "${orderDir}")
-        }
-
-        homeShopArticles { final orderCol, final orderDir ->
-            eq 'home', Boolean.TRUE
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'S'
-            order("${orderCol}", "${orderDir}")
-        }
     }
 
     static mapping = {

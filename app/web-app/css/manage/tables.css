@@ -14,12 +14,23 @@
 .contentAdmin tr {
     border: 0;
 }
+
+.contentAdmin tr.odd {
+    background: #e1e1e1 !important;
+}
+.contentAdmin tr.even {
+    background: #fff !important;
+}
+
+.contentAdmin th {
+    text-align:left;
+}
 .contentAdmin td, .contentAdmin th {
     line-height: 12px;
     padding: 5px 6px;
-    text-align: left;
     vertical-align: top;
 }
+
 .contentAdmin th {
     background: rgb(235,244,250) url(images/darkFadeBottom.png) bottom repeat-x;
     color: #666;
@@ -45,9 +56,15 @@
     background-image: url(images/sorted_desc.gif);
 }
 
-.odd {
-    background: #eee;
+.contentAdmin th.asc a, .contentAdmin th.desc a {
+    padding-left: 10px;
+    background-position: left;
+    background-repeat: no-repeat;
 }
-.even {
-    background: #fff;
+.contentAdmin th.asc a {
+    background-image: url(images/sorted_asc.gif);
 }
+.contentAdmin th.desc a {
+    background-image: url(images/sorted_desc.gif);
+}
+
