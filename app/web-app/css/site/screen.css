@@ -29,8 +29,8 @@ Title:      Screen styles and ie/win patches
 }
 
 #rotating-container { position: relative; width: 100%; overflow:hidden;}
-#rotating-elements { height: 25em;border: #678; z-index: 5; padding: 15px; }
-.element-rotated { width: 100%;height: 25em; background: #999; color: #fff; }
+#rotating-elements { height: 28em;border: #678; z-index: 5; padding: 15px; }
+.element-rotated { width: 100%;height: 28em; background: #cecece; color: black; }
 .sideswap_nav { position: absolute; background: #f80; padding: 3px; }
 .sideswap_next { top: 0px; right: 0px; z-index: 1000; }
 .sideswap_previous { top: 0px; left: 0px; z-index: 1000; }
