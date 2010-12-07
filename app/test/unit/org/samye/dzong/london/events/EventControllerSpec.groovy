@@ -46,7 +46,7 @@ import org.codehaus.groovy.grails.commons.DefaultGrailsDomainClass
  *
  *  @author Leanne Northrop
  *  @since  November 2010
- */
+ */ 
 class EventControllerSpec extends ControllerSpec {
     def messageSource = new StaticMessageSource()
     def roles = []

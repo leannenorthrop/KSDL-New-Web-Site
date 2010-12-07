@@ -47,14 +47,16 @@ class CMSUtil {
                     ["Unpublished","Published","Archived","Ready"].each { publicationState -> 
                         ['home','featured','deleted','all'].each { limit ->
                             artefactClass.metaClass."find${publicationState}${section}${limit.capitalize()}${domainClass.name}s" = { params ->
-                                println "find${publicationState}${section}${limit.capitalize()}${domainClass.name}s"
                                 try {
                                     def domain = domainClass.clazz        
                                     def list = Publishable.publishStateByCategory(publicationState,category).list(params)
                                     def found = list.findAll { 
                                         (limit == 'all' || it."$limit") && domain.isAssignableFrom(it.class)
                                     }
-                                    def all = Publishable.publishStateByCategory(publicationState,category).list(params)
+                                    if (domainClass.name == 'Event'){
+                                        found.sort();
+                                    }
+                                    def all = Publishable.publishStateByCategory(publicationState,category).list()
                                     all = all.findAll { 
                                         (limit == 'all' || it."$limit") && domain.isAssignableFrom(it.class)
                                     }
@@ -201,8 +203,10 @@ class CMSUtil {
 
             def model = []
             if (SecurityUtils.subject.hasRoles(delegate.ADMIN_ROLES).any()) {
+                println "${publicationState}${domainName}s"
                 model = delegate."${publicationState}${domainName}s"(params)
             } else {
+                println "${publicationState}${domainName}s"                
                 model = delegate."user${publicationState.capitalize()}${domainName}s"(params)
             }
             model
@@ -243,8 +247,8 @@ class CMSUtil {
                             delegate.checkParams(params)
                             def username = delegate.currentUser().username;
                             def domain = domainClass.clazz
-                            def objs = delegate.filter(domain.authorPublishState(username,state).list(params),domain)
-                            def total = delegate.filter(domain.authorPublishState(username,state).list(),domain).size()
+                            def objs = domain.authorPublishState(username,state).list(params)
+                            def total = domain.authorPublishState(username,state).count()
                             return [(domainClass.propertyName + 's'): objs, total: total]
                         } catch (error) {
                             return [(domainClass.propertyName + 's'): [], total: []]
@@ -257,8 +261,8 @@ class CMSUtil {
                         delegate.checkParams(params)
                         def username = delegate.currentUser().username
                         def domain = domainClass.clazz
-                        def objs = delegate.filter(domain.authorDeleted(username).list(params),domain)
-                        def total = delegate.filter(domain.authorDeleted(username).list(),domain).size()
+                        def objs = domain.authorDeleted(username).list(params)
+                        def total = domain.authorDeleted(username).count()
                         return [(domainClass.propertyName + 's'): objs, total: total]
                     } catch (error) {
                         return [(domainClass.propertyName + 's'): [], total: []]                        
@@ -270,10 +274,11 @@ class CMSUtil {
                         try {
                             delegate.checkParams(params)
                             def domain = domainClass.clazz
-                            def objs = delegate.filter(domain.publishState(state).list(params), domain)
-                            def total = delegate.filter(domain.publishState(state).list(),domain).size()
+                            def objs = domain.publishState(state).list(params)
+                            def total = domain.publishState(state).count()
                             return [(domainClass.propertyName + 's'): objs, total: total]
                         } catch (error) {
+                            delegate.log.error("Unable to find ${state.toLowerCase()}${domainClass.name}s due to ${error}",error)
                             return [(domainClass.propertyName + 's'): [], total: []]
                         }
                     }
@@ -283,8 +288,8 @@ class CMSUtil {
                     try {
                         delegate.checkParams(params)
                         def domain = domainClass.clazz
-                        def rooms = delegate.filter(domain.deleted().list(params),domain)
-                        def total = delegate.filter(domain.deleted().list(),domain).size()
+                        def rooms = domain.deleted().list(params)
+                        def total = domain.deleted().count()
                         return [(domainClass.propertyName + 's'): rooms, total: total]
                     } catch (error) {
                         return [(domainClass.propertyName + 's'): [], total: []]                        

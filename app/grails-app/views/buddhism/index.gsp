@@ -49,7 +49,7 @@
       <g:render template="/articlelist" model="[articles:featuredArticles,controller:'buddhism',action:'view',total:totalAllArticles,moreAction:'list',heading:'buddhism.articles.title']"/>
     </div>
     <div class="grid_12">
-      <g:render template="/eventlist" model="[events: featuredEvents,heading:'event.buddhism']"/>
+      <g:render template="/eventlist" model="[events: featuredEvents,heading:'event.buddhism',total:totalAllEvents]"/>
     </div>
   </body>
 </html>

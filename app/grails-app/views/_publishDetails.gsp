@@ -29,36 +29,36 @@
 <%@ page contentType="text/html;charset=UTF-8" import="org.samye.dzong.london.events.Event" %>
 <p class="group">
   <label for="tags"><g:message code="article.tag.label"/> <strong><g:message code="article.tag.warning"/></strong></label>
-  <textarea cols="5" rows="5" id="tags" name="tags" class="${hasErrors(bean: articleInstance, field: 'tags', 'errors')} required" minlength="3">${articleInstance.tags.join(",")}</textarea>
+  <textarea cols="5" rows="5" id="tags" name="tags" class="${hasErrors(bean: publishableInstance, field: 'tags', 'errors')} required" minlength="3">${publishableInstance.tags.join(",")}</textarea>
   <span class="tags_help">
     <g:message code="article.tag.help"/>
   </span>
 </p>
 <p>
   <label for="displayAuthor" title="Display author's public name"><g:message code="article.display.author"/>
-      <g:checkBox name="displayAuthor" checked="${articleInstance?.displayAuthor}"/> 
+      <g:checkBox name="displayAuthor" checked="${publishableInstance?.displayAuthor}"/> 
   </label>
 </p>
 <p>
   <label for="displayDate"><g:message code="article.display.date"/></label>
-  <g:checkBox name="displayDate" checked="${articleInstance?.displayDate}"/>
+  <g:checkBox name="displayDate" checked="${publishableInstance?.displayDate}"/>
 </p>
 <p>
   <span id="is_home">
       <label for="home" title="Show on Home Page"><span><g:message code="article.display.home"/></span>
-          <g:checkBox name="home" checked="${articleInstance?.home}"/>       
+          <g:checkBox name="home" checked="${publishableInstance?.home}"/>       
       </label>
   </span>
 </p>
 <p>
   <span id="is_featured">
       <label for="featured"><span><g:message code="article.display.section"/></span>
-          <g:checkBox name="featured" checked="${articleInstance?.featured}"/>       
+          <g:checkBox name="featured" checked="${publishableInstance?.featured}"/>       
       </label>
   </span>
 </p>
 <g:javascript>
-    var isEvent = ${articleInstance instanceof Event};
+    var isEvent = ${publishableInstance instanceof Event};
     var featuredLabel = "${message(code:'article.display.section')}";
     var homeLabel = "${message(code:'article.display.home')}";
 </g:javascript>

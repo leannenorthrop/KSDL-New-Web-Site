@@ -29,7 +29,7 @@
   <body>
     <div class="grid_12">
       <g:render template="/toparticles" model="[articles:homeArticles]"/>
-      <g:render template="/eventlist" model="[events: featuredEvents,heading:'event.wellbeing']"/>
+      <g:render template="/eventlist" model="[events: featuredEvents,heading:'event.wellbeing',total:totalAllEvents]"/>
     </div>
     <div class="grid_4">  
       <g:render template="/articlelist" model="[articles:featuredArticles,controller:'wellbeing',action:'view',total:totalAllArticles,moreAction:'list',heading:'wellbeing.articles.heading']"/>

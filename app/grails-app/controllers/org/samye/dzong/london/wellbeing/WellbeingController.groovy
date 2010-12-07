@@ -52,7 +52,7 @@ class WellbeingController extends PublicSectionPageController {
     def home = {
         def model = [:] 
         
-        addPublishedContent(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents"],model)        
+        addPublishedContent(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents","WellBeingAllEvents"],model)        
         def therapists = Teacher.findAllByPublishStateAndType('Published', 'T',[sort: "name", order: "asc"])        
         model.put('therapists',therapists)
         articleService.addHeadersAndKeywords(model,request,response)

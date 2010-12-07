@@ -51,14 +51,7 @@
             </g:if>
         </div>
     </g:if>
-    <g:else>
-        <div class="ui-widget ui-state-highlight ui-corner-all">
-            <strong>
-                <span class="ui-icon ui-icon-info" style="display: inline-block"></span>
-                <g:message code="info"/>
-            </strong><br/>
-            <g:message code="${flash.message}" args="${flash.args}" default="${flash.default}"/>
-        </div>                    
+    <g:else>                
         <div class="ui-widget ui-state-error ui-corner-all" style="display: none" id="jserrors">
             <strong>
                 <span class="ui-icon ui-icon-alert" style="display: inline-block"></span>
@@ -79,4 +72,25 @@
         </ul>
     </div>
 </g:else>
+<div class="ui-widget ui-state-highlight ui-corner-all" id="jsmsgbox" style="display:${flash.message && flash.isError ? 'block' : 'none'}">
+    <strong>
+        <span class="ui-icon ui-icon-info" style="display: inline-block"></span>
+        <g:message code="info"/>
+    </strong><br/>
+    <g:message code="${flash?.message}" args="${flash?.args}" default="${flash?.default}"/>
+</div>    
+<div id="waitDialog" title="Please Wait">
+	<p>Please wait...</p>
+</div>
+<g:javascript>
+    $('#waitDialog').dialog({ autoOpen: false });
+    
+    function startWait() {
+        $('#waitDialog').open();
+    }
+    
+    function stopWait() {
+        $('#waitDialog').close();        
+    }
+</g:javascript>
 

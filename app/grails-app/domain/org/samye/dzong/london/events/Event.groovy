@@ -101,18 +101,37 @@ class Event extends Publishable implements Comparable {
     }
 
     static namedQueries = {
-        unorderedCategoryPublished { final category ->
+        authorPublishState { username, final publishState ->
             eq 'deleted', Boolean.FALSE
-            eq 'publishState', "Published"
+            eq 'publishState', "${publishState}"
+            author {
+                eq 'username', username
+            }
+        }
+
+        publishState { final publishState ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "${publishState}"
+        }
+
+        authorDeleted { username ->
+            eq('deleted', Boolean.TRUE)
+            author {
+                eq('username', username)
+            }
+        }
+
+        deleted {
+            eq('deleted', Boolean.TRUE)
+        }
+        
+        publishStateByCategory { final publishState,
+                                 final category ->
+            eq 'deleted', Boolean.FALSE
             eq 'category', "${category}"
-        }
-
-        published {
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', "Published"
-            order("datePublished", "desc")
-        }
-
+            eq 'publishState', "${publishState}"
+        }  
+        
         homePage {orderCol, orderDir ->
             eq 'deleted', Boolean.FALSE
             eq 'publishState', 'Published'
@@ -121,50 +140,7 @@ class Event extends Publishable implements Comparable {
                 eq "isRule", Boolean.FALSE
             }
             order("${orderCol}", "${orderDir}")
-        }
-
-        meditation {orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'M'
-            or {
-                eq 'featured', Boolean.TRUE  
-                eq 'home', Boolean.TRUE                          
-            }
-            order("${orderCol}", "${orderDir}")
-        }
-
-        buddhism {orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'B'
-            or {
-                eq 'featured', Boolean.TRUE  
-                eq 'home', Boolean.TRUE                          
-            }        
-            order("${orderCol}", "${orderDir}")
-        }
-
-        community {orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'C'
-            or {
-                eq 'featured', Boolean.TRUE  
-                eq 'home', Boolean.TRUE                          
-            }       
-            order("${orderCol}", "${orderDir}")
-        }
-        wellbeing {orderCol, orderDir ->
-            eq 'deleted', Boolean.FALSE
-            eq 'publishState', 'Published'
-            eq 'category', 'W'
-            or {
-                eq 'featured', Boolean.TRUE  
-                eq 'home', Boolean.TRUE                          
-            }
-            order("${orderCol}", "${orderDir}")
-        }
+        }        
     }
 
     def getPriceList() {

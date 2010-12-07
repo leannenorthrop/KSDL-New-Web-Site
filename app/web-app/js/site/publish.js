@@ -36,10 +36,10 @@ var updatePublishOptions = function() {
         $('#is_featured').show('slow');
         $('#is_home').show('slow');
     } else {
-        newHomeLabel = homeLabel.replace('Home','Top of ' + name);
         $('#is_featured').show('slow');
         $('#is_home').show('slow');
-    }
+        newHomeLabel = newHomeLabel.replace('Section', name);        
+    }    
     $('#is_home label span').text(newHomeLabel);
     var newFeaturedLabel = featuredLabel.replace('Section', name);
     $('#is_featured label span').text(newFeaturedLabel);

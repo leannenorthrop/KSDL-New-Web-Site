@@ -68,3 +68,11 @@
       
     });
 </jq:jquery>
+<g:javascript>
+    function updateTabs(index) {
+        var tabsId = "#${tabsId}";
+        $(tabsId).tabs("load", index);        
+        $("#jsmsgbox").show('slow');        
+        return false;
+    }
+</g:javascript>

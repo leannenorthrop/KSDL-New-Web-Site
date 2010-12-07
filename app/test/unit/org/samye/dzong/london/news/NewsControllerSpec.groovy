@@ -44,7 +44,7 @@ class NewsControllerSpec extends ControllerSpec {
 
     def 'Home generates list of current and archived news items'() {
         setup:
-        stubFinderMethods("Published",["NewsFeaturedArticles","NewsAllArticles"])
+        stubFinderMethods("Published",["NewsFeaturedArticles","NewsAllArticles","NewsHomeArticles"])
         stubFinderMethods("Archived",["NewsAllArticles"])        
 
         and: "article service is present"
@@ -55,7 +55,7 @@ class NewsControllerSpec extends ControllerSpec {
 
         then:
         controller.modelAndView.viewName == 'index'
-        controller.modelAndView.model.linkedHashMap.featuredArticles == [] 
+        controller.modelAndView.model.linkedHashMap.homeArticles == [] 
         controller.modelAndView.model.linkedHashMap.allArticles == [] 
     }
 

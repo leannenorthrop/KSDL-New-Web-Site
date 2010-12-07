@@ -30,6 +30,11 @@ package org.samye.dzong.london.cms
  * @since  12th November 2010, 18:09
  */
 abstract class CMSController {
+    
+    def index = {
+        redirect(action:manage,params:[max:25])
+    }
+        
     def ajaxUnpublished = {
         render(view: 'unpublished',model:getModelForView('unpublished',params))
     }
@@ -49,5 +54,185 @@ abstract class CMSController {
     def ajaxDeleted = {
         render(view: 'deleted',model:getModelForView('deleted',params))
     }
+    
+    def changeState = {
+        def publishable = Publishable.get(params.id)
+        if (publishable) {
+            if (!versionCheck(params,publishable)) {
+                redirect(action: manage)
+                return
+            } else {
+                Publishable.withTransaction { status ->
+                    def isFirstPublish = publishable.publishState != 'Published' && params.state == 'Published'
+                    if (isFirstPublish) {
+                        publishable.datePublished = new Date()
+                    }
+                    publishable.publishState = params.state
+                    publishable.deleted = false
+                    if (!publishable.hasErrors() && publishable.save()) {
+                        flash.message = "${publishable.title} has been moved to ${params.state}"
+                        render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
+                    }
+                    else {
+                        flash.isError = true           
+                        flash.bean = publishable
+                        flash.args = [publishable]     
+                        flash.message = "${publishable.title} could not be moved to ${params.state} due to the following errors. Please correct the errors and try again."
+                        rollback(status,flash.message,publishable)
+                        render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
+                    }
+                }
+            }
+        }
+        else {
+            render(text:"Sorry could not find it! Bad link?",contentType:"text/plain",encoding:"UTF-8")
+        }
+    }    
+    
+    def delete = {
+        def publishable = Publishable.get(params.id)
+        if (publishable) {
+            if (versionCheck(params,publishable)){
+                Publishable.withTransaction { status ->
+                    try {
+                        publishable.publishState = "Unpublished"
+                        publishable.deleted = true
+                        publishable.title += ' (Deleted)'
+                        if (!publishable.hasErrors() && publishable.save()) {
+                            flash.message = "${publishable.title} has been deleted"
+                            render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
+                        }
+                        else {
+                            def msg = "Can not delete ${publishable.title} at this time"
+                            rollback(status,msg,event)
+                            render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
+                        }
+                    } catch (error) {
+                        def msg = "Can not delete ${publishable.title} at this time"
+                        rollback(status,msg,event,error)
+                        render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
+                    }
+                }
+            } else {
+                render(text:"${publishable.title} has been changed by another user.",contentType:"text/plain",encoding:"UTF-8")
+            }
+        }
+        else {
+            render(text:"Can not find the item you were looking for.",contentType:"text/plain",encoding:"UTF-8")
+        }
+    }   
+    
+    def manage = {
+        render(view: 'manage',params:[max:25])
+    }
+
+
+    def preview = {
+        render(view: 'preview', model: [content: params.previewcontenttxt])
+    }
+        
+    def view = {
+        viewEvent(params.id)
+    }
+        
+    def show = {
+        viewEvent(params.id)
+    }     
+    
+    def edit = {
+        def publishable = Publishable.get(params.id)
+        if (!publishable) {
+            notFound(manage)
+        }
+        else {
+            if (!flash.message) {
+                flash.message = "edit.${DOMAIN_NAME.toLowerCase()}" 
+            }
+            [publishableInstance: publishable, id: params.id]
+        }
+    }    
+    
+    def afterPublishEdit = {
+        def publishable = Publishable.get(params.id)
+        if (!publishable) {
+            notFound(manage)
+        }
+        else {
+            if (!flash.message) {
+                flash.message = "edit.${DOMAIN_NAME.toLowerCase()}" 
+            }
+            return render(view: 'alter', model: [publishableInstance: publishable, id: params.id])
+        }
+    }
+        
+    def pre_publish = {
+        def publishable = Publishable.get(params.id)
+        if (!publishable) {
+            notFound(manage)
+        }
+        else {
+            render(view: 'publish', model: [publishableInstance: publishable], id: params.id)
+        }
+    }    
+    
+    def onAddComment = { comment ->
+        log.debug comment
+    } 
+    
+    def save = {
+        def okMsg = "New ${DOMAIN_NAME.toLowerCase()} has been created."
+        def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
+        this."save${DOMAIN_NAME}"(null,params,manage,okMsg,create,errMsg)
+    }
+        
+    def update = {
+        def publishable = Publishable.get(params.id)
+        if (publishable) {
+            def okMsg = "${publishable.title} has been updated."
+            def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
+            this."save${DOMAIN_NAME}"(publishable,params,manage,okMsg,edit,errMsg)
+        }
+        else {
+            notFound(manage)
+        }
+    }   
+    
+    def publish = {
+        def publishable = Publishable.get(params.id)
+        if (publishable) {
+            params.publishState = 'Published'
+            params.datePublished = new Date()
+            def okMsg = "${publishable.title} has been Published"
+            def errMsg = "${publishable.title} could not be ${params.state} due to errors. Please correct the errors and try again."
+            this."save${DOMAIN_NAME}"(publishable,params,manage,okMsg,pre_publish,errMsg)
+        }
+        else {
+            notFound(manage)
+        }
+    } 
+    
+    def updatePublished = {
+        def publishable = Publishable.get(params.id)
+        if (publishable) {
+            def okMsg = "${publishable.title} has been updated."
+            def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
+            this."save${DOMAIN_NAME}"(publishable,params,manage,okMsg,alter,errMsg)
+        }
+        else {
+            notFound(manage)
+        }        
+    }    
+    
+    def updateAndPublish = {
+        def publishable = Publishable.get(params.id)
+        if (publishable) {
+            def okMsg = "${publishable.title} has been updated."
+            def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
+            this."save${DOMAIN_NAME}"(publishable,params,pre_publish,okMsg,edit,errMsg)
+        }
+        else {
+            notFound(manage)
+        }    
+    }          
 }
 

@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="col1_90_Percent">
-      <g:render template="/eventlist" model="[events: events]"/>
+      <g:render template="/eventlist" model="[events: allEvents]"/>
     </div>
   </body>
 </html>

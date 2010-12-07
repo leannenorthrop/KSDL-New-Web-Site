@@ -51,10 +51,10 @@ Date: Jan 24, 2010, 2:00:21 PM
     <div class="clear"></div>
 
     <div class="grid_5">
-      <g:render template="/articlelist" model="[articles:featuredArticles,controller:'meditation',action:'view',total:total,moreAction:'list',heading:'meditation.articles.title']"/>
+      <g:render template="/articlelist" model="[articles:allArticles,controller:'meditation',action:'view',total:totalAllArticles,moreAction:'list',heading:'meditation.articles.title']"/>
     </div>
     <div class="grid_11">
-      <g:render template="/eventlist" model="[events: featuredEvents, heading: 'event.meditation']"/>
+      <g:render template="/eventlist" model="[events: featuredEvents, heading: 'event.meditation',total:totalAllEvents]"/>
     </div>
   </body>
 </html>
