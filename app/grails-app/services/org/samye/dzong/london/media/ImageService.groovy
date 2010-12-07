@@ -48,8 +48,8 @@ class ImageService {
             def imageTool = new ImageTool()
             imageTool.load(file)
             imageTool.saveOriginal()
-            if (imageTool.getHeight() > 640 || imageTool.getWidth() > 640) {
-                imageTool.thumbnailSpecial(640, 640, 3, 1)
+            if (imageTool.getHeight() > 800 || imageTool.getWidth() > 800) {
+                imageTool.thumbnailSpecial(800, 800, 3, 1)
                 def imagetype = type.toLowerCase().indexOf("jpg") >= 0 ? "JPEG" : "PNG";
 				imagetype = type.toLowerCase().indexOf("jpeg") >= 0 ? "JPEG" : "PNG";
                 return imageTool.getBytes(imagetype)
