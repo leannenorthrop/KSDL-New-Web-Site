@@ -29,3 +29,21 @@ eventCreateWarStart = { final warName, final dir ->
     Ant.delete(dir:dir.path+'/WEB-INF/plugins/spock-0.5-groovy-1.7-SNAPSHOT')
     Ant.delete(dir:dir.path+'/plugins/code-coverage-1.1.8')
 }
+
+eventDefaultStart = {
+   createUnitTest = { Map args = [:] ->
+       def superClass
+       // map unit test superclass to Spock equivalent
+       switch(args["superClass"]) {
+           case "ControllerUnitTestCase":
+               superClass = "ControllerSpec"
+               break
+           case "TagLibUnitTestCase":
+               superClass = "TagLibSpec"
+               break
+           default:
+               superClass = "UnitSpec"
+       }
+       createArtifact name: args["name"], suffix: "${args['suffix']}Spec", type: "Spec", path: "test/unit", superClass: superClass
+   }
+}

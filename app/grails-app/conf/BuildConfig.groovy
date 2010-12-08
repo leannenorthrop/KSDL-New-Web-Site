@@ -79,7 +79,12 @@ grails.project.dependency.resolution = {
         
         test 'javax.persistence:persistence-api:1.0',
              'com.icegreen:greenmail:1.3.1b',
-             'org.objenesis:objenesis:1.2'
+             'org.objenesis:objenesis:1.2',
+             'org.seleniumhq.selenium:selenium-firefox-driver:latest.release',
+             'org.seleniumhq.selenium:selenium-chrome-driver:latest.release',
+             'org.seleniumhq.selenium:selenium-ie-driver:latest.release'
+             
+        test ('org.seleniumhq.selenium:selenium-htmlunit-driver:latest.release') {exclude 'xml-apis'}             
     }
 }
 
