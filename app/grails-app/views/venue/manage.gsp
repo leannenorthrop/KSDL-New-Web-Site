@@ -24,40 +24,37 @@
 <%@ page import="org.samye.dzong.london.venue.Venue" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <head>
-    <meta name="layout" content="content-admin" />
-    <title><g:message code="venue.manage.title"/></title>
-  </head>
-  <body>
-  <g:set var="nameLabel"><g:message code="venue.name.label"/></g:set>
-  <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
-  <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
-  <table>
-    <thead>
-      <tr>
-    <g:sortableColumn property="name" title="${nameLabel}"/>
-    <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-    <th><g:message code="article.action.label"/></th>
-</tr>
-</thead>
-<tbody>
-<g:each in="${venues}" status="i" var="venue">
-  <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-    <td>
-  <g:link action="edit" id="${venue.id}">${fieldValue(bean: venue, field: 'name')}</g:link>
-  </td>
-  <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${venue?.lastUpdated}"/></td>
-  <td>
-  <g:link action="delete" id="${venue.id}" onclick="${deleteConfirmLabel}"><g:message code="article.delete.action"/></g:link>
-  </td>
-  </tr>
-</g:each>
-</tbody>
-</table>
-<g:if test="${total}">
-  <div class="manage paginateButtons">
-    <g:paginate total="${total}"/>
-  </div>
-</g:if> 
-</body>
+    <head>
+        <meta name="layout" content="content-admin" />
+        <title><g:message code="venue.manage.title"/></title>
+    </head>
+    <body>
+        <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+        <table>
+            <thead>
+                <tr>
+                    <g:sortableColumn property="name" titleKey="venue.name.label"/>
+                    <g:sortableColumn property="lastUpdated" titleKey="article.last.updated"/>
+                    <th style="min-width:4em;"><g:message code="article.action.label"/></th>
+                </tr>
+            </thead>
+            <tbody>
+                <g:each in="${venues}" status="i" var="venue">
+                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                    <td>${fieldValue(bean: venue, field: 'name')}</td>
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${venue?.lastUpdated}"/></td>
+                    <td class="actions">
+                        <g:link action="edit" id="${venue.id}" class="edit" title="${message(code:'article.edit.action')}"><span class="silk-icon silk-icon-pencil">&nbsp;</span></g:link>
+                        <g:remoteLink action="delete" id="${venue.id}" class="delete" asynchronous="false" update="jsmsgbox" title="${message(code:'article.delete.action')}" method="GET" after="window.location.reload();"><span class="silk-icon silk-icon-cancel">&nbsp;</span></g:remoteLink>
+                    </td>
+                </tr>
+                </g:each>
+            </tbody>
+        </table>
+        <g:if test="${total}">
+            <div class="manage paginateButtons">
+                <g:paginate total="${total}"/>
+            </div>
+        </g:if> 
+    </body>
 </html>

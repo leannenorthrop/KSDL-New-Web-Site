@@ -22,6 +22,7 @@
     ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.venue.Venue" %>
+<g:set var="venue" value="${publishableInstance}"/>
 <html>
   <head>
     <meta name="layout" content="content-admin"/>

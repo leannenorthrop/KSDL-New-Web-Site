@@ -32,88 +32,72 @@ import org.samye.dzong.london.cms.*
  * @since  January 2010
  */
 class VenueController extends CMSController {
-    static allowedMethods = [delete:'GET', update:'POST']
-
-    def index = {
-        redirect(action: manage)
+    // the delete, save and update actions only accept POST requests
+    static allowedMethods = [manage: 'GET',
+                             save: 'PUT', 
+                             update: 'POST', 
+                             changeState: 'PUT', 
+                             delete: 'GET',                             
+                             view: 'PUT',                             
+                             show: 'PUT',                                                          
+                             edit: 'GET',                                                                                       
+                             pre_publish: 'PUT',
+                             preview: 'POST', 
+                             updatePublished: 'PUT',
+                             updateAndPublish: 'PUT',
+                             onAddComment: ['POST','GET']]   
+                             
+    def static final ADMIN_ROLES = ['VenueManager', 'Administrator'] 
+    def DOMAIN_NAME = 'Venue'
+    
+    /**
+     * Although added via Bootstrap we re-add cms util methods here for
+     * development purposes.
+     */
+    VenueController() {
+        CMSUtil.addFinderMethods(this)
+        CMSUtil.addCMSMethods(this)
     }
-
+    
     def manage = {
-        render(view:'manage',model:[ venues: Venue.notDeleted().list(), total: Venue.notDeletedCount().count() ])
+        render(view: 'manage',params:[max:25],model:[venues:Venue.findAllByDeleted(false)])
     }
-
-    def delete = {
-        def venue = Venue.get( params.id )
-        if(venue) {
-            Venue.withTransaction{ status ->
+        
+    def saveRoom(venue,params,onSave,saveMsg,onError,errMsg) {
+        if (!venue){
+            venue = new Venue()
+        }
+        if (versionCheck(params,venue)) {
+            Venue.withTransaction { status ->
                 try {
-                    venue.publishState = "Unpublished"
-                    venue.deleted = true
-                    venue.name += " (Deleted)" 	            
+                    venue.author = currentUser() 
+                    venue.properties = params
+                    ['Addresses', 'Emails', 'TelephoneNumbers'].each { venue."bind${it}"(params) }
+
                     if (!venue.hasErrors() && venue.save()) {
-                        flash.message = "Venue ${venue.name} deleted"
-                        redirect(action:manage)
-                    } else {
-                        def msg = "Venue ${venue.name} could not be deleted"
-                        rollback(status,msg,venue)
-                        redirect(action: manage,id:params.id)
+                        flash.message = saveMsg
+                        if (onSave == manage) {
+                            flash.message = "${venue.name} updated"                            
+                            redirect(action: onSave)                            
+                        } else {
+                            def msg = "Changes could not be saved because of the following:"	
+                            rollback(status,msg,venue)
+                            redirect(action: onSave,params:[id:params.id])
+                        }
                     }
-                }
-                catch(e) {
-                    def msg = "Venue ${venue.name} could not be deleted"
-                    rollback(status,msg,venue,e)
+                    else {
+                        def msg = "Can not save ${room.name} at this time"
+                        rollback(status,msg,room,error)
+                        handleError(errMsg,room,onError)
+                    }
+                } catch(error) {
+                    def msg = "Can not save ${room.name} at this time"
+                    rollback(status,msg,room,error)
                     redirect(action: manage,id:params.id)
                 }
             }
-        }
-        else {
+        } else {
             notFound(manage)
         }
-    }
-
-
-    def edit = {
-        def venueInstance = Venue.get( params.id )
-
-        if(!venueInstance) {
-            notFound(manage)
-        }
-        else {
-            [ venue : venueInstance ]
-        }
-    }
-
-    def update = {
-        def venue = Venue.get(params.id)
-
-        if (venue) {
-            if (!versionCheck(params,venue)) {
-                render(view:'edit',model:[venue:venue])
-                return
-            }           
-            
-            Venue.withTransaction { status ->
-                venue.properties = params
-                try {
-                    ['Addresses', 'Emails', 'TelephoneNumbers'].each { venue."bind${it}"(params) }
-                    if (!venue.hasErrors() && venue.save()) {
-                        flash.message = "Venue ${venue.name} updated"
-                        redirect(action:manage)
-                    }
-                    else {
-                        def msg = "Changes could not be saved because of the following:"	
-                        rollback(status,msg,venue)
-                        render(view:'edit',model:[venue:venue])
-                    }
-                } catch (RuntimeException e) {
-                    def msg = "Changes could not be saved because of the following:"	
-                    rollback(status,msg,venue,e)
-                    render(view:'edit',model:[venue:venue])
-                }
-            }
-        }
-        else {
-            notFound(manage)
-        }
-    }
+    } 
 }
