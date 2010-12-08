@@ -40,7 +40,7 @@
                     <g:sortableColumn property="featured" titleKey="article.is.featured" params="${[max:listMaxParam]}"/>
                     <g:sortableColumn property="datePublished" titleKey="article.published.on" params="${[max:listMaxParam]}"/>
                     <g:sortableColumn property="lastUpdated" titleKey="article.last.updated" params="${[max:listMaxParam]}"/>
-                    <shiro:hasAnyRole in="['Editor','Administrator']">
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
                     <g:sortableColumn property="author" titleKey="article.author.label" params="${[max:listMaxParam]}"/>
                     </shiro:hasAnyRole>
                     <th style="min-width:10em;"><g:message code="article.action.label"/></th>
@@ -59,10 +59,10 @@
                 <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
                 </shiro:hasAnyRole>
                 <td class="actions">
-                    <shiro:hasRole name="Editor">
+                    <shiro:hasRole name="${flash.adminRoles[0]}">
                     <g:link action="pre_publish" id="${articleInstance.id}" title="${message(code:'article.edit.action')}"><span class="silk-icon silk-icon-pencil">&nbsp;</span></g:link>
                     </shiro:hasRole>                        
-                    <shiro:hasAnyRole in="['Editor','Administrator']">
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
                     <g:remoteLink action="changeState" params="[state:'Ready']" id="${articleInstance.id}" title="${message(code:'article.unpublish.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(2);"><span class="silk-icon silk-icon-arrow-undo">&nbsp;</span></g:remoteLink>
                     <g:remoteLink action="changeState" params="[state:'Archived']" id="${articleInstance.id}" title="${message(code:'article.archive.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(2);"><span class="silk-icon silk-icon-folder-page-white">&nbsp;</span></g:remoteLink>
                     <g:remoteLink action="delete" id="${articleInstance.id}" class="delete" title="${message(code:'article.delete.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(2);"><span class="silk-icon silk-icon-cancel">&nbsp;</span></g:remoteLink>                    

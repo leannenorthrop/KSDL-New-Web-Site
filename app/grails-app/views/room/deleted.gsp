@@ -20,40 +20,50 @@
 - BT plc, hereby disclaims all copyright interest in the program
 - “Samye Content Management System” written by Leanne Northrop.
     ----------------------------------------------------------------------------}%
-<g:set var="titleLabel"><g:message code="room.name.label"/></g:set>
-<g:set var="authorLabel"><g:message code="room.author.label"/></g:set>
 <html>
-  <body>
-    <table>
-      <thead>
-        <tr>
-      <g:sortableColumn property="room" title="${titleLabel}"/>
-      <shiro:hasAnyRole in="['Editor','Admin']">
-        <g:sortableColumn property="author" title="${authorLabel}"/>
-      </shiro:hasAnyRole>
-      <th><g:message code="room.action.label"/></th>
-  </tr>
-</thead>
-<tbody>
-<g:each in="${rooms}" status="i" var="room">
-  <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-    <td>
-  <g:link action="show" id="${room.id}">${room}</g:link>
-  </td>
-  <shiro:hasAnyRole in="['Editor','Administrator']">
-    <td>${fieldValue(bean: room, field: 'author')}</td>
-  </shiro:hasAnyRole>
-  <td>
-  <shiro:hasAnyRole in="['Editor','Administrator','VenueManager']">
-    <g:link action="changeState" params="[state:'Unpublished']" id="${room.id}"><g:message code="room.unpublish.action"/></g:link>
-  </shiro:hasAnyRole>
-  </td>
-  </tr>
-</g:each>
-</tbody>
-</table>
-<div class="paginateButtons">
-  <g:paginate total="${total}"/>
-</div>
-</body>
+    <g:if test="${params.max}">
+        <g:set var="listMaxParam" value="${params.max}"/>
+    </g:if>
+    <g:else>
+        <g:set var="listMaxParam" value="50"/>
+    </g:else>
+    <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+    
+    <body>
+        <table>
+            <thead>
+            <tr>
+                <g:sortableColumn property="name" titleKey="room.name.label" params="${[max:listMaxParam]}" style="width:20em"/>
+                <g:sortableColumn property="forHire" titleKey="room.forHire.label" params="${[max:listMaxParam]}"/>                                
+                <g:sortableColumn property="venue" titleKey="room.venue.label" params="${[max:listMaxParam]}"/>                                                    
+                <g:sortableColumn property="dateCreated" titleKey="room.created.on" params="${[max:listMaxParam]}"/>                     
+                <g:sortableColumn property="lastUpdated" titleKey="room.last.updated" params="${[max:listMaxParam]}"/> 
+                <shiro:hasAnyRole in="${flash.adminRoles}">
+                <g:sortableColumn property="author" title="${authorLabel}" titleKey="article.author.label" params="${[max:listMaxParam]}"/>
+                </shiro:hasAnyRole>
+                <th style="min-width:2em;"><g:message code="article.action.label"/></th>
+            </tr>
+            </thead>
+            <tbody>
+                <g:each in="${rooms}" status="i" var="room">
+                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                    <td>${fieldValue(bean: room, field: 'name')}</td>
+                    <td><g:message code="${room?.forHire ? 'true' : 'false'}"/></td>                    
+                    <td>${fieldValue(bean: room, field: 'venue')}</td>                        
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.dateCreated}"/></td>                      
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.lastUpdated}"/></td>                  
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
+                    <td>${fieldValue(bean: room, field: 'author')}</td>
+                    </shiro:hasAnyRole>
+                    <td class="actions">
+                        <g:remoteLink action="changeState" params="[state:'Unpublished']" id="${room.id}" title="${message(code:'article.unpublish.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(3);"><span class="silk-icon silk-icon-arrow-undo">&nbsp;</span></g:remoteLink>                        
+                    </td>
+                </tr>
+                </g:each>
+            </tbody>
+        </table>
+        <div class="manage paginateButtons">
+            <g:paginate total="${total}"/>
+        </div>
+    </body>
 </html>

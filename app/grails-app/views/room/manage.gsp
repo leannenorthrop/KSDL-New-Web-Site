@@ -22,76 +22,30 @@
     ----------------------------------------------------------------------------}%
 
 <%--
-Template for displaying Rooms.
+    Template for managing Room content.
     User: Leanne Northrop
-Date: Jun 14, 2010, 2:57:23 PM
+    Date: Jun 14, 2010, 2:57:23 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.venue.Room" %>
-<g:if test="${params.max}">
-  <g:set var="listMaxParam" value="?max=${params.max}&sort=name&order=asc"/>
-</g:if>
-<g:else>
-  <g:set var="listMaxParam" value="?sort=name&order=asc"/>
-</g:else>
 <html>
-  <head>
-    <meta name="layout" content="content-admin"/>
-    <title><g:message code="manage.rooms.title" default="Manage Rooms"/></title>
-  <g:javascript>
-    var currentTabIndex = 0;
-    var currentTabDiv;
-    $(function() {
-    $('a.step').live('click', function() {
-    $("#room-tabs").tabs('url', currentTabIndex, this.href);
-    $(currentTabDiv).load(this.href);
-    return false;
-    });
-    $('a.nextLink').live('click', function() {
-    $("#room-tabs").tabs('url', currentTabIndex, this.href);
-    $(currentTabDiv).load(this.href);
-    return false;
-    });
-    $('a.prevLink').live('click', function() {
-    $("#room-tabs").tabs('url', currentTabIndex, this.href);
-    $(currentTabDiv).load(this.href);
-    return false;
-    });
-    $('th.sortable a').live('click', function() {
-    $("#room-tabs").tabs('url', currentTabIndex, this.href);
-    $(currentTabDiv).load(this.href);
-    return false;
-    });
-    $("#room-tabs").tabs({
-    fx: { opacity: 'toggle' },
-    select: function(event, ui) {
-    currentTabDiv = $(ui.panel);
-    currentTabIndex = $("#room-tabs").tabs('option', 'selected');
-    },
-    load: function(event, ui) {
-    currentTabDiv = $(ui.panel);
-    currentTabIndex = $("#room-tabs").tabs('option', 'selected');
-    }
-    });
-    });
-  </g:javascript>
-</head>
-<body>
-  <form>
-    <fieldset>
-      <div id="room-tabs">
-        <ul>
-          <li><a href="ajaxUnpublishedRooms${listMaxParam}"><g:message code="room.unpublished"/></a></li>
-          <li><a href="ajaxPublishedRooms${listMaxParam}"><g:message code="room.published"/></a></li>
-          <li><a href="ajaxDeletedRooms${listMaxParam}"><g:message code="room.deleted"/></a></li>
-        </ul>
-      </div>
-      <shiro:hasAnyRole in="${['VenueManager','Admin']}">
-        <p class="last">&nbsp;</p>
-        <g:actionSubmit value="${message(code:'add.article.btn')}" action="create" class="ui-corner-all"/>
-      </shiro:hasAnyRole>
-    </fieldset>
-  </form>
-</body>
+    <head>
+        <meta name="layout" content="content-admin"/>
+        <title><g:message code="room.manage.title"/></title>
+        <g:set var="tabsId" value="room-tabs"/>        
+    </head>
+    <body>
+        <form>
+            <fieldset>
+                <g:render template="/managePublishable" model="[tabsId: tabsId]"/>
+                <shiro:hasAnyRole in="${['VenueManager']}">
+                    <p class="last">&nbsp;</p>
+                    <g:actionSubmit value="${message(code:'add.article.btn')}" action="create" class="ui-corner-all"/>
+                </shiro:hasAnyRole>
+            </fieldset>
+        </form>
+        <g:render template="/managePublishableJS" model="[tabsId: tabsId]"/>               
+    </body>
 </html>
+
 

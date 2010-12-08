@@ -32,162 +32,87 @@ import org.samye.dzong.london.cms.*
  * @since  January, 2010
  */
 class RoomController extends CMSController {
-    def index = { 
-        redirect(action:manage)
-    }
-
     // the delete, save and update actions only accept POST requests
-    static allowedMethods = [save:'POST', update:'POST', changeState: 'GET']
-    def static final ADMIN_ROLES = ['Editor', 'Administrator'] 
-
-    def manage = {
-        render(view: 'manage')
+    static allowedMethods = [manage: 'GET',
+                             save: 'POST', 
+                             update: 'POST', 
+                             changeState: 'GET', 
+                             delete: 'GET',                             
+                             view: 'GET',                             
+                             show: 'GET',                                                          
+                             edit: 'GET',                                                                                       
+                             pre_publish: 'GET',
+                             preview: 'POST', 
+                             updatePublished: 'POST',
+                             updateAndPublish: 'POST',
+                             onAddComment: ['POST','GET']]   
+                             
+    def static final ADMIN_ROLES = ['VenueManager', 'Administrator'] 
+    def DOMAIN_NAME = 'Room'
+    
+    /**
+     * Although added via Bootstrap we re-add cms util methods here for
+     * development purposes.
+     */
+    RoomController() {
+        CMSUtil.addFinderMethods(this)
+        CMSUtil.addCMSMethods(this)
     }
-
-    def show = {
-        viewRoom( params.id )
-    }
-
-    def view = {
-        viewRoom( params.id )
-    }
-
-    def edit = {
-        def roomInstance = Room.get( params.id )
-
-        if(!roomInstance) {
-            flash.message = "Room not found with id ${params.id}"
-            flash.isError = true            
-            redirect(action:manage)
-        }
-        else {
-            return [ room : roomInstance ]
-        }
-    }
-
+        
     def create = {
         def roomInstance = new Room()
         roomInstance.properties = params
         return ['room':roomInstance]
     }
 
-    def save = {
-        def roomInstance = new Room(params)
-        roomInstance.author = currentUser()
-        if(!roomInstance.hasErrors() && roomInstance.save()) {
-            flash.message = "Room ${roomInstance.name} created"
-            redirect(action:manage)
+    
+    def saveRoom(room,params,onSave,saveMsg,onError,errMsg) {
+        if (!room){
+            room = new Room()
         }
-        else {
-            flash.isError = true
-            flash.message = "Could not create room due to the following errors:"
-            flash.args = [roomInstance]			
-            flash.bean = roomInstance
-            render(view:'create',model:[room:roomInstance])
-        }
-    }
+        if (versionCheck(params,room)) {
+            Room.withTransaction { status ->
+                try {
+                    room.author = currentUser() 
+                    room.properties = params
 
-    def delete = {
-        def room = Room.get(params.id)
-        if (room) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (room.version > version) {
-                    flash.isError = true                    
-                    room.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room's details while you were editing.")
-                    redirect(action: manage)
-                    return
+                    if (!room.hasErrors() && room.save()) {
+                        if (params.tags) {
+                            def tags = room.tags
+                            def newtags = params.tags.split(',')
+                            if (tags) {
+                                tags.each {tag ->
+                                    def found = newtags.find {newtag -> newtag == tag}
+                                    if (!found) {
+                                        room.removeTag(tag)
+                                    }
+                                }
+                            } else {
+                                newtags = newtags as List
+                                room.setTags(newtags)
+                            }
+                        }
+                
+                        flash.message = saveMsg
+                        if (onSave == manage) {
+                            redirect(action: onSave)                            
+                        } else {
+                            redirect(action: onSave,params:[id:params.id])
+                        }
+                    }
+                    else {
+                        def msg = "Can not save ${room.name} at this time"
+                        rollback(status,msg,room,error)
+                        handleError(errMsg,room,onError)
+                    }
+                } catch(error) {
+                    def msg = "Can not save ${room.name} at this time"
+                    rollback(status,msg,room,error)
+                    redirect(action: manage,id:params.id)
                 }
             }
-            room.publishState = "Unpublished"
-            room.deleted = true
-            room.name += " (Deleted)"             
-            if (!room.hasErrors() && room.save()) {
-                flash.message = "room.deleted"
-                flash.args = [room];                
-                redirect(action: manage)
-            }
-            else {
-                flash.isError = true                  
-                flash.bean = room
-                redirect(action: manage)
-            }
-        }
-        else {
-            flash.isError = true            
-            flash.message = "room.not.found"
-            flash.args = params.id
+        } else {
             redirect(action: manage)
         }
-    }
-
-    def update = {
-        def room = Room.get(params.id)
-        if (room) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (room.version > version) {
-                    flash.isError = true
-                    teacher.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room's details while you were editing.")
-                    render(view: 'edit', model: [room: room, id: params.id])
-                    return
-                }
-            }
-            room.properties = params
-            if (!room.hasErrors() && room.save()) {
-                flash.message = "room.updated"
-                flash.args = [room]
-                redirect(action: manage)
-            }
-            else {
-                flash.isError = true
-                flash.message = "room.update.error"
-                flash.args = [room]
-                flash.bean = room
-                render(view: 'edit', model: [room: room, id: params.id])
-            }
-        }
-        else {
-            flash.isError = true
-            flash.message = "room.not.found"
-            flash.args = params.id
-            redirect(action: manage)
-        }
-    }
-
-    def changeState = {
-        def room = Room.get(params.id)
-        if (room) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (room.version > version) {
-                    flash.isError = true
-                    room.errors.rejectValue("version", "room.optimistic.locking.failure", "Another user has updated this Room's details while you were editing.")
-                    redirect(action: manage)
-                    return
-                }
-            }
-            def isFirstPublish = room.publishState != 'Published' && params.state == 'Published'
-            if (isFirstPublish) {
-                room.datePublished = new Date()
-            }
-            room.publishState = params.state
-            room.deleted = false
-            if (!room.hasErrors() && room.save()) {
-                flash.message = "${room.name} has been moved to ${room.publishState}"
-                redirect(action: manage)
-            }
-            else {
-                flash.isError = true
-                flash.bean = room
-                redirect(action: manage)
-            }
-        }
-        else {
-            flash.message = "room.not.found"
-            flash.args = params.id
-            flash.isError = true
-            redirect(action: manage)
-        }
-    }
+    } 
 }

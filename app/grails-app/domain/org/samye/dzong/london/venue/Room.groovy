@@ -55,7 +55,40 @@ class Room extends Publishable {
             summary type:'text'
         }
     }
-	
+
+    static namedQueries = {
+        authorPublishState { username, final publishState ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "${publishState}"
+            author {
+                eq 'username', username
+            }
+        }
+
+        publishState { final publishState ->
+            eq 'deleted', Boolean.FALSE
+            eq 'publishState', "${publishState}"
+        }
+
+        authorDeleted { username ->
+            eq('deleted', Boolean.TRUE)
+            author {
+                eq('username', username)
+            }
+        }
+
+        deleted {
+            eq('deleted', Boolean.TRUE)
+        }
+        
+        publishStateByCategory { final publishState,
+                                 final category ->
+            eq 'deleted', Boolean.FALSE
+            eq 'category', "${category}"
+            eq 'publishState', "${publishState}"
+        }  
+    }
+    	
     String toString() {
         name
     }

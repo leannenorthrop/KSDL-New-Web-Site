@@ -37,7 +37,7 @@
                 <g:sortableColumn property="title" title="${titleLabel}" titleKey="article.title.label" params="${[max:listMaxParam]}" style="width:20em"/>
                 <g:sortableColumn property="dateCreated" titleKey="article.created.on" params="${[max:listMaxParam]}"/>                  
                 <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}" titleKey="article.last.updated" params="${[max:listMaxParam]}"/>
-                <shiro:hasAnyRole in="['Editor','Administrator']">
+                <shiro:hasAnyRole in="${flash.adminRoles}">
                 <g:sortableColumn property="author" title="${authorLabel}" titleKey="article.author.label" params="${[max:listMaxParam]}"/>
                 </shiro:hasAnyRole>
                 <th style="min-width:2em;"><g:message code="article.action.label"/></th>
@@ -51,7 +51,7 @@
                     </td>
                     <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.dateCreated}"/></td>                       
                     <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${articleInstance?.lastUpdated}"/></td>
-                    <shiro:hasAnyRole in="['Editor','Administrator']">
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
                     <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
                     </shiro:hasAnyRole>
                     <td class="actions">

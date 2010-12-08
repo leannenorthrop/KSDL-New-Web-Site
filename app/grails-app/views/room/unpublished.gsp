@@ -21,57 +21,51 @@
 - “Samye Content Management System” written by Leanne Northrop.
     ----------------------------------------------------------------------------}%
 <html>
-  <g:set var="titleLabel"><g:message code="room.name.label"/></g:set>
-  <g:set var="lastUpdatedLabel"><g:message code="room.last.updated"/></g:set>
-  <g:set var="categoryLabel"><g:message code="room.venue.label"/></g:set>
-  <g:set var="deleteConfirmLabel"><g:message code="room.delete.confirm"/></g:set>
-  <g:set var="roomHireLabel"><g:message code="room.forHire.label"/></g:set>
-  <g:set var="authorLabel"><g:message code="room.author.label"/></g:set>
-  <body>
-    <table>
-      <thead>
-        <tr>
-      <g:sortableColumn property="name" title="${titleLabel}" />
-      <g:sortableColumn property="venue.id" title="${categoryLabel}"/>
-      <g:sortableColumn property="forHire" title="${roomHireLabel}"/>
-      <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}" />
-      <shiro:hasAnyRole in="['Editor','Admin']">
-        <g:sortableColumn property="author" title="${authorLabel}"/>
-      </shiro:hasAnyRole>
-      <th><g:message code="room.action.label"/></th>
-  </tr>
-</thead>
-<tbody>
-<g:each in="${rooms}" status="i" var="room">
-  <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-    <td>
-  <shiro:hasAnyRole in="['Author','Admin','VenueManager']">
-    <g:link action="edit" id="${room.id}">${fieldValue(bean: room, field: 'name')}</g:link>
-  </shiro:hasAnyRole>
-  <shiro:lacksAllRoles in="['Author','Admin','VenueManager']">
-${fieldValue(bean: room, field: 'name')}
-  </shiro:lacksAllRoles>
-  </td>
-  <td>${room?.venue?.name}</td>
-  <td><g:message code="${room?.forHire ? 'true' : 'false'}"/></td>
-  <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.lastUpdated}"/></td>
-  <shiro:hasAnyRole in="['Editor','Admin']">
-    <td>${fieldValue(bean:room, field:'author')}</td>
-  </shiro:hasAnyRole>
-  <td>
-  <shiro:hasAnyRole in="['Editor','Admin','VenueManager']">
-    <g:link action="changeState" params="[state:'Published']" id="${room.id}"><g:message code="room.publish.action"/></g:link>
-  </shiro:hasAnyRole>
-  <shiro:hasAnyRole in="['Author','VenueManager']">
-    <g:link action="delete" id="${room.id}" onclick="${deleteConfirmLabel}"><g:message code="room.delete.action"/></g:link>
-  </shiro:hasAnyRole>
-  </td>
-  </tr>
-</g:each>
-</tbody>
-</table>
-<div class="manage paginateButtons">
-  <g:paginate total="${total}" />
-</div>
-</body>
+    <g:if test="${params.max}">
+        <g:set var="listMaxParam" value="${params.max}"/>
+    </g:if>
+    <g:else>
+        <g:set var="listMaxParam" value="50"/>
+    </g:else>
+    <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <g:sortableColumn property="name" titleKey="room.name.label" params="${[max:listMaxParam]}" style="width:20em"/>
+                    <g:sortableColumn property="forHire" titleKey="room.forHire.label" params="${[max:listMaxParam]}"/>                                
+                    <g:sortableColumn property="venue" titleKey="room.venue.label" params="${[max:listMaxParam]}"/>                                                    
+                    <g:sortableColumn property="dateCreated" titleKey="room.created.on" params="${[max:listMaxParam]}"/>                     
+                    <g:sortableColumn property="lastUpdated" titleKey="room.last.updated" params="${[max:listMaxParam]}"/>                   
+                    <shiro:hasAnyRole in="['Administrator','VenueManager']">
+                    <g:sortableColumn property="author" titleKey="room.author.label" params="${[max:listMaxParam]}"/>
+                    </shiro:hasAnyRole>
+                    <th style="min-width:4em;"><g:message code="room.action.label"/></th>
+                </tr>
+            </thead>
+            <tbody>
+                <g:each in="${rooms}" status="i" var="room">
+                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                    <td>${fieldValue(bean: room, field: 'name')}</td>
+                    <td><g:message code="${room?.forHire ? 'true' : 'false'}"/></td>                    
+                    <td>${fieldValue(bean: room, field: 'venue')}</td>                        
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.dateCreated}"/></td>                      
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.lastUpdated}"/></td>                  
+                    <shiro:hasAnyRole in="['Administrator','VenueManager']">
+                        <td>${fieldValue(bean: room, field: 'author')}</td>
+                    </shiro:hasAnyRole>
+                    <td class="actions">
+                        <g:link action="edit" id="${room.id}" class="edit" title="${message(code:'article.edit.action')}"><span class="silk-icon silk-icon-pencil">&nbsp;</span></g:link>
+                        <g:remoteLink action="changeState" params="[state:'Ready']" class="ready" id="${room.id}" asynchronous="false" update="jsmsgbox" title="${message(code:'article.prepublish.action')}" method="GET" after="updateTabs(0);"><span class="silk-icon silk-icon-accept">&nbsp;</span></g:remoteLink>
+                        <g:remoteLink action="delete" id="${room.id}" class="delete" asynchronous="false" update="jsmsgbox" title="${message(code:'article.delete.action')}" method="GET" after="updateTabs(0);"><span class="silk-icon silk-icon-cancel">&nbsp;</span></g:remoteLink>
+                    </td>
+                </tr>
+                </g:each>
+            </tbody>
+        </table>
+        <div class="manage paginateButtons">
+            <g:paginate total="${total}"/>
+        </div>       
+    </body>
 </html>
+

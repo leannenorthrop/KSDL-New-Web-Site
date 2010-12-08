@@ -37,7 +37,7 @@
                 <g:sortableColumn property="title" title="${titleLabel}" titleKey="article.title.label" params="${[max:listMaxParam]}" style="width:20em"/>
                 <g:sortableColumn property="dateCreated" titleKey="article.created.on" params="${[max:listMaxParam]}"/>                  
                 <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}" titleKey="article.last.updated" params="${[max:listMaxParam]}"/>
-                <shiro:hasAnyRole in="['Editor','Administrator']">
+                <shiro:hasAnyRole in="${flash.adminRoles}">
                 <g:sortableColumn property="author" title="${authorLabel}" titleKey="article.author.label" params="${[max:listMaxParam]}"/>
                 </shiro:hasAnyRole>
                 <th><g:message code="article.action.label"/></th>
@@ -55,10 +55,10 @@
                     <td>${fieldValue(bean: articleInstance, field: 'author')}</td>
                     </shiro:hasAnyRole>
                     <td class="actions">
-                        <shiro:hasRole name="Editor">
+                        <shiro:hasRole name="${flash.adminRoles[0]}">
                         <g:remoteLink action="show" id="${articleInstance.id}" class="show" title="${message(code:'article.show.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(3);"><span class="silk-icon silk-icon-page-white-text">&nbsp;</span></g:remoteLink>
                         </shiro:hasRole>                        
-                        <shiro:hasAnyRole in="['Editor','Administrator']">
+                        <shiro:hasAnyRole in="${flash.adminRoles}">
                         <g:remoteLink action="changeState" params="[state:'Unpublished']" id="${articleInstance.id}" title="${message(code:'article.unpublish.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(3);"><span class="silk-icon silk-icon-arrow-undo">&nbsp;</span></g:remoteLink>
                         <g:remoteLink action="delete" id="${articleInstance.id}" class="delete" title="${message(code:'article.delete.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(3);"><span class="silk-icon silk-icon-cancel">&nbsp;</span></g:remoteLink>
                         </shiro:hasAnyRole>                      

@@ -31,28 +31,20 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <g:if test="${params.max}">
-    <g:set var="listMaxParam" value="?max=${params.max}&sort=title&order=asc"/>
+    <g:set var="listMaxParam" value="?max=${params.max}"/>
 </g:if>
 <g:else>
-    <g:set var="listMaxParam" value="?max=50&sort=title&order=asc"/>
+    <g:set var="listMaxParam" value="?max=50"/>
 </g:else>
 
 <div id="${tabsId}" class="ui-tabs-hide">
 <ul>
-    <shiro:hasAnyRole in="['Author','EventOrganiser','ShopManager','Administrator']">
-    <li><a href="ajaxUnpublished${listMaxParam}"><g:message code="article.unpublished"/></a></li>
-    </shiro:hasAnyRole>
-    
-    <shiro:hasAnyRole in="['Author','Editor','EventOrganiser','ShopManager','Administrator']">
+    <li><a href="ajaxUnpublished${listMaxParam}"><g:message code="article.unpublished"/></a></li>    
     <li><a href="ajaxReady${listMaxParam}"><g:message code="article.ready"/></a></li>
-    </shiro:hasAnyRole>
-    
     <li><a href="ajaxPublished${listMaxParam}"><g:message code="article.published"/></a></li>
-    
-    <shiro:hasAnyRole in="['Editor','EventOrganiser','Administrator']">    
+    <g:if test="${flash.isArticle}">
     <li><a href="ajaxArchived${listMaxParam}"><g:message code="article.archived"/></a></li>
-    </shiro:hasAnyRole>
-    
+    </g:if>
     <li><a href="ajaxDeleted${listMaxParam}"><g:message code="article.deleted"/></a></li>
 </ul>
 </div>

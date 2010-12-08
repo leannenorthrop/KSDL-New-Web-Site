@@ -36,22 +36,32 @@ abstract class CMSController {
     }
         
     def ajaxUnpublished = {
+        flash.adminRoles = ADMIN_ROLES
+        flash.isArticle = DOMAIN_NAME == 'Article'        
         render(view: 'unpublished',model:getModelForView('unpublished',params))
     }
 
     def ajaxPublished = {
+        flash.adminRoles = ADMIN_ROLES        
+        flash.isArticle = DOMAIN_NAME == 'Article'        
         render(view: 'published',model:getModelForView('published',params))
     }
 
     def ajaxArchived = {
+        flash.adminRoles = ADMIN_ROLES        
+        flash.isArticle = DOMAIN_NAME == 'Article'        
         render(view: 'archived',model:getModelForView('archived',params))
     }
 
     def ajaxReady = {
+        flash.adminRoles = ADMIN_ROLES        
+        flash.isArticle = DOMAIN_NAME == 'Article'        
         render(view: 'ready',model:getModelForView('ready',params))
     }
 
     def ajaxDeleted = {
+        flash.adminRoles = ADMIN_ROLES     
+        flash.isArticle = DOMAIN_NAME == 'Article'           
         render(view: 'deleted',model:getModelForView('deleted',params))
     }
     
@@ -70,14 +80,14 @@ abstract class CMSController {
                     publishable.publishState = params.state
                     publishable.deleted = false
                     if (!publishable.hasErrors() && publishable.save()) {
-                        flash.message = "${publishable.title} has been moved to ${params.state}"
+                        flash.message = "${publishable} has been moved to ${params.state}"
                         render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                     }
                     else {
                         flash.isError = true           
                         flash.bean = publishable
                         flash.args = [publishable]     
-                        flash.message = "${publishable.title} could not be moved to ${params.state} due to the following errors. Please correct the errors and try again."
+                        flash.message = "${publishable} could not be moved to ${params.state} due to the following errors. Please correct the errors and try again."
                         rollback(status,flash.message,publishable)
                         render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                     }
@@ -97,24 +107,24 @@ abstract class CMSController {
                     try {
                         publishable.publishState = "Unpublished"
                         publishable.deleted = true
-                        publishable.title += ' (Deleted)'
+                        try { publishable.title += ' (Deleted)' } catch(error) { publishable.name += ' (Deleted)'}
                         if (!publishable.hasErrors() && publishable.save()) {
-                            flash.message = "${publishable.title} has been deleted"
+                            flash.message = "${publishable} has been deleted"
                             render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                         }
                         else {
-                            def msg = "Can not delete ${publishable.title} at this time"
+                            def msg = "Can not delete ${publishable} at this time"
                             rollback(status,msg,event)
                             render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                         }
                     } catch (error) {
-                        def msg = "Can not delete ${publishable.title} at this time"
+                        def msg = "Can not delete ${publishable} at this time"
                         rollback(status,msg,event,error)
                         render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                     }
                 }
             } else {
-                render(text:"${publishable.title} has been changed by another user.",contentType:"text/plain",encoding:"UTF-8")
+                render(text:"${publishable} has been changed by another user.",contentType:"text/plain",encoding:"UTF-8")
             }
         }
         else {
@@ -123,6 +133,8 @@ abstract class CMSController {
     }   
     
     def manage = {
+        flash.adminRoles = ADMIN_ROLES        
+        flash.isArticle = DOMAIN_NAME == 'Article'
         render(view: 'manage',params:[max:25])
     }
 
@@ -132,11 +144,11 @@ abstract class CMSController {
     }
         
     def view = {
-        viewEvent(params.id)
+        "view${DOMAIN_NAME}"(params.id)
     }
         
     def show = {
-        viewEvent(params.id)
+        "view${DOMAIN_NAME}"(params.id)
     }     
     
     def edit = {
@@ -188,7 +200,7 @@ abstract class CMSController {
     def update = {
         def publishable = Publishable.get(params.id)
         if (publishable) {
-            def okMsg = "${publishable.title} has been updated."
+            def okMsg = "${publishable} has been updated."
             def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
             this."save${DOMAIN_NAME}"(publishable,params,manage,okMsg,edit,errMsg)
         }
@@ -202,8 +214,8 @@ abstract class CMSController {
         if (publishable) {
             params.publishState = 'Published'
             params.datePublished = new Date()
-            def okMsg = "${publishable.title} has been Published"
-            def errMsg = "${publishable.title} could not be ${params.state} due to errors. Please correct the errors and try again."
+            def okMsg = "${publishable} has been Published"
+            def errMsg = "${publishable} could not be ${params.state} due to errors. Please correct the errors and try again."
             this."save${DOMAIN_NAME}"(publishable,params,manage,okMsg,pre_publish,errMsg)
         }
         else {
@@ -214,7 +226,7 @@ abstract class CMSController {
     def updatePublished = {
         def publishable = Publishable.get(params.id)
         if (publishable) {
-            def okMsg = "${publishable.title} has been updated."
+            def okMsg = "${publishable} has been updated."
             def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
             this."save${DOMAIN_NAME}"(publishable,params,manage,okMsg,alter,errMsg)
         }
@@ -226,7 +238,7 @@ abstract class CMSController {
     def updateAndPublish = {
         def publishable = Publishable.get(params.id)
         if (publishable) {
-            def okMsg = "${publishable.title} has been updated."
+            def okMsg = "${publishable} has been updated."
             def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
             this."save${DOMAIN_NAME}"(publishable,params,pre_publish,okMsg,edit,errMsg)
         }

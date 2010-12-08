@@ -31,7 +31,7 @@ Date: Jun 14, 2010,3:11:44 PM
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
-    <title><g:message code="room.create.title"/></title>
+    <title><g:message code="room.edit.title"/></title>
   <g:javascript>
     $(function() {
     $("#editroom").validate();
@@ -40,8 +40,8 @@ Date: Jun 14, 2010,3:11:44 PM
 </head>
 <body>
 <g:form name="editroom" action="update" method="post">
-  <g:hiddenField name="id" value="${room?.id}"/>
-  <g:hiddenField name="version" value="${room?.version}"/>
+  <g:hiddenField name="id" value="${publishableInstance?.id}"/>
+  <g:hiddenField name="version" value="${publishableInstance?.version}"/>
   <g:hiddenField name="publishState" value="Unpublished"/>
   <g:hiddenField name="deleted" value="false"/>
   <g:hiddenField name="displayAuthor" value="false"/>
@@ -54,32 +54,32 @@ Date: Jun 14, 2010,3:11:44 PM
     <legend>Details</legend>
     <p>
       <label for="name"><g:message code="room.name.label"/></label>
-    <g:textField name="name" value="${fieldValue(bean:room,field:'name')}" class="required ui-corner-all ${hasErrors(bean:room,field:'name','errors')}" minlength="5"/>
+    <g:textField name="name" value="${fieldValue(bean:publishableInstance,field:'name')}" class="required ui-corner-all ${hasErrors(bean:publishableInstance,field:'name','errors')}" minlength="5"/>
     </p>
 
-    <lsdc:selectImg obj="${room}" tag="${'room'}"/>
+    <lsdc:selectImg obj="${publishableInstance}" tag="${'room'}"/>
 
     <p>
       <label for="venue.id"><g:message code="room.venue.label"/></label>
-    <g:select from="${org.samye.dzong.london.venue.Venue.findAll()}" name="venue.id" value="${room?.venue?.id}" optionKey="id" optionValue="name"/>
+    <g:select from="${org.samye.dzong.london.venue.Venue.findAll()}" name="venue.id" value="${publishableInstance?.venue?.id}" optionKey="id" optionValue="name"/>
     </p>
 
     <p>
       <label for="forHire.id"><g:message code="room.forHire.label"/></label>
-    <g:checkBox name="forHire" value="${room?.forHire}" checked="${room?.forHire}"/>
+    <g:checkBox name="forHire" value="${publishableInstance?.forHire}" checked="${publishableInstance?.forHire}"/>
     </p>
 
     <p>
       <label for="summary"><g:message code="room.summary.label"/></label>
-    <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:room,field:'summary','errors')}" value="${fieldValue(bean:room,field:'summary')}" minlength="5"/>
+    <g:textArea rows="5" cols="40" name="summary" class="required ui-corner-all ${hasErrors(bean:publishableInstance,field:'summary','errors')}" value="${fieldValue(bean:publishableInstance,field:'summary')}" minlength="5"/>
     </p>
   </fieldset>
   <fieldset>
     <legend>Content</legend>
-    <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:room]"/>
+    <g:render template="/contentWithPreview" model="[previewController: 'manageSite',publishableInstance:publishableInstance]"/>
 
     <p class="last">&nbsp;</p>
-    <g:set var="submitBtnLabel"><g:message code="room.create.submit.btn"/></g:set>
+    <g:set var="submitBtnLabel"><g:message code="room.save.submit.btn"/></g:set>
     <g:submitButton name="submitbtn" value="${submitBtnLabel}" id="submitbtn" class="ui-corner-all"/>
   </fieldset>
 </fieldset>

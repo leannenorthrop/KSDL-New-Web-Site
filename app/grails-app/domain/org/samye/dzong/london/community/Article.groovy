@@ -90,7 +90,6 @@ class Article extends Publishable {
             eq 'publishState', 'Published'
             order("${orderCol}", "${orderDir}")
         }
-
     }
 
     static mapping = {
@@ -104,6 +103,6 @@ class Article extends Publishable {
      * {@inheritDoc}
      */
     String toString() {
-        return "${title} (${super.toString()})"
+        return title
     }
 }
