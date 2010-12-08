@@ -97,6 +97,8 @@ class RoomController extends CMSController {
                         if (onSave == manage) {
                             redirect(action: onSave)                            
                         } else {
+                            def msg = "Can not save ${room.name} at this time"
+                            rollback(status,msg,room,error)
                             redirect(action: onSave,params:[id:params.id])
                         }
                     }

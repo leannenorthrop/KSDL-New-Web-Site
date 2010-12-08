@@ -30,205 +30,38 @@ import org.samye.dzong.london.cms.*
  * CMS content management url handler for both teacher and therapist information.
  * Displays only content management pages under the Teachers & Therapist navigation
  * menu.
- * TODO: Refactor to increase DRY
- * TODO: Tidy this up in light of Grails lessons learned.
+ * 
  * TODO: Complete internationalization.
  *
  * @author Leanne Northrop
  * @since  26th January 2010, 19:00
  */
 class TeacherController extends CMSController {
-    def teacherService
-    def articleService
-
-    def index = {
-        def teachers = Teacher.findAllByPublishState("Published")
-        model: [teachers: teachers, title: "all.teachers"]
-    }
-
-    // the save and update actions only accept POST requests
-    static allowedMethods = [save: 'POST', update: 'POST', changeState: 'GET']
-
-    def ajaxUnpublishedTeachers = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
-            model = teacherService.unpublished(params)
-        } else {
-            model = teacherService.userUnpublished(params)
-        }
-        render(view: 'unpublished', model: model)
-    }
-
-    def ajaxPublishedTeachers = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
-            model = teacherService.published(params)
-        } else {
-            model = teacherService.userPublished(params)
-        }
-        render(view: 'published', model: model)
-    }
-
-    def ajaxArchivedTeachers = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
-            model = teacherService.archived(params)
-        } else {
-            model = teacherService.userArchived(params)
-        }
-        render(view: 'archived', model: model)
-    }
-
-    def ajaxDeletedTeachers = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-
-        def model
-        if (SecurityUtils.subject.hasRoles(['Editor', 'Admin','EventOrganiser']).any()) {
-            model = teacherService.deleted(params)
-        } else {
-            model = teacherService.userDeleted(params)
-        }
-        render(view: 'deleted', model: model)
-    }
-
-    def manage = {
-        render(view: 'manage')
-    }
-
-    def view = {
-        def teacher = Teacher.get(params.id)
-        if (!teacher) {
-            flash.isError = true
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            redirect(uri: '/')
-        }
-        else {
-            /* TODO link in articles that mention the teacher
-            def aboutUsArticles = articleService.publishedByTags(['about us']);
-            aboutUsArticles = aboutUsArticles.findAll { article -> article.id != params.id }
-            if (model['articles']) {
-            def articles = model['articles']
-            articles << aboutUsArticles
-            } else {
-            model['articles'] = aboutUsArticles
-            }*/
-            def events = teacherService.events(params.id);
-            def articles = []
-            if (teacher.name == 'Community'){
-                articles = articleService.publishedByTags(['about us']);
-            }
-            return [teacher: teacher, id: params.id, events:events, articles:articles]
-        }
-    }
-
-    def show = {
-        def teacher = Teacher.get(params.id)
-
-        if (!teacher) {
-            flash.isError = true
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            redirect(action: list)
-        }
-        else {
-            def events = teacherService.events(params.id);
-            return [teacher: teacher, id: params.id, events:events]
-        }
-    }
-
-    def delete = {
-        def teacher = Teacher.get(params.id)
-        if (teacher) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (teacher.version > version) {
-                    flash.isError = true                    
-                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
-                    redirect(action: manage)
-                    return
-                }
-            }
-            teacher.publishState = "Unpublished"
-            teacher.deleted = true
-            teacher.name += " (Deleted)" 
-            if (!teacher.hasErrors() && teacher.save()) {
-                flash.message = "teacher.deleted"
-                flash.args = [teacher];
-                redirect(action: manage)
-            }
-            else {
-                flash.isError = true
-                flash.message = "teacher.delete.error"
-                flash.args = [teacher];                
-                flash.bean = teacher;                
-                redirect(action: manage)
-            }
-        }
-        else {
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            flash.isError = true
-            redirect(action: manage)
-        }
-    }
-
-    def edit = {
-        def teacher = Teacher.get(params.id)
-
-        if (!teacher) {
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            flash.isError = true            
-            redirect(action: manage)
-        }
-        else {
-            return [teacher: teacher, id: params.id]
-        }
-    }
-
-    def update = {
-        def teacher = Teacher.get(params.id)
-        if (teacher) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (teacher.version > version) {
-                    flash.isError = true
-                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
-                    render(view: 'edit', model: [teacher: teacher, id: params.id])
-                    return
-                }
-            }
-            teacher.properties = params
-            if (!teacher.hasErrors() && teacher.save()) {
-                flash.message = "teacher.updated"
-                flash.args = [teacher]
-                flash.bean = teacher
-                redirect(action: manage)
-            }
-            else {
-                flash.isError = true
-                flash.message = "teacher.update.error"
-                flash.args = [teacher]
-                flash.bean = teacher
-                render(view: 'edit', model: [teacher: teacher, id: params.id])
-            }
-        }
-        else {
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            flash.isError = true            
-            redirect(action: manage)
-        }
+    // the delete, save and update actions only accept POST requests
+    static allowedMethods = [manage: 'GET',
+                             save: 'POST', 
+                             update: 'POST', 
+                             changeState: 'GET', 
+                             delete: 'GET',                             
+                             view: 'GET',                             
+                             show: 'GET',                                                          
+                             edit: 'GET',                                                                                       
+                             pre_publish: 'GET',
+                             preview: 'POST', 
+                             updatePublished: 'POST',
+                             updateAndPublish: 'POST',
+                             onAddComment: ['POST','GET']]   
+                             
+    def static final ADMIN_ROLES = ['EventOrganiser','Editor','Administrator'] 
+    def DOMAIN_NAME = 'Teacher'
+    
+    /**
+     * Although added via Bootstrap we re-add cms util methods here for
+     * development purposes.
+     */
+    TeacherController() {
+        CMSUtil.addFinderMethods(this)
+        CMSUtil.addCMSMethods(this)
     }
 
     def create = {
@@ -236,58 +69,56 @@ class TeacherController extends CMSController {
         teacher.properties = params
         return [teacher: teacher]
     }
-
-    def save = {
-        def teacher = new Teacher(params)
-        teacher.author = currentUser() 
-        if (!teacher.hasErrors() && teacher.save()) {
-            flash.message = "${teacher.name} created"
-            redirect(action: manage)
+       
+    def saveTeacher(teacher,params,onSave,saveMsg,onError,errMsg) {
+        if (!teacher){
+            teacher = new Teacher()
         }
-        else {
-            flash.isError = true
-            flash.message = "teacher.update.error"
-            flash.args = [teacher]
-            flash.bean = teacher
-            render(view: 'create', model: [teacher: teacher, id: params.id])
-        }
-    }
+        if (versionCheck(params,teacher)) {
+            Teacher.withTransaction { status ->
+                try {
+                    teacher.author = currentUser() 
+                    teacher.properties = params
 
-    def changeState = {
-        def teacher = Teacher.get(params.id)
-        if (teacher) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (teacher.version > version) {
-                    flash.isError = true
-                    teacher.errors.rejectValue("version", "teacher.optimistic.locking.failure", "Another user has updated this Teacher's details while you were editing.")
-                    redirect(action: manage)
-                    return
+                    if (!teacher.hasErrors() && teacher.save()) {
+                        if (params.tags) {
+                            def tags = teacher.tags
+                            def newtags = params.tags.split(',')
+                            if (tags) {
+                                tags.each {tag ->
+                                    def found = newtags.find {newtag -> newtag == tag}
+                                    if (!found) {
+                                        teacher.removeTag(tag)
+                                    }
+                                }
+                            } else {
+                                newtags = newtags as List
+                                teacher.setTags(newtags)
+                            }
+                        }
+                
+                        flash.message = saveMsg
+                        if (onSave == manage) {
+                            redirect(action: onSave)                            
+                        } else {
+                            def msg = "Can not save ${teacher} at this time"
+                            rollback(status,msg,teacher,error)
+                            redirect(action: onSave,params:[id:params.id])
+                        }
+                    }
+                    else {
+                        def msg = "Can not save ${teacher} at this time"
+                        rollback(status,msg,teacher,error)
+                        handleError(errMsg,teacher,onError)
+                    }
+                } catch(error) {
+                    def msg = "Can not save ${teacher} at this time"
+                    rollback(status,msg,teacher,error)
+                    redirect(action: manage,id:params.id)
                 }
             }
-            def isFirstPublish = teacher.publishState != 'Published' && params.state == 'Published'
-            if (isFirstPublish) {
-                teacher.datePublished = new Date()
-            }
-            teacher.publishState = params.state
-            teacher.deleted = false
-            if (!teacher.hasErrors() && teacher.save()) {
-                flash.message = "${teacher.name} has been moved to ${teacher.publishState}"
-                redirect(action: manage)
-            }
-            else {
-                flash.isError = true
-                flash.message = "teacher.update.error"
-                flash.args = [teacher]
-                flash.bean = teacher                
-                redirect(action: manage)
-            }
-        }
-        else {
-            flash.message = "teacher.not.found"
-            flash.args = params.id
-            flash.isError = true
+        } else {
             redirect(action: manage)
         }
-    }
+    } 
 }

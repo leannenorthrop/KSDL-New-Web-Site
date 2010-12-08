@@ -107,19 +107,19 @@ abstract class CMSController {
                     try {
                         publishable.publishState = "Unpublished"
                         publishable.deleted = true
-                        try { publishable.title += ' (Deleted)' } catch(error) { publishable.name += ' (Deleted)'}
+                        try { publishable.name += ' (Deleted)' } catch(error) { publishable.title += ' (Deleted)'}
                         if (!publishable.hasErrors() && publishable.save()) {
                             flash.message = "${publishable} has been deleted"
                             render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                         }
                         else {
                             def msg = "Can not delete ${publishable} at this time"
-                            rollback(status,msg,event)
+                            rollback(status,msg,publishable)
                             render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                         }
                     } catch (error) {
                         def msg = "Can not delete ${publishable} at this time"
-                        rollback(status,msg,event,error)
+                        rollback(status,msg,publishable,error)
                         render(text:flash.message,contentType:"text/plain",encoding:"UTF-8")
                     }
                 }

@@ -37,7 +37,7 @@
                     <g:sortableColumn property="venue" titleKey="room.venue.label" params="${[max:listMaxParam]}"/>                                                    
                     <g:sortableColumn property="dateCreated" titleKey="room.created.on" params="${[max:listMaxParam]}"/>                     
                     <g:sortableColumn property="lastUpdated" titleKey="room.last.updated" params="${[max:listMaxParam]}"/>                   
-                    <shiro:hasAnyRole in="['Administrator','VenueManager']">
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
                     <g:sortableColumn property="author" titleKey="room.author.label" params="${[max:listMaxParam]}"/>
                     </shiro:hasAnyRole>
                     <th style="min-width:4em;"><g:message code="room.action.label"/></th>
@@ -51,7 +51,7 @@
                     <td>${fieldValue(bean: room, field: 'venue')}</td>                        
                     <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.dateCreated}"/></td>                      
                     <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.lastUpdated}"/></td>                  
-                    <shiro:hasAnyRole in="['Administrator','VenueManager']">
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
                         <td>${fieldValue(bean: room, field: 'author')}</td>
                     </shiro:hasAnyRole>
                     <td class="actions">

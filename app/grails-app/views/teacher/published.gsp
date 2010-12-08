@@ -22,52 +22,52 @@
 - “Samye Content Management System” written by Leanne Northrop.
     ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
-  <html>
-    <g:set var="titleLabel"><g:message code="teacher.name.label"/></g:set>
-    <g:set var="lastUpdatedLabel"><g:message code="article.last.updated"/></g:set>
-    <g:set var="publishedOnLabel"><g:message code="article.published.on"/></g:set>
-    <g:set var="authorLabel"><g:message code="article.author.label"/></g:set>
-    <g:set var="categoryLabel"><g:message code="teacher.category"/></g:set>
-    <g:set var="deleteConfirmLabel"><g:message code="teacher.delete.confirm"/></g:set>
+<html>
+    <g:if test="${params.max}">
+        <g:set var="listMaxParam" value="${params.max}"/>
+    </g:if>
+    <g:else>
+        <g:set var="listMaxParam" value="50"/>
+    </g:else>
+    <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+    
     <body>
-      <table>
-        <thead>
-          <tr>
-        <g:sortableColumn property="name" title="${titleLabel}"/>
-        <g:sortableColumn property="category" title="${categoryLabel}"/>
-%{--<th><g:message code="article.tag"/></th>--}%
-        <g:sortableColumn property="datePublished" title="${publishedOnLabel}"/>
-        <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-        <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
-          <g:sortableColumn property="author" title="${authorLabel}"/>
-        </shiro:hasAnyRole>
-        <th><g:message code="article.action.label"/></th>
-    </tr>
-  </thead>
-  <tbody>
-  <g:each in="${teachers}" status="i" var="teacher">
-    <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-      <td>
-    <g:link action="show" id="${teacher.id}">${teacher}</g:link>
-    </td>
-    <td><g:message code="${'teacher.category.' + teacher?.type}"/></td>
-    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.datePublished}"/></td>
-    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.lastUpdated}"/></td>
-    <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
-      <td>${fieldValue(bean: teacher, field: 'author')}</td>
-    </shiro:hasAnyRole>
-    <td>
-    <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
-      <g:link action="changeState" params="[state:'Unpublished']" id="${teacher.id}"><g:message code="article.unpublish.action"/></g:link>
-      <g:link action="delete" id="${teacher.id}" onclick="${deleteConfirmLabel}"><g:message code="teacher.delete.action"/></g:link>
-    </shiro:hasAnyRole>
-    </td>
-    </tr>
-  </g:each>
-</tbody>
-</table>
-<div class="manage paginateButtons">
-  <g:paginate total="${total}"/>
-</div>
-</body>
+        <table>
+            <thead>
+            <tr>
+                <g:sortableColumn property="name" titleKey="teacher.name.label" params="${[max:listMaxParam]}" style="width:20em"/>
+                <g:sortableColumn property="dateCreated" titleKey="teacher.created.on" params="${[max:listMaxParam]}"/>                     
+                <g:sortableColumn property="lastUpdated" titleKey="teacher.last.updated" params="${[max:listMaxParam]}"/>                   
+                <shiro:hasAnyRole in="${flash.adminRoles}">
+                <g:sortableColumn property="author" titleKey="teacher.author.label" params="${[max:listMaxParam]}"/>
+                </shiro:hasAnyRole>
+                <th style="min-width:5em;"><g:message code="article.action.label"/></th>
+            </tr>
+            </thead>
+            <tbody>
+                <g:each in="${teachers}" status="i" var="teacher">
+                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                    <td>${fieldValue(bean: teacher, field: 'name')}</td>
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.dateCreated}"/></td>                      
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${teacher?.lastUpdated}"/></td>                  
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
+                        <td>${fieldValue(bean: teacher, field: 'author')}</td>
+                    </shiro:hasAnyRole>
+                    <td class="actions">
+                        <shiro:hasRole name="${flash.adminRoles[0]}">
+                        <g:link action="pre_publish" id="${teacher.id}" title="${message(code:'article.edit.action')}"><span class="silk-icon silk-icon-pencil">&nbsp;</span></g:link>
+                        </shiro:hasRole>                        
+                        <shiro:hasAnyRole in="${flash.adminRoles}">
+                        <g:remoteLink action="changeState" params="[state:'Ready']" id="${teacher.id}" title="${message(code:'article.unpublish.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(2);"><span class="silk-icon silk-icon-arrow-undo">&nbsp;</span></g:remoteLink>
+                        <g:remoteLink action="delete" id="${teacher.id}" class="delete" title="${message(code:'article.delete.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(2);"><span class="silk-icon silk-icon-cancel">&nbsp;</span></g:remoteLink>                    
+                        </shiro:hasAnyRole> 
+                    </td>
+                </tr>
+                </g:each>
+            </tbody>
+        </table>
+        <div class="manage paginateButtons">
+            <g:paginate total="${total}"/>
+        </div>
+    </body>
 </html>

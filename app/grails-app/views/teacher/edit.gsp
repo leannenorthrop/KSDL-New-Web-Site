@@ -22,12 +22,13 @@
     ----------------------------------------------------------------------------}%
 
 <%--
-Template for adding teachers.
+    Template for editing teachers.
 
     User: Leanne Northrop
-Date: Jan 28, 2010,10:14:44 PM
+    Date: Jan 28, 2010,10:14:44 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<g:set var="teacher" value="${publishableInstance}"/>
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
