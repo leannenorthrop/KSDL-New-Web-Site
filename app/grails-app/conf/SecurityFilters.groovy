@@ -26,7 +26,7 @@
  * via access control by convention.
  */
 class SecurityFilters {
-    def static allowedControllers = ['home', 'help', 'feed', 'news','meditation','community','wellbeing','buddhism','aboutUs','commentable']
+    def static allowedControllers = ['home', 'help', 'feed', 'news','meditation','community','wellbeing','buddhism','aboutUs','commentable','greenmail']
     def static allowedActions = ['home','frob','slideshow','view', 'index', 'src', 'thumbnail', 'welcome', 'requestPermission', 'requestRoles', 'error', 'info','list','all','query','send','calendar','subscribe','events','event','current','future','regular','displayAll','display']
 
     def filters = {

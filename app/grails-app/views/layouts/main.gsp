@@ -36,7 +36,7 @@
     <g:set var="cssThemesDir" value="${session.getAttribute('theme')}"/>
 </g:if>
 <g:else>
-    <g:set var="cssThemesDir" value="${Setting.findByName('DefaultTheme').value}"/>
+    <g:set var="cssThemesDir" value="${Setting.findByName('DefaultTheme')?.value ? Setting.findByName('DefaultTheme')?.value : 'Default'}"/>
 </g:else>
 
 <html>
@@ -80,7 +80,7 @@
         <div id="watermark4"></div>      
     <div class="container_16">
       <div class="grid_16 banner">
-        <g:if test="${Setting.findByName('Logo').value}">
+        <g:if test="${Setting.findByName('Logo')?.value}">
           <img src="${createLink(controller: 'image', action: 'src', id: Setting.findByName('Logo').value)}" title="Logo" alt="Logo"/>
         </g:if>
         <h1>

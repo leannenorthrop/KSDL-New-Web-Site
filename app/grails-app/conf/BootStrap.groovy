@@ -91,20 +91,9 @@ class BootStrap {
          environments {
              development {
                  dataDir = (filedir.endsWith('/') ? filedir : filedir + '/' )+ "data"
-                 try {
-                     greenMail = new GreenMail(ServerSetupTest.ALL)
-                     greenMail.start();
-                     servletContext.setAttribute("greenmail", greenMail)
-                 } catch(errors) {
-                     log.warn "Could not start greenmail", errors
-                 }
              }
              test {
-                 greenMail = new GreenMail(ServerSetupTest.ALL)
-                 greenMail.start();
-                 servletContext.setAttribute("greenmail", greenMail)
-                 def config = ConfigurationHolder.getConfig()
-                 config.greenmail = greenMail
+                 dataDir = (filedir.endsWith('/') ? filedir : filedir + '/' )+ "data"                 
              }
              production {
                  dataDir = (filedir.endsWith('/') ? filedir : filedir + '/' )+ "data"                 
@@ -128,22 +117,6 @@ class BootStrap {
                 }
                 configObject.moonData[name] = list
             }         
-        }
-    }
-
-    def destroy = {
-        environments {
-            development {
-                greenMail.stop();
-                greenMail = null
-            }
-            test {
-                greenMail.stop();
-                greenMail = null
-                def config = ConfigurationHolder.getConfig()
-                config.greenmail = null 
-                greenMail = null
-            }
         }
     }
 }

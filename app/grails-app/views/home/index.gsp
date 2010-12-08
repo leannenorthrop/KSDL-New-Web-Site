@@ -40,10 +40,10 @@
   </jq:jquery>
 </head>
 <body>
-<g:if test="${Setting.findByName('SiteMessage').value}">
+<g:if test="${Setting.findByName('SiteMessage')?.value}">
   <div id="site_msg">
     <span class="close">&nbsp;</span>
-${Setting.findByName('SiteMessage').value.encodeAsTextile()}
+${Setting.findByName('SiteMessage')?.value.encodeAsTextile()}
   </div>
 </g:if>      
 <div class="grid_12">
