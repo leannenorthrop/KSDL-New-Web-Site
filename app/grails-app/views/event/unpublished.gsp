@@ -22,54 +22,50 @@
     ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <g:set var="titleLabel"><g:message code="event.title.label"/></g:set>
-  <g:set var="lastUpdatedLabel"><g:message code="event.last.updated"/></g:set>
-  <g:set var="deleteConfirmLabel"><g:message code="event.delete.confirm"/></g:set>
-  <g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
-  <g:set var="categoryLabel"><g:message code="event.category.label"/></g:set>
-  <body>
-    <table>
-      <thead>
-        <tr>
-      <g:sortableColumn property="title" title="${titleLabel}"/>
-      <th><g:message code="event.eventDate.label"/></th>
-    <g:sortableColumn property="category" title="${categoryLabel}"/>
-    <g:sortableColumn property="lastUpdated" title="${lastUpdatedLabel}"/>
-    <shiro:hasAnyRole in="['Admin','Editor']">
-      <g:sortableColumn property="author" title="${authorLabel}"/>
-    </shiro:hasAnyRole>
-    <th><g:message code="event.action.label"/></th>
-</tr>
-</thead>
-<tbody>
-<g:each in="${events}" status="i" var="eventInstance">
-  <g:set var="rule" value="${eventInstance?.dates.toArray()[0]}"/>
-  <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-    <td>
-  <shiro:hasAnyRole in="['Admin','EventOrganiser']">
-    <g:link action="edit" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
-  </shiro:hasAnyRole>
-  <shiro:lacksAllRoles in="['Admin','EventOrganiser']">${fieldValue(bean: eventInstance, field: 'title')}</shiro:lacksAllRoles>
-  </td>
-  <td><g:formatDate format="dd-MM-yyyy" date="${rule?.startDate}"/></td>
-  <td><g:message code="${'publish.category.' + eventInstance?.category}"/></td>
-  <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${eventInstance?.lastUpdated}"/></td>
-  <shiro:hasAnyRole in="['Admin','Editor']">
-    <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
-  </shiro:hasAnyRole>
-  <td>
-  <shiro:hasAnyRole in="['Admin','Editor']">
-    <g:link action="pre_publish" id="${eventInstance.id}"><g:message code="event.publish.action"/></g:link>
-  </shiro:hasAnyRole>
-  <g:link action="changeState" params="[state:'Ready For Publication']" id="${eventInstance.id}"><g:message code="event.ready.action"/></g:link>
-  <g:link action="delete" id="${eventInstance.id}" onclick="${deleteConfirmLabel}"><g:message code="event.delete.action"/></g:link>
-  </td>
-  </tr>
-</g:each>
-</tbody>
-</table>
-<div class="manage paginateButtons">
-  <g:paginate total="${total}"/>
-</div>
-</body>
+    <g:if test="${params.max}">
+        <g:set var="listMaxParam" value="${params.max}"/>
+    </g:if>
+    <g:else>
+        <g:set var="listMaxParam" value="50"/>
+    </g:else>
+    <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+    <body>
+        <table>
+            <thead>
+                <tr>
+                    <g:sortableColumn property="title" titleKey="event.title.label" params="${[max:listMaxParam]}" style="width:20em"/>
+                    <th><g:message code="event.eventDate.label"/></th>
+                    <g:sortableColumn property="dateCreated" titleKey="event.created.on" params="${[max:listMaxParam]}"/>                     
+                    <g:sortableColumn property="lastUpdated" titleKey="event.last.updated" params="${[max:listMaxParam]}"/>                   
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
+                    <g:sortableColumn property="author" titleKey="event.author.label" params="${[max:listMaxParam]}"/>
+                    </shiro:hasAnyRole>
+                    <th style="min-width:4em;"><g:message code="event.action.label"/></th>
+                </tr>
+            </thead>
+            <tbody>
+                <g:each in="${events}" status="i" var="event">
+                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                    <td>
+                        ${fieldValue(bean: event, field: 'title')}
+                    </td>
+                    <td><g:formatDate format="dd-MM-yyyy" date="${event?.toDate()}"/></td>                    
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.dateCreated}"/></td>                      
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.lastUpdated}"/></td>                  
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
+                        <td>${fieldValue(bean: event, field: 'author')}</td>
+                    </shiro:hasAnyRole>
+                    <td class="actions">
+                        <g:link action="edit" id="${event.id}" class="edit" title="${message(code:'article.edit.action')}"><span class="silk-icon silk-icon-pencil">&nbsp;</span></g:link>
+                        <g:remoteLink action="changeState" params="[state:'Ready']" class="ready" id="${event.id}" asynchronous="false" update="jsmsgbox" title="${message(code:'article.prepublish.action')}" method="GET" after="updateTabs(0);"><span class="silk-icon silk-icon-accept">&nbsp;</span></g:remoteLink>
+                        <g:remoteLink action="delete" id="${event.id}" class="delete" asynchronous="false" update="jsmsgbox" title="${message(code:'article.delete.action')}" method="GET" after="updateTabs(0);"><span class="silk-icon silk-icon-cancel">&nbsp;</span></g:remoteLink>
+                    </td>
+                </tr>
+                </g:each>
+            </tbody>
+        </table>
+        <div class="manage paginateButtons">
+            <g:paginate total="${total}"/>
+        </div>       
+    </body>
 </html>

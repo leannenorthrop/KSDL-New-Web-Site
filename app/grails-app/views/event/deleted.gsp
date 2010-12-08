@@ -21,41 +21,48 @@
 - “Samye Content Management System” written by Leanne Northrop.
     ----------------------------------------------------------------------------}%
 <%@ page contentType="text/html;charset=UTF-8" %>
-<g:set var="titleLabel"><g:message code="event.title.label"/></g:set>
-<g:set var="authorLabel"><g:message code="event.author.label"/></g:set>
 <html>
-  <body>
-    <table>
-      <thead>
-        <tr>
-      <g:sortableColumn property="title" title="${titleLabel}"/>
-      <shiro:hasAnyRole in="['Editor','Admin']">
-        <g:sortableColumn property="author" title="${authorLabel}"/>
-      </shiro:hasAnyRole>
-      <th><g:message code="event.action.label"/></th>
-  </tr>
-</thead>
-<tbody>
-<g:each in="${events}" status="i" var="eventInstance">
-  <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-    <td>
-  <g:link action="show" id="${eventInstance.id}">${fieldValue(bean: eventInstance, field: 'title')}</g:link>
-  </td>
-  <shiro:hasAnyRole in="['Editor','Admin']">
-    <td>${fieldValue(bean: eventInstance, field: 'author')}</td>
-  </shiro:hasAnyRole>
-  <td>
-  <shiro:hasAnyRole in="['Editor','Admin','EventOrganiser']">
-    <g:link action="changeState" params="[state:'Ready For Publication']" id="${eventInstance.id}"><g:message code="event.ready.action"/></g:link>
-    <g:link action="changeState" params="[state:'Unpublished']" id="${eventInstance.id}"><g:message code="event.unpublish.action"/></g:link>
-  </shiro:hasAnyRole>
-  </td>
-  </tr>
-</g:each>
-</tbody>
-</table>
-<div class="paginateButtons">
-  <g:paginate total="${total}"/>
-</div>
-</body>
+    <g:if test="${params.max}">
+        <g:set var="listMaxParam" value="${params.max}"/>
+    </g:if>
+    <g:else>
+        <g:set var="listMaxParam" value="50"/>
+    </g:else>
+    <g:set var="deleteConfirmLabel"><g:message code="article.delete.confirm"/></g:set>
+    
+    <body>
+        <table>
+            <thead>
+            <tr>
+                <g:sortableColumn property="title" titleKey="event.title.label" params="${[max:listMaxParam]}" style="width:20em"/>
+                <g:sortableColumn property="dateCreated" titleKey="event.created.on" params="${[max:listMaxParam]}"/>                  
+                <g:sortableColumn property="lastUpdated" titleKey="event.last.updated" params="${[max:listMaxParam]}"/>
+                <shiro:hasAnyRole in="${flash.adminRoles}">
+                <g:sortableColumn property="author" titleKey="event.author.label" params="${[max:listMaxParam]}"/>
+                </shiro:hasAnyRole>
+                <th style="min-width:2em;"><g:message code="article.action.label"/></th>
+            </tr>
+            </thead>
+            <tbody>
+                <g:each in="${events}" status="i" var="event">
+                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                    <td>
+                        ${fieldValue(bean: event, field: 'title')}
+                    </td>
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.dateCreated}"/></td>                       
+                    <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.lastUpdated}"/></td>
+                    <shiro:hasAnyRole in="${flash.adminRoles}">
+                    <td>${fieldValue(bean: event, field: 'author')}</td>
+                    </shiro:hasAnyRole>
+                    <td class="actions">
+                        <g:remoteLink action="changeState" params="[state:'Unpublished']" id="${event.id}" title="${message(code:'article.unpublish.action')}" asynchronous="false" update="jsmsgbox" method="GET" after="updateTabs(3);"><span class="silk-icon silk-icon-arrow-undo">&nbsp;</span></g:remoteLink>                        
+                    </td>
+                </tr>
+                </g:each>
+            </tbody>
+        </table>
+        <div class="manage paginateButtons">
+            <g:paginate total="${total}"/>
+        </div>
+    </body>
 </html>

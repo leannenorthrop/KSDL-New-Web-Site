@@ -27,6 +27,7 @@ Prepare event for publication.
 Date: Jan 30, 2010, 1:30:09 PM
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<g:set var="event" value="${publishableInstance}"/>
 <html>
   <head>
     <meta name="layout" content="content-admin"/>

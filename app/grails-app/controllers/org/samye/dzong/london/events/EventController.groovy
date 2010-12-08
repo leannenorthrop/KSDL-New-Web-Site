@@ -53,18 +53,32 @@ import org.samye.dzong.london.cms.*
  * @since  29th January, 2010, 17:04
  */
 class EventController extends CMSController {
-    //flash.message = "${message(code: 'default.updated.message', args: [message(code: 'event.label', default: 'Event'), event.id])}"
-    def eventService
-    def emailService
-    def articleService
-    def static final ADMIN_ROLES = ['Editor', 'Administrator'] 
-
-    EventController() {
-        // Not strictly necessary as methods are injected via Bootstrap
-        // however added here to support changes at runtime
-        CMSUtil.addCMSMethods(this)        
-    }
+    def ADMIN_ROLES = ['EventOrganiser', 'Administrator']
+    def DOMAIN_NAME = 'Event'
     
+    /**
+     * Although added via Bootstrap we re-add cms util methods here for
+     * development purposes.
+     */
+    EventController() {
+        CMSUtil.addFinderMethods(this)
+        CMSUtil.addCMSMethods(this)
+    }
+
+    // the save and update actions only accept POST requests
+    static allowedMethods = [manage: 'GET',
+                             save: 'POST', 
+                             update: 'POST', 
+                             changeState: 'GET', 
+                             delete: 'GET',                             
+                             view: 'GET',                             
+                             show: 'GET',                                                          
+                             edit: 'GET',                                                                                       
+                             pre_publish: 'GET',
+                             preview: 'POST', 
+                             updatePublished: 'POST',
+                             updateAndPublish: 'POST',
+                             onAddComment: ['POST','GET']]   
     def index = {
         redirect(action: home)
     }
@@ -220,21 +234,6 @@ class EventController extends CMSController {
         model
     }
 
-    // the save and update actions only accept POST requests
-    static allowedMethods = [save: 'POST', update: 'POST', changeState: 'GET']
-
-    def manage = {
-        render(view: 'manage')
-    }
-
-    def view = {
-        viewEvent(params.id)
-    }
-
-    def query = {
-        viewEvent(params.id)
-    }
-
     // todo return to original page before request
     def send = {
         def event = Event.get(params.id)
@@ -247,65 +246,10 @@ class EventController extends CMSController {
     def show = {
         viewEvent(params.id)
     }
-
-    // todo ensure delete request sends version
-    def delete = {
-        def event = Event.get(params.id)
-        if (event) {
-            if (versionCheck(params,event)){
-                Event.withTransaction { status ->
-                    try {
-                        event.publishState = "Unpublished"
-                        event.deleted = true
-                        event.title += ' (Deleted)'
-                        if (!event.hasErrors() && event.save()) {
-                            flash.message = "Event ${event.title} has been deleted"
-                            redirect(action: manage)
-                        }
-                        else {
-                            def msg = "Can not delete ${event.title} at this time"
-                            rollback(status,msg,event)
-                            handleError(msg,event,manage)
-                        }
-                    } catch (error) {
-                        def msg = "Can not delete ${event.title} at this time"
-                        rollback(status,msg,event,error)
-                        redirect(action: manage,id:params.id)
-                    }
-                }
-            } else {
-                redirect(action: manage)
-            }
-        }
-        else {
-            notFound(manage)
-        }
-    }
-
-    def edit = {
-        def event = Event.get(params.id)
-
-        if (!event) {
-            notFound(manage)
-        }
-        else {
-            if (!flash.message) {
-                flash.message = 'event.help' 
-            }
-            [event: event, id: params.id]
-        }
-    }
-
-    def pre_publish = {
-        def event = Event.get(params.id)
-
-        if (!event) {
-            notFound(manage)
-        }
-        else {
-            render(view: 'publish', model: [event: event], id: params.id)
-        }
-    }
+    
+    def query = {
+        viewEvent(params.id)
+    }    
 
     def saveEvent(event,params,onSave,saveMsg,onError,errMsg) {
         if (versionCheck(params,event)) {
@@ -339,32 +283,6 @@ class EventController extends CMSController {
         }
     }
 
-    def publish = {
-        def event = Event.get(params.id)
-        if (event) {
-            params.publishState = 'Published'
-            params.datePublished = new Date()
-            def okMsg = "Event ${event.title} has been Published"
-            def errMsg = "Event ${event.title} could not be ${params.state} due to errors. Please correct the errors and try again."
-            saveEvent(event,params,manage,okMsg,pre_publish,errMsg)
-        }
-        else {
-            notFound(manage)
-        }
-    }
-
-    def update = {
-        def event = Event.get(params.id)
-        if (event) {
-            def okMsg = "Event ${event.title} has been saved"
-            def errMsg = "event.update.error"
-            saveEvent(event,params,manage,okMsg,pre_publish,errMsg)
-        }
-        else {
-            notFound(manage)
-        }
-    }
-
     def create = {
         def event = new Event()
         event.properties = params
@@ -373,45 +291,6 @@ class EventController extends CMSController {
             flash.message = "Please ensure that a Teacher entry has been created and published under the Teachers/Therapists menu before creating a new Event. Also please ensure the selected Organizer has configured their public details by going to the Settings -> About Me menu."
         }
         return [event: event]
-    }
-
-    def save = {
-        def event = new Event()
-        event.author = currentUser() 
-
-        Event.withTransaction { status ->
-            try { 
-                event.properties = params
-                if (!event.hasErrors() && event.save()) {
-                    flash.message = "Event ${event.title} has been created"
-                    redirect(action: manage)
-                }
-                else {
-                    def msg = "Can not save at this time"
-                    rollback(status,msg,event)
-                    handleError("event.update.error",event,create)
-                }
-            } catch (error) {
-                def msg = "Can not save at this time"
-                rollback(status,msg,event,error)
-                redirect(action: create,id:params.id)
-            }
-        }
-    }
-
-    def changeState = {
-        def event = Event.get(params.id)
-        if (event) {
-            params.datePublished = new Date()
-            params.publishState = params.state
-            params.deleted = false
-            def okMsg = "Event ${event.title} has been moved to ${params.publishState}"
-            def errMsg = "Event ${event.title} could not be ${params.state} due to errors. Please correct the errors and try again."
-            saveEvent(event,params,manage,okMsg,manage,errMsg)
-        }
-        else {
-            notFound(manage)
-        }
     }
 
     def calendar = {

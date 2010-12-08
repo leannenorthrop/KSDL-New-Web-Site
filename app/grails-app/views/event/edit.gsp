@@ -28,6 +28,7 @@ Edit Event template
 Author: Leanne Northrop
 Date: 30th January, 2010, 15:52
 --}%
+<g:set var="event" value="${publishableInstance}"/>
 <html>
   <head>
     <meta name="layout" content="content-admin"/>
