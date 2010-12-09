@@ -82,6 +82,16 @@ class PublicSectionPageController {
     
     def teacher = {
         def model = viewTeacher(params.id)
+        addPublishedContent(["AboutUsFeaturedArticles"],model)
+        def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
+        def visitingTeachers = publishedTeachers.findAll {it.type == 'V'}
+        model.put('visitingTeachers',visitingTeachers)                
+        def teachers = publishedTeachers.findAll {it.type == 'C'}
+        model.put('teachers',teachers)
+        def lineage = publishedTeachers.findAll {it.type == 'L'}
+        model.put('lineage',lineage)                
+        def venues = publishedVenues().'venues'
+        model.put('venues',venues)        
         articleService.addHeadersAndKeywords(model,request,response)
         model		
     }

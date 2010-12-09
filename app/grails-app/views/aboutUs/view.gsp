@@ -30,10 +30,16 @@ Date: Feb 19, 2010,2:44:11 PM
 <%@ page import="org.samye.dzong.london.community.Article" %>
 <html>
   <head>
-    <title>${articleInstance?.title}</title>
+    <title>${article?.title}</title>
     <meta name="layout" content="main" />
   </head>
   <body>
-  <g:render template="/article" model="[articleInstance:articleInstance,articles:articles]"/>
+    <div class="grid_4">
+        <g:render template="/aboutUsNav"/>
+    </div>
+          
+    <div class="grid_12">      
+        <g:render template="/article" model="[articleInstance:article,articles:articles]"/>
+    </div>
 </body>
 </html>

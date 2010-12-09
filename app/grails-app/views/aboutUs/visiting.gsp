@@ -30,13 +30,22 @@ Date: Jun 18, 2010, 6:38:08 PM
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title><g:message code="footer.visit.us"/></title>
+    <title><g:if test="${flash.title}">${flash.title}</g:if><g:else><g:message code="footer.visit.us"/></g:else></title>
     <meta name="layout" content="main">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
   </head>
   <body>
+    <div class="grid_4">
+        <g:render template="/aboutUsNav"/>
+    </div>
+          
+    <div class="grid_12">       
+        <g:if test="${flash.title}">
+        <g:render template="/toparticles" model="[articles:articles,displayTitle:false]"/>
+        </g:if>
   <g:each var="venue" in="${venues}">
+    <g:if test="${venue.id.toString() == flash.id.toString() || !flash.id}">
     <div class="container_16">
       <div class="grid_16">
         <h3>${venue.name}</h3>
@@ -52,6 +61,10 @@ ${venue?.content?.encodeAsTextile()}
           </g:else>
         </g:if>
       </div>
+      <g:if test="${flash.title}">         
+        <div class="clear"></div>      
+      </g:if>
+      <g:else>
       <div class="grid_8 facilities">
         <h3><g:message code="venue.facilities.label"/></h3>
 ${venue?.facilities?.encodeAsTextile()}</div>           
@@ -81,7 +94,10 @@ ${venue?.access?.encodeAsTextile()}
           title:"${venue.name}"
         });
       </g:javascript>
+      </g:else>
     </div>
+    </g:if>
   </g:each>
+  </div>
 </body>
 </html>

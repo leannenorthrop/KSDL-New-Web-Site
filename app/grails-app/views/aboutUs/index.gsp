@@ -35,58 +35,20 @@ Date: Feb 12, 2010, 5:43:08 PM
   </head>
   <body>
     <div class="grid_4">
-      <div class="box">
-        <h3><g:message code="footer.help"/></h3>
-        <ul class="menu">
-          <li class="menuitem"><g:link controller="aboutUs" action="contactUs"><g:message code="footer.contact.us"/></g:link></li>
-          <li class="menuitem"><g:link controller="aboutUs" action="visiting"><g:message code="footer.visit.us"/></g:link></li>
-          <li class="menuitem"><g:link controller="aboutUs" action="roomHire"><g:message code="footer.room.hire"/></g:link></li>           
-          <li class="menuitem">Teachers/Course Leaders
-          <ul>
-            <li class="menuitem"><g:link controller="aboutUs" action="lineage"><g:message code="teacher.lineage.heading.title"/></g:link></li>
-            <li class="menuitem"><g:link controller="aboutUs" action="teachers"><g:message code="teacher.center.heading.title"/></g:link></li>
-          </ul>
-          </li>
-          <li class="menuitem">Locations
-            <ul>
-              <g:if test="${venues}">
-                <g:each var="venue" in="${venues}">
-                  <li class="menuitem"><g:link controller="aboutUs" action="venue" id="${venue?.id}" class="menuitem">${venue}</g:link>
-                  <g:if test="${venue.rooms}">
-                    <ul>
-                      <g:findAll var="room" in="${venue.rooms}" expr="it.publishState == 'Published'">
-                        <li class="menuitem"><g:link controller="aboutUs" action="room" id="${room.id}" class="menuitem">${room}</g:link></li>
-                      </g:findAll>
-                    </ul>
-                  </g:if>
-                  </li>
-                </g:each>          
-              </g:if>
-            </ul>
-          </li>
-          <li class="menuitem">Information
-            <ul>
-              <g:if test="${articles}">
-                <g:each var="article" in="${featuredArticles}">
-                  <li class="menuitem"><g:link controller="aboutUs" action="view" id="${article.id}" class="menuitem">${article?.title}</g:link></li>
-                </g:each>
-              </g:if>
-            </ul>
-          </li>
-        </ul>
-      </div>
+        <g:render template="/aboutUsNav"/>
     </div>
           
     <div class="grid_12">
       <g:render template="/toparticles" model="[articles:homeArticles,displayTitle:false]"/>
       <div class="container_16">
-            <div class="grid_8">
-              <g:render template="/articlelist" model="[articles:visitingTeachers, heading: 'Visiting Teachers &amp; Course Leaders', controller: 'aboutUs', action:'teacher']"/>
+            <div class="grid_4">1
             </div>
-
-            <div class="grid_8">
-              <g:render template="/articlelist" model="[articles:teachers, heading: 'Center Teachers &amp; Course Leaders', controller: 'aboutUs', action:'teacher']"/>
-            </div>          
+            <div class="grid_4">2
+            </div> 
+            <div class="grid_4">3
+            </div>
+            <div class="grid_4">4
+            </div>                      
       </div>      
     </div>
 

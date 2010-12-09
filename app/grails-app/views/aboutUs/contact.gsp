@@ -29,63 +29,53 @@ Date: Jun 18, 2010, 6:38:08 PM
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
-  <head>
-    <title><g:message code="footer.contact.us"/></title>
-    <meta name="layout" content="main">
-  </head>
-  <body>
-    <div class="grid_16">
-      <g:each var="venue" in="${venues}">
-        <h3>${venue.name}</h3>
-${venue?.content?.encodeAsTextile()}
-        <g:if test="${venue?.image}">
-          <g:if test="${venue?.image?.mimeType.endsWith('png')}">
-            <img src="${createLink(controller: 'image', action: 'src', id: venue.image.id)}" title="${venue.image.name}" alt="${venue.image.name}" class="pngImg"/>
-          </g:if>
-          <g:else>
-            <img src="${createLink(controller: 'image', action: 'src', id: venue.image.id)}" title="${venue.image.name}" alt="${venue.image.name}"/>
-          </g:else>
-        </g:if>
-        <div class="addresses">
-          <h3><g:message code="contact.addresses"/></h3>
-          <ul>
-            <g:each var="address" in="${venue.addresses}">
-              <li><em>${address.name}</em><br/>
-${address.placeName}<br/>
-${address.streetNumber} ${address.line1}<br/>
-              <g:each var="v" in="${[address.line2, address.postTown,address.county,address.country,address.postCode]}">
-                <g:if test="${v}">
-${v}<br/>
-                </g:if>
-              </g:each>
-              </li>
-            </g:each>
-          </ul>
+    <head>
+        <title><g:message code="footer.contact.us"/></title>
+        <meta name="layout" content="main">
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>        
+    </head>
+    <body>
+        <div class="grid_4">
+            <g:render template="/aboutUsNav"/>
         </div>
-        <div class="telephoneNumbers">
-          <h3><g:message code="contact.telephone.numbers"/></h3>
-          <ul>
-            <g:each var="telephone" in="${venue.telephoneNumbers}">
-              <li class="${telephone.type}">
-                <em>${telephone.name}</em> ${telephone.number}
-              </li>
-            </g:each>
-          </ul>
+          
+        <div class="grid_12">         
+            <div class="container_16">
+                <g:each var="venue" in="${venues}">
+                    <h2>${venue.name}</h2>
+                    <div class="grid_8">
+                        <ul class="contacts">
+                            <g:each var="address" in="${venue.addresses}">
+                                <li class="address"><em>${address.name}</em>
+                                        ${address.placeName},&nbsp;
+                                        ${address.streetNumber} ${address.line1},
+                                    <g:each var="v" in="${[address.line2, address.postTown,address.county,address.country,address.postCode]}">
+                                        <g:if test="${v}">${v}&nbsp;</g:if>
+                                    </g:each>
+                                </li>
+                            </g:each>
+                            <g:each var="telephone" in="${venue.telephoneNumbers}">
+                                <li class="telephone ${telephone.type}"><em>${telephone.name}</em> ${telephone.number}</li>
+                            </g:each>   
+                            <g:each var="email" in="${venue.emails}">
+                                <li class="email ${email.type}"><em>${email.name}</em> ${email.address}</li>
+                            </g:each>                                             
+                        </ul>
+                    </div>
+                    <div class="grid_8">   
+                        <g:if test="${venue?.image}">
+                            <g:if test="${venue?.image?.mimeType.endsWith('png')}">
+                                <img src="${createLink(controller: 'image', action: 'src', id: venue.image.id)}" title="${venue.image.name}" alt="${venue.image.name}" class="pngImg"/>
+                            </g:if>
+                            <g:else>
+                                <img src="${createLink(controller: 'image', action: 'src', id: venue.image.id)}" title="${venue.image.name}" alt="${venue.image.name}"/>
+                            </g:else>
+                        </g:if>
+                    </div>
+                    <div class="clear"></div>
+                </g:each>
+            </div>        
         </div>
-        <div class="emailAddress">
-          <h3><g:message code="contact.emails"/></h3>
-          <ul>
-            <g:each var="email" in="${venue.emails}">
-              <li class="${email.type}">
-                <em>${email.name}</em> ${email.address}
-              </li>
-            </g:each>
-          </ul>
-        </div>
-      </g:each>
-    </div>
-
-    <div class="clear"></div>
-
-  </body>
+    </body>    
 </html>

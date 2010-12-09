@@ -29,11 +29,17 @@ Date: Jan 30, 2010,7:00:41 PM
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ page import="org.samye.dzong.london.community.Teacher" %>
 <html>
-  <head>
-    <title>${teacher.name}</title>
-    <meta name="layout" content="main"/>
-  </head>
-  <body>
-  <g:render template="/teacher" model="[teacher: teacher, events:events,articles:articles]"/>
-</body>
+    <head>
+        <title>${teacher.name}</title>
+        <meta name="layout" content="main"/>
+    </head>
+    <body>
+        <div class="grid_4">
+            <g:render template="/aboutUsNav"/>
+        </div>
+          
+        <div class="grid_12">
+            <g:render template="/teacher" model="[teacher: teacher, events:events,articles:articles]"/>
+        </div>
+    </body>
 </html>

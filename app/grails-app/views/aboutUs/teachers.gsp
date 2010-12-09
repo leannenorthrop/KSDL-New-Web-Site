@@ -30,13 +30,17 @@ Date: Jun 11, 2010, 7:21:08 PM
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title>Teachers/Course Leaders</title>
+    <title>${flash.title}</title>
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="grid_16">
-      <g:render template="/articlelist" model="[articles:teachers, heading: '', controller: 'teacher', action:'view']"/>      
+    <div class="grid_4">
+        <g:render template="/aboutUsNav"/>
     </div>
-    <div class="clear"></div>
+          
+    <div class="grid_12"> 
+        <g:render template="/toparticles" model="[articles:articles,displayTitle:false]"/>
+        <g:render template="/articlelist" model="[articles:teachers, controller: 'aboutUs', action:'view']"/>        
+    </div>
   </body>
 </html>

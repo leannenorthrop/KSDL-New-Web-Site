@@ -45,68 +45,130 @@ class AboutUsController extends PublicSectionPageController  {
     def getSectionName() {
         "AboutUs"
     }
-        
+
     def index = {
+        redirect(action:home)
+    }
+            
+    def home = {
         def model = [:]         
         addPublishedContent(["AboutUsHomeArticles", "AboutUsFeaturedArticles"],model)
-        def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
-        def visitingTeachers = publishedTeachers.findAll {it.type == 'V'}
-        model.put('visitingTeachers',visitingTeachers)                
-        def teachers = publishedTeachers.findAll {it.type == 'C'}
-        model.put('teachers',teachers)        
-        def venues = publishedVenues().'venues'
-        model.put('venues',venues)
+        populateNavigationObject(model)
         articleService.addHeadersAndKeywords(model,request,response)
-        model
+        render(view:'index', model:model)
     }
 
     def contactUs = {
         def model = publishedVenues()
+        populateNavigationObject(model)    
         articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'contact', model:model)
     }
 	
-    def visiting = {
-        def model = publishedVenues()
-        articleService.addHeadersAndKeywords(model,request,response)
-        model
-    }
-	
-    def room = {
-        def venues = publishedVenues().'venues'
-        def model = [room:Room.get(params.id),venues:venues]
-        articleService.addHeadersAndKeywords(model,request,response)
-        model
-    }
-	
     def venue = {
         def model = publishedVenues()
+        populateNavigationObject(model)          
         articleService.addHeadersAndKeywords(model,request,response)
+        if (params.id) {
+            flash.id = params.id
+        }
         render(view:'visiting',model:model)
     }
-	
-    def lineage = {
+
+    def centers = {
+        def model = [:]
+        populateNavigationObject(model)
         def lineageArticles = []
-        def lineageTeachers = []
         try {
-            lineageArticles = articleService.findByTag('lineage',[])
-            def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
-            lineageTeachers = publishedTeachers.findAll {it.type == 'L'}
+            lineageArticles = articleService.findByTag('centers',[])
         } catch (error) {
             log.error("AboutUs controller encountered an error.",error)
         }
-		
-        def model = [teachers:lineageTeachers,articles:lineageArticles];		
+        model.put('articles',lineageArticles)
+        flash.title="Our Centers"                        
+        
         articleService.addHeadersAndKeywords(model,request,response)
-        model
+        render(view:'visiting',model:model)
+    }
+    	
+    def lineage = {
+        def model = [:]
+        populateNavigationObject(model)
+        model.put('teachers',model.lineage)
+        def lineageArticles = []
+        try {
+            lineageArticles = articleService.findByTag('lineage',[])
+        } catch (error) {
+            log.error("AboutUs controller encountered an error.",error)
+        }
+        model.put('articles',lineageArticles)
+        flash.title="Lineage Teachers"                        
+        
+        articleService.addHeadersAndKeywords(model,request,response)
+        render(view:'teachers',model:model)
     }
 	
     def teachers = {
-        def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
-        def teachers = publishedTeachers.findAll {it.type == 'C'}
-        def model = [teachers:teachers];		
+        def model = [:]
+        populateNavigationObject(model)
+        model.put('teachers',model.teachers)
+        def lineageArticles = []
+        try {
+            lineageArticles = articleService.findByTag('center teachers',[])
+        } catch (error) {
+            log.error("AboutUs controller encountered an error.",error)
+        }
+        model.put('articles',lineageArticles)
+        flash.title="Center Course Leaders and Teachers"               
+        
+        articleService.addHeadersAndKeywords(model,request,response)
+        render(view:'teachers',model:model)
+    }
+
+    def visiting = {      
+        def model = [:]
+        populateNavigationObject(model)
+        model.put('teachers',model.visitingTeachers)
+        def lineageArticles = []
+        try {
+            lineageArticles = articleService.findByTag('visiting teachers',[])
+        } catch (error) {
+            log.error("AboutUs controller encountered an error.",error)
+        }
+        model.put('articles',lineageArticles)
+        flash.title="Visiting Course Leaders and Teachers"              
+        
+        articleService.addHeadersAndKeywords(model,request,response)
+        render(view:'teachers',model:model)
+    }
+    
+    def view = {
+        def model = viewArticle(params.id)          
+        populateNavigationObject(model)
+        articleService.addHeadersAndKeywords(model,request,response)
+        return model
+    }
+    
+    def list = {
+        def model = [:] 
+        def sectionName = getSectionName()
+        addPublishedContent(["${sectionName}AllArticles"],model)
+        populateNavigationObject(model)
         articleService.addHeadersAndKeywords(model,request,response)
         model
     }
-
+    
+    def populateNavigationObject(model) {
+        def publishedTeachers = publishedTeachers([sort: "name", order: "asc"]).'teachers'
+        def visitingTeachers = publishedTeachers.findAll {it.type == 'V'}
+        model.put('visitingTeachers',visitingTeachers)                
+        def teachers = publishedTeachers.findAll {it.type == 'C'}
+        model.put('teachers',teachers)
+        def lineage = publishedTeachers.findAll {it.type == 'L'}
+        model.put('lineage',lineage)                
+        def venues = publishedVenues().'venues'
+        model.put('venues',venues)  
+        def lineageArticles = [] 
+        addPublishedContent(["AboutUsFeaturedArticles"],model)                     
+    }    
 }
