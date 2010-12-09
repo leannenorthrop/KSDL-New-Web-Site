@@ -24,7 +24,9 @@ package org.samye.dzong.london.venue
 
 import org.apache.shiro.SecurityUtils
 import org.samye.dzong.london.cms.*
-
+import org.samye.dzong.london.venue.Venue
+import org.samye.dzong.london.venue.Room
+import org.samye.dzong.london.community.Article
 /**
  * Handler for managing and displaying room venues.
  *
@@ -32,6 +34,8 @@ import org.samye.dzong.london.cms.*
  * @since  January, 2010
  */
 class RoomController extends CMSController {
+    def articleService
+    
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [manage: 'GET',
                              save: 'POST', 
@@ -65,6 +69,37 @@ class RoomController extends CMSController {
         return ['room':roomInstance]
     }
 
+    def index = {
+        redirect(action:home)
+    }
+    
+    def home = {
+        def model = [:]         
+        addPublishedContent(["RoomHomeArticles", "RoomAllArticles","RoomFeaturedRooms"],model)        
+        def venues = publishedVenues().'venues'
+		model.put('venues',venues)
+        articleService.addHeadersAndKeywords(model,request,response)        
+        render(view:'index',model:model)
+    }    
+    
+    def information = {
+        def model = viewArticle(params.id)       
+        addPublishedContent(["RoomAllArticles"],model)        
+        def venues = publishedVenues().'venues'
+		model.put('venues',venues)
+        articleService.addHeadersAndKeywords(model,request,response)         
+        render(view:'article',model:model)
+    }
+    
+    def view = {
+        def model = viewRoom(params.id)       
+        addPublishedContent(["RoomAllArticles"],model)        
+        def venues = publishedVenues().'venues'
+		model.put('venues',venues)
+		log.info model
+        articleService.addHeadersAndKeywords(model,request,response)         
+        render(view:'view',model:model)
+    }    
     
     def saveRoom(room,params,onSave,saveMsg,onError,errMsg) {
         if (!room){
@@ -122,4 +157,10 @@ class RoomController extends CMSController {
             redirect(action: manage)
         }
     } 
+    
+    def addPublishedContent(contentList,model,params=[sort:'datePublished',order:'desc']) {
+        contentList.each {
+            model.putAll("findPublished${it}"(params))
+        }        
+    }    
 }

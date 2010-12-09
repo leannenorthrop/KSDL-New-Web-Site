@@ -36,7 +36,9 @@
             <thead>
                 <tr>
                     <g:sortableColumn property="name" titleKey="room.name.label" params="${[max:listMaxParam]}" style="width:20em"/>
-                    <g:sortableColumn property="forHire" titleKey="room.forHire.label" params="${[max:listMaxParam]}"/>                                
+                    <g:sortableColumn property="forHire" titleKey="room.forHire.label" params="${[max:listMaxParam]}"/>     
+                    <g:sortableColumn property="home" titleKey="article.is.home" params="${[max:listMaxParam]}"/>
+                    <g:sortableColumn property="featured" titleKey="article.is.featured" params="${[max:listMaxParam]}"/>                                               
                     <g:sortableColumn property="venue" titleKey="room.venue.label" params="${[max:listMaxParam]}"/>                                                    
                     <g:sortableColumn property="dateCreated" titleKey="room.created.on" params="${[max:listMaxParam]}"/>                     
                     <g:sortableColumn property="lastUpdated" titleKey="room.last.updated" params="${[max:listMaxParam]}"/>                   
@@ -51,6 +53,8 @@
             <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
                 <td>${fieldValue(bean: room, field: 'name')}</td>
                 <td><g:message code="${room?.forHire ? 'true' : 'false'}"/></td>                    
+                <td><g:formatBoolean boolean="${room?.home}"/></td>
+                <td><g:formatBoolean boolean="${room?.featured}"/></td>                
                 <td>${fieldValue(bean: room, field: 'venue')}</td>                        
                 <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.dateCreated}"/></td>                      
                 <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${room?.lastUpdated}"/></td>                  

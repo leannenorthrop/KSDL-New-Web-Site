@@ -37,7 +37,7 @@ Date: Jan 30, 2010, 1:30:09 PM
   <g:form name="publishEvent" action="publish" method="post">
     <g:hiddenField name="id" value="${event?.id}"/>
     <g:hiddenField name="version" value="${event?.version}"/>
-    <g:hiddenField name="publishState" value="Unpublished"/>
+    <g:hiddenField name="publishState" value="Published"/>
     <g:hiddenField name="deleted" value="false"/>
     <g:hiddenField name="isRepeatable" value="false"/>
 

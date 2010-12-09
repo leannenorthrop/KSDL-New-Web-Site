@@ -53,6 +53,7 @@ import org.samye.dzong.london.cms.*
  * @since  29th January, 2010, 17:04
  */
 class EventController extends CMSController {
+    def articleService
     def ADMIN_ROLES = ['EventOrganiser', 'Administrator']
     def DOMAIN_NAME = 'Event'
     
@@ -86,7 +87,7 @@ class EventController extends CMSController {
     def home = {
         def now = new java.util.Date() 
 
-        def publishedEvents = Event.published().list();
+        def publishedEvents = Event.findAllByPublishState('Published');
         publishedEvents.sort();
         def todaysEvents = publishedEvents.findAll { 
             def r = it.isOnDay(now) 

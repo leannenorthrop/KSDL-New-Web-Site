@@ -51,7 +51,7 @@
     <lsdc:selectImg obj="${articleInstance}" tag="${'article'}"/>
     <p>
       <label for="category"><g:message code="event.category.label"/></label>
-    <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
+    <g:select name="category" from="${['M','N','C','W','B','A','H','S','R']}" value="${articleInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:event,field:'category','errors')}"/>
     </p>
     <p>
       <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="manageSite" action='textile' target="_blank">Textile</g:link> for details.</em></label>

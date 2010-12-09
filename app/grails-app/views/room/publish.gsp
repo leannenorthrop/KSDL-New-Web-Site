@@ -31,12 +31,11 @@
         <g:form name="publish" action="publish" method="post">
             <g:hiddenField name="id" value="${publishableInstance?.id}"/>
             <g:hiddenField name="version" value="${publishableInstance?.version}"/>
-            <g:hiddenField name="publishState" value="Unpublished"/>
+            <g:hiddenField name="publishState" value="Published"/>
             <g:hiddenField name="deleted" value="false"/>
             <g:hiddenField name="displayAuthor" value="false"/>
             <g:hiddenField name="displayDate" value="false"/>
             <g:hiddenField name="home" value="false"/>
-            <g:hiddenField name="featured" value="false"/>
             <g:hiddenField name="category" value="R"/>
             
             <shiro:hasRole name="VenueManager">

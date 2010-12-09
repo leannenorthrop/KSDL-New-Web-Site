@@ -43,4 +43,7 @@
 <g:else>
   ${room?.summary?.encodeAsTextile()}
 </g:else>
+<g:if test="${room?.forHire}">
+    To book please visit our <g:link controller="aboutUs" action="contactUs">Contact Us</g:link> page for contact details.
+</g:if>
 </div>

@@ -29,8 +29,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="org.samye.dzong.london.events.Event; org.samye.dzong.london.community.Teacher" contentType="text/html;charset=UTF-8" %>
-<g:set var="typeClass" value="${articles[0] instanceof Teacher ? 'teacher' : (articles[0] instanceof Event ? 'event' : '')}"/>
+<%@ page import="org.samye.dzong.london.events.Event; org.samye.dzong.london.community.Teacher;org.samye.dzong.london.venue.*" contentType="text/html;charset=UTF-8" %>
+<g:set var="typeClass" value="${articles[0] instanceof Teacher ? 'teacher' : (articles[0] instanceof Event ? 'event' : (articles[0] instanceof Room ? 'room' : ''))}"/>
 <div class="box">
   <h3><g:message code="${heading}" default=""/></h3>
   <ul class="block articles">
@@ -41,11 +41,11 @@
         <g:set var="placementClass" value="${i == 0 ? 'first' : (i == articles?.size ? 'last' :'')}"/>
         <li class="${placementClass} article ${typeClass} ${articleInstance?.category}">
 
-          <g:if test="${!(articleInstance instanceof Teacher)}">
-            <g:set var="articleHeading" value="${articleInstance.title}"/>
+          <g:if test="${articleInstance instanceof Teacher || articleInstance instanceof Room}">
+            <g:set var="articleHeading">${articleInstance}</g:set>            
           </g:if>
           <g:else>
-            <g:set var="articleHeading">${articleInstance}</g:set>
+            <g:set var="articleHeading" value="${articleInstance.title}"/>
           </g:else>
 
           <h4>

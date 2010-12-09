@@ -23,13 +23,17 @@
 
 <%@ page import="org.samye.dzong.london.venue.Room" %>
 <html>
-  <head>
-    <title>
-${room?.name}
-    </title>
-    <meta name="layout" content="content-admin"/>
-  </head>
-  <body>
-  <g:render template="/room" model="[room: room]"/>
-</body>
+    <head>
+        <title>${room?.name}</title>
+        <meta name="layout" content="main"/>
+    </head>
+    <body>
+        <div class="grid_4">
+            <g:render template="/roomNav" model="[venues:venues,allArticles:allArticles]"/>
+        </div>
+
+        <div class="grid_12">         
+            <g:render template="/room" model="[room: room]"/>
+        </div>
+    </body>
 </html>

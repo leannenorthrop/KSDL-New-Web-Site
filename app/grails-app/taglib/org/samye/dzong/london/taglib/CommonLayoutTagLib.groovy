@@ -41,14 +41,16 @@ class CommonLayoutTagLib {
 
     def nav = { attrs ->
         def navControllers = []
-        ['home', 'aboutUs', 'event', 'buddhism', 'meditation','community','wellbeing','news','shop'].each { it ->
-            def isShow = true
+        ['home', 'aboutUs', 'event', 'meditation','buddhism','community','wellbeing','news','shop','room','gallery'].each { it ->
+            navControllers << it
+/*            def isShow = true
             try {
                 isShow = Setting.findByName("Show" + it.capitalize()).value
             } catch (error) {log.warn "Unable to get setting ${'Show' + it.capitalize()}"}
             if (isShow == 'true' || isShow == 'Yes') {
                 navControllers << it
             }
+*/
         }
 
         /*

@@ -54,6 +54,7 @@ class Room extends Publishable {
             content type:'text'
             summary type:'text'
         }
+        sort name:"asc"        
     }
 
     static namedQueries = {

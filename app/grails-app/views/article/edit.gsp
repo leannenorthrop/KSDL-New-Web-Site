@@ -51,7 +51,7 @@
 
     <p>
       <label for="category" style="display:inline-block;width:6em;"><g:message code="article.category.label"/></label>
-    <g:select name="category" from="${['M','N','C','W','B','A','H','S']}" value="${publishableInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:publishableInstance,field:'category','errors')}"/>
+    <g:select name="category" from="${['M','N','C','W','B','A','H','S','R']}" value="${publishableInstance?.category}" valueMessagePrefix="publish.category" class="required ui-corner-all ${hasErrors(bean:publishableInstance,field:'category','errors')}"/>
     </p>
     <p>
       <label for="summary"><g:message code="article.summary.label"/><em>Textile may be used. See <g:link controller="manageSite" action='textile' target="_blank">Textile</g:link> for details.</em></label>

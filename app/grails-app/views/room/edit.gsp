@@ -47,7 +47,6 @@ Date: Jun 14, 2010,3:11:44 PM
   <g:hiddenField name="displayAuthor" value="false"/>
   <g:hiddenField name="displayDate" value="false"/>
   <g:hiddenField name="home" value="false"/>
-  <g:hiddenField name="featured" value="false"/>
   <g:hiddenField name="category" value="R"/>
 
   <fieldset>
