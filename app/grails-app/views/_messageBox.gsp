@@ -72,7 +72,7 @@
         </ul>
     </div>
 </g:else>
-<div class="ui-widget ui-state-highlight ui-corner-all" id="jsmsgbox" style="display:${flash.message && flash.isError ? 'block' : 'none'}">
+<div class="ui-widget ui-state-highlight ui-corner-all" id="jsmsgbox" style="display:${flash.message && !flash.isError ? 'block' : 'none'}">
     <strong>
         <span class="ui-icon ui-icon-info" style="display: inline-block"></span>
         <g:message code="info"/>

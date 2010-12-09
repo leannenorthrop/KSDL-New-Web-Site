@@ -63,36 +63,43 @@ class VenueController extends CMSController {
         render(view: 'manage',params:[max:25],model:[venues:Venue.findAllByDeleted(false)])
     }
         
-    def saveRoom(venue,params,onSave,saveMsg,onError,errMsg) {
+    def saveVenue(venue,params,onSave,saveMsg,onError,errMsg) {
         if (!venue){
             venue = new Venue()
+            venue.author = currentUser()             
         }
         if (versionCheck(params,venue)) {
             Venue.withTransaction { status ->
                 try {
-                    venue.author = currentUser() 
                     venue.properties = params
                     ['Addresses', 'Emails', 'TelephoneNumbers'].each { venue."bind${it}"(params) }
-
                     if (!venue.hasErrors() && venue.save()) {
                         flash.message = saveMsg
                         if (onSave == manage) {
-                            flash.message = "${venue.name} updated"                            
+                            flash.message = "${venue} updated"                            
                             redirect(action: onSave)                            
                         } else {
                             def msg = "Changes could not be saved because of the following:"	
+                            flash.message = msg
+                            flash.isError = true
+                            flash.args = [venue]
+                            flash.bean = venue
                             rollback(status,msg,venue)
                             redirect(action: onSave,params:[id:params.id])
                         }
                     }
                     else {
-                        def msg = "Can not save ${room.name} at this time"
-                        rollback(status,msg,room,error)
-                        handleError(errMsg,room,onError)
+                        def msg = "Can not save ${venue} at this time"
+                        rollback(status,msg,venue)
+                        venue.validate()
+                        flash.args = [venue]
+                        flash.bean = venue                        
+                        render(view: onError, model: [venue: venue])
                     }
                 } catch(error) {
-                    def msg = "Can not save ${room.name} at this time"
-                    rollback(status,msg,room,error)
+                    def msg = "Can not save ${venue} at this time"
+                    log.error msg, error
+                    rollback(status,msg,venue,error)
                     redirect(action: manage,id:params.id)
                 }
             }

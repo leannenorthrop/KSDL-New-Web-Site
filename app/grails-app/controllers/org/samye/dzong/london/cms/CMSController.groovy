@@ -194,7 +194,7 @@ abstract class CMSController {
     def save = {
         def okMsg = "New ${DOMAIN_NAME.toLowerCase()} has been created."
         def errMsg = "${DOMAIN_NAME.toLowerCase()}.update.error"
-        this."save${DOMAIN_NAME}"(null,params,manage,okMsg,create,errMsg)
+        this."save${DOMAIN_NAME}"(null,params,manage,okMsg,'create',errMsg)
     }
         
     def update = {

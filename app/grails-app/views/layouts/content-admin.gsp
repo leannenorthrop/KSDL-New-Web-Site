@@ -43,7 +43,7 @@ Date: Jan 24, 2010, 2:00:21 PM
     <![endif]>
     <link rel="shortcut icon" href="${resource(dir: 'images', file: 'favicon.ico')}" type="image/x-icon"/>
   <g:javascript src="jquery/jquery-1.4.2.min.js"/>
-  <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
+  <g:javascript src="jquery/jquery-ui-1.8.6.custom.min.js"/>
   <g:javascript src="jquery/jquery.validate.min.js"/>
   <g:javascript src="jquery/jquery.markitup.js"/>
   <g:javascript src="jquery/cookie.js"/>
@@ -60,11 +60,10 @@ Date: Jan 24, 2010, 2:00:21 PM
 </div>
 
 <div class="container_16">      
-  <div class="grid_1">&nbsp;</div>
-  <div class="grid_14 content">
+
+  <div class="grid_16 content">
     <g:layoutBody/>
   </div>
-  <div class="grid_1">&nbsp;</div>
   <div class="clear"></div>
 
   <div class="grid_16">

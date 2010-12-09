@@ -163,7 +163,7 @@ class CMSUtil {
         artefactClass.metaClass.handleError = { msg, obj, Object[] args ->
             flash.message = msg
             flash.isError = true
-            flash.args = args.size() >= 3 ? args[2] : obj ? [obj] : null
+            flash.args = (args.size() >= 3) ? args[2] : (obj ? [obj] : null)
             if (obj) {
                 flash.bean = obj 
             }

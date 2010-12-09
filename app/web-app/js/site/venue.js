@@ -32,15 +32,15 @@ $("button.newaddress").click(removeNewHandler);
 var removeExistingHandler = function() {
     var deleteMe = $(this).parent().find(':hidden')
     deleteMe.val('true')
-    $('#edit').append(deleteMe)
-    $(this).parent().remove();  
+    $(this).parent().remove();      
+    $('form').append(deleteMe)
 };
 
 $("button.existingnumber").click(removeExistingHandler);
 $("button.existingemail").click(removeExistingHandler);                     
 $("button.existingaddress").click(removeExistingHandler);  
 
-$("#edit").validate();
+$("form").validate();
 
 var addNew = function(templateSelector,namePrefix,selector,nextId) {                                                                   
   var clone = $(templateSelector).clone(true)
@@ -69,12 +69,14 @@ var addNew = function(templateSelector,namePrefix,selector,nextId) {
 $("#addNewNumber").click(function() {
    var name = $('.telephoneDetails input.name').val() + " (" + $('.telephoneDetails select').val() + "): " + $('.telephoneDetails input.number').val();            
    var newHtml = addNew('#telephoneNumberTemplate', 'telephoneNumbersList','.telephoneDetails',nextTelephoneId); 
+   nextTelephoneId++;
    newHtml.find('button').before(name)
 });
 
 $("#addNewEmail").click(function() {
    var name = $('.emailDetails input.name').val() + " (" + $('.emailDetails select').val() + "): " + $('.emailDetails input.address').val();             
    var newHtml = addNew('#emailTemplate','emailsList','.emailDetails',nextEmailId); 
+   nextEmailId++;
    newHtml.find('button').before(name)           
 });
 
@@ -86,5 +88,6 @@ $("#addNewAddress").click(function() {
        }
    })
    var newHtml = addNew('#addressTemplate','addressesList','.addressDetails',nextAddressId); 
+   nextAddressId++;
    newHtml.find('button').before(name)           
 });                

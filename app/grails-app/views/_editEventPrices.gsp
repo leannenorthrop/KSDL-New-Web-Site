@@ -41,11 +41,4 @@
   <div id="additionalPriceFields" style="display:none;visibility:hidden;">
       <g:select name="pricecategory" from="${['F','S', 'M','O']}" valueMessagePrefix="event.price" class="category"/>
   </div>  
-  <g:javascript> 
-    var html = $("#additionalPriceHiddenFields").html();
-    $("#priceTemplate").append(html);
-    var html2 = $("#additionalPriceFields").html(); 
-    $("p.priceDetails button.add").before(html2);    
-  </g:javascript>   
-  
 </fieldset>

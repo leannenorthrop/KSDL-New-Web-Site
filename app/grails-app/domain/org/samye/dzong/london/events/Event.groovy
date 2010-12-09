@@ -180,6 +180,7 @@ class Event extends Publishable implements Comparable {
                     item.duration = new MutablePeriod(item.startTime.toDateTimeToday(), item.endTime.toDateTimeToday()).toPeriod()
                     item.save() 
                 } catch (error) {
+                    errors.reject("event.date.error");
                     log.warn "Unable to save date", error
                 }
             }    			

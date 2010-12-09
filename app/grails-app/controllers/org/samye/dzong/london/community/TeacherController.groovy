@@ -73,11 +73,11 @@ class TeacherController extends CMSController {
     def saveTeacher(teacher,params,onSave,saveMsg,onError,errMsg) {
         if (!teacher){
             teacher = new Teacher()
+            teacher.author = currentUser()             
         }
         if (versionCheck(params,teacher)) {
             Teacher.withTransaction { status ->
                 try {
-                    teacher.author = currentUser() 
                     teacher.properties = params
 
                     if (!teacher.hasErrors() && teacher.save()) {
@@ -102,17 +102,22 @@ class TeacherController extends CMSController {
                             redirect(action: onSave)                            
                         } else {
                             def msg = "Can not save ${teacher} at this time"
-                            rollback(status,msg,teacher,error)
+                            rollback(status,msg,teacher)
                             redirect(action: onSave,params:[id:params.id])
                         }
                     }
                     else {
                         def msg = "Can not save ${teacher} at this time"
-                        rollback(status,msg,teacher,error)
-                        handleError(errMsg,teacher,onError)
+                        flash.message = msg
+                        flash.isError = true
+                        flash.args = [teacher]
+                        flash.bean = teacher                              
+                        rollback(status,msg,teacher)
+                        render(view: onError, model: [teacher: teacher])
                     }
                 } catch(error) {
                     def msg = "Can not save ${teacher} at this time"
+                    log.error msg, error                          
                     rollback(status,msg,teacher,error)
                     redirect(action: manage,id:params.id)
                 }

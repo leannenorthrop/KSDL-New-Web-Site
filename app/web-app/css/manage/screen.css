@@ -3,7 +3,7 @@ Title:      Screen styles for managing site content
 */
 
 /* import stylesheets and hide from ie/mac \*/
-@import url("theme/jquery-ui-1.8.5.custom.css");
+@import url("theme/jquery-ui-1.8.6.custom.css");
 @import url("forms.css");
 @import url("tables.css");
 @import url("image.css");
@@ -13,8 +13,8 @@ Title:      Screen styles for managing site content
 
 .contentAdmin {
     width: 100%;
-    background: white;
-    margin-bottom: 5.75em;
+    background: #ede8e2;
+/*    margin-bottom: 5.75em;*/
 	font: normal 85% HelveticaNeue, Helvetica, Arial, 'Liberation Sans', FreeSans, verdana,tahoma,sans-serif;
 }
 /*
@@ -26,14 +26,14 @@ Title:      Screen styles for managing site content
 
 
 .contentAdmin h1 {
-    font-size: 1.5em;
+    font-size: 1.25em;
 	margin-bottom: 0.6em;
 }
 .contentAdmin h2 {
-    font-size: 1.25em;
+    font-size: 1em;
 }
 .contentAdmin h3 {
-    font-size: 1.15em;
+    font-size: 0.99em;
 }
 
 .contentAdmin h1, .contentAdmin h2, .contentAdmin h3, .contentAdmin h4, .contentAdmin h5, .contentAdmin h6 {

@@ -18,7 +18,6 @@ fieldset {
 }
 legend {
     font-weight: bold;
-    font-size:larger;
     padding:.4em .8em;
     background:#fff;
     border:1px solid #bbb;
@@ -27,7 +26,6 @@ legend {
 fieldset p label {
     width:98%;
     font-weight: bold;
-    font-size:1.1em;    
 }
 
 fieldset p.last {
@@ -59,20 +57,20 @@ fieldset p input:focus, fieldset p textarea:focus, fieldset p.select:focus {
 input[type="submit"],form a.button, form a.submit,input[type="button"] {
     padding: 0.35em 0.75em 0.4em 0.75em;
     color: white;
-    background: #dc0000 url(images/buttonHighlight.png) repeat-x 0 50%;
+    background: #036564 url(images/buttonHighlight.png) repeat-x 0 50%;
     text-decoration: none;
-    text-shadow: 1px 1px 1px #880000;    
-    border: 1px solid #b00000;
+    text-shadow: 1px 1px 1px #033649;    
+    border: 1px solid #025150;
     width: auto;
     overflow: hidden;
     font-weight: bold;
-    font-size:1.1em;    
+    font-size:1em;    
 }
 
 input[type="submit"]:hover,input[type="button"]:hover,form a:hover.button, form a:hover.submit,input[type="submit"]:focus,input[type="submit"]:active,a:active.button, form a:active.submit  {
     text-decoration: none;
     text-shadow: 1px 1px 1px #330000;
-    background: #bb0000;    
+    background: #033649;    
 	color:white;
     cursor: pointer;
 }
@@ -81,7 +79,7 @@ input[type="submit"]:hover,input[type="button"]:hover,form a:hover.button, form 
 .ui-state-highlight, .ui-state-error, .ui-state-error p {
     margin-left: auto;
     margin-right: auto;
-    width: 75%;
+    width: 50%;
     padding: 0.3em;
     text-align: center;
     margin-bottom: 0.6em;

@@ -70,11 +70,11 @@ class ArticleController extends CMSController {
     def saveArticle(article,params,onSave,saveMsg,onError,errMsg) {
         if (!article){
             article = new Article()
+            article.author = currentUser()             
         }
         if (versionCheck(params,article)) {
             Article.withTransaction { status ->
                 try {
-                    article.author = currentUser() 
                     article.properties = params
 
                     if (!article.hasErrors() && article.save()) {
@@ -103,11 +103,16 @@ class ArticleController extends CMSController {
                     }
                     else {
                         def msg = "Can not save ${article.title} at this time"
-                        rollback(status,msg,article,error)
-                        handleError(errMsg,article,onError)
+                        flash.message = msg
+                        flash.isError = true
+                        flash.args = [article]
+                        flash.bean = article                              
+                        rollback(status,msg,article)
+                        render(view: onError, model: [articleInstance: article])
                     }
                 } catch(error) {
                     def msg = "Can not save ${article.title} at this time"
+                    log.error msg, error                          
                     rollback(status,msg,article,error)
                     redirect(action: manage,id:params.id)
                 }

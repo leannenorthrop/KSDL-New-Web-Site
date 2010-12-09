@@ -252,28 +252,52 @@ class EventController extends CMSController {
     }    
 
     def saveEvent(event,params,onSave,saveMsg,onError,errMsg) {
+        if (!event) {
+            event = new Event()
+            event.author = currentUser()             
+        }
         if (versionCheck(params,event)) {
             Event.withTransaction { status ->
-                try {
+                try {                    
                     event.properties = params
                     event.bindPrices(params)
                     event.bindDates(params)
 
                     if (!event.hasErrors() && event.save()) {
                         if (params.tags) {
-                            def newtags = params.tags.split(',') as List
-                            event.setTags(newtags)
+                            def tags = article.tags
+                            def newtags = params.tags.split(',')
+                            if (tags) {
+                                tags.each {tag ->
+                                    def found = newtags.find {newtag -> newtag == tag}
+                                    if (!found) {
+                                        article.removeTag(tag)
+                                    }
+                                }
+                            } else {
+                                newtags = newtags as List
+                                article.setTags(newtags)
+                            }
                         }
                         flash.message = saveMsg
-                        redirect(action: onSave)
+                        if (onSave == manage) {
+                            redirect(action: onSave)                            
+                        } else {
+                            redirect(action: onSave,params:[id:params.id])
+                        }
                     }
                     else {
-                        def msg = "Can not save ${event.title} at this time"
-                        rollback(status,msg,event,error)
-                        handleError(errMsg,event,onError)
+                        def msg = "Can not save ${event} at this time"
+                        flash.message = msg
+                        flash.isError = true
+                        flash.args = [event]
+                        flash.bean = event                        
+                        rollback(status,msg,event)
+                        render(view: onError, model: [event: event])                        
                     }
                 } catch(error) {
-                    def msg = "Can not save ${event.title} at this time"
+                    def msg = "Can not save ${event} at this time"
+                    log.error msg, error                    
                     rollback(status,msg,event,error)
                     redirect(action: manage,id:params.id)
                 }

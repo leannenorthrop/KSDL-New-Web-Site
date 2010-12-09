@@ -69,11 +69,11 @@ class RoomController extends CMSController {
     def saveRoom(room,params,onSave,saveMsg,onError,errMsg) {
         if (!room){
             room = new Room()
+            room.author = currentUser()            
         }
         if (versionCheck(params,room)) {
             Room.withTransaction { status ->
-                try {
-                    room.author = currentUser() 
+                try { 
                     room.properties = params
 
                     if (!room.hasErrors() && room.save()) {
@@ -98,17 +98,22 @@ class RoomController extends CMSController {
                             redirect(action: onSave)                            
                         } else {
                             def msg = "Can not save ${room.name} at this time"
-                            rollback(status,msg,room,error)
-                            redirect(action: onSave,params:[id:params.id])
+                            flash.message = msg
+                            flash.isError = true
+                            flash.args = [room]
+                            flash.bean = room                                  
+                            rollback(status,msg,room)
+                            render(view: onError, model: [room: room])
                         }
                     }
                     else {
                         def msg = "Can not save ${room.name} at this time"
-                        rollback(status,msg,room,error)
+                        rollback(status,msg,room)
                         handleError(errMsg,room,onError)
                     }
                 } catch(error) {
                     def msg = "Can not save ${room.name} at this time"
+                    log.error msg,error
                     rollback(status,msg,room,error)
                     redirect(action: manage,id:params.id)
                 }

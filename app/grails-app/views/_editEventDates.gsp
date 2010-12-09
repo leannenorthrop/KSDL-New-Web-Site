@@ -53,7 +53,7 @@
     </div>
     
     <div id="between" style="display:none;height:20em;">
-         <g:message code="event.between"/> <g:textField name="startingOnDate" class="ui-corner-all" style="display: inline;width:10em" minlength="4" value="${currentEventDate}"/>          
+         <g:message code="event.between.orig"/> <g:textField name="startingOnDate" class="ui-corner-all" style="display: inline;width:10em" minlength="4" value="${currentEventDate}"/>          
          <g:message code="event.and"/> <g:textField name="endingOnDate" class="ui-corner-all" style="display: inline;width:10em" minlength="4" value="${currentEndEventDate}"/>  
         <g:render template="/scheduleRule" model="[prop: 'between',rule:firstDate]"/>
     </div>
@@ -67,43 +67,6 @@
 
 <g:javascript>   
     var start = "${currentEventDate}".split("-");
-    var end = "${currentEndEventDate}".split("-");    
-    var defaultDate = new Date(start[2],start[1],start[0]);
-    var endDate = new Date(end[2],end[1],end[0]);
-
-    $("#singleDate").datepicker({
-        showOtherMonths: false,
-        dateFormat: 'dd-mm-yy',
-        defaultDate: defaultDate,
-        numberOfMonths: [1,3],
-        hideIfNoPrevNext: true,
-        minDate: '0d',
-        maxDate: '+3y',
-        stepMonths: 3,
-        currentText: 'Today'
-    });
-    
-    $("#several * #startDate,#between #startingOnDate,#between #endingOnDate,#always #startingFromDate").each(function(index){
-          $(this).datepicker({
-            dateFormat: 'dd-mm-yy',
-            defaultDate: defaultDate,
-            minDate: '0d',
-            maxDate: '+3y',
-            hideIfNoPrevNext: true,
-            currentText: 'Today'          
-        });
-    });
-  
-    $("input[name$=.ruleType]").change(function() {
-        $("input[name$=.ruleType]").each(function(index) {
-            var id = $(this).val();
-            $("#" + id).hide();
-        });
-        var id2 = $(this).val();
-        $("#" + id2).show();            
-    });
-
-    var showDatePanel = $("input[name$=.ruleType]:checked").val();
-    $("#" + showDatePanel).show();  
+    var end = "${currentEndEventDate}".split("-");     
 </g:javascript>
 

@@ -29,7 +29,7 @@ Date: Jun 13, 2010, 3:40:00 PM
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <meta name="layout" content="content-admin-wide"/>          
+    <meta name="layout" content="content-admin"/>          
     <title><g:message code="slideshow.edit.title"/></title>
   <g:javascript src="jquery/visuallightbox/visuallightbox.js"/>
   <g:javascript src="jquery/visuallightbox/vlbdata.js"/>

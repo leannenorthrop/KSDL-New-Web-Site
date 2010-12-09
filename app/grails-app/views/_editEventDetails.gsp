@@ -147,9 +147,3 @@
                   class="required ui-corner-all ${hasErrors(bean:event,field:'endTime','errors')}"/>
       </p>  
 </fieldset>
-<g:javascript>   
-  $("#startTimeHour").change(function() {
-      var stv = $(this).val();
-      $("#endTimeHour").attr("value", ++stv);
-  });
-</g:javascript>
