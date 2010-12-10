@@ -29,44 +29,21 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<div class="grid_12">
-  <div class="grid article">
-    <g:if test="${!articleInstance.displayAuthor && !articleInstance.displayDate}">
-    <div class="grid_16 body ${articleInstance?.category}">
-    </g:if>
-    <g:else>
-      <div class="grid_4 ${articleInstance?.category}" style="overflow-x: hidden;">
-        <g:if test="${articleInstance.datePublished}">
-          <h4><g:formatDate format="dd MMMM, yyyy" date="${articleInstance.datePublished}"/></h4>
-        </g:if>
-        <g:if test="${articleInstance.displayAuthor}">
-          <h5>by <a>${articleInstance.author.username}</a></h5>
-        </g:if>
-      </div>
 
-      <div class="grid_12 body ${articleInstance?.category}">
-    </g:else>
+<div class="article">
     <g:if test="${articleInstance?.image && articleInstance?.image?.mimeType.endsWith('png')}">
-      <img src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="pngImg"/>
+        <img src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="main pngImg"/>
     </g:if>
     <g:elseif test="${articleInstance?.image}">
-      <img src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}"/>
+        <img src="${createLink(controller: 'image', action: 'src', id: articleInstance.image.id)}" title="${articleInstance.image.name}" alt="${articleInstance.image.name}" class="main"/>
     </g:elseif>
-      ${articleInstance.content.encodeAsTextile()}
-
-      <p class="meta">
+    
+    <div class="body">
+    ${articleInstance.content.encodeAsTextile()}
+    </div>
+    
+    <p class="meta">
         <g:message code="article.labels"/> ${articleInstance?.tags?.join(", ")}
-      </p>
-      </div>
-   </div>
+    </p>
 </div>
 
-<div class="grid_4">
-  <h3><g:message code="similar"/></h3>
-  <ul>
-    <g:each in="${articles}" status="i" var="articleInstance">
-      <li class="article"><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></li>
-    </g:each>
-  </ul>
-</div>
-<div class="clear"></div>

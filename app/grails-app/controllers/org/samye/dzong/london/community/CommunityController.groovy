@@ -40,11 +40,11 @@ class CommunityController extends PublicSectionPageController {
     CommunityController() {
         CMSUtil.addFinderMethods(this)        
     }
-    
-    def index = {
-        redirect(action:home)
-    }
 
+    def index = {
+        forward(action:'home')
+    }
+    
     def home = {
         def model = [:]         
         addPublishedContent(["CommunityHomeArticles", "CommunityFeaturedArticles","CommunityAllArticles","CommunityFeaturedEvents"],model)

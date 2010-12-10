@@ -45,16 +45,30 @@ class AboutUsController extends PublicSectionPageController  {
     def getSectionName() {
         "AboutUs"
     }
-
+  
     def index = {
-        redirect(action:home)
+        forward(action:'home')
     }
-            
+      
     def home = {
         def model = [:]         
+        
+        
+        def roomHireArticle = null
+        try { roomHireArticle = Article.findByTitleLikeAndPublishState("Room Hire%","Published")} catch (error){}
+        def centerArticle = null
+        try { centerArticle = findByTag('centers')[0] } catch (error){}
+        def teacherArticle = null
+        try { teacherArticle = findByTag('center teachers')[0] } catch (error){}
+        def lineageArticle = null
+        try { lineageArticle = findByTag('lineage')[0] } catch (error){}
+        model = [roomHireArticle:roomHireArticle, centerArticle:centerArticle, teacherArticle:teacherArticle,lineageArticle:lineageArticle]
+        
         addPublishedContent(["AboutUsHomeArticles", "AboutUsFeaturedArticles"],model)
         populateNavigationObject(model)
+        
         articleService.addHeadersAndKeywords(model,request,response)
+        
         render(view:'index', model:model)
     }
 
@@ -78,13 +92,8 @@ class AboutUsController extends PublicSectionPageController  {
     def centers = {
         def model = [:]
         populateNavigationObject(model)
-        def lineageArticles = []
-        try {
-            lineageArticles = articleService.findByTag('centers',[])
-        } catch (error) {
-            log.error("AboutUs controller encountered an error.",error)
-        }
-        model.put('articles',lineageArticles)
+        def centers = findByTag('centers')
+        model.put('articles',centers)
         flash.title="Our Centers"                        
         
         articleService.addHeadersAndKeywords(model,request,response)
@@ -95,12 +104,7 @@ class AboutUsController extends PublicSectionPageController  {
         def model = [:]
         populateNavigationObject(model)
         model.put('teachers',model.lineage)
-        def lineageArticles = []
-        try {
-            lineageArticles = articleService.findByTag('lineage',[])
-        } catch (error) {
-            log.error("AboutUs controller encountered an error.",error)
-        }
+        def lineageArticles = findByTag('lineage')
         model.put('articles',lineageArticles)
         flash.title="Lineage Teachers"                        
         
@@ -120,12 +124,7 @@ class AboutUsController extends PublicSectionPageController  {
         def model = [:]
         populateNavigationObject(model)
         model.put('teachers',model.teachers)
-        def lineageArticles = []
-        try {
-            lineageArticles = articleService.findByTag('center teachers',[])
-        } catch (error) {
-            log.error("AboutUs controller encountered an error.",error)
-        }
+        def lineageArticles = findByTag('center teachers')
         model.put('articles',lineageArticles)
         flash.title="Center Course Leaders and Teachers"               
         
@@ -137,12 +136,7 @@ class AboutUsController extends PublicSectionPageController  {
         def model = [:]
         populateNavigationObject(model)
         model.put('teachers',model.visitingTeachers)
-        def lineageArticles = []
-        try {
-            lineageArticles = articleService.findByTag('visiting teachers',[])
-        } catch (error) {
-            log.error("AboutUs controller encountered an error.",error)
-        }
+        def lineageArticles = findByTag('visiting teachers')
         model.put('articles',lineageArticles)
         flash.title="Visiting Course Leaders and Teachers"              
         
@@ -179,4 +173,14 @@ class AboutUsController extends PublicSectionPageController  {
         def lineageArticles = [] 
         addPublishedContent(["AboutUsFeaturedArticles"],model)                     
     }    
+    
+    def findByTag(tag) {
+        def lineageArticles = []
+        try {
+            lineageArticles = articleService.findByTag(tag,[])
+        } catch (error) {
+            log.error("AboutUs controller encountered an error finding articles by tag ${tag}",error)
+        }    
+        lineageArticles    
+    }
 }

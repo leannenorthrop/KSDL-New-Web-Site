@@ -66,8 +66,8 @@
     <feed:meta kind="rss" version="2.0" controller="feed" action="meditation"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="community"/>
     <feed:meta kind="rss" version="2.0" controller="feed" action="wellbeing"/>
-    <g:javascript src="jquery/jquery-1.4.2.min.js"/>
-    <g:javascript src="jquery/jquery-ui-1.8.2.min.js"/>
+    <g:javascript src="jquery/jquery-1.4.3.min.js"/>
+    <g:javascript src="jquery/jquery-ui-1.8.6.custom.min.js"/>
     <g:javascript src="jquery/jquery.validate.min.js"/>
     <g:javascript src="jquery/jquery.sideswap.js"/>      
     <g:layoutHead/>       
@@ -97,29 +97,39 @@
       </div>
       <div class="clear"></div>
 
-      <div class="grid_16">
-        <g:set var="siteTitle"><g:message code="title" default="Kagyu Samye Dzong London"/></g:set>
-        <g:set var="title"><g:layoutTitle/></g:set>
-        <h2 id="page-heading">
-            <g:if test="${title.contains(siteTitle)}">
-                ${title.substring(siteTitle.size()+2)}
+      <g:if test="${controllerName == 'home' && actionName == 'index'}">
+      </g:if>
+      <g:else>
+          <div class="grid_16">
+            <g:set var="siteTitle"><g:message code="title" default="Kagyu Samye Dzong London"/></g:set>
+            <g:set var="title"><g:layoutTitle/></g:set>
+            <h2 id="page-heading">
+                <g:if test="${title.contains(siteTitle)}">
+                    ${title.substring(siteTitle.size()+2)}
+                </g:if>
+                <g:else>
+                    ${title}
+                </g:else>            
+                <g:if test="${article?.displayDate}">
+                    <span class="date"><g:formatDate format="dd MMMM, yyyy" date="${article.datePublished}"/></span>
+                </g:if>
+                <g:if test="${article?.displayAuthor}">
+                    <span class="author">by <a>${article.author.username}</span>
+                </g:if>                        
+            </h2>        
+            <g:if test="${controllerName == 'event'}">
+                <g:if test="${actionName == 'home'}">
+                    <g:link action="calendar"><span class="silk-icon silk-icon-calendar-view-month">&nbsp;</span>Calendar</g:link>
+                </g:if>
+                <g:if test="${actionName == 'calendar'}">
+                    <g:link action="home"><span class="silk-icon silk-icon-application-view-list">&nbsp;</span>List</g:link>
+                    <g:link action="subscribe"><span class="silk-icon silk-icon-calendar-link">&nbsp;</span>Subscribe</g:link>
+                </g:if>
             </g:if>
-            <g:else>
-                ${title}
-            </g:else>
-        </h2>
-        <g:if test="${controllerName == 'event'}">
-            <g:if test="${actionName == 'home'}">
-                <g:link action="calendar"><span class="silk-icon silk-icon-calendar-view-month">&nbsp;</span>Calendar</g:link>
-            </g:if>
-            <g:if test="${actionName == 'calendar'}">
-                <g:link action="home"><span class="silk-icon silk-icon-application-view-list">&nbsp;</span>List</g:link>
-                <g:link action="subscribe"><span class="silk-icon silk-icon-calendar-link">&nbsp;</span>Subscribe</g:link>
-            </g:if>
-        </g:if>
-      </div>
-      <div class="clear"></div>
-
+          </div>
+          <div class="clear"></div>
+      </g:else>
+      
       <div class="grid pagecontent">
         <g:layoutBody/>
       </div>

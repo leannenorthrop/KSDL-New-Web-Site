@@ -136,3 +136,15 @@ body.aboutUs .grid_12 img {
 a img:hover{
 	border:1px solid #6d0000;
 }
+
+div.article img.main {
+    float:right;
+    max-width: 220px;    
+}
+
+/* Home Page Windows
+-----------------------------------------------------------------------------*/
+body.home div.box img{
+    float:right;
+    margin-left: 0.4em;    
+}

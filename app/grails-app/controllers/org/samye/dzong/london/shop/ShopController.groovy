@@ -38,25 +38,60 @@ import org.samye.dzong.london.cms.*
 class ShopController extends CMSController {
     def articleService
     def emailService
+    def ADMIN_ROLES = ['ShopManager', 'Administrator']
+    def DOMAIN_NAME = 'Product'
+    
+    // the save and update actions only accept POST requests
+    static allowedMethods = [manage: 'GET',
+                             save: 'POST', 
+                             update: 'POST', 
+                             changeState: 'GET', 
+                             delete: 'GET',                             
+                             view: 'GET',                             
+                             show: 'GET',                                                          
+                             edit: 'GET',                                                                                       
+                             pre_publish: 'GET',
+                             preview: 'POST', 
+                             updatePublished: 'POST',
+                             updateAndPublish: 'POST',
+                             onAddComment: ['POST','GET']]  
+                                     
+    ShopController() {
+        CMSUtil.addFinderMethods(this)
+        CMSUtil.addCMSMethods(this)        
+    }
     
     def index = {
-        redirect(action:home)
+        forward(action:'home')
     }
-
+    
     def home = {
+        def model = [:]         
+                
         def shopMenuSetting = Setting.findByName('ShopMenu');
         def menu = shopMenuSetting ? shopMenuSetting.value : '';
-        def products = NonDownloadable.published().list(sort:'lastUpdated',order:'desc')
+        model.put('menu',menu)
+        
+
+        addPublishedContent(["ShopHomeArticles", "RoomAllArticles","ShopFeaturedArticles"],model)        
+        
+        def venues = publishedVenues().'venues'
+		model.put('venues',venues)
+		
+        
+        def things = publishedNonDownloadables()
+        def products = things.nonDownloadables
+        def total = things.total
         def newProducts = []
         def discountedProducts = []        
         products.each { product ->
             if (product.isnew) { newProducts << product}
             if (product.isdiscount) { discountedProducts << product}            
         }
-        def topArticles = Article.featuredShopArticles('datePublished','desc').list()
-        def articles = Article.allNonFeaturedShopArticles('datePublished','desc').list()
-        def total = Article.allShopArticlesNotOrdered().count()
-        def model = [topArticles: topArticles, articles: articles,total:total,menu:menu,totalNewProducts:newProducts.size(),newProducts:newProducts,totalDiscountedProducts:discountedProducts.size(),discountedProducts:discountedProducts]
+        model.put('total',total)
+        model.put('newProducts',newProducts)
+        model.put('discountedProducts',discountedProducts)                
+        
         articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'home',model: model);
     }
@@ -67,77 +102,6 @@ class ShopController extends CMSController {
         render(view: 'list', model:model)
     }
 
-    def view = {
-        def model = articleService.view(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
-        if (!model) {
-            redirect(action:home)
-        } else {
-            render(view: 'view', model: model)
-        }
-    }    
-    
-    def manage = {
-        render(view: 'manage')
-    }
-    
-    def ajaxUnpublished = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        def model = [products:Product.unpublished().list(params),total:Product.unpublished().count()]
-        render(view: 'unpublished', model: model)
-    }
-
-    def ajaxPublished = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        def model  = [products:Product.published().list(params),total:Product.published().count()]
-        render(view: 'published', model: model)
-    }
-
-    def ajaxDeleted = {
-        params.offset = params.offset ? params.offset.toInteger() : 0
-        params.max = Math.min(params.max ? params.max.toInteger() : 10, 100)
-        def model = [products:Product.deleted().list(params),total:Product.deleted().count()]
-        render(view: 'deleted', model: model)
-    }        
-    
-    def create = {
-        def product = new NonDownloadable()
-        product.isdownloadable = false
-        product.properties = params
-        return [product: product]
-    }
-
-    def save = {
-        def product = new NonDownloadable()
-        product.author = currentUser() 
-
-        product.properties = params
-        if (!product.hasErrors() && product.save()) {
-            flash.isError = false
-            flash.message = "Product ${product.title} created"
-            redirect(action: manage)
-        }
-        else {
-            flash.isError = true
-            flash.message = "product.update.error"
-            flash.args = [product]
-            render(view: 'create', model: [product: product])
-        }
-    }    
-    
-    def edit = {
-        def product = Product.get(params.id)
-
-        if (!product) {
-            flash.message = "Event not found with id ${params.id}"
-            redirect(action: product)
-        }
-        else {
-            return [product: product, id: params.id, showPublication: true]
-        }
-    }
    
     def update = {
         def product = Product.get(params.id)
@@ -215,71 +179,6 @@ class ShopController extends CMSController {
         }
     }
   
-    def changeState = {
-        try {
-            def product = Product.get(params.id)
-            if (product) {
-                if (params.version) {
-                    def version = params.version.toLong()
-                    if (product.version > version) {
-                        flash.message = "Product ${product.title} was being edited - please try again."
-                        redirect(action: manage)
-                        return
-                    }
-                }
-                def isFirstPublish = product.publishState != 'Published' && params.state == 'Published'
-                if (isFirstPublish) {
-                    product.datePublished = new Date()
-                }
-                product.publishState = params.state
-                product.deleted = false
-                if (!product.hasErrors() && product.save()) {
-                    updateMenu();
-                    flash.message = "Product ${product.title} has been moved to ${product.publishState}"
-                    redirect(action: manage)
-                }
-                else {
-                    flash.message = "Product ${product.title} could not be ${params.state} due to an internal error. Please try again."
-                    redirect(action: manage)
-                }
-            }
-            else {
-                flash.message = "Product not found with id ${params.id}"
-                redirect(action: manage)
-            }
-        } catch (error){
-        
-        }
-    }
-  
-    def delete = {
-        def product = Product.get(params.id)
-        if (product) {
-            if (params.version) {
-                def version = params.version.toLong()
-                if (product.version > version) {
-                    product.errors.rejectValue("version", "produt.optimistic.locking.failure", "Another user has updated this Product while you were editing.")
-                    redirect(action: manage)
-                    return
-                }
-            }
-            product.publishState = "Unpublished"
-            product.deleted = true
-            product.title += "(Deleted)"
-            if (!product.hasErrors() && product.save()) {
-                flash.message = "Product ${product.title} deleted"
-                redirect(action: manage)
-            }
-            else {
-                redirect(action: manage)
-            }
-        }
-        else {
-            flash.message = "Product not found with id ${params.id}"
-            redirect(action: manage)
-        }
-    }
-   
     void updateMenu() {
         try {
             def topMenuNames = [] as Set
@@ -343,8 +242,10 @@ class ShopController extends CMSController {
         else {
             def shopMenuSetting = Setting.findByName('ShopMenu');
             def menu = shopMenuSetting ? shopMenuSetting.value : '';
-            def articles = Article.allNonFeaturedShopArticles('datePublished','desc').list()
-            return [product: product, id: params.id, showPublication: true,menu:menu,articles: articles,total:articles.size()]
+            def model = [product: product, id: params.id, showPublication: true,menu:menu]
+            addPublishedContent(["ShopFeaturedArticles"],model)             
+            articleService.addHeadersAndKeywords(model,request,response)
+            model            
         }
     }
   
@@ -363,11 +264,16 @@ class ShopController extends CMSController {
                 eq 'name', id
             }
         }
-      
-        def articles = Article.allNonFeaturedShopArticles('datePublished','desc').list()
-        def total = Article.allShopArticlesNotOrdered().count()
-        def model = [articles: articles,total:total,menu:menu,products:products,productsTotal:products.size(),heading:id + ' ' + level]
+        def model = [menu:menu,products:products,productsTotal:products.size(),heading:id + ' ' + level]              
+        addPublishedContent(["ShopFeaturedArticles"],model) 
         articleService.addHeadersAndKeywords(model,request,response)
         model
     }
+    
+    
+    def addPublishedContent(contentList,model,params=[sort:'datePublished',order:'desc']) {
+        contentList.each {
+            model.putAll("findPublished${it}"(params))
+        }        
+    }       
 }

@@ -40,15 +40,11 @@ Date: Feb 12, 2010, 5:43:08 PM
           
     <div class="grid_12">
       <g:render template="/toparticles" model="[articles:homeArticles,displayTitle:false]"/>
-      <div class="container_16">
-            <div class="grid_4">1
-            </div>
-            <div class="grid_4">2
-            </div> 
-            <div class="grid_4">3
-            </div>
-            <div class="grid_4">4
-            </div>                      
+      <div class="grid">
+            <div class="grid_4"><g:render template="/homeBox" model="[articles:[teacherArticle],controller:'aboutUs',action:'centers']"/></div> 
+            <div class="grid_4"><g:render template="/homeBox" model="[articles:[lineageArticle],controller:'aboutUs',action:'centers']"/></div>                        
+            <div class="grid_4"><g:render template="/homeBox" model="[articles:[centerArticle],controller:'aboutUs',action:'centers']"/></div>             
+            <div class="grid_4"><g:render template="/homeBox" model="[articles:[roomHireArticle],controller:'aboutUs',action:'roomHire']"/></div>            
       </div>      
     </div>
 

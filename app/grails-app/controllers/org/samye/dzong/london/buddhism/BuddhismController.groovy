@@ -44,7 +44,7 @@ class BuddhismController extends PublicSectionPageController {
     }
         
     def index = {
-        redirect(action:home)
+        forward(action:'home')
     }
 
     def home = {

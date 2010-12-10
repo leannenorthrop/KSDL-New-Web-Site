@@ -32,7 +32,7 @@ package org.samye.dzong.london.cms
 abstract class CMSController {
     
     def index = {
-        redirect(action:manage,params:[max:25])
+        forward(action:manage,params:[max:25])
     }
         
     def ajaxUnpublished = {

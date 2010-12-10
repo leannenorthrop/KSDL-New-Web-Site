@@ -40,7 +40,7 @@ class NewsController {
     }
     
     def index = {
-        redirect(action:home)
+        forward(action:'home')
     }
 
     def home = {
@@ -85,6 +85,7 @@ class NewsController {
     def view = {
         def model = viewArticle(params.id)
         populateNavigationData(model)        
+        log.debug model
         articleService.addHeadersAndKeywords(model,request,response)
         return model
     }
@@ -135,7 +136,8 @@ class NewsController {
             log.debug "Archived ${model} ${params}"
             model.put('title','news.archived.title')
         } else {
-            model = findPublishedNewsAllArticles(params)
+            model = findPublishedNewsFeaturedArticles(params)
+            model.allArticles = model.featuredArticles
             log.debug "Published ${model}  ${params}"                
             model.put('title','news.current.title')
         } 

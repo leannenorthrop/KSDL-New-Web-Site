@@ -101,7 +101,7 @@ ${title}
     <div class="clear"></div>
 
     <div class="grid_3">
-      <g:render template="/shopInfoMenu" model="[articles:articles]"/>
+      <g:render template="/shopInfoMenu" model="[articles:featuredArticles]"/>
       <g:render template="/shopMenu" model="[menu:menu]"/>
     </div>
     <div class="grid_13 pagecontent">

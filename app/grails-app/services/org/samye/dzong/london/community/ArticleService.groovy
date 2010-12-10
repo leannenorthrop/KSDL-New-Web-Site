@@ -25,6 +25,13 @@ package org.samye.dzong.london.community
 
 import org.samye.dzong.london.cms.Publishable
 
+/**
+ * Helper class for all things related to PubLished items.
+ * TODO: Rename 
+ * 
+ * Caching handled by both handleIfNotModifiedSince() and addHeadersAndKeywords() 
+ * https://www.pivotaltracker.com/story/show/6982203
+ */
 class ArticleService {
     boolean transactional = true
     def userLookupService
@@ -54,36 +61,71 @@ class ArticleService {
         }        
     }
     
-    def handleIfNotModifiedSince(request,response) {
-        def now = new Date()
-        now = now + 7
-        now.clearTime()        
+    def getNewestPublishedItem() {
+        def newestPublishedItem = Publishable.allPublished().list(sort:"datePublished", order:"desc")[0]
+        def newestUpdatedItem = Publishable.allPublished().list(sort:"lastUpdated", order:"desc")[0]
+        def latestDate = [newestPublishedItem.datePublished,newestUpdatedItem.lastUpdated].max()        
+        def date = new Date()
+        date.setTime(latestDate.getTime())
+        log.debug "Max of ${newestPublishedItem.datePublished.format('dd MM yyyy')}  and ${newestUpdatedItem.lastUpdated.format('dd MM yyyy')} is  ${date.format('dd MM yyyy')}"        
+        if (latestDate == newestPublishedItem.datePublished) {
+            [item:newestPublishedItem,date:date]
+        } else {
+            [item:newestUpdatedItem,date:date]
+        }
+    }
+    def handleIfNotModifiedSince(request,response) {     
         try {
             if (Publishable.allPublished().count() > 0) {
-                def newestPublishedItem= Publishable.allPublished().list(sort:"lastUpdated", order:"desc")[0]
-                response.setDateHeader('Expires', now.time)
-                response.setDateHeader('Last-Modified', newestPublishedItem.lastUpdated.time)
-                response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
-
-                if (request.getDateHeader("If-Modified-Since") >= newestPublishedItem.lastUpdated.time) {
+                def now = new Date()
+                now = now + 1
+                now.clearTime()                   
+                
+                def newestItemInfo = getNewestPublishedItem()
+                response.setDateHeader('Expires', now.time)                
+                response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800, must-revalidate")
+                
+                log.debug "If-Modified-Since is  ${request.getDateHeader('If-Modified-Since')}"
+                def modifiedSinceDate = new Date()
+                modifiedSinceDate.setTime(request.getDateHeader("If-Modified-Since"))
+                if (modifiedSinceDate.after(newestItemInfo.date)) {
                     response.setStatus(304)
                     response.flushBuffer()
                     return
                 }
+                
+                log.debug "If-None-Match is ${request.getHeader('If-None-Match')}"
+                if (request.getHeader('If-None-Match')){
+                    if (request.getHeader("If-None-Match") != newestItemInfo.item.version) {
+                        response.setStatus(304)
+                        response.flushBuffer()
+                        return
+                    }                    
+                }
+            } else {
+                response.setDateHeader('Expires', new Date().time)
+                response.setHeader("Cache-Control", "public")                
             }
         } catch (error) {
-            log.warn error
+            log.warn "Can not determine cache control headers.", error
             if (response) {
-                response.setDateHeader('Expires', now.time)
-                response.setHeader("Cache-Control", "public,max-age=604800,s-maxage=604800")
+                response.setDateHeader('Expires', new Date().time)
+                response.setHeader("Cache-Control", "public, must-revalidate")
             }
         }
     }
 
     def addHeadersAndKeywords(model, request, response) {
         if (model) {
-            def allTags = [] as Set
             try {
+                def newestItemInfo = getNewestPublishedItem()
+                response.setDateHeader('Last-Modified', newestItemInfo.date.time)
+                response.setHeader("ETag", "W/\"${newestItemInfo.item.version}\"")                
+            } catch(error) {
+                
+            }
+            def allTags = [] as Set
+            try {                
                 def result = model.groupBy {
                     try {
                         return it.value.datePublished || it.value[0].datePublished
@@ -94,22 +136,6 @@ class ArticleService {
                 def articles = result[true].collect {
                     it.value
                 }
-                articles = articles.flatten()
-                def dates = articles.collect {
-                    it.lastUpdated
-                }
-                def newest = dates.max()
-                if (newest) {
-                    response.setDateHeader('Last-Modified', newest.time)
-                }
-                def etag = 0
-                articles.each {
-                    if (it.version) {
-                        etag += etag + (31 * it.version)
-                    }
-                }
-                response.setHeader("ETag", "W\"${etag}\"")
-
                 articles.each {
                     if (it.tags) {
                         allTags.addAll it.tags

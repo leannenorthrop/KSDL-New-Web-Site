@@ -24,3 +24,11 @@
         </li>             
     </ul>
 </div>
+<div class="box">
+  <h3><g:message code="similar"/></h3>
+  <ul>
+    <g:each in="${articles}" status="i" var="articleInstance">
+      <li class="article"><g:link action="view" id="${articleInstance.id}">${articleInstance.title}</g:link></li>
+    </g:each>
+  </ul>
+ </div>

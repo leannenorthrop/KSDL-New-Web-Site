@@ -35,8 +35,8 @@ Title:      Screen styles and ie/win patches
 #rotating-elements { height: 15em; }
 .element-rotated { height: 15em; }
 
-body.home #rotating-elements { height: 28em; }
-body.home .element-rotated { height: 28em; background: #cecece; color: black;}
+body.home #rotating-elements { height: 12em; }
+body.home .element-rotated { height: 12em; background: #cecece; color: black;}
 body.home .element-rotated p,
 body.home .element-rotated h1,
 body.home .element-rotated h2,

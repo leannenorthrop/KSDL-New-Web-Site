@@ -54,6 +54,7 @@ import org.samye.dzong.london.cms.*
  */
 class EventController extends CMSController {
     def articleService
+    def emailService
     def ADMIN_ROLES = ['EventOrganiser', 'Administrator']
     def DOMAIN_NAME = 'Event'
     
@@ -81,7 +82,7 @@ class EventController extends CMSController {
                              updateAndPublish: 'POST',
                              onAddComment: ['POST','GET']]   
     def index = {
-        redirect(action: home)
+        forward(action:'home')
     }
 
     def home = {

@@ -49,9 +49,22 @@ class UrlMappings {
       "/news/archived" {
           controller = "news"
           action = "archived"
-      }                                    
+      } 
+      "/news/view/$id" {
+          controller = "news"
+          action = "view"
+      }                                          
       "/$controller/$action?/$id?"{
       }     
+      "/events/"(controller:"event",action:"home")
+      "/programme/"(controller:"event",action:"home")      
+      "/whatson/"(controller:"event",action:"home")            
+      "/volunteer/"(controller:"community",action:"home")                  
+      "/health/"(controller:"wellbeing",action:"home")                        
+      "/contact/"(controller:"aboutUs",action:"contactUs")                              
+      "/contactUs/"(controller:"aboutUs",action:"contactUs")                                    
+      "/meditation/"(controller:"meditation",action:"home")                                          
+      "/buddhism/"(controller:"buddhism",action:"home") 
       "/events"(controller:"event",action:"home")
       "/programme"(controller:"event",action:"home")      
       "/whatson"(controller:"event",action:"home")            
@@ -60,7 +73,7 @@ class UrlMappings {
       "/contact"(controller:"aboutUs",action:"contactUs")                              
       "/contactUs"(controller:"aboutUs",action:"contactUs")                                    
       "/meditation"(controller:"meditation",action:"home")                                          
-      "/buddhism"(controller:"buddhism",action:"home")                                                  
+      "/buddhism"(controller:"buddhism",action:"home")                                                        
       "/"(controller:"home")
       "500"(view:"home/internalError")
       "404"(view:"home/notFound")

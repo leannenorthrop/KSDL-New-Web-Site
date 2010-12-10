@@ -211,7 +211,8 @@ log4j = {
           'com.gargoylesoftware.htmlunit.javascript.host.HTMLDocument',
           'com.gargoylesoftware.htmlunit.DefaultCssErrorHandler',
           'org.apache.http',
-          'http'
+          'http',
+          'converters'
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP

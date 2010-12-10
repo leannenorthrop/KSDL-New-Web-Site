@@ -11,8 +11,13 @@
 
 /* Home Page Windows
 -----------------------------------------------------------------------------*/
-div.grid_8 div.article {
-    min-height: 15em;    
-    max-height: 25em;
+body.home div.box {
+    padding: 0;
+    padding-top: 1em;
+    text-overflow: ellipsis-word;
     overflow: hidden;
+}
+
+body.home div.box span.more {
+    display: none;
 }

@@ -45,7 +45,7 @@ class PublicSectionPageController {
     }
         
     def index = {
-        redirect(action:home)
+        forward(action:'home')
     }
 
     def list = {

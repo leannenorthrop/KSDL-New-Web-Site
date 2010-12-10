@@ -70,7 +70,7 @@ class RoomController extends CMSController {
     }
 
     def index = {
-        redirect(action:home)
+        forward(action:'home')
     }
     
     def home = {

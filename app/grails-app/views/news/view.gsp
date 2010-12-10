@@ -40,6 +40,9 @@
     </div>
           
     <div class="grid_12">       
+        <div class="summary">
+        ${article?.summary?.encodeAsTextile()}
+        </div>
         <g:render template="/article" model="[articleInstance:article,articles:similar]"/>
     </div>
 </body>
