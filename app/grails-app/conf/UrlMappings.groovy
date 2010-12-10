@@ -30,11 +30,37 @@
  */
 class UrlMappings {
     static mappings = {
+      name news: "/news/$year/$month?" {
+          controller = "news"
+          action = "show"
+          /*constraints {
+               year(matches:/d{4}/)
+               month(matches:/(january|feburary|march|april|may|june|july|august|september|october|november|december)/)
+          }*/
+      }        
+      "/news/home" {
+          controller = "news"
+          action = "home"
+      }    
+      "/news/current" {
+          controller = "news"
+          action = "current"
+      }    
+      "/news/archived" {
+          controller = "news"
+          action = "archived"
+      }                                    
       "/$controller/$action?/$id?"{
-          constraints {
-             // apply constraints here
-          }
-      }
+      }     
+      "/events"(controller:"event",action:"home")
+      "/programme"(controller:"event",action:"home")      
+      "/whatson"(controller:"event",action:"home")            
+      "/volunteer"(controller:"community",action:"home")                  
+      "/health"(controller:"wellbeing",action:"home")                        
+      "/contact"(controller:"aboutUs",action:"contactUs")                              
+      "/contactUs"(controller:"aboutUs",action:"contactUs")                                    
+      "/meditation"(controller:"meditation",action:"home")                                          
+      "/buddhism"(controller:"buddhism",action:"home")                                                  
       "/"(controller:"home")
       "500"(view:"home/internalError")
       "404"(view:"home/notFound")

@@ -5,7 +5,7 @@
         <ul>
           <g:if test="${venues}">
             <g:each var="venue" in="${venues}">
-              <li class="menuitem"><g:link controller="aboutUs" action="venue" id="${venue?.id}" class="menuitem">${venue}</g:link>
+              <li class="menuitem"><g:link controller="room" action="venue" id="${venue?.id}" class="menuitem">${venue}</g:link>
               <g:if test="${venue.rooms}">
                 <ul>
                   <g:findAll var="room" in="${venue.rooms}" expr="it.publishState == 'Published'">

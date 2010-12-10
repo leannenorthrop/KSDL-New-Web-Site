@@ -10,7 +10,7 @@
                 </g:if>
             </ul>
         </li>                
-        <li class="menuitem"><g:link controller="aboutUs" action="contactUs">Teachers</g:link>
+        <li class="menuitem"><g:link controller="aboutUs" action="teachers">Teachers</g:link>
             <ul>
                 <li class="menuitem"><g:link controller="aboutUs" action="lineage"><g:message code="teacher.lineage.heading.title"/></g:link>
                     <g:if test="${lineage}">
@@ -50,7 +50,7 @@
                 </g:if>
             </ul>
         </li>
-        <li class="menuitem"><g:link controller="room" action="home"><g:message code="footer.room.hire"/></g:link></li> 
+        <li class="menuitem"><g:link controller="aboutUs" action="roomHire"><g:message code="footer.room.hire"/></g:link></li> 
         <li class="menuitem"><g:link controller="aboutUs" action="contactUs"><g:message code="footer.contact.us"/></g:link></li>
     </ul>
 </div>

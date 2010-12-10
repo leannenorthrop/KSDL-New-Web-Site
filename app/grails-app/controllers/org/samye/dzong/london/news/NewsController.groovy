@@ -45,6 +45,7 @@ class NewsController {
 
     def home = {
         def model = [:]
+        populateNavigationData(model)
         def articles = findPublishedNewsHomeArticles([sort:'datePublished',order:'desc'])
         model.putAll(articles)
         
@@ -62,33 +63,84 @@ class NewsController {
     }
 
     def current = {
-        render(view: 'list', model: list(false,request,response))
+        log.debug "Looking for current"        
+        def model = list(params)
+        articleService.addHeadersAndKeywords(model,request,response)
+        render(view: 'list', model: model)
     }
 
     def archived = {
-        render(view: 'list', model: list(true,request,response))
+        log.debug "Looking for archived"        
+        def model = list(params,true)
+        articleService.addHeadersAndKeywords(model,request,response)      
+        render(view: 'list', model: model)
     }
+    
+    def show = {
+        def model = list(params, params.year != new Date().format("yyyy"))
+        articleService.addHeadersAndKeywords(model,request,response)              
+        render(view: 'list', model: model)
+    }    
 
     def view = {
         def model = viewArticle(params.id)
+        populateNavigationData(model)        
         articleService.addHeadersAndKeywords(model,request,response)
         return model
     }
 
-    def list(archived,request,response) {
-        def model = [:] 
+    def populateNavigationData(model) {
+        def articles = findPublishedNewsAllArticles([sort:'datePublished',order:'desc']).allArticles
         
-        def title
-        if (archived) {
+        def months = [] as Set
+        articles.each { article ->
+            months << article.datePublished.format('MMMM') + " " + article.datePublished.format('yyyy') 
+        }
+        model.put('months',months)
+
+        def archivedNews = findArchivedNewsAllArticles([sort:'datePublished',order:'desc']).allArticles
+        def years = [] as Set
+        archivedNews.each { article ->
+            years << article.datePublished.format('yyyy')
+        }        
+        model.put('years',years)                                        
+    }
+
+    def list(params,archived=null) {
+        def model = [:] 
+
+        log.debug "archived = " + (archived == true)
+        if (params.month) {
+            params.month = params.month.capitalize()
+            model = findPublishedNewsAllArticles(params)            
+            model.allArticles = model.allArticles.findAll{ article ->
+                article.datePublished.format("MMMM") == params.month && article.datePublished.format("yyyy") == params.year
+            }
+            model.put('title',params.month + " " + params.year)
+        } else if (params.year && params.year ==~ /dddd/) {
+            if (archived) {
+                model = findArchivedNewsAllArticles(params)
+                model.allArticles = model.allArticles.findAll{ article ->             
+                    article.datePublished.format("yyyy") == params.year
+                }                                   
+            } else {
+                model = findPublishedNewsAllArticles(params)
+                model.allArticles = model.allArticles.findAll{ article ->
+                    article.datePublished.format("yyyy") == params.year
+                }      
+            }     
+            model.put('title',params.year)
+        } else if (archived) {
             model = findArchivedNewsAllArticles(params)            
+            log.debug "Archived ${model} ${params}"
             model.put('title','news.archived.title')
         } else {
             model = findPublishedNewsAllArticles(params)
+            log.debug "Published ${model}  ${params}"                
             model.put('title','news.current.title')
-        }
-
-        articleService.addHeadersAndKeywords(model,request,response)
+        } 
+        populateNavigationData(model)
+        log.debug model        
         model
     }
-
 }

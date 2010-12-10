@@ -35,6 +35,12 @@
     <meta name="layout" content="main"/>
   </head>
   <body>
-  <g:render template="/article" model="[articleInstance:article,articles:similar]"/>
+    <div class="grid_4">
+        <g:render template="/newsNav"/>
+    </div>
+          
+    <div class="grid_12">       
+        <g:render template="/article" model="[articleInstance:article,articles:similar]"/>
+    </div>
 </body>
 </html>

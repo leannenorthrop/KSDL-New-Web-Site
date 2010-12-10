@@ -96,10 +96,22 @@ class RoomController extends CMSController {
         addPublishedContent(["RoomAllArticles"],model)        
         def venues = publishedVenues().'venues'
 		model.put('venues',venues)
-		log.info model
         articleService.addHeadersAndKeywords(model,request,response)         
         render(view:'view',model:model)
-    }    
+    } 
+    
+    def venue = {
+        def model = viewVenue(params.id)       
+        if (params.id) {
+            flash.id = params.id
+            flash.title = model.venue.name
+        }        
+        addPublishedContent(["RoomAllArticles"],model)        
+        def venues = publishedVenues().'venues'
+		model.put('venues',venues)
+        articleService.addHeadersAndKeywords(model,request,response)         
+        render(view:'venue',model:model)        
+    }        
     
     def saveRoom(room,params,onSave,saveMsg,onError,errMsg) {
         if (!room){

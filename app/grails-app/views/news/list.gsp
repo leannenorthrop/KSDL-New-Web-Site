@@ -29,13 +29,17 @@ Date: Jan 24, 2010, 2:00:21 PM
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
   <head>
-    <title><g:message code="${title}" default=""/></title>
+    <title><g:message code="${title}" default="${title}"/></title>
     <meta name="layout" content="main">
   </head>
   <body>
-    <div class="grid_16">
+    <div class="grid_4">
+        <g:render template="/newsNav"/>
+    </div>
+          
+    <div class="grid_12">  
       <g:set var="news" value="${allArticles ? allArticles : []}"/>
-      <g:render template="/articlelist" model="[articles:news,heading:'news.heading',controller:'news',action:'view',moreAction:'all']"/>
+      <g:render template="/articlelist" model="[articles:news,controller:'news',action:'view',moreAction:'all']"/>
     </div>
   </body>
 </html>

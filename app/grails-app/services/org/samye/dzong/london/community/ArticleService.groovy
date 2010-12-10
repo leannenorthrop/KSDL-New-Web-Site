@@ -29,6 +29,31 @@ class ArticleService {
     boolean transactional = true
     def userLookupService
 
+    def archiveNewsArticles() {
+        def articles = findPublishedNewsAllArticles([sort:'datePublished',order:'desc'])
+        
+        // Find News items published within last 90 days
+        def now = new java.util.Date() 
+        now = now - 90 
+        def toKeep = articles.findAll { article ->            
+            article.datePublished  
+        };
+        articles.removeAll(toKeep)
+        
+        // Archive older news items
+        articles.each { article ->
+            Article.withTransaction { status ->
+                try {
+                    article.publishState = "Archived"
+                    article.save()
+                } catch (error) {
+                    log.warn "Could not archive news article ${article}",error
+                    status.setRollbackOnly()
+                }
+            }
+        }        
+    }
+    
     def handleIfNotModifiedSince(request,response) {
         def now = new Date()
         now = now + 7

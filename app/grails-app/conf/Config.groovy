@@ -188,24 +188,21 @@ log4j = {
        rollingFile name: "stacktrace", file: logfileName + '_stacktrace.log', maxFileSize:'512MB', maxBackupIndex:10,layout:pattern(conversionPattern: '%d{ISO8601} [%t] %p %c %x - %m%n')
     }
     
-    root { 
-        info 'stdout', 'file'
-        additivity = true
-    }
             
- /*   production{
+   production{
         root { 
             info 'stdout', 'file'
             additivity = true
         }
+        log4j.appender.'errors.File'="/var/log/tomcat6/stacktrace.log"        
     }
     development {
        root { 
             debug 'stdout','file'
             additivity = true            
         }
-        //log4j.appender.'errors.File'="/var/log/tomcat6/stacktrace.log"
-    }*/
+        log4j.appender.'errors.File'="/target/stacktrace.log"
+    }
 
     fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',
           'com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine',
@@ -213,7 +210,8 @@ log4j = {
           'com.gargoylesoftware.htmlunit.javascript.host.html.HTMLDocument',
           'com.gargoylesoftware.htmlunit.javascript.host.HTMLDocument',
           'com.gargoylesoftware.htmlunit.DefaultCssErrorHandler',
-          'org.apache.http'
+          'org.apache.http',
+          'http'
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -238,11 +236,10 @@ log4j = {
 
 
     warn    'org.hibernate',
-            'org.mortbay.log',
-            'org.samye',
-            'grails.app'  
+            'org.mortbay.log' 
             
-    info    'org'
+    debug    'org.samye',
+             'grails.app' 
 }
 
 auditLog {

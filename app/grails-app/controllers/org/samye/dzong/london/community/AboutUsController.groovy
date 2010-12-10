@@ -107,6 +107,14 @@ class AboutUsController extends PublicSectionPageController  {
         articleService.addHeadersAndKeywords(model,request,response)
         render(view:'teachers',model:model)
     }
+    
+    def roomHire = {
+        def model = [:]
+        populateNavigationObject(model)
+        model.put('article',Article.findByTitleLikeAndPublishState("Room Hire%","Published"))    
+        articleService.addHeadersAndKeywords(model,request,response)
+        render(view:'roomHire',model:model)
+    }    
 	
     def teachers = {
         def model = [:]

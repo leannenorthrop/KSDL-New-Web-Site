@@ -27,7 +27,7 @@
  */
 class SecurityFilters {
     def static allowedControllers = ['home', 'help', 'feed', 'news','meditation','community','wellbeing','buddhism','aboutUs','commentable','greenmail','gallery']
-    def static allowedActions = ['home','frob','slideshow','view', 'index', 'src', 'thumbnail', 'welcome', 'requestPermission', 'requestRoles', 'error', 'info','list','all','query','send','calendar','subscribe','events','event','current','future','regular','displayAll','display','information']
+    def static allowedActions = ['home','frob','slideshow','view', 'index', 'src', 'thumbnail', 'welcome', 'requestPermission', 'requestRoles', 'error', 'info','list','all','query','send','calendar','subscribe','events','event','current','future','regular','displayAll','display','information','venue']
 
     def filters = {
         loginCheck(controller:'*', action:'*') {
