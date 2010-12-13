@@ -162,7 +162,7 @@ class EventController extends CMSController {
     }
 	
     def regular = {
-        def publishedEvents = Event.published().list();
+        def publishedEvents = Event.findAllByPublishState('Published');
         def regularEvents = publishedEvents.findAll { event ->
             def rule = event.dates[0]
             rule.isRule && rule.isUnbounded()
@@ -173,7 +173,7 @@ class EventController extends CMSController {
     def list = {
         def model = [:]
 
-        def allEvents = Event.published().list();
+        def allEvents = Event.findAllByPublishState('Published');
         def now = new java.util.Date() 
         now = now + 1
         def dt = new DateTime(now.getTime())
@@ -331,7 +331,7 @@ class EventController extends CMSController {
         def e = new DateTime(end.getTime()) 
         int days = Days.daysBetween(s, e).getDays();
 
-        def publishedEvents = Event.published().list();
+        def publishedEvents = Event.findAllByPublishState('Published');
       
         def moonData = grailsApplication.config.moonData
         response.contentType = "text/plain"
@@ -394,10 +394,10 @@ class EventController extends CMSController {
                 } else if ("wellbeing" == params.type) {
                     publishedEvents = Event.wellbeing("title", "desc").list();
                 } else {
-                    publishedEvents = Event.published().list();
+                    publishedEvents = Event.findAllByPublishState('Published');
                 }
             } else {
-                publishedEvents = Event.published().list();
+                publishedEvents = Event.findAllByPublishState('Published');
             }
 
             net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();

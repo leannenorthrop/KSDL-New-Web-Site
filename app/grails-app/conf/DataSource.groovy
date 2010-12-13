@@ -85,7 +85,6 @@ environments {
     production {
         dataSource {
             url = "jdbc:hsqldb:hsql://localhost/lsd"
-
             driverClassName = "org.hsqldb.jdbcDriver"
             username = "SA"
             password = ""

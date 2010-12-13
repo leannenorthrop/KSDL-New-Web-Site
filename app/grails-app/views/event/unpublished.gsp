@@ -49,7 +49,7 @@
                     <td>
                         ${fieldValue(bean: event, field: 'title')}
                     </td>
-                    <td><g:formatDate format="dd-MM-yyyy" date="${event?.toDate()}"/></td>                    
+                    <td><g:formatDate format="dd-MM-yyyy" date="${event ? event.toDate() : new Date()}"/></td>                    
                     <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.dateCreated}"/></td>                      
                     <td><g:formatDate format="dd-MM-yyyy HH:mm" date="${event?.lastUpdated}"/></td>                  
                     <shiro:hasAnyRole in="${flash.adminRoles}">

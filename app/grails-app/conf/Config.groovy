@@ -201,7 +201,7 @@ log4j = {
             debug 'stdout','file'
             additivity = true            
         }
-        log4j.appender.'errors.File'="/target/stacktrace.log"
+        log4j.appender.'errors.File'="target/stacktrace.log"
     }
 
     fatal 'com.gargoylesoftware.htmlunit.html.HTMLParserListener',

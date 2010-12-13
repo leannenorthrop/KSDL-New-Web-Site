@@ -280,16 +280,22 @@ class Event extends Publishable implements Comparable {
     }
 
     Date toDate() {
-        if (dates.size() > 1) {
+        def date = new Date()
+        if (dates && dates.size() > 1) {
             def now = new Date()
             now.clearTime()
-            return dates.find{
+            date = dates.find{
                 def d = it.startDate
                 d.clearTime()
                 d.after(now) || d == now
             }.toDate()
         } else {
-            return dates[0].toDate()
+            date = dates ? dates[0].toDate() : new Date()
+        }
+        if (!date) {
+            return new Date()
+        } else {
+            return date
         }
     }
 
