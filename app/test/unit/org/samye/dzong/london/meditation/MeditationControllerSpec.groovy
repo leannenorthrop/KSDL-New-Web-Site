@@ -4,7 +4,6 @@ import grails.test.*
 import grails.plugin.spock.*
 import org.samye.dzong.london.cms.Publishable
 import org.samye.dzong.london.community.Article
-import org.samye.dzong.london.community.ArticleService
 import org.samye.dzong.london.events.Event
 import org.samye.dzong.london.site.Setting
 import org.samye.dzong.london.site.Link
@@ -24,7 +23,6 @@ class MeditationControllerSpec extends ControllerSpec {
     def 'section page featches home and featured articles, teachers, events and slideshow album'() {
         setup:
         stubFinderMethods(["MeditationHomeArticles","MeditationAllArticles","MeditationFeaturedEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         Setting.metaClass.static.meditationSlideshow = { new Expando(list: {[]}) }
         FlickrService.metaClass.getPhotosetCover = { [] }
         FlickrService.metaClass.getPhotoset = { i -> [] }        
@@ -46,7 +44,6 @@ class MeditationControllerSpec extends ControllerSpec {
     def 'list should fetch all meditation content'() {
         setup:
         stubFinderMethods(["MeditationAllArticles"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.list()
@@ -58,7 +55,6 @@ class MeditationControllerSpec extends ControllerSpec {
     def 'view should return id of requested article'() {
         setup:
         stubViewMethods(["Article"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
         when:
@@ -71,7 +67,6 @@ class MeditationControllerSpec extends ControllerSpec {
     def 'event'() {
         setup:
         stubViewMethods(["Event"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
         
         when:
@@ -84,7 +79,6 @@ class MeditationControllerSpec extends ControllerSpec {
     def 'events'() {
         setup:
         stubFinderMethods(["MeditationAllEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.events()

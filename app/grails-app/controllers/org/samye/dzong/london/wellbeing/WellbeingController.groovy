@@ -38,8 +38,6 @@ import org.samye.dzong.london.cms.*
  * @since  Nov 2009
  */
 class WellbeingController extends PublicSectionPageController {
-    def teacherService    
-    def articleService
 
     WellbeingController() {
         CMSUtil.addFinderMethods(this) 
@@ -55,7 +53,6 @@ class WellbeingController extends PublicSectionPageController {
         addPublishedContent(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents","WellBeingAllEvents"],model)        
         def therapists = Teacher.findAllByPublishStateAndType('Published', 'T',[sort: "name", order: "asc"])        
         model.put('therapists',therapists)
-        articleService.addHeadersAndKeywords(model,request,response)
         
         return render(view: 'index',model: model);
     }
@@ -66,7 +63,6 @@ class WellbeingController extends PublicSectionPageController {
     
     def therapist = {
         def model = viewTeacher(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
         model		
     }  
 }

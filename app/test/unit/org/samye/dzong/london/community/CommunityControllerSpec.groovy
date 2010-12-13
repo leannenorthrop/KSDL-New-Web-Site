@@ -57,7 +57,6 @@ class CommunityControllerSpec extends ControllerSpec {
     def 'section page featches home and featured articles, teachers, and events'() {
         setup:
         stubFinderMethods(["CommunityHomeArticles", "CommunityFeaturedArticles","CommunityAllArticles","CommunityFeaturedEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockDomain(Teacher)
 
         when:
@@ -75,7 +74,6 @@ class CommunityControllerSpec extends ControllerSpec {
     def 'list should fetch all Community content'() {
         setup:
         stubFinderMethods(["CommunityAllArticles"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.list()
@@ -87,7 +85,6 @@ class CommunityControllerSpec extends ControllerSpec {
     def 'view should return id of requested article'() {
         setup:
         stubViewMethods(["Article"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
         when:
@@ -100,7 +97,6 @@ class CommunityControllerSpec extends ControllerSpec {
     def 'event'() {
         setup:
         stubViewMethods(["Event"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
         
         when:
@@ -113,7 +109,6 @@ class CommunityControllerSpec extends ControllerSpec {
     def 'events'() {
         setup:
         stubFinderMethods(["CommunityAllEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.events()

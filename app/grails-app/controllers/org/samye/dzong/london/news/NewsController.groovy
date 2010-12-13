@@ -33,8 +33,6 @@ import org.samye.dzong.london.cms.*
  * @since  November 2009
  */
 class NewsController {
-    def articleService
-
     NewsController() {
         CMSUtil.addFinderMethods(this)        
     }
@@ -58,35 +56,29 @@ class NewsController {
         def totalArchived = findArchivedNewsAllArticles().totalAllArticles
         model.put('totalArchived', totalArchived)
         
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)
     }
 
     def current = {
         log.debug "Looking for current"        
         def model = list(params)
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'list', model: model)
     }
 
     def archived = {
         log.debug "Looking for archived"        
         def model = list(params,true)
-        articleService.addHeadersAndKeywords(model,request,response)      
         render(view: 'list', model: model)
     }
     
     def show = {
         def model = list(params, params.year != new Date().format("yyyy"))
-        articleService.addHeadersAndKeywords(model,request,response)              
         render(view: 'list', model: model)
     }    
 
     def view = {
         def model = viewArticle(params.id)
         populateNavigationData(model)        
-        log.debug model
-        articleService.addHeadersAndKeywords(model,request,response)
         return model
     }
 

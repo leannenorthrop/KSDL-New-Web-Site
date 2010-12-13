@@ -36,8 +36,6 @@ import org.samye.dzong.london.cms.*
  * @since  November 2009
  */
 class MeditationController extends PublicSectionPageController {
-    def articleService
-
     MeditationController() {
         CMSUtil.addFinderMethods(this)        
     }
@@ -61,7 +59,6 @@ class MeditationController extends PublicSectionPageController {
         
         log.info model 
         
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'index', model:model)
     }
 

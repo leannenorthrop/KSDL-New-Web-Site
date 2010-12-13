@@ -12,6 +12,6 @@ class ArchiveNewsArticlesJob {
     def group = "LSD"
 
     def execute() {
-        articleServer.archiveNewsArticles()
+        articleService.archiveNewsArticles()
     }    
 }

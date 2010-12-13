@@ -191,9 +191,6 @@ class EventControllerSpec extends ControllerSpec {
             return new Expando(list: { args->monthEvents })  
         }
 
-        and: "article service is present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-
         when:
         def model = controller.list()
 
@@ -212,9 +209,6 @@ class EventControllerSpec extends ControllerSpec {
         Event.metaClass.static.unorderedPublished = { 
             return new Expando(list: { args->monthEvents })  
         }
-
-        and: "article service is present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
 
         when:
         def model = controller.list([unexpectedparam:'abc'])
@@ -236,9 +230,6 @@ class EventControllerSpec extends ControllerSpec {
             return new Expando(list: { args->monthEvents })  
         }
         def expectedDates = monthEvents.collect{it.dates[0].startDate}.findAll{ it.after(today) || it == today }
-
-        and: "article service is present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
 
         and: "params set start date to today"
         getMockParams() << [start: today.format('yyyy-MM-dd')] 

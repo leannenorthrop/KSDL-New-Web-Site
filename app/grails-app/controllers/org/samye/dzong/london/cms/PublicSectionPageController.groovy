@@ -37,13 +37,13 @@ import org.samye.dzong.london.cms.*
  * @since  6th December 2010, 16:41
  */
 class PublicSectionPageController {
-    def articleService
     def flickrService
     
     PublicSectionPageController() {
         CMSUtil.addFinderMethods(this)        
     }
         
+    // LN: For some reason this endpoint is not inherited
     def index = {
         forward(action:'home')
     }
@@ -52,19 +52,16 @@ class PublicSectionPageController {
         def model = [:] 
         def sectionName = getSectionName()
         addPublishedContent(["${sectionName}AllArticles"],model)
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
     def view = {
         def model = viewArticle(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
         return model
     }
 
     def event = {
         def model = viewEvent(params.id)
-        articleService.addHeadersAndKeywords(model,request,response)
         return model
     }
 
@@ -72,7 +69,6 @@ class PublicSectionPageController {
         def model = [:]
         def sectionName = getSectionName()        
         addPublishedContent(["${sectionName}AllEvents"],model,params)
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
@@ -92,7 +88,6 @@ class PublicSectionPageController {
         model.put('lineage',lineage)                
         def venues = publishedVenues().'venues'
         model.put('venues',venues)        
-        articleService.addHeadersAndKeywords(model,request,response)
         model		
     }
     
@@ -103,9 +98,9 @@ class PublicSectionPageController {
     }
     
     def getAlbum() {
-      def sectionName = getSectionName()
-      sectionName = sectionName.substring(0,1).toLowerCase() + sectionName.substring(1)
-      def ss = Setting."${sectionName}Slideshow"().list()
-      flickrService.getPhotoset(ss && ss.size() > 0 ? ss[0].value :'72157623174318636')          
+        def sectionName = getSectionName()
+        sectionName = sectionName.substring(0,1).toLowerCase() + sectionName.substring(1)
+        def ss = Setting."${sectionName}Slideshow"().list()
+        flickrService.getPhotoset(ss ? ss[0].value :'72157623174318636')          
     }
 }

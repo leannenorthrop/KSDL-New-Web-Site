@@ -34,7 +34,6 @@ import org.samye.dzong.london.cms.*
  * @since  January 2010
  */
 class CommunityController extends PublicSectionPageController {
-    def articleService
     def emailService
 
     CommunityController() {
@@ -58,7 +57,6 @@ class CommunityController extends PublicSectionPageController {
         model.put('community',community)        
         volunteerOpportunities = model.featuredArticles.findAll{it.tags.find { tag -> "volunteer".equalsIgnoreCase(tag)}}
         model.put('volunteerOpportunities',volunteerOpportunities)        
-        articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }
 

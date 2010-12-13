@@ -40,7 +40,6 @@ import org.samye.dzong.london.venue.*
  */
 class WellbeingControllerSpec extends ControllerSpec {
     def articleService
-    def teacherService    
 
     def 'Index redirects to home'() {
         when:
@@ -53,7 +52,6 @@ class WellbeingControllerSpec extends ControllerSpec {
     def 'home'() {
         setup:
         stubFinderMethods(["WellBeingHomeArticles", "WellBeingFeaturedArticles","WellBeingAllArticles","WellBeingFeaturedEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockDomain(Teacher)
 
         when:
@@ -69,7 +67,6 @@ class WellbeingControllerSpec extends ControllerSpec {
     def 'list displays list of all wellbeing articles'() {
         setup:
         stubFinderMethods(["WellBeingAllArticles"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
 
         when:
         def model = controller.list()
@@ -81,7 +78,6 @@ class WellbeingControllerSpec extends ControllerSpec {
     def 'view displays wellbeing a single article and returns requested article id'() {
         setup:
         stubViewMethods(["Article"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
         when:
@@ -100,7 +96,6 @@ class WellbeingControllerSpec extends ControllerSpec {
         stubViewMethods(["Event"])
 
         and: "services are present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
 
         when:
         def model = controller.event()
@@ -112,7 +107,6 @@ class WellbeingControllerSpec extends ControllerSpec {
     def 'events displays list of wellbeing events'() {
         setup:
         stubFinderMethods(["WellBeingAllEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
 
         when:
         def model = controller.events()
@@ -124,7 +118,6 @@ class WellbeingControllerSpec extends ControllerSpec {
 
     def 'therapist'() {
         stubViewMethods(["Teacher"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
         when:

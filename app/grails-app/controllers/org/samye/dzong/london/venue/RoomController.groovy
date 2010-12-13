@@ -34,7 +34,6 @@ import org.samye.dzong.london.community.Article
  * @since  January, 2010
  */
 class RoomController extends CMSController {
-    def articleService
     
     // the delete, save and update actions only accept POST requests
     static allowedMethods = [manage: 'GET',
@@ -78,7 +77,6 @@ class RoomController extends CMSController {
         addPublishedContent(["RoomHomeArticles", "RoomAllArticles","RoomFeaturedRooms"],model)        
         def venues = publishedVenues().'venues'
 		model.put('venues',venues)
-        articleService.addHeadersAndKeywords(model,request,response)        
         render(view:'index',model:model)
     }    
     
@@ -87,7 +85,6 @@ class RoomController extends CMSController {
         addPublishedContent(["RoomAllArticles"],model)        
         def venues = publishedVenues().'venues'
 		model.put('venues',venues)
-        articleService.addHeadersAndKeywords(model,request,response)         
         render(view:'article',model:model)
     }
     
@@ -96,7 +93,6 @@ class RoomController extends CMSController {
         addPublishedContent(["RoomAllArticles"],model)        
         def venues = publishedVenues().'venues'
 		model.put('venues',venues)
-        articleService.addHeadersAndKeywords(model,request,response)         
         render(view:'view',model:model)
     } 
     
@@ -109,7 +105,6 @@ class RoomController extends CMSController {
         addPublishedContent(["RoomAllArticles"],model)        
         def venues = publishedVenues().'venues'
 		model.put('venues',venues)
-        articleService.addHeadersAndKeywords(model,request,response)         
         render(view:'venue',model:model)        
     }        
     

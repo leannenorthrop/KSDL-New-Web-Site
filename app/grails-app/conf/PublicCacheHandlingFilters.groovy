@@ -44,9 +44,12 @@ class PublicCacheHandlingFilters {
                 if (params.theme) {
                     session.setAttribute('theme',params.theme)
                 } 
+                if (model) {
+                    articleService.addHeadersAndKeywords(model, request, response)                
+                }
             } 
         }
-        home(controller:'home', action:'*') {
+        all(controller:'*', action:'*') {
             before = {
                 if (!session.getAttribute('theme')) {
                     articleService.handleIfNotModifiedSince(request,response)
@@ -56,90 +59,10 @@ class PublicCacheHandlingFilters {
                 if (params.theme) {
                     session.setAttribute('theme',params.theme)
                 } 
-            } 
-        }
-        aboutUs(controller:'aboutUs', action:'*') {
-            before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
+                log.debug "After ${controllerName} ${actionName}"
+                if (model) {
+                    articleService.addHeadersAndKeywords(model, request, response)                
                 }
-            }
-            after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-            } 
-        }
-        aboutUs(controller:'events', action:'home') {
-            before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
-            }
-            after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-            } 
-        }
-        news(controller:'news', action:'*') {
-            before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
-            }
-            after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-            } 
-        }
-        meditation(controller:'meditation', action:'*') {
-            before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
-            }
-            after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-            } 
-        }
-        buddhism(controller:'buddhism', action:'*') {
-            before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
-            }
-            after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-            } 
-        }
-        community(controller:'community', action:'*') {
-            before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
-            }
-            after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-            } 
-        }
-        wellbeing(controller:'wellbeing', action:'*') {
-            before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
-            }
-            after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
             } 
         }
     }

@@ -37,8 +37,6 @@ import org.samye.dzong.london.cms.*
  * @since  November 2009
  */
 class BuddhismController extends PublicSectionPageController {
-    def articleService
-    
     BuddhismController() {
         CMSUtil.addFinderMethods(this)        
     }
@@ -58,9 +56,7 @@ class BuddhismController extends PublicSectionPageController {
         def album = getAlbum()
         model.put('album',album)
         model.put('links',Link.findAllBySection("B"))
-
 		
-        articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'index',model: model);
     }
 

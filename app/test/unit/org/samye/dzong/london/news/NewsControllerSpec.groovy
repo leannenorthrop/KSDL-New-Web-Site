@@ -47,9 +47,6 @@ class NewsControllerSpec extends ControllerSpec {
         stubFinderMethods("Published",["NewsFeaturedArticles","NewsAllArticles","NewsHomeArticles"])
         stubFinderMethods("Archived",["NewsAllArticles"])        
 
-        and: "article service is present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-
         when:
         controller.home()
 
@@ -63,9 +60,6 @@ class NewsControllerSpec extends ControllerSpec {
         setup:
         stubFinderMethods("Published",["NewsAllArticles"])
 
-        and: "article service is present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-
         when:
         def model = controller.current()
 
@@ -78,9 +72,6 @@ class NewsControllerSpec extends ControllerSpec {
         setup:
         stubFinderMethods("Archived",["NewsAllArticles"])
 
-        and: "article service is present"
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->})
-
         when:
         def model = controller.archived()
 
@@ -92,7 +83,6 @@ class NewsControllerSpec extends ControllerSpec {
     def 'view displays requested news article'() {
         setup:
         stubViewMethods(["Article"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         mockParams << [id:1]
 
         when:

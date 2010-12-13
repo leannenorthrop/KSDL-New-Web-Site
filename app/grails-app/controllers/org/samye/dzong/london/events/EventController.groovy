@@ -53,7 +53,6 @@ import org.samye.dzong.london.cms.*
  * @since  29th January, 2010, 17:04
  */
 class EventController extends CMSController {
-    def articleService
     def emailService
     def ADMIN_ROLES = ['EventOrganiser', 'Administrator']
     def DOMAIN_NAME = 'Event'
@@ -134,7 +133,6 @@ class EventController extends CMSController {
             }
         }
         def model = [events: publishedEvents, todaysEvents: todaysEvents, thisWeeksEvents: thisWeeksEvents, thisMonthEvents: thisMonthEvents,regularEvents:regularEvents, followingMonths:followingMonths, title: "Current Programme"]
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
@@ -232,7 +230,6 @@ class EventController extends CMSController {
             def events = Event.unorderedPublished().list(params);
             model << [events: events, title: 'events.all.title']
         }
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 

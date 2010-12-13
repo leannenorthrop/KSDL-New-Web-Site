@@ -35,7 +35,6 @@ import org.samye.dzong.london.venue.Room
  */
 class AboutUsController extends PublicSectionPageController  {
     def articleService
-    def teacherService
     
     AboutUsController() {
         CMSUtil.addCMSMethods(this)
@@ -52,8 +51,7 @@ class AboutUsController extends PublicSectionPageController  {
       
     def home = {
         def model = [:]         
-        
-        
+           
         def roomHireArticle = null
         try { roomHireArticle = Article.findByTitleLikeAndPublishState("Room Hire%","Published")} catch (error){}
         def centerArticle = null
@@ -67,22 +65,18 @@ class AboutUsController extends PublicSectionPageController  {
         addPublishedContent(["AboutUsHomeArticles", "AboutUsFeaturedArticles"],model)
         populateNavigationObject(model)
         
-        articleService.addHeadersAndKeywords(model,request,response)
-        
         render(view:'index', model:model)
     }
 
     def contactUs = {
         def model = publishedVenues()
         populateNavigationObject(model)    
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'contact', model:model)
     }
 	
     def venue = {
         def model = publishedVenues()
         populateNavigationObject(model)          
-        articleService.addHeadersAndKeywords(model,request,response)
         if (params.id) {
             flash.id = params.id
         }
@@ -96,8 +90,7 @@ class AboutUsController extends PublicSectionPageController  {
         model.put('articles',centers)
         flash.title="Our Centers"                        
         
-        articleService.addHeadersAndKeywords(model,request,response)
-        render(view:'visiting',model:model)
+        render(view:'centers',model:model)
     }
     	
     def lineage = {
@@ -108,7 +101,6 @@ class AboutUsController extends PublicSectionPageController  {
         model.put('articles',lineageArticles)
         flash.title="Lineage Teachers"                        
         
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view:'teachers',model:model)
     }
     
@@ -116,7 +108,6 @@ class AboutUsController extends PublicSectionPageController  {
         def model = [:]
         populateNavigationObject(model)
         model.put('article',Article.findByTitleLikeAndPublishState("Room Hire%","Published"))    
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view:'roomHire',model:model)
     }    
 	
@@ -128,7 +119,6 @@ class AboutUsController extends PublicSectionPageController  {
         model.put('articles',lineageArticles)
         flash.title="Center Course Leaders and Teachers"               
         
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view:'teachers',model:model)
     }
 
@@ -140,14 +130,12 @@ class AboutUsController extends PublicSectionPageController  {
         model.put('articles',lineageArticles)
         flash.title="Visiting Course Leaders and Teachers"              
         
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view:'teachers',model:model)
     }
     
     def view = {
         def model = viewArticle(params.id)          
         populateNavigationObject(model)
-        articleService.addHeadersAndKeywords(model,request,response)
         return model
     }
     
@@ -156,7 +144,6 @@ class AboutUsController extends PublicSectionPageController  {
         def sectionName = getSectionName()
         addPublishedContent(["${sectionName}AllArticles"],model)
         populateNavigationObject(model)
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
     

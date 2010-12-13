@@ -36,7 +36,6 @@ import org.samye.dzong.london.cms.*
  * @since  April 2010
  */
 class ShopController extends CMSController {
-    def articleService
     def emailService
     def ADMIN_ROLES = ['ShopManager', 'Administrator']
     def DOMAIN_NAME = 'Product'
@@ -92,13 +91,11 @@ class ShopController extends CMSController {
         model.put('newProducts',newProducts)
         model.put('discountedProducts',discountedProducts)                
         
-        articleService.addHeadersAndKeywords(model,request,response)
         return render(view: 'home',model: model);
     }
     
     def list = {
         def model = [ products: [], title: 'community.all.articles.title']
-        articleService.addHeadersAndKeywords(model,request,response)
         render(view: 'list', model:model)
     }
 
@@ -244,7 +241,6 @@ class ShopController extends CMSController {
             def menu = shopMenuSetting ? shopMenuSetting.value : '';
             def model = [product: product, id: params.id, showPublication: true,menu:menu]
             addPublishedContent(["ShopFeaturedArticles"],model)             
-            articleService.addHeadersAndKeywords(model,request,response)
             model            
         }
     }
@@ -266,7 +262,6 @@ class ShopController extends CMSController {
         }
         def model = [menu:menu,products:products,productsTotal:products.size(),heading:id + ' ' + level]              
         addPublishedContent(["ShopFeaturedArticles"],model) 
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
     

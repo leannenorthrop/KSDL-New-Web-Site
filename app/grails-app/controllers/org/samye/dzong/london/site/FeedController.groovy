@@ -38,7 +38,6 @@ import org.samye.dzong.london.media.Image
  * @since  December 2010
  */
 class FeedController {
-    def articleService
 
     def index = {}
 

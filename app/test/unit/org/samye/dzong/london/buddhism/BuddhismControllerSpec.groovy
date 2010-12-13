@@ -51,13 +51,17 @@ class BuddhismControllerSpec extends ControllerSpec {
         controller.index()
 
         then:
-        redirectArgs == [action: controller.home]
+        forwardArgs == [action: 'home']
     }
+    
+    def 'Section name is Buddhist'() {
+        expect
+        'Buddhist' == controller.sectionName
+    }    
 
-    def 'section page featches home and featured articles, teachers, events and slideshow album'() {
+    def 'section page fetches home and featured articles, teachers, events and slideshow album'() {
         setup:
         stubFinderMethods(["BuddhistHomeArticles", "BuddhistFeaturedArticles","BuddhistAllArticles","BuddhistFeaturedEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
         Setting.metaClass.static.buddhistSlideshow = { new Expando(list: {[]}) }
         FlickrService.metaClass.getPhotosetCover = { [] }
         FlickrService.metaClass.getPhotoset = {i-> [] }        
@@ -76,85 +80,6 @@ class BuddhismControllerSpec extends ControllerSpec {
         controller.modelAndView.model.linkedHashMap.featuredArticles == [] 
         controller.modelAndView.model.linkedHashMap.featuredEvents == [] 
         controller.modelAndView.model.linkedHashMap.teachers == [] 
-    }
-
-    def 'list should fetch all Buddhist content'() {
-        setup:
-        stubFinderMethods(["BuddhistAllArticles"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-        Setting.metaClass.static.buddhistSlideshow = { new Expando(list: {[]}) }
-        FlickrService.metaClass.getPhotoset = {i-> album }
-        controller.flickrService = new FlickrService()
-        
-        when:
-        def model = controller.list()
-
-        then:
-        model.allArticles == [] 
-    }
-
-    def 'view should return id of requested article'() {
-        setup:
-        stubViewMethods(["Article"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-        mockParams << [id:1]
-
-        when:
-        def model = controller.view()
-
-        then:
-        model.id == 1
-    }
-    
-    def 'event'() {
-        setup:
-        stubViewMethods(["Event"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-        mockParams << [id:1]
-        
-        when:
-        def model = controller.event()
-
-        then:
-        model.id == 1
-    }
-
-    def 'events'() {
-        setup:
-        stubFinderMethods(["BuddhistAllEvents"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-
-        when:
-        def model = controller.events()
-
-        then:
-        model.allEvents == []
-    }
-
-    def 'slideshow'() {
-        setup:
-        def album = []
-        Setting.metaClass.static.buddhistSlideshow = { new Expando(list: {[]}) }
-        FlickrService.metaClass.getPhotoset = {i-> album }
-        controller.flickrService = new FlickrService()
-
-        when:
-        def model = controller.slideshow()
-
-        then:
-        model.album == album
-    }
-
-    def 'teacher'() {
-        stubViewMethods(["Teacher"])
-        controller.articleService = new Expando(addHeadersAndKeywords:{a,b,c->},view:{a->m})
-        mockParams << [id:1]
-
-        when:
-        def model = controller.teacher()
-
-        then:
-        model.id == 1  
     }
 
     def validEvent() {

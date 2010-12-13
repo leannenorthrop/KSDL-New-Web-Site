@@ -43,7 +43,6 @@ import org.samye.dzong.london.cms.*
  * @since  October 2010
  */
 class HomeController extends PublicSectionPageController {
-    def articleService
 
     def getSectionName() {
         "Home"
@@ -61,7 +60,6 @@ class HomeController extends PublicSectionPageController {
         def events = Event.homePage('lastUpdated', 'asc').list()
 		
         def model = [links:Link.findAllBySection("H"),topArticles:topArticles, album: album, meditationArticles: meditationArticles, communityArticles: communityArticles, buddhismArticles: buddhismArticles, wellbeingArticles: wellbeingArticles, newsArticles: newsArticles,events:events]
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
@@ -80,7 +78,6 @@ class HomeController extends PublicSectionPageController {
             users.addAll(item.users)
         }
         def model = [developers: devUsers, users: users.sort()]
-        articleService.addHeadersAndKeywords(model,request,response)
         model
     }
 
