@@ -34,7 +34,6 @@ import org.samye.dzong.london.cms.Publishable
  */
 class ArticleService {
     boolean transactional = true
-    def userLookupService
 
     def archiveNewsArticles() {
         def articles = findPublishedNewsAllArticles([sort:'datePublished',order:'desc'])

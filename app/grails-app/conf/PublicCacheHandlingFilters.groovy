@@ -36,35 +36,34 @@ class PublicCacheHandlingFilters {
     def filters = {			
         homepage(uri:'/*') {
             before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
+                doCacheCheck()
             }
             after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-                if (model) {
-                    articleService.addHeadersAndKeywords(model, request, response)                
-                }
+                doAfter(model, params)
             } 
         }
         all(controller:'*', action:'*') {
             before = {
-                if (!session.getAttribute('theme')) {
-                    articleService.handleIfNotModifiedSince(request,response)
-                }
+                doCacheCheck()
             }
             after = { model ->
-                if (params.theme) {
-                    session.setAttribute('theme',params.theme)
-                } 
-                log.debug "After ${controllerName} ${actionName}"
-                if (model) {
-                    articleService.addHeadersAndKeywords(model, request, response)                
-                }
+                doAfter(model, params)
             } 
         }
     }
     
+    def doCacheCheck() {
+        if (!session.getAttribute('theme')) {
+            articleService.handleIfNotModifiedSince(request,response)
+        }        
+    }
+
+    def doAfter(model, params) {
+        if (params.theme) {
+            session.setAttribute('theme',params.theme)
+        } 
+        if (model) {
+            articleService.addHeadersAndKeywords(model, request, response)                
+        }        
+    }    
 }

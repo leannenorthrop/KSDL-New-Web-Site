@@ -24,7 +24,6 @@
 package org.samye.dzong.london.codec.textile;
 
 import grails.test.*
-import grails.test.*
 import grails.plugin.spock.*
 
 import org.codehaus.groovy.grails.web.servlet.mvc.GrailsWebRequest
